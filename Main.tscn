@@ -1,0 +1,203 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/Network.gd" type="Script" id=1]
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/LobbyUI.gd" type="Script" id=3]
+[ext_resource path="res://scripts/ChatRoom.gd" type="Script" id=4]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lobby" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lobby"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Lobby/HBoxContainer"]
+margin_right = 512.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="Challenges" type="VBoxContainer" parent="Lobby/HBoxContainer/ScrollContainer"]
+margin_right = 512.0
+size_flags_horizontal = 3
+custom_constants/separation = -3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/HBoxContainer"]
+margin_left = 512.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="console" type="Panel" parent="Lobby/HBoxContainer/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="log" type="RichTextLabel" parent="Lobby/HBoxContainer/VBoxContainer/console"]
+anchor_left = 0.025
+anchor_top = 0.025
+anchor_right = 0.975
+anchor_bottom = 0.975
+text = "Inscr Mult lobby
+"
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="Lobby/HBoxContainer/VBoxContainer"]
+margin_top = 560.0
+margin_right = 512.0
+margin_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 510.0
+margin_bottom = 38.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 508.0
+margin_bottom = 18.0
+
+[node name="Label" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 2.0
+margin_right = 74.0
+margin_bottom = 16.0
+text = "Username: "
+
+[node name="uname" type="LineEdit" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 74.0
+margin_right = 356.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 356.0
+margin_top = 2.0
+margin_right = 458.0
+margin_bottom = 16.0
+text = " Profile Picture: "
+
+[node name="ppSelect" type="OptionButton" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 458.0
+margin_right = 508.0
+margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Stoat"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 508.0
+margin_bottom = 36.0
+
+[node name="hostBtn" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 76.0
+margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Host Game"
+
+[node name="joinBtn" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 76.0
+margin_right = 145.0
+margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Join Game"
+
+[node name="targetIP" type="LineEdit" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 145.0
+margin_right = 508.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "localhost"
+selecting_enabled = false
+
+[node name="ChatRoom" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ChatRoom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="ChatRoom/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 582.0
+size_flags_vertical = 3
+
+[node name="ChatLog" type="RichTextLabel" parent="ChatRoom/VBoxContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "Chat Room Opened
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChatRoom/VBoxContainer"]
+margin_top = 582.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="textEdit" type="LineEdit" parent="ChatRoom/VBoxContainer/HBoxContainer"]
+margin_right = 929.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="sendButton" type="Button" parent="ChatRoom/VBoxContainer/HBoxContainer"]
+margin_left = 929.0
+margin_right = 1024.0
+margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Send Message"
+
+[node name="exitButton" type="Button" parent="ChatRoom/VBoxContainer/HBoxContainer"]
+margin_right = 4.0
+margin_bottom = 18.0
+text = "Exit Chat"
+
+[connection signal="new_challenge" from="." to="Lobby" method="_on_new_challenge"]
+[connection signal="remove_challenge" from="." to="Lobby" method="_remove_challenge"]
+[connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/hostBtn" to="." method="host_lobby"]
+[connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/joinBtn" to="Lobby" method="_join_game"]
+[connection signal="text_entered" from="ChatRoom/VBoxContainer/HBoxContainer/textEdit" to="ChatRoom" method="_on_textEdit_text_entered"]
+[connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/sendButton" to="ChatRoom" method="_on_sendButton_pressed"]
+[connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/exitButton" to="ChatRoom" method="_on_exitButton_pressed"]
