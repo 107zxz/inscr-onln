@@ -1,0 +1,492 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/classes/PlayingCard.gd" type="Script" id=2]
+[ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=3]
+[ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=4]
+[ext_resource path="res://gfx/sigils/Bomb Spewer.png" type="Texture" id=5]
+[ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 6 )
+region = Rect2( 28, 1, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 6 )
+region = Rect2( 1, 65, 26, 15 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 25 ), Vector2( 0, -25 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_hit"
+}, {
+"args": [  ],
+"method": "attack_callback"
+} ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "AttackRemote"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -25 ), Vector2( 0, 25 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Lower"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "Perish"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CardBody:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 20, 25 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CardBody:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CardBody:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 85, 123 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Raise"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -50 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Sacrifice"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CardBody:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CardBody:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 20, 25 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CardBody:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="Card" type="Control"]
+margin_right = 85.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CardBody" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 85.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="CardBody"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 83.0
+margin_bottom = 121.0
+focus_mode = 0
+disabled = true
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardBody"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 83.0
+margin_bottom = 121.0
+mouse_filter = 2
+custom_constants/separation = 2
+
+[node name="Label" type="Label" parent="CardBody/VBoxContainer"]
+margin_right = 81.0
+margin_bottom = 14.0
+size_flags_vertical = 1
+align = 1
+valign = 1
+clip_text = true
+
+[node name="Portrait" type="TextureRect" parent="CardBody/VBoxContainer"]
+margin_top = 16.0
+margin_right = 81.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 50, 35 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer/Portrait"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
+margin_left = 40.0
+margin_right = 81.0
+margin_bottom = 50.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BloodCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_right = 41.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoneCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_right = 27.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnergyCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_right = 27.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoxCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_right = 27.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer"]
+margin_top = 68.0
+margin_right = 81.0
+margin_bottom = 119.0
+mouse_filter = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Spacer" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
+margin_right = 27.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 10, 25 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="Sigil" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 10.0
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 15, 25 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Spacer3" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
+margin_left = 27.0
+margin_right = 54.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 3, 25 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="Sigil2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 25.0
+margin_right = 40.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 15, 25 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Spacer2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
+margin_left = 54.0
+margin_right = 81.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 10, 25 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 83.0
+margin_bottom = 121.0
+mouse_filter = 2
+alignment = 1
+
+[node name="AtkScore" type="Label" parent="CardBody/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 119.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+valign = 2
+
+[node name="HpScore" type="Label" parent="CardBody/HBoxContainer"]
+margin_left = 40.0
+margin_right = 81.0
+margin_bottom = 119.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+align = 2
+valign = 2
+
+[node name="SacOlay" type="TextureRect" parent="CardBody"]
+visible = false
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 83.0
+margin_bottom = 121.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 8 )
+anims/AttackRemote = SubResource( 9 )
+anims/Lower = SubResource( 5 )
+anims/Perish = SubResource( 10 )
+anims/RESET = SubResource( 6 )
+anims/Raise = SubResource( 4 )
+anims/Sacrifice = SubResource( 7 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="CardBody/Button" to="." method="_on_Button_pressed"]

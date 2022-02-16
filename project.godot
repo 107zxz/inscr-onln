@@ -23,9 +23,19 @@ multirun/add_custom_args=true
 multirun/first_window_args="listen"
 multirun/other_window_args="join"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
+
+[importer_defaults]
+
+texture={
+"flags/filter": false
+}
 
 [physics]
 

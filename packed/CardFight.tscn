@@ -1,0 +1,373 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/CardFight.gd" type="Script" id=3]
+[ext_resource path="res://scripts/CardSlots.gd" type="Script" id=4]
+[ext_resource path="res://scripts/HandManager.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.523438, 0.500317, 0.351685, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.235294 )
+
+[node name="CardFight" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DrawPiles" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="YourDecks" type="HBoxContainer" parent="DrawPiles"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 794.0
+margin_top = 417.0
+margin_right = 984.0
+margin_bottom = 540.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deck" type="Button" parent="DrawPiles/YourDecks"]
+margin_right = 85.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+text = "Deck"
+
+[node name="SideDeck" type="Button" parent="DrawPiles/YourDecks"]
+margin_left = 95.0
+margin_right = 180.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+text = "Squirrels"
+
+[node name="EnemyDecks" type="HBoxContainer" parent="DrawPiles"]
+margin_left = 10.0
+margin_top = 20.0
+margin_right = 200.0
+margin_bottom = 143.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideDeck" type="Button" parent="DrawPiles/EnemyDecks"]
+margin_right = 85.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+disabled = true
+button_mask = 3
+enabled_focus_mode = 0
+text = "Squirrels"
+
+[node name="Deck" type="Button" parent="DrawPiles/EnemyDecks"]
+margin_left = 95.0
+margin_right = 180.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+disabled = true
+button_mask = 3
+enabled_focus_mode = 0
+text = "Deck"
+
+[node name="Notify" type="Label" parent="DrawPiles"]
+visible = false
+margin_left = 885.0
+margin_top = 430.0
+margin_right = 963.0
+margin_bottom = 444.0
+text = "Draw a card!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CardSlots" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/separation = 16
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemySlots" type="HBoxContainer" parent="CardSlots"]
+margin_top = 169.0
+margin_right = 1024.0
+margin_bottom = 292.0
+mouse_filter = 2
+size_flags_vertical = 10
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Slot0" type="Button" parent="CardSlots/EnemySlots"]
+margin_left = 318.0
+margin_right = 403.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot1" type="Button" parent="CardSlots/EnemySlots"]
+margin_left = 419.0
+margin_right = 504.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot2" type="Button" parent="CardSlots/EnemySlots"]
+margin_left = 520.0
+margin_right = 605.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot3" type="Button" parent="CardSlots/EnemySlots"]
+margin_left = 621.0
+margin_right = 706.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="PlayerSlots" type="HBoxContainer" parent="CardSlots"]
+margin_top = 308.0
+margin_right = 1024.0
+margin_bottom = 431.0
+mouse_filter = 2
+size_flags_vertical = 2
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Slot0" type="Button" parent="CardSlots/PlayerSlots"]
+margin_left = 318.0
+margin_right = 403.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot1" type="Button" parent="CardSlots/PlayerSlots"]
+margin_left = 419.0
+margin_right = 504.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot2" type="Button" parent="CardSlots/PlayerSlots"]
+margin_left = 520.0
+margin_right = 605.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot3" type="Button" parent="CardSlots/PlayerSlots"]
+margin_left = 621.0
+margin_right = 706.0
+margin_bottom = 123.0
+rect_min_size = Vector2( 85, 123 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="HandsContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 16.0
+margin_bottom = -16.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hands" type="VBoxContainer" parent="HandsContainer"]
+margin_right = 1024.0
+margin_bottom = 568.0
+mouse_filter = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyHand" type="HBoxContainer" parent="HandsContainer/Hands"]
+margin_left = 512.0
+margin_right = 512.0
+mouse_filter = 2
+size_flags_horizontal = 4
+
+[node name="PlayerHand" type="HBoxContainer" parent="HandsContainer/Hands"]
+margin_left = 512.0
+margin_top = 568.0
+margin_right = 512.0
+margin_bottom = 568.0
+mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="LeftSideUI" type="VBoxContainer" parent="."]
+anchor_bottom = 1.0
+margin_right = 65.0
+mouse_filter = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
+margin_top = 261.0
+margin_right = 117.0
+margin_bottom = 275.0
+text = "Advantage: 0"
+
+[node name="LivesLabel" type="Label" parent="LeftSideUI"]
+margin_top = 275.0
+margin_right = 117.0
+margin_bottom = 289.0
+text = "Lives: 2"
+
+[node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
+margin_top = 289.0
+margin_right = 117.0
+margin_bottom = 303.0
+text = "Opponent Lives: 2"
+
+[node name="PassButton" type="Button" parent="LeftSideUI"]
+margin_top = 303.0
+margin_right = 117.0
+margin_bottom = 321.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Ring Bell"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ForfeitButton" type="Button" parent="LeftSideUI"]
+margin_top = 321.0
+margin_right = 117.0
+margin_bottom = 339.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Surrender"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaitingBlocker" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Label" type="Label" parent="WaitingBlocker"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Waiting For Opponent..."
+
+[node name="WinScreen" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="WinScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -37.5
+margin_right = 100.0
+margin_bottom = 37.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WinScreen/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+custom_constants/separation = 18
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WinLabel" type="Label" parent="WinScreen/Panel/VBoxContainer"]
+margin_top = 275.0
+margin_right = 1024.0
+margin_bottom = 289.0
+text = "You Win!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WinScreen/Panel/VBoxContainer"]
+margin_top = 307.0
+margin_right = 1024.0
+margin_bottom = 325.0
+custom_constants/separation = 40
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RematchBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
+margin_left = 429.0
+margin_right = 522.0
+margin_bottom = 18.0
+text = "Rematch (0/2)"
+
+[node name="QuitBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
+margin_left = 562.0
+margin_right = 594.0
+margin_bottom = 18.0
+text = "Quit"
+
+[connection signal="pressed" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
+[connection signal="pressed" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
+[connection signal="pressed" from="LeftSideUI/PassButton" to="." method="commence_combat"]
+[connection signal="pressed" from="LeftSideUI/ForfeitButton" to="." method="surrender"]
+[connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]

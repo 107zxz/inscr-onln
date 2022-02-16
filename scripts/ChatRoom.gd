@@ -45,3 +45,12 @@ func _on_exitButton_pressed():
 		get_tree().network_peer = null
 	
 	visible = false
+
+func open():
+	var pName = "ERR"
+	if get_tree().is_network_server():
+		pName = main_cont.challengers[main_cont.opponent]
+	else:
+		pName = main_cont.challengers[1]
+	$VBoxContainer/Panel/ChatLog.text = "Chatting with " + pName + "\n"
+	

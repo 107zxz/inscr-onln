@@ -1,15 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/Network.gd" type="Script" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
 [ext_resource path="res://scripts/LobbyUI.gd" type="Script" id=3]
 [ext_resource path="res://scripts/ChatRoom.gd" type="Script" id=4]
+[ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=5]
+[ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=6]
+[ext_resource path="res://packed/CardFight.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/CardInfo.gd" type="Script" id=8]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AllCards" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -93,24 +105,38 @@ text = "Username: "
 
 [node name="uname" type="LineEdit" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 74.0
-margin_right = 356.0
+margin_right = 368.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 356.0
+margin_left = 368.0
 margin_top = 2.0
-margin_right = 458.0
+margin_right = 396.0
 margin_bottom = 16.0
-text = " Profile Picture: "
+text = "Pfp: "
 
 [node name="ppSelect" type="OptionButton" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 458.0
-margin_right = 508.0
+margin_left = 396.0
+margin_right = 446.0
 margin_bottom = 18.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Stoat"
+
+[node name="Label3" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 446.0
+margin_top = 2.0
+margin_right = 490.0
+margin_bottom = 16.0
+text = " Deck: "
+
+[node name="dSelect" type="OptionButton" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 490.0
+margin_right = 508.0
+margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 margin_top = 18.0
@@ -134,11 +160,16 @@ text = "Join Game"
 
 [node name="targetIP" type="LineEdit" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 145.0
-margin_right = 508.0
+margin_right = 444.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 text = "localhost"
-selecting_enabled = false
+
+[node name="deButton" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 444.0
+margin_right = 508.0
+margin_bottom = 18.0
+text = "Edit Deck"
 
 [node name="ChatRoom" type="Control" parent="."]
 visible = false
@@ -194,10 +225,385 @@ margin_right = 4.0
 margin_bottom = 18.0
 text = "Exit Chat"
 
+[node name="CardFight" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="DeckEdit" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeckEdit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_stretch_ratio = 0.08
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CardPreview" type="PanelContainer" parent="DeckEdit/HBoxContainer"]
+margin_right = 204.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="PreviewContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer/CardPreview"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 202.0
+margin_bottom = 598.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Card" parent="DeckEdit/HBoxContainer/CardPreview/PreviewContainer" instance=ExtResource( 6 )]
+margin_right = 200.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 200, 250 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer/CardPreview/PreviewContainer"]
+margin_top = 260.0
+margin_right = 200.0
+margin_bottom = 596.0
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer"]
+margin_left = 204.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeckOptions" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer"]
+margin_right = 820.0
+margin_bottom = 66.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 818.0
+margin_bottom = 64.0
+
+[node name="DeckOptions" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
+margin_right = 408.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 406.0
+margin_bottom = 60.0
+custom_constants/separation = 2
+
+[node name="DSelLine" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
+margin_right = 404.0
+margin_bottom = 18.0
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
+margin_top = 2.0
+margin_right = 48.0
+margin_bottom = 16.0
+text = "Deck:   "
+
+[node name="DSel" type="OptionButton" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
+margin_left = 48.0
+margin_right = 371.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="saveBtn" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
+margin_left = 371.0
+margin_right = 404.0
+margin_bottom = 18.0
+text = "Save"
+
+[node name="DNameLine" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
+margin_top = 20.0
+margin_right = 404.0
+margin_bottom = 38.0
+
+[node name="Spacer" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
+margin_top = 2.0
+margin_right = 44.0
+margin_bottom = 16.0
+text = "           "
+
+[node name="LineEdit" type="LineEdit" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
+margin_left = 44.0
+margin_right = 353.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
+margin_left = 353.0
+margin_right = 404.0
+margin_bottom = 18.0
+text = "Save as"
+
+[node name="Stoof" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
+margin_top = 40.0
+margin_right = 404.0
+margin_bottom = 58.0
+alignment = 1
+
+[node name="ExitButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+margin_right = 101.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Exit"
+
+[node name="ShuffleButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+margin_left = 101.0
+margin_right = 202.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Shuffle"
+
+[node name="SortButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+margin_left = 202.0
+margin_right = 303.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Sort"
+
+[node name="ClearButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+margin_left = 303.0
+margin_right = 404.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Clear"
+
+[node name="SearchOptions" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
+margin_left = 408.0
+margin_right = 816.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 406.0
+margin_bottom = 60.0
+custom_constants/separation = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
+margin_right = 199.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
+margin_right = 199.0
+margin_bottom = 18.0
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 2.0
+margin_right = 70.0
+margin_bottom = 16.0
+text = "Cost Type: "
+
+[node name="CTSelect" type="OptionButton" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 70.0
+margin_right = 199.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Any"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
+margin_top = 20.0
+margin_right = 199.0
+margin_bottom = 38.0
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 36.0
+margin_bottom = 16.0
+text = "Cost: "
+
+[node name="CostSelect" type="OptionButton" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 36.0
+margin_right = 199.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Any"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 2
+
+[node name="SigilSearchA" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
+margin_right = 200.0
+margin_bottom = 18.0
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA"]
+margin_top = 2.0
+margin_right = 34.0
+margin_bottom = 16.0
+text = "Sigil: "
+
+[node name="OptionButton" type="OptionButton" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA"]
+margin_left = 34.0
+margin_right = 200.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Any"
+
+[node name="SigilSearchB" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
+margin_top = 20.0
+margin_right = 200.0
+margin_bottom = 38.0
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB"]
+margin_top = 2.0
+margin_right = 46.0
+margin_bottom = 16.0
+text = "Sigil 2: "
+
+[node name="OptionButton" type="OptionButton" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB"]
+margin_left = 46.0
+margin_right = 200.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "None"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
+margin_top = 40.0
+margin_right = 200.0
+margin_bottom = 58.0
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+margin_top = 2.0
+margin_right = 46.0
+margin_bottom = 16.0
+text = "Name: "
+
+[node name="LineEdit" type="LineEdit" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3"]
+margin_left = 46.0
+margin_right = 200.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="MainArea" type="HBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 820.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea"]
+margin_right = 574.0
+margin_bottom = 534.0
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
+margin_right = 574.0
+margin_bottom = 18.0
+
+[node name="DeckSize" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 572.0
+margin_bottom = 16.0
+text = "40/40"
+align = 2
+
+[node name="DeckPreview" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
+margin_top = 18.0
+margin_right = 574.0
+margin_bottom = 350.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DeckContainer" type="GridContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 572.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 570, 0 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 10
+
+[node name="DeckPreview2" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
+margin_top = 350.0
+margin_right = 574.0
+margin_bottom = 534.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.55
+
+[node name="Label" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2"]
+margin_left = 2.0
+margin_top = 85.0
+margin_right = 572.0
+margin_bottom = 99.0
+text = "Char Select Preview"
+align = 1
+
+[node name="SearchResults" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea"]
+margin_left = 574.0
+margin_right = 820.0
+margin_bottom = 534.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/SearchResults"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 244.0
+margin_bottom = 532.0
+
+[node name="PanelContainer" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
+margin_right = 242.0
+margin_bottom = 18.0
+
+[node name="ResultsCount" type="Label" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 240.0
+margin_bottom = 16.0
+text = "40/19281"
+align = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
+margin_top = 18.0
+margin_right = 242.0
+margin_bottom = 530.0
+rect_min_size = Vector2( 242, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="SearchContainer" type="GridContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer"]
+margin_right = 242.0
+rect_min_size = Vector2( 216, 0 )
+size_flags_horizontal = 3
+columns = 4
+
 [connection signal="new_challenge" from="." to="Lobby" method="_on_new_challenge"]
 [connection signal="remove_challenge" from="." to="Lobby" method="_remove_challenge"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/hostBtn" to="." method="host_lobby"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/joinBtn" to="Lobby" method="_join_game"]
+[connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/deButton" to="Lobby" method="_edit_deck"]
 [connection signal="text_entered" from="ChatRoom/VBoxContainer/HBoxContainer/textEdit" to="ChatRoom" method="_on_textEdit_text_entered"]
 [connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/sendButton" to="ChatRoom" method="_on_sendButton_pressed"]
 [connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/exitButton" to="ChatRoom" method="_on_exitButton_pressed"]
+[connection signal="item_selected" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="DeckEdit" method="load_deck"]
+[connection signal="pressed" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/saveBtn" to="DeckEdit" method="save_deck"]
+[connection signal="pressed" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/Button" to="DeckEdit" method="save_deck_as"]
+[connection signal="pressed" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ExitButton" to="DeckEdit" method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ClearButton" to="DeckEdit" method="_on_ClearButton_pressed"]
+[connection signal="item_selected" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton" to="DeckEdit" method="search"]
+[connection signal="item_selected" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="DeckEdit" method="search"]
+[connection signal="text_changed" from="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit" to="DeckEdit" method="search"]

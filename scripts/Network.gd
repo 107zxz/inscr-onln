@@ -1,5 +1,3 @@
-# Based on https://github.com/godotengine/godot-demo-projects/blob/master/networking/multiplayer_bomber/gamestate.gd
-
 extends Node
 
 const DEFAULT_PORT = 10567
@@ -16,7 +14,6 @@ var opponent = -1
 # Lobby signals
 signal new_challenge(name, portrait)
 signal remove_challenge(name)
-signal game_ended()
 signal kicked_from_game()
 signal connection_failed()
 
@@ -40,7 +37,8 @@ func _player_disconnected(id):
 	
 	# Is game in progress?
 	if opponent != -1:
-		$ChatRoom.visible = false
+		# $ChatRoom.visible = false
+		$CardFight.visible = false
 		opponent = -1
 
 func _connected_ok():
@@ -56,24 +54,30 @@ func _server_disconnected():
 	sLog("Server disconnected!")
 	get_tree().network_peer = null	
 	
-	$ChatRoom.visible = false
+#	$ChatRoom.visible = false
+	$CardFight.visible = false
 
 ## Actual game functions
 
 func host_lobby():
-	if get_tree().network_peer:
-		sLog("Already hosting a game")
-		return
-	
 	if not $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text:
 		sLog("Please enter a username")
 		return
+	
+	if get_tree().network_peer:
+		sLog("Cancelling existing hosting / connection attempt...")
+		get_tree().network_peer = null
 	
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	get_tree().network_peer = peer
 	
-	sLog("Lobby open with ip " + IP.get_local_addresses()[0])
+	var localip = "Unknown"
+	for ip in IP.get_local_addresses():
+		if ip.begins_with("192"):
+			localip = ip
+	
+	sLog("Lobby open with ip " + localip)
 	
 func challenge_lobby(ip):
 	if not ip:
@@ -82,6 +86,11 @@ func challenge_lobby(ip):
 	if not $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text:
 		sLog("Please enter a username")
 		return
+	if get_tree().network_peer:
+		sLog("Cancelling existing hosting / connection attempt...")
+		get_tree().network_peer = null
+	
+	sLog("Attempting to connect to " + ip + ", please wait up to 1 minute")
 	
 	var peer = NetworkedMultiplayerENet.new()
 	var err = peer.create_client(ip, DEFAULT_PORT)
@@ -115,7 +124,22 @@ remote func kicked_from_chat():
 
 remote func server_accepted_challenge():
 	sLog("Challenge accepted by server!")
-	$ChatRoom.visible = true
+#	$ChatRoom.visible = true
+#	$ChatRoom.open()
+
+	# Opponent is server
+	opponent = 1
+	
+	# Load deck from file and pass to the battle handler
+	var dFile = File.new()
+	print("Trying to load deck ", "decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
+	dFile.open("decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
+	$CardFight.deck = parse_json(dFile.get_as_text())
+	
+	# Open the card battle window and initialise the match
+	$CardFight.visible = true
+	$CardFight.init_match(opponent)
+	
 
 ## Remote funcs -> Server
 remote func register_challenge(id: int, name: String, pfp: int):
@@ -127,6 +151,10 @@ remote func register_challenge(id: int, name: String, pfp: int):
 	
 	# Update UI with challenge
 	emit_signal("new_challenge", name, pfp)
+
+	# DEBUG: Autoinitiate match if name is SERVER HOST
+	if $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text == "SERVER HOST":
+		_accept_challenge(pids.find(id))
 
 
 ## UI funcs -> Server
@@ -144,22 +172,48 @@ func _accept_challenge(index):
 	# Set opponent
 	opponent = pids[index]
 	
-	# Open the chat window
-	$ChatRoom.visible = true
+	# Load deck from file and pass to the battle handler
+	var dFile = File.new()
+	print("Trying to load deck ", "decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
+	dFile.open("decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
+	$CardFight.deck = parse_json(dFile.get_as_text())
 	
+	# Open the card battle window and initialise the match
+	$CardFight.visible = true
+	$CardFight.init_match(opponent)
+
+func debug_host():
+	sLog("Hosting a debug game!")
+
+	# Set username
+	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text = "SERVER HOST"
+
+	host_lobby()
+
+func debug_join():
+	sLog("Attempting to join a local debug game!")
+
+	# Set username
+	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text = "CHALLENGER CLIENT"
+
+	challenge_lobby("localhost")
 
 func _ready():
+	randomize()
+	
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
-#	for option in OS.get_cmdline_args():
-#		if option == "listen":
-#			host_lobby()
-#		if option == "join":
-#			challenge_lobby("localhost")
+#	return
+	
+	for option in OS.get_cmdline_args():
+		if option == "listen":
+			debug_host()
+		if option == "join":
+			debug_join()
 
 
 func sLog(text):

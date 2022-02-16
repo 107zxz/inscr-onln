@@ -1,0 +1,1223 @@
+{
+    "cards": [
+        {
+            "name": "Adder",
+            "sigils": [
+                "Touch of Death"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Bloodhound",
+            "sigils": [
+                "Guardian"
+            ],
+            "attack": 2,
+            "health": 3,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Bullfrog",
+            "sigils": [
+                "Mighty Leap"
+            ],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Burrowing Trap",
+            "sigils": [
+                "Burrower",
+                "Steel Trap"
+            ],
+            "attack": 0,
+            "health": 5,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Cat",
+            "sigils": [
+                "Many Lives"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Undead Cat",
+            "sigils": [],
+            "attack": 3,
+            "health": 6,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Elk",
+            "sigils": [
+                "Sprinter"
+            ],
+            "attack": 2,
+            "health": 4,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Elk Fawn",
+            "sigils": [
+                "Sprinter",
+                "Fledgling"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Field Mice",
+            "sigils": [
+                "Fecundity"
+            ],
+            "attack": 2,
+            "health": 2,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Spore Mice",
+            "sigils": [
+                "Fecundity",
+                "Fecundity"
+            ],
+            "attack": 2,
+            "health": 2,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Hawk",
+            "sigils": [
+                "Airborne"
+            ],
+            "attack": 3,
+            "health": 1,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Hrokkall",
+            "sigils": [
+                "Waterborne",
+                "Battery Bearer"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Kingfisher",
+            "sigils": [
+                "Airborne",
+                "Waterborne"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Great Kraken",
+            "sigils": [
+                "Waterborne"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Magpie",
+            "sigils": [
+                "Airborne",
+                "Hoarder"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Mantis God",
+            "sigils": [
+                "Trifurcated Strike"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Mole",
+            "sigils": [
+                "Burrower"
+            ],
+            "attack": 0,
+            "health": 4,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Mole Man",
+            "sigils": [
+                "Burrower",
+                "Mighty Leap"
+            ],
+            "attack": 0,
+            "health": 6,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Opossum",
+            "sigils": [],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 2,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Ouroboros",
+            "sigils": [
+                "Unkillable"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Rabbit",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Coyote",
+            "sigils": [],
+            "attack": 2,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 4,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Grizzly",
+            "sigils": [],
+            "attack": 4,
+            "health": 6,
+            "blood_cost": 3,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Raven",
+            "sigils": [
+                "Airborne"
+            ],
+            "attack": 2,
+            "health": 3,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Salmon",
+            "sigils": [
+                "Waterborne",
+                "Sprinter"
+            ],
+            "attack": 2,
+            "health": 2,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Bell Tentacle",
+            "sigils": [],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Hand Tentacle",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Mirror Tentacle",
+            "sigils": [],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Squirrel",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Squirrel Ball",
+            "sigils": [
+                "Squirrel Shedder"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Stoat",
+            "sigils": [],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Urayuli",
+            "sigils": [],
+            "attack": 7,
+            "health": 7,
+            "blood_cost": 4,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Warren",
+            "sigils": [
+                "Rabbit Hole"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Wolf",
+            "sigils": [],
+            "attack": 3,
+            "health": 2,
+            "blood_cost": 2,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Wolf Cub",
+            "sigils": [
+                "Fledgling"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Curve Hopper",
+            "sigils": [],
+            "attack": 2,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 4,
+            "mox_cost": []
+        },
+        {
+            "name": "Automaton",
+            "sigils": [],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 3,
+            "mox_cost": []
+        },
+        {
+            "name": "Energy Bot",
+            "sigils": [
+                "Battery Bearer"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 2,
+            "mox_cost": []
+        },
+        {
+            "name": "Bolthound",
+            "sigils": [
+                "Guardian"
+            ],
+            "attack": 2,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 6,
+            "mox_cost": []
+        },
+        {
+            "name": "Explode Bot",
+            "sigils": [
+                "Detonator"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 2,
+            "mox_cost": []
+        },
+        {
+            "name": "Gamblobot",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 3,
+            "mox_cost": []
+        },
+        {
+            "name": "M3atB0t",
+            "sigils": [
+                "Worthy Sacrifice"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 2,
+            "mox_cost": []
+        },
+        {
+            "name": "49er",
+            "sigils": [
+                "Sprinter"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 2,
+            "mox_cost": []
+        },
+        {
+            "name": "Null Conduit",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 1,
+            "mox_cost": []
+        },
+        {
+            "name": "Steel Mice",
+            "sigils": [
+                "Fecundity"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 4,
+            "mox_cost": []
+        },
+        {
+            "name": "Sentry Drone",
+            "sigils": [
+                "Sentry"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 1,
+            "mox_cost": []
+        },
+        {
+            "name": "Sentry Spore",
+            "sigils": [
+                "Sentry",
+                "Sentry"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 1,
+            "mox_cost": []
+        },
+        {
+            "name": "Mrs. Bomb",
+            "sigils": [
+                "Bomb Spewer"
+            ],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 3,
+            "mox_cost": []
+        },
+        {
+            "name": "Shutterbug",
+            "sigils": [
+                "Touch of Death",
+                "Sentry"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 5,
+            "mox_cost": []
+        },
+        {
+            "name": "Sniper Bot",
+            "sigils": [],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 3,
+            "mox_cost": []
+        },
+        {
+            "name": "Steambot",
+            "sigils": [],
+            "attack": 2,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 6,
+            "mox_cost": []
+        },
+        {
+            "name": "Thick Droid",
+            "sigils": [],
+            "attack": 1,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 5,
+            "mox_cost": []
+        },
+        {
+            "name": "Draugr",
+            "sigils": [
+                "Frozen Away"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 1,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Banshee",
+            "sigils": [
+                "Airborne"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 2,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Bonehound",
+            "sigils": [
+                "Guardian"
+            ],
+            "attack": 2,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 7,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Bone Lord's Horn",
+            "sigils": [
+                "Bonehorn"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 3,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Bone Heap",
+            "sigils": [
+                "Enlarge"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Broken Obol",
+            "sigils": [
+                "Sharp Quills"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 3,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Broken Obol",
+            "sigils": [
+                "Bone King"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 3,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Dead Hand",
+            "sigils": [
+                "Handy"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 5,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Pharaoh's Pets",
+            "sigils": [
+                "Worthy Sacrifice",
+                "Many Lives"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 6,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Drowned Soul",
+            "sigils": [
+                "Waterborne",
+                "Touch of Death"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 4,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "The Walkers",
+            "sigils": [
+                "Bone King"
+            ],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 4,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Frank & Stein",
+            "sigils": [],
+            "attack": 2,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 5,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Ghost Ship",
+            "sigils": [
+                "Waterborne",
+                "Skeleton Crew"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 4,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Gravedigger",
+            "sigils": [
+                "Bone Digger"
+            ],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 1,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Sporedigger",
+            "sigils": [
+                "Bone Digger",
+                "Bone Digger"
+            ],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 1,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Headless Horseman",
+            "sigils": [
+                "Airborne",
+                "Sprinter"
+            ],
+            "attack": 5,
+            "health": 5,
+            "blood_cost": 0,
+            "bone_cost": 13,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Mummy Lord",
+            "sigils": [],
+            "attack": 3,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 8,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Necromancer",
+            "sigils": [
+                "Handy"
+            ],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 3,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Revenant",
+            "sigils": [
+                "Brittle"
+            ],
+            "attack": 3,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 3,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Sarcophagus",
+            "sigils": [
+                "Fledgling"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 4,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Skeleton",
+            "sigils": [
+                "Brittle"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Skelemagus",
+            "sigils": [
+                "Brittle",
+                "Gem Dependant"
+            ],
+            "attack": 4,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 2,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Tomb Robber",
+            "sigils": [
+                "Disentomb"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Zombie",
+            "sigils": [],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 2,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Gourmage",
+            "sigils": [
+                "Enlarge"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green"
+            ]
+        },
+        {
+            "name": "Blue Mage",
+            "sigils": [
+                "Mental Gemnastics"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "blue"
+            ]
+        },
+        {
+            "name": "Blue Sporemage",
+            "sigils": [
+                "Mental Gemnastics",
+                "Mental Gemnastics"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "blue"
+            ]
+        },
+        {
+            "name": "Hover Mage",
+            "sigils": [
+                "Airborne"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "blue"
+            ]
+        },
+        {
+            "name": "Force Mage",
+            "sigils": [
+                "Repulsive"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "blue"
+            ]
+        },
+        {
+            "name": "Gem Fiend",
+            "sigils": [
+                "Gem Dependant"
+            ],
+            "attack": 2,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "blue"
+            ]
+        },
+        {
+            "name": "Green Mage",
+            "sigils": [],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green"
+            ]
+        },
+        {
+            "name": "Junior Sage",
+            "sigils": [],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green"
+            ]
+        },
+        {
+            "name": "Mage Knight",
+            "sigils": [
+                "Gem Dependant"
+            ],
+            "attack": 1,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "orange"
+            ]
+        },
+        {
+            "name": "Master Bleene",
+            "sigils": [
+                "Fledgling"
+            ],
+            "attack": 0,
+            "health": 4,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green",
+                "blue"
+            ]
+        },
+        {
+            "name": "Master Goranj",
+            "sigils": [
+                "Gem Dependant"
+            ],
+            "attack": 2,
+            "health": 6,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green",
+                "orange"
+            ]
+        },
+        {
+            "name": "Master Orlu",
+            "sigils": [
+                "Airborne",
+                "Looter"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "orange",
+                "blue"
+            ]
+        },
+        {
+            "name": "Emerald Mox",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Ruby Mox",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Sapphire Mox",
+            "sigils": [],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Magnus Mox",
+            "sigils": [],
+            "attack": 0,
+            "health": 9,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Muscle Mage",
+            "sigils": [
+                "Rabbit Hole"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green"
+            ]
+        },
+        {
+            "name": "Orange Mage",
+            "sigils": [
+                "Gem Animator"
+            ],
+            "attack": 0,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "orange"
+            ]
+        },
+        {
+            "name": "Practice Wizard",
+            "sigils": [],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "orange"
+            ]
+        },
+        {
+            "name": "Mage Pupil",
+            "sigils": [
+                "Gem Dependant"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
+        },
+        {
+            "name": "Ruby Golem",
+            "sigils": [
+                "Ruby Heart"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "orange"
+            ]
+        },
+        {
+            "name": "Stim Mage",
+            "sigils": [
+                "Stimulate"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": [
+                "green"
+            ]
+        }
+    ],
+    "sigils": {
+        "Steel Trap": "When a card bearing this sigil perishes, the creature opposing it perishes as well. a pelt is created in your hand.",
+        "Touch of Death": "When a card bearing this sigil damages another creature, that creature perishes.",
+        "Fecundity": "When a card bearing this sigil is played, a copy of it is created in your hand.",
+        "Unkillable": "When a card bearing this sigil perishes, a copy of it is created in your hand.",
+        "Rabbit Hole": "When a card bearing this sigil is played, a rabbit is created in your hand. [define:rabbit]",
+        "Fledgling": "A card bearing this sigil will grow into a more powerful form after 1 turn on the board.",
+        "Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
+        "Guardian": "When an opposing creature is placed opposite to an empty space, a card bearing this sigil will move to that empty space.",
+        "Frozen Away": "When a card bearing this sigil perishes, the creature inside is released in its place.",
+        "Bone King": "When a card bearing this sigil dies, 4 bones are awarded instead of 1.",
+        "Mighty Leap": "A card bearing this sigil will block an opposing creature bearing the airborne sigil.",
+        "Many Lives": "When a card bearing this sigil is sacrificed it does not perish.",
+        "Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
+        "Bifurcated Strike": "A card bearing this sigil will strike each opposing space to the left and right of the space across from it.",
+        "Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
+        "Hefty": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil. creatures in the way will be pushed in the same direction.",
+        "Waterborne": "A card bearing this sigil submerges itself during its opponent's turn. while submerged, opposing creatures attack its owner directly.",
+        "Worthy Sacrifice": "A card bearing this sigil is counted as 3 blood rather than 1 blood when sacrificed.",
+        "Trifurcated Strike": "A card bearing this sigil will strike each opposing space to the left, right, and center of it.",
+        "Hoarder": "When a card bearing this sigil is played, you may search your deck for any card and take it into your hand.",
+        "Burrower": "When an empty space would be struck, a card bearing this sigil will move to that space to receive the strike instead.",
+        "Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
+        "Disentomb": "Pay 1 bone to create a skeleton in your hand.",
+        "Bonehorn": "Pay 1 energy to gain 3 bones.",
+        "Marrow Sucker": "Pay 2 bones to heal a card bearing this sigil.",
+        "Enlarge": "Pay 2 bones to increase the power and health of a card bearing this sigil by 1.",
+        "Stimulate": "Pay 3 energy to increase the power and health of a card bearing this sigil by 1.",
+        "Bomb Spewer": "When a card bearing this sigil is played, fill all empty spaces with explode bots.",
+        "Bone Digger": "At the end of the owner's turn, a card bearing this sigil will generate 1 bone.",
+        "Brittle": "After attacking, a card bearing this sigil perishes.",
+        "Gem Animator": "Mox cards on the owner's side of the board gain 1 power.",
+        "Attack Conduit": "Other creatures within a circuit completed by a card bearing this sigil gain 1 power.",
+        "Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
+        "Handy": "When a card bearing this sigil is played, discard your hand then draw a new hand of 4 cards.",
+        "Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
+        "Detonator": "When a card bearing this sigil dies, the creature opposing it, as well as adjacent friendly creatures, are dealt 10 damage.",
+        "Battery Bearer": "When a card bearing this sigil is played, it provides an energy cell to its owner.",
+        "Gem Dependant": "If a card bearing this sigil's owner controls no mox cards, a card bearing this sigil perishes.",
+        "Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
+        "Looter": "When a card bearing this sigil deals damage directly, draw a card for each damage dealt.",
+        "Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
+        "Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
+        "Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",
+        "Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage."
+    }
+}
