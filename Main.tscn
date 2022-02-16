@@ -163,7 +163,7 @@ margin_left = 145.0
 margin_right = 444.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
-text = "localhost"
+placeholder_text = "IP ADDRESS"
 
 [node name="deButton" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 444.0
