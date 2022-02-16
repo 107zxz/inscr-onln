@@ -2,9 +2,13 @@ extends Node
 
 var all_sigils = []
 var all_cards = []
+var deck_path = "decks/"
 
 func _ready():
 	read_game_info()
+	
+	if OS.get_name() == "OSX":
+		deck_path = "user://decks/"
 
 func read_game_info():
 	var file = File.new()

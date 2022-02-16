@@ -107,7 +107,7 @@ func get_card_id(card_data):
 # UI for deck save
 func save_deck(_arg = null):
 	var sFile = File.new()
-	sFile.open("decks/" + selector_de.text + ".deck", File.WRITE)
+	sFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_current_deck_ids()))
 	
 func save_deck_as(_arg = null):
@@ -115,7 +115,7 @@ func save_deck_as(_arg = null):
 		return
 	
 	var sFile = File.new()
-	sFile.open("decks/" + rename_de.text + ".deck", File.WRITE)
+	sFile.open(cardInfo.deck_path + rename_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_current_deck_ids()))
 	sFile.close()
 	
@@ -130,18 +130,18 @@ func ensure_default_deck():
 	
 	fTest.open(".")
 	
-	if not fTest.dir_exists("decks"):
+	if not fTest.dir_exists(cardInfo.deck_path):
 		print("DBG: Creating decks directory")
-		print("Error code: ", fTest.make_dir("decks"))
+		print("Error code: ", fTest.make_dir(cardInfo.deck_path))
 	
-	if not defDeck.file_exists("decks/default.deck"):
-		defDeck.open("decks/default.deck", File.WRITE)
+	if not defDeck.file_exists(cardInfo.deck_path + "default.deck"):
+		defDeck.open(cardInfo.deck_path + "default.deck", File.WRITE)
 		defDeck.store_line("[]")
 
 func load_deck(_arg = null):
 	print("DBG: Load deck called!")
 	var dFile = File.new()
-	dFile.open("decks/" + selector_de.text + ".deck", File.READ)
+	dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.READ)
 	
 	for eCard in deckDisplay.get_children():
 		eCard.queue_free()
@@ -150,10 +150,10 @@ func load_deck(_arg = null):
 	var rdj = dFile.get_as_text()
 	
 	if not parse_json(rdj):
-		dFile.open("decks/" + selector_de.text + ".deck", File.WRITE)
+		dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
 		dFile.store_line("[]")
 		
-		dFile.open("decks/" + selector_de.text + ".deck", File.READ)
+		dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.READ)
 		rdj = dFile.get_as_text()
 		
 	var dj = parse_json(rdj)
@@ -170,7 +170,7 @@ func populate_deck_list():
 	selector_de.clear()
 	
 	var dTest = Directory.new()
-	dTest.open("decks")
+	dTest.open(cardInfo.deck_path)
 	dTest.list_dir_begin()
 	var fName = dTest.get_next()
 	while fName != "":
