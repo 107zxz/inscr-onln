@@ -16,6 +16,9 @@ func clear_slots():
 	for slot in playerSlots:
 		if slot.get_child_count() > 0:
 			slot.get_child(0).queue_free()
+	for slot in enemySlots:
+		if slot.get_child_count() > 0:
+			slot.get_child(0).queue_free()
 
 func get_available_blood() -> int:
 	var blood = 0
