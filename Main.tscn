@@ -356,28 +356,36 @@ alignment = 1
 [node name="ExitButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_right = 101.0
 margin_bottom = 18.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 text = "Exit"
 
 [node name="ShuffleButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 101.0
 margin_right = 202.0
 margin_bottom = 18.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 text = "Shuffle"
 
 [node name="SortButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 202.0
 margin_right = 303.0
 margin_bottom = 18.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 text = "Sort"
 
 [node name="ClearButton" type="Button" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 303.0
 margin_right = 404.0
 margin_bottom = 18.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 text = "Clear"
 
 [node name="SearchOptions" type="PanelContainer" parent="DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]

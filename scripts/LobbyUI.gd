@@ -28,12 +28,10 @@ func _ready():
 	for pfp in validpfps:
 		selector.add_item(pfp)
 	
-	# Populate available decks for play
-	populate_deck_list()
-
 func _edit_deck():
 	get_node("/root/Main/DeckEdit").visible = true
-
+	get_node("/root/Main/DeckEdit").ensure_default_deck()
+	get_node("/root/Main/DeckEdit").populate_deck_list()
 
 func populate_deck_list():
 	selector_de.clear()

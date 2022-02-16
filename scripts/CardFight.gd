@@ -27,14 +27,22 @@ var state = GameStates.NORMAL
 var advantage = 0
 var lives = 2
 var opponent_lives = 2
-
 var damage_stun = false
+
+# Network match state
+var want_rematch = false
 
 func init_match(opp_id: int):
 	opponent = opp_id
 	
-	# Clean up hands
+	# Hide rematch UI
+	$WinScreen.visible = false
+	want_rematch = false
+	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
+	
+	# Clean up hands and field
 	handManager.clear_hands()
+	slotManager.clear_slots()
 		
 	# Draw starting hands
 	for _i in range(4):
@@ -44,12 +52,15 @@ func init_match(opp_id: int):
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
 
-
-	
-
 func surrender():
-	# Tell opponent I surrendered
+	$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Surrendered!"
+	$WinScreen.visible = true
+	
 	rpc_id(opponent, "_opponent_surrendered")
+
+func quit_match():
+	# Tell opponent I surrendered
+	rpc_id(opponent, "_opponent_quit")
 	
 	# Force a disconnect if I'm server
 	if get_tree().is_network_server():
@@ -63,7 +74,8 @@ func surrender():
 
 # Gameplay functions
 func commence_combat():
-	print("Bell hit, ending turn")
+	if not state in [GameStates.NORMAL, GameStates.SACRIFICE]:
+		return
 	
 	# Lower all cards
 	handManager.lower_all_cards()
@@ -149,12 +161,20 @@ func inflict_damage(dmg):
 
 func request_rematch():
 	print("Rematch requested!")
+	want_rematch = true
+	rpc_id(opponent, "_rematch_requested")
+	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"	
 
 # Remote signals
-remote func _opponent_surrendered():
+remote func _opponent_quit():
 	# Quit network
 	get_tree().network_peer = null
 	visible = false
+	
+remote func _opponent_surrendered():
+	# Force the game to end
+	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Your opponent Surrendered!"
+	$WinScreen.visible = true
 
 remote func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
@@ -166,8 +186,16 @@ remote func _opponent_played_card(card, slot):
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
 
 remote func _rematch_requested():
-	pass
-	
+	if want_rematch:
+		print("Both players want a rematch!")
+		rpc_id(opponent, "_rematch_occurs")
+		init_match(opponent)
+	else:
+		$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"	
+
+remote func _rematch_occurs():
+	init_match(opponent)
+		
 remote func start_turn():
 	damage_stun = false
 	$WaitingBlocker.visible = false
@@ -180,4 +208,3 @@ remote func start_turn():
 func _ready():
 	for slot in playerSlots.get_children():
 		slot.connect("pressed", self, "playCard", [slot])
-

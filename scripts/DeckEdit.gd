@@ -32,7 +32,9 @@ func _ready():
 	
 	ensure_default_deck()
 	populate_deck_list()
+	get_node("/root/Main/Lobby/").populate_deck_list()
 	
+	print("DBG: Final load deck call")
 	load_deck()
 
 func init_search_ui():
@@ -115,21 +117,29 @@ func save_deck_as(_arg = null):
 	var sFile = File.new()
 	sFile.open("decks/" + rename_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_current_deck_ids()))
+	sFile.close()
 	
 	selector_de.add_item(rename_de.text, selector_de.get_item_count())
+	selector_de.select(selector_de.get_item_count() - 1)
+	load_deck()
 
 func ensure_default_deck():
+	print("DBG: Ensuring default deck is present")
 	var fTest = Directory.new()
 	var defDeck = File.new()
 	
+	fTest.open(".")
+	
 	if not fTest.dir_exists("decks"):
-		fTest.make_dir("decks")
+		print("DBG: Creating decks directory")
+		print("Error code: ", fTest.make_dir("decks"))
 	
 	if not defDeck.file_exists("decks/default.deck"):
 		defDeck.open("decks/default.deck", File.WRITE)
 		defDeck.store_line("[]")
 
 func load_deck(_arg = null):
+	print("DBG: Load deck called!")
 	var dFile = File.new()
 	dFile.open("decks/" + selector_de.text + ".deck", File.READ)
 	

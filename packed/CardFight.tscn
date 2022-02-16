@@ -358,12 +358,16 @@ __meta__ = {
 margin_left = 429.0
 margin_right = 522.0
 margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Rematch (0/2)"
 
 [node name="QuitBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
 margin_left = 562.0
 margin_right = 594.0
 margin_bottom = 18.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Quit"
 
 [connection signal="pressed" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
@@ -371,3 +375,4 @@ text = "Quit"
 [connection signal="pressed" from="LeftSideUI/PassButton" to="." method="commence_combat"]
 [connection signal="pressed" from="LeftSideUI/ForfeitButton" to="." method="surrender"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]
+[connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/QuitBtn" to="." method="quit_match"]
