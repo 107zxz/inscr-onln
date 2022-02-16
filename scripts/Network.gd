@@ -64,6 +64,16 @@ func host_lobby():
 		sLog("Please enter a username")
 		return
 	
+	# Deck check
+	var dFile = File.new()
+	print("Trying to load deck ", "decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
+	dFile.open("decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
+	if len(parse_json(dFile.get_as_text())) == 0:
+		sLog("Your deck is empty!")
+		dFile.close()
+		return
+	dFile.close()
+	
 	if get_tree().network_peer:
 		sLog("Cancelling existing hosting / connection attempt...")
 		get_tree().network_peer = null
@@ -86,6 +96,17 @@ func challenge_lobby(ip):
 	if not $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text:
 		sLog("Please enter a username")
 		return
+		
+	# Deck check
+	var dFile = File.new()
+	print("Trying to load deck ", "decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
+	dFile.open("decks/" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
+	if len(parse_json(dFile.get_as_text())) == 0:
+		sLog("Your deck is empty!")
+		dFile.close()
+		return
+	dFile.close()
+	
 	if get_tree().network_peer:
 		sLog("Cancelling existing hosting / connection attempt...")
 		get_tree().network_peer = null
