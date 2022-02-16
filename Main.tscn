@@ -75,7 +75,7 @@ anchor_left = 0.025
 anchor_top = 0.025
 anchor_right = 0.975
 anchor_bottom = 0.975
-text = "Inscr Mult lobby
+text = "Inscr Mult lobby v0.0.1
 "
 scroll_following = true
 __meta__ = {
