@@ -228,7 +228,8 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
-	return
+	if not OS.is_debug_build():
+		return
 	
 	for option in OS.get_cmdline_args():
 		if option == "listen":
