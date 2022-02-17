@@ -3,6 +3,7 @@ extends Control
 var cnotify = preload("res://packed/cnotify.tscn")
 var validpfps = ["cat", "grizzly", "stoat", "mantisgod", "packrat"]
 onready var selector_de = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect
+onready var cardInfo = get_node("/root/Main/AllCards")
 
 func _on_new_challenge(name: String, portrait: int):
 	var notif = cnotify.instance()
@@ -37,7 +38,7 @@ func populate_deck_list():
 	selector_de.clear()
 	
 	var dTest = Directory.new()
-	dTest.open("decks")
+	dTest.open(cardInfo.deck_path)
 	dTest.list_dir_begin()
 	var fName = dTest.get_next()
 	while fName != "":
