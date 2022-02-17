@@ -50,6 +50,7 @@ func init_match(opp_id: int):
 	draw_card(28)
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
+	state = GameStates.NORMAL
 
 
 func surrender():
