@@ -29,6 +29,10 @@ var lives = 2
 var opponent_lives = 2
 var damage_stun = false
 
+# Resources
+var bones = 0
+var opponent_bones = 0
+
 # Network match state
 var want_rematch = false
 
@@ -40,6 +44,17 @@ func init_match(opp_id: int):
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
+	# Reset game state
+	advantage = 0
+	lives = 2
+	opponent_lives = 2
+	damage_stun = false
+	
+	bones = 0
+	opponent_bones = 0
+	
+	state = GameStates.NORMAL
+	
 	# Clean up hands and field
 	handManager.clear_hands()
 	slotManager.clear_slots()
@@ -50,7 +65,6 @@ func init_match(opp_id: int):
 	draw_card(28)
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
-	state = GameStates.NORMAL
 
 
 func surrender():
@@ -130,9 +144,14 @@ func playCard(slot):
 		# Only allow playing cards in the NORMAL or FORCEPLAY states
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
 			rpc_id(opponent, "_opponent_played_card", allCards.all_cards.find(handManager.raisedCard.card_data), slot.get_position_in_parent())
+			
+			# Bone cost
+			add_bones(-handManager.raisedCard.card_data["bone_cost"])
+			
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
 			state = GameStates.NORMAL
+			
 
 func inflict_damage(dmg):
 	advantage += dmg
@@ -160,6 +179,14 @@ func inflict_damage(dmg):
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
 		$WinScreen.visible = true
 
+func add_bones(bone_no):
+	bones += bone_no
+	$LeftSideUI/BonesLabel.text = "Bones: " + str(bones)
+
+func add_opponent_bones(bone_no):
+	opponent_bones += bone_no
+	$LeftSideUI/OpponentBonesLabel.text = "Opponent Bones: " + str(opponent_bones)
+
 func request_rematch():
 	print("Rematch requested!")
 	want_rematch = true
@@ -185,6 +212,8 @@ remote func _opponent_drew_card(source_path):
 remote func _opponent_played_card(card, slot):
 	handManager.opponentRaisedCard.from_data(allCards.all_cards[card])
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
+	
+	add_opponent_bones(-allCards.all_cards[card]["bone_cost"])
 
 remote func _rematch_requested():
 	if want_rematch:
