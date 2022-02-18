@@ -47,6 +47,8 @@ func attempt_sacrifice():
 		for victim in sacVictims:
 			victim.get_node("AnimationPlayer").play("Sacrifice")
 			rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Sacrifice")
+			fightManager.add_bones(1)
+			
 		sacVictims.clear()
 		
 		# Force player to summon the new card
@@ -100,6 +102,7 @@ func handle_attack(slot_index):
 		eCard.draw_stats()
 		if eCard.health <= 0:
 			eCard.get_node("AnimationPlayer").play("Perish")
+			fightManager.add_opponent_bones(1)
 		
 	else:
 		var dmg = playerSlots[slot_index].get_child(0).attack
@@ -113,11 +116,12 @@ func handle_attack(slot_index):
 remote func set_sac_olay_vis(slot, vis):
 	enemySlots[slot].get_child(0).get_node("CardBody/SacOlay").visible = vis
 
-remote func sacrifice_card(slot):
-	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play("Sacrifice")
 
 remote func remote_card_anim(slot, anim_name):
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
+	
+	if anim_name in ["Perish", "Sacrifice"]:
+		fightManager.add_opponent_bones(1)
 	
 remote func handle_enemy_attack(slot_index):
 	print("Attack in progress from enemy slot ", slot_index)
@@ -130,6 +134,8 @@ remote func handle_enemy_attack(slot_index):
 		pCard.draw_stats()
 		if pCard.health <= 0:
 			pCard.get_node("AnimationPlayer").play("Perish")
+			fightManager.add_bones(1)
+	
 		
 	else:
 		var dmg = enemySlots[slot_index].get_child(0).attack

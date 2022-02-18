@@ -244,27 +244,57 @@ __meta__ = {
 }
 
 [node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 261.0
-margin_right = 117.0
-margin_bottom = 275.0
+margin_top = 231.0
+margin_right = 124.0
+margin_bottom = 245.0
 text = "Advantage: 0"
 
 [node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 275.0
-margin_right = 117.0
-margin_bottom = 289.0
+margin_top = 245.0
+margin_right = 124.0
+margin_bottom = 259.0
 text = "Lives: 2"
 
 [node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 289.0
-margin_right = 117.0
-margin_bottom = 303.0
+margin_top = 259.0
+margin_right = 124.0
+margin_bottom = 273.0
 text = "Opponent Lives: 2"
 
-[node name="PassButton" type="Button" parent="LeftSideUI"]
+[node name="Spacer" type="Control" parent="LeftSideUI"]
+margin_top = 273.0
+margin_right = 124.0
+margin_bottom = 289.0
+rect_min_size = Vector2( 0, 16 )
+
+[node name="BonesLabel" type="Label" parent="LeftSideUI"]
+margin_top = 289.0
+margin_right = 124.0
+margin_bottom = 303.0
+text = "Bones: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpponentBonesLabel" type="Label" parent="LeftSideUI"]
 margin_top = 303.0
-margin_right = 117.0
-margin_bottom = 321.0
+margin_right = 124.0
+margin_bottom = 317.0
+text = "Opponent Bones: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Control" parent="LeftSideUI"]
+margin_top = 317.0
+margin_right = 124.0
+margin_bottom = 333.0
+rect_min_size = Vector2( 0, 16 )
+
+[node name="PassButton" type="Button" parent="LeftSideUI"]
+margin_top = 333.0
+margin_right = 124.0
+margin_bottom = 351.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ring Bell"
@@ -273,9 +303,9 @@ __meta__ = {
 }
 
 [node name="ForfeitButton" type="Button" parent="LeftSideUI"]
-margin_top = 321.0
-margin_right = 117.0
-margin_bottom = 339.0
+margin_top = 351.0
+margin_right = 124.0
+margin_bottom = 369.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Surrender"

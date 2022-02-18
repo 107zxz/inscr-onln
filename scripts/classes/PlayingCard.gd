@@ -148,18 +148,23 @@ func _on_Button_pressed():
 			get_parent().get_parent().raisedCard = null
 		elif in_hand:
 			
-			# Only raise if blood cost is met
-			if slotManager.get_available_blood() >= card_data["blood_cost"]:
-				
-				# Enter sacrifice mode if card needs sacs
-				if card_data["blood_cost"] > 0:
-					fightManager.state = fightManager.GameStates.SACRIFICE
-				else:
-					fightManager.state = fightManager.GameStates.NORMAL
-				
-				raise()
-			else:
+			# Only raise if all costs are met
+			if fightManager.bones < card_data["bone_cost"]:
+				print("You need more bones!")
+				return
+			
+			# Only raise if all costs are met
+			if slotManager.get_available_blood() < card_data["blood_cost"]:
 				print("You need more sacrifices!")
+				return
+			
+			# Enter sacrifice mode if card needs sacs
+			if card_data["blood_cost"] > 0:
+				fightManager.state = fightManager.GameStates.SACRIFICE
+			else:
+				fightManager.state = fightManager.GameStates.NORMAL
+			
+			raise()
 	
 	# When on board
 	else:
