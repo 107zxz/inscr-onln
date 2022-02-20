@@ -79,27 +79,8 @@ func init_match(opp_id: int):
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
 
-func surrender():
-	$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Surrendered!"
-	$WinScreen.visible = true
-	
-	rpc_id(opponent, "_opponent_surrendered")
-
-func quit_match():
-	# Tell opponent I surrendered
-	rpc_id(opponent, "_opponent_quit")
-	
-	# Force a disconnect if I'm server
-	if get_tree().is_network_server():
-		get_tree().network_peer.disconnect_peer(opponent)
-	else:
-		get_tree().network_peer = null
-		visible = false
-	# Quit network
-#	get_tree().network_peer = null
-#	visible = false
-
 # Gameplay functions
+## LOCAL
 func commence_combat():
 	if not state in [GameStates.NORMAL, GameStates.SACRIFICE]:
 		return
@@ -113,18 +94,6 @@ func commence_combat():
 	# Initiate combat first
 	state = GameStates.BATTLE
 	slotManager.initiate_combat()
-
-func end_turn():
-	$WaitingBlocker.visible = true
-	damage_stun = false
-	
-	# Bump opponent's energy
-	if opponent_max_energy < 6:
-		set_opponent_max_energy(opponent_max_energy + 1)
-	set_opponent_energy(opponent_max_energy)
-	
-	rpc_id(opponent, "start_turn")
-	
 
 func draw_maindeck():
 	if state == GameStates.DRAWPILE:
@@ -152,7 +121,6 @@ func draw_card(idx, source = $DrawPiles/YourDecks/Deck):
 	
 	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
 
-# Called by clicking a slot, also programatically
 func playCard(slot):
 	
 	# Is a card ready to be played?
@@ -171,9 +139,27 @@ func playCard(slot):
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
 			state = GameStates.NORMAL
+
+## REMOTE
+remote func _opponent_drew_card(source_path):
+	var nCard = cardPrefab.instance()
+	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
+	nCard.move_to_parent(handManager.get_node("EnemyHand"))
+
+remote func _opponent_played_card(card, slot):
+	handManager.opponentRaisedCard.from_data(allCards.all_cards[card])
+	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
+	
+	# Costs
+	add_opponent_bones(-allCards.all_cards[card]["bone_cost"])
+	set_opponent_energy(opponent_energy -allCards.all_cards[card]["energy_cost"])
 			
 
+# Called during attack animation
 func inflict_damage(dmg):
+	if damage_stun:
+		return
+	
 	advantage += dmg
 	
 	if advantage >= 5:
@@ -199,6 +185,8 @@ func inflict_damage(dmg):
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
 		$WinScreen.visible = true
 
+
+# Resource visualisation and management
 func add_bones(bone_no):
 	bones += bone_no
 	$LeftSideUI/BonesLabel.text = "Bones: " + str(bones)
@@ -210,56 +198,67 @@ func add_opponent_bones(bone_no):
 func set_energy(ener_no):
 	energy = ener_no
 	$LeftSideUI/EnergyLabel.text = "Energy: " + str(energy)
-	print("ENERGY SET TO ", ener_no)
 	
 func set_opponent_energy(ener_no):
 	opponent_energy = ener_no
 	$LeftSideUI/OpponentEnergyLabel.text = "Opponent Energy: " + str(opponent_energy)
-	print("OPPONENT ENERGY SET TO ", ener_no)
 
 func set_max_energy(ener_no):
 	max_energy = ener_no
 	$LeftSideUI/MaxEnergyLabel.text = "Max Energy: " + str(max_energy)
-	print("MAX ENERGY SET TO ", ener_no)
 	
 func set_opponent_max_energy(ener_no):
 	opponent_max_energy = ener_no
 	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy)
-	print("OPPONENT MAX ENERGY SET TO ", ener_no)
 
+
+# Network interactions
+## LOCAL
 func request_rematch():
-	print("Rematch requested!")
 	want_rematch = true
 	rpc_id(opponent, "_rematch_requested")
-	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"	
+	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"
 
-# Remote signals
+func end_turn():
+	$WaitingBlocker.visible = true
+	damage_stun = false
+	
+	# Bump opponent's energy
+	if opponent_max_energy < 6:
+		set_opponent_max_energy(opponent_max_energy + 1)
+	set_opponent_energy(opponent_max_energy)
+	
+	rpc_id(opponent, "start_turn")
+
+func surrender():
+	$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Surrendered!"
+	$WinScreen.visible = true
+	
+	rpc_id(opponent, "_opponent_surrendered")
+
+func quit_match():
+	# Tell opponent I surrendered
+	rpc_id(opponent, "_opponent_quit")
+	
+	# Force a disconnect if I'm server
+	if get_tree().is_network_server():
+		get_tree().network_peer.disconnect_peer(opponent)
+	else:
+		get_tree().network_peer = null
+		visible = false
+## REMOTE
 remote func _opponent_quit():
 	# Quit network
 	get_tree().network_peer = null
 	visible = false
-	
+
 remote func _opponent_surrendered():
 	# Force the game to end
 	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Your opponent Surrendered!"
 	$WinScreen.visible = true
 
-remote func _opponent_drew_card(source_path):
-	var nCard = cardPrefab.instance()
-	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
-	nCard.move_to_parent(handManager.get_node("EnemyHand"))
-
-remote func _opponent_played_card(card, slot):
-	handManager.opponentRaisedCard.from_data(allCards.all_cards[card])
-	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
-	
-	# Costs
-	add_opponent_bones(-allCards.all_cards[card]["bone_cost"])
-	set_opponent_energy(opponent_energy -allCards.all_cards[card]["energy_cost"])
-
 remote func _rematch_requested():
 	if want_rematch:
-		print("Both players want a rematch!")
 		rpc_id(opponent, "_rematch_occurs")
 		init_match(opponent)
 	else:
@@ -267,9 +266,8 @@ remote func _rematch_requested():
 
 remote func _rematch_occurs():
 	init_match(opponent)
-		
+
 remote func start_turn():
-	print("TURN START")
 	damage_stun = false
 	$WaitingBlocker.visible = false
 	
@@ -281,6 +279,9 @@ remote func start_turn():
 	if max_energy < 6:
 		set_max_energy(max_energy + 1)
 	set_energy(max_energy)
+
+
+
 
 # Connect in-game signals
 func _ready():

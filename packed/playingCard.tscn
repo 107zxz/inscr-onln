@@ -37,14 +37,11 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "attack_hit"
-}, {
-"args": [  ],
-"method": "attack_callback"
 } ]
 }
 
@@ -256,8 +253,8 @@ __meta__ = {
 [node name="Button" type="Button" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 168.0
-margin_bottom = 244.0
+margin_right = 253.0
+margin_bottom = 367.0
 focus_mode = 0
 disabled = true
 button_mask = 3
@@ -266,13 +263,13 @@ enabled_focus_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 168.0
-margin_bottom = 244.0
+margin_right = 253.0
+margin_bottom = 367.0
 mouse_filter = 2
 custom_constants/separation = 2
 
 [node name="Label" type="Label" parent="CardBody/VBoxContainer"]
-margin_right = 166.0
+margin_right = 251.0
 margin_bottom = 14.0
 size_flags_vertical = 1
 align = 1
@@ -281,8 +278,8 @@ clip_text = true
 
 [node name="Portrait" type="TextureRect" parent="CardBody/VBoxContainer"]
 margin_top = 16.0
-margin_right = 166.0
-margin_bottom = 128.0
+margin_right = 251.0
+margin_bottom = 189.0
 rect_min_size = Vector2( 50, 35 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -300,17 +297,17 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 83.0
-margin_bottom = 112.0
+margin_right = 125.0
+margin_bottom = 173.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 83.0
-margin_right = 166.0
-margin_bottom = 112.0
+margin_left = 125.0
+margin_right = 251.0
+margin_bottom = 173.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -376,16 +373,16 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer"]
-margin_top = 130.0
-margin_right = 166.0
-margin_bottom = 242.0
+margin_top = 191.0
+margin_right = 251.0
+margin_bottom = 365.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_right = 55.0
-margin_bottom = 112.0
+margin_right = 83.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 10, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -407,9 +404,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer3" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_left = 55.0
-margin_right = 110.0
-margin_bottom = 112.0
+margin_left = 83.0
+margin_right = 167.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 3, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -431,9 +428,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_left = 110.0
-margin_right = 166.0
-margin_bottom = 112.0
+margin_left = 167.0
+margin_right = 251.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 10, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -444,22 +441,22 @@ stretch_mode = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 168.0
-margin_bottom = 244.0
+margin_right = 253.0
+margin_bottom = 367.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AtkScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_right = 83.0
-margin_bottom = 242.0
+margin_right = 125.0
+margin_bottom = 365.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 valign = 2
 
 [node name="HpScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_left = 83.0
-margin_right = 166.0
-margin_bottom = 242.0
+margin_left = 125.0
+margin_right = 251.0
+margin_bottom = 365.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 2

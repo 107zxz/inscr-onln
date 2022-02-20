@@ -67,7 +67,6 @@ func host_lobby():
 	
 	# Deck check
 	var dFile = File.new()
-	print("Trying to load deck ", $AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
 	if len(parse_json(dFile.get_as_text())) == 0:
 		sLog("Your deck is empty!")
@@ -100,7 +99,6 @@ func challenge_lobby(ip):
 		
 	# Deck check
 	var dFile = File.new()
-	print("Trying to load deck ", $AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
 	if len(parse_json(dFile.get_as_text())) == 0:
 		sLog("Your deck is empty!")
@@ -154,7 +152,6 @@ remote func server_accepted_challenge():
 	
 	# Load deck from file and pass to the battle handler
 	var dFile = File.new()
-	print("Trying to load deck ", $AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
 	$CardFight.deck = parse_json(dFile.get_as_text())
 	
@@ -196,7 +193,6 @@ func _accept_challenge(index):
 	
 	# Load deck from file and pass to the battle handler
 	var dFile = File.new()
-	print("Trying to load deck ", $AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck")
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
 	$CardFight.deck = parse_json(dFile.get_as_text())
 	

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Marrow Sucker.png-9af817fab583b27ed04dfe2129f5db6c.stex"
+path="res://.import/Power Dice.png-3a6425d17d8f98c506760affa59d4b81.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/sigils/Marrow Sucker.png"
-dest_files=[ "res://.import/Marrow Sucker.png-9af817fab583b27ed04dfe2129f5db6c.stex" ]
+source_file="res://gfx/sigils/Power Dice.png"
+dest_files=[ "res://.import/Power Dice.png-3a6425d17d8f98c506760affa59d4b81.stex" ]
 
 [params]
 

@@ -462,12 +462,26 @@
         },
         {
             "name": "Gamblobot",
-            "sigils": [],
+            "sigils": [
+                "Power Dice"
+            ],
             "attack": 0,
             "health": 1,
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 3,
+            "mox_cost": []
+        },
+        {
+            "name": "L33pB0t",
+            "sigils": [
+                "Mighty Leap"
+            ],
+            "attack": 0,
+            "health": 2,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 1,
             "mox_cost": []
         },
         {
@@ -895,7 +909,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green"
+                "Green"
             ]
         },
         {
@@ -909,7 +923,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "blue"
+                "Blue"
             ]
         },
         {
@@ -924,7 +938,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "blue"
+                "Blue"
             ]
         },
         {
@@ -938,7 +952,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "blue"
+                "Blue"
             ]
         },
         {
@@ -952,7 +966,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "blue"
+                "Blue"
             ]
         },
         {
@@ -966,7 +980,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "blue"
+                "Blue"
             ]
         },
         {
@@ -978,7 +992,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green"
+                "Green"
             ]
         },
         {
@@ -990,7 +1004,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green"
+                "Green"
             ]
         },
         {
@@ -1004,7 +1018,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "orange"
+                "Orange"
             ]
         },
         {
@@ -1018,8 +1032,8 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green",
-                "blue"
+                "Green",
+                "Blue"
             ]
         },
         {
@@ -1033,8 +1047,8 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green",
-                "orange"
+                "Green",
+                "Orange"
             ]
         },
         {
@@ -1049,13 +1063,15 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "orange",
-                "blue"
+                "Orange",
+                "Blue"
             ]
         },
         {
             "name": "Emerald Mox",
-            "sigils": [],
+            "sigils": [
+                "Green Mox"
+            ],
             "attack": 0,
             "health": 1,
             "blood_cost": 0,
@@ -1065,7 +1081,9 @@
         },
         {
             "name": "Ruby Mox",
-            "sigils": [],
+            "sigils": [
+                "Orange Mox"
+            ],
             "attack": 0,
             "health": 1,
             "blood_cost": 0,
@@ -1075,7 +1093,9 @@
         },
         {
             "name": "Sapphire Mox",
-            "sigils": [],
+            "sigils": [
+                "Blue Mox"
+            ],
             "attack": 0,
             "health": 1,
             "blood_cost": 0,
@@ -1085,7 +1105,9 @@
         },
         {
             "name": "Magnus Mox",
-            "sigils": [],
+            "sigils": [
+                "Great Mox"
+            ],
             "attack": 0,
             "health": 9,
             "blood_cost": 0,
@@ -1104,7 +1126,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green"
+                "Green"
             ]
         },
         {
@@ -1118,7 +1140,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "orange"
+                "Orange"
             ]
         },
         {
@@ -1130,7 +1152,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "orange"
+                "Orange"
             ]
         },
         {
@@ -1156,7 +1178,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "orange"
+                "Orange"
             ]
         },
         {
@@ -1170,7 +1192,7 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [
-                "green"
+                "Green"
             ]
         }
     ],
@@ -1200,6 +1222,8 @@
         "Disentomb": "Pay 1 bone to create a skeleton in your hand.",
         "Bonehorn": "Pay 1 energy to gain 3 bones.",
         "Marrow Sucker": "Pay 2 bones to heal a card bearing this sigil.",
+        "Power Dice": "Pay 1 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
+        "True Scholar": "If you have a blue gem, sacrifice a card bearing this sigil to draw 3 cards.",
         "Enlarge": "Pay 2 bones to increase the power and health of a card bearing this sigil by 1.",
         "Stimulate": "Pay 3 energy to increase the power and health of a card bearing this sigil by 1.",
         "Bomb Spewer": "When a card bearing this sigil is played, fill all empty spaces with explode bots.",
@@ -1212,6 +1236,10 @@
         "Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
         "Detonator": "When a card bearing this sigil dies, the creature opposing it, as well as adjacent friendly creatures, are dealt 10 damage.",
         "Battery Bearer": "When a card bearing this sigil is played, it provides an energy cell to its owner.",
+        "Blue Mox": "While a card bearing this sigil is on the board, it provides a blue gem to its owner.",
+        "Green Mox": "While a card bearing this sigil is on the board, it provides a green gem to its owner.",
+        "Orange Mox": "While a card bearing this sigil is on the board, it provides an orange gem to its owner.",
+        "Great Mox": "While a card bearing this sigil is on the board, it provides a green, orange, and blue gem to its owner.",
         "Gem Dependant": "If a card bearing this sigil's owner controls no mox cards, a card bearing this sigil perishes.",
         "Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
         "Looter": "When a card bearing this sigil deals damage directly, draw a card for each damage dealt.",

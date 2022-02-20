@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Marrow Sucker.png-9af817fab583b27ed04dfe2129f5db6c.stex"
+path="res://.import/Orange Mox.png-adbe496a8f32298e8d8eaa9065a3b8a7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/sigils/Marrow Sucker.png"
-dest_files=[ "res://.import/Marrow Sucker.png-9af817fab583b27ed04dfe2129f5db6c.stex" ]
+source_file="res://gfx/sigils/Orange Mox.png"
+dest_files=[ "res://.import/Orange Mox.png-adbe496a8f32298e8d8eaa9065a3b8a7.stex" ]
 
 [params]
 
