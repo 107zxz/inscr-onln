@@ -152,6 +152,10 @@ func _on_Button_pressed():
 			if fightManager.bones < card_data["bone_cost"]:
 				print("You need more bones!")
 				return
+				
+			if fightManager.energy < card_data["energy_cost"]:
+				print("You need more energy!")
+				return
 			
 			# Only raise if all costs are met
 			if slotManager.get_available_blood() < card_data["blood_cost"]:

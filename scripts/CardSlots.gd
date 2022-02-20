@@ -66,27 +66,37 @@ func initiate_combat():
 			playerSlots[current_attacker].get_child(0).attack_pass()
 			break
 		current_attacker += 1
+		
+	print("COMBAT OVER, ca = ", current_attacker)
 	
 	if current_attacker == 4:
+		print("TURN END ALPHA")
 		fightManager.end_turn()
 
 
 # This is called at the end of a card's attack animation
 func attack_callback():
+	var foundCard = false
+	
 	# Increment current attacker
 	current_attacker += 1
 	
 	# If final attacker has already attacked, end turn
 	if current_attacker == 4:
-		fightManager.end_turn()
+		# fightManager.end_turn()
+		pass
 	else:
 		while current_attacker < 4:
 			if playerSlots[current_attacker].get_child_count() > 0:
 				playerSlots[current_attacker].get_child(0).attack_pass()
+				foundCard = true
 				break
 			current_attacker += 1
 		
-		if current_attacker == 4:
+		print("COMBAT OVER BETA, found attacker = ", foundCard)
+		
+		if not foundCard:
+			print("TURN END BETA")
 			fightManager.end_turn()
 		
 
@@ -105,9 +115,10 @@ func handle_attack(slot_index):
 			fightManager.add_opponent_bones(1)
 		
 	else:
-		var dmg = playerSlots[slot_index].get_child(0).attack
-		print("Direct attack for ", dmg, " damage!")
-		fightManager.inflict_damage(dmg)
+		if not fightManager.damage_stun:
+			var dmg = playerSlots[slot_index].get_child(0).attack
+			print("Direct attack for ", dmg, " damage!")
+			fightManager.inflict_damage(dmg)
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", slot_index)
 	

@@ -24,6 +24,9 @@ __meta__ = {
 [node name="DrawPiles" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="YourDecks" type="HBoxContainer" parent="DrawPiles"]
 anchor_left = 1.0
@@ -244,57 +247,99 @@ __meta__ = {
 }
 
 [node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 231.0
-margin_right = 124.0
-margin_bottom = 245.0
+margin_top = 195.0
+margin_right = 156.0
+margin_bottom = 209.0
 text = "Advantage: 0"
 
 [node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 245.0
-margin_right = 124.0
-margin_bottom = 259.0
+margin_top = 209.0
+margin_right = 156.0
+margin_bottom = 223.0
 text = "Lives: 2"
 
 [node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 259.0
-margin_right = 124.0
-margin_bottom = 273.0
+margin_top = 223.0
+margin_right = 156.0
+margin_bottom = 237.0
 text = "Opponent Lives: 2"
 
 [node name="Spacer" type="Control" parent="LeftSideUI"]
-margin_top = 273.0
-margin_right = 124.0
-margin_bottom = 289.0
+margin_top = 237.0
+margin_right = 156.0
+margin_bottom = 253.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="BonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 289.0
-margin_right = 124.0
-margin_bottom = 303.0
+margin_top = 253.0
+margin_right = 156.0
+margin_bottom = 267.0
 text = "Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentBonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 303.0
-margin_right = 124.0
-margin_bottom = 317.0
+margin_top = 267.0
+margin_right = 156.0
+margin_bottom = 281.0
 text = "Opponent Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer2" type="Control" parent="LeftSideUI"]
-margin_top = 317.0
-margin_right = 124.0
-margin_bottom = 333.0
+margin_top = 281.0
+margin_right = 156.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 0, 16 )
+
+[node name="EnergyLabel" type="Label" parent="LeftSideUI"]
+margin_top = 297.0
+margin_right = 156.0
+margin_bottom = 311.0
+text = "Energy: 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaxEnergyLabel" type="Label" parent="LeftSideUI"]
+margin_top = 311.0
+margin_right = 156.0
+margin_bottom = 325.0
+text = "Max Energy: 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpponentEnergyLabel" type="Label" parent="LeftSideUI"]
+margin_top = 325.0
+margin_right = 156.0
+margin_bottom = 339.0
+text = "Opponent Energy: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpponentMaxEnergyLabel" type="Label" parent="LeftSideUI"]
+margin_top = 339.0
+margin_right = 156.0
+margin_bottom = 353.0
+text = "Opponent Max Energy: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer3" type="Control" parent="LeftSideUI"]
+margin_top = 353.0
+margin_right = 156.0
+margin_bottom = 369.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="PassButton" type="Button" parent="LeftSideUI"]
-margin_top = 333.0
-margin_right = 124.0
-margin_bottom = 351.0
+margin_top = 369.0
+margin_right = 156.0
+margin_bottom = 387.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ring Bell"
@@ -303,9 +348,9 @@ __meta__ = {
 }
 
 [node name="ForfeitButton" type="Button" parent="LeftSideUI"]
-margin_top = 351.0
-margin_right = 124.0
-margin_bottom = 369.0
+margin_top = 387.0
+margin_right = 156.0
+margin_bottom = 405.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Surrender"
@@ -400,8 +445,8 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
 
-[connection signal="pressed" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
-[connection signal="pressed" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
+[connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
+[connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
 [connection signal="pressed" from="LeftSideUI/PassButton" to="." method="commence_combat"]
 [connection signal="pressed" from="LeftSideUI/ForfeitButton" to="." method="surrender"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]
