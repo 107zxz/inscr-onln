@@ -1,5 +1,6 @@
 extends Node
 
+const VERSION = "v0.0.3"
 const DEFAULT_PORT = 10567
 
 const MAX_PEERS = 8
@@ -227,6 +228,8 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
+	$VersionLabel.text = VERSION
 	
 	if not OS.is_debug_build():
 		return

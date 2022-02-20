@@ -75,7 +75,7 @@ anchor_left = 0.025
 anchor_top = 0.025
 anchor_right = 0.975
 anchor_bottom = 0.975
-text = "Inscr Mult lobby v0.0.1
+text = "Inscr Mult lobby
 "
 scroll_following = true
 __meta__ = {
@@ -598,6 +598,17 @@ margin_right = 242.0
 rect_min_size = Vector2( 216, 0 )
 size_flags_horizontal = 3
 columns = 4
+
+[node name="VersionLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+margin_right = 39.0
+text = "v0.0.3"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="new_challenge" from="." to="Lobby" method="_on_new_challenge"]
 [connection signal="remove_challenge" from="." to="Lobby" method="_remove_challenge"]

@@ -33,6 +33,11 @@ var damage_stun = false
 var bones = 0
 var opponent_bones = 0
 
+var energy = 0
+var max_energy = 0
+var opponent_energy = 0
+var opponent_max_energy = 0
+
 # Network match state
 var want_rematch = false
 
@@ -52,6 +57,13 @@ func init_match(opp_id: int):
 	
 	bones = 0
 	opponent_bones = 0
+	add_bones(0)
+	add_opponent_bones(0)
+	
+	set_max_energy(int(get_tree().is_network_server()))
+	set_energy(max_energy)
+	set_opponent_max_energy(int(not get_tree().is_network_server()))
+	set_opponent_energy(opponent_max_energy)
 	
 	state = GameStates.NORMAL
 	
@@ -106,6 +118,11 @@ func end_turn():
 	$WaitingBlocker.visible = true
 	damage_stun = false
 	
+	# Bump opponent's energy
+	if opponent_max_energy < 6:
+		set_opponent_max_energy(opponent_max_energy + 1)
+	set_opponent_energy(opponent_max_energy)
+	
 	rpc_id(opponent, "start_turn")
 	
 
@@ -148,6 +165,9 @@ func playCard(slot):
 			# Bone cost
 			add_bones(-handManager.raisedCard.card_data["bone_cost"])
 			
+			# Energy cost
+			set_energy(energy -handManager.raisedCard.card_data["energy_cost"])
+			
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
 			state = GameStates.NORMAL
@@ -187,6 +207,26 @@ func add_opponent_bones(bone_no):
 	opponent_bones += bone_no
 	$LeftSideUI/OpponentBonesLabel.text = "Opponent Bones: " + str(opponent_bones)
 
+func set_energy(ener_no):
+	energy = ener_no
+	$LeftSideUI/EnergyLabel.text = "Energy: " + str(energy)
+	print("ENERGY SET TO ", ener_no)
+	
+func set_opponent_energy(ener_no):
+	opponent_energy = ener_no
+	$LeftSideUI/OpponentEnergyLabel.text = "Opponent Energy: " + str(opponent_energy)
+	print("OPPONENT ENERGY SET TO ", ener_no)
+
+func set_max_energy(ener_no):
+	max_energy = ener_no
+	$LeftSideUI/MaxEnergyLabel.text = "Max Energy: " + str(max_energy)
+	print("MAX ENERGY SET TO ", ener_no)
+	
+func set_opponent_max_energy(ener_no):
+	opponent_max_energy = ener_no
+	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy)
+	print("OPPONENT MAX ENERGY SET TO ", ener_no)
+
 func request_rematch():
 	print("Rematch requested!")
 	want_rematch = true
@@ -213,7 +253,9 @@ remote func _opponent_played_card(card, slot):
 	handManager.opponentRaisedCard.from_data(allCards.all_cards[card])
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
 	
+	# Costs
 	add_opponent_bones(-allCards.all_cards[card]["bone_cost"])
+	set_opponent_energy(opponent_energy -allCards.all_cards[card]["energy_cost"])
 
 remote func _rematch_requested():
 	if want_rematch:
@@ -227,12 +269,18 @@ remote func _rematch_occurs():
 	init_match(opponent)
 		
 remote func start_turn():
+	print("TURN START")
 	damage_stun = false
 	$WaitingBlocker.visible = false
 	
 	# Setup card drawing
 	state = GameStates.DRAWPILE
 	$DrawPiles/Notify.visible = true
+	
+	# Increment energy
+	if max_energy < 6:
+		set_max_energy(max_energy + 1)
+	set_energy(max_energy)
 
 # Connect in-game signals
 func _ready():
