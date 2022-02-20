@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Marrow Sucker.png-9af817fab583b27ed04dfe2129f5db6c.stex"
+path="res://.import/True Scholar.png-8749a6a8d0877fe1d2f6a9e2f8c9174c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/sigils/Marrow Sucker.png"
-dest_files=[ "res://.import/Marrow Sucker.png-9af817fab583b27ed04dfe2129f5db6c.stex" ]
+source_file="res://gfx/sigils/True Scholar.png"
+dest_files=[ "res://.import/True Scholar.png-8749a6a8d0877fe1d2f6a9e2f8c9174c.stex" ]
 
 [params]
 

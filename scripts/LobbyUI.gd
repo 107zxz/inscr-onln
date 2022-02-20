@@ -43,6 +43,5 @@ func populate_deck_list():
 	var fName = dTest.get_next()
 	while fName != "":
 		if not dTest.current_is_dir() and fName.ends_with(".deck"):
-			print("Lobby: Found deck ", fName)
 			selector_de.add_item(fName.split(".deck")[0])
 		fName = dTest.get_next()

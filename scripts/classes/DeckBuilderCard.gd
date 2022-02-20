@@ -62,9 +62,9 @@ func draw_cost():
 		# Decide which mox to show
 		var true_mox = 0
 		
-		var gmox = "green" in card_data["mox_cost"]
-		var omox = "orange" in card_data["mox_cost"]
-		var bmox = "blue" in card_data["mox_cost"]
+		var gmox = "Green" in card_data["mox_cost"]
+		var omox = "Orange" in card_data["mox_cost"]
+		var bmox = "Blue" in card_data["mox_cost"]
 		
 		true_mox = moxIdx(gmox, omox, bmox)
 		

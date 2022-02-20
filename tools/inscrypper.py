@@ -12,6 +12,19 @@ initialDir = os.getcwd()
 os.chdir(basePath)
 
 # Analyse sigils
+sicon_overrides = {
+    # Mox garbo
+    "gaingemblue": "gaingem_blue",
+    "gaingemorange": "gaingem_orange",
+    "gaingemgreen": "gaingem_green",
+    "gaingemtriple": "gaingem_all",
+
+    # Dice roll garbo
+    "activated_randompowerbone": "activated_dicerollbone",
+    "activated_randompowerenergy": "activated_dicerollenergy",
+    "activated_sacrificedrawcards": "activated_sacrificedraw",
+}
+
 ref_sigils = {}
 
 for sPath in sigilPaths:
@@ -37,7 +50,11 @@ for sPath in sigilPaths:
                         # Active ability naming discrepancy
                         tName = tName.replace("activated", "activated_")
 
-                        sFileName = "pixelability_" + tName + ".png"
+                        # Overrides
+                        if tName in sicon_overrides:
+                            sFileName = "pixelability_" + sicon_overrides[tName] + ".png"
+                        else:
+                            sFileName = "pixelability_" + tName + ".png"
                     if line.startswith("  ability: "):
                         sCode = line.split(": ")[1].strip()
                     if line.startswith("  rulebookName: "):
@@ -50,7 +67,8 @@ for sPath in sigilPaths:
                 sigPath = "/media/107zxz/Extra Files/Games/InscrExt/globalgamemanagers/Assets/Resources/art/gbc/cards/pixelabilityicons/" + sFileName
                 
                 if not os.path.exists(sigPath):
-                    print("Missing sigil icon", sigPath)
+                    if "gbc" in sPath:
+                        print("Missing sigil icon", sigPath)
                     continue
 
                 shutil.copy(sigPath, "/home/107zxz/Documents/Games/Godot/LobbyTest/gfx/sigils/" + sName + ".png")
@@ -66,10 +84,10 @@ for sPath in sigilPaths:
 # Make sigil dict for export
 sigils = {}
 for sid in ref_sigils:
-    if ref_sigils[sid]:
+    if ref_sigils[sid] and ref_sigils[sid]["name"]:
         sigils[ref_sigils[sid]["name"]] = ref_sigils[sid]["description"]
     else:
-        print("Sigil found missing it's id!")
+        print("Sigil found missing its id!")
 
 
 # Card overrides, needed because sometimes names don't match up
@@ -83,6 +101,10 @@ pixport_overrides = {
     "masterorlu": "masterOB",
     "masterbleene": "masterBG",
     "mastergoranj": "masterGO",
+
+    # Robot
+    "leapbot": "leapingbot"
+
 }
 
 
@@ -162,11 +184,11 @@ for cPath in cardPaths:
 
                         for mox in mList:
                             if mox == "00000000":
-                                cMoxCost.append("green")
+                                cMoxCost.append("Green")
                             if mox == "01000000":
-                                cMoxCost.append("orange")
+                                cMoxCost.append("Orange")
                             if mox == "02000000":
-                                cMoxCost.append("blue")
+                                cMoxCost.append("Blue")
                     
                     # Sigils
                     if line.startswith("  abilities: "):
@@ -177,7 +199,7 @@ for cPath in cardPaths:
                             if str(sCode) in ref_sigils:
                                 cSigs.append(ref_sigils[str(sCode)]["name"])
                             else:
-                                print("Unknown sigil", sCode, "referenced by card", cName)
+                                # print("Unknown sigil", sCode, "referenced by card", cName)
                                 continue
 
                 

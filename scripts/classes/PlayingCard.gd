@@ -77,9 +77,9 @@ func draw_cost():
 		# Decide which mox to show
 		var true_mox = 0
 		
-		var gmox = "green" in card_data["mox_cost"]
-		var omox = "orange" in card_data["mox_cost"]
-		var bmox = "blue" in card_data["mox_cost"]
+		var gmox = "Green" in card_data["mox_cost"]
+		var omox = "Orange" in card_data["mox_cost"]
+		var bmox = "Blue" in card_data["mox_cost"]
 		
 		true_mox = moxIdx(gmox, omox, bmox)
 		
@@ -157,10 +157,15 @@ func _on_Button_pressed():
 				print("You need more energy!")
 				return
 			
-			# Only raise if all costs are met
 			if slotManager.get_available_blood() < card_data["blood_cost"]:
 				print("You need more sacrifices!")
 				return
+			
+			if card_data["mox_cost"] and not slotManager.has_friendly_sigil("Great Mox"):
+				for mox in card_data["mox_cost"]:
+					if not slotManager.has_friendly_sigil(mox + " Mox"):
+						print(mox + " Mox missing")
+						return
 			
 			# Enter sacrifice mode if card needs sacs
 			if card_data["blood_cost"] > 0:
@@ -226,20 +231,6 @@ func move_to_parent(new_parent):
 	$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.1, Tween.TRANS_LINEAR)
 	$Tween.start()
 
-
-# Attack pass, the card has just been called on to attack
-func attack_pass():
-	if card_data["attack"] == 0:
-		attack_callback()
-		return
-	
-	
-	slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "AttackRemote")
-	$AnimationPlayer.play("Attack")
-
-# Attack callback, get the next card to attack
-func attack_callback():
-	get_parent().get_parent().get_parent().attack_callback()
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
 func attack_hit():

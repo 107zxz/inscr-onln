@@ -9,9 +9,8 @@ onready var handManager = fightManager.get_node("HandsContainer/Hands")
 # Cards selected for sacrifice
 var sacVictims = []
 
-# Combat handling
-var current_attacker = -1
 
+# Board interactions
 func clear_slots():
 	for slot in playerSlots:
 		if slot.get_child_count() > 0:
@@ -20,6 +19,8 @@ func clear_slots():
 		if slot.get_child_count() > 0:
 			slot.get_child(0).queue_free()
 
+
+# Sacrifice
 func get_available_blood() -> int:
 	var blood = 0
 	
@@ -36,7 +37,6 @@ func clear_sacrifices():
 	
 	sacVictims.clear()
 
-# Test if a sacrifice can be made
 func is_sacrifice_possible(card_to_summon):
 	if get_available_blood() < card_to_summon.card_data["blood_cost"]:
 		return false
@@ -54,59 +54,22 @@ func attempt_sacrifice():
 		# Force player to summon the new card
 		fightManager.state = fightManager.GameStates.FORCEPLAY
 
+# Combat
 func initiate_combat():
-	# Don't allow ending turn in forceplay state
-	if fightManager.state in [fightManager.GameStates.FORCEPLAY]:
-		return
-	
-	current_attacker = 0
-	
-	while current_attacker < 4:
-		if playerSlots[current_attacker].get_child_count() > 0:
-			playerSlots[current_attacker].get_child(0).attack_pass()
-			break
-		current_attacker += 1
+	for slot in playerSlots:
+		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0:
+			var cardAnim = slot.get_child(0).get_node("AnimationPlayer")
+			cardAnim.play("Attack")
+			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "AttackRemote")
+			yield(cardAnim, "animation_finished")
 		
-	print("COMBAT OVER, ca = ", current_attacker)
-	
-	if current_attacker == 4:
-		print("TURN END ALPHA")
-		fightManager.end_turn()
+	fightManager.end_turn()
 
-
-# This is called at the end of a card's attack animation
-func attack_callback():
-	var foundCard = false
-	
-	# Increment current attacker
-	current_attacker += 1
-	
-	# If final attacker has already attacked, end turn
-	if current_attacker == 4:
-		# fightManager.end_turn()
-		pass
-	else:
-		while current_attacker < 4:
-			if playerSlots[current_attacker].get_child_count() > 0:
-				playerSlots[current_attacker].get_child(0).attack_pass()
-				foundCard = true
-				break
-			current_attacker += 1
-		
-		print("COMBAT OVER BETA, found attacker = ", foundCard)
-		
-		if not foundCard:
-			print("TURN END BETA")
-			fightManager.end_turn()
-		
 
 # Do the attack damage
 func handle_attack(slot_index):
-	print("Attack in progress from slot ", slot_index)
-	
 	# Is there an opposing card to attack?
 	if enemySlots[slot_index].get_child_count() > 0:
-		print("Attack hits enemy card!")
 		var eCard = enemySlots[slot_index].get_child(0)
 		eCard.health -= playerSlots[slot_index].get_child(0).attack
 		eCard.draw_stats()
@@ -115,13 +78,19 @@ func handle_attack(slot_index):
 			fightManager.add_opponent_bones(1)
 		
 	else:
-		if not fightManager.damage_stun:
-			var dmg = playerSlots[slot_index].get_child(0).attack
-			print("Direct attack for ", dmg, " damage!")
-			fightManager.inflict_damage(dmg)
+		var dmg = playerSlots[slot_index].get_child(0).attack
+		fightManager.inflict_damage(dmg)
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", slot_index)
+
+# Sigil handling
+func has_friendly_sigil(sigil):
+	for slot in playerSlots:
+		if slot.get_child_count() > 0:
+			if sigil in slot.get_child(0).card_data["sigils"]:
+				return true
 	
+	return false
 
 # Remote
 remote func set_sac_olay_vis(slot, vis):
@@ -135,21 +104,17 @@ remote func remote_card_anim(slot, anim_name):
 		fightManager.add_opponent_bones(1)
 	
 remote func handle_enemy_attack(slot_index):
-	print("Attack in progress from enemy slot ", slot_index)
 	
 	# Is there an opposing card to attack?
 	if playerSlots[slot_index].get_child_count() > 0:
-		print("Attack hits friendly card!")
 		var pCard = playerSlots[slot_index].get_child(0)
 		pCard.health -= enemySlots[slot_index].get_child(0).attack
 		pCard.draw_stats()
 		if pCard.health <= 0:
 			pCard.get_node("AnimationPlayer").play("Perish")
 			fightManager.add_bones(1)
-	
 		
 	else:
 		var dmg = enemySlots[slot_index].get_child(0).attack
-		print("Enemy attacks directly for ", dmg, " damage!")
 		fightManager.inflict_damage(-dmg)
 		

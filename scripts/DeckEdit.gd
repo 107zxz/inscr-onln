@@ -34,7 +34,6 @@ func _ready():
 	populate_deck_list()
 	get_node("/root/Main/Lobby/").populate_deck_list()
 	
-	print("DBG: Final load deck call")
 	load_deck()
 
 func init_search_ui():
@@ -124,22 +123,19 @@ func save_deck_as(_arg = null):
 	load_deck()
 
 func ensure_default_deck():
-	print("DBG: Ensuring default deck is present")
 	var fTest = Directory.new()
 	var defDeck = File.new()
 	
 	fTest.open(".")
 	
 	if not fTest.dir_exists(cardInfo.deck_path):
-		print("DBG: Creating decks directory")
-		print("Error code: ", fTest.make_dir(cardInfo.deck_path))
+		print("Creating deck directory! Error code: ", fTest.make_dir(cardInfo.deck_path))
 	
 	if not defDeck.file_exists(cardInfo.deck_path + "default.deck"):
 		defDeck.open(cardInfo.deck_path + "default.deck", File.WRITE)
 		defDeck.store_line("[]")
 
 func load_deck(_arg = null):
-	print("DBG: Load deck called!")
 	var dFile = File.new()
 	dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.READ)
 	
@@ -175,6 +171,5 @@ func populate_deck_list():
 	var fName = dTest.get_next()
 	while fName != "":
 		if not dTest.current_is_dir() and fName.ends_with(".deck"):
-			print("Deck Editor: Found deck ", fName)
 			selector_de.add_item(fName.split(".deck")[0])
 		fName = dTest.get_next()
