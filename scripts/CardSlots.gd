@@ -64,6 +64,8 @@ func attempt_sacrifice():
 func initiate_combat():
 	for slot in playerSlots:
 		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0:
+			
+			# Regular attack
 			var cardAnim = slot.get_child(0).get_node("AnimationPlayer")
 			cardAnim.play("Attack")
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "AttackRemote")
@@ -91,7 +93,7 @@ func handle_attack(slot_index):
 	else:
 		eCard.health -= pCard.attack
 		eCard.draw_stats()
-		if eCard.health <= 0:
+		if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
 			eCard.get_node("AnimationPlayer").play("Perish")
 			fightManager.add_opponent_bones(1)
 	
@@ -122,9 +124,10 @@ remote func handle_enemy_attack(slot_index):
 	# Is there an opposing card to attack?
 	if playerSlots[slot_index].get_child_count() > 0:
 		var pCard = playerSlots[slot_index].get_child(0)
-		pCard.health -= enemySlots[slot_index].get_child(0).attack
+		var eCard = enemySlots[slot_index].get_child(0)
+		pCard.health -= eCard.attack
 		pCard.draw_stats()
-		if pCard.health <= 0:
+		if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
 			pCard.get_node("AnimationPlayer").play("Perish")
 			fightManager.add_bones(1)
 			
