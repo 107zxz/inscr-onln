@@ -247,99 +247,99 @@ __meta__ = {
 }
 
 [node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 195.0
+margin_top = 204.0
 margin_right = 156.0
-margin_bottom = 209.0
+margin_bottom = 218.0
 text = "Advantage: 0"
 
 [node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 209.0
+margin_top = 218.0
 margin_right = 156.0
-margin_bottom = 223.0
+margin_bottom = 232.0
 text = "Lives: 2"
 
 [node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 223.0
+margin_top = 232.0
 margin_right = 156.0
-margin_bottom = 237.0
+margin_bottom = 246.0
 text = "Opponent Lives: 2"
 
 [node name="Spacer" type="Control" parent="LeftSideUI"]
-margin_top = 237.0
+margin_top = 246.0
 margin_right = 156.0
-margin_bottom = 253.0
+margin_bottom = 262.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="BonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 253.0
+margin_top = 262.0
 margin_right = 156.0
-margin_bottom = 267.0
+margin_bottom = 276.0
 text = "Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentBonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 267.0
+margin_top = 276.0
 margin_right = 156.0
-margin_bottom = 281.0
+margin_bottom = 290.0
 text = "Opponent Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer2" type="Control" parent="LeftSideUI"]
-margin_top = 281.0
+margin_top = 290.0
 margin_right = 156.0
-margin_bottom = 297.0
+margin_bottom = 306.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="EnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 297.0
+margin_top = 306.0
 margin_right = 156.0
-margin_bottom = 311.0
+margin_bottom = 320.0
 text = "Energy: 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MaxEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 311.0
+margin_top = 320.0
 margin_right = 156.0
-margin_bottom = 325.0
+margin_bottom = 334.0
 text = "Max Energy: 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 325.0
+margin_top = 334.0
 margin_right = 156.0
-margin_bottom = 339.0
+margin_bottom = 348.0
 text = "Opponent Energy: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentMaxEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 339.0
+margin_top = 348.0
 margin_right = 156.0
-margin_bottom = 353.0
+margin_bottom = 362.0
 text = "Opponent Max Energy: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer3" type="Control" parent="LeftSideUI"]
-margin_top = 353.0
+margin_top = 362.0
 margin_right = 156.0
-margin_bottom = 369.0
+margin_bottom = 378.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="PassButton" type="Button" parent="LeftSideUI"]
-margin_top = 369.0
+margin_top = 378.0
 margin_right = 156.0
-margin_bottom = 387.0
+margin_bottom = 396.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ring Bell"
@@ -347,10 +347,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ForfeitButton" type="Button" parent="LeftSideUI"]
-margin_top = 387.0
-margin_right = 156.0
-margin_bottom = 405.0
+[node name="RightSideUI" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -66.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ForfeitButton" type="Button" parent="RightSideUI"]
+margin_top = 291.0
+margin_right = 66.0
+margin_bottom = 309.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Surrender"
@@ -448,6 +458,6 @@ text = "Quit"
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
 [connection signal="pressed" from="LeftSideUI/PassButton" to="." method="commence_combat"]
-[connection signal="pressed" from="LeftSideUI/ForfeitButton" to="." method="surrender"]
+[connection signal="pressed" from="RightSideUI/ForfeitButton" to="." method="surrender"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/QuitBtn" to="." method="quit_match"]
