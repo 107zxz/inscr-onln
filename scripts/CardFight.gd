@@ -121,7 +121,7 @@ func draw_card(idx, source = $DrawPiles/YourDecks/Deck):
 	
 	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
 
-func playCard(slot):
+func play_card(slot):
 	
 	# Is a card ready to be played?
 	if handManager.raisedCard:
@@ -135,6 +135,11 @@ func playCard(slot):
 			
 			# Energy cost
 			set_energy(energy -handManager.raisedCard.card_data["energy_cost"])
+			
+			# ON PLAY - SIGILS
+			for sigil in handManager.raisedCard.card_data["sigils"]:
+				if sigil == "Fecundity":
+					draw_card(allCards.all_cards.find(handManager.raisedCard.card_data))
 			
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -286,4 +291,4 @@ remote func start_turn():
 # Connect in-game signals
 func _ready():
 	for slot in playerSlots.get_children():
-		slot.connect("pressed", self, "playCard", [slot])
+		slot.connect("pressed", self, "play_card", [slot])

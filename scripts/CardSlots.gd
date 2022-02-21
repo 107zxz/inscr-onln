@@ -5,6 +5,7 @@ onready var playerSlots = $PlayerSlots.get_children()
 onready var enemySlots = $EnemySlots.get_children()
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var handManager = fightManager.get_node("HandsContainer/Hands")
+onready var allCards = get_node("/root/Main/AllCards")
 
 # Cards selected for sacrifice
 var sacVictims = []
@@ -49,6 +50,11 @@ func attempt_sacrifice():
 			rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Sacrifice")
 			fightManager.add_bones(1)
 			
+			# SIGILS
+			## Unkillable
+			if "Unkillable" in victim.card_data["sigils"]:
+				fightManager.draw_card(allCards.all_cards.find(victim.card_data))
+			
 		sacVictims.clear()
 		
 		# Force player to summon the new card
@@ -68,18 +74,26 @@ func initiate_combat():
 
 # Do the attack damage
 func handle_attack(slot_index):
-	# Is there an opposing card to attack?
-	if enemySlots[slot_index].get_child_count() > 0:
-		var eCard = enemySlots[slot_index].get_child(0)
-		eCard.health -= playerSlots[slot_index].get_child(0).attack
+	var direct_attack = false
+	
+	var pCard = playerSlots[slot_index].get_child(0)
+	var eCard = null
+	
+	if enemySlots[slot_index].get_child_count() == 0:
+		direct_attack = true
+	else:
+		eCard = enemySlots[slot_index].get_child(0)
+		if "Airborne" in pCard.card_data["sigils"] and not "Mighty Leap" in eCard.card_data["sigils"]:
+			direct_attack = true
+	
+	if direct_attack:
+		fightManager.inflict_damage(pCard.attack)
+	else:
+		eCard.health -= pCard.attack
 		eCard.draw_stats()
 		if eCard.health <= 0:
 			eCard.get_node("AnimationPlayer").play("Perish")
 			fightManager.add_opponent_bones(1)
-		
-	else:
-		var dmg = playerSlots[slot_index].get_child(0).attack
-		fightManager.inflict_damage(dmg)
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", slot_index)
 
@@ -113,6 +127,11 @@ remote func handle_enemy_attack(slot_index):
 		if pCard.health <= 0:
 			pCard.get_node("AnimationPlayer").play("Perish")
 			fightManager.add_bones(1)
+			
+			## SIGILS
+			# Unkillable
+			if "Unkillable" in pCard.card_data["sigils"]:
+				fightManager.draw_card(allCards.all_cards.find(pCard.card_data))
 		
 	else:
 		var dmg = enemySlots[slot_index].get_child(0).attack
