@@ -136,10 +136,12 @@ func play_card(slot):
 			# Energy cost
 			set_energy(energy -handManager.raisedCard.card_data["energy_cost"])
 			
-			# ON PLAY - SIGILS
+			# SIGILS
 			for sigil in handManager.raisedCard.card_data["sigils"]:
 				if sigil == "Fecundity":
 					draw_card(allCards.all_cards.find(handManager.raisedCard.card_data))
+				if sigil == "Rabbit Hole":
+					draw_card(20)
 			
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
