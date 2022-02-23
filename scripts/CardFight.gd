@@ -142,6 +142,10 @@ func play_card(slot):
 					draw_card(allCards.all_cards.find(handManager.raisedCard.card_data))
 				if sigil == "Rabbit Hole":
 					draw_card(20)
+				if sigil == "Battery Bearer":
+					if max_energy < 6:
+						set_max_energy(max_energy + 1)
+					set_energy(min(max_energy, energy + 1))
 			
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -160,7 +164,12 @@ remote func _opponent_played_card(card, slot):
 	# Costs
 	add_opponent_bones(-allCards.all_cards[card]["bone_cost"])
 	set_opponent_energy(opponent_energy -allCards.all_cards[card]["energy_cost"])
-			
+	
+	# Energy Cell Sigil
+	if "Battery Bearer" in allCards.all_cards[card]["sigils"]:
+		if opponent_max_energy < 6:
+			set_opponent_max_energy(opponent_max_energy + 1)
+		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
 
 # Called during attack animation
 func inflict_damage(dmg):
