@@ -347,11 +347,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="WaitingBlocker" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Label" type="Label" parent="WaitingBlocker"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Waiting For Opponent..."
+
 [node name="RightSideUI" type="VBoxContainer" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -66.0
+mouse_filter = 2
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -367,17 +379,6 @@ text = "Surrender"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="WaitingBlocker" type="Panel" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 2 )
-
-[node name="Label" type="Label" parent="WaitingBlocker"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Waiting For Opponent..."
 
 [node name="WinScreen" type="Panel" parent="."]
 visible = false
