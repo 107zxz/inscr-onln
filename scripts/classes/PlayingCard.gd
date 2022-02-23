@@ -16,6 +16,9 @@ var in_hand = true
 var health = -1
 var attack = -1
 
+# Sigil-specific information (must be stored per-card)
+var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
+
 func from_data(cdat):
 	card_data = cdat
 	
@@ -167,6 +170,10 @@ func _on_Button_pressed():
 						print(mox + " Mox missing")
 						return
 			
+			# Check if we're cat bricked
+			if slotManager.is_cat_bricked():
+				return
+			
 			# Enter sacrifice mode if card needs sacs
 			if card_data["blood_cost"] > 0:
 				fightManager.state = fightManager.GameStates.SACRIFICE
@@ -184,6 +191,20 @@ func _on_Button_pressed():
 				slotManager.sacVictims.erase(self)
 				$CardBody/SacOlay.visible = false
 			else:
+				# Make sure we're not about to catbrick
+				var brick = true
+				
+				if slotManager.get_available_slots() == 0 and "Many Lives" in card_data["sigils"]:
+					for vic in slotManager.sacVictims:
+						if not "Many Lives" in vic.card_data["sigils"]:
+							brick = false
+							break
+				else:
+					brick = false
+				
+				if brick:
+					return
+				
 				slotManager.sacVictims.append(self)
 				$CardBody/SacOlay.visible = true
 				
@@ -234,4 +255,4 @@ func move_to_parent(new_parent):
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
 func attack_hit():
-	get_parent().get_parent().get_parent().handle_attack(get_parent().get_position_in_parent())
+	get_parent().get_parent().get_parent().handle_attack(get_parent().get_position_in_parent(), get_parent().get_position_in_parent() + strike_offset)
