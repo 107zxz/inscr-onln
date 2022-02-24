@@ -74,7 +74,7 @@ func init_match(opp_id: int):
 	# Draw starting hands
 	for _i in range(4):
 		draw_card(deck[randi() % deck.size()])
-	draw_card(28)
+	draw_card(29)
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
@@ -105,7 +105,7 @@ func draw_maindeck():
 
 func draw_sidedeck():
 	if state == GameStates.DRAWPILE:
-		draw_card(28, $DrawPiles/YourDecks/SideDeck)
+		draw_card(29, $DrawPiles/YourDecks/SideDeck)
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
 

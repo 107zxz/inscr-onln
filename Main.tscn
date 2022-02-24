@@ -63,7 +63,7 @@ size_flags_horizontal = 3
 
 [node name="console" type="Panel" parent="Lobby/HBoxContainer/VBoxContainer"]
 margin_right = 512.0
-margin_bottom = 560.0
+margin_bottom = 562.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -83,7 +83,7 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="Lobby/HBoxContainer/VBoxContainer"]
-margin_top = 560.0
+margin_top = 562.0
 margin_right = 512.0
 margin_bottom = 600.0
 
@@ -91,84 +91,84 @@ margin_bottom = 600.0
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 510.0
-margin_bottom = 38.0
+margin_bottom = 36.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 margin_right = 508.0
-margin_bottom = 18.0
+margin_bottom = 17.0
 
 [node name="Label" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 margin_top = 2.0
-margin_right = 74.0
-margin_bottom = 16.0
+margin_right = 64.0
+margin_bottom = 15.0
 text = "Username: "
 
 [node name="uname" type="LineEdit" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 74.0
+margin_left = 64.0
 margin_right = 368.0
-margin_bottom = 18.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 368.0
 margin_top = 2.0
-margin_right = 396.0
-margin_bottom = 16.0
+margin_right = 397.0
+margin_bottom = 15.0
 text = "Pfp: "
 
 [node name="ppSelect" type="OptionButton" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 396.0
-margin_right = 446.0
-margin_bottom = 18.0
+margin_left = 397.0
+margin_right = 449.0
+margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Stoat"
 
 [node name="Label3" type="Label" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 446.0
+margin_left = 449.0
 margin_top = 2.0
 margin_right = 490.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 text = " Deck: "
 
 [node name="dSelect" type="OptionButton" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 490.0
 margin_right = 508.0
-margin_bottom = 18.0
+margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 17.0
 margin_right = 508.0
-margin_bottom = 36.0
+margin_bottom = 34.0
 
 [node name="hostBtn" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 76.0
-margin_bottom = 18.0
+margin_right = 67.0
+margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host Game"
 
 [node name="joinBtn" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 76.0
-margin_right = 145.0
-margin_bottom = 18.0
+margin_left = 67.0
+margin_right = 132.0
+margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join Game"
 
 [node name="targetIP" type="LineEdit" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 145.0
-margin_right = 444.0
-margin_bottom = 18.0
+margin_left = 132.0
+margin_right = 448.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 placeholder_text = "IP ADDRESS"
 
 [node name="deButton" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 444.0
+margin_left = 448.0
 margin_right = 508.0
-margin_bottom = 18.0
+margin_bottom = 17.0
 text = "Edit Deck"
 
 [node name="ChatRoom" type="Control" parent="."]

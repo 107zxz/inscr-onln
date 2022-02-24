@@ -64,7 +64,7 @@ func attempt_sacrifice():
 				victim.get_node("AnimationPlayer").play("CatSac")
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "CatSac")
 			else:
-				victim.get_node("AnimationPlayer").play("Sacrifice")
+				victim.get_node("AnimationPlayer").play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Sacrifice")
 				fightManager.add_bones(1)
 			
@@ -166,7 +166,7 @@ remote func remote_card_anim(slot, anim_name):
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
 	
-	if anim_name in ["Perish", "Sacrifice"]:
+	if anim_name == "Perish":
 		fightManager.add_opponent_bones(1)
 
 
