@@ -184,6 +184,20 @@ func _on_Button_pressed():
 	
 	# When on board
 	else:
+		# Don't allow spam saccing
+		if $AnimationPlayer.is_playing():
+			return
+		
+		# Is it hammer time?
+		if fightManager.state == fightManager.GameStates.HAMMER:
+			$AnimationPlayer.play("Perish")
+			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
+			
+			# This card is still dying, so this is eq to an empty board
+			if slotManager.get_available_slots() == 3:
+				fightManager.hammer_mode()
+				# Jank workaround
+				fightManager.get_node("LeftSideUI/HammerButton").pressed = false
 		
 		# Am I about to be sacrificed
 		if fightManager.state == fightManager.GameStates.SACRIFICE:

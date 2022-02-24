@@ -65,7 +65,7 @@ func attempt_sacrifice():
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "CatSac")
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
-				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Sacrifice")
+				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Perish")
 				fightManager.add_bones(1)
 			
 				# SIGILS
