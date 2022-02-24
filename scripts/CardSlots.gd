@@ -100,6 +100,10 @@ func initiate_combat():
 					if atk_slot < 0 or atk_slot > 3:
 						continue
 					
+					# Don't attack repulsive cards!
+					if enemySlots[slot_index + s_offset].get_child_count() > 0 and "Repulsive" in enemySlots[slot_index + s_offset].get_child(0).card_data["sigils"]:
+						continue
+					
 					# Visually represent the card's attack offset (hacky)
 					pCard.rect_position.x = s_offset * 50
 					rpc_id(fightManager.opponent, "set_card_offset", slot_index, s_offset * 50)
@@ -116,6 +120,12 @@ func initiate_combat():
 				rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
 			else:
 				# Regular attack
+				
+				# Don't attack repulsive cards!
+				if enemySlots[slot_index].get_child_count() > 0 and "Repulsive" in enemySlots[slot_index].get_child(0).card_data["sigils"]:
+					if not "Airborne" in pCard.card_data["sigils"] or "Mighty Leap" in enemySlots[slot_index].get_child(0).card_data["sigils"]:
+						continue
+				
 				cardAnim.play("Attack")
 				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "AttackRemote")
 				yield(cardAnim, "animation_finished")
