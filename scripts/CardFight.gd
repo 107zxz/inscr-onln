@@ -2,7 +2,7 @@ extends Control
 
 # Carryovers from lobby
 var opponent = -100
-var deck = []
+var initial_deck = []
 
 # Game components
 onready var handManager = $HandsContainer/Hands
@@ -38,6 +38,10 @@ var max_energy = 0
 var opponent_energy = 0
 var opponent_max_energy = 0
 
+# Decks
+var deck = []
+var side_deck_size = 10
+
 # Network match state
 var want_rematch = false
 
@@ -48,6 +52,14 @@ func init_match(opp_id: int):
 	$WinScreen.visible = false
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
+	
+	# Reset deck
+	deck = initial_deck
+	deck.shuffle()
+	$DrawPiles/YourDecks/Deck.visible = true
+	$DrawPiles/YourDecks/SideDeck.visible = true
+	
+	side_deck_size = 1
 	
 	# Reset game state
 	advantage = 0
@@ -73,7 +85,13 @@ func init_match(opp_id: int):
 		
 	# Draw starting hands
 	for _i in range(4):
-		draw_card(deck[randi() % deck.size()])
+		draw_card(deck.pop_front())
+		
+		# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+		if deck.size() == 0:
+			$DrawPiles/YourDecks/Deck.visible = false
+			break
+		
 	draw_card(29)
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
@@ -98,16 +116,37 @@ func commence_combat():
 func draw_maindeck():
 	if state == GameStates.DRAWPILE:
 		
-		draw_card(deck[randi() % deck.size()])
+		draw_card(deck.pop_front())
 		
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
+		
+		if deck.size() == 0:
+			$DrawPiles/YourDecks/Deck.visible = false
+			# Communicate this with opponent
+	
+	starve_check()
+	
 
 func draw_sidedeck():
 	if state == GameStates.DRAWPILE:
 		draw_card(29, $DrawPiles/YourDecks/SideDeck)
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
+		
+		side_deck_size -= 1
+		
+		if side_deck_size == 0:
+			$DrawPiles/YourDecks/SideDeck.visible = false
+		
+		starve_check()
+
+func starve_check():
+	if deck.size() == 0 and side_deck_size == 0:
+		# Give opponent a starvation
+		rpc_id(opponent, "force_draw_card", 0)
+		return true
+	return false
 
 func draw_card(idx, source = $DrawPiles/YourDecks/Deck):
 	var nCard = cardPrefab.instance()
@@ -189,6 +228,9 @@ remote func _opponent_played_card(card, slot):
 		if opponent_max_energy < 6:
 			set_opponent_max_energy(opponent_max_energy + 1)
 		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
+
+remote func force_draw_card(cidx):
+	draw_card(cidx)
 
 # Called during attack animation
 func inflict_damage(dmg):
@@ -306,9 +348,12 @@ remote func start_turn():
 	damage_stun = false
 	$WaitingBlocker.visible = false
 	
-	# Setup card drawing
-	state = GameStates.DRAWPILE
-	$DrawPiles/Notify.visible = true
+	# Draw yer cards, if you have any
+	if starve_check():
+		state = GameStates.NORMAL
+	else:
+		state = GameStates.DRAWPILE
+		$DrawPiles/Notify.visible = true
 	
 	# Increment energy
 	if max_energy < 6:
