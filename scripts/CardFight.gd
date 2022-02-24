@@ -151,6 +151,25 @@ func play_card(slot):
 			handManager.raisedCard = null
 			state = GameStates.NORMAL
 
+# Hammer Time
+func hammer_mode():
+	# Use inverted values for button value, as this happens before its state is toggled
+	# Janky hack m8
+	
+	if slotManager.get_available_slots() == 4:
+		$LeftSideUI/HammerButton.pressed = true
+		return
+	
+	if state == GameStates.NORMAL:
+		state = GameStates.HAMMER
+	elif state == GameStates.HAMMER:
+		state = GameStates.NORMAL
+	
+	if state == GameStates.HAMMER:
+		$LeftSideUI/HammerButton.pressed = false
+	else:
+		$LeftSideUI/HammerButton.pressed = true
+
 ## REMOTE
 remote func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()

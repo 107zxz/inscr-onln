@@ -53,16 +53,16 @@ custom_constants/separation = 2
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 53.0
-margin_bottom = 14.0
+margin_bottom = 13.0
 size_flags_vertical = 1
 align = 1
 valign = 1
 clip_text = true
 
 [node name="Portrait" type="TextureRect" parent="VBoxContainer"]
-margin_top = 16.0
+margin_top = 15.0
 margin_right = 53.0
-margin_bottom = 51.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 50, 35 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -156,7 +156,7 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 53.0
+margin_top = 52.0
 margin_right = 53.0
 margin_bottom = 78.0
 mouse_filter = 2
@@ -165,7 +165,7 @@ alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 margin_right = 17.0
-margin_bottom = 25.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 10, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -189,7 +189,7 @@ stretch_mode = 6
 [node name="Spacer3" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 margin_left = 17.0
 margin_right = 35.0
-margin_bottom = 25.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 3, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -213,7 +213,7 @@ stretch_mode = 6
 [node name="Spacer2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 margin_left = 35.0
 margin_right = 53.0
-margin_bottom = 25.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 10, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3

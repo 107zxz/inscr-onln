@@ -247,99 +247,116 @@ __meta__ = {
 }
 
 [node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 204.0
-margin_right = 156.0
-margin_bottom = 218.0
+margin_top = 172.0
+margin_right = 140.0
+margin_bottom = 185.0
 text = "Advantage: 0"
 
 [node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 218.0
-margin_right = 156.0
-margin_bottom = 232.0
+margin_top = 185.0
+margin_right = 140.0
+margin_bottom = 198.0
 text = "Lives: 2"
 
 [node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 232.0
-margin_right = 156.0
-margin_bottom = 246.0
+margin_top = 198.0
+margin_right = 140.0
+margin_bottom = 211.0
 text = "Opponent Lives: 2"
 
 [node name="Spacer" type="Control" parent="LeftSideUI"]
-margin_top = 246.0
-margin_right = 156.0
-margin_bottom = 262.0
+margin_top = 211.0
+margin_right = 140.0
+margin_bottom = 227.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="BonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 262.0
-margin_right = 156.0
-margin_bottom = 276.0
+margin_top = 227.0
+margin_right = 140.0
+margin_bottom = 240.0
 text = "Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentBonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 276.0
-margin_right = 156.0
-margin_bottom = 290.0
+margin_top = 240.0
+margin_right = 140.0
+margin_bottom = 253.0
 text = "Opponent Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer2" type="Control" parent="LeftSideUI"]
-margin_top = 290.0
-margin_right = 156.0
-margin_bottom = 306.0
+margin_top = 253.0
+margin_right = 140.0
+margin_bottom = 269.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="EnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 306.0
-margin_right = 156.0
-margin_bottom = 320.0
+margin_top = 269.0
+margin_right = 140.0
+margin_bottom = 282.0
 text = "Energy: 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MaxEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 320.0
-margin_right = 156.0
-margin_bottom = 334.0
+margin_top = 282.0
+margin_right = 140.0
+margin_bottom = 295.0
 text = "Max Energy: 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 334.0
-margin_right = 156.0
-margin_bottom = 348.0
+margin_top = 295.0
+margin_right = 140.0
+margin_bottom = 308.0
 text = "Opponent Energy: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentMaxEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 348.0
-margin_right = 156.0
-margin_bottom = 362.0
+margin_top = 308.0
+margin_right = 140.0
+margin_bottom = 321.0
 text = "Opponent Max Energy: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer3" type="Control" parent="LeftSideUI"]
-margin_top = 362.0
-margin_right = 156.0
-margin_bottom = 378.0
+margin_top = 321.0
+margin_right = 140.0
+margin_bottom = 337.0
 rect_min_size = Vector2( 0, 16 )
 
+[node name="HammerButton" type="Button" parent="LeftSideUI"]
+margin_top = 337.0
+margin_right = 140.0
+margin_bottom = 371.0
+rect_min_size = Vector2( 0, 34 )
+focus_mode = 0
+toggle_mode = true
+enabled_focus_mode = 0
+text = "Hammer"
+
+[node name="Spacer4" type="Control" parent="LeftSideUI"]
+margin_top = 371.0
+margin_right = 140.0
+margin_bottom = 393.347
+rect_min_size = Vector2( 0, 22.347 )
+
 [node name="PassButton" type="Button" parent="LeftSideUI"]
-margin_top = 378.0
-margin_right = 156.0
-margin_bottom = 396.0
+margin_top = 393.0
+margin_right = 140.0
+margin_bottom = 427.0
+rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ring Bell"
@@ -370,9 +387,10 @@ __meta__ = {
 }
 
 [node name="ForfeitButton" type="Button" parent="RightSideUI"]
-margin_top = 291.0
+margin_top = 283.0
 margin_right = 66.0
-margin_bottom = 309.0
+margin_bottom = 317.0
+rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Surrender"
@@ -458,6 +476,7 @@ text = "Quit"
 
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
+[connection signal="button_down" from="LeftSideUI/HammerButton" to="." method="hammer_mode"]
 [connection signal="pressed" from="LeftSideUI/PassButton" to="." method="commence_combat"]
 [connection signal="pressed" from="RightSideUI/ForfeitButton" to="." method="surrender"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]
