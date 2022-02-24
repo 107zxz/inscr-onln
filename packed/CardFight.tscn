@@ -239,7 +239,8 @@ size_flags_vertical = 10
 
 [node name="LeftSideUI" type="VBoxContainer" parent="."]
 anchor_bottom = 1.0
-margin_right = 65.0
+margin_left = 5.0
+margin_right = 145.0
 mouse_filter = 2
 alignment = 1
 __meta__ = {
@@ -379,7 +380,8 @@ text = "Waiting For Opponent..."
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -66.0
+margin_left = -71.0
+margin_right = -5.0
 mouse_filter = 2
 alignment = 1
 __meta__ = {
