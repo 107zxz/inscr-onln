@@ -3,6 +3,7 @@ import json
 from re import S
 import shutil
 import textwrap
+from weakref import ref
 
 basePath = "/media/107zxz/Extra Files/Games/InscrExt/globalgamemanagers/Assets/Resources/data/"
 sigilPaths = ["abilities/part1/", "abilities/gbc/", "abilities/part3/"]
@@ -59,6 +60,12 @@ for sPath in sigilPaths:
                         sCode = line.split(": ")[1].strip()
                     if line.startswith("  rulebookName: "):
                         sName = line.split(": ")[1].strip()
+
+                        # Mistake in inscryption files
+                        if sCode == "68":
+                            print('DD')
+                            sName = "Double Death"
+                    
                     if line.startswith("  rulebookDescription: "):
                         sDesc = line.split(": ")[1].strip("' \n").replace("[creature]", "a card bearing this sigil").replace("''", "'").capitalize()
                 
@@ -101,14 +108,60 @@ pixport_overrides = {
     "masterorlu": "masterOB",
     "masterbleene": "masterBG",
     "mastergoranj": "masterGO",
+    "moxdualbg": "moxBG",
+    "moxdualgo": "moxGO",
+    "moxdualob": "moxOB",
 
     # Robot
-    "leapbot": "leapingbot"
+    "leapbot": "leapingbot",
+    "techmoxtriple": "gemmodule",
+    "plasmagunner": "energygunner",
+    "insectodrone": "insectobot",
+    "closerbot": "gunnerbot",
 
 }
 
 
-cards = []
+cards = [
+    # Cards that can't be auto-found / custom cards
+    {
+        "name": "Starvation",
+        "sigils": [
+            "Repulsive"
+        ],
+        "attack": 1,
+        "health": 1,
+        "blood_cost": 0,
+        "bone_cost": 0,
+        "energy_cost": 0,
+        "mox_cost": []
+    }
+]
+
+# Cards not to include in deck editor
+banned_cards = [
+    # Beast
+    "Undead Cat",
+    "Spore Mice",
+    "Squirrel",
+    "Rabbit",
+
+    # Undead
+    "Sporedigger",
+    "Bone Lord's Horn",
+    "Broken Obol",
+
+    # Energy
+
+    # Wizard
+    "Magnus Mox",
+
+    # Other / non-playable
+    "Starvation",
+    "Burrowing Trap",
+    "Inspector",
+    "Melter"
+]
 
 # Analyse cards
 for cPath in cardPaths:
@@ -195,7 +248,7 @@ for cPath in cardPaths:
                         siglist = textwrap.wrap(line.split(": ")[1], 8)
 
                         for sigilhex in siglist:
-                            sCode = int(sigilhex.strip("0"), 16)
+                            sCode = int(sigilhex[0:2], 16)
                             if str(sCode) in ref_sigils:
                                 cSigs.append(ref_sigils[str(sCode)]["name"])
                             else:
@@ -203,7 +256,11 @@ for cPath in cardPaths:
                                 continue
 
                 
-                # Is card from act 2?
+                # Is card banned?
+                # if cName in banned_cards:
+                #     print("Card", cName, "is banned!")
+                #     continue
+
                 portPath = "/media/107zxz/Extra Files/Games/InscrExt/globalgamemanagers/Assets/Resources/art/gbc/cards/pixelportraits/" + cPortraitFileName
 
                 if not os.path.exists(portPath):
@@ -226,10 +283,10 @@ for cPath in cardPaths:
                     "mox_cost": cMoxCost
                 })
 
-
 gameInfo = {
     "cards": cards,
-    "sigils": sigils
+    "sigils": sigils,
+    "banned_cards": banned_cards
 }
 
 os.chdir("/home/107zxz/Documents/Games/Godot/LobbyTest/data")

@@ -60,6 +60,10 @@ func search(_arg = null):
 	var resultCount = 0
 	
 	for card in cardInfo.all_cards:
+		# Don't show banned cards
+		if card["name"] in cardInfo.banned_cards:
+			continue
+
 		# Search conditions
 		
 		# Name
