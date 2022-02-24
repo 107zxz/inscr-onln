@@ -42,6 +42,9 @@ var opponent_max_energy = 0
 var deck = []
 var side_deck_size = 10
 
+# Starvation
+var turns_starving = 0
+
 # Network match state
 var want_rematch = false
 
@@ -59,6 +62,7 @@ func init_match(opp_id: int):
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
 	
+	side_deck_size = 10
 	side_deck_size = 1
 	
 	# Reset game state
@@ -66,6 +70,7 @@ func init_match(opp_id: int):
 	lives = 2
 	opponent_lives = 2
 	damage_stun = false
+	turns_starving = 0
 	
 	bones = 0
 	opponent_bones = 0
@@ -143,8 +148,10 @@ func draw_sidedeck():
 
 func starve_check():
 	if deck.size() == 0 and side_deck_size == 0:
+		turns_starving += 1
+		
 		# Give opponent a starvation
-		rpc_id(opponent, "force_draw_card", 0)
+		rpc_id(opponent, "force_draw_starv", turns_starving)
 		return true
 	return false
 
@@ -159,6 +166,8 @@ func draw_card(idx, source = $DrawPiles/YourDecks/Deck):
 	nCard.move_to_parent(handManager.get_node("PlayerHand"))
 	
 	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
+	
+	return nCard
 
 func play_card(slot):
 	
@@ -186,9 +195,16 @@ func play_card(slot):
 						set_max_energy(max_energy + 1)
 					set_energy(min(max_energy, energy + 1))
 			
+			# Starvation, inflict damage if 9th onwards
+			if handManager.raisedCard.card_data["name"] == "Starvation" and handManager.raisedCard.attack >= 9:
+				# Ramp damage over time so the game actually ends
+				inflict_damage(handManager.raisedCard.attack - 8)
+			
 			handManager.raisedCard.move_to_parent(slot)
 			handManager.raisedCard = null
 			state = GameStates.NORMAL
+			
+			
 
 # Hammer Time
 func hammer_mode():
@@ -216,7 +232,20 @@ remote func _opponent_drew_card(source_path):
 	nCard.move_to_parent(handManager.get_node("EnemyHand"))
 
 remote func _opponent_played_card(card, slot):
-	handManager.opponentRaisedCard.from_data(allCards.all_cards[card])
+	
+	var card_dt = allCards.all_cards[card]
+	
+	# Special case: Starvation
+	if card == 0:
+		card_dt["attack"] = turns_starving
+		if turns_starving >= 5:
+			card_dt["sigils"].append("Mighty Leap")
+		
+		# Inflict starve damage
+		if turns_starving >= 9:
+			inflict_damage(-turns_starving + 8)
+		
+	handManager.opponentRaisedCard.from_data(card_dt)
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
 	
 	# Costs
@@ -228,10 +257,18 @@ remote func _opponent_played_card(card, slot):
 		if opponent_max_energy < 6:
 			set_opponent_max_energy(opponent_max_energy + 1)
 		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
+	
 
-remote func force_draw_card(cidx):
-	draw_card(cidx)
-
+remote func force_draw_starv(strength):
+	var starv_card = draw_card(0)
+	
+	var starv_data = allCards.all_cards[0]
+	starv_data["attack"] = strength
+	if strength >= 5:
+		starv_data["sigils"].append("Mighty Leap")
+	
+	starv_card.from_data(starv_data)
+	
 # Called during attack animation
 func inflict_damage(dmg):
 	if damage_stun:
