@@ -12,12 +12,15 @@ onready var cardPreview = $HBoxContainer/CardPreview/PreviewContainer
 onready var sigil_so_1 = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton
 onready var sigil_so_2 = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton
 onready var cost_type_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect
-onready var cost_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer/CostSelect
 onready var name_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit
 
 # Deck creation units
 onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel
 onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/LineEdit
+
+# Extended options
+onready var sidedeck_de = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/HBoxContainer/SDSel
+
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -37,21 +40,15 @@ func _ready():
 	load_deck()
 
 func init_search_ui():
+	var id = 2
+	
 	# Update sigil boxes
 	for sb in [sigil_so_1, sigil_so_2]:
-		sb.add_item("Any")
-		sb.add_item("None")
+		sb.add_item("Any", 0)
+		sb.add_item("None", 1)
 		for sigil in cardInfo.all_sigils:
-			sb.add_item(sigil)
-	
-	# Populate cost types
-	for ct in ["Any", "Blood", "Bones", "Mox"]:
-		cost_type_so.add_item(ct)
-	
-	# Populate cost
-	cost_so.add_item("Any")
-	for i in range(13):
-		cost_so.add_item(str(i))
+			sb.add_item(sigil, id)
+			id += 1
 
 func search(_arg = null):
 	for card in searchResults.get_children():
@@ -76,6 +73,13 @@ func search(_arg = null):
 				continue
 		if sigil_so_2.text != "Any" and (len(card["sigils"]) == 0 or not sigil_so_2.text in card["sigils"]):
 			continue
+		# Cost type
+		if cost_type_so.selected == 1 and card["blood_cost"] == 0:
+			continue
+		if cost_type_so.selected == 2 and card["bone_cost"] == 0:
+			continue
+		if cost_type_so.selected == 3 and card["mox_cost"] == []:
+			continue
 		
 		resultCount += 1
 		
@@ -96,22 +100,26 @@ func _on_ClearButton_pressed():
 	update_deck_count()
 
 # Deck Saving and Loading
-func get_current_deck_ids():
-	var cList = []
+func get_deck_object():
+	var deck_object = {
+		"cards": [],
+		"side_deck": sidedeck_de.selected
+	}
 	
 	for card in deckDisplay.get_children():
-		cList.append(get_card_id(card.card_data))
+		deck_object["cards"].append(get_card_id(card.card_data))
 	
-	return cList
+	return deck_object
 
 func get_card_id(card_data):
 	return cardInfo.all_cards.find(card_data)
 
 # UI for deck save
 func save_deck(_arg = null):
+	
 	var sFile = File.new()
 	sFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
-	sFile.store_line(to_json(get_current_deck_ids()))
+	sFile.store_line(to_json(get_deck_object()))
 	
 func save_deck_as(_arg = null):
 	if rename_de.text == "":
@@ -119,7 +127,7 @@ func save_deck_as(_arg = null):
 	
 	var sFile = File.new()
 	sFile.open(cardInfo.deck_path + rename_de.text + ".deck", File.WRITE)
-	sFile.store_line(to_json(get_current_deck_ids()))
+	sFile.store_line(to_json(get_deck_object()))
 	sFile.close()
 	
 	selector_de.add_item(rename_de.text, selector_de.get_item_count())
@@ -137,7 +145,7 @@ func ensure_default_deck():
 	
 	if not defDeck.file_exists(cardInfo.deck_path + "default.deck"):
 		defDeck.open(cardInfo.deck_path + "default.deck", File.WRITE)
-		defDeck.store_line("[]")
+		defDeck.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 
 func load_deck(_arg = null):
 	var dFile = File.new()
@@ -151,18 +159,20 @@ func load_deck(_arg = null):
 	
 	if not parse_json(rdj):
 		dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
-		dFile.store_line("[]")
+		dFile.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 		
 		dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.READ)
 		rdj = dFile.get_as_text()
 		
 	var dj = parse_json(rdj)
 	
-	for card in dj:
+	for card in dj["cards"]:
 		var nCard = cardPrefab.instance()
 		nCard.from_data(cardInfo.all_cards[card])
 		deckDisplay.add_child(nCard)
 		dSize += 1
+	
+	sidedeck_de.select(dj["side_deck"])
 	
 	update_deck_count()
 
