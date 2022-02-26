@@ -66,7 +66,6 @@ func attempt_sacrifice():
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Perish")
-				fightManager.add_bones(1)
 			
 				# SIGILS
 				## Unkillable
@@ -162,7 +161,6 @@ func handle_attack(from_slot, to_slot):
 		eCard.draw_stats()
 		if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
 			eCard.get_node("AnimationPlayer").play("Perish")
-			fightManager.add_opponent_bones(1)
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
@@ -183,9 +181,6 @@ remote func set_sac_olay_vis(slot, vis):
 remote func remote_card_anim(slot, anim_name):
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
-	
-	if anim_name == "Perish":
-		fightManager.add_opponent_bones(1)
 
 
 remote func handle_enemy_attack(from_slot, to_slot):
@@ -208,7 +203,6 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		pCard.draw_stats()
 		if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
 			pCard.get_node("AnimationPlayer").play("Perish")
-			fightManager.add_bones(1)
 
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
