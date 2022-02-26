@@ -150,12 +150,18 @@ banned_cards = [
     "Sporedigger",
     "Bone Lord's Horn",
     "Broken Obol",
+    "Skeleton",
 
     # Energy
+    "Sentry Spore",
 
     # Wizard
     "Magnus Mox",
     "Force Mage",
+    "Blue Sporemage",
+    "Ruby Mox",
+    "Emerald Mox",
+    "Sapphire Mox",
 
     # Other / non-playable
     "Starvation",
