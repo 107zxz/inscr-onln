@@ -154,7 +154,6 @@ remote func server_accepted_challenge():
 	var dFile = File.new()
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
 	$CardFight.initial_deck = parse_json(dFile.get_as_text())
-	print("Initial deck is ", $CardFight.initial_deck)
 	
 	# Open the card battle window and initialise the match
 	$CardFight.visible = true
