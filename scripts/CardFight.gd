@@ -57,13 +57,13 @@ func init_match(opp_id: int):
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
 	# Reset deck
-	deck = initial_deck
+	deck = initial_deck.duplicate()
 	deck.shuffle()
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
 	
 	side_deck_size = 10
-	side_deck_size = 1
+	# side_deck_size = 1
 	
 	# Reset game state
 	advantage = 0
@@ -374,6 +374,7 @@ remote func _opponent_surrendered():
 remote func _rematch_requested():
 	if want_rematch:
 		rpc_id(opponent, "_rematch_occurs")
+		
 		init_match(opponent)
 	else:
 		$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"	
