@@ -1,8 +1,21 @@
 extends Control
 
+# Side decks
+const side_decks = [
+	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
+	[78, 78, 78, 78, 78, 78, 78, 78, 78, 78],
+	[97, 97, 97, 98, 98, 98, 99, 99, 99, 99]
+]
+const side_deck_names = [
+	"Squirrels",
+	"Skeletons",
+	"Mox"
+]
+
 # Carryovers from lobby
 var opponent = -100
 var initial_deck = []
+var side_deck_index = null
 
 # Game components
 onready var handManager = $HandsContainer/Hands
@@ -40,7 +53,7 @@ var opponent_max_energy = 0
 
 # Decks
 var deck = []
-var side_deck_size = 10
+var side_deck = []
 
 # Starvation
 var turns_starving = 0
@@ -56,14 +69,14 @@ func init_match(opp_id: int):
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
-	# Reset deck
+	# Reset decks
 	deck = initial_deck.duplicate()
 	deck.shuffle()
+	side_deck = side_decks[side_deck_index].duplicate()
+	side_deck.shuffle()
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
-	
-	side_deck_size = 10
-	# side_deck_size = 1
+	$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
 	
 	# Reset game state
 	advantage = 0
@@ -97,7 +110,7 @@ func init_match(opp_id: int):
 			$DrawPiles/YourDecks/Deck.visible = false
 			break
 		
-	draw_card(29)
+	draw_card(side_deck.pop_front())
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
@@ -135,19 +148,17 @@ func draw_maindeck():
 
 func draw_sidedeck():
 	if state == GameStates.DRAWPILE:
-		draw_card(29, $DrawPiles/YourDecks/SideDeck)
+		draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
 		
-		side_deck_size -= 1
-		
-		if side_deck_size == 0:
+		if side_deck.size() == 0:
 			$DrawPiles/YourDecks/SideDeck.visible = false
 		
 		starve_check()
 
 func starve_check():
-	if deck.size() == 0 and side_deck_size == 0:
+	if deck.size() == 0 and side_deck.size() == 0:
 		turns_starving += 1
 		
 		# Give opponent a starvation

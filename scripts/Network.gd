@@ -153,7 +153,10 @@ remote func server_accepted_challenge():
 	# Load deck from file and pass to the battle handler
 	var dFile = File.new()
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
-	$CardFight.initial_deck = parse_json(dFile.get_as_text())
+	var ddata = parse_json(dFile.get_as_text())
+	
+	$CardFight.initial_deck = ddata["cards"]
+	$CardFight.side_deck_index = ddata["side_deck"]
 	
 	# Open the card battle window and initialise the match
 	$CardFight.visible = true
@@ -194,7 +197,10 @@ func _accept_challenge(index):
 	# Load deck from file and pass to the battle handler
 	var dFile = File.new()
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
-	$CardFight.initial_deck = parse_json(dFile.get_as_text())
+	var ddata = parse_json(dFile.get_as_text())
+	
+	$CardFight.initial_deck = ddata["cards"]
+	$CardFight.side_deck_index = ddata["side_deck"]
 	
 	# Open the card battle window and initialise the match
 	$CardFight.visible = true
