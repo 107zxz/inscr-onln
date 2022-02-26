@@ -130,6 +130,14 @@ func initiate_combat():
 				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "AttackRemote")
 				yield(cardAnim, "animation_finished")
 		
+			# Any form of attack went through
+			# Brittle: Die after attacking
+			if "Brittle" in pCard.card_data["sigils"]:
+				print("Skeleboner")
+				cardAnim.play("Perish")
+				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Perish")
+
+
 	fightManager.end_turn()
 
 
