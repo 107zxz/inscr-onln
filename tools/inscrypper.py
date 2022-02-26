@@ -155,6 +155,7 @@ banned_cards = [
 
     # Wizard
     "Magnus Mox",
+    "Force Mage",
 
     # Other / non-playable
     "Starvation",
