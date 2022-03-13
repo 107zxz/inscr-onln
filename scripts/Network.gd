@@ -51,6 +51,10 @@ func _connected_fail():
 	emit_signal("connection_failed")
 	get_tree().network_peer = null
 	
+	# This seems to happen when the server closes since ws port.
+	# Close the fight
+	$CardFight.visible = false
+	
 func _server_disconnected():
 	sLog("Server disconnected!")
 	get_tree().network_peer = null	
