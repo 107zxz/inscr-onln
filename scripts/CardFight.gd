@@ -371,6 +371,7 @@ func quit_match():
 	else:
 		get_tree().network_peer = null
 		visible = false
+
 ## REMOTE
 remote func _opponent_quit():
 	# Quit network

@@ -66,11 +66,7 @@ func attempt_sacrifice():
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Perish")
-			
-				# SIGILS
-				## Unkillable
-				if "Unkillable" in victim.card_data["sigils"]:
-					fightManager.draw_card(allCards.all_cards.find(victim.card_data))
+				
 			
 		sacVictims.clear()
 		
