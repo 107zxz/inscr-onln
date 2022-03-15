@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.0.7"
+const VERSION = "v0.0.7WS"
 const DEFAULT_PORT = 10567
 
 const MAX_PEERS = 8
@@ -51,6 +51,10 @@ func _connected_fail():
 	emit_signal("connection_failed")
 	get_tree().network_peer = null
 	
+	# This seems to happen when the server closes since ws port.
+	# Close the fight
+	$CardFight.visible = false
+	
 func _server_disconnected():
 	sLog("Server disconnected!")
 	get_tree().network_peer = null	
@@ -78,8 +82,11 @@ func host_lobby():
 		sLog("Cancelling existing hosting / connection attempt...")
 		get_tree().network_peer = null
 	
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(DEFAULT_PORT, MAX_PEERS)
+#	var peer = NetworkedMultiplayerENet.new()
+#	peer.create_server(DEFAULT_PORT, MAX_PEERS)
+	# Websocket networking
+	var peer = WebSocketServer.new()
+	peer.listen(DEFAULT_PORT, PoolStringArray(), true)
 	get_tree().network_peer = peer
 	
 	var localip = "Unknown"
@@ -96,6 +103,9 @@ func challenge_lobby(ip):
 	if not $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text:
 		sLog("Please enter a username")
 		return
+
+	# Quick URL reformat, should not be a http(s) url
+	ip = ip.replace("http://", "").replace("https://", "")
 		
 	# Deck check
 	var dFile = File.new()
@@ -112,8 +122,10 @@ func challenge_lobby(ip):
 	
 	sLog("Attempting to connect to " + ip + ", please wait up to 1 minute")
 	
-	var peer = NetworkedMultiplayerENet.new()
-	var err = peer.create_client(ip, DEFAULT_PORT)
+#	var peer = NetworkedMultiplayerENet.new()
+	var peer = WebSocketClient.new()
+#	var err = peer.create_client(ip, DEFAULT_PORT)
+	var err = peer.connect_to_url("ws://" + ip, PoolStringArray(), true)
 	
 	if not err:
 		get_tree().network_peer = peer
@@ -220,7 +232,7 @@ func debug_join():
 	# Set username
 	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text = "CHALLENGER CLIENT"
 
-	challenge_lobby("localhost")
+	challenge_lobby("localhost:10567")
 
 func _ready():
 	randomize()

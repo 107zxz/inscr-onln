@@ -162,7 +162,7 @@ margin_left = 132.0
 margin_right = 448.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
-placeholder_text = "IP ADDRESS"
+placeholder_text = "TARGET URL"
 
 [node name="deButton" type="Button" parent="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 448.0
