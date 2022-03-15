@@ -103,6 +103,9 @@ func challenge_lobby(ip):
 	if not $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text:
 		sLog("Please enter a username")
 		return
+
+	# Quick URL reformat, should not be a http(s) url
+	ip = ip.replace("http://", "").replace("https://", "")
 		
 	# Deck check
 	var dFile = File.new()

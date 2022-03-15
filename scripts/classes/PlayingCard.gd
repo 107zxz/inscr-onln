@@ -275,5 +275,18 @@ func attack_hit():
 func begin_perish():
 	if get_parent().get_parent().name == "PlayerSlots":
 		fightManager.add_bones(1)
+
+		## SIGILS
+		# Unkillable
+		if "Unkillable" in card_data["sigils"]:
+			var drawnCard = fightManager.draw_card(allCardData.all_cards.find(card_data))
+
+			# Boros special
+			if card_data["name"] == "Ouroboros":
+				card_data["attack"] += 1
+				card_data["health"] += 1
+				drawnCard.from_data(card_data)
+
+
 	else:
 		fightManager.add_opponent_bones(1)
