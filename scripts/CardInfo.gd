@@ -3,9 +3,10 @@ extends Node
 var all_sigils = []
 var all_cards = []
 var banned_cards = []
+var working_sigils = []
 var deck_path = "decks/"
 
-func _ready():
+func _enter_tree():
 	read_game_info()
 	
 	if OS.get_name() == "OSX":
@@ -19,3 +20,4 @@ func read_game_info():
 	all_sigils = content_as_object["sigils"]
 	all_cards = content_as_object["cards"]
 	banned_cards = content_as_object["banned_cards"]
+	working_sigils = content_as_object["working_sigils"]

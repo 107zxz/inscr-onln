@@ -1368,5 +1368,23 @@
         "Burrowing Trap",
         "Inspector",
         "Melter"
+    ],
+    "working_sigils": [
+        "Airborne",
+        "Mighty Leap",
+        "Fecundity",
+        "Unkillable",
+        "Blue Mox",
+        "Green Mox",
+        "Orange Mox",
+        "Great Mox",
+        "Rabbit Hole",
+        "Touch of Death",
+        "Many Lives",
+        "Trifurcated Strike",
+        "Battery Bearer",
+        "Repulsive",
+        "Brittle",
+        "Worthy Sacrifice"
     ]
 }

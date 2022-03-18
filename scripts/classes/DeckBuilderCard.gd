@@ -84,6 +84,7 @@ func draw_sigils():
 	if len(card_data.sigils) > 0:
 		$VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 		$VBoxContainer/HBoxContainer/Sigil.visible = true
+		
 		if len(card_data.sigils) > 1:
 			$VBoxContainer/HBoxContainer/Sigil2.visible = true
 			$VBoxContainer/HBoxContainer/Spacer3.visible = true
@@ -148,6 +149,9 @@ func _on_Card_mouse_entered():
 		sigdisp.queue_free()
 	
 	for sigdat in card_data.sigils:
+		if not sigdat in allCardData.working_sigils:
+			continue
+		
 		var sd = sigilDescPrefab.instance()
 		sd.get_child(1).texture = load("res://gfx/sigils/" + sigdat + ".png")
 		sd.get_child(2).text = allCardData.all_sigils[sigdat]

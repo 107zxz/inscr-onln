@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
+[ext_resource path="res://gfx/sigils/Battery Bearer.png" type="Texture" id=2]
 [ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=3]
 [ext_resource path="res://scripts/classes/DeckBuilderCard.gd" type="Script" id=4]
-[ext_resource path="res://gfx/sigils/Bomb Spewer.png" type="Texture" id=5]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -177,7 +177,7 @@ stretch_mode = 6
 visible = false
 margin_left = 10.0
 margin_right = 25.0
-margin_bottom = 25.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 15, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -201,12 +201,12 @@ stretch_mode = 6
 visible = false
 margin_left = 25.0
 margin_right = 40.0
-margin_bottom = 25.0
+margin_bottom = 26.0
 rect_min_size = Vector2( 15, 25 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
