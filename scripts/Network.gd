@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.0.7WS"
+const VERSION = "v0.0.8"
 const DEFAULT_PORT = 10567
 
 const MAX_PEERS = 8
@@ -106,7 +106,7 @@ func challenge_lobby(ip):
 
 	# Quick URL reformat, should not be a http(s) url
 	ip = ip.replace("http://", "").replace("https://", "")
-		
+	
 	# Deck check
 	var dFile = File.new()
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
