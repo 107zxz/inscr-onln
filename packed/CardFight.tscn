@@ -51,6 +51,18 @@ button_mask = 3
 enabled_focus_mode = 0
 text = "Deck"
 
+[node name="SizeLabel" type="Label" parent="DrawPiles/YourDecks/Deck"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -13.0
+margin_right = 20.0
+text = "ERR"
+align = 1
+valign = 2
+
 [node name="SideDeck" type="Button" parent="DrawPiles/YourDecks"]
 margin_left = 95.0
 margin_right = 180.0
@@ -59,7 +71,19 @@ rect_min_size = Vector2( 85, 123 )
 focus_mode = 0
 button_mask = 3
 enabled_focus_mode = 0
-text = "Squirrels"
+text = "Side"
+
+[node name="SizeLabel" type="Label" parent="DrawPiles/YourDecks/SideDeck"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -13.0
+margin_right = 20.0
+text = "ERR"
+align = 1
+valign = 2
 
 [node name="EnemyDecks" type="HBoxContainer" parent="DrawPiles"]
 margin_left = 10.0
@@ -79,7 +103,7 @@ focus_mode = 0
 disabled = true
 button_mask = 3
 enabled_focus_mode = 0
-text = "Squirrels"
+text = "Side Deck"
 
 [node name="Deck" type="Button" parent="DrawPiles/EnemyDecks"]
 margin_left = 95.0
