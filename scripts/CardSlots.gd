@@ -27,6 +27,8 @@ func get_available_blood() -> int:
 	
 	for slot in playerSlots:
 		if slot.get_child_count() > 0:
+			if "Worthy Sacrifice" in slot.get_child(0).card_data["sigils"]:
+				blood += 2
 			blood += 1
 	
 	return blood
@@ -57,7 +59,15 @@ func clear_sacrifices():
 	sacVictims.clear()
 
 func attempt_sacrifice():
-	if len(sacVictims) >= handManager.raisedCard.card_data["blood_cost"]:
+
+	var sacValue = 0
+
+	for victim in sacVictims:
+		sacValue += 1
+		if "Worthy Sacrifice" in victim.card_data["sigils"]:
+			sacValue += 2
+
+	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
 		# Kill sacrifical victims
 		for victim in sacVictims:
 			if "Many Lives" in victim.card_data["sigils"]:
