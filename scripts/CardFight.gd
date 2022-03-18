@@ -55,8 +55,10 @@ var opponent_max_energy = 0
 var deck = []
 var side_deck = []
 
-# Starvation
+# Persistent card state
 var turns_starving = 0
+var my_ouro_power = 1
+var opponent_ouro_power = 1
 
 # Network match state
 var want_rematch = false
@@ -77,6 +79,7 @@ func init_match(opp_id: int):
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
 	$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
+	$DrawPiles/Notify.visible = false
 	
 	# Reset game state
 	advantage = 0
@@ -84,6 +87,12 @@ func init_match(opp_id: int):
 	opponent_lives = 2
 	damage_stun = false
 	turns_starving = 0
+	my_ouro_power = 1
+	opponent_ouro_power = 1
+	
+	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
+	$LeftSideUI/LivesLabel.text = "Lives: 2"
+	$LeftSideUI/OpponentLivesLabel.text = "Opponent Lives: 2"
 	
 	bones = 0
 	opponent_bones = 0
@@ -110,7 +119,7 @@ func init_match(opp_id: int):
 			$DrawPiles/YourDecks/Deck.visible = false
 			break
 		
-	draw_card(side_deck.pop_front())
+	draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
@@ -134,7 +143,9 @@ func commence_combat():
 func draw_maindeck():
 	if state == GameStates.DRAWPILE:
 		
-		draw_card(deck.pop_front())
+		var next_card = deck.pop_front()
+
+		draw_card(next_card)
 		
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
@@ -144,6 +155,9 @@ func draw_maindeck():
 			# Communicate this with opponent
 	
 	starve_check()
+
+	# Ouro special
+	
 	
 
 func draw_sidedeck():
@@ -178,6 +192,22 @@ func draw_card(idx, source = $DrawPiles/YourDecks/Deck):
 	
 	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
 	
+	# Special draw stuff
+	if nCard.card_data["name"] == "Ouroboros":
+		nCard.card_data["attack"] = my_ouro_power
+		nCard.card_data["health"] = my_ouro_power
+		nCard.from_data(nCard.card_data)
+	
+	
+	# Update deck size
+	var dst = "err"
+	if source.name == "Deck":
+		dst = str(len(deck)) + "/" + str(len(initial_deck))
+	else:
+		dst = str(len(side_deck)) + "/10"
+	
+	source.get_node("SizeLabel").text = dst
+	
 	return nCard
 
 func play_card(slot):
@@ -200,7 +230,7 @@ func play_card(slot):
 				if sigil == "Fecundity":
 					draw_card(allCards.all_cards.find(handManager.raisedCard.card_data))
 				if sigil == "Rabbit Hole":
-					draw_card(20)
+					draw_card(21)
 				if sigil == "Battery Bearer":
 					if max_energy < 6:
 						set_max_energy(max_energy + 1)
@@ -255,21 +285,28 @@ remote func _opponent_played_card(card, slot):
 		# Inflict starve damage
 		if turns_starving >= 9:
 			inflict_damage(-turns_starving + 8)
+	
+	# Ouroboros: Set the attack and hp
+	if card_dt["name"] == "Ouroboros":
+		card_dt["attack"] = opponent_ouro_power
+		card_dt["health"] = opponent_ouro_power
 		
 	handManager.opponentRaisedCard.from_data(card_dt)
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
 	
 	# Costs
-	add_opponent_bones(-allCards.all_cards[card]["bone_cost"])
-	set_opponent_energy(opponent_energy -allCards.all_cards[card]["energy_cost"])
+	add_opponent_bones(-card_dt["bone_cost"])
+	set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Energy Cell Sigil
-	if "Battery Bearer" in allCards.all_cards[card]["sigils"]:
+	if "Battery Bearer" in card_dt["sigils"]:
 		if opponent_max_energy < 6:
 			set_opponent_max_energy(opponent_max_energy + 1)
 		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
 	
-
+	
+	
+## SPECIAL CARD STUFF
 remote func force_draw_starv(strength):
 	var starv_card = draw_card(0)
 	
@@ -279,7 +316,11 @@ remote func force_draw_starv(strength):
 		starv_data["sigils"].append("Mighty Leap")
 	
 	starv_card.from_data(starv_data)
-	
+
+remote func opponent_levelled_ouro():
+	print("Opponent ouro died")
+	opponent_ouro_power += 1
+
 # Called during attack animation
 func inflict_damage(dmg):
 	if damage_stun:
