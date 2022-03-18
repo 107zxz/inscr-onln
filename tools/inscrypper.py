@@ -26,6 +26,25 @@ sicon_overrides = {
     "activated_sacrificedrawcards": "activated_sacrificedraw",
 }
 
+working_sigils = [
+    "Airborne",
+    "Mighty Leap",
+    "Fecundity",
+    "Unkillable",
+    "Blue Mox",
+    "Green Mox",
+    "Orange Mox",
+    "Great Mox",
+    "Rabbit Hole",
+    "Touch of Death",
+    "Many Lives",
+    "Trifurcated Strike",
+    "Battery Bearer",
+    "Repulsive",
+    "Brittle",
+    "Worthy Sacrifice"
+]
+
 ref_sigils = {}
 
 for sPath in sigilPaths:
@@ -293,7 +312,8 @@ for cPath in cardPaths:
 gameInfo = {
     "cards": cards,
     "sigils": sigils,
-    "banned_cards": banned_cards
+    "banned_cards": banned_cards,
+    "working_sigils": working_sigils
 }
 
 os.chdir("/home/107zxz/Documents/Games/Godot/LobbyTest/data")
