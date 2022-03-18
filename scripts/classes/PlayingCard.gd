@@ -188,8 +188,8 @@ func _on_Button_pressed():
 		if $AnimationPlayer.is_playing():
 			return
 		
-		# Is it hammer time?
-		if fightManager.state == fightManager.GameStates.HAMMER:
+		# Is it hammer time? Am I on the player's side?
+		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name == "PlayerSlots":
 			$AnimationPlayer.play("Perish")
 			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
 			
@@ -279,14 +279,20 @@ func begin_perish():
 		## SIGILS
 		# Unkillable
 		if "Unkillable" in card_data["sigils"]:
-			var drawnCard = fightManager.draw_card(allCardData.all_cards.find(card_data))
-
-			# Boros special
+			
 			if card_data["name"] == "Ouroboros":
-				card_data["attack"] += 1
-				card_data["health"] += 1
-				drawnCard.from_data(card_data)
+				fightManager.my_ouro_power += 1
+				fightManager.rpc_id(fightManager.opponent, "opponent_levelled_ouro")
+				
+				# Force level all ouros in hand
+				for card in get_node("/root/Main/CardFight/HandsContainer/Hands/PlayerHand").get_children():
+					if card.card_data["name"] == "Ouroboros":
+						card.card_data["attack"] = fightManager.my_ouro_power
+						card.card_data["health"] = fightManager.my_ouro_power
+						card.from_data(card_data)
 
+
+			fightManager.draw_card(allCardData.all_cards.find(card_data))
 
 	else:
 		fightManager.add_opponent_bones(1)
