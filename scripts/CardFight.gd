@@ -214,21 +214,23 @@ func play_card(slot):
 	
 	# Is a card ready to be played?
 	if handManager.raisedCard:
+
+		var playedCard = handManager.raisedCard
 		
 		# Only allow playing cards in the NORMAL or FORCEPLAY states
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
-			rpc_id(opponent, "_opponent_played_card", allCards.all_cards.find(handManager.raisedCard.card_data), slot.get_position_in_parent())
+			rpc_id(opponent, "_opponent_played_card", allCards.all_cards.find(playedCard.card_data), slot.get_position_in_parent())
 			
 			# Bone cost
-			add_bones(-handManager.raisedCard.card_data["bone_cost"])
+			add_bones(-playedCard.card_data["bone_cost"])
 			
 			# Energy cost
-			set_energy(energy -handManager.raisedCard.card_data["energy_cost"])
+			set_energy(energy -playedCard.card_data["energy_cost"])
 			
 			# SIGILS
-			for sigil in handManager.raisedCard.card_data["sigils"]:
+			for sigil in playedCard.card_data["sigils"]:
 				if sigil == "Fecundity":
-					draw_card(allCards.all_cards.find(handManager.raisedCard.card_data))
+					draw_card(allCards.all_cards.find(playedCard.card_data))
 				if sigil == "Rabbit Hole":
 					draw_card(21)
 				if sigil == "Battery Bearer":
@@ -237,13 +239,31 @@ func play_card(slot):
 					set_energy(min(max_energy, energy + 1))
 			
 			# Starvation, inflict damage if 9th onwards
-			if handManager.raisedCard.card_data["name"] == "Starvation" and handManager.raisedCard.attack >= 9:
+			if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
 				# Ramp damage over time so the game actually ends
-				inflict_damage(handManager.raisedCard.attack - 8)
+				inflict_damage(playedCard.attack - 8)
 			
-			handManager.raisedCard.move_to_parent(slot)
+			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
 			state = GameStates.NORMAL
+
+			# Die if gem dependant
+			for sigil in playedCard.card_data["sigils"]:
+				if sigil == "Gem Dependant":
+
+					var kill = not (slotManager.get_friendly_card_sigil("Great Mox"))
+
+					for moxcol in ["Green", "Blue", "Orange"]:
+						var foundMox = slotManager.get_friendly_card_sigil(moxcol + " Mox")
+						if foundMox and foundMox != self:
+							kill = false;
+					
+					if kill:
+						print("Gem dependant card should die!")
+						playedCard.get_node("AnimationPlayer").play("Perish")
+						slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
+
+					break;
 			
 			
 

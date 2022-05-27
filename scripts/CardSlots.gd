@@ -138,7 +138,6 @@ func initiate_combat():
 			# Any form of attack went through
 			# Brittle: Die after attacking
 			if "Brittle" in pCard.card_data["sigils"]:
-				print("Skeleboner")
 				cardAnim.play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Perish")
 
@@ -171,13 +170,13 @@ func handle_attack(from_slot, to_slot):
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
 # Sigil handling
-func has_friendly_sigil(sigil):
+func get_friendly_card_sigil(sigil):
 	for slot in playerSlots:
 		if slot.get_child_count() > 0:
 			if sigil in slot.get_child(0).card_data["sigils"]:
-				return true
+				return slot.get_child(0)
 	
-	return false
+	return null
 
 # Remote
 remote func set_sac_olay_vis(slot, vis):

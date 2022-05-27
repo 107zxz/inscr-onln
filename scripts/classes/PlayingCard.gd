@@ -60,6 +60,14 @@ func draw_cost():
 			26,
 			15
 		)
+		# Special case: horseman
+		if card_data["bone_cost"] == 13:
+			$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
+				28,
+				145,
+				26,
+				15
+			)
 	else:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
@@ -164,9 +172,9 @@ func _on_Button_pressed():
 				print("You need more sacrifices!")
 				return
 			
-			if card_data["mox_cost"] and not slotManager.has_friendly_sigil("Great Mox"):
+			if card_data["mox_cost"] and not slotManager.get_friendly_sigil("Great Mox"):
 				for mox in card_data["mox_cost"]:
-					if not slotManager.has_friendly_sigil(mox + " Mox"):
+					if not slotManager.get_friendly_sigil(mox + " Mox"):
 						print(mox + " Mox missing")
 						return
 			
@@ -293,6 +301,28 @@ func begin_perish():
 
 
 			fightManager.draw_card(allCardData.all_cards.find(card_data))
+		
+		for sigil in card_data["sigils"]:
+			if "Mox" in sigil:
+
+				print("Mox card died! Checking Gem dependant")
+
+				# Any Mox dying tests gem dependant
+				var kill = not (slotManager.get_friendly_card_sigil("Great Mox"))
+
+				for moxcol in ["Green", "Blue", "Orange"]:
+					var foundMox = slotManager.get_friendly_card_sigil(moxcol + " Mox")
+					if foundMox and foundMox != self:
+						kill = false;
+				
+				if kill:
+					print("Gem dependant card should die!")
+					var gDep = slotManager.get_friendly_card_sigil("Gem Dependant")
+					if gDep:
+						gDep.get_node("AnimationPlayer").play("Perish")
+						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
+			break
+
 
 	else:
 		fightManager.add_opponent_bones(1)
