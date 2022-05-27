@@ -243,4 +243,5 @@ align = 2
 valign = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_Card_mouse_entered"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
