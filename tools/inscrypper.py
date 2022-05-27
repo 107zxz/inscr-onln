@@ -44,7 +44,8 @@ working_sigils = [
     "Brittle",
     "Worthy Sacrifice",
     "Gem Dependant",
-    "Bone King"
+    "Bone King",
+    "Bifurcated Strike"
 ]
 
 ref_sigils = {}
