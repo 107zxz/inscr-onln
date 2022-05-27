@@ -282,7 +282,10 @@ func attack_hit():
 # Called when the card starts dying. Add bones and stuff
 func begin_perish():
 	if get_parent().get_parent().name == "PlayerSlots":
-		fightManager.add_bones(1)
+		if "Bone King" in card_data["sigils"]:
+			fightManager.add_bones(4)
+		else:
+			fightManager.add_bones(1)
 
 		## SIGILS
 		# Unkillable
@@ -325,4 +328,7 @@ func begin_perish():
 
 
 	else:
-		fightManager.add_opponent_bones(1)
+		if "Bone King" in card_data["sigils"]:
+			fightManager.add_opponent_bones(4)
+		else:
+			fightManager.add_opponent_bones(1)

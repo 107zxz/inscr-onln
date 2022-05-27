@@ -43,7 +43,8 @@ working_sigils = [
     "Repulsive",
     "Brittle",
     "Worthy Sacrifice",
-    "Gem Dependant"
+    "Gem Dependant",
+    "Bone King"
 ]
 
 ref_sigils = {}
