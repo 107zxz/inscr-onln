@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 
@@ -38,15 +38,13 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.5, 0.480667, 0.355, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
-expand_margin_left = 5.0
-expand_margin_right = 5.0
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.6, 0.5768, 0.426, 1 )
@@ -73,6 +71,16 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 anti_aliasing = false
 
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.5, 0.480667, 0.355, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
 [resource]
 default_font = ExtResource( 1 )
 Button/colors/font_color = Color( 0, 0, 0, 1 )
@@ -89,7 +97,7 @@ GridContainer/constants/vseparation = 0
 HBoxContainer/constants/separation = 0
 Label/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color = Color( 0, 0, 0, 1 )
-LineEdit/styles/normal = SubResource( 4 )
+LineEdit/styles/normal = SubResource( 11 )
 Panel/styles/panel = SubResource( 7 )
 Panel/styles/pressed = SubResource( 6 )
 PanelContainer/styles/panel = SubResource( 1 )
