@@ -93,13 +93,18 @@ func initiate_combat():
 			var slot_index = slot.get_position_in_parent()
 			
 			
-			if "Trifurcated Strike" in pCard.card_data["sigils"]:
+			if "Trifurcated Strike" in pCard.card_data["sigils"] or "Bifurcated Strike" in pCard.card_data["sigils"]:
 				# Lower slot to right for attack anim (JANK AF)
 				if slot_index < 3:
 					playerSlots[slot_index + 1].show_behind_parent = true
 				
 				# Tri strike attack
 				for s_offset in range(-1, 2):
+
+					# Skip middle if bi-strike
+					if s_offset == 0 and "Bifurcated Strike" in pCard.card_data["sigils"]:
+						continue
+
 					# Prevent attacking out of bounds
 					var atk_slot = slot_index + s_offset
 					if atk_slot < 0 or atk_slot > 3:
