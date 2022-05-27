@@ -17,8 +17,6 @@ func from_data(cdat):
 	# Update card costs and sigils
 	draw_cost()
 	draw_sigils()
-	
-
 
 func draw_cost():
 	if card_data["blood_cost"] > 0:
@@ -42,6 +40,14 @@ func draw_cost():
 			26,
 			15
 		)
+		# Special case: horseman
+		if card_data["bone_cost"] == 13:
+			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
+				28,
+				145,
+				26,
+				15
+			)
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
@@ -149,10 +155,15 @@ func _on_Card_mouse_entered():
 		sigdisp.queue_free()
 	
 	for sigdat in card_data.sigils:
-		if not sigdat in allCardData.working_sigils:
-			continue
+		# if not sigdat in allCardData.working_sigils:
+		# 	continue
 		
 		var sd = sigilDescPrefab.instance()
 		sd.get_child(1).texture = load("res://gfx/sigils/" + sigdat + ".png")
 		sd.get_child(2).text = allCardData.all_sigils[sigdat]
+
+		if not sigdat in allCardData.working_sigils:
+			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
+			sd.get_child(2).add_color_override("font_color", Color.darkred)
+
 		previewCont.get_child(1).add_child(sd)

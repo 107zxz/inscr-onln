@@ -42,7 +42,8 @@ working_sigils = [
     "Battery Bearer",
     "Repulsive",
     "Brittle",
-    "Worthy Sacrifice"
+    "Worthy Sacrifice",
+    "Gem Dependant"
 ]
 
 ref_sigils = {}
