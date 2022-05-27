@@ -17,9 +17,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
@@ -241,7 +238,9 @@ text = "Sigil: "
 margin_left = 31.0
 margin_right = 200.0
 margin_bottom = 17.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 
 [node name="SigilSearchB" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
 margin_top = 19.0
@@ -258,7 +257,9 @@ text = "Sigil 2: "
 margin_left = 42.0
 margin_right = 200.0
 margin_bottom = 17.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
 margin_top = 38.0

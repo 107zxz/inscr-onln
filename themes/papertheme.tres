@@ -45,6 +45,8 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 5.0
+expand_margin_right = 5.0
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.6, 0.5768, 0.426, 1 )
@@ -93,3 +95,7 @@ Panel/styles/pressed = SubResource( 6 )
 PanelContainer/styles/panel = SubResource( 1 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 VBoxContainer/constants/separation = 0
+VScrollBar/styles/grabber = SubResource( 9 )
+VScrollBar/styles/grabber_highlight = SubResource( 9 )
+VScrollBar/styles/grabber_pressed = SubResource( 9 )
+VScrollBar/styles/scroll = SubResource( 4 )
