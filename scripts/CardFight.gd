@@ -111,7 +111,7 @@ func init_match(opp_id: int):
 	slotManager.clear_slots()
 		
 	# Draw starting hands
-	for _i in range(4):
+	for _i in range(3):
 		draw_card(deck.pop_front())
 		
 		# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
@@ -237,7 +237,25 @@ func play_card(slot):
 					if max_energy < 6:
 						set_max_energy(max_energy + 1)
 					set_energy(min(max_energy, energy + 1))
-			
+				if sigil == "Handy":
+					var cIdx = 0
+					for card in handManager.get_node("PlayerHand").get_children():
+						if card == playedCard:
+							continue
+						card.get_node("AnimationPlayer").play("Discard")
+						rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
+						cIdx += 1
+					
+					for _i in range(3):
+						draw_card(deck.pop_front())
+						
+						# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+						if deck.size() == 0:
+							$DrawPiles/YourDecks/Deck.visible = false
+							break
+						
+					draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+						
 			# Starvation, inflict damage if 9th onwards
 			if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
 				# Ramp damage over time so the game actually ends
@@ -287,6 +305,9 @@ func hammer_mode():
 		$LeftSideUI/HammerButton.pressed = true
 
 ## REMOTE
+remote func _opponent_hand_animation(index, animation):
+	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
+
 remote func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
