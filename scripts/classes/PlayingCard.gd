@@ -18,6 +18,7 @@ var attack = -1
 
 # Sigil-specific information (must be stored per-card)
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
+var sprint_left = false # Used for sprinter
 
 func from_data(cdat):
 	card_data = cdat

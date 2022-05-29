@@ -46,7 +46,9 @@ working_sigils = [
     "Gem Dependant",
     "Bone King",
     "Bifurcated Strike",
-    "Handy"
+    "Handy",
+    "Fledgling",
+    "Sprinter"
 ]
 
 

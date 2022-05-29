@@ -127,7 +127,7 @@ func init_match(opp_id: int):
 
 # Gameplay functions
 ## LOCAL
-func commence_combat():
+func end_turn():
 	if not state in [GameStates.NORMAL, GameStates.SACRIFICE]:
 		return
 	
@@ -139,7 +139,23 @@ func commence_combat():
 	
 	# Initiate combat first
 	state = GameStates.BATTLE
+	
 	slotManager.initiate_combat()
+	yield(slotManager, "complete_combat")
+	
+	$WaitingBlocker.visible = true
+	damage_stun = false
+	
+	# Handle sigils
+	slotManager.post_turn_sigils()
+	yield(slotManager, "resolve_sigils")
+	
+	# Bump opponent's energy
+	if opponent_max_energy < 6:
+		set_opponent_max_energy(opponent_max_energy + 1)
+	set_opponent_energy(opponent_max_energy)
+	
+	rpc_id(opponent, "start_turn")
 
 func draw_maindeck():
 	if state == GameStates.DRAWPILE:
@@ -426,17 +442,6 @@ func request_rematch():
 	want_rematch = true
 	rpc_id(opponent, "_rematch_requested")
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"
-
-func end_turn():
-	$WaitingBlocker.visible = true
-	damage_stun = false
-	
-	# Bump opponent's energy
-	if opponent_max_energy < 6:
-		set_opponent_max_energy(opponent_max_energy + 1)
-	set_opponent_energy(opponent_max_energy)
-	
-	rpc_id(opponent, "start_turn")
 
 func surrender():
 	$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Surrendered!"
