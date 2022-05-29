@@ -167,3 +167,4 @@ func _on_Card_mouse_entered():
 			sd.get_child(2).add_color_override("font_color", Color.darkred)
 
 		previewCont.get_child(1).add_child(sd)
+
