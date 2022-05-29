@@ -106,7 +106,8 @@
             "blood_cost": 1,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "evolution": 7
         },
         {
             "name": "Field Mice",
@@ -414,7 +415,8 @@
             "blood_cost": 1,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "evolution": 34
         },
         {
             "name": "Curve Hopper",
@@ -909,7 +911,8 @@
             "blood_cost": 0,
             "bone_cost": 4,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "evolution": 74
         },
         {
             "name": "Skeleton",

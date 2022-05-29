@@ -83,6 +83,29 @@ func attempt_sacrifice():
 		# Force player to summon the new card
 		fightManager.state = fightManager.GameStates.FORCEPLAY
 
+# Break flow to handle sigils
+signal resolve_sigils()
+
+func pre_turn_sigils():
+	for slot in playerSlots:
+		if slot.get_child_count() == 0:
+			continue
+		
+		var card = slot.get_child(0)
+		var cardAnim = card.get_node("AnimationPlayer")
+		
+		# Evolution
+		if "Fledgling" in card.card_data["sigils"] and not cardAnim.is_playing():
+			cardAnim.play("Evolve")
+			rpc_id(fightManager.opponent, "handle_enemy_evolve", slot.get_position_in_parent())
+			yield (cardAnim, "animation_finished")
+			
+	yield(get_tree().create_timer(0.01), "timeout")
+	emit_signal("resolve_sigils")
+
+func post_turn_sigils():
+	pass
+
 # Combat
 func initiate_combat():
 	for slot in playerSlots:
@@ -223,3 +246,6 @@ remote func set_card_offset(card_slot, offset):
 			enemySlots[card_slot + 1].show_behind_parent = false
 	
 	enemySlots[card_slot].get_child(0).rect_position.x = offset
+
+remote func handle_enemy_evolve(card_slot):
+	enemySlots[card_slot].get_child(0).get_node("AnimationPlayer").play("Evolve")

@@ -49,6 +49,8 @@ working_sigils = [
     "Handy"
 ]
 
+
+
 ref_sigils = {}
 
 for sPath in sigilPaths:
@@ -215,7 +217,6 @@ for cPath in cardPaths:
                 cEnergyCost = -1
                 cMoxCost = []
                 cMeta = []
-                
 
                 for line in lines:
                     
@@ -312,6 +313,21 @@ for cPath in cardPaths:
                     "energy_cost": cEnergyCost,
                     "mox_cost": cMoxCost
                 })
+
+
+# Handle evolutions (messy)
+fledgling_evolutions = {
+    "Wolf Cub": "Wolf",
+    "Elk Fawn": "Elk",
+    "Sarcophagus": "Mummy Lord"
+}
+
+for card in cards:
+    if card["name"] in fledgling_evolutions.keys():
+        print(card["name"], "has an evolution")
+        for evoCard in cards:
+            if evoCard["name"] == fledgling_evolutions[card["name"]]:
+                card["evolution"] = cards.index(evoCard)
 
 gameInfo = {
     "cards": cards,

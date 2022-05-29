@@ -332,3 +332,8 @@ func begin_perish():
 			fightManager.add_opponent_bones(4)
 		else:
 			fightManager.add_opponent_bones(1)
+
+
+# This is called when a card evolves with the fledgeling sigil
+func evolve():
+	from_data(allCardData.all_cards[card_data["evolution"]])

@@ -32,7 +32,8 @@ enum GameStates {
 	SACRIFICE,
 	FORCEPLAY,
 	BATTLE,
-	HAMMER
+	HAMMER,
+	RESOLVE
 }
 var state = GameStates.NORMAL
 
@@ -96,8 +97,8 @@ func init_match(opp_id: int):
 	
 	bones = 0
 	opponent_bones = 0
-	add_bones(0)
-	add_opponent_bones(0)
+	add_bones(8)
+	add_opponent_bones(8)
 	
 	set_max_energy(int(get_tree().is_network_server()))
 	set_energy(max_energy)
@@ -479,8 +480,12 @@ remote func _rematch_occurs():
 remote func start_turn():
 	damage_stun = false
 	$WaitingBlocker.visible = false
+
+	# Resolve start-of-turn effects
+	slotManager.pre_turn_sigils()
+	yield (slotManager, "resolve_sigils")
 	
-	# Draw yer cards, if you have any
+	# Draw yer cards, if you have any (move this to after effect resolution)
 	if starve_check():
 		state = GameStates.NORMAL
 	else:
