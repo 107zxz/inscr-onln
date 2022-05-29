@@ -104,9 +104,51 @@ func pre_turn_sigils():
 	emit_signal("resolve_sigils")
 
 func post_turn_sigils():
-	pass
+	var cardsToMove = []
+	
+	for slot in playerSlots:
+		if slot.get_child_count() == 0:
+			continue
+		
+		cardsToMove.append(slot.get_child(0))
+	
+	for card in cardsToMove:
+		var cardAnim = card.get_node("AnimationPlayer")
+		var cardTween = card.get_node("Tween")
+		
+		# Spront
+		if "Sprinter" in card.card_data["sigils"] and not cardAnim.is_playing():
+			
+			var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
+				(card.card_data["sigils"].find("Sprinter") * 2) + 1
+			)
+			
+			var curSlot = card.get_parent().get_position_in_parent()
+			
+			var oSprintOffset = -1 if sprintSigil.flip_h else 1
+			
+			if curSlot + oSprintOffset > 3:
+				sprintSigil.flip_h = true
+			if curSlot + oSprintOffset < 0:
+				sprintSigil.flip_h = false
+			
+			var sprintOffset = -1 if sprintSigil.flip_h else 1
+			
+			card.move_to_parent(playerSlots[curSlot + sprintOffset])
+			rpc_id(
+				fightManager.opponent, "remote_card_move", 
+				curSlot,
+				curSlot + sprintOffset,
+				oSprintOffset != sprintOffset
+				)
+			yield (cardTween, "tween_completed")
+			
+	yield(get_tree().create_timer(0.01), "timeout")
+	emit_signal("resolve_sigils")
 
 # Combat
+signal complete_combat()
+
 func initiate_combat():
 	for slot in playerSlots:
 		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0:
@@ -169,8 +211,8 @@ func initiate_combat():
 				cardAnim.play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Perish")
 
-
-	fightManager.end_turn()
+	yield(get_tree().create_timer(0.01), "timeout")
+	emit_signal("complete_combat")
 
 
 # Do the attack damage
@@ -215,6 +257,21 @@ remote func remote_card_anim(slot, anim_name):
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
 
+remote func remote_card_move(from_slot, to_slot, flip_sigil):
+	var eCard = enemySlots[from_slot].get_child(0)
+	
+	eCard.move_to_parent(enemySlots[to_slot])
+	if flip_sigil:
+		var sigIdx = 0
+		for sigil in eCard.card_data["sigils"]:
+			if sigil in ["Sprinter"]:
+				var sig = eCard.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
+					(sigIdx * 2) + 1
+				)
+				
+				sig.flip_h = not sig.flip_h
+			sigIdx += 1
+				
 
 remote func handle_enemy_attack(from_slot, to_slot):
 	var direct_attack = false
