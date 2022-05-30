@@ -108,8 +108,10 @@ for sPath in sigilPaths:
                     if "gbc" in sPath:
                         print("Missing sigil icon", sigPath)
                     continue
-
-                shutil.copy(sigPath, "/home/107zxz/Documents/Games/Godot/LobbyTest/gfx/sigils/" + sName + ".png")
+                
+                cpToPath = "/home/107zxz/Documents/Games/Godot/LobbyTest/gfx/sigils/" + sName + ".png"
+                if not os.path.exists(cpToPath):
+                    shutil.copy(sigPath, cpToPath)
 
                 ref_sigils[sCode] = {}
                 ref_sigils[sCode]["name"] = sName
