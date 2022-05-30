@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.0.9"
+const VERSION = "v0.0.10"
 const DEFAULT_PORT = 10567
 
 const MAX_PEERS = 8
@@ -13,7 +13,7 @@ var pids = []
 var opponent = -1
 
 # Lobby signals
-signal new_challenge(name, portrait)
+signal new_challenge(name, portrait, version)
 signal remove_challenge(name)
 signal kicked_from_game()
 signal connection_failed()
@@ -145,7 +145,7 @@ remote func challenge_requested(uname: String):
 	challengers[1] = uname
 	
 	sLog("Registering with server")
-	rpc_id(1, "register_challenge", get_tree().network_peer.get_unique_id(), $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text, $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected)
+	rpc_id(1, "register_challenge", get_tree().network_peer.get_unique_id(), $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text, $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected, VERSION)
 
 remote func challenge_refused():
 	sLog("Challenge refused!")
@@ -176,7 +176,7 @@ remote func server_accepted_challenge():
 	
 
 ## Remote funcs -> Server
-remote func register_challenge(id: int, name: String, pfp: int):
+remote func register_challenge(id: int, name: String, pfp: int, version: String):
 	sLog("Registered player " + str(id) + " with name \"" + name + "\" and pfp index " + str(pfp))
 	
 	# Add challenger to dictionarry
@@ -184,7 +184,7 @@ remote func register_challenge(id: int, name: String, pfp: int):
 	pids.append(id)
 	
 	# Update UI with challenge
-	emit_signal("new_challenge", name, pfp)
+	emit_signal("new_challenge", name, pfp, version)
 
 	# DEBUG: Autoinitiate match if name is SERVER HOST
 	if $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text == "SERVER HOST":
