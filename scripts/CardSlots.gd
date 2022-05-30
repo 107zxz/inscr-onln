@@ -299,6 +299,8 @@ func handle_attack(from_slot, to_slot):
 		eCard = enemySlots[to_slot].get_child(0)
 		if "Airborne" in pCard.card_data["sigils"] and not "Mighty Leap" in eCard.card_data["sigils"]:
 			direct_attack = true
+		if eCard.get_node("CardBody/DiveOlay").visible:
+			direct_attack = true
 	
 	if direct_attack:
 		fightManager.inflict_damage(pCard.attack)
@@ -369,6 +371,8 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	else:
 		pCard = playerSlots[to_slot].get_child(0)
 		if "Airborne" in eCard.card_data["sigils"] and not "Mighty Leap" in pCard.card_data["sigils"]:
+			direct_attack = true
+		if pCard.get_node("CardBody/DiveOlay").visible:
 			direct_attack = true
 	
 	if direct_attack:
