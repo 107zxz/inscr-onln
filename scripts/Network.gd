@@ -24,7 +24,7 @@ func _player_connected(id):
 		sLog("Player " + str(id) + " connected, requesting their info")
 		
 		# Inform the player we are waiting
-		rpc_id(id, "challenge_requested", $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text)
+		rpc_id(id, "challenge_requested", $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text, $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected)
 
 func _player_disconnected(id):
 	sLog("Player " + str(id) + " disconnected")
@@ -144,9 +144,9 @@ func chat_kick(pid):
 	get_tree().network_peer.disconnect_peer(pid)
 
 ## Remote funcs -> Client
-remote func challenge_requested(uname: String):
+remote func challenge_requested(uname: String, pfp: int):
 	# Save server's username
-	challengers[1] = uname
+	challengers[1] = {"name": uname, "pfp": pfp}
 	
 	sLog("Registering with server")
 	rpc_id(1, "register_challenge", get_tree().network_peer.get_unique_id(), $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text, $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected, VERSION)
@@ -174,6 +174,12 @@ remote func server_accepted_challenge():
 	$CardFight.initial_deck = ddata["cards"]
 	$CardFight.side_deck_index = ddata["side_deck"]
 	
+	$CardFight/PlayerInfo/MyInfo/Username.text = $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text
+	$CardFight/PlayerInfo/TheirInfo/Username.text = challengers[opponent]["name"]
+	
+	$CardFight/PlayerInfo/MyInfo/Pfp.texture = load("res://gfx/portraits/portrait_" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.get_item_text($Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected).to_lower() + ".png")
+	$CardFight/PlayerInfo/TheirInfo/Pfp.texture = load("res://gfx/portraits/portrait_" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.get_item_text(challengers[opponent]["pfp"]).to_lower() + ".png")
+	
 	# Open the card battle window and initialise the match
 	$CardFight.visible = true
 	$CardFight.init_match(opponent)
@@ -184,7 +190,7 @@ remote func register_challenge(id: int, name: String, pfp: int, version: String)
 	sLog("Registered player " + str(id) + " with name \"" + name + "\" and pfp index " + str(pfp))
 	
 	# Add challenger to dictionarry
-	challengers[id] = name
+	challengers[id] = {"name": name, "pfp": pfp}
 	pids.append(id)
 	
 	# Update UI with challenge
@@ -217,6 +223,12 @@ func _accept_challenge(index):
 	
 	$CardFight.initial_deck = ddata["cards"]
 	$CardFight.side_deck_index = ddata["side_deck"]
+
+	$CardFight/PlayerInfo/MyInfo/Username.text = $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text
+	$CardFight/PlayerInfo/TheirInfo/Username.text = challengers[opponent]["name"]
+	
+	$CardFight/PlayerInfo/MyInfo/Pfp.texture = load("res://gfx/portraits/portrait_" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.get_item_text($Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected).to_lower() + ".png")
+	$CardFight/PlayerInfo/TheirInfo/Pfp.texture = load("res://gfx/portraits/portrait_" + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.get_item_text(challengers[opponent]["pfp"]).to_lower() + ".png")
 	
 	# Open the card battle window and initialise the match
 	$CardFight.visible = true
@@ -227,6 +239,7 @@ func debug_host():
 
 	# Set username
 	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text = "SERVER HOST"
+	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected = 1
 
 	host_lobby()
 
@@ -235,6 +248,7 @@ func debug_join():
 
 	# Set username
 	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text = "CHALLENGER CLIENT"
+	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/ppSelect.selected = 2
 
 	challenge_lobby("localhost")
 
