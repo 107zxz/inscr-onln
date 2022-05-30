@@ -7,9 +7,6 @@
 margin_right = 512.0
 margin_bottom = 80.0
 theme = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 2.0
@@ -23,27 +20,27 @@ __meta__ = {
 }
 
 [node name="Challengerpfp" type="TextureRect" parent="HBoxContainer"]
-margin_left = 32.0
-margin_right = 146.0
+margin_left = 45.0
+margin_right = 159.0
 margin_bottom = 94.0
 size_flags_vertical = 4
 texture = ExtResource( 1 )
 
 [node name="Challengername" type="Label" parent="HBoxContainer"]
-margin_left = 162.0
+margin_left = 175.0
 margin_top = 40.0
-margin_right = 401.0
+margin_right = 389.0
 margin_bottom = 53.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Challenger wants to battle you. Accept?"
+text = "Challenger wants to battle. Accept?"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ybtn" type="Button" parent="HBoxContainer"]
-margin_left = 417.0
+margin_left = 405.0
 margin_top = 38.0
-margin_right = 441.0
+margin_right = 429.0
 margin_bottom = 55.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -51,9 +48,9 @@ enabled_focus_mode = 0
 text = "Yes"
 
 [node name="nbtn" type="Button" parent="HBoxContainer"]
-margin_left = 457.0
+margin_left = 445.0
 margin_top = 38.0
-margin_right = 475.0
+margin_right = 463.0
 margin_bottom = 55.0
 focus_mode = 0
 size_flags_vertical = 4
