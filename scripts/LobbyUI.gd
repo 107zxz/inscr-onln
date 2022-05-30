@@ -1,7 +1,7 @@
 extends Control
 
 var cnotify = preload("res://packed/cnotify.tscn")
-var validpfps = ["cat", "grizzly", "stoat", "mantisgod", "packrat"]
+var validpfps = ["cat", "grizzly", "stoat", "mantisgod", "packrat", "ant"]
 onready var selector_de = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect
 onready var cardInfo = get_node("/root/Main/AllCards")
 
