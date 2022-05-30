@@ -5,9 +5,9 @@ var validpfps = ["cat", "grizzly", "stoat", "mantisgod", "packrat"]
 onready var selector_de = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect
 onready var cardInfo = get_node("/root/Main/AllCards")
 
-func _on_new_challenge(name: String, portrait: int):
+func _on_new_challenge(name: String, portrait: int, version: String):
 	var notif = cnotify.instance()
-	notif.get_node("HBoxContainer/Challengername").text = name + " wants to battle you. Accept?"
+	notif.get_node("HBoxContainer/Challengername").text = name + "(" + version + ") wants to battle you. Accept?"
 	
 	# Connect buttons
 	notif.get_node("HBoxContainer/nbtn").connect("pressed", get_node("/root/Main"), "_decline_challenge", [$HBoxContainer/ScrollContainer/Challenges.get_position_in_parent()])
