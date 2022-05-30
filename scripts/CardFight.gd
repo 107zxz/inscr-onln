@@ -502,6 +502,9 @@ remote func start_turn():
 		set_max_energy(max_energy + 1)
 	set_energy(max_energy)
 
+# This is bad practice but needed for Bone Digger
+remote func add_remote_bones(bone_no):
+	add_opponent_bones(bone_no)
 
 
 

@@ -48,7 +48,10 @@ working_sigils = [
     "Bifurcated Strike",
     "Handy",
     "Fledgling",
-    "Sprinter"
+    "Sprinter",
+    "Squirrel Shedder",
+    "Skeleton Crew",
+    "Bone Digger"
 ]
 
 
