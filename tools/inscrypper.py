@@ -51,7 +51,8 @@ working_sigils = [
     "Sprinter",
     "Squirrel Shedder",
     "Skeleton Crew",
-    "Bone Digger"
+    "Bone Digger",
+    "Waterborne"
 ]
 
 

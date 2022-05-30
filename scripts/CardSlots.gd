@@ -94,11 +94,19 @@ func pre_turn_sigils():
 		var card = slot.get_child(0)
 		var cardAnim = card.get_node("AnimationPlayer")
 		
+		if cardAnim.is_playing():
+			continue
+		
 		# Evolution
-		if "Fledgling" in card.card_data["sigils"] and not cardAnim.is_playing():
-			cardAnim.play("Evolve")
+		if "Fledgling" in card.card_data["sigils"]:
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
+			cardAnim.play("Evolve")
 			yield (cardAnim, "animation_finished")
+		
+		# Dive
+		if "Waterborne" in card.card_data["sigils"]:
+			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
+			cardAnim.play("UnDive")
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
@@ -187,14 +195,23 @@ func post_turn_sigils():
 	for slot in playerSlots:
 		if slot.get_child_count() == 0:
 			continue
-			
+		
 		var card = slot.get_child(0)
+		
+		if card.get_node("AnimationPlayer").is_playing():
+			continue
 		
 		if "Bone Digger" in card.card_data["sigils"]:
 			fightManager.add_bones(1)
 			fightManager.rpc_id(fightManager.opponent, "add_remote_bones", 1)
 			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "ProcGeneric")
 			card.get_node("AnimationPlayer").play("ProcGeneric")
+			yield(card.get_node("AnimationPlayer"), "animation_finished")
+		
+		# Diving
+		if "Waterborne" in card.card_data["sigils"]:
+			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
+			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 			
 	yield(get_tree().create_timer(0.01), "timeout")
