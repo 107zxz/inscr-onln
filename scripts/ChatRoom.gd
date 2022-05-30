@@ -6,9 +6,9 @@ remote func recieve_message(msg):
 	var pName = "ERR"
 	
 	if get_tree().is_network_server():
-		pName = main_cont.challengers[main_cont.opponent]
+		pName = main_cont.challengers[main_cont.opponent]["name"]
 	else:
-		pName = main_cont.challengers[1]
+		pName = main_cont.challengers[1]["name"]
 	
 	$VBoxContainer/Panel/ChatLog.text += pName + ": " + msg + "\n"
 
@@ -46,11 +46,3 @@ func _on_exitButton_pressed():
 	
 	visible = false
 
-func open():
-	var pName = "ERR"
-	if get_tree().is_network_server():
-		pName = main_cont.challengers[main_cont.opponent]
-	else:
-		pName = main_cont.challengers[1]
-	$VBoxContainer/Panel/ChatLog.text = "Chatting with " + pName + "\n"
-	
