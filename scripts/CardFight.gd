@@ -97,8 +97,8 @@ func init_match(opp_id: int):
 	
 	bones = 0
 	opponent_bones = 0
-	add_bones(8)
-	add_opponent_bones(8)
+	add_bones(0)
+	add_opponent_bones(0)
 	
 	set_max_energy(int(get_tree().is_network_server()))
 	set_energy(max_energy)
