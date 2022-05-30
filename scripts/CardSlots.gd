@@ -97,7 +97,7 @@ func pre_turn_sigils():
 		# Evolution
 		if "Fledgling" in card.card_data["sigils"] and not cardAnim.is_playing():
 			cardAnim.play("Evolve")
-			rpc_id(fightManager.opponent, "handle_enemy_evolve", slot.get_position_in_parent())
+			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
 			yield (cardAnim, "animation_finished")
 			
 	yield(get_tree().create_timer(0.01), "timeout")
@@ -110,38 +110,92 @@ func post_turn_sigils():
 		if slot.get_child_count() == 0:
 			continue
 		
+		if slot.get_child(0).get_node("AnimationPlayer").is_playing():
+			continue
+		
 		cardsToMove.append(slot.get_child(0))
 	
+	# Sprinting
 	for card in cardsToMove:
 		var cardAnim = card.get_node("AnimationPlayer")
 		var cardTween = card.get_node("Tween")
 		
 		# Spront
-		if "Sprinter" in card.card_data["sigils"] and not cardAnim.is_playing():
-			
-			var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
-				(card.card_data["sigils"].find("Sprinter") * 2) + 1
-			)
-			
-			var curSlot = card.get_parent().get_position_in_parent()
-			
-			var oSprintOffset = -1 if sprintSigil.flip_h else 1
-			
-			if curSlot + oSprintOffset > 3:
-				sprintSigil.flip_h = true
-			if curSlot + oSprintOffset < 0:
-				sprintSigil.flip_h = false
-			
-			var sprintOffset = -1 if sprintSigil.flip_h else 1
-			
-			card.move_to_parent(playerSlots[curSlot + sprintOffset])
-			rpc_id(
-				fightManager.opponent, "remote_card_move", 
-				curSlot,
-				curSlot + sprintOffset,
-				oSprintOffset != sprintOffset
+		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew"]:
+			if movSigil in card.card_data["sigils"] and not cardAnim.is_playing():
+				
+				var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
+					(card.card_data["sigils"].find(movSigil) * 2) + 1
 				)
-			yield (cardTween, "tween_completed")
+				
+				var curSlot = card.get_parent().get_position_in_parent()
+				
+				var oSprintOffset = -1 if sprintSigil.flip_h else 1
+				var sprintOffset = oSprintOffset
+				var moveFailed = false
+				var cantMove = false
+				var ogFlipped = sprintSigil.flip_h
+				
+				for _i in range(2):
+					# Edges of screen
+					if curSlot + sprintOffset > 3:
+						if moveFailed:
+							cantMove = true
+							break
+						sprintSigil.flip_h = true
+						moveFailed = true
+					elif curSlot + sprintOffset < 0:
+						if moveFailed:
+							cantMove = true
+							break
+						sprintSigil.flip_h = false
+						moveFailed = true
+						
+					# Occupied slots
+					elif playerSlots[curSlot + sprintOffset].get_child_count() > 0 and not playerSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
+						if moveFailed:
+							cantMove = true
+							break
+						sprintSigil.flip_h = not sprintSigil.flip_h
+						moveFailed = true
+					
+					sprintOffset = -1 if sprintSigil.flip_h else 1
+				
+				if cantMove:
+					sprintOffset = 0
+				else:
+					# Spawn a card if thats the one
+					if movSigil == "Squirrel Shedder":
+						summon_card(allCards.all_cards[29], curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", allCards.all_cards[29], curSlot)
+					if movSigil == "Skeleton Crew":
+						summon_card(allCards.all_cards[78], curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", allCards.all_cards[78], curSlot)
+						
+				card.move_to_parent(playerSlots[curSlot + sprintOffset])
+				rpc_id(
+					fightManager.opponent, "remote_card_move", 
+					curSlot,
+					curSlot + sprintOffset,
+					sprintSigil.flip_h != ogFlipped
+					)
+				
+				# Wait for move to finish
+				yield (cardTween, "tween_completed")
+	
+	# Other end-of-turn sigils
+	for slot in playerSlots:
+		if slot.get_child_count() == 0:
+			continue
+			
+		var card = slot.get_child(0)
+		
+		if "Bone Digger" in card.card_data["sigils"]:
+			fightManager.add_bones(1)
+			fightManager.rpc_id(fightManager.opponent, "add_remote_bones", 1)
+			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "ProcGeneric")
+			card.get_node("AnimationPlayer").play("ProcGeneric")
+			yield(card.get_node("AnimationPlayer"), "animation_finished")
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
@@ -248,23 +302,37 @@ func get_friendly_card_sigil(sigil):
 	
 	return null
 
+# Summon a card, used by Squirrel Ball
+func summon_card(cDat, slot_idx):
+	var nCard = fightManager.cardPrefab.instance()
+	nCard.from_data(cDat)
+	nCard.in_hand = false
+	playerSlots[slot_idx].add_child(nCard)
+
 # Remote
 remote func set_sac_olay_vis(slot, vis):
 	enemySlots[slot].get_child(0).get_node("CardBody/SacOlay").visible = vis
-
 
 remote func remote_card_anim(slot, anim_name):
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
 
+remote func remote_card_summon(cDat, slot_idx):
+	var nCard = fightManager.cardPrefab.instance()
+	nCard.from_data(cDat)
+	nCard.in_hand = false
+	enemySlots[slot_idx].add_child(nCard)
+
 remote func remote_card_move(from_slot, to_slot, flip_sigil):
 	var eCard = enemySlots[from_slot].get_child(0)
 	
-	eCard.move_to_parent(enemySlots[to_slot])
+	if from_slot != to_slot:
+		eCard.move_to_parent(enemySlots[to_slot])
+		
 	if flip_sigil:
 		var sigIdx = 0
 		for sigil in eCard.card_data["sigils"]:
-			if sigil in ["Sprinter"]:
+			if sigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew"]:
 				var sig = eCard.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
 					(sigIdx * 2) + 1
 				)
@@ -303,6 +371,3 @@ remote func set_card_offset(card_slot, offset):
 			enemySlots[card_slot + 1].show_behind_parent = false
 	
 	enemySlots[card_slot].get_child(0).rect_position.x = offset
-
-remote func handle_enemy_evolve(card_slot):
-	enemySlots[card_slot].get_child(0).get_node("AnimationPlayer").play("Evolve")
