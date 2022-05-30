@@ -107,6 +107,10 @@ func challenge_lobby(ip):
 	# Quick URL reformat, should not be a http(s) url
 	ip = ip.replace("http://", "").replace("https://", "")
 	
+	# If URL doesn't have lhrtunnel in it, assume they want the port autofilled
+	if not "lhrtunnel" in ip and not ":" in ip:
+		ip += ":10567"
+	
 	# Deck check
 	var dFile = File.new()
 	dFile.open($AllCards.deck_path + $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect.text + ".deck", File.READ)
@@ -232,7 +236,7 @@ func debug_join():
 	# Set username
 	$Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text = "CHALLENGER CLIENT"
 
-	challenge_lobby("localhost:10567")
+	challenge_lobby("localhost")
 
 func _ready():
 	randomize()
