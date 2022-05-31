@@ -86,8 +86,12 @@ func host_lobby():
 #	peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	# Websocket networking
 	var peer = WebSocketServer.new()
-	peer.listen(DEFAULT_PORT, PoolStringArray(), true)
-	get_tree().network_peer = peer
+	var err = peer.listen(DEFAULT_PORT, PoolStringArray(), true)
+	if not err:
+		get_tree().network_peer = peer
+	else:
+		sLog("Error hosting server! Error " + str(err))
+		return
 	
 	var localip = "Unknown"
 	for ip in IP.get_local_addresses():
