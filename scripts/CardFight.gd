@@ -394,6 +394,13 @@ remote func _opponent_played_card(card, slot):
 			set_opponent_max_energy(opponent_max_energy + 1)
 		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
 	
+	# Guardian
+	if slotManager.playerSlots[slot].get_child_count() == 0:
+		var guardians = slotManager.get_friendly_cards_sigil("Guardian")
+		if guardians:
+			slotManager.rpc_id(opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot, false)
+			guardians[0].move_to_parent(slotManager.playerSlots[slot])
+	
 	
 	
 ## SPECIAL CARD STUFF
