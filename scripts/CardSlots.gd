@@ -307,11 +307,26 @@ func handle_attack(from_slot, to_slot):
 	
 	if direct_attack:
 		fightManager.inflict_damage(pCard.attack)
+
+		# Looter
+		if "Looter" in pCard.card_data["sigils"]:
+			for _i in range(pCard.attack):
+				if fightManager.deck.size() == 0:
+					break
+					
+				fightManager.draw_card(fightManager.deck.pop_front())
+		
+				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+				if fightManager.deck.size() == 0:
+					get_node("../DrawPiles/YourDecks/Deck").visible = false
+					break
 	else:
 		eCard.health -= pCard.attack
 		eCard.draw_stats()
 		if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
 			eCard.get_node("AnimationPlayer").play("Perish")
+	
+	
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
