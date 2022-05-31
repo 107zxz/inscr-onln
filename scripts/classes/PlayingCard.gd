@@ -346,8 +346,7 @@ func begin_perish():
 				
 				if kill:
 					print("Gem dependant card should die!")
-					var gDep = slotManager.get_friendly_cards_sigil("Gem Dependant")
-					if gDep:
+					for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
 						gDep.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
 			break
