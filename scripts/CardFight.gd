@@ -264,6 +264,9 @@ func play_card(slot):
 						cIdx += 1
 					
 					for _i in range(3):
+						if deck.size() == 0:
+							break
+						
 						draw_card(deck.pop_front())
 						
 						# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
@@ -272,6 +275,19 @@ func play_card(slot):
 							break
 						
 					draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+				if sigil == "Mental Gemnastics":
+					for slot in slotManager.playerSlots:
+						if slot.get_child_count() > 0:
+							if "Mox" in slot.get_child(0).card_data["name"]:
+								if deck.size() == 0:
+									break
+									
+								draw_card(deck.pop_front())
+						
+								# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+								if deck.size() == 0:
+									$DrawPiles/YourDecks/Deck.visible = false
+									break
 						
 			# Starvation, inflict damage if 9th onwards
 			if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
