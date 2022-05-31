@@ -29,6 +29,9 @@ func get_available_blood() -> int:
 		if slot.get_child_count() > 0:
 			if "Worthy Sacrifice" in slot.get_child(0).card_data["sigils"]:
 				blood += 2
+			# Don't allow saccing mox cards
+			if "Mox" in slot.get_child(0).card_data["name"]:
+				continue
 			blood += 1
 	
 	return blood

@@ -228,6 +228,10 @@ func _on_Button_pressed():
 				if brick:
 					return
 				
+				# Don't allow sacrificing "Mox" cards
+				if "Mox" in card_data["name"]:
+					return
+				
 				slotManager.sacVictims.append(self)
 				$CardBody/SacOlay.visible = true
 				
