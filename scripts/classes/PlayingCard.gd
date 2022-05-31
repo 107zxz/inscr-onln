@@ -173,9 +173,9 @@ func _on_Button_pressed():
 				print("You need more sacrifices!")
 				return
 			
-			if card_data["mox_cost"] and not slotManager.get_friendly_sigil("Great Mox"):
+			if card_data["mox_cost"] and not slotManager.get_friendly_card_sigil("Great Mox"):
 				for mox in card_data["mox_cost"]:
-					if not slotManager.get_friendly_sigil(mox + " Mox"):
+					if not slotManager.get_friendly_card_sigil(mox + " Mox"):
 						print(mox + " Mox missing")
 						return
 			
@@ -286,6 +286,7 @@ func attack_hit():
 
 # Called when the card starts dying. Add bones and stuff
 func begin_perish():
+
 	if get_parent().get_parent().name == "PlayerSlots":
 		if "Bone King" in card_data["sigils"]:
 			fightManager.add_bones(4)
@@ -293,6 +294,11 @@ func begin_perish():
 			fightManager.add_bones(1)
 
 		## SIGILS
+		# Ruby Heart
+		if "Ruby Heart" in card_data["sigils"]:
+			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
+			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[98], get_parent().get_position_in_parent())
+
 		# Unkillable
 		if "Unkillable" in card_data["sigils"]:
 			
@@ -310,6 +316,7 @@ func begin_perish():
 
 			fightManager.draw_card(allCardData.all_cards.find(card_data))
 		
+		# Gem dependent (not this card)
 		for sigil in card_data["sigils"]:
 			if "Mox" in sigil:
 
@@ -337,6 +344,9 @@ func begin_perish():
 			fightManager.add_opponent_bones(4)
 		else:
 			fightManager.add_opponent_bones(1)
+	
+	# Be on top when I die. This is good for summon-on-death effects
+	get_parent().move_child(self, 1)
 
 
 # This is called when a card evolves with the fledgeling sigil
