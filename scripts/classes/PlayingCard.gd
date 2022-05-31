@@ -299,6 +299,11 @@ func begin_perish():
 			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[98], get_parent().get_position_in_parent())
 
+		# Frozen Away
+		if "Frozen Away" in card_data["sigils"]:
+			slotManager.summon_card(allCardData.all_cards[78], get_parent().get_position_in_parent())
+			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[78], get_parent().get_position_in_parent())
+
 		# Unkillable
 		if "Unkillable" in card_data["sigils"]:
 			
