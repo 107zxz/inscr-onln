@@ -132,7 +132,7 @@ func post_turn_sigils():
 		var cardTween = card.get_node("Tween")
 		
 		# Spront
-		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew"]:
+		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Hefty"]:
 			if movSigil in card.card_data["sigils"] and not cardAnim.is_playing():
 				
 				var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
@@ -164,11 +164,52 @@ func post_turn_sigils():
 						
 					# Occupied slots
 					elif playerSlots[curSlot + sprintOffset].get_child_count() > 0 and not playerSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
-						if moveFailed:
-							cantMove = true
-							break
-						sprintSigil.flip_h = not sprintSigil.flip_h
-						moveFailed = true
+
+						if movSigil == "Hefty":
+
+							var pushed = false
+
+							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
+								if playerSlots[curSlot + sprintOffset * 2].get_child_count() == 0 or playerSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
+									playerSlots[curSlot + sprintOffset].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 2])
+									rpc_id(
+									fightManager.opponent, "remote_card_move", 
+									curSlot + sprintOffset,
+									curSlot + sprintOffset * 2,
+									false
+									)
+									pushed = true
+							
+								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
+									if playerSlots[curSlot + sprintOffset * 3].get_child_count() == 0 or playerSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
+										playerSlots[curSlot + sprintOffset].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 2])
+										rpc_id(
+										fightManager.opponent, "remote_card_move", 
+										curSlot + sprintOffset,
+										curSlot + sprintOffset * 2,
+										false
+										)
+										playerSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 3])
+										rpc_id(
+										fightManager.opponent, "remote_card_move", 
+										curSlot + sprintOffset * 2,
+										curSlot + sprintOffset * 3,
+										false
+										)
+										pushed = true
+							
+							if not pushed:
+								if moveFailed:
+									cantMove = true
+									break
+								sprintSigil.flip_h = not sprintSigil.flip_h
+								moveFailed = true
+						else:
+							if moveFailed:
+								cantMove = true
+								break
+							sprintSigil.flip_h = not sprintSigil.flip_h
+							moveFailed = true
 					
 					sprintOffset = -1 if sprintSigil.flip_h else 1
 				
@@ -371,7 +412,7 @@ remote func remote_card_move(from_slot, to_slot, flip_sigil):
 	if flip_sigil:
 		var sigIdx = 0
 		for sigil in eCard.card_data["sigils"]:
-			if sigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew"]:
+			if sigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Hefty"]:
 				var sig = eCard.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
 					(sigIdx * 2) + 1
 				)
