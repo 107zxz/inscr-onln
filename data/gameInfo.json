@@ -733,7 +733,7 @@
             "mox_cost": []
         },
         {
-            "name": "Broken Obol",
+            "name": "Broken Obol 1",
             "sigils": [
                 "Sharp Quills"
             ],
@@ -745,7 +745,7 @@
             "mox_cost": []
         },
         {
-            "name": "Broken Obol",
+            "name": "Broken Obol 2",
             "sigils": [
                 "Bone King"
             ],
@@ -1352,25 +1352,23 @@
         "Worthy Sacrifice": "A card bearing this sigil is counted as 3 blood rather than 1 blood when sacrificed."
     },
     "banned_cards": [
+        "Skeleton",
+        "Squirrel",
+        "Ruby Mox",
+        "Emerald Mox",
+        "Sapphire Mox",
+        "Rabbit",
+        "Starvation",
+
         "Undead Cat",
         "Spore Mice",
-        "Squirrel",
-        "Rabbit",
         "Sporedigger",
         "Bone Lord's Horn",
-        "Broken Obol",
-        "Skeleton",
         "Sentry Spore",
         "Magnus Mox",
         "Force Mage",
         "Blue Sporemage",
-        "Ruby Mox",
-        "Emerald Mox",
-        "Sapphire Mox",
-        "Starvation",
-        "Burrowing Trap",
-        "Inspector",
-        "Melter"
+        "Burrowing Trap"
     ],
     "working_sigils": [
         "Airborne",
