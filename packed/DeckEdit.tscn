@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
+[ext_resource path="res://packed/SigilDescription.tscn" type="PackedScene" id=3]
 [ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -52,6 +53,14 @@ margin_right = 200.0
 margin_bottom = 596.0
 size_flags_vertical = 3
 custom_constants/separation = 10
+
+[node name="SigilDescription" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 0.0
+margin_bottom = 61.0
+
+[node name="SigilDescription2" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 71.0
+margin_bottom = 132.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 204.0
@@ -364,6 +373,7 @@ selected = 0
 margin_left = 574.0
 margin_right = 820.0
 margin_bottom = 537.0
+rect_min_size = Vector2( 246, 537 )
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults"]

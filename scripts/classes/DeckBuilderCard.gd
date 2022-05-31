@@ -151,20 +151,24 @@ func _on_Card_mouse_entered():
 	previewCont.get_child(0).from_data(card_data)
 	
 	# Display sigils
+	var sigIdx = 0
+	
 	for sigdisp in previewCont.get_child(1).get_children():
-		sigdisp.queue_free()
+		sigdisp.visible = false
 	
 	for sigdat in card_data.sigils:
-		# if not sigdat in allCardData.working_sigils:
-		# 	continue
-		
-		var sd = sigilDescPrefab.instance()
+#		var sd = sigilDescPrefab.instance()
+		var sd = previewCont.get_child(1).get_child(sigIdx)
 		sd.get_child(1).texture = load("res://gfx/sigils/" + sigdat + ".png")
 		sd.get_child(2).text = allCardData.all_sigils[sigdat]
 
 		if not sigdat in allCardData.working_sigils:
 			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
 			sd.get_child(2).add_color_override("font_color", Color.darkred)
+		else:
+			sd.get_child(2).add_color_override("font_color", Color.black)
 
-		previewCont.get_child(1).add_child(sd)
+#		previewCont.get_child(1).add_child(sd)
+		sd.visible = true
+		sigIdx += 1
 
