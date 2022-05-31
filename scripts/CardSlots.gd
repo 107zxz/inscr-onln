@@ -331,13 +331,15 @@ func handle_attack(from_slot, to_slot):
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
 # Sigil handling
-func get_friendly_card_sigil(sigil):
+func get_friendly_cards_sigil(sigil):
+	var found = []
+
 	for slot in playerSlots:
 		if slot.get_child_count() > 0:
 			if sigil in slot.get_child(0).card_data["sigils"]:
-				return slot.get_child(0)
+				found.append(slot.get_child(0))
 	
-	return null
+	return found
 
 # Summon a card, used by Squirrel Ball
 func summon_card(cDat, slot_idx):
@@ -376,7 +378,12 @@ remote func remote_card_move(from_slot, to_slot, flip_sigil):
 				
 				sig.flip_h = not sig.flip_h
 			sigIdx += 1
-				
+
+remote func remote_card_stats(card_slot, new_attack, new_health):
+	var card = enemySlots[card_slot].get_child(0)
+	card.attack = new_attack if new_attack else card.attack
+	card.health = new_health if new_health else card.health
+	card.draw_stats()
 
 remote func handle_enemy_attack(from_slot, to_slot):
 	var direct_attack = false

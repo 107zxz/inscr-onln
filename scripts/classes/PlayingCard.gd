@@ -173,9 +173,9 @@ func _on_Button_pressed():
 				print("You need more sacrifices!")
 				return
 			
-			if card_data["mox_cost"] and not slotManager.get_friendly_card_sigil("Great Mox"):
+			if card_data["mox_cost"] and not slotManager.get_friendly_cards_sigil("Great Mox"):
 				for mox in card_data["mox_cost"]:
-					if not slotManager.get_friendly_card_sigil(mox + " Mox"):
+					if not slotManager.get_friendly_cards_sigil(mox + " Mox"):
 						print(mox + " Mox missing")
 						return
 			
@@ -318,9 +318,17 @@ func begin_perish():
 						card.card_data["health"] = fightManager.my_ouro_power
 						card.from_data(card_data)
 
-
 			fightManager.draw_card(allCardData.all_cards.find(card_data))
 		
+		# Gem Animator
+		if "Gem Animator" in card_data["sigils"]:
+			for slot in slotManager.playerSlots:
+				if slot.get_child_count() > 0:
+					if "Mox" in slot.get_child(0).card_data["name"]:
+						slot.get_child(0).attack -= 1
+						slot.get_child(0).draw_stats()
+						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slot.get_position_in_parent(), slot.get_child(0).attack, null)
+
 		# Gem dependent (not this card)
 		for sigil in card_data["sigils"]:
 			if "Mox" in sigil:
@@ -328,16 +336,17 @@ func begin_perish():
 				print("Mox card died! Checking Gem dependant")
 
 				# Any Mox dying tests gem dependant
-				var kill = not (slotManager.get_friendly_card_sigil("Great Mox"))
+				var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
 
 				for moxcol in ["Green", "Blue", "Orange"]:
-					var foundMox = slotManager.get_friendly_card_sigil(moxcol + " Mox")
-					if foundMox and foundMox != self:
-						kill = false;
+					for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
+						if foundMox != self:
+							kill = false;
+							break
 				
 				if kill:
 					print("Gem dependant card should die!")
-					var gDep = slotManager.get_friendly_card_sigil("Gem Dependant")
+					var gDep = slotManager.get_friendly_cards_sigil("Gem Dependant")
 					if gDep:
 						gDep.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")

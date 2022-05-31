@@ -33,7 +33,6 @@ enum GameStates {
 	FORCEPLAY,
 	BATTLE,
 	HAMMER,
-	RESOLVE
 }
 var state = GameStates.NORMAL
 
@@ -288,7 +287,23 @@ func play_card(slot):
 								if deck.size() == 0:
 									$DrawPiles/YourDecks/Deck.visible = false
 									break
-						
+				# Gem Animator
+				if sigil == "Gem Animator":
+					for slot in slotManager.playerSlots:
+						if slot.get_child_count() > 0:
+							if "Mox" in slot.get_child(0).card_data["name"]:
+								slot.get_child(0).attack += 1
+								slot.get_child(0).draw_stats()
+								slotManager.rpc_id(opponent, "remote_card_stats", slot.get_position_in_parent(), slot.get_child(0).attack, null)
+
+			# More gem animator
+			if "Mox" in playedCard.card_data["name"]:
+				for _animator in slotManager.get_friendly_cards_sigil("Gem Animator"):
+					playedCard.attack += 1
+				playedCard.draw_stats()
+				slotManager.rpc_id(opponent, "remote_card_stats", slot.get_position_in_parent(), playedCard.attack, null)
+
+
 			# Starvation, inflict damage if 9th onwards
 			if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
 				# Ramp damage over time so the game actually ends
@@ -302,12 +317,13 @@ func play_card(slot):
 			for sigil in playedCard.card_data["sigils"]:
 				if sigil == "Gem Dependant":
 
-					var kill = not (slotManager.get_friendly_card_sigil("Great Mox"))
+					var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
 
 					for moxcol in ["Green", "Blue", "Orange"]:
-						var foundMox = slotManager.get_friendly_card_sigil(moxcol + " Mox")
-						if foundMox and foundMox != self:
-							kill = false;
+						for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
+							if foundMox != self:
+								kill = false;
+								break
 					
 					if kill:
 						print("Gem dependant card should die!")
