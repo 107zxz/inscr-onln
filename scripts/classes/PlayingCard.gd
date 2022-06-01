@@ -258,6 +258,9 @@ func lower():
 
 # Move to origin of new parent
 func move_to_parent(new_parent):
+	if new_parent == get_parent():
+		return
+
 	# Get card out of hand if possible, and ensure it is not considered raised
 	if new_parent.name != "PlayerHand":
 		in_hand = false
@@ -278,6 +281,28 @@ func move_to_parent(new_parent):
 	
 	$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.1, Tween.TRANS_LINEAR)
 	$Tween.start()
+
+	# Sentry stuff
+	if new_parent.get_parent().name == "PlayerSlots":
+		var eCard = null
+		if slotManager.enemySlots[new_parent.get_position_in_parent()].get_child_count():
+			eCard = slotManager.enemySlots[new_parent.get_position_in_parent()].get_child(0)
+			if "Sentry" in eCard.card_data["sigils"]:
+				print("SENTRY")
+				health -= 1
+				draw_stats()
+				if health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+					$AnimationPlayer.play("Perish")
+	if new_parent.get_parent().name == "EnemySlots":
+		var pCard = null
+		if slotManager.playerSlots[new_parent.get_position_in_parent()].get_child_count():
+			pCard = slotManager.playerSlots[new_parent.get_position_in_parent()].get_child(0)
+			if "Sentry" in pCard.card_data["sigils"]:
+				print("SENTRY")
+				health -= 1
+				draw_stats()
+				if health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+					$AnimationPlayer.play("Perish")
 
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
