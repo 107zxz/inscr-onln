@@ -339,6 +339,34 @@ func handle_attack(from_slot, to_slot):
 	
 	if enemySlots[to_slot].get_child_count() == 0:
 		direct_attack = true
+
+		# Check for moles
+		# Mole man
+		if "Airborne" in pCard.card_data["sigils"]:
+			for slot in enemySlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
+					print("Moel Man")
+					direct_attack = false
+					card.move_to_parent(enemySlots[to_slot])
+					eCard = card
+		else: # Regular mole
+			for slot in enemySlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"]:
+					print("Moel")
+					direct_attack = false
+					card.move_to_parent(enemySlots[to_slot])
+					eCard = card
+
 	else:
 		eCard = enemySlots[to_slot].get_child(0)
 		if "Airborne" in pCard.card_data["sigils"] and not "Mighty Leap" in eCard.card_data["sigils"]:
@@ -347,6 +375,8 @@ func handle_attack(from_slot, to_slot):
 			direct_attack = true
 	
 	if direct_attack:
+		
+
 		fightManager.inflict_damage(pCard.attack)
 
 		# Looter
@@ -434,6 +464,33 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	
 	if playerSlots[to_slot].get_child_count() == 0:
 		direct_attack = true
+
+		# Check for moles
+		# Mole man
+		if "Airborne" in eCard.card_data["sigils"]:
+			for slot in playerSlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
+					print("Moel Man")
+					direct_attack = false
+					card.move_to_parent(playerSlots[to_slot])
+					pCard = card
+		else: # Regular mole
+			for slot in playerSlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"]:
+					print("Moel")
+					direct_attack = false
+					card.move_to_parent(playerSlots[to_slot])
+					pCard = card
 	else:
 		pCard = playerSlots[to_slot].get_child(0)
 		if "Airborne" in eCard.card_data["sigils"] and not "Mighty Leap" in pCard.card_data["sigils"]:
