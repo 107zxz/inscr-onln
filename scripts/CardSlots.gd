@@ -396,6 +396,13 @@ func handle_attack(from_slot, to_slot):
 		eCard.draw_stats()
 		if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
 			eCard.get_node("AnimationPlayer").play("Perish")
+		
+		# Sharp quills
+		if "Sharp Quills" in eCard.card_data["sigils"]:
+			pCard.health -= 1
+			pCard.draw_stats()
+			if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+				pCard.get_node("AnimationPlayer").play("Perish")
 	
 	
 	
@@ -505,6 +512,13 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		pCard.draw_stats()
 		if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
 			pCard.get_node("AnimationPlayer").play("Perish")
+		
+		# Sharp quills
+		if "Sharp Quills" in pCard.card_data["sigils"]:
+			eCard.health -= 1
+			eCard.draw_stats()
+			if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+				eCard.get_node("AnimationPlayer").play("Perish")
 
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
