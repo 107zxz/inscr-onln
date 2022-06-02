@@ -313,6 +313,15 @@ func play_card(slot):
 				# Hoarder
 				if sigil == "Hoarder":
 					search_deck()
+				
+				# Mrs Bomb (wacky one)
+				if sigil == "Bomb Spewer":
+					for cSlot in range(4):
+						if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == slot:
+							continue
+
+						slotManager.summon_card(allCards.all_cards[40], cSlot)
+						slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
 
 				# Gem Animator
 				if sigil == "Gem Animator":
@@ -427,6 +436,15 @@ remote func _opponent_played_card(card, slot):
 		if guardians:
 			slotManager.rpc_id(opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot, false)
 			guardians[0].move_to_parent(slotManager.playerSlots[slot])
+	
+	# Mrs Bomb (wacky one)
+	if "Bomb Spewer" in card_dt["sigils"]:
+		for cSlot in range(4):
+			if slotManager.playerSlots[cSlot].get_child_count() > 0:
+				continue
+
+			slotManager.summon_card(allCards.all_cards[40], cSlot)
+			slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
 	
 	
 	

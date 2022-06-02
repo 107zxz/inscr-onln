@@ -266,7 +266,7 @@ signal complete_combat()
 
 func initiate_combat():
 	for slot in playerSlots:
-		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0:
+		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0 and slot.get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
 			
 			var pCard = slot.get_child(0)
 			var cardAnim = pCard.get_node("AnimationPlayer")

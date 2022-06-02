@@ -411,10 +411,10 @@ func begin_perish():
 		# Explosive motherfucker
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0:
+			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
 				slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").play("Perish")
 				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
-			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
+			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
 				slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").play("Perish")
 				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
 
@@ -429,7 +429,7 @@ func begin_perish():
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotManager.playerSlots[slotIdx].get_child_count() > 0:
+			if slotManager.playerSlots[slotIdx].get_child_count() > 0 and slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
 				slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").play("Perish")
 				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
 	
