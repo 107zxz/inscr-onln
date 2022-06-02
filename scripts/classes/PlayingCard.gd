@@ -415,12 +415,30 @@ func begin_perish(doubleDeath = false):
 		# TODO: Program this to actually deal damage
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
-				slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").play("Perish")
-				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
-			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
-				slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").play("Perish")
-				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
+
+			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0:
+				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
+
+				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
+					eCard.health -= 10
+					if eCard.health <= 0:
+						eCard.get_node("AnimationPlayer").play("Perish")
+						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
+					else:
+						eCard.draw_stats()
+						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
+
+			if slotIdx > 0 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
+				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
+
+				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
+					eCard.health -= 10
+					if eCard.health <= 0:
+						eCard.get_node("AnimationPlayer").play("Perish")
+						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
+					else:
+						eCard.draw_stats()
+						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx + 1, eCard.attack, eCard.health)
 
 
 	else:
@@ -433,9 +451,17 @@ func begin_perish(doubleDeath = false):
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotManager.playerSlots[slotIdx].get_child_count() > 0 and slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
-				slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").play("Perish")
-				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
+			if slotIdx > 0 and slotManager.playerSlots[slotIdx].get_child_count() > 0:
+				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
+
+				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
+					eCard.health -= 10
+					if eCard.health <= 0:
+						eCard.get_node("AnimationPlayer").play("Perish")
+						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
+					else:
+						eCard.draw_stats()
+						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx, eCard.attack, eCard.health)
 	
 	# Play the special animation if necro is in play
 	if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
