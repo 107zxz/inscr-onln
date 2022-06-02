@@ -1,7 +1,8 @@
-extends Node
+extends Control
 
 onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer")
 onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPreview/PreviewContainer/")
+
 
 onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 onready var allCardData = get_node("/root/Main/AllCards")
@@ -13,6 +14,18 @@ func from_data(cdat):
 	
 	$VBoxContainer/Label.text = card_data.name
 	$VBoxContainer/Portrait.texture = load("res://gfx/pixport/" + card_data.name + ".png")
+	
+	# Rare
+	if "rare" in card_data:
+		var sbox = $Button.get_stylebox("normal").duplicate()
+		var sboxH = $Button.get_stylebox("hover").duplicate()
+		sbox.bg_color = Color("ceb46d")
+		sboxH.bg_color = Color("dfc98e")
+		$Button.add_stylebox_override("normal", sbox)
+		$Button.add_stylebox_override("hover", sboxH)
+	else:
+		$Button.add_stylebox_override("normal", null)
+		$Button.add_stylebox_override("hover", null)
 	
 	# Update card costs and sigils
 	draw_cost()
@@ -129,7 +142,13 @@ func moxIdx(gmox, omox, bmox) -> int:
 
 func _on_Button_pressed():
 	# Am I in the search window? If so, add me to the deck if space provides
-	if get_parent().name == "SearchContainer" and deckContainer.get_child_count() < 40:
+	if get_parent().name == "SearchContainer":
+		if "rare" in card_data:
+			if get_node("/root/Main/DeckEdit").get_card_count(card_data) != 0:
+				return
+		else:
+			if get_node("/root/Main/DeckEdit").get_card_count(card_data) >= 4:
+				return
 		var newCard = self.duplicate(7)
 		newCard.from_data(card_data)
 		deckContainer.add_child(newCard)

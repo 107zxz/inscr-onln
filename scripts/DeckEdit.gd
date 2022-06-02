@@ -91,7 +91,7 @@ func search(_arg = null):
 
 func update_deck_count(var diff = 0):
 	dSize += diff
-	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/PanelContainer/DeckSize.text = str(dSize) + "/40"
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/PanelContainer/DeckSize.text = str(dSize)
 
 func _on_ClearButton_pressed():
 	for card in deckDisplay.get_children():
@@ -110,6 +110,15 @@ func get_deck_object():
 		deck_object["cards"].append(get_card_id(card.card_data))
 	
 	return deck_object
+
+func get_card_count(cDat):
+	var res = 0
+
+	for card in deckDisplay.get_children():
+		if card.card_data == cDat:
+			res += 1
+	
+	return res
 
 func get_card_id(card_data):
 	return cardInfo.all_cards.find(card_data)
