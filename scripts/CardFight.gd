@@ -187,6 +187,28 @@ func draw_sidedeck():
 		
 		starve_check()
 
+func search_deck():
+	if deck.size() == 0:
+		return
+	
+	$DeckSearch/Panel/VBoxContainer/OptionButton.clear()
+
+	$DeckSearch/Panel/VBoxContainer/OptionButton.add_item("- Select a Card -")
+	$DeckSearch/Panel/VBoxContainer/OptionButton.set_item_disabled(0, true)
+
+	for card in deck:
+		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(allCards.all_cards[card]["name"])
+
+	$DeckSearch.visible = true
+
+func search_callback(index):
+
+	draw_card(deck.pop_at(index - 1))
+
+	deck.shuffle()
+
+	$DeckSearch.visible = false
+
 func starve_check():
 	if deck.size() == 0 and side_deck.size() == 0:
 		turns_starving += 1
@@ -287,6 +309,11 @@ func play_card(slot):
 								if deck.size() == 0:
 									$DrawPiles/YourDecks/Deck.visible = false
 									break
+				
+				# Hoarder
+				if sigil == "Hoarder":
+					search_deck()
+
 				# Gem Animator
 				if sigil == "Gem Animator":
 					for slot in slotManager.playerSlots:
