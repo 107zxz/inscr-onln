@@ -342,12 +342,15 @@ func attack_hit():
 	slotManager.handle_attack(get_parent().get_position_in_parent(), get_parent().get_position_in_parent() + strike_offset)
 
 # Called when the card starts dying. Add bones and stuff
-func begin_perish():
+func begin_perish(doubleDeath = false):
+
+	if doubleDeath:
+		fightManager.card_summoned(self)
 
 	if get_parent().get_parent().name == "PlayerSlots":
 		if "Bone King" in card_data["sigils"]:
-			fightManager.add_bones(4)
-		else:
+			fightManager.add_bones(3 if doubleDeath else 4)
+		elif not doubleDeath:
 			fightManager.add_bones(1)
 
 		## SIGILS
@@ -421,8 +424,8 @@ func begin_perish():
 
 	else:
 		if "Bone King" in card_data["sigils"]:
-			fightManager.add_opponent_bones(4)
-		else:
+			fightManager.add_opponent_bones(3 if doubleDeath else 4)
+		elif not doubleDeath:
 			fightManager.add_opponent_bones(1)
 		
 		# Explosive motherfucker
@@ -433,8 +436,10 @@ func begin_perish():
 				slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").play("Perish")
 				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
 	
-	# Be on top when I die. This is good for summon-on-death effects
-	get_parent().move_child(self, 1)
+	# Play the special animation if necro is in play
+	if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death"):
+		$AnimationPlayer.play("DoublePerish")
+		return
 
 
 # This is called when a card evolves with the fledgeling sigil
