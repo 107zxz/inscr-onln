@@ -349,8 +349,8 @@ func begin_perish(doubleDeath = false):
 
 	if get_parent().get_parent().name == "PlayerSlots":
 		if "Bone King" in card_data["sigils"]:
-			fightManager.add_bones(3 if doubleDeath else 4)
-		elif not doubleDeath:
+			fightManager.add_bones(4)
+		else:
 			fightManager.add_bones(1)
 
 		## SIGILS
@@ -425,8 +425,8 @@ func begin_perish(doubleDeath = false):
 
 	else:
 		if "Bone King" in card_data["sigils"]:
-			fightManager.add_opponent_bones(3 if doubleDeath else 4)
-		elif not doubleDeath:
+			fightManager.add_opponent_bones(4)
+		else:
 			fightManager.add_opponent_bones(1)
 		
 		# Explosive motherfucker
@@ -438,7 +438,7 @@ func begin_perish(doubleDeath = false):
 				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
 	
 	# Play the special animation if necro is in play
-	if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death"):
+	if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
 		$AnimationPlayer.play("DoublePerish")
 		return
 
