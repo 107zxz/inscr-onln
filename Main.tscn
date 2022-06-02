@@ -165,6 +165,8 @@ placeholder_text = "TARGET URL"
 margin_left = 448.0
 margin_right = 508.0
 margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Edit Deck"
 
 [node name="ChatRoom" type="Control" parent="."]

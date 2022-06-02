@@ -62,7 +62,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.576471, 0.423529, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -97,10 +97,11 @@ GridContainer/constants/vseparation = 0
 HBoxContainer/constants/separation = 0
 Label/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color = Color( 0, 0, 0, 1 )
+LineEdit/styles/focus = SubResource( 11 )
 LineEdit/styles/normal = SubResource( 11 )
 Panel/styles/panel = SubResource( 7 )
 Panel/styles/pressed = SubResource( 6 )
-PanelContainer/styles/panel = SubResource( 1 )
+PanelContainer/styles/panel = SubResource( 2 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 VBoxContainer/constants/separation = 0
 VScrollBar/styles/grabber = SubResource( 9 )
