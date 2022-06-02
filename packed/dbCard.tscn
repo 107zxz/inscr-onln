@@ -95,7 +95,7 @@ size_flags_vertical = 3
 [node name="BloodCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
 margin_right = 27.0
-margin_bottom = 17.0
+margin_bottom = 35.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -196,8 +196,8 @@ stretch_mode = 6
 
 [node name="Sigil2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 25.0
-margin_right = 40.0
+margin_left = 28.0
+margin_right = 43.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 15, 25 )
 mouse_filter = 2

@@ -26,6 +26,18 @@ func from_data(cdat):
 	$CardBody/VBoxContainer/Label.text = card_data.name
 	$CardBody/VBoxContainer/Portrait.texture = load("res://gfx/pixport/" + card_data.name + ".png")
 	
+	# Rare
+	if "rare" in card_data:
+		var sbox = $CardBody/Button.get_stylebox("normal").duplicate()
+		var sboxH = $CardBody/Button.get_stylebox("hover").duplicate()
+		sbox.bg_color = Color("ceb46d")
+		sboxH.bg_color = Color("dfc98e")
+		$CardBody/Button.add_stylebox_override("normal", sbox)
+		$CardBody/Button.add_stylebox_override("hover", sboxH)
+	else:
+		$CardBody/Button.add_stylebox_override("normal", null)
+		$CardBody/Button.add_stylebox_override("hover", null)
+
 	# Update card costs and sigils
 	draw_cost()
 	draw_sigils()
