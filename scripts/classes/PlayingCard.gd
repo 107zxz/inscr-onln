@@ -412,6 +412,7 @@ func begin_perish(doubleDeath = false):
 			break
 		
 		# Explosive motherfucker
+		# TODO: Program this to actually deal damage
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
 			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
