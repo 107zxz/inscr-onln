@@ -157,7 +157,8 @@
             "blood_cost": 1,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Kingfisher",
@@ -182,7 +183,8 @@
             "blood_cost": 1,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Magpie",
@@ -207,7 +209,8 @@
             "blood_cost": 1,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Mole",
@@ -232,7 +235,8 @@
             "blood_cost": 1,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Opossum",
@@ -254,7 +258,8 @@
             "blood_cost": 2,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Rabbit",
@@ -381,7 +386,8 @@
             "blood_cost": 4,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Warren",
@@ -426,7 +432,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 4,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Automaton",
@@ -566,7 +573,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 2,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Steel Mice",
@@ -615,7 +623,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 3,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Shutterbug",
@@ -628,7 +637,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 5,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Sniper Bot",
@@ -660,7 +670,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 3,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Thick Droid",
@@ -718,7 +729,8 @@
             "blood_cost": 0,
             "bone_cost": 3,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Bone Heap",
@@ -730,7 +742,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Broken Obol 1",
@@ -766,7 +779,8 @@
             "blood_cost": 0,
             "bone_cost": 5,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Pharaoh's Pets",
@@ -792,7 +806,8 @@
             "blood_cost": 0,
             "bone_cost": 4,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "The Walkers",
@@ -865,7 +880,8 @@
             "blood_cost": 0,
             "bone_cost": 13,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Mummy Lord",
@@ -887,7 +903,8 @@
             "blood_cost": 0,
             "bone_cost": 3,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Revenant",
@@ -949,7 +966,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Zombie",
@@ -1097,7 +1115,8 @@
             "mox_cost": [
                 "Green",
                 "Blue"
-            ]
+            ],
+            "rare": true
         },
         {
             "name": "Master Goranj",
@@ -1112,7 +1131,8 @@
             "mox_cost": [
                 "Green",
                 "Orange"
-            ]
+            ],
+            "rare": true
         },
         {
             "name": "Master Orlu",
@@ -1128,7 +1148,8 @@
             "mox_cost": [
                 "Orange",
                 "Blue"
-            ]
+            ],
+            "rare": true
         },
         {
             "name": "Bleene's Mox",
@@ -1141,7 +1162,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Goranj's Mox",
@@ -1154,7 +1176,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Orlu's Mox",
@@ -1167,7 +1190,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "rare": true
         },
         {
             "name": "Emerald Mox",
@@ -1366,7 +1390,6 @@
         "Bone Lord's Horn",
         "Sentry Spore",
         "Magnus Mox",
-        "Force Mage",
         "Blue Sporemage",
         "Burrowing Trap"
     ],
@@ -1403,6 +1426,13 @@
         "Looter",
         "Gem Animator",
         "Hefty",
-        "Guardian"
+        "Guardian",
+        "Sharp Quills",
+        "Sentry",
+        "Burrower",
+        "Hoarder",
+        "Detonator",
+        "Bomb Spewer",
+        "Double Death"
     ]
 }
