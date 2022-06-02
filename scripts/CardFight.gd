@@ -366,7 +366,7 @@ func hammer_mode():
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
 	
-	if slotManager.get_available_slots() == 4:
+	if slotManager.get_available_slots() == 4 and state == GameStates.NORMAL:
 		$LeftSideUI/HammerButton.pressed = true
 		return
 	

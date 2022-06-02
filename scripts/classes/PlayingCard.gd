@@ -407,6 +407,16 @@ func begin_perish():
 						gDep.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
 			break
+		
+		# Explosive motherfucker
+		if "Detonator" in card_data["sigils"]:
+			var slotIdx = get_parent().get_position_in_parent()
+			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0:
+				slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
+			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
+				slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
 
 
 	else:
@@ -414,6 +424,14 @@ func begin_perish():
 			fightManager.add_opponent_bones(4)
 		else:
 			fightManager.add_opponent_bones(1)
+		
+		# Explosive motherfucker
+		if "Detonator" in card_data["sigils"]:
+			var slotIdx = get_parent().get_position_in_parent()
+
+			if slotManager.playerSlots[slotIdx].get_child_count() > 0:
+				slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
 	
 	# Be on top when I die. This is good for summon-on-death effects
 	get_parent().move_child(self, 1)
