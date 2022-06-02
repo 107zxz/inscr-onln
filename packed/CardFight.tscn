@@ -438,6 +438,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DeckSearch" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Panel" type="Panel" parent="DeckSearch"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -37.5
+margin_right = 100.0
+margin_bottom = 37.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeckSearch/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 18
+alignment = 1
+
+[node name="Label" type="Label" parent="DeckSearch/Panel/VBoxContainer"]
+margin_top = 13.0
+margin_right = 200.0
+margin_bottom = 26.0
+text = "Deck Search"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="DeckSearch/Panel/VBoxContainer"]
+margin_left = 12.0
+margin_top = 44.0
+margin_right = 187.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 175, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Obungus"
+align = 1
+items = [ "Obungus", null, false, 0, null, "Stoat", null, false, 1, null, "Jam", null, false, 2, null ]
+selected = 0
+
 [node name="WaitingBlocker" type="Panel" parent="."]
 visible = false
 anchor_right = 1.0
@@ -553,6 +605,7 @@ text = "Quit"
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
 [connection signal="button_down" from="LeftSideUI/HammerButton" to="." method="hammer_mode"]
 [connection signal="pressed" from="LeftSideUI/PassButton" to="." method="end_turn"]
+[connection signal="item_selected" from="DeckSearch/Panel/VBoxContainer/OptionButton" to="." method="search_callback"]
 [connection signal="pressed" from="RightSideUI/ForfeitButton" to="." method="surrender"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/QuitBtn" to="." method="quit_match"]

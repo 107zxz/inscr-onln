@@ -26,6 +26,18 @@ func from_data(cdat):
 	$CardBody/VBoxContainer/Label.text = card_data.name
 	$CardBody/VBoxContainer/Portrait.texture = load("res://gfx/pixport/" + card_data.name + ".png")
 	
+	# Rare
+	if "rare" in card_data:
+		var sbox = $CardBody/Button.get_stylebox("normal").duplicate()
+		var sboxH = $CardBody/Button.get_stylebox("hover").duplicate()
+		sbox.bg_color = Color("ceb46d")
+		sboxH.bg_color = Color("dfc98e")
+		$CardBody/Button.add_stylebox_override("normal", sbox)
+		$CardBody/Button.add_stylebox_override("hover", sboxH)
+	else:
+		$CardBody/Button.add_stylebox_override("normal", null)
+		$CardBody/Button.add_stylebox_override("hover", null)
+
 	# Update card costs and sigils
 	draw_cost()
 	draw_sigils()
@@ -258,6 +270,11 @@ func lower():
 
 # Move to origin of new parent
 func move_to_parent(new_parent):
+	var moved = true
+
+	if new_parent == get_parent():
+		moved = false
+
 	# Get card out of hand if possible, and ensure it is not considered raised
 	if new_parent.name != "PlayerHand":
 		in_hand = false
@@ -276,8 +293,48 @@ func move_to_parent(new_parent):
 	rect_position = Vector2.ZERO
 	$CardBody.rect_global_position = gPos
 	
+	if not moved:
+		$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.01, Tween.TRANS_LINEAR)
+		$Tween.start()
+		return
+	
 	$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.1, Tween.TRANS_LINEAR)
 	$Tween.start()
+
+	# Sentry stuff
+	if new_parent.get_parent().name == "PlayerSlots":
+		var eCard = null
+		if slotManager.enemySlots[new_parent.get_position_in_parent()].get_child_count():
+			eCard = slotManager.enemySlots[new_parent.get_position_in_parent()].get_child(0)
+			if "Sentry" in eCard.card_data["sigils"]:
+				print("SENTRY")
+				health -= 1
+				draw_stats()
+				if health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+					$AnimationPlayer.play("Perish")
+				
+				# Sharp quills
+				if "Sharp Quills" in card_data["sigils"]:
+					eCard.health -= 1
+					eCard.draw_stats()
+					if eCard.health <= 0 or "Touch of Death" in card_data["sigils"]:
+						eCard.get_node("AnimationPlayer").play("Perish")
+	if new_parent.get_parent().name == "EnemySlots":
+		var pCard = null
+		if slotManager.playerSlots[new_parent.get_position_in_parent()].get_child_count():
+			pCard = slotManager.playerSlots[new_parent.get_position_in_parent()].get_child(0)
+			if "Sentry" in pCard.card_data["sigils"]:
+				print("SENTRY")
+				health -= 1
+				draw_stats()
+				if health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+					$AnimationPlayer.play("Perish")
+				# Sharp quills
+				if "Sharp Quills" in card_data["sigils"]:
+					pCard.health -= 1
+					pCard.draw_stats()
+					if pCard.health <= 0 or "Touch of Death" in card_data["sigils"]:
+						pCard.get_node("AnimationPlayer").play("Perish")
 
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
@@ -285,12 +342,15 @@ func attack_hit():
 	slotManager.handle_attack(get_parent().get_position_in_parent(), get_parent().get_position_in_parent() + strike_offset)
 
 # Called when the card starts dying. Add bones and stuff
-func begin_perish():
+func begin_perish(doubleDeath = false):
+
+	if doubleDeath:
+		fightManager.card_summoned(self)
 
 	if get_parent().get_parent().name == "PlayerSlots":
 		if "Bone King" in card_data["sigils"]:
-			fightManager.add_bones(4)
-		else:
+			fightManager.add_bones(3 if doubleDeath else 4)
+		elif not doubleDeath:
 			fightManager.add_bones(1)
 
 		## SIGILS
@@ -350,16 +410,36 @@ func begin_perish():
 						gDep.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
 			break
+		
+		# Explosive motherfucker
+		if "Detonator" in card_data["sigils"]:
+			var slotIdx = get_parent().get_position_in_parent()
+			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
+				slotManager.playerSlots[slotIdx - 1].get_child(0).get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
+			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0 and slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
+				slotManager.playerSlots[slotIdx + 1].get_child(0).get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
 
 
 	else:
 		if "Bone King" in card_data["sigils"]:
-			fightManager.add_opponent_bones(4)
-		else:
+			fightManager.add_opponent_bones(3 if doubleDeath else 4)
+		elif not doubleDeath:
 			fightManager.add_opponent_bones(1)
+		
+		# Explosive motherfucker
+		if "Detonator" in card_data["sigils"]:
+			var slotIdx = get_parent().get_position_in_parent()
+
+			if slotManager.playerSlots[slotIdx].get_child_count() > 0 and slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
+				slotManager.playerSlots[slotIdx].get_child(0).get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
 	
-	# Be on top when I die. This is good for summon-on-death effects
-	get_parent().move_child(self, 1)
+	# Play the special animation if necro is in play
+	if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death"):
+		$AnimationPlayer.play("DoublePerish")
+		return
 
 
 # This is called when a card evolves with the fledgeling sigil

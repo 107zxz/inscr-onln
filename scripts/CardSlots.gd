@@ -266,7 +266,7 @@ signal complete_combat()
 
 func initiate_combat():
 	for slot in playerSlots:
-		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0:
+		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0 and slot.get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
 			
 			var pCard = slot.get_child(0)
 			var cardAnim = pCard.get_node("AnimationPlayer")
@@ -339,6 +339,34 @@ func handle_attack(from_slot, to_slot):
 	
 	if enemySlots[to_slot].get_child_count() == 0:
 		direct_attack = true
+
+		# Check for moles
+		# Mole man
+		if "Airborne" in pCard.card_data["sigils"]:
+			for slot in enemySlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
+					print("Moel Man")
+					direct_attack = false
+					card.move_to_parent(enemySlots[to_slot])
+					eCard = card
+		else: # Regular mole
+			for slot in enemySlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"]:
+					print("Moel")
+					direct_attack = false
+					card.move_to_parent(enemySlots[to_slot])
+					eCard = card
+
 	else:
 		eCard = enemySlots[to_slot].get_child(0)
 		if "Airborne" in pCard.card_data["sigils"] and not "Mighty Leap" in eCard.card_data["sigils"]:
@@ -347,6 +375,8 @@ func handle_attack(from_slot, to_slot):
 			direct_attack = true
 	
 	if direct_attack:
+		
+
 		fightManager.inflict_damage(pCard.attack)
 
 		# Looter
@@ -366,6 +396,13 @@ func handle_attack(from_slot, to_slot):
 		eCard.draw_stats()
 		if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
 			eCard.get_node("AnimationPlayer").play("Perish")
+		
+		# Sharp quills
+		if "Sharp Quills" in eCard.card_data["sigils"]:
+			pCard.health -= 1
+			pCard.draw_stats()
+			if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+				pCard.get_node("AnimationPlayer").play("Perish")
 	
 	
 	
@@ -434,6 +471,33 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	
 	if playerSlots[to_slot].get_child_count() == 0:
 		direct_attack = true
+
+		# Check for moles
+		# Mole man
+		if "Airborne" in eCard.card_data["sigils"]:
+			for slot in playerSlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
+					print("Moel Man")
+					direct_attack = false
+					card.move_to_parent(playerSlots[to_slot])
+					pCard = card
+		else: # Regular mole
+			for slot in playerSlots:
+				if slot.get_child_count() == 0:
+					continue
+				
+				var card = slot.get_child(0)
+
+				if "Burrower" in card.card_data["sigils"]:
+					print("Moel")
+					direct_attack = false
+					card.move_to_parent(playerSlots[to_slot])
+					pCard = card
 	else:
 		pCard = playerSlots[to_slot].get_child(0)
 		if "Airborne" in eCard.card_data["sigils"] and not "Mighty Leap" in pCard.card_data["sigils"]:
@@ -448,6 +512,13 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		pCard.draw_stats()
 		if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
 			pCard.get_node("AnimationPlayer").play("Perish")
+		
+		# Sharp quills
+		if "Sharp Quills" in pCard.card_data["sigils"]:
+			eCard.health -= 1
+			eCard.draw_stats()
+			if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+				eCard.get_node("AnimationPlayer").play("Perish")
 
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
