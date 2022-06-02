@@ -412,7 +412,6 @@ func begin_perish(doubleDeath = false):
 			break
 		
 		# Explosive motherfucker
-		# TODO: Program this to actually deal damage
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
 
