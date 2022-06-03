@@ -492,6 +492,23 @@ func _on_ActiveSigil_pressed():
 	# Sigil Effects
 	var sName = card_data["sigils"][0]
 	
+	if sName == "Energy Gun":
+		if fightManager.energy < 1:
+			return
+		
+		if slotManager.enemySlots[get_parent().get_position_in_parent()].get_child_count() == 0:
+			return
+		
+		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
+		fightManager.set_energy(fightManager.energy - 1)
+		
+		eCard.health -= 1
+		if eCard.health <= 0:
+			eCard.get_node("AnimationPlayer").play("Perish")
+		else:
+			eCard.draw_stats()
+		
+	
 	if sName == "Power Dice":
 		if fightManager.energy < 1:
 			return

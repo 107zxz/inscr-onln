@@ -9,7 +9,7 @@ const side_decks = [
 const side_deck_names = [
 	"Squirrels",
 	"Skeletons",
-	"Mox"
+	"Vessels",
 ]
 
 # Carryovers from lobby
