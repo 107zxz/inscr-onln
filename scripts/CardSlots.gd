@@ -445,12 +445,18 @@ remote func remote_card_summon(cDat, slot_idx):
 	enemySlots[slot_idx].add_child(nCard)
 
 
-remote func remote_activate_sigil(card_slot):
+remote func remote_activate_sigil(card_slot, arg = 0):
 	var eCard = enemySlots[card_slot].get_child(0)
 	var sName = eCard.card_data["sigils"][0]
 	
 	if false and fightManager.gameSettings.optActives:
 		eCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = true
+	
+	if sName == "Power Dice":
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		
+		eCard.attack = arg
+		eCard.draw_stats()
 	
 	if sName == "Enlarge":
 		fightManager.add_opponent_bones(-2)

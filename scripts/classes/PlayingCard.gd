@@ -492,6 +492,15 @@ func _on_ActiveSigil_pressed():
 	# Sigil Effects
 	var sName = card_data["sigils"][0]
 	
+	if sName == "Power Dice":
+		if fightManager.energy < 1:
+			return
+		
+		fightManager.set_energy(fightManager.energy - 1)
+		
+		attack = randi() % 6 + 1
+		draw_stats()
+		
 	if sName == "Enlarge":
 		if fightManager.bones < 2:
 			return
@@ -516,4 +525,4 @@ func _on_ActiveSigil_pressed():
 	
 	# Play anim and activate remotely
 	$AnimationPlayer.play("ProcGeneric")
-	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent())
+	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
