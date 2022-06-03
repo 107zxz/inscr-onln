@@ -100,6 +100,11 @@ func pre_turn_sigils():
 		if cardAnim.is_playing():
 			continue
 		
+		if false and "active" in card.card_data:
+			var cd = card.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil")
+			cd.disabled = false
+			cd.mouse_filter = MOUSE_FILTER_STOP
+		
 		# Evolution
 		if "Fledgling" in card.card_data["sigils"]:
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
@@ -438,6 +443,26 @@ remote func remote_card_summon(cDat, slot_idx):
 	nCard.from_data(cDat)
 	nCard.in_hand = false
 	enemySlots[slot_idx].add_child(nCard)
+
+
+remote func remote_activate_sigil(card_slot):
+	var eCard = enemySlots[card_slot].get_child(0)
+	var sName = eCard.card_data["sigils"][0]
+	
+	if false and fightManager.gameSettings.optActives:
+		eCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = true
+	
+	if sName == "Enlarge":
+		fightManager.add_opponent_bones(-2)
+		eCard.health += 1
+		eCard.attack += 1
+		eCard.draw_stats()
+	
+	if sName == "Disentomb":
+		fightManager.add_opponent_bones(-1)
+	
+	eCard.get_node("AnimationPlayer").play("ProcGeneric")
+
 
 remote func remote_card_move(from_slot, to_slot, flip_sigil):
 	var eCard = enemySlots[from_slot].get_child(0)

@@ -17,6 +17,11 @@ var opponent = -100
 var initial_deck = []
 var side_deck_index = null
 
+# Settings TBI
+var gameSettings = {
+	"startingBones": 0
+}
+
 # Game components
 onready var handManager = $HandsContainer/Hands
 onready var playerSlots = $CardSlots/PlayerSlots
@@ -102,8 +107,8 @@ func init_match(opp_id: int):
 	
 	bones = 0
 	opponent_bones = 0
-	add_bones(0)
-	add_opponent_bones(0)
+	add_bones(gameSettings.startingBones)
+	add_opponent_bones(gameSettings.startingBones)
 	
 	set_max_energy(int(get_tree().is_network_server()))
 	set_energy(max_energy)
@@ -155,6 +160,12 @@ func end_turn():
 	slotManager.post_turn_sigils()
 	yield(slotManager, "resolve_sigils")
 	
+	# Re-enable opponent's actives
+	if false:
+		for slot in slotManager.enemySlots:
+			if slot.get_child_count() > 0:
+				slot.get_child(0).get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = false
+		
 	# Bump opponent's energy
 	if opponent_max_energy < 6:
 		set_opponent_max_energy(opponent_max_energy + 1)
