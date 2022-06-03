@@ -4,7 +4,6 @@ extends Control
 const side_decks = [
 	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
 	[78, 78, 78, 78, 78, 78, 78, 78, 78, 78],
-	[97, 97, 97, 98, 98, 98, 99, 99, 99, 99]
 ]
 const side_deck_names = [
 	"Squirrels",
@@ -71,15 +70,21 @@ func init_match(opp_id: int):
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
-	# Reset decks
+	# Reset deck
 	deck = initial_deck.duplicate()
 	deck.shuffle()
-	side_deck = side_decks[side_deck_index].duplicate()
-	side_deck.shuffle()
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
-	$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
 	$DrawPiles/Notify.visible = false
+	
+	# Side deck
+	if typeof(side_deck_index) == TYPE_ARRAY:
+		side_deck = side_deck_index.duplicate()
+		$DrawPiles/YourDecks/SideDeck.text = "Mox"
+	else:
+		side_deck = side_decks[side_deck_index].duplicate()
+		$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
+	side_deck.shuffle()
 	
 	# Reset game state
 	advantage = 0

@@ -161,6 +161,13 @@ func _on_Button_pressed():
 		
 		queue_free()
 	
+	# Am I in the mox container? If so, cycle me
+	if get_parent().name == "MoxContainer":
+		var currIdx = allCardData.all_cards.find(card_data)
+		var nextIdx = (currIdx - 96) % 3 + 97
+		
+		from_data(allCardData.all_cards[nextIdx])
+	
 
 
 func _on_Card_mouse_entered():
