@@ -105,7 +105,7 @@ func get_deck_object():
 	var side_deck = sidedeck_de.selected
 	
 	# Side deck
-	if side_deck == 2:
+	if side_deck == 3:
 		side_deck = []
 		for card in mox_container.get_children():
 			side_deck.append(get_card_id(card.card_data))
@@ -195,7 +195,7 @@ func load_deck(_arg = null):
 		child.queue_free()
 	
 	if typeof(dj["side_deck"]) == TYPE_ARRAY:
-		sidedeck_de.select(2)
+		sidedeck_de.select(3)
 		
 		mox_container.visible = true
 		for i in range(10):
@@ -227,7 +227,7 @@ func populate_deck_list():
 
 
 func _on_SDSel_item_selected(index):
-	if index == 2:
+	if index == 3:
 		mox_container.visible = true
 	else:
 		mox_container.visible = false
