@@ -511,6 +511,16 @@ func _on_ActiveSigil_pressed():
 			
 		draw_stats()
 	
+	if sName == "Stimulate":
+		if fightManager.energy < 3:
+			return
+	
+		fightManager.set_energy(fightManager.energy - 3)
+		health += 1
+		attack += 1
+			
+		draw_stats()
+	
 	if sName == "Disentomb":
 		if fightManager.bones < 1:
 			return

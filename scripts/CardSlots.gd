@@ -464,6 +464,12 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		eCard.attack += 1
 		eCard.draw_stats()
 	
+	if sName == "Stimulate":
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
+		eCard.health += 1
+		eCard.attack += 1
+		eCard.draw_stats()
+	
 	if sName == "Disentomb":
 		fightManager.add_opponent_bones(-1)
 	
