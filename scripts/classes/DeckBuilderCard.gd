@@ -19,8 +19,12 @@ func from_data(cdat):
 	if "rare" in card_data:
 		var sbox = $Button.get_stylebox("normal").duplicate()
 		var sboxH = $Button.get_stylebox("hover").duplicate()
-		sbox.bg_color = Color("ceb46d")
-		sboxH.bg_color = Color("dfc98e")
+		if "nosac" in card_data:
+			sbox.bg_color = Color("ad9551")
+			sboxH.bg_color = Color("c2af7c")
+		else:
+			sbox.bg_color = Color("ceb46d")
+			sboxH.bg_color = Color("dfc98e")
 		$Button.add_stylebox_override("normal", sbox)
 		$Button.add_stylebox_override("hover", sboxH)
 	elif "nosac" in card_data:
