@@ -126,7 +126,7 @@ func post_turn_sigils():
 		if slot.get_child_count() == 0:
 			continue
 		
-		if slot.get_child(0).get_node("AnimationPlayer").current_animation == "Perish":
+		if "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
 			continue
 		
 		cardsToMove.append(slot.get_child(0))
@@ -423,6 +423,16 @@ func get_friendly_cards_sigil(sigil):
 	
 	return found
 
+func get_enemy_cards_sigil(sigil):
+	var found = []
+
+	for slot in enemySlots:
+		if slot.get_child_count() > 0:
+			if sigil in slot.get_child(0).card_data["sigils"]:
+				found.append(slot.get_child(0))
+	
+	return found
+
 # Summon a card, used by Squirrel Ball
 func summon_card(cDat, slot_idx):
 	var nCard = fightManager.cardPrefab.instance()
@@ -451,6 +461,10 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 	
 	if false and fightManager.gameSettings.optActives:
 		eCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = true
+	
+	if sName == "True Scholar":
+		eCard.get_node("AnimationPlayer").play("Perish")
+		return
 	
 	if sName == "Energy Gun":
 		

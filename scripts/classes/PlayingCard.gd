@@ -452,7 +452,11 @@ func begin_perish(doubleDeath = false):
 					else:
 						eCard.draw_stats()
 						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx + 1, eCard.attack, eCard.health)
-
+		
+		# Play the special animation if necro is in play
+		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
+			$AnimationPlayer.play("DoublePerish")
+			return
 
 	else:
 		if "Bone King" in card_data["sigils"]:
@@ -475,11 +479,10 @@ func begin_perish(doubleDeath = false):
 					else:
 						eCard.draw_stats()
 						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx, eCard.attack, eCard.health)
-	
-	# Play the special animation if necro is in play
-	if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
-		$AnimationPlayer.play("DoublePerish")
-		return
+		# Play the special animation if necro is in play
+		if not doubleDeath and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self:
+			$AnimationPlayer.play("DoublePerish")
+			return
 
 
 # This is called when a card evolves with the fledgeling sigil
@@ -492,6 +495,27 @@ func _on_ActiveSigil_pressed():
 	# Sigil Effects
 	var sName = card_data["sigils"][0]
 	
+	if sName == "True Scholar":
+		if not slotManager.get_friendly_cards_sigil("Blue Mox") and not slotManager.get_friendly_cards_sigil("Great Mox"):
+			return
+
+		for _i in range(3):
+			if fightManager.deck.size() == 0:
+				break
+			
+			fightManager.draw_card(fightManager.deck.pop_front())
+			
+			# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+			if fightManager.deck.size() == 0:
+				fightManager.get_node("DrawPiles/YourDecks/Deck").visible = false
+				break
+
+		$AnimationPlayer.play("Perish")
+		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
+		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
+		slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
+		return
+
 	if sName == "Energy Gun":
 		if fightManager.energy < 1:
 			return
