@@ -427,7 +427,7 @@ func begin_perish(doubleDeath = false):
 						eCard.draw_stats()
 						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
 
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
+			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
 				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -450,7 +450,7 @@ func begin_perish(doubleDeath = false):
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx].get_child_count() > 0:
+			if slotManager.playerSlots[slotIdx].get_child_count() > 0:
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
