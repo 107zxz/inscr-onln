@@ -23,6 +23,13 @@ func from_data(cdat):
 		sboxH.bg_color = Color("dfc98e")
 		$Button.add_stylebox_override("normal", sbox)
 		$Button.add_stylebox_override("hover", sboxH)
+	elif "nosac" in card_data:
+		var sbox = $Button.get_stylebox("normal").duplicate()
+		var sboxH = $Button.get_stylebox("hover").duplicate()
+		sbox.bg_color = Color("969275")
+		sboxH.bg_color = Color("b0ab89")
+		$Button.add_stylebox_override("normal", sbox)
+		$Button.add_stylebox_override("hover", sboxH)
 	else:
 		$Button.add_stylebox_override("normal", null)
 		$Button.add_stylebox_override("hover", null)
@@ -101,8 +108,14 @@ func draw_cost():
 func draw_sigils():
 	# Sigils
 	if len(card_data.sigils) > 0:
-		$VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
-		$VBoxContainer/HBoxContainer/Sigil.visible = true
+		if "active" in card_data:
+			$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
+			$VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$VBoxContainer/HBoxContainer/Sigil.visible = false
+		else:
+			$VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$VBoxContainer/HBoxContainer/Sigil.visible = true
+			$VBoxContainer/HBoxContainer/ActiveSigil.visible = false
 		
 		if len(card_data.sigils) > 1:
 			$VBoxContainer/HBoxContainer/Sigil2.visible = true

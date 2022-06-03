@@ -34,6 +34,13 @@ func from_data(cdat):
 		sboxH.bg_color = Color("dfc98e")
 		$CardBody/Button.add_stylebox_override("normal", sbox)
 		$CardBody/Button.add_stylebox_override("hover", sboxH)
+	elif "nosac" in card_data:
+		var sbox = $CardBody/Button.get_stylebox("normal").duplicate()
+		var sboxH = $CardBody/Button.get_stylebox("hover").duplicate()
+		sbox.bg_color = Color("969275")
+		sboxH.bg_color = Color("b0ab89")
+		$CardBody/Button.add_stylebox_override("normal", sbox)
+		$CardBody/Button.add_stylebox_override("hover", sboxH)
 	else:
 		$CardBody/Button.add_stylebox_override("normal", null)
 		$CardBody/Button.add_stylebox_override("hover", null)
@@ -121,8 +128,15 @@ func draw_cost():
 func draw_sigils():
 	# Sigils
 	if len(card_data.sigils) > 0:
-		$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
-		$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = true
+		if "active" in card_data:
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = true
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = false
+		else:
+			$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = true
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = false
+		
 		if len(card_data.sigils) > 1:
 			$CardBody/VBoxContainer/HBoxContainer/Sigil2.visible = true
 			$CardBody/VBoxContainer/HBoxContainer/Spacer3.visible = true
@@ -471,3 +485,10 @@ func begin_perish(doubleDeath = false):
 # This is called when a card evolves with the fledgeling sigil
 func evolve():
 	from_data(allCardData.all_cards[card_data["evolution"]])
+
+
+func _on_ActiveSigil_pressed():
+	$AnimationPlayer.play("ProcGeneric")
+	slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "ProcGeneric")
+	$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
+	$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
