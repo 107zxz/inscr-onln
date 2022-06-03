@@ -30,7 +30,7 @@ func get_available_blood() -> int:
 			if "Worthy Sacrifice" in slot.get_child(0).card_data["sigils"]:
 				blood += 2
 			# Don't allow saccing mox cards
-			if "Mox" in slot.get_child(0).card_data["name"]:
+			if "nosac" in slot.get_child(0).card_data:
 				continue
 			blood += 1
 	
@@ -105,7 +105,7 @@ func pre_turn_sigils():
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
 			cardAnim.play("Evolve")
 			yield (cardAnim, "animation_finished")
-		
+			
 		# Dive
 		if "Waterborne" in card.card_data["sigils"]:
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
@@ -121,7 +121,7 @@ func post_turn_sigils():
 		if slot.get_child_count() == 0:
 			continue
 		
-		if slot.get_child(0).get_node("AnimationPlayer").is_playing():
+		if slot.get_child(0).get_node("AnimationPlayer").current_animation == "Perish":
 			continue
 		
 		cardsToMove.append(slot.get_child(0))
@@ -403,8 +403,7 @@ func handle_attack(from_slot, to_slot):
 			pCard.draw_stats()
 			if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
 				pCard.get_node("AnimationPlayer").play("Perish")
-	
-	
+		
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 

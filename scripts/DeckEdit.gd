@@ -19,8 +19,8 @@ onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer
 onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/LineEdit
 
 # Extended options
-onready var sidedeck_de = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/HBoxContainer/SDSel
-
+onready var sidedeck_de = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/SDSel
+onready var mox_container = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -101,9 +101,18 @@ func _on_ClearButton_pressed():
 
 # Deck Saving and Loading
 func get_deck_object():
+	
+	var side_deck = sidedeck_de.selected
+	
+	# Side deck
+	if side_deck == 3:
+		side_deck = []
+		for card in mox_container.get_children():
+			side_deck.append(get_card_id(card.card_data))
+	
 	var deck_object = {
 		"cards": [],
-		"side_deck": sidedeck_de.selected
+		"side_deck": side_deck
 	}
 	
 	for card in deckDisplay.get_children():
@@ -181,7 +190,26 @@ func load_deck(_arg = null):
 		deckDisplay.add_child(nCard)
 		dSize += 1
 	
-	sidedeck_de.select(dj["side_deck"])
+	# Mox
+	for child in mox_container.get_children():
+		child.queue_free()
+	
+	if typeof(dj["side_deck"]) == TYPE_ARRAY:
+		sidedeck_de.select(3)
+		
+		mox_container.visible = true
+		for i in range(10):
+			var nCard = cardPrefab.instance()
+			nCard.from_data(cardInfo.all_cards[dj["side_deck"][i]])
+			mox_container.add_child(nCard)
+	else:
+		sidedeck_de.select(dj["side_deck"])
+		
+		# More mox
+		for mId in [97, 97, 97, 98, 98, 98, 99, 99, 99, 99]:
+			var nCard = cardPrefab.instance()
+			nCard.from_data(cardInfo.all_cards[mId])
+			mox_container.add_child(nCard)
 	
 	update_deck_count()
 
@@ -196,3 +224,10 @@ func populate_deck_list():
 		if not dTest.current_is_dir() and fName.ends_with(".deck"):
 			selector_de.add_item(fName.split(".deck")[0])
 		fName = dTest.get_next()
+
+
+func _on_SDSel_item_selected(index):
+	if index == 3:
+		mox_container.visible = true
+	else:
+		mox_container.visible = false
