@@ -241,7 +241,7 @@ func _on_Button_pressed():
 					return
 				
 				# Don't allow sacrificing "Mox" cards
-				if "Mox" in card_data["name"]:
+				if "nosac" in card_data:
 					return
 				
 				slotManager.sacVictims.append(self)

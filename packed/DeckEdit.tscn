@@ -383,7 +383,7 @@ focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
 text = "Squirrels"
-items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Mox", null, false, 2, null ]
+items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Empty Vessels", null, false, 2, null, "Mox", null, false, 3, null ]
 selected = 0
 
 [node name="MoxContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]

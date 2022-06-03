@@ -1163,7 +1163,8 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [],
-            "rare": true
+            "rare": true,
+            "nosac": true
         },
         {
             "name": "Goranj's Mox",
@@ -1177,7 +1178,8 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [],
-            "rare": true
+            "rare": true,
+            "nosac": true
         },
         {
             "name": "Orlu's Mox",
@@ -1191,7 +1193,8 @@
             "bone_cost": 0,
             "energy_cost": 0,
             "mox_cost": [],
-            "rare": true
+            "rare": true,
+            "nosac": true
         },
         {
             "name": "Emerald Mox",
@@ -1203,7 +1206,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "nosac": true
         },
         {
             "name": "Ruby Mox",
@@ -1215,7 +1219,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "nosac": true
         },
         {
             "name": "Sapphire Mox",
@@ -1227,7 +1232,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "nosac": true
         },
         {
             "name": "Magnus Mox",
@@ -1239,7 +1245,8 @@
             "blood_cost": 0,
             "bone_cost": 0,
             "energy_cost": 0,
-            "mox_cost": []
+            "mox_cost": [],
+            "nosac": true
         },
         {
             "name": "Muscle Mage",
@@ -1320,6 +1327,17 @@
             "mox_cost": [
                 "Green"
             ]
+        },
+        {
+            "name": "Empty Vessel",
+            "sigils": [],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 1,
+            "mox_cost": [],
+            "nosac": true
         }
     ],
     "sigils": {
@@ -1381,6 +1399,7 @@
         "Ruby Mox",
         "Emerald Mox",
         "Sapphire Mox",
+        "Empty Vessel",
         "Rabbit",
         "Starvation",
 
