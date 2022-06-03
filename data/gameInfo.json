@@ -1345,6 +1345,18 @@
             "energy_cost": 1,
             "mox_cost": [],
             "nosac": true
+        },
+        {
+            "name": "Boneless",
+            "sigils": [
+                "Brittle"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 0,
+            "bone_cost": 0,
+            "energy_cost": 0,
+            "mox_cost": []
         }
     ],
     "sigils": {
@@ -1402,6 +1414,7 @@
     },
     "banned_cards": [
         "Skeleton",
+        "Boneless",
         "Squirrel",
         "Ruby Mox",
         "Emerald Mox",
@@ -1459,6 +1472,8 @@
         "Hoarder",
         "Detonator",
         "Bomb Spewer",
-        "Double Death"
+        "Double Death",
+        "Enlarge",
+        "Disentomb"
     ]
 }

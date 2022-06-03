@@ -364,7 +364,7 @@ func begin_perish(doubleDeath = false):
 	if get_parent().get_parent().name == "PlayerSlots":
 		if "Bone King" in card_data["sigils"]:
 			fightManager.add_bones(4)
-		else:
+		elif card_data["name"] != "Boneless":
 			fightManager.add_bones(1)
 
 		## SIGILS
@@ -457,7 +457,7 @@ func begin_perish(doubleDeath = false):
 	else:
 		if "Bone King" in card_data["sigils"]:
 			fightManager.add_opponent_bones(4)
-		else:
+		elif card_data["name"] != "Boneless":
 			fightManager.add_opponent_bones(1)
 		
 		# Explosive motherfucker
@@ -488,7 +488,32 @@ func evolve():
 
 
 func _on_ActiveSigil_pressed():
+
+	# Sigil Effects
+	var sName = card_data["sigils"][0]
+	
+	if sName == "Enlarge":
+		if fightManager.bones < 2:
+			return
+	
+		fightManager.add_bones(-2)
+		health += 1
+		attack += 1
+			
+		draw_stats()
+	
+	if sName == "Disentomb":
+		if fightManager.bones < 1:
+			return
+
+		fightManager.add_bones(-1)
+		fightManager.draw_card(108)
+	
+	# Disable button until start of next turn
+	if false and fightManager.gameSettings.optActives:
+		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
+		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
+	
+	# Play anim and activate remotely
 	$AnimationPlayer.play("ProcGeneric")
-	slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "ProcGeneric")
-	$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
-	$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
+	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent())
