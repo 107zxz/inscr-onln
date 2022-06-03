@@ -353,32 +353,83 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.55
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 572.0
 margin_bottom = 183.0
+custom_constants/separation = 10
 alignment = 1
 
-[node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
+margin_top = 82.0
+margin_right = 570.0
+margin_bottom = 99.0
+alignment = 1
+
+[node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
 margin_left = 218.0
-margin_top = 84.0
+margin_top = 2.0
 margin_right = 283.0
-margin_bottom = 97.0
+margin_bottom = 15.0
 text = "Side Deck: "
 align = 1
 
-[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/HBoxContainer"]
+[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
 margin_left = 283.0
-margin_top = 82.0
 margin_right = 351.0
-margin_bottom = 99.0
+margin_bottom = 17.0
 focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
 text = "Squirrels"
-items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Random Mox", null, false, 2, null ]
+items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Mox", null, false, 2, null ]
 selected = 0
+
+[node name="MoxContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
+visible = false
+margin_top = 63.0
+margin_right = 570.0
+margin_bottom = 145.0
+columns = 10
+
+[node name="Card" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+
+[node name="Card2" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 57.0
+margin_right = 114.0
+
+[node name="Card3" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 114.0
+margin_right = 171.0
+
+[node name="Card4" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 171.0
+margin_right = 228.0
+
+[node name="Card5" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 228.0
+margin_right = 285.0
+
+[node name="Card6" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 285.0
+margin_right = 342.0
+
+[node name="Card7" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 342.0
+margin_right = 399.0
+
+[node name="Card8" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 399.0
+margin_right = 456.0
+
+[node name="Card9" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_right = 513.0
+
+[node name="Card10" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
+margin_left = 513.0
+margin_right = 570.0
 
 [node name="SearchResults" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
 margin_left = 574.0
@@ -429,3 +480,4 @@ columns = 4
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="." method="search"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit" to="." method="search"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/SDSel" to="." method="_on_SDSel_item_selected"]
