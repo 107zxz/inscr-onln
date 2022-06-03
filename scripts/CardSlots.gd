@@ -452,6 +452,17 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 	if false and fightManager.gameSettings.optActives:
 		eCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = true
 	
+	if sName == "Energy Gun":
+		
+		var pCard = playerSlots[card_slot].get_child(0)
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		
+		pCard.health -= 1
+		if pCard.health <= 0:
+			pCard.get_node("AnimationPlayer").play("Perish")
+		else:
+			pCard.draw_stats()
+	
 	if sName == "Power Dice":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		
