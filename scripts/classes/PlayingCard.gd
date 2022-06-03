@@ -34,6 +34,13 @@ func from_data(cdat):
 		sboxH.bg_color = Color("dfc98e")
 		$CardBody/Button.add_stylebox_override("normal", sbox)
 		$CardBody/Button.add_stylebox_override("hover", sboxH)
+	elif "nosac" in card_data:
+		var sbox = $CardBody/Button.get_stylebox("normal").duplicate()
+		var sboxH = $CardBody/Button.get_stylebox("hover").duplicate()
+		sbox.bg_color = Color("969275")
+		sboxH.bg_color = Color("b0ab89")
+		$CardBody/Button.add_stylebox_override("normal", sbox)
+		$CardBody/Button.add_stylebox_override("hover", sboxH)
 	else:
 		$CardBody/Button.add_stylebox_override("normal", null)
 		$CardBody/Button.add_stylebox_override("hover", null)
@@ -121,8 +128,15 @@ func draw_cost():
 func draw_sigils():
 	# Sigils
 	if len(card_data.sigils) > 0:
-		$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
-		$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = true
+		if "active" in card_data:
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = true
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = false
+		else:
+			$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = true
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = false
+		
 		if len(card_data.sigils) > 1:
 			$CardBody/VBoxContainer/HBoxContainer/Sigil2.visible = true
 			$CardBody/VBoxContainer/HBoxContainer/Spacer3.visible = true
@@ -241,7 +255,7 @@ func _on_Button_pressed():
 					return
 				
 				# Don't allow sacrificing "Mox" cards
-				if "Mox" in card_data["name"]:
+				if "nosac" in card_data:
 					return
 				
 				slotManager.sacVictims.append(self)
@@ -427,7 +441,7 @@ func begin_perish(doubleDeath = false):
 						eCard.draw_stats()
 						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
 
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
+			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
 				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -450,7 +464,7 @@ func begin_perish(doubleDeath = false):
 		if "Detonator" in card_data["sigils"]:
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx].get_child_count() > 0:
+			if slotManager.playerSlots[slotIdx].get_child_count() > 0:
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -471,3 +485,10 @@ func begin_perish(doubleDeath = false):
 # This is called when a card evolves with the fledgeling sigil
 func evolve():
 	from_data(allCardData.all_cards[card_data["evolution"]])
+
+
+func _on_ActiveSigil_pressed():
+	$AnimationPlayer.play("ProcGeneric")
+	slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "ProcGeneric")
+	$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
+	$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE

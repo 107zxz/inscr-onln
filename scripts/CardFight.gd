@@ -4,7 +4,7 @@ extends Control
 const side_decks = [
 	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
 	[78, 78, 78, 78, 78, 78, 78, 78, 78, 78],
-	[97, 97, 97, 98, 98, 98, 99, 99, 99, 99]
+	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
 ]
 const side_deck_names = [
 	"Squirrels",
@@ -71,15 +71,21 @@ func init_match(opp_id: int):
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
-	# Reset decks
+	# Reset deck
 	deck = initial_deck.duplicate()
 	deck.shuffle()
-	side_deck = side_decks[side_deck_index].duplicate()
-	side_deck.shuffle()
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
-	$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
 	$DrawPiles/Notify.visible = false
+	
+	# Side deck
+	if typeof(side_deck_index) == TYPE_ARRAY:
+		side_deck = side_deck_index.duplicate()
+		$DrawPiles/YourDecks/SideDeck.text = "Mox"
+	else:
+		side_deck = side_decks[side_deck_index].duplicate()
+		$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
+	side_deck.shuffle()
 	
 	# Reset game state
 	advantage = 0
@@ -272,106 +278,109 @@ func play_card(slot):
 			card_summoned(playedCard)
 
 func card_summoned(playedCard):
+	# Enable active
+	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
+	
 	# SIGILS
-		for sigil in playedCard.card_data["sigils"]:
-			if sigil == "Fecundity":
-				draw_card(allCards.all_cards.find(playedCard.card_data))
-			if sigil == "Rabbit Hole":
-				draw_card(21)
-			if sigil == "Battery Bearer":
-				if max_energy < 6:
-					set_max_energy(max_energy + 1)
-				set_energy(min(max_energy, energy + 1))
-			if sigil == "Handy":
-				var cIdx = 0
-				for card in handManager.get_node("PlayerHand").get_children():
-					if card == playedCard:
-						continue
-					card.get_node("AnimationPlayer").play("Discard")
-					rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
-					cIdx += 1
+	for sigil in playedCard.card_data["sigils"]:
+		if sigil == "Fecundity":
+			draw_card(allCards.all_cards.find(playedCard.card_data))
+		if sigil == "Rabbit Hole":
+			draw_card(21)
+		if sigil == "Battery Bearer":
+			if max_energy < 6:
+				set_max_energy(max_energy + 1)
+			set_energy(min(max_energy, energy + 1))
+		if sigil == "Handy":
+			var cIdx = 0
+			for card in handManager.get_node("PlayerHand").get_children():
+				if card == playedCard:
+					continue
+				card.get_node("AnimationPlayer").play("Discard")
+				rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
+				cIdx += 1
+			
+			for _i in range(3):
+				if deck.size() == 0:
+					break
 				
-				for _i in range(3):
-					if deck.size() == 0:
-						break
-					
-					draw_card(deck.pop_front())
-					
-					# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-					if deck.size() == 0:
-						$DrawPiles/YourDecks/Deck.visible = false
-						break
-					
-				draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
-			if sigil == "Mental Gemnastics":
-				for slot in slotManager.playerSlots:
-					if slot.get_child_count() > 0:
-						if "Mox" in slot.get_child(0).card_data["name"]:
-							if deck.size() == 0:
-								break
-								
-							draw_card(deck.pop_front())
-					
-							# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-							if deck.size() == 0:
-								$DrawPiles/YourDecks/Deck.visible = false
-								break
-			
-			# Hoarder
-			if sigil == "Hoarder":
-				search_deck()
-			
-			# Mrs Bomb (wacky one)
-			if sigil == "Bomb Spewer":
-				for cSlot in range(4):
-					if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
-						continue
-
-					slotManager.summon_card(allCards.all_cards[40], cSlot)
-					slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
-
-			# Gem Animator
-			if sigil == "Gem Animator":
-				for slot in slotManager.playerSlots:
-					if slot.get_child_count() > 0:
-						if "Mox" in slot.get_child(0).card_data["name"]:
-							slot.get_child(0).attack += 1
-							slot.get_child(0).draw_stats()
-							slotManager.rpc_id(opponent, "remote_card_stats", slot.get_position_in_parent(), slot.get_child(0).attack, null)
-
-		# More gem animator
-		if "Mox" in playedCard.card_data["name"]:
-			for _animator in slotManager.get_friendly_cards_sigil("Gem Animator"):
-				playedCard.attack += 1
-			playedCard.draw_stats()
-			slotManager.rpc_id(opponent, "remote_card_stats", playedCard.get_parent().get_position_in_parent(), playedCard.attack, null)
-
-
-		# Starvation, inflict damage if 9th onwards
-		if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
-			# Ramp damage over time so the game actually ends
-			inflict_damage(playedCard.attack - 8)
-		
-		
-
-		# Die if gem dependant
-		for sigil in playedCard.card_data["sigils"]:
-			if sigil == "Gem Dependant":
-
-				var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
-
-				for moxcol in ["Green", "Blue", "Orange"]:
-					for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
-						if foundMox != self:
-							kill = false;
+				draw_card(deck.pop_front())
+				
+				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+				if deck.size() == 0:
+					$DrawPiles/YourDecks/Deck.visible = false
+					break
+				
+			draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+		if sigil == "Mental Gemnastics":
+			for slot in slotManager.playerSlots:
+				if slot.get_child_count() > 0:
+					if "Mox" in slot.get_child(0).card_data["name"]:
+						if deck.size() == 0:
 							break
+							
+						draw_card(deck.pop_front())
 				
-				if kill:
-					print("Gem dependant card should die!")
-					playedCard.get_node("AnimationPlayer").play("Perish")
-					slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
+						# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+						if deck.size() == 0:
+							$DrawPiles/YourDecks/Deck.visible = false
+							break
+		
+		# Hoarder
+		if sigil == "Hoarder":
+			search_deck()
+		
+		# Mrs Bomb (wacky one)
+		if sigil == "Bomb Spewer":
+			for cSlot in range(4):
+				if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
+					continue
 
-				break;
+				slotManager.summon_card(allCards.all_cards[40], cSlot)
+				slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
+
+		# Gem Animator
+		if sigil == "Gem Animator":
+			for slot in slotManager.playerSlots:
+				if slot.get_child_count() > 0:
+					if "Mox" in slot.get_child(0).card_data["name"]:
+						slot.get_child(0).attack += 1
+						slot.get_child(0).draw_stats()
+						slotManager.rpc_id(opponent, "remote_card_stats", slot.get_position_in_parent(), slot.get_child(0).attack, null)
+
+	# More gem animator
+	if "Mox" in playedCard.card_data["name"]:
+		for _animator in slotManager.get_friendly_cards_sigil("Gem Animator"):
+			playedCard.attack += 1
+		playedCard.draw_stats()
+		slotManager.rpc_id(opponent, "remote_card_stats", playedCard.get_parent().get_position_in_parent(), playedCard.attack, null)
+
+
+	# Starvation, inflict damage if 9th onwards
+	if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
+		# Ramp damage over time so the game actually ends
+		inflict_damage(playedCard.attack - 8)
+	
+	
+
+	# Die if gem dependant
+	for sigil in playedCard.card_data["sigils"]:
+		if sigil == "Gem Dependant":
+
+			var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
+
+			for moxcol in ["Green", "Blue", "Orange"]:
+				for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
+					if foundMox != self:
+						kill = false;
+						break
+			
+			if kill:
+				print("Gem dependant card should die!")
+				playedCard.get_node("AnimationPlayer").play("Perish")
+				slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
+
+			break;
 
 # Hammer Time
 func hammer_mode():
