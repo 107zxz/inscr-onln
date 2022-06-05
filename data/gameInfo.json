@@ -1347,9 +1347,10 @@
             "nosac": true
         },
         {
-            "name": "Boneless",
+            "name": "Withered Corpse",
             "sigils": [
-                "Brittle"
+                "Brittle",
+                "Boneless"
             ],
             "attack": 1,
             "health": 1,
@@ -1369,10 +1370,11 @@
         "Bone Digger": "At the end of the owner's turn, a card bearing this sigil will generate 1 bone.",
         "Bone King": "When a card bearing this sigil dies, 4 bones are awarded instead of 1.",
         "Bonehorn": "Pay 1 energy to gain 3 bones.",
+        "Boneless": "When a card bearing this sigil dies, no bones are awarded.",
         "Brittle": "After attacking, a card bearing this sigil perishes.",
         "Burrower": "When an empty space would be struck, a card bearing this sigil will move to that space to receive the strike instead.",
         "Detonator": "When a card bearing this sigil dies, the creature opposing it, as well as adjacent friendly creatures, are dealt 10 damage.",
-        "Disentomb": "Pay 1 bone to create a boneless skeleton in your hand.",
+        "Disentomb": "Pay 1 bone to create a withered corpse in your hand.",
         "Double Death": "When another creature you own dies, it is returned to life and dies again immediately.",
         "Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
         "Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
@@ -1414,7 +1416,7 @@
     },
     "banned_cards": [
         "Skeleton",
-        "Boneless",
+        "Withered Corpse",
         "Squirrel",
         "Ruby Mox",
         "Emerald Mox",
