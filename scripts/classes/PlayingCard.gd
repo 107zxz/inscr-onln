@@ -366,7 +366,7 @@ func begin_perish(doubleDeath = false):
 
 		if "Bone King" in card_data["sigils"]:
 			fightManager.add_bones(4)
-		elif card_data["name"] != "Boneless":
+		elif not "Boneless" in card_data["sigils"]:
 			fightManager.add_bones(1)
 
 		## SIGILS
@@ -462,7 +462,7 @@ func begin_perish(doubleDeath = false):
 	else:
 		if "Bone King" in card_data["sigils"]:
 			fightManager.add_opponent_bones(4)
-		elif card_data["name"] != "Boneless":
+		elif not "Boneless" in card_data["sigils"]:
 			fightManager.add_opponent_bones(1)
 		
 		# Explosive motherfucker

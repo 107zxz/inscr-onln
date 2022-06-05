@@ -495,8 +495,8 @@ remote func remote_card_move(from_slot, to_slot, flip_sigil):
 
 remote func remote_card_stats(card_slot, new_attack, new_health):
 	var card = get_enemy_card(card_slot)
-	card.attack = new_attack if new_attack else card.attack
-	card.health = new_health if new_health else card.health
+	card.attack = new_attack if new_attack != null else card.attack
+	card.health = new_health if new_health != null else card.health
 	card.draw_stats()
 
 remote func handle_enemy_attack(from_slot, to_slot):
