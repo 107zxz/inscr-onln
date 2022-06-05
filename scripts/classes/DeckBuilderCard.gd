@@ -203,7 +203,7 @@ func _on_Card_mouse_entered():
 #		var sd = sigilDescPrefab.instance()
 		var sd = previewCont.get_child(1).get_child(sigIdx)
 		sd.get_child(1).texture = load("res://gfx/sigils/" + sigdat + ".png")
-		sd.get_child(2).text = allCardData.all_sigils[sigdat]
+		sd.get_child(2).text = sigdat + ":\n" + allCardData.all_sigils[sigdat]
 
 		if not sigdat in allCardData.working_sigils:
 			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
