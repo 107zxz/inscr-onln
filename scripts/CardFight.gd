@@ -2,8 +2,8 @@ extends Control
 
 # Side decks
 const side_decks = [
-#	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
-	[29, 29],
+	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
+#	[29, 29],
 	[78, 78, 78, 78, 78, 78, 78, 78, 78, 78],
 	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
 ]
@@ -180,11 +180,6 @@ func draw_maindeck():
 		
 		if deck.size() == 0:
 			$DrawPiles/YourDecks/Deck.visible = false
-			# Communicate this with opponent
-	
-	# starve_check()
-
-	# Ouro special
 	
 	
 
@@ -216,6 +211,9 @@ func search_deck():
 func search_callback(index):
 
 	draw_card(deck.pop_at(index - 1))
+
+	if deck.size() == 0:
+		$DrawPiles/YourDecks/Deck.visible = false
 
 	deck.shuffle()
 
