@@ -374,13 +374,13 @@ func begin_perish(doubleDeath = false):
 		## SIGILS
 		# Ruby Heart
 		if "Ruby Heart" in card_data["sigils"]:
-			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[98], get_parent().get_position_in_parent())
+			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
 
 		# Frozen Away
 		if "Frozen Away" in card_data["sigils"]:
-			slotManager.summon_card(allCardData.all_cards[78], get_parent().get_position_in_parent())
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[78], get_parent().get_position_in_parent())
+			slotManager.summon_card(allCardData.all_cards[78], get_parent().get_position_in_parent())
 
 		# Unkillable
 		if "Unkillable" in card_data["sigils"]:
@@ -400,12 +400,11 @@ func begin_perish(doubleDeath = false):
 		
 		# Gem Animator
 		if "Gem Animator" in card_data["sigils"]:
-			for slot in slotManager.playerSlots:
-				if slot.get_child_count() > 0:
-					if "Mox" in slot.get_child(0).card_data["name"]:
-						slot.get_child(0).attack -= 1
-						slot.get_child(0).draw_stats()
-						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slot.get_position_in_parent(), slot.get_child(0).attack, null)
+			for card in slotManager.all_friendly_cards():
+				if "Mox" in card.card_data["name"]:
+					card.attack -= 1
+					card.draw_stats()
+					slotManager.rpc_id(fightManager.opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
 
 		# Gem dependent (not this card)
 		for sigil in card_data["sigils"]:
@@ -581,3 +580,8 @@ func _on_ActiveSigil_pressed():
 	# Play anim and activate remotely
 	$AnimationPlayer.play("ProcGeneric")
 	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
+
+
+# New helper funcs
+func slot_idx():
+	return get_parent().get_position_in_parent()

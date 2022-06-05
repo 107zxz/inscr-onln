@@ -159,12 +159,6 @@ func end_turn():
 	# Handle sigils
 	slotManager.post_turn_sigils()
 	yield(slotManager, "resolve_sigils")
-	
-	# Re-enable opponent's actives
-	if false:
-		for slot in slotManager.enemySlots:
-			if slot.get_child_count() > 0:
-				slot.get_child(0).get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = false
 		
 	# Bump opponent's energy
 	if opponent_max_energy < 6:
@@ -324,18 +318,17 @@ func card_summoned(playedCard):
 				
 			draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
 		if sigil == "Mental Gemnastics":
-			for slot in slotManager.playerSlots:
-				if slot.get_child_count() > 0:
-					if "Mox" in slot.get_child(0).card_data["name"]:
-						if deck.size() == 0:
-							break
-							
-						draw_card(deck.pop_front())
-				
-						# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-						if deck.size() == 0:
-							$DrawPiles/YourDecks/Deck.visible = false
-							break
+			for card in slotManager.all_friendly_cards():
+				if "Mox" in card.card_data["name"]:
+					if deck.size() == 0:
+						break
+						
+					draw_card(deck.pop_front())
+			
+					# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+					if deck.size() == 0:
+						$DrawPiles/YourDecks/Deck.visible = false
+						break
 		
 		# Hoarder
 		if sigil == "Hoarder":
@@ -352,12 +345,11 @@ func card_summoned(playedCard):
 
 		# Gem Animator
 		if sigil == "Gem Animator":
-			for slot in slotManager.playerSlots:
-				if slot.get_child_count() > 0:
-					if "Mox" in slot.get_child(0).card_data["name"]:
-						slot.get_child(0).attack += 1
-						slot.get_child(0).draw_stats()
-						slotManager.rpc_id(opponent, "remote_card_stats", slot.get_position_in_parent(), slot.get_child(0).attack, null)
+			for card in slotManager.all_friendly_cards():
+				if "Mox" in card.card_data["name"]:
+					card.attack += 1
+					card.draw_stats()
+					slotManager.rpc_id(opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
 
 	# More gem animator
 	if "Mox" in playedCard.card_data["name"]:
