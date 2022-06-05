@@ -331,6 +331,7 @@ func card_summoned(playedCard):
 		
 		# Hoarder
 		if sigil == "Hoarder":
+			print("SWAGPIE")
 			search_deck()
 		
 		# Mrs Bomb (wacky one)

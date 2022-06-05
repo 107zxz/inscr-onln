@@ -360,11 +360,10 @@ func attack_hit():
 
 # Called when the card starts dying. Add bones and stuff
 func begin_perish(doubleDeath = false):
-
-	if doubleDeath:
-		fightManager.card_summoned(self)
-
 	if get_parent().get_parent().name == "PlayerSlots":
+		if doubleDeath:
+			fightManager.card_summoned(self)
+
 		if "Bone King" in card_data["sigils"]:
 			fightManager.add_bones(4)
 		elif card_data["name"] != "Boneless":
