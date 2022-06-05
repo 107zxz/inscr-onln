@@ -360,6 +360,10 @@ func attack_hit():
 
 # Called when the card starts dying. Add bones and stuff
 func begin_perish(doubleDeath = false):
+	
+	# For necro
+	var canRespawn = true
+	
 	if get_parent().get_parent().name == "PlayerSlots":
 		if doubleDeath:
 			fightManager.card_summoned(self)
@@ -374,11 +378,13 @@ func begin_perish(doubleDeath = false):
 		if "Ruby Heart" in card_data["sigils"]:
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[98], get_parent().get_position_in_parent())
 			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
+			canRespawn = false
 
 		# Frozen Away
 		if "Frozen Away" in card_data["sigils"]:
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[78], get_parent().get_position_in_parent())
 			slotManager.summon_card(allCardData.all_cards[78], get_parent().get_position_in_parent())
+			canRespawn = false
 
 		# Unkillable
 		if "Unkillable" in card_data["sigils"]:
@@ -420,7 +426,6 @@ func begin_perish(doubleDeath = false):
 							break
 				
 				if kill:
-					print("Gem dependant card should die!")
 					for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
 						gDep.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
@@ -456,7 +461,9 @@ func begin_perish(doubleDeath = false):
 		
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
-			$AnimationPlayer.play("DoublePerish")
+			# Don't do it if I spawn a card on death
+			if canRespawn:
+				$AnimationPlayer.play("DoublePerish")
 			return
 
 	else:
