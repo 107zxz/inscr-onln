@@ -141,7 +141,7 @@ func post_turn_sigils():
 			if movSigil in card.card_data["sigils"] and not cardAnim.is_playing():
 				
 				var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
-					(card.card_data["sigils"].find(movSigil) * 2) + 1
+					2 if card.card_data["sigils"].find(movSigil) == 0 else 4
 				)
 				
 				var curSlot = card.get_parent().get_position_in_parent()
