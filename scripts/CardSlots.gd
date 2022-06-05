@@ -13,43 +13,39 @@ var sacVictims = []
 
 # Board interactions
 func clear_slots():
-	for slot in playerSlots:
-		if slot.get_child_count() > 0:
-			slot.get_child(0).queue_free()
-	for slot in enemySlots:
-		if slot.get_child_count() > 0:
-			slot.get_child(0).queue_free()
-
+	for card in all_friendly_cards():
+		card.queue_free()
+	for card in all_enemy_cards():
+		card.queue_free()
 
 # Sacrifice
 func get_available_blood() -> int:
 	var blood = 0
 	
-	for slot in playerSlots:
-		if slot.get_child_count() > 0:
-			if "Worthy Sacrifice" in slot.get_child(0).card_data["sigils"]:
-				blood += 2
-			# Don't allow saccing mox cards
-			if "nosac" in slot.get_child(0).card_data:
-				continue
-			blood += 1
+	for card in all_friendly_cards():
+		if "Worthy Sacrifice" in card.card_data["sigils"]:
+			blood += 2
+		# Don't allow saccing mox cards
+		if "nosac" in card.card_data:
+			continue
+		blood += 1
 	
 	return blood
 
 func get_available_slots() -> int:
 	var freeSlots = 4
 	
-	for slot in playerSlots:
-		if slot.get_child_count() > 0:
-			freeSlots -= 1
+	for _card in all_friendly_cards():
+		freeSlots -= 1
 	
 	return freeSlots
 	
 func is_cat_bricked() -> bool:
-	for slot in playerSlots:
-		if slot.get_child_count() == 0:
-			return false
-		if not "Many Lives" in slot.get_child(0).card_data["sigils"]:
+	if get_available_slots():
+		return false
+
+	for card in all_friendly_cards():
+		if not "Many Lives" in card.card_data["sigils"]:
 			return false
 	
 	return true
@@ -241,12 +237,7 @@ func post_turn_sigils():
 				yield (cardTween, "tween_completed")
 	
 	# Other end-of-turn sigils
-	for slot in playerSlots:
-		if slot.get_child_count() == 0:
-			continue
-		
-		var card = slot.get_child(0)
-		
+	for card in all_friendly_cards():
 		if card.get_node("AnimationPlayer").is_playing():
 			continue
 		
@@ -270,12 +261,12 @@ func post_turn_sigils():
 signal complete_combat()
 
 func initiate_combat():
-	for slot in playerSlots:
-		if slot.get_child_count() > 0 and slot.get_child(0).attack > 0 and slot.get_child(0).get_node("AnimationPlayer").current_animation != "Perish":
+	for card in all_friendly_cards():
+		if card.attack > 0 and not "Perish" in card.get_node("AnimationPlayer").current_animation:
 			
-			var pCard = slot.get_child(0)
+			var pCard = card
 			var cardAnim = pCard.get_node("AnimationPlayer")
-			var slot_index = slot.get_position_in_parent()
+			var slot_index = card.slot_idx()
 			
 			
 			if "Trifurcated Strike" in pCard.card_data["sigils"] or "Bifurcated Strike" in pCard.card_data["sigils"]:
@@ -322,14 +313,14 @@ func initiate_combat():
 						continue
 				
 				cardAnim.play("Attack")
-				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "AttackRemote")
+				rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
 				yield(cardAnim, "animation_finished")
 		
 			# Any form of attack went through
 			# Brittle: Die after attacking
 			if "Brittle" in pCard.card_data["sigils"]:
 				cardAnim.play("Perish")
-				rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Perish")
+				rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
 
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("complete_combat")
@@ -348,26 +339,14 @@ func handle_attack(from_slot, to_slot):
 		# Check for moles
 		# Mole man
 		if "Airborne" in pCard.card_data["sigils"]:
-			for slot in enemySlots:
-				if slot.get_child_count() == 0:
-					continue
-				
-				var card = slot.get_child(0)
-
+			for card in all_enemy_cards():
 				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
-					print("Moel Man")
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
 		else: # Regular mole
-			for slot in enemySlots:
-				if slot.get_child_count() == 0:
-					continue
-				
-				var card = slot.get_child(0)
-
+			for card in all_enemy_cards():
 				if "Burrower" in card.card_data["sigils"]:
-					print("Moel")
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
@@ -416,10 +395,9 @@ func handle_attack(from_slot, to_slot):
 func get_friendly_cards_sigil(sigil):
 	var found = []
 
-	for slot in playerSlots:
-		if slot.get_child_count() > 0:
-			if sigil in slot.get_child(0).card_data["sigils"]:
-				found.append(slot.get_child(0))
+	for card in all_friendly_cards():
+		if sigil in card.card_data["sigils"]:
+			found.append(card)
 	
 	return found
 
@@ -439,6 +417,8 @@ func summon_card(cDat, slot_idx):
 	nCard.from_data(cDat)
 	nCard.in_hand = false
 	playerSlots[slot_idx].add_child(nCard)
+	
+	fightManager.card_summoned(nCard)
 
 # Remote
 remote func set_sac_olay_vis(slot, vis):
@@ -458,9 +438,6 @@ remote func remote_card_summon(cDat, slot_idx):
 remote func remote_activate_sigil(card_slot, arg = 0):
 	var eCard = enemySlots[card_slot].get_child(0)
 	var sName = eCard.card_data["sigils"][0]
-	
-	if false and fightManager.gameSettings.optActives:
-		eCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").disabled = true
 	
 	if sName == "True Scholar":
 		eCard.get_node("AnimationPlayer").play("Perish")
@@ -508,18 +485,16 @@ remote func remote_card_move(from_slot, to_slot, flip_sigil):
 		eCard.move_to_parent(enemySlots[to_slot])
 		
 	if flip_sigil:
-		var sigIdx = 0
 		for sigil in eCard.card_data["sigils"]:
 			if sigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Hefty"]:
 				var sig = eCard.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
-					(sigIdx * 2) + 1
+					2 if eCard.card_data["sigils"].find(sigil) == 0 else 4
 				)
 				
 				sig.flip_h = not sig.flip_h
-			sigIdx += 1
 
 remote func remote_card_stats(card_slot, new_attack, new_health):
-	var card = enemySlots[card_slot].get_child(0)
+	var card = get_enemy_card(card_slot)
 	card.attack = new_attack if new_attack else card.attack
 	card.health = new_health if new_health else card.health
 	card.draw_stats()
@@ -527,7 +502,7 @@ remote func remote_card_stats(card_slot, new_attack, new_health):
 remote func handle_enemy_attack(from_slot, to_slot):
 	var direct_attack = false
 	
-	var eCard = enemySlots[from_slot].get_child(0)
+	var eCard = get_enemy_card(from_slot)
 	var pCard = null
 	
 	if playerSlots[to_slot].get_child_count() == 0:
@@ -536,26 +511,14 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		# Check for moles
 		# Mole man
 		if "Airborne" in eCard.card_data["sigils"]:
-			for slot in playerSlots:
-				if slot.get_child_count() == 0:
-					continue
-				
-				var card = slot.get_child(0)
-
+			for card in all_friendly_cards():
 				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
-					print("Moel Man")
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
 		else: # Regular mole
-			for slot in playerSlots:
-				if slot.get_child_count() == 0:
-					continue
-				
-				var card = slot.get_child(0)
-
+			for card in all_friendly_cards():
 				if "Burrower" in card.card_data["sigils"]:
-					print("Moel")
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
@@ -590,3 +553,35 @@ remote func set_card_offset(card_slot, offset):
 			enemySlots[card_slot + 1].show_behind_parent = false
 	
 	enemySlots[card_slot].get_child(0).rect_position.x = offset
+
+
+# New Helper functions
+func get_friendly_card(slot_idx):
+	for card in playerSlots[slot_idx].get_children():
+		if not "Perish" in card.get_node("AnimationPlayer").current_animation:
+			return card
+	return false
+
+func get_enemy_card(slot_idx):
+	for card in enemySlots[slot_idx].get_children():
+		if not "Perish" in card.get_node("AnimationPlayer").current_animation:
+			return card
+	return false
+
+func all_friendly_cards():
+	var cards = []
+
+	for slot in playerSlots:
+		if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
+			cards.append(slot.get_child(0))
+	
+	return cards
+
+func all_enemy_cards():
+	var cards = []
+
+	for slot in enemySlots:
+		if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
+			cards.append(slot.get_child(0))
+	
+	return cards
