@@ -232,8 +232,7 @@ func _on_Button_pressed():
 			$AnimationPlayer.play("Perish")
 			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
 			
-			# This card is still dying, so this is eq to an empty board
-			if slotManager.get_available_slots() == 3:
+			if slotManager.get_available_slots() == 4:
 				fightManager.hammer_mode()
 				# Jank workaround
 				fightManager.get_node("LeftSideUI/HammerButton").pressed = false
