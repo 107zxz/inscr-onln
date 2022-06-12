@@ -68,17 +68,17 @@ func search(_arg = null):
 			continue
 		
 		# Sigils
-		if sigil_so_1.text != "Any" and (len(card["sigils"]) == 0 or not sigil_so_1.text in card["sigils"]):
-			if not (sigil_so_1.text == "None" and len(card["sigils"]) == 0):
+		if sigil_so_1.text != "Any" and (not "sigils" in card or not sigil_so_1.text in card["sigils"]):
+			if not (sigil_so_1.text == "None" and not "sigils" in card):
 				continue
-		if sigil_so_2.text != "Any" and (len(card["sigils"]) == 0 or not sigil_so_2.text in card["sigils"]):
+		if sigil_so_2.text != "Any" and (not "sigils" in card or not sigil_so_2.text in card["sigils"]):
 			continue
 		# Cost type
-		if cost_type_so.selected == 1 and card["blood_cost"] == 0:
+		if cost_type_so.selected == 1 and not "blood_cost" in card:
 			continue
-		if cost_type_so.selected == 2 and card["bone_cost"] == 0:
+		if cost_type_so.selected == 2 and not "bone_cost" in card:
 			continue
-		if cost_type_so.selected == 3 and card["mox_cost"] == []:
+		if cost_type_so.selected == 3 and not "mox_cost" in card:
 			continue
 		
 		resultCount += 1

@@ -43,7 +43,7 @@ func from_data(cdat):
 	draw_sigils()
 
 func draw_cost():
-	if card_data["blood_cost"] > 0:
+	if "blood_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = true
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.duplicate()
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.region = Rect2(
@@ -55,7 +55,7 @@ func draw_cost():
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = false
 	
-	if card_data["bone_cost"] > 0:
+	if "bone_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = true
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.duplicate()
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
@@ -75,7 +75,7 @@ func draw_cost():
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
-	if card_data["energy_cost"] > 0:
+	if "energy_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = true
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.duplicate()
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.region = Rect2(
@@ -88,7 +88,7 @@ func draw_cost():
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = false
 	
 	# Mox cost BS
-	if card_data["mox_cost"]:
+	if "mox_cost" in card_data:
 		# Decide which mox to show
 		var true_mox = 0
 		
@@ -111,7 +111,7 @@ func draw_cost():
 
 func draw_sigils():
 	# Sigils
-	if len(card_data.sigils) > 0:
+	if "sigils" in card_data:
 		if "active" in card_data:
 			$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
 			$VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
@@ -198,6 +198,9 @@ func _on_Card_mouse_entered():
 	
 	for sigdisp in previewCont.get_child(1).get_children():
 		sigdisp.visible = false
+	
+	if not "sigils" in card_data:
+		return
 	
 	for sigdat in card_data.sigils:
 #		var sd = sigilDescPrefab.instance()

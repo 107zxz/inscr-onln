@@ -1,5 +1,7 @@
 extends Control
 
+# Vanguard
+
 # Side decks
 const side_decks = [
 	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
@@ -270,10 +272,12 @@ func play_card(slot):
 			rpc_id(opponent, "_opponent_played_card", allCards.all_cards.find(playedCard.card_data), slot.get_position_in_parent())
 			
 			# Bone cost
-			add_bones(-playedCard.card_data["bone_cost"])
+			if "bone_cost" in playedCard.card_data:
+				add_bones(-playedCard.card_data["bone_cost"])
 			
 			# Energy cost
-			set_energy(energy -playedCard.card_data["energy_cost"])
+			if "energy_cost" in playedCard.card_data:
+				set_energy(energy -playedCard.card_data["energy_cost"])
 			
 			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -286,70 +290,69 @@ func card_summoned(playedCard):
 	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
 	
 	# SIGILS
-	for sigil in playedCard.card_data["sigils"]:
-		if sigil == "Fecundity":
+	if playedCard.has_sigil("Fecundity"):
 			draw_card(allCards.all_cards.find(playedCard.card_data))
-		if sigil == "Rabbit Hole":
-			draw_card(21)
-		if sigil == "Battery Bearer":
-			if max_energy < 6:
-				set_max_energy(max_energy + 1)
-			set_energy(min(max_energy, energy + 1))
-		if sigil == "Handy":
-			var cIdx = 0
-			for card in handManager.get_node("PlayerHand").get_children():
-				if card == playedCard:
-					continue
-				card.get_node("AnimationPlayer").play("Discard")
-				rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
-				cIdx += 1
+	if playedCard.has_sigil("Rabbit Hole"):
+		draw_card(21)
+	if playedCard.has_sigil("Battery Bearer"):
+		if max_energy < 6:
+			set_max_energy(max_energy + 1)
+		set_energy(min(max_energy, energy + 1))
+	if playedCard.has_sigil("Handy"):
+		var cIdx = 0
+		for card in handManager.get_node("PlayerHand").get_children():
+			if card == playedCard:
+				continue
+			card.get_node("AnimationPlayer").play("Discard")
+			rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
+			cIdx += 1
+		
+		for _i in range(3):
+			if deck.size() == 0:
+				break
 			
-			for _i in range(3):
+			draw_card(deck.pop_front())
+			
+			# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+			if deck.size() == 0:
+				$DrawPiles/YourDecks/Deck.visible = false
+				break
+			
+		draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+	if playedCard.has_sigil("Mental Gemnastics"):
+		for card in slotManager.all_friendly_cards():
+			if "Mox" in card.card_data["name"]:
 				if deck.size() == 0:
 					break
-				
+					
 				draw_card(deck.pop_front())
-				
+		
 				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
 				if deck.size() == 0:
 					$DrawPiles/YourDecks/Deck.visible = false
 					break
-				
-			draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
-		if sigil == "Mental Gemnastics":
-			for card in slotManager.all_friendly_cards():
-				if "Mox" in card.card_data["name"]:
-					if deck.size() == 0:
-						break
-						
-					draw_card(deck.pop_front())
-			
-					# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-					if deck.size() == 0:
-						$DrawPiles/YourDecks/Deck.visible = false
-						break
-		
-		# Hoarder
-		if sigil == "Hoarder":
-			print("SWAGPIE")
-			search_deck()
-		
-		# Mrs Bomb (wacky one)
-		if sigil == "Bomb Spewer":
-			for cSlot in range(4):
-				if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
-					continue
+	
+	# Hoarder
+	if playedCard.has_sigil("Hoarder"):
+		print("SWAGPIE")
+		search_deck()
+	
+	# Mrs Bomb (wacky one)
+	if playedCard.has_sigil("Bomb Spewer"):
+		for cSlot in range(4):
+			if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
+				continue
 
-				slotManager.summon_card(allCards.all_cards[40], cSlot)
-				slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
+			slotManager.summon_card(allCards.all_cards[40], cSlot)
+			slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
 
-		# Gem Animator
-		if sigil == "Gem Animator":
-			for card in slotManager.all_friendly_cards():
-				if "Mox" in card.card_data["name"]:
-					card.attack += 1
-					card.draw_stats()
-					slotManager.rpc_id(opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
+	# Gem Animator
+	if playedCard.has_sigil("Gem Animator"):
+		for card in slotManager.all_friendly_cards():
+			if "Mox" in card.card_data["name"]:
+				card.attack += 1
+				card.draw_stats()
+				slotManager.rpc_id(opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
 
 	# More gem animator
 	if "Mox" in playedCard.card_data["name"]:
@@ -367,23 +370,20 @@ func card_summoned(playedCard):
 	
 
 	# Die if gem dependant
-	for sigil in playedCard.card_data["sigils"]:
-		if sigil == "Gem Dependant":
+	if playedCard.has_sigil("Gem Dependant"):
 
-			var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
+		var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
 
-			for moxcol in ["Green", "Blue", "Orange"]:
-				for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
-					if foundMox != self:
-						kill = false;
-						break
-			
-			if kill:
-				print("Gem dependant card should die!")
-				playedCard.get_node("AnimationPlayer").play("Perish")
-				slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
-
-			break;
+		for moxcol in ["Green", "Blue", "Orange"]:
+			for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
+				if foundMox != self:
+					kill = false;
+					break
+		
+		if kill:
+			print("Gem dependant card should die!")
+			playedCard.get_node("AnimationPlayer").play("Perish")
+			slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
 
 # Hammer Time
 func hammer_mode():
@@ -421,7 +421,7 @@ remote func _opponent_played_card(card, slot):
 	if card == 0:
 		card_dt["attack"] = turns_starving
 		if turns_starving >= 5:
-			card_dt["sigils"].append("Mighty Leap")
+			card_dt["sigils"] = ["Mighty Leap"]
 		
 		# Inflict starve damage
 		if turns_starving >= 9:
@@ -436,14 +436,10 @@ remote func _opponent_played_card(card, slot):
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
 	
 	# Costs
-	add_opponent_bones(-card_dt["bone_cost"])
-	set_opponent_energy(opponent_energy -card_dt["energy_cost"])
-	
-	# Energy Cell Sigil
-	if "Battery Bearer" in card_dt["sigils"]:
-		if opponent_max_energy < 6:
-			set_opponent_max_energy(opponent_max_energy + 1)
-		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
+	if "bone_cost" in card_dt:
+		add_opponent_bones(-card_dt["bone_cost"])
+	if "energy_cost" in card_dt:
+		set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Guardian
 	if slotManager.playerSlots[slot].get_child_count() == 0:
@@ -452,6 +448,15 @@ remote func _opponent_played_card(card, slot):
 			slotManager.rpc_id(opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot, false)
 			guardians[0].move_to_parent(slotManager.playerSlots[slot])
 	
+	if not "sigils" in card_dt:
+		return
+
+	# Energy Cell Sigil
+	if "Battery Bearer" in card_dt["sigils"]:
+		if opponent_max_energy < 6:
+			set_opponent_max_energy(opponent_max_energy + 1)
+		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
+
 	# Mrs Bomb (wacky one)
 	if "Bomb Spewer" in card_dt["sigils"]:
 		for cSlot in range(4):
@@ -470,7 +475,7 @@ remote func force_draw_starv(strength):
 	var starv_data = allCards.all_cards[0]
 	starv_data["attack"] = strength
 	if strength >= 5:
-		starv_data["sigils"].append("Mighty Leap")
+		starv_data["sigils"] = ["Mighty Leap"]
 	
 	starv_card.from_data(starv_data)
 

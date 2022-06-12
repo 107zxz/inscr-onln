@@ -6,11 +6,7 @@
                 "Repulsive"
             ],
             "attack": 1,
-            "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "health": 1
         },
         {
             "name": "Adder",
@@ -19,10 +15,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Bloodhound",
@@ -31,10 +24,7 @@
             ],
             "attack": 2,
             "health": 3,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Bullfrog",
@@ -43,10 +33,7 @@
             ],
             "attack": 1,
             "health": 2,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Burrowing Trap",
@@ -56,10 +43,7 @@
             ],
             "attack": 0,
             "health": 5,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Cat",
@@ -69,19 +53,13 @@
             "attack": 0,
             "health": 1,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "rare": true
         },
         {
             "name": "Undead Cat",
-            "sigils": [],
             "attack": 3,
             "health": 6,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Elk",
@@ -90,10 +68,7 @@
             ],
             "attack": 2,
             "health": 4,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Elk Fawn",
@@ -104,9 +79,6 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "evolution": 7
         },
         {
@@ -116,10 +88,7 @@
             ],
             "attack": 2,
             "health": 2,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Spore Mice",
@@ -129,10 +98,7 @@
             ],
             "attack": 2,
             "health": 2,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Hawk",
@@ -141,10 +107,7 @@
             ],
             "attack": 3,
             "health": 1,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Hrokkall",
@@ -155,9 +118,6 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -168,10 +128,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Great Kraken",
@@ -181,9 +138,6 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -194,10 +148,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Mantis God",
@@ -207,9 +158,6 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -219,10 +167,7 @@
             ],
             "attack": 0,
             "health": 4,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Mole Man",
@@ -233,20 +178,13 @@
             "attack": 0,
             "health": 6,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
             "name": "Opossum",
-            "sigils": [],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 2,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 2
         },
         {
             "name": "Ouroboros",
@@ -256,40 +194,24 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
             "name": "Rabbit",
-            "sigils": [],
             "attack": 0,
-            "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "health": 1
         },
         {
             "name": "Coyote",
-            "sigils": [],
             "attack": 2,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 4,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 4
         },
         {
             "name": "Grizzly",
-            "sigils": [],
             "attack": 4,
             "health": 6,
-            "blood_cost": 3,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 3
         },
         {
             "name": "Raven",
@@ -298,10 +220,7 @@
             ],
             "attack": 2,
             "health": 3,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Salmon",
@@ -311,50 +230,30 @@
             ],
             "attack": 2,
             "health": 2,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Bell Tentacle",
-            "sigils": [],
             "attack": 0,
             "health": 3,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Hand Tentacle",
-            "sigils": [],
             "attack": 0,
             "health": 1,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Mirror Tentacle",
-            "sigils": [],
             "attack": 0,
             "health": 3,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Squirrel",
-            "sigils": [],
             "attack": 0,
-            "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "health": 1
         },
         {
             "name": "Squirrel Ball",
@@ -363,30 +262,19 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Stoat",
-            "sigils": [],
             "attack": 1,
             "health": 2,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Urayuli",
-            "sigils": [],
             "attack": 7,
             "health": 7,
             "blood_cost": 4,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -396,20 +284,13 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 1
         },
         {
             "name": "Wolf",
-            "sigils": [],
             "attack": 3,
             "health": 2,
-            "blood_cost": 2,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "blood_cost": 2
         },
         {
             "name": "Wolf Cub",
@@ -419,31 +300,20 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 1,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "evolution": 34
         },
         {
             "name": "Curve Hopper",
-            "sigils": [],
             "attack": 2,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 4,
-            "mox_cost": [],
             "rare": true
         },
         {
             "name": "Automaton",
-            "sigils": [],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 3,
-            "mox_cost": []
+            "energy_cost": 3
         },
         {
             "name": "Energy Bot",
@@ -452,10 +322,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 2,
-            "mox_cost": []
+            "energy_cost": 2
         },
         {
             "name": "Bolthound",
@@ -464,10 +331,7 @@
             ],
             "attack": 2,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 6,
-            "mox_cost": []
+            "energy_cost": 6
         },
         {
             "name": "Explode Bot",
@@ -476,10 +340,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 2,
-            "mox_cost": []
+            "energy_cost": 2
         },
         {
             "name": "Double Gunner",
@@ -488,10 +349,7 @@
             ],
             "attack": 2,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 6,
-            "mox_cost": []
+            "energy_cost": 6
         },
         {
             "name": "Gamblobot",
@@ -500,10 +358,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 3,
-            "mox_cost": [],
             "active": true
         },
         {
@@ -513,10 +368,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 3,
-            "mox_cost": []
+            "energy_cost": 3
         },
         {
             "name": "L33pB0t",
@@ -525,10 +377,7 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 1,
-            "mox_cost": []
+            "energy_cost": 1
         },
         {
             "name": "M3atB0t",
@@ -537,10 +386,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 2,
-            "mox_cost": []
+            "energy_cost": 2
         },
         {
             "name": "49er",
@@ -549,20 +395,13 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 2,
-            "mox_cost": []
+            "energy_cost": 2
         },
         {
             "name": "Null Conduit",
-            "sigils": [],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 1,
-            "mox_cost": []
+            "energy_cost": 1
         },
         {
             "name": "Plasma Jimmy",
@@ -571,10 +410,7 @@
             ],
             "attack": 0,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 2,
-            "mox_cost": [],
             "rare": true,
             "active": true
         },
@@ -585,10 +421,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 4,
-            "mox_cost": []
+            "energy_cost": 4
         },
         {
             "name": "Sentry Drone",
@@ -597,10 +430,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 1,
-            "mox_cost": []
+            "energy_cost": 1
         },
         {
             "name": "Sentry Spore",
@@ -610,10 +440,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 1,
-            "mox_cost": []
+            "energy_cost": 1
         },
         {
             "name": "Mrs. Bomb",
@@ -622,10 +449,7 @@
             ],
             "attack": 1,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 3,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -636,31 +460,20 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 5,
-            "mox_cost": [],
             "rare": true
         },
         {
             "name": "Sniper Bot",
-            "sigils": [],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 3,
-            "mox_cost": []
+            "energy_cost": 3
         },
         {
             "name": "Steambot",
-            "sigils": [],
             "attack": 2,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 6,
-            "mox_cost": []
+            "energy_cost": 6
         },
         {
             "name": "Mox Module",
@@ -669,21 +482,14 @@
             ],
             "attack": 0,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 3,
-            "mox_cost": [],
             "rare": true
         },
         {
             "name": "Thick Droid",
-            "sigils": [],
             "attack": 1,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 5,
-            "mox_cost": []
+            "energy_cost": 5
         },
         {
             "name": "Draugr",
@@ -692,10 +498,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 1,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 1
         },
         {
             "name": "Banshee",
@@ -704,10 +507,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 2,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 2
         },
         {
             "name": "Bonehound",
@@ -716,10 +516,7 @@
             ],
             "attack": 2,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 7,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 7
         },
         {
             "name": "Bone Lord's Horn",
@@ -728,10 +525,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
             "bone_cost": 3,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -741,10 +535,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true,
             "active": true
         },
@@ -755,10 +545,7 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 3,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 3
         },
         {
             "name": "Broken Obol 2",
@@ -767,10 +554,7 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 3,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 3
         },
         {
             "name": "Dead Hand",
@@ -779,10 +563,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
             "bone_cost": 5,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -793,10 +574,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 6,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 6
         },
         {
             "name": "Drowned Soul",
@@ -806,10 +584,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
             "bone_cost": 4,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -819,20 +594,13 @@
             ],
             "attack": 1,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 4,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 4
         },
         {
             "name": "Frank & Stein",
-            "sigils": [],
             "attack": 2,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 5,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 5
         },
         {
             "name": "Ghost Ship",
@@ -842,10 +610,7 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 4,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 4
         },
         {
             "name": "Gravedigger",
@@ -854,10 +619,7 @@
             ],
             "attack": 0,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 1,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 1
         },
         {
             "name": "Sporedigger",
@@ -867,10 +629,7 @@
             ],
             "attack": 0,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 1,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 1
         },
         {
             "name": "Headless Horseman",
@@ -880,21 +639,14 @@
             ],
             "attack": 5,
             "health": 5,
-            "blood_cost": 0,
             "bone_cost": 13,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
             "name": "Mummy Lord",
-            "sigils": [],
             "attack": 3,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 8,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 8
         },
         {
             "name": "Necromancer",
@@ -903,10 +655,7 @@
             ],
             "attack": 1,
             "health": 2,
-            "blood_cost": 0,
             "bone_cost": 3,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true
         },
         {
@@ -916,10 +665,7 @@
             ],
             "attack": 3,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 3,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 3
         },
         {
             "name": "Sarcophagus",
@@ -928,10 +674,7 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
             "bone_cost": 4,
-            "energy_cost": 0,
-            "mox_cost": [],
             "evolution": 74
         },
         {
@@ -940,11 +683,7 @@
                 "Brittle"
             ],
             "attack": 1,
-            "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "health": 1
         },
         {
             "name": "Skelemagus",
@@ -954,10 +693,7 @@
             ],
             "attack": 4,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 2,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 2
         },
         {
             "name": "Tomb Robber",
@@ -966,22 +702,14 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true,
             "active": true
         },
         {
             "name": "Zombie",
-            "sigils": [],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 2,
-            "energy_cost": 0,
-            "mox_cost": []
+            "bone_cost": 2
         },
         {
             "name": "Gourmage",
@@ -990,9 +718,6 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green"
             ],
@@ -1005,9 +730,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Blue"
             ]
@@ -1020,9 +742,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Blue"
             ]
@@ -1034,9 +753,6 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Blue"
             ]
@@ -1048,9 +764,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Blue"
             ]
@@ -1062,33 +775,22 @@
             ],
             "attack": 2,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Blue"
             ]
         },
         {
             "name": "Green Mage",
-            "sigils": [],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green"
             ]
         },
         {
             "name": "Junior Sage",
-            "sigils": [],
             "attack": 1,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green"
             ]
@@ -1100,9 +802,6 @@
             ],
             "attack": 1,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Orange"
             ]
@@ -1114,9 +813,6 @@
             ],
             "attack": 0,
             "health": 4,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green",
                 "Blue"
@@ -1131,9 +827,6 @@
             ],
             "attack": 2,
             "health": 6,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green",
                 "Orange"
@@ -1148,9 +841,6 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Orange",
                 "Blue"
@@ -1165,10 +855,6 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true,
             "nosac": true
         },
@@ -1180,10 +866,6 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true,
             "nosac": true
         },
@@ -1195,10 +877,6 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "rare": true,
             "nosac": true
         },
@@ -1209,10 +887,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "nosac": true
         },
         {
@@ -1222,10 +896,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "nosac": true
         },
         {
@@ -1235,10 +905,6 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "nosac": true
         },
         {
@@ -1248,10 +914,6 @@
             ],
             "attack": 0,
             "health": 9,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": [],
             "nosac": true
         },
         {
@@ -1261,9 +923,6 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green"
             ]
@@ -1275,21 +934,14 @@
             ],
             "attack": 0,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Orange"
             ]
         },
         {
             "name": "Practice Wizard",
-            "sigils": [],
             "attack": 0,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Orange"
             ]
@@ -1300,11 +952,7 @@
                 "Gem Dependant"
             ],
             "attack": 1,
-            "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "health": 1
         },
         {
             "name": "Ruby Golem",
@@ -1313,9 +961,6 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Orange"
             ]
@@ -1327,9 +972,6 @@
             ],
             "attack": 0,
             "health": 2,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
             "mox_cost": [
                 "Green"
             ],
@@ -1337,13 +979,9 @@
         },
         {
             "name": "Empty Vessel",
-            "sigils": [],
             "attack": 0,
             "health": 3,
-            "blood_cost": 0,
-            "bone_cost": 0,
             "energy_cost": 1,
-            "mox_cost": [],
             "nosac": true
         },
         {
@@ -1353,11 +991,16 @@
                 "Boneless"
             ],
             "attack": 1,
-            "health": 1,
-            "blood_cost": 0,
-            "bone_cost": 0,
-            "energy_cost": 0,
-            "mox_cost": []
+            "health": 1
+        },
+        {
+            "name": "Leaping Vessel",
+            "sigils": [
+                "Mighty Leap"
+            ],
+            "attack": 0,
+            "health": 2,
+            "energy_cost": 2
         }
     ],
     "sigils": {
@@ -1424,7 +1067,9 @@
         "Empty Vessel",
         "Rabbit",
         "Starvation",
-
+        "Hand Tentacle",
+        "Bell Tentacle",
+        "Mirror Tentacle",
         "Undead Cat",
         "Spore Mice",
         "Sporedigger",
@@ -1432,7 +1077,8 @@
         "Sentry Spore",
         "Magnus Mox",
         "Blue Sporemage",
-        "Burrowing Trap"
+        "Burrowing Trap",
+        "Sniper Bot"
     ],
     "working_sigils": [
         "Airborne",
