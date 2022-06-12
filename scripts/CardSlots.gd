@@ -23,7 +23,7 @@ func get_available_blood() -> int:
 	var blood = 0
 	
 	for card in all_friendly_cards():
-		if "Worthy Sacrifice" in card.card_data["sigils"]:
+		if card.has_sigil("Worthy Sacrifice"):
 			blood += 2
 		# Don't allow saccing mox cards
 		if "nosac" in card.card_data:
@@ -45,7 +45,7 @@ func is_cat_bricked() -> bool:
 		return false
 
 	for card in all_friendly_cards():
-		if not "Many Lives" in card.card_data["sigils"]:
+		if not card.has_sigil("Many Lives"):
 			return false
 	
 	return true
@@ -63,13 +63,13 @@ func attempt_sacrifice():
 
 	for victim in sacVictims:
 		sacValue += 1
-		if "Worthy Sacrifice" in victim.card_data["sigils"]:
+		if victim.has_sigil("Worthy Sacrifice"):
 			sacValue += 2
 
 	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
 		# Kill sacrifical victims
 		for victim in sacVictims:
-			if "Many Lives" in victim.card_data["sigils"]:
+			if victim.has_sigil("Many Lives"):
 				victim.get_node("AnimationPlayer").play("CatSac")
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "CatSac")
 			else:
@@ -102,13 +102,13 @@ func pre_turn_sigils():
 			cd.mouse_filter = MOUSE_FILTER_STOP
 		
 		# Evolution
-		if "Fledgling" in card.card_data["sigils"]:
+		if card.has_sigil("Fledgling"):
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
 			cardAnim.play("Evolve")
 			yield (cardAnim, "animation_finished")
 			
 		# Dive
-		if "Waterborne" in card.card_data["sigils"]:
+		if card.has_sigil("Waterborne"):
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
 			cardAnim.play("UnDive")
 			
@@ -134,7 +134,7 @@ func post_turn_sigils():
 		
 		# Spront
 		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Hefty"]:
-			if movSigil in card.card_data["sigils"] and not cardAnim.is_playing():
+			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
 				
 				var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
 					2 if card.card_data["sigils"].find(movSigil) == 0 else 4
@@ -241,7 +241,7 @@ func post_turn_sigils():
 		if card.get_node("AnimationPlayer").is_playing():
 			continue
 		
-		if "Bone Digger" in card.card_data["sigils"]:
+		if card.has_sigil("Bone Digger"):
 			fightManager.add_bones(1)
 			fightManager.rpc_id(fightManager.opponent, "add_remote_bones", 1)
 			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "ProcGeneric")
@@ -249,7 +249,7 @@ func post_turn_sigils():
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 		
 		# Diving
-		if "Waterborne" in card.card_data["sigils"]:
+		if card.has_sigil("Waterborne"):
 			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
 			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
@@ -269,7 +269,7 @@ func initiate_combat():
 			var slot_index = card.slot_idx()
 			
 			
-			if "Trifurcated Strike" in pCard.card_data["sigils"] or "Bifurcated Strike" in pCard.card_data["sigils"]:
+			if pCard.has_sigil("Trifurcated Strike") or pCard.has_sigil("Bifurcated Strike"):
 				# Lower slot to right for attack anim (JANK AF)
 				if slot_index < 3:
 					playerSlots[slot_index + 1].show_behind_parent = true
@@ -278,7 +278,7 @@ func initiate_combat():
 				for s_offset in range(-1, 2):
 
 					# Skip middle if bi-strike
-					if s_offset == 0 and "Bifurcated Strike" in pCard.card_data["sigils"]:
+					if s_offset == 0 and pCard.has_sigil("Bifurcated Strike"):
 						continue
 
 					# Prevent attacking out of bounds
@@ -287,7 +287,7 @@ func initiate_combat():
 						continue
 					
 					# Don't attack repulsive cards!
-					if enemySlots[slot_index + s_offset].get_child_count() > 0 and "Repulsive" in enemySlots[slot_index + s_offset].get_child(0).card_data["sigils"]:
+					if enemySlots[slot_index + s_offset].get_child_count() > 0 and enemySlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
 						continue
 					
 					# Visually represent the card's attack offset (hacky)
@@ -308,8 +308,8 @@ func initiate_combat():
 				# Regular attack
 				
 				# Don't attack repulsive cards!
-				if enemySlots[slot_index].get_child_count() > 0 and "Repulsive" in enemySlots[slot_index].get_child(0).card_data["sigils"]:
-					if not "Airborne" in pCard.card_data["sigils"] or "Mighty Leap" in enemySlots[slot_index].get_child(0).card_data["sigils"]:
+				if enemySlots[slot_index].get_child_count() > 0 and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
+					if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
 						continue
 				
 				cardAnim.play("Attack")
@@ -318,7 +318,7 @@ func initiate_combat():
 		
 			# Any form of attack went through
 			# Brittle: Die after attacking
-			if "Brittle" in pCard.card_data["sigils"]:
+			if pCard.has_sigil("Brittle"):
 				cardAnim.play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
 
@@ -338,22 +338,22 @@ func handle_attack(from_slot, to_slot):
 
 		# Check for moles
 		# Mole man
-		if "Airborne" in pCard.card_data["sigils"]:
+		if pCard.has_sigil("Airborne"):
 			for card in all_enemy_cards():
-				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
+				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
 		else: # Regular mole
 			for card in all_enemy_cards():
-				if "Burrower" in card.card_data["sigils"]:
+				if card.has_sigil("Burrower"):
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
 
 	else:
 		eCard = enemySlots[to_slot].get_child(0)
-		if "Airborne" in pCard.card_data["sigils"] and not "Mighty Leap" in eCard.card_data["sigils"]:
+		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
 			direct_attack = true
 		if eCard.get_node("CardBody/DiveOlay").visible:
 			direct_attack = true
@@ -364,7 +364,7 @@ func handle_attack(from_slot, to_slot):
 		fightManager.inflict_damage(pCard.attack)
 
 		# Looter
-		if "Looter" in pCard.card_data["sigils"]:
+		if pCard.has_sigil("Looter"):
 			for _i in range(pCard.attack):
 				if fightManager.deck.size() == 0:
 					break
@@ -378,14 +378,14 @@ func handle_attack(from_slot, to_slot):
 	else:
 		eCard.health -= pCard.attack
 		eCard.draw_stats()
-		if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+		if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
 			eCard.get_node("AnimationPlayer").play("Perish")
 		
 		# Sharp quills
-		if "Sharp Quills" in eCard.card_data["sigils"]:
+		if eCard.has_sigil("Sharp Quills"):
 			pCard.health -= 1
 			pCard.draw_stats()
-			if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+			if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
 				pCard.get_node("AnimationPlayer").play("Perish")
 		
 	
@@ -396,7 +396,7 @@ func get_friendly_cards_sigil(sigil):
 	var found = []
 
 	for card in all_friendly_cards():
-		if sigil in card.card_data["sigils"]:
+		if card.has_sigil(sigil):
 			found.append(card)
 	
 	return found
@@ -404,10 +404,9 @@ func get_friendly_cards_sigil(sigil):
 func get_enemy_cards_sigil(sigil):
 	var found = []
 
-	for slot in enemySlots:
-		if slot.get_child_count() > 0:
-			if sigil in slot.get_child(0).card_data["sigils"]:
-				found.append(slot.get_child(0))
+	for card in all_enemy_cards():
+		if card.has_sigil(sigil):
+			found.append(card)
 	
 	return found
 
@@ -510,21 +509,21 @@ remote func handle_enemy_attack(from_slot, to_slot):
 
 		# Check for moles
 		# Mole man
-		if "Airborne" in eCard.card_data["sigils"]:
+		if eCard.has_sigil("Airborne"):
 			for card in all_friendly_cards():
-				if "Burrower" in card.card_data["sigils"] and "Mighty Leap" in card.card_data["sigils"]:
+				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
 		else: # Regular mole
 			for card in all_friendly_cards():
-				if "Burrower" in card.card_data["sigils"]:
+				if card.has_sigil("Burrower"):
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
 	else:
 		pCard = playerSlots[to_slot].get_child(0)
-		if "Airborne" in eCard.card_data["sigils"] and not "Mighty Leap" in pCard.card_data["sigils"]:
+		if eCard.has_sigil("Airborne") and not pCard.has_sigil("Mighty Leap"):
 			direct_attack = true
 		if pCard.get_node("CardBody/DiveOlay").visible:
 			direct_attack = true
@@ -534,14 +533,14 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	else:
 		pCard.health -= eCard.attack
 		pCard.draw_stats()
-		if pCard.health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+		if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
 			pCard.get_node("AnimationPlayer").play("Perish")
 		
 		# Sharp quills
-		if "Sharp Quills" in pCard.card_data["sigils"]:
+		if pCard.has_sigil("Sharp Quills"):
 			eCard.health -= 1
 			eCard.draw_stats()
-			if eCard.health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+			if eCard.health <= 0 or "Touch of Death" in pCard.has_sigil("Touch of Death"):
 				eCard.get_node("AnimationPlayer").play("Perish")
 
 # Something for tri strike effect

@@ -63,7 +63,7 @@ func from_data(cdat):
 
 
 func draw_cost():
-	if card_data["blood_cost"] > 0:
+	if "blood_cost" in card_data:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = true
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.duplicate()
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.region = Rect2(
@@ -75,7 +75,7 @@ func draw_cost():
 	else:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = false
 	
-	if card_data["bone_cost"] > 0:
+	if "bone_cost" in card_data:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = true
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.duplicate()
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
@@ -95,7 +95,7 @@ func draw_cost():
 	else:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
-	if card_data["energy_cost"] > 0:
+	if "energy_cost" in card_data:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = true
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.duplicate()
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.region = Rect2(
@@ -108,7 +108,7 @@ func draw_cost():
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = false
 	
 	# Mox cost BS
-	if card_data["mox_cost"]:
+	if "mox_cost" in card_data:
 		# Decide which mox to show
 		var true_mox = 0
 		
@@ -131,7 +131,7 @@ func draw_cost():
 
 func draw_sigils():
 	# Sigils
-	if len(card_data.sigils) > 0:
+	if "sigils" in card_data:
 		if "active" in card_data:
 			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = true
 			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
@@ -191,30 +191,30 @@ func _on_Button_pressed():
 		elif in_hand:
 			
 			# Only raise if all costs are met
-			if fightManager.bones < card_data["bone_cost"]:
+			if "bone_cost" in card_data and fightManager.bones < card_data["bone_cost"]:
 				print("You need more bones!")
 				return
 				
-			if fightManager.energy < card_data["energy_cost"]:
+			if "energy_cost" in card_data and fightManager.energy < card_data["energy_cost"]:
 				print("You need more energy!")
 				return
 			
-			if slotManager.get_available_blood() < card_data["blood_cost"]:
+			if "blood_cost" in card_data and slotManager.get_available_blood() < card_data["blood_cost"]:
 				print("You need more sacrifices!")
 				return
 			
-			if card_data["mox_cost"] and not slotManager.get_friendly_cards_sigil("Great Mox"):
+			if "mox_cost" in card_data and not slotManager.get_friendly_cards_sigil("Great Mox"):
 				for mox in card_data["mox_cost"]:
 					if not slotManager.get_friendly_cards_sigil(mox + " Mox"):
 						print(mox + " Mox missing")
 						return
 			
-			# Check if we're cat bricked
-			if slotManager.is_cat_bricked():
-				return
+			# Check if we're cat bricked (impossible now)
+			# if slotManager.is_cat_bricked():
+			# 	return
 			
 			# Enter sacrifice mode if card needs sacs
-			if card_data["blood_cost"] > 0:
+			if "blood_cost" in card_data:
 				fightManager.state = fightManager.GameStates.SACRIFICE
 			else:
 				fightManager.state = fightManager.GameStates.NORMAL
@@ -246,9 +246,9 @@ func _on_Button_pressed():
 				# Make sure we're not about to catbrick
 				var brick = true
 				
-				if slotManager.get_available_slots() == 0 and "Many Lives" in card_data["sigils"]:
+				if slotManager.get_available_slots() == 0 and has_sigil("Many Lives"):
 					for vic in slotManager.sacVictims:
-						if not "Many Lives" in vic.card_data["sigils"]:
+						if not vic.has_sigil("Many Lives"):
 							brick = false
 							break
 				else:
@@ -323,34 +323,32 @@ func move_to_parent(new_parent):
 		var eCard = null
 		if slotManager.enemySlots[new_parent.get_position_in_parent()].get_child_count():
 			eCard = slotManager.enemySlots[new_parent.get_position_in_parent()].get_child(0)
-			if "Sentry" in eCard.card_data["sigils"]:
-				print("SENTRY")
+			if eCard.has_sigil("Sentry"):
 				health -= 1
 				draw_stats()
-				if health <= 0 or "Touch of Death" in eCard.card_data["sigils"]:
+				if health <= 0 or eCard.has_sigil("Touch of Death"):
 					$AnimationPlayer.play("Perish")
 				
 				# Sharp quills
-				if "Sharp Quills" in card_data["sigils"]:
+				if has_sigil("Sharp Quills"):
 					eCard.health -= 1
 					eCard.draw_stats()
-					if eCard.health <= 0 or "Touch of Death" in card_data["sigils"]:
+					if eCard.health <= 0 or has_sigil("Touch of Death"):
 						eCard.get_node("AnimationPlayer").play("Perish")
 	if new_parent.get_parent().name == "EnemySlots":
 		var pCard = null
 		if slotManager.playerSlots[new_parent.get_position_in_parent()].get_child_count():
 			pCard = slotManager.playerSlots[new_parent.get_position_in_parent()].get_child(0)
-			if "Sentry" in pCard.card_data["sigils"]:
-				print("SENTRY")
+			if pCard.has_sigil("Sentry"):
 				health -= 1
 				draw_stats()
-				if health <= 0 or "Touch of Death" in pCard.card_data["sigils"]:
+				if health <= 0 or pCard.has_sigil("Touch of Death"):
 					$AnimationPlayer.play("Perish")
 				# Sharp quills
-				if "Sharp Quills" in card_data["sigils"]:
+				if has_sigil("Sharp Quills"):
 					pCard.health -= 1
 					pCard.draw_stats()
-					if pCard.health <= 0 or "Touch of Death" in card_data["sigils"]:
+					if pCard.health <= 0 or has_sigil("Touch of Death"):
 						pCard.get_node("AnimationPlayer").play("Perish")
 
 
@@ -368,26 +366,26 @@ func begin_perish(doubleDeath = false):
 		if doubleDeath:
 			fightManager.card_summoned(self)
 
-		if "Bone King" in card_data["sigils"]:
+		if has_sigil("Bone King"):
 			fightManager.add_bones(4)
-		elif not "Boneless" in card_data["sigils"]:
+		elif not has_sigil("Boneless"):
 			fightManager.add_bones(1)
 
 		## SIGILS
 		# Ruby Heart
-		if "Ruby Heart" in card_data["sigils"]:
+		if has_sigil("Ruby Heart"):
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[98], get_parent().get_position_in_parent())
 			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
 			canRespawn = false
 
 		# Frozen Away
-		if "Frozen Away" in card_data["sigils"]:
+		if has_sigil("Frozen Away"):
 			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[78], get_parent().get_position_in_parent())
 			slotManager.summon_card(allCardData.all_cards[78], get_parent().get_position_in_parent())
 			canRespawn = false
 
 		# Unkillable
-		if "Unkillable" in card_data["sigils"]:
+		if has_sigil("Unkillable"):
 			
 			if card_data["name"] == "Ouroboros":
 				fightManager.my_ouro_power += 1
@@ -403,7 +401,7 @@ func begin_perish(doubleDeath = false):
 			fightManager.draw_card(allCardData.all_cards.find(card_data))
 		
 		# Gem Animator
-		if "Gem Animator" in card_data["sigils"]:
+		if has_sigil("Gem Animator"):
 			for card in slotManager.all_friendly_cards():
 				if "Mox" in card.card_data["name"]:
 					card.attack -= 1
@@ -411,28 +409,27 @@ func begin_perish(doubleDeath = false):
 					slotManager.rpc_id(fightManager.opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
 
 		# Gem dependent (not this card)
-		for sigil in card_data["sigils"]:
-			if "Mox" in sigil:
+		if "sigils" in card_data:
+			for sigil in card_data["sigils"]:
+				if "Mox" in sigil:
 
-				print("Mox card died! Checking Gem dependant")
+					# Any Mox dying tests gem dependant
+					var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
 
-				# Any Mox dying tests gem dependant
-				var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
-
-				for moxcol in ["Green", "Blue", "Orange"]:
-					for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
-						if foundMox != self:
-							kill = false;
-							break
-				
-				if kill:
-					for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
-						gDep.get_node("AnimationPlayer").play("Perish")
-						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
-			break
-		
+					for moxcol in ["Green", "Blue", "Orange"]:
+						for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
+							if foundMox != self:
+								kill = false;
+								break
+					
+					if kill:
+						for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
+							gDep.get_node("AnimationPlayer").play("Perish")
+							slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
+				break
+			
 		# Explosive motherfucker
-		if "Detonator" in card_data["sigils"]:
+		if has_sigil("Detonator"):
 			var slotIdx = get_parent().get_position_in_parent()
 
 			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0:
@@ -467,13 +464,13 @@ func begin_perish(doubleDeath = false):
 			return
 
 	else:
-		if "Bone King" in card_data["sigils"]:
+		if has_sigil("Bone King"):
 			fightManager.add_opponent_bones(4)
-		elif not "Boneless" in card_data["sigils"]:
+		elif not has_sigil("Boneless"):
 			fightManager.add_opponent_bones(1)
 		
 		# Explosive motherfucker
-		if "Detonator" in card_data["sigils"]:
+		if has_sigil("Detonator"):
 			var slotIdx = get_parent().get_position_in_parent()
 
 			if slotManager.playerSlots[slotIdx].get_child_count() > 0:
@@ -590,3 +587,10 @@ func _on_ActiveSigil_pressed():
 # New helper funcs
 func slot_idx():
 	return get_parent().get_position_in_parent()
+
+func has_sigil(sigName):
+	if not "sigils" in card_data:
+		return false
+	else:
+		if sigName in card_data["sigils"]:
+			return true
