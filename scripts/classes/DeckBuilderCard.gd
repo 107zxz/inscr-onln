@@ -38,6 +38,9 @@ func from_data(cdat):
 		$Button.add_stylebox_override("normal", null)
 		$Button.add_stylebox_override("hover", null)
 	
+	# Conduit
+	$VBoxContainer/ConduitIcon.visible = "conduit" in card_data
+
 	# Update card costs and sigils
 	draw_cost()
 	draw_sigils()
