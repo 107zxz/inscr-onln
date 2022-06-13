@@ -231,3 +231,32 @@ func _on_SDSel_item_selected(index):
 		mox_container.visible = true
 	else:
 		mox_container.visible = false
+
+
+func _on_SortButton_pressed():
+	for eCard in deckDisplay.get_children():
+		eCard.queue_free()
+	
+	var cardList = get_deck_object()["cards"]
+	
+	cardList.sort()
+	
+	for card in cardList:
+		var nCard = cardPrefab.instance()
+		nCard.from_data(cardInfo.all_cards[card])
+		deckDisplay.add_child(nCard)
+		dSize += 1
+		
+func _on_ShuffleButton_pressed():
+	for eCard in deckDisplay.get_children():
+		eCard.queue_free()
+	
+	var cardList = get_deck_object()["cards"]
+	
+	cardList.shuffle()
+	
+	for card in cardList:
+		var nCard = cardPrefab.instance()
+		nCard.from_data(cardInfo.all_cards[card])
+		deckDisplay.add_child(nCard)
+		dSize += 1
