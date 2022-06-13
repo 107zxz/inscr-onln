@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Battery Bearer.png" type="Texture" id=2]
 [ext_resource path="res://gfx/sigils/Marrow Sucker.png" type="Texture" id=3]
 [ext_resource path="res://scripts/classes/DeckBuilderCard.gd" type="Script" id=4]
+[ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=5]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
+[ext_resource path="res://gfx/pixport/Adder.png" type="Texture" id=7]
+[ext_resource path="res://gfx/sigils/Energy Conduit.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.7, 0.7, 0.525, 1 )
@@ -21,6 +24,10 @@ region = Rect2( 28, 65, 26, 15 )
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 6 )
 region = Rect2( 1, 65, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 6, 3, 40, 7 )
 
 [node name="Card" type="PanelContainer"]
 margin_right = 57.0
@@ -46,24 +53,26 @@ margin_top = 2.0
 margin_right = 55.0
 margin_bottom = 80.0
 mouse_filter = 2
-custom_constants/separation = 2
+custom_constants/separation = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 53.0
 margin_bottom = 13.0
 size_flags_vertical = 1
+text = "Adder"
 align = 1
 valign = 1
 clip_text = true
 
 [node name="Portrait" type="TextureRect" parent="VBoxContainer"]
-margin_top = 15.0
+margin_top = 14.0
 margin_right = 53.0
-margin_bottom = 50.0
+margin_bottom = 49.0
 rect_min_size = Vector2( 50, 35 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 
@@ -149,8 +158,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ConduitIcon" type="TextureRect" parent="VBoxContainer"]
+margin_top = 50.0
+margin_right = 53.0
+margin_bottom = 60.0
+mouse_filter = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 6
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 52.0
+margin_top = 61.0
 margin_right = 53.0
 margin_bottom = 78.0
 mouse_filter = 2
@@ -158,9 +178,9 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_right = 26.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 10, 25 )
+margin_right = 17.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -169,10 +189,10 @@ stretch_mode = 6
 
 [node name="ActiveSigil" type="Button" parent="VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 13.0
-margin_top = 4.0
-margin_right = 39.0
-margin_bottom = 21.0
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 36.0
+margin_bottom = 18.0
 focus_mode = 0
 mouse_filter = 2
 size_flags_vertical = 4
@@ -180,24 +200,23 @@ enabled_focus_mode = 0
 icon = ExtResource( 3 )
 
 [node name="Sigil" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 36.0
-margin_right = 51.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 15, 25 )
+margin_left = 17.0
+margin_right = 35.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 3 )
+texture = ExtResource( 8 )
 expand = true
 stretch_mode = 6
 
 [node name="Spacer3" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 36.0
-margin_right = 43.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 3, 25 )
+margin_left = 35.0
+margin_right = 53.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 3, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -208,8 +227,8 @@ stretch_mode = 6
 visible = false
 margin_left = 28.0
 margin_right = 43.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 15, 25 )
+margin_bottom = 28.0
+rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -218,10 +237,10 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 26.0
+margin_left = 35.0
 margin_right = 53.0
-margin_bottom = 26.0
-rect_min_size = Vector2( 10, 25 )
+margin_bottom = 17.0
+rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

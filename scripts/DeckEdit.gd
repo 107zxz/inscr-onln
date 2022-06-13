@@ -4,15 +4,17 @@ var dSize = 0
 
 onready var cardInfo = get_node("/root/Main/AllCards")
 
-onready var searchResults = $HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer/SearchContainer
-onready var deckDisplay = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer
-onready var cardPreview = $HBoxContainer/CardPreview/PreviewContainer
+onready var searchResults = get_node("%SearchContainer")
+onready var deckDisplay = get_node("%DeckContainer")
+onready var cardPreview = get_node("%PreviewContainer")
 
 # Search option units
-onready var sigil_so_1 = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton
-onready var sigil_so_2 = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton
-onready var cost_type_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect
-onready var name_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit
+onready var searchOptions = get_node("%SearchOptions")
+
+onready var sigil_so_1 = searchOptions.get_node("HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton")
+onready var sigil_so_2 = searchOptions.get_node("HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton")
+onready var cost_type_so = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect")
+onready var name_so = searchOptions.get_node("HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit")
 
 # Deck creation units
 onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel
@@ -78,7 +80,9 @@ func search(_arg = null):
 			continue
 		if cost_type_so.selected == 2 and not "bone_cost" in card:
 			continue
-		if cost_type_so.selected == 3 and not "mox_cost" in card:
+		if cost_type_so.selected == 3 and not "energy_cost" in card:
+			continue
+		if cost_type_so.selected == 4 and not "mox_cost" in card:
 			continue
 		
 		resultCount += 1
