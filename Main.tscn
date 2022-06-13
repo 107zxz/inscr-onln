@@ -71,12 +71,15 @@ anchor_left = 0.025
 anchor_top = 0.025
 anchor_right = 0.975
 anchor_bottom = 0.975
-text = "Inscr Mult lobby
+text = "Inscryption Multiplayer
+Programming: 107zxz
+Custom Art: syntaxevasion
+Testing: Daniel Mullins Games discord <3
+
+Starting lobby...
+
 "
 scroll_following = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PanelContainer" type="PanelContainer" parent="Lobby/HBoxContainer/VBoxContainer"]
 margin_top = 562.0
