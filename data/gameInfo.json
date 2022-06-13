@@ -334,13 +334,14 @@
             "energy_cost": 6
         },
         {
-            "name": "Explode Bot",
+            "name": "Buff Conduit",
             "sigils": [
-                "Detonator"
+                "Attack Conduit"
             ],
-            "attack": 1,
-            "health": 1,
-            "energy_cost": 2
+            "attack": 0,
+            "health": 2,
+            "energy_cost": 2,
+            "conduit": true
         },
         {
             "name": "Double Gunner",
@@ -350,6 +351,36 @@
             "attack": 2,
             "health": 1,
             "energy_cost": 6
+        },
+        {
+            "name": "Energy Conduit",
+            "sigils": [
+                "Energy Conduit"
+            ],
+            "attack": 1,
+            "health": 2,
+            "energy_cost": 3,
+            "conduit": true,
+            "rare": true
+        },
+        {
+            "name": "Explode Bot",
+            "sigils": [
+                "Detonator"
+            ],
+            "attack": 1,
+            "health": 1,
+            "energy_cost": 2
+        },
+        {
+            "name": "Factory Conduit",
+            "sigils": [
+                "Spawn Conduit"
+            ],
+            "attack": 0,
+            "health": 2,
+            "energy_cost": 3,
+            "conduit": true
         },
         {
             "name": "Gamblobot",
@@ -401,7 +432,8 @@
             "name": "Null Conduit",
             "attack": 0,
             "health": 1,
-            "energy_cost": 1
+            "energy_cost": 1,
+            "conduit": true
         },
         {
             "name": "Plasma Jimmy",
@@ -1005,7 +1037,7 @@
             "nosac": true
         },
         {
-            "name": "Energy Vessel",
+            "name": "Energized Vessel",
             "sigils": [
                 "Battery Bearer"
             ],
@@ -1049,7 +1081,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 2,
-            "nosac": true
+            "nosac": true,
+            "conduit": true
         },
         {
             "name": "Contaminated Vessel",
@@ -1078,7 +1111,7 @@
         "Detonator": "When a card bearing this sigil dies, the creature opposing it, as well as adjacent friendly creatures, are dealt 10 damage.",
         "Disentomb": "Pay 1 bone to create a withered corpse in your hand.",
         "Double Death": "When another creature you own dies, it is returned to life and dies again immediately.",
-        "Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
+        "Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 2.",
         "Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
         "Enlarge": "Pay 2 bones to increase the power and health of a card bearing this sigil by 1.",
         "Fecundity": "When a card bearing this sigil is played, a copy of it is created in your hand.",
@@ -1105,6 +1138,7 @@
         "Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
         "Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
         "Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
+        "Spawn Conduit": "Empty spaces within a circuit completed by a card bearing this sigil spawn L33pB0ts at the end of the owner's turn.",
         "Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
         "Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",
         "Stinky": "The creature opposing a card bearing this sigil loses 1 Power.",
