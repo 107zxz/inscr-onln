@@ -91,7 +91,14 @@ func init_match(opp_id: int):
 		side_deck = side_deck_index.duplicate()
 		$DrawPiles/YourDecks/SideDeck.text = "Mox"
 	else:
-		side_deck = side_decks[side_deck_index].duplicate()
+		# Vessels
+		if side_deck_index == 2:
+			while side_deck.size() < 10:
+				side_deck.append(side_deck[0])
+		else:
+			# Non-vessels
+			side_deck = side_decks[side_deck_index].duplicate()
+
 		$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
 	side_deck.shuffle()
 	
