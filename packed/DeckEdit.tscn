@@ -43,6 +43,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.25
 
 [node name="PreviewContainer" type="VBoxContainer" parent="HBoxContainer/CardPreview"]
+unique_name_in_owner = true
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 202.0
@@ -195,6 +196,7 @@ enabled_focus_mode = 0
 text = "Clear"
 
 [node name="SearchOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
+unique_name_in_owner = true
 margin_left = 408.0
 margin_right = 816.0
 margin_bottom = 59.0
@@ -232,7 +234,7 @@ focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = "Any"
-items = [ "Any", null, false, 0, null, "Blood", null, false, 1, null, "Bone", null, false, 2, null, "Mox", null, false, 3, null ]
+items = [ "Any", null, false, 0, null, "Blood", null, false, 1, null, "Bone", null, false, 2, null, "Energy", null, false, 3, null, "Mox", null, false, 4, null ]
 selected = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
@@ -336,6 +338,7 @@ custom_styles/bg = SubResource( 2 )
 scroll_horizontal_enabled = false
 
 [node name="DeckContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview"]
+unique_name_in_owner = true
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 572.0
@@ -362,9 +365,9 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
-margin_top = 82.0
+margin_top = 36.0
 margin_right = 570.0
-margin_bottom = 99.0
+margin_bottom = 53.0
 alignment = 1
 
 [node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
@@ -388,9 +391,9 @@ selected = 0
 
 [node name="MoxContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
 visible = false
-margin_top = 63.0
+margin_top = 27.0
 margin_right = 570.0
-margin_bottom = 145.0
+margin_bottom = 109.0
 columns = 10
 
 [node name="Card" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer" instance=ExtResource( 4 )]
@@ -431,6 +434,24 @@ margin_right = 513.0
 margin_left = 513.0
 margin_right = 570.0
 
+[node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+margin_left = 256.0
+margin_top = 63.0
+margin_right = 313.0
+margin_bottom = 145.0
+size_flags_horizontal = 4
+
+[node name="CustomizeLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+margin_top = 143.0
+margin_right = 570.0
+margin_bottom = 156.0
+text = "Click to customize"
+align = 1
+valign = 1
+
 [node name="SearchResults" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
 margin_left = 574.0
 margin_right = 820.0
@@ -466,6 +487,7 @@ size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="SearchContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
 margin_right = 242.0
 rect_min_size = Vector2( 216, 0 )
 size_flags_horizontal = 3

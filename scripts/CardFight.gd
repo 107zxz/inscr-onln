@@ -6,7 +6,7 @@ extends Control
 const side_decks = [
 	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
 #	[29, 29],
-	[78, 78, 78, 78, 78, 78, 78, 78, 78, 78],
+	[81, 81, 81, 81, 81, 81, 81, 81, 81, 81],
 	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
 ]
 const side_deck_names = [
@@ -91,7 +91,14 @@ func init_match(opp_id: int):
 		side_deck = side_deck_index.duplicate()
 		$DrawPiles/YourDecks/SideDeck.text = "Mox"
 	else:
-		side_deck = side_decks[side_deck_index].duplicate()
+		# Vessels
+		if side_deck_index == 2:
+			while side_deck.size() < 10:
+				side_deck.append(side_deck[0])
+		else:
+			# Non-vessels
+			side_deck = side_decks[side_deck_index].duplicate()
+
 		$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
 	side_deck.shuffle()
 	
@@ -230,9 +237,13 @@ func starve_check():
 		return true
 	return false
 
-func draw_card(idx, source = $DrawPiles/YourDecks/Deck):
+func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	var nCard = cardPrefab.instance()
-	nCard.from_data(allCards.all_cards[idx])
+	if typeof(card) == TYPE_DICTIONARY:
+		nCard.from_data(card)
+	else:
+		nCard.from_data(allCards.all_cards[card])
+	
 	source.add_child(nCard)
 	
 	nCard.rect_position = Vector2.ZERO
@@ -269,7 +280,7 @@ func play_card(slot):
 		
 		# Only allow playing cards in the NORMAL or FORCEPLAY states
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
-			rpc_id(opponent, "_opponent_played_card", allCards.all_cards.find(playedCard.card_data), slot.get_position_in_parent())
+			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
 			
 			# Bone cost
 			if "bone_cost" in playedCard.card_data:
@@ -291,7 +302,12 @@ func card_summoned(playedCard):
 	
 	# SIGILS
 	if playedCard.has_sigil("Fecundity"):
-			draw_card(allCards.all_cards.find(playedCard.card_data))
+		var old_data = playedCard.card_data.duplicate()
+
+		old_data.erase("sigils")
+
+		draw_card(old_data)
+
 	if playedCard.has_sigil("Rabbit Hole"):
 		draw_card(21)
 	if playedCard.has_sigil("Battery Bearer"):
@@ -415,10 +431,10 @@ remote func _opponent_drew_card(source_path):
 
 remote func _opponent_played_card(card, slot):
 	
-	var card_dt = allCards.all_cards[card]
+	var card_dt = card if typeof(card) == TYPE_DICTIONARY else allCards.all_cards[card]
 	
 	# Special case: Starvation
-	if card == 0:
+	if card_dt["name"] == "Starvation":
 		card_dt["attack"] = turns_starving
 		if turns_starving >= 5:
 			card_dt["sigils"] = ["Mighty Leap"]
@@ -427,6 +443,7 @@ remote func _opponent_played_card(card, slot):
 		if turns_starving >= 9:
 			inflict_damage(-turns_starving + 8)
 	
+	# TODO: Replace this, since cards are no longer played by index
 	# Ouroboros: Set the attack and hp
 	if card_dt["name"] == "Ouroboros":
 		card_dt["attack"] = opponent_ouro_power

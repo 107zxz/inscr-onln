@@ -177,6 +177,8 @@ remote func server_accepted_challenge():
 	
 	$CardFight.initial_deck = ddata["cards"]
 	$CardFight.side_deck_index = ddata["side_deck"]
+	if "vessel_type" in ddata:
+		$CardFight.side_deck = [ddata["vessel_type"]]
 	
 	$CardFight/PlayerInfo/MyInfo/Username.text = $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text
 	$CardFight/PlayerInfo/TheirInfo/Username.text = challengers[opponent]["name"]
@@ -227,6 +229,8 @@ func _accept_challenge(index):
 	
 	$CardFight.initial_deck = ddata["cards"]
 	$CardFight.side_deck_index = ddata["side_deck"]
+	if "vessel_type" in ddata:
+		$CardFight.side_deck = [ddata["vessel_type"]]
 
 	$CardFight/PlayerInfo/MyInfo/Username.text = $Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/uname.text
 	$CardFight/PlayerInfo/TheirInfo/Username.text = challengers[opponent]["name"]
