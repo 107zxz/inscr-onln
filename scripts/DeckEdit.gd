@@ -4,15 +4,17 @@ var dSize = 0
 
 onready var cardInfo = get_node("/root/Main/AllCards")
 
-onready var searchResults = $HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer/SearchContainer
-onready var deckDisplay = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer
-onready var cardPreview = $HBoxContainer/CardPreview/PreviewContainer
+onready var searchResults = get_node("%SearchContainer")
+onready var deckDisplay = get_node("%DeckContainer")
+onready var cardPreview = get_node("%PreviewContainer")
 
 # Search option units
-onready var sigil_so_1 = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton
-onready var sigil_so_2 = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton
-onready var cost_type_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect
-onready var name_so = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit
+onready var searchOptions = get_node("%SearchOptions")
+
+onready var sigil_so_1 = searchOptions.get_node("HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton")
+onready var sigil_so_2 = searchOptions.get_node("HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton")
+onready var cost_type_so = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect")
+onready var name_so = searchOptions.get_node("HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit")
 
 # Deck creation units
 onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel
@@ -20,7 +22,8 @@ onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/D
 
 # Extended options
 onready var sidedeck_de = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/SDSel
-onready var mox_container = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer
+onready var sidedeck_container = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer
+onready var sidedeck_single = get_node("%SDCardSingle")
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -58,7 +61,7 @@ func search(_arg = null):
 	
 	for card in cardInfo.all_cards:
 		# Don't show banned cards
-		if card["name"] in cardInfo.banned_cards:
+		if "banned" in card:
 			continue
 
 		# Search conditions
@@ -78,7 +81,9 @@ func search(_arg = null):
 			continue
 		if cost_type_so.selected == 2 and not "bone_cost" in card:
 			continue
-		if cost_type_so.selected == 3 and not "mox_cost" in card:
+		if cost_type_so.selected == 3 and not "energy_cost" in card:
+			continue
+		if cost_type_so.selected == 4 and not "mox_cost" in card:
 			continue
 		
 		resultCount += 1
@@ -107,13 +112,17 @@ func get_deck_object():
 	# Side deck
 	if side_deck == 3:
 		side_deck = []
-		for card in mox_container.get_children():
+		for card in sidedeck_container.get_children():
 			side_deck.append(get_card_id(card.card_data))
 	
 	var deck_object = {
 		"cards": [],
 		"side_deck": side_deck
 	}
+	
+	# More side deck
+	if side_deck == 2:
+		deck_object["vessel_type"] = cardInfo.all_cards.find(sidedeck_single.card_data)
 	
 	for card in deckDisplay.get_children():
 		deck_object["cards"].append(get_card_id(card.card_data))
@@ -191,25 +200,31 @@ func load_deck(_arg = null):
 		dSize += 1
 	
 	# Mox
-	for child in mox_container.get_children():
+	for child in sidedeck_container.get_children():
 		child.queue_free()
 	
 	if typeof(dj["side_deck"]) == TYPE_ARRAY:
 		sidedeck_de.select(3)
 		
-		mox_container.visible = true
+		sidedeck_container.visible = true
 		for i in range(10):
 			var nCard = cardPrefab.instance()
 			nCard.from_data(cardInfo.all_cards[dj["side_deck"][i]])
-			mox_container.add_child(nCard)
+			sidedeck_container.add_child(nCard)
 	else:
 		sidedeck_de.select(dj["side_deck"])
 		
 		# More mox
-		for mId in [97, 97, 97, 98, 98, 98, 99, 99, 99, 99]:
+		for mId in [100, 100, 100, 101, 101, 101, 102, 102, 102, 102]:
 			var nCard = cardPrefab.instance()
 			nCard.from_data(cardInfo.all_cards[mId])
-			mox_container.add_child(nCard)
+			sidedeck_container.add_child(nCard)
+		
+		# Also setup the other card
+		sidedeck_single.from_data(cardInfo.all_cards[ [29, 81, 111][ dj["side_deck"]] ])
+		
+		if "vessel_type" in dj:
+			sidedeck_single.from_data(cardInfo.all_cards[dj["vessel_type"]])
 	
 	update_deck_count()
 
@@ -228,9 +243,21 @@ func populate_deck_list():
 
 func _on_SDSel_item_selected(index):
 	if index == 3:
-		mox_container.visible = true
+		sidedeck_container.visible = true
+		sidedeck_single.visible = false
+		
+		get_node("%CustomizeLabel").visible = true
 	else:
-		mox_container.visible = false
+		sidedeck_container.visible = false
+		sidedeck_single.visible = true
+		
+		sidedeck_single.from_data(cardInfo.all_cards[ [29, 81, 111][ sidedeck_de.selected] ])
+		
+		if index == 2:
+			get_node("%CustomizeLabel").visible = true
+		else:
+			get_node("%CustomizeLabel").visible = false	
+			
 
 
 func _on_SortButton_pressed():
