@@ -6,7 +6,8 @@
                 "Repulsive"
             ],
             "attack": 1,
-            "health": 1
+            "health": 1,
+            "banned": true
         },
         {
             "name": "Adder",
@@ -43,7 +44,8 @@
             ],
             "attack": 0,
             "health": 5,
-            "blood_cost": 2
+            "blood_cost": 2,
+            "banned": true
         },
         {
             "name": "Cat",
@@ -59,7 +61,8 @@
             "name": "Undead Cat",
             "attack": 3,
             "health": 6,
-            "blood_cost": 1
+            "blood_cost": 1,
+            "banned": true
         },
         {
             "name": "Elk",
@@ -98,7 +101,8 @@
             ],
             "attack": 2,
             "health": 2,
-            "blood_cost": 2
+            "blood_cost": 2,
+            "banned": true
         },
         {
             "name": "Hawk",
@@ -199,7 +203,8 @@
         {
             "name": "Rabbit",
             "attack": 0,
-            "health": 1
+            "health": 1,
+            "banned": true
         },
         {
             "name": "Coyote",
@@ -236,24 +241,28 @@
             "name": "Bell Tentacle",
             "attack": 0,
             "health": 3,
-            "blood_cost": 2
+            "blood_cost": 2,
+            "banned": true
         },
         {
             "name": "Hand Tentacle",
             "attack": 0,
             "health": 1,
-            "blood_cost": 1
+            "blood_cost": 1,
+            "banned": true
         },
         {
             "name": "Mirror Tentacle",
             "attack": 0,
             "health": 3,
-            "blood_cost": 1
+            "blood_cost": 1,
+            "banned": true
         },
         {
             "name": "Squirrel",
             "attack": 0,
-            "health": 1
+            "health": 1,
+            "banned": true
         },
         {
             "name": "Squirrel Ball",
@@ -472,7 +481,8 @@
             ],
             "attack": 0,
             "health": 1,
-            "energy_cost": 1
+            "energy_cost": 1,
+            "banned": true
         },
         {
             "name": "Mrs. Bomb",
@@ -499,7 +509,8 @@
             "name": "Sniper Bot",
             "attack": 1,
             "health": 1,
-            "energy_cost": 3
+            "energy_cost": 3,
+            "banned": true
         },
         {
             "name": "Steambot",
@@ -558,7 +569,8 @@
             "attack": 1,
             "health": 1,
             "bone_cost": 3,
-            "rare": true
+            "rare": true,
+            "active": true
         },
         {
             "name": "Bone Heap",
@@ -662,7 +674,8 @@
             ],
             "attack": 0,
             "health": 3,
-            "bone_cost": 1
+            "bone_cost": 1,
+            "banned": true
         },
         {
             "name": "Headless Horseman",
@@ -716,7 +729,8 @@
                 "Brittle"
             ],
             "attack": 1,
-            "health": 1
+            "health": 1,
+            "banned": true
         },
         {
             "name": "Skelemagus",
@@ -777,7 +791,8 @@
             "health": 1,
             "mox_cost": [
                 "Blue"
-            ]
+            ],
+            "banned": true
         },
         {
             "name": "Hover Mage",
@@ -920,7 +935,8 @@
             ],
             "attack": 0,
             "health": 1,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Ruby Mox",
@@ -929,7 +945,8 @@
             ],
             "attack": 0,
             "health": 1,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Sapphire Mox",
@@ -938,7 +955,8 @@
             ],
             "attack": 0,
             "health": 1,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Magnus Mox",
@@ -947,7 +965,8 @@
             ],
             "attack": 0,
             "health": 9,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Muscle Mage",
@@ -1017,14 +1036,16 @@
                 "Boneless"
             ],
             "attack": 1,
-            "health": 1
+            "health": 1,
+            "banned": true
         },
         {
             "name": "Empty Vessel",
             "attack": 0,
             "health": 3,
             "energy_cost": 1,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Leaping Vessel",
@@ -1034,7 +1055,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 2,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Energized Vessel",
@@ -1044,7 +1066,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 3,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Bloody Vessel",
@@ -1053,7 +1076,8 @@
             ],
             "attack": 0,
             "health": 2,
-            "energy_cost": 3
+            "energy_cost": 3,
+            "banned": true
         },
         {
             "name": "Edaxio's Vessel",
@@ -1064,7 +1088,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 7,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Splintered Vessel",
@@ -1074,7 +1099,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 2,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         },
         {
             "name": "Conductive Vessel",
@@ -1082,7 +1108,8 @@
             "health": 2,
             "energy_cost": 2,
             "nosac": true,
-            "conduit": true
+            "conduit": true,
+            "banned": true
         },
         {
             "name": "Contaminated Vessel",
@@ -1092,7 +1119,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 2,
-            "nosac": true
+            "nosac": true,
+            "banned": true
         }
     ],
     "sigils": {
@@ -1104,7 +1132,7 @@
         "Bomb Spewer": "When a card bearing this sigil is played, fill all empty spaces with explode bots.",
         "Bone Digger": "At the end of the owner's turn, a card bearing this sigil will generate 1 bone.",
         "Bone King": "When a card bearing this sigil dies, 4 bones are awarded instead of 1.",
-        "Bonehorn": "Pay 1 energy to gain 3 bones.",
+        "Bonehorn": "Pay 1 energy to gain 1 bone.",
         "Boneless": "When a card bearing this sigil dies, no bones are awarded.",
         "Brittle": "After attacking, a card bearing this sigil perishes.",
         "Burrower": "When an empty space would be struck, a card bearing this sigil will move to that space to receive the strike instead.",
@@ -1150,28 +1178,6 @@
         "Waterborne": "A card bearing this sigil submerges itself during its opponent's turn. while submerged, opposing creatures attack its owner directly.",
         "Worthy Sacrifice": "A card bearing this sigil is counted as 3 blood rather than 1 blood when sacrificed."
     },
-    "banned_cards": [
-        "Skeleton",
-        "Withered Corpse",
-        "Squirrel",
-        "Ruby Mox",
-        "Emerald Mox",
-        "Sapphire Mox",
-        "Rabbit",
-        "Starvation",
-        "Hand Tentacle",
-        "Bell Tentacle",
-        "Mirror Tentacle",
-        "Undead Cat",
-        "Spore Mice",
-        "Sporedigger",
-        "Bone Lord's Horn",
-        "Sentry Spore",
-        "Magnus Mox",
-        "Blue Sporemage",
-        "Burrowing Trap",
-        "Sniper Bot"
-    ],
     "working_sigils": [
         "Airborne",
         "Mighty Leap",
