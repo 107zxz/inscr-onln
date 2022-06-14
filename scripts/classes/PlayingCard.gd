@@ -545,10 +545,10 @@ func _on_ActiveSigil_pressed():
 		
 	
 	if sName == "Power Dice":
-		if fightManager.energy < 1:
+		if fightManager.energy < 2:
 			return
 		
-		fightManager.set_energy(fightManager.energy - 1)
+		fightManager.set_energy(fightManager.energy - 2)
 		
 		attack = randi() % 6 + 1
 		draw_stats()

@@ -454,7 +454,7 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 			pCard.draw_stats()
 	
 	if sName == "Power Dice":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 2)
 		
 		eCard.attack = arg
 		eCard.draw_stats()
