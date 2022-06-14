@@ -8,6 +8,8 @@ onready var allCardData = get_node("/root/Main/AllCards")
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var slotManager = get_node("/root/Main/CardFight/CardSlots")
 
+var paperTheme = preload("res://themes/papertheme.tres")
+
 # State
 var card_data = {}
 var in_hand = true
@@ -29,26 +31,20 @@ func from_data(cdat):
 	# Rare
 	if "rare" in card_data:
 		var sbox = $CardBody/Button.get_stylebox("normal").duplicate()
-		var sboxH = $CardBody/Button.get_stylebox("hover").duplicate()
+		var sboxH = $Button.get_stylebox("hover").duplicate()
 		if "nosac" in card_data:
-			sbox.bg_color = Color("ad9551")
-			sboxH.bg_color = Color("c2af7c")
+			$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
+			$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
 		else:
-			sbox.bg_color = Color("ceb46d")
-			sboxH.bg_color = Color("dfc98e")
-		$CardBody/Button.add_stylebox_override("normal", sbox)
-		$CardBody/Button.add_stylebox_override("hover", sboxH)
+			$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("rare_normal", "Card"))
+			$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("rare_hover", "Card"))
 	elif "nosac" in card_data:
-		var sbox = $CardBody/Button.get_stylebox("normal").duplicate()
-		var sboxH = $CardBody/Button.get_stylebox("hover").duplicate()
-		sbox.bg_color = Color("969275")
-		sboxH.bg_color = Color("b0ab89")
-		$CardBody/Button.add_stylebox_override("normal", sbox)
-		$CardBody/Button.add_stylebox_override("hover", sboxH)
+		$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("nosac_hover", "Card"))
+		$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("nosac_normal", "Card"))
 	else:
-		$CardBody/Button.add_stylebox_override("normal", null)
-		$CardBody/Button.add_stylebox_override("hover", null)
-
+		$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("normal", "Card"))
+		$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("hover", "Card"))
+	
 	# Draw Conduit
 	$CardBody/VBoxContainer/ConduitIcon.visible = "conduit" in card_data
 

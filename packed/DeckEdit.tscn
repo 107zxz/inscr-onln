@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -12,15 +12,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.6, 0.576471, 0.423529, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
-anti_aliasing = false
 
 [node name="DeckEdit" type="Control"]
 anchor_right = 1.0
@@ -334,7 +325,6 @@ margin_right = 574.0
 margin_bottom = 352.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 2 )
 scroll_horizontal_enabled = false
 
 [node name="DeckContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview"]
@@ -488,7 +478,10 @@ scroll_horizontal_enabled = false
 
 [node name="SearchContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
-margin_right = 242.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 240.0
+margin_bottom = 2.0
 rect_min_size = Vector2( 216, 0 )
 size_flags_horizontal = 3
 columns = 4
