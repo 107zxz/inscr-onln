@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/classes/PlayingCard.gd" type="Script" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
 [ext_resource path="res://gfx/cardextras/pixel_card_subicon.png" type="Texture" id=7]
 [ext_resource path="res://gfx/sigils/Marrow Sucker.png" type="Texture" id=8]
-[ext_resource path="res://gfx/sigils/Attack Conduit.png" type="Texture" id=10]
+[ext_resource path="res://gfx/sigils/Great Mox.png" type="Texture" id=9]
+[ext_resource path="res://themes/sigilMat.tres" type="Material" id=10]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 6 )
@@ -624,8 +625,8 @@ theme = ExtResource( 1 )
 [node name="Button" type="Button" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 168.0
-margin_bottom = 244.0
+margin_right = 253.0
+margin_bottom = 367.0
 focus_mode = 0
 disabled = true
 button_mask = 3
@@ -634,12 +635,12 @@ enabled_focus_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 168.0
-margin_bottom = 244.0
+margin_right = 253.0
+margin_bottom = 367.0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="CardBody/VBoxContainer"]
-margin_right = 166.0
+margin_right = 251.0
 margin_bottom = 13.0
 size_flags_vertical = 1
 align = 1
@@ -648,8 +649,8 @@ clip_text = true
 
 [node name="Portrait" type="TextureRect" parent="CardBody/VBoxContainer"]
 margin_top = 13.0
-margin_right = 166.0
-margin_bottom = 135.0
+margin_right = 251.0
+margin_bottom = 201.0
 rect_min_size = Vector2( 81, 56 )
 rect_clip_content = true
 mouse_filter = 2
@@ -668,17 +669,17 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 83.0
-margin_bottom = 122.0
+margin_right = 125.0
+margin_bottom = 188.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 83.0
-margin_right = 166.0
-margin_bottom = 122.0
+margin_left = 125.0
+margin_right = 251.0
+margin_bottom = 188.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -756,17 +757,17 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer"]
-margin_top = 135.0
-margin_right = 166.0
-margin_bottom = 242.0
+margin_top = 201.0
+margin_right = 251.0
+margin_bottom = 365.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_right = 83.0
-margin_bottom = 107.0
+margin_right = 125.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -776,28 +777,35 @@ stretch_mode = 6
 
 [node name="ActiveSigil" type="Button" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 24.0
-margin_top = 16.0
-margin_right = 56.0
-margin_bottom = 33.0
+margin_left = 73.0
+margin_top = 73.0
+margin_right = 105.0
+margin_bottom = 90.0
 rect_min_size = Vector2( 32, 0 )
 focus_mode = 0
 mouse_filter = 2
 size_flags_vertical = 4
 enabled_focus_mode = 0
-icon = ExtResource( 8 )
 expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer/ActiveSigil"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
 
 [node name="Sigil" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 48.0
-margin_right = 64.0
-margin_bottom = 49.0
+material = ExtResource( 10 )
+margin_left = 83.0
+margin_right = 167.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
@@ -815,6 +823,7 @@ stretch_mode = 6
 
 [node name="Sigil2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
+material = ExtResource( 10 )
 margin_left = 25.0
 margin_right = 40.0
 margin_bottom = 25.0
@@ -827,9 +836,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_left = 83.0
-margin_right = 166.0
-margin_bottom = 107.0
+margin_left = 125.0
+margin_right = 251.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -840,22 +849,22 @@ stretch_mode = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 168.0
-margin_bottom = 244.0
+margin_right = 253.0
+margin_bottom = 367.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AtkScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_right = 83.0
-margin_bottom = 242.0
+margin_right = 125.0
+margin_bottom = 365.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 valign = 2
 
 [node name="HpScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_left = 83.0
-margin_right = 166.0
-margin_bottom = 242.0
+margin_left = 125.0
+margin_right = 251.0
+margin_bottom = 365.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 2
