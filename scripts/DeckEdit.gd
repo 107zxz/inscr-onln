@@ -61,7 +61,7 @@ func search(_arg = null):
 	
 	for card in cardInfo.all_cards:
 		# Don't show banned cards
-		if card["name"] in cardInfo.banned_cards:
+		if "banned" in card:
 			continue
 
 		# Search conditions
