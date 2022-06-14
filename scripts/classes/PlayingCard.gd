@@ -136,7 +136,7 @@ func draw_sigils():
 	if "sigils" in card_data:
 		if "active" in card_data:
 			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = true
-			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = false
 		else:
 			$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")

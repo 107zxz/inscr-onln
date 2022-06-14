@@ -117,7 +117,7 @@ func draw_sigils():
 	if "sigils" in card_data:
 		if "active" in card_data:
 			$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
-			$VBoxContainer/HBoxContainer/ActiveSigil.icon = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+			$VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 			$VBoxContainer/HBoxContainer/Sigil.visible = false
 		else:
 			$VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
@@ -224,7 +224,7 @@ func _on_Card_mouse_entered():
 			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
 			sd.get_child(2).add_color_override("font_color", Color.darkred)
 		else:
-			sd.get_child(2).add_color_override("font_color", Color.black)
+			sd.get_child(2).add_color_override("font_color", paperTheme.get_color("font_color", "Label"))
 
 #		previewCont.get_child(1).add_child(sd)
 		sd.visible = true
