@@ -49,6 +49,9 @@ func from_data(cdat):
 		$CardBody/Button.add_stylebox_override("normal", null)
 		$CardBody/Button.add_stylebox_override("hover", null)
 
+	# Draw Conduit
+	$CardBody/VBoxContainer/ConduitIcon.visible = "conduit" in card_data
+
 	# Update card costs and sigils
 	draw_cost()
 	draw_sigils()
@@ -131,6 +134,9 @@ func draw_cost():
 
 func draw_sigils():
 	# Sigils
+	if not "active" in card_data:
+		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = false
+
 	if "sigils" in card_data:
 		if "active" in card_data:
 			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = true
@@ -566,6 +572,13 @@ func _on_ActiveSigil_pressed():
 		attack += 1
 			
 		draw_stats()
+	
+	if sName == "Bonehorn":
+		if fightManager.energy < 1:
+			return
+	
+		fightManager.set_energy(fightManager.energy - 1)
+		fightManager.add_bones(1)
 	
 	if sName == "Disentomb":
 		if fightManager.bones < 1:

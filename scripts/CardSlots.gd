@@ -471,6 +471,10 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		eCard.attack += 1
 		eCard.draw_stats()
 	
+	if sName == "Bonehorn":
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		fightManager.add_opponent_bones(1)
+	
 	if sName == "Disentomb":
 		fightManager.add_opponent_bones(-1)
 	
