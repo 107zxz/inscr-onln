@@ -3,9 +3,10 @@ extends Control
 onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer")
 onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPreview/PreviewContainer/")
 
-
 onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 onready var allCardData = get_node("/root/Main/AllCards")
+
+var paperTheme = preload("res://themes/papertheme.tres")
 
 var card_data = {}
 
@@ -20,23 +21,17 @@ func from_data(cdat):
 		var sbox = $Button.get_stylebox("normal").duplicate()
 		var sboxH = $Button.get_stylebox("hover").duplicate()
 		if "nosac" in card_data:
-			sbox.bg_color = Color("ad9551")
-			sboxH.bg_color = Color("c2af7c")
+			$Button.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
+			$Button.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
 		else:
-			sbox.bg_color = Color("ceb46d")
-			sboxH.bg_color = Color("dfc98e")
-		$Button.add_stylebox_override("normal", sbox)
-		$Button.add_stylebox_override("hover", sboxH)
+			$Button.add_stylebox_override("normal", paperTheme.get_stylebox("rare_normal", "Card"))
+			$Button.add_stylebox_override("hover", paperTheme.get_stylebox("rare_hover", "Card"))
 	elif "nosac" in card_data:
-		var sbox = $Button.get_stylebox("normal").duplicate()
-		var sboxH = $Button.get_stylebox("hover").duplicate()
-		sbox.bg_color = Color("969275")
-		sboxH.bg_color = Color("b0ab89")
-		$Button.add_stylebox_override("normal", sbox)
-		$Button.add_stylebox_override("hover", sboxH)
+		$Button.add_stylebox_override("hover", paperTheme.get_stylebox("nosac_hover", "Card"))
+		$Button.add_stylebox_override("normal", paperTheme.get_stylebox("nosac_normal", "Card"))
 	else:
-		$Button.add_stylebox_override("normal", null)
-		$Button.add_stylebox_override("hover", null)
+		$Button.add_stylebox_override("normal", paperTheme.get_stylebox("normal", "Card"))
+		$Button.add_stylebox_override("hover", paperTheme.get_stylebox("hover", "Card"))
 	
 	# Conduit
 	$VBoxContainer/ConduitIcon.visible = "conduit" in card_data

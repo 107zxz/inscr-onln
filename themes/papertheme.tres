@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=2]
+[gd_resource type="Theme" load_steps=17 format=2]
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 
@@ -15,7 +15,7 @@ expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.8, 0.769067, 0.568, 1 )
+bg_color = Color( 0.8, 0.768627, 0.568627, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -38,6 +38,102 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.8, 0.768627, 0.568627, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.701961, 0.67451, 0.498039, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.690196, 0.670588, 0.537255, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.588235, 0.572549, 0.458824, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.87451, 0.788235, 0.556863, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.807843, 0.705882, 0.427451, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.760784, 0.686275, 0.486275, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.678431, 0.584314, 0.317647, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.5, 0.480667, 0.355, 1 )
 border_width_left = 2
@@ -47,21 +143,13 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
+resource_name = "DefaultPanel"
 bg_color = Color( 0.6, 0.5768, 0.426, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.6, 0.576471, 0.423529, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
-anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id=12]
 content_margin_left = 12.0
@@ -92,6 +180,14 @@ Button/styles/disabled = SubResource( 9 )
 Button/styles/hover = SubResource( 8 )
 Button/styles/normal = SubResource( 9 )
 Button/styles/pressed = SubResource( 10 )
+Card/styles/hover = SubResource( 19 )
+Card/styles/normal = SubResource( 20 )
+Card/styles/nosac_hover = SubResource( 13 )
+Card/styles/nosac_normal = SubResource( 14 )
+Card/styles/rare_hover = SubResource( 15 )
+Card/styles/rare_normal = SubResource( 16 )
+Card/styles/rns_hover = SubResource( 17 )
+Card/styles/rns_normal = SubResource( 18 )
 GridContainer/constants/hseparation = 0
 GridContainer/constants/vseparation = 0
 HBoxContainer/constants/separation = 0
@@ -101,8 +197,9 @@ LineEdit/styles/focus = SubResource( 11 )
 LineEdit/styles/normal = SubResource( 11 )
 Panel/styles/panel = SubResource( 6 )
 Panel/styles/pressed = SubResource( 6 )
-PanelContainer/styles/panel = SubResource( 2 )
+PanelContainer/styles/panel = SubResource( 6 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
+ScrollContainer/styles/bg = SubResource( 6 )
 VBoxContainer/constants/separation = 0
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
