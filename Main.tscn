@@ -5,7 +5,7 @@
 [ext_resource path="res://scripts/LobbyUI.gd" type="Script" id=3]
 [ext_resource path="res://scripts/ChatRoom.gd" type="Script" id=4]
 [ext_resource path="res://packed/DeckEdit.tscn" type="PackedScene" id=5]
-[ext_resource path="res://OptionsMenu.gd" type="Script" id=6]
+[ext_resource path="res://scripts/OptionsMenu.gd" type="Script" id=6]
 [ext_resource path="res://packed/CardFight.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/CardInfo.gd" type="Script" id=8]
 
@@ -45,7 +45,10 @@ margin_bottom = 600.0
 size_flags_horizontal = 3
 
 [node name="Challenges" type="VBoxContainer" parent="Lobby/HBoxContainer/ScrollContainer"]
-margin_right = 512.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 510.0
+margin_bottom = 2.0
 size_flags_horizontal = 3
 custom_constants/separation = -3
 __meta__ = {
