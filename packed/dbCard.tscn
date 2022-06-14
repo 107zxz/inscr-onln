@@ -72,6 +72,7 @@ rect_min_size = Vector2( 50, 35 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
