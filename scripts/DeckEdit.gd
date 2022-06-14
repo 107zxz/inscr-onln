@@ -121,7 +121,7 @@ func get_deck_object():
 	}
 	
 	# More side deck
-	if side_deck == 2:
+	if typeof(side_deck) == TYPE_INT and side_deck == 2:
 		deck_object["vessel_type"] = cardInfo.all_cards.find(sidedeck_single.card_data)
 	
 	for card in deckDisplay.get_children():
@@ -206,6 +206,8 @@ func load_deck(_arg = null):
 	if typeof(dj["side_deck"]) == TYPE_ARRAY:
 		sidedeck_de.select(3)
 		
+		sidedeck_single.visible = false
+		get_node("%CustomizeLabel").visible = true
 		sidedeck_container.visible = true
 		for i in range(10):
 			var nCard = cardPrefab.instance()
@@ -225,6 +227,7 @@ func load_deck(_arg = null):
 		
 		if "vessel_type" in dj:
 			sidedeck_single.from_data(cardInfo.all_cards[dj["vessel_type"]])
+			get_node("%CustomizeLabel").visible = true
 	
 	update_deck_count()
 
