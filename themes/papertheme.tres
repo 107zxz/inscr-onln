@@ -46,14 +46,6 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.6, 0.5768, 0.426, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
-
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.5768, 0.426, 1 )
 border_width_left = 2
@@ -71,15 +63,23 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.5, 0.480667, 0.355, 1 )
+[sub_resource type="StyleBoxFlat" id=12]
+content_margin_left = 12.0
+bg_color = Color( 0.701961, 0.67451, 0.498039, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
-expand_margin_left = 5.0
-expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 12.0
+bg_color = Color( 0.501961, 0.482353, 0.356863, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
 
 [resource]
 default_font = ExtResource( 1 )
@@ -99,12 +99,19 @@ Label/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/styles/focus = SubResource( 11 )
 LineEdit/styles/normal = SubResource( 11 )
-Panel/styles/panel = SubResource( 7 )
+Panel/styles/panel = SubResource( 6 )
 Panel/styles/pressed = SubResource( 6 )
 PanelContainer/styles/panel = SubResource( 2 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 VBoxContainer/constants/separation = 0
-VScrollBar/styles/grabber = SubResource( 9 )
-VScrollBar/styles/grabber_highlight = SubResource( 9 )
-VScrollBar/styles/grabber_pressed = SubResource( 9 )
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/decrement_pressed = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/icons/increment_pressed = null
+VScrollBar/styles/grabber = SubResource( 12 )
+VScrollBar/styles/grabber_highlight = SubResource( 12 )
+VScrollBar/styles/grabber_pressed = SubResource( 12 )
 VScrollBar/styles/scroll = SubResource( 4 )
+VScrollBar/styles/scroll_focus = null
