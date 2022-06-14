@@ -4,8 +4,8 @@ extends Control
 
 # Side decks
 const side_decks = [
-	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
-#	[29, 29],
+#	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
+	[29, 29],
 	[81, 81, 81, 81, 81, 81, 81, 81, 81, 81],
 	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
 ]
@@ -424,9 +424,6 @@ remote func _opponent_played_card(card, slot):
 	
 	# Special case: Starvation
 	if card_dt["name"] == "Starvation":
-		card_dt["attack"] = turns_starving
-		if turns_starving >= 5:
-			card_dt["sigils"] = ["Mighty Leap"]
 		
 		# Inflict starve damage
 		if turns_starving >= 9:
@@ -475,7 +472,7 @@ remote func force_draw_starv(strength):
 	var starv_data = allCards.all_cards[0]
 	starv_data["attack"] = strength
 	if strength >= 5:
-		starv_data["sigils"] = ["Mighty Leap"]
+		starv_data["sigils"].append("Mighty Leap")
 	
 	starv_card.from_data(starv_data)
 
