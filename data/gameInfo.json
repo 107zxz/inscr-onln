@@ -322,7 +322,7 @@
             "name": "Automaton",
             "attack": 1,
             "health": 1,
-            "energy_cost": 3
+            "energy_cost": 2
         },
         {
             "name": "Energy Bot",

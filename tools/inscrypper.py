@@ -5,6 +5,9 @@ import shutil
 import textwrap
 from weakref import ref
 
+# no longer using this, so I don't want to run it accidentally
+exit()
+
 basePath = "/media/107zxz/Extra Files/Games/InscrExt/globalgamemanagers/Assets/Resources/data/"
 sigilPaths = ["abilities/part1/", "abilities/gbc/", "abilities/part3/"]
 cardPaths = ["cards/nature/", "cards/technology/", "cards/undead/", "cards/wizard/"]
