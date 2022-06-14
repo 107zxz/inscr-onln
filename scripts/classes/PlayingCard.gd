@@ -392,19 +392,12 @@ func begin_perish(doubleDeath = false):
 
 		# Unkillable
 		if has_sigil("Unkillable"):
-			
-			if card_data["name"] == "Ouroboros":
-				fightManager.my_ouro_power += 1
-				fightManager.rpc_id(fightManager.opponent, "opponent_levelled_ouro")
-				
-				# Force level all ouros in hand
-				for card in get_node("/root/Main/CardFight/HandsContainer/Hands/PlayerHand").get_children():
-					if card.card_data["name"] == "Ouroboros":
-						card.card_data["attack"] = fightManager.my_ouro_power
-						card.card_data["health"] = fightManager.my_ouro_power
-						card.from_data(card_data)
 
-			fightManager.draw_card(allCardData.all_cards.find(card_data))
+			if card_data["name"] == "Ouroboros":
+				card_data["attack"] += 1
+				card_data["health"] += 1
+
+			fightManager.draw_card(card_data)
 		
 		# Gem Animator
 		if has_sigil("Gem Animator"):

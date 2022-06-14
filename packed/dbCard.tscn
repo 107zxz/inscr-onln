@@ -30,8 +30,8 @@ atlas = ExtResource( 5 )
 region = Rect2( 5, 3, 40, 7 )
 
 [node name="Card" type="PanelContainer"]
-margin_right = 57.0
-margin_bottom = 82.0
+margin_right = 186.0
+margin_bottom = 212.0
 rect_min_size = Vector2( 57, 82 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -41,8 +41,8 @@ script = ExtResource( 4 )
 [node name="Button" type="Button" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 55.0
-margin_bottom = 80.0
+margin_right = 184.0
+margin_bottom = 210.0
 focus_mode = 0
 button_mask = 3
 enabled_focus_mode = 0
@@ -50,13 +50,13 @@ enabled_focus_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 55.0
-margin_bottom = 80.0
+margin_right = 184.0
+margin_bottom = 210.0
 mouse_filter = 2
 custom_constants/separation = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 53.0
+margin_right = 182.0
 margin_bottom = 13.0
 size_flags_vertical = 1
 text = "Adder"
@@ -66,8 +66,8 @@ clip_text = true
 
 [node name="Portrait" type="TextureRect" parent="VBoxContainer"]
 margin_top = 14.0
-margin_right = 53.0
-margin_bottom = 50.0
+margin_right = 182.0
+margin_bottom = 126.0
 rect_min_size = Vector2( 50, 35 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -84,17 +84,17 @@ mouse_filter = 2
 alignment = 2
 
 [node name="Control" type="Control" parent="VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 26.0
-margin_bottom = 36.0
+margin_right = 91.0
+margin_bottom = 112.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 26.0
-margin_right = 53.0
-margin_bottom = 36.0
+margin_left = 91.0
+margin_right = 182.0
+margin_bottom = 112.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -172,16 +172,16 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 51.0
-margin_right = 53.0
-margin_bottom = 78.0
+margin_top = 127.0
+margin_right = 182.0
+margin_bottom = 208.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_right = 26.0
-margin_bottom = 27.0
+margin_right = 91.0
+margin_bottom = 81.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -191,9 +191,10 @@ stretch_mode = 6
 
 [node name="ActiveSigil" type="Button" parent="VBoxContainer/HBoxContainer"]
 visible = false
-margin_top = 5.0
-margin_right = 26.0
-margin_bottom = 22.0
+margin_left = 78.0
+margin_top = 32.0
+margin_right = 104.0
+margin_bottom = 49.0
 focus_mode = 0
 mouse_filter = 2
 size_flags_vertical = 4
@@ -239,9 +240,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 26.0
-margin_right = 53.0
-margin_bottom = 27.0
+margin_left = 91.0
+margin_right = 182.0
+margin_bottom = 81.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -252,22 +253,22 @@ stretch_mode = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 55.0
-margin_bottom = 80.0
+margin_right = 184.0
+margin_bottom = 210.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AtkScore" type="Label" parent="HBoxContainer"]
-margin_right = 26.0
-margin_bottom = 78.0
+margin_right = 91.0
+margin_bottom = 208.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 valign = 2
 
 [node name="HpScore" type="Label" parent="HBoxContainer"]
-margin_left = 26.0
-margin_right = 53.0
-margin_bottom = 78.0
+margin_left = 91.0
+margin_right = 182.0
+margin_bottom = 208.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 2

@@ -65,8 +65,6 @@ var side_deck = []
 
 # Persistent card state
 var turns_starving = 0
-var my_ouro_power = 1
-var opponent_ouro_power = 1
 
 # Network match state
 var want_rematch = false
@@ -108,8 +106,6 @@ func init_match(opp_id: int):
 	opponent_lives = 2
 	damage_stun = false
 	turns_starving = 0
-	my_ouro_power = 1
-	opponent_ouro_power = 1
 	
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
 	$LeftSideUI/LivesLabel.text = "Lives: 2"
@@ -252,13 +248,6 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	nCard.move_to_parent(handManager.get_node("PlayerHand"))
 	
 	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
-	
-	# Special draw stuff
-	if nCard.card_data["name"] == "Ouroboros":
-		nCard.card_data["attack"] = my_ouro_power
-		nCard.card_data["health"] = my_ouro_power
-		nCard.from_data(nCard.card_data)
-	
 	
 	# Update deck size
 	var dst = "err"
@@ -443,12 +432,6 @@ remote func _opponent_played_card(card, slot):
 		if turns_starving >= 9:
 			inflict_damage(-turns_starving + 8)
 	
-	# TODO: Replace this, since cards are no longer played by index
-	# Ouroboros: Set the attack and hp
-	if card_dt["name"] == "Ouroboros":
-		card_dt["attack"] = opponent_ouro_power
-		card_dt["health"] = opponent_ouro_power
-		
 	handManager.opponentRaisedCard.from_data(card_dt)
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
 	
@@ -495,10 +478,6 @@ remote func force_draw_starv(strength):
 		starv_data["sigils"] = ["Mighty Leap"]
 	
 	starv_card.from_data(starv_data)
-
-remote func opponent_levelled_ouro():
-	print("Opponent ouro died")
-	opponent_ouro_power += 1
 
 # Called during attack animation
 func inflict_damage(dmg):
