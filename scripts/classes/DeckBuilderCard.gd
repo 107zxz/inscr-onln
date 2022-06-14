@@ -114,6 +114,11 @@ func draw_cost():
 
 func draw_sigils():
 	# Sigils
+	
+	# Minor fix
+	if not "active" in card_data:
+		$VBoxContainer/HBoxContainer/ActiveSigil.visible = false
+	
 	if "sigils" in card_data:
 		if "active" in card_data:
 			$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
@@ -184,9 +189,18 @@ func _on_Button_pressed():
 	# Am I in the mox container? If so, cycle me
 	if get_parent().name == "MoxContainer":
 		var currIdx = allCardData.all_cards.find(card_data)
-		var nextIdx = (currIdx - 96) % 3 + 97
-		
+		var nextIdx = (currIdx - 99) % 3 + 100
 		from_data(allCardData.all_cards[nextIdx])
+		_on_Card_mouse_entered()
+	
+	# Am I the editable empty vessel?
+	if name == "SDCardSingle":
+		var currIdx = allCardData.all_cards.find(card_data)
+		if currIdx > 110 and currIdx < 119:
+			var nextIdx = (currIdx - 110) % 8 + 111
+			from_data(allCardData.all_cards[nextIdx])
+			previewCont.get_child(0).from_data(card_data)
+			_on_Card_mouse_entered()
 	
 
 
