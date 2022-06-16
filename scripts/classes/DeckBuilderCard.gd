@@ -18,8 +18,6 @@ func from_data(cdat):
 	
 	# Rare
 	if "rare" in card_data:
-		var sbox = $Button.get_stylebox("normal").duplicate()
-		var sboxH = $Button.get_stylebox("hover").duplicate()
 		if "nosac" in card_data:
 			$Button.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
 			$Button.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
@@ -29,6 +27,9 @@ func from_data(cdat):
 	elif "nosac" in card_data:
 		$Button.add_stylebox_override("hover", paperTheme.get_stylebox("nosac_hover", "Card"))
 		$Button.add_stylebox_override("normal", paperTheme.get_stylebox("nosac_normal", "Card"))
+	elif "nohammer" in card_data:
+		$Button.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
+		$Button.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
 	else:
 		$Button.add_stylebox_override("normal", paperTheme.get_stylebox("normal", "Card"))
 		$Button.add_stylebox_override("hover", paperTheme.get_stylebox("hover", "Card"))
