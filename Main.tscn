@@ -251,10 +251,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -152.0
-margin_top = -138.0
-margin_right = 152.0
-margin_bottom = 138.0
+margin_left = -170.5
+margin_top = -195.5
+margin_right = 170.5
+margin_bottom = 195.5
 theme = ExtResource( 9 )
 script = ExtResource( 6 )
 
@@ -262,7 +262,7 @@ script = ExtResource( 6 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 339.0
-margin_bottom = 287.0
+margin_bottom = 389.0
 
 [node name="Description" type="Label" parent="ThemeEditor/Options"]
 margin_right = 337.0
@@ -525,10 +525,112 @@ margin_right = 337.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 
-[node name="Buttons" type="HBoxContainer" parent="ThemeEditor/Options"]
+[node name="Button Background" type="HBoxContainer" parent="ThemeEditor/Options"]
 margin_top = 268.0
 margin_right = 337.0
 margin_bottom = 285.0
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Button Background"]
+margin_top = 2.0
+margin_right = 123.0
+margin_bottom = 15.0
+text = "Button Background: "
+
+[node name="LineEdit" type="LineEdit" parent="ThemeEditor/Options/Button Background"]
+margin_left = 123.0
+margin_right = 337.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Button Border" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 285.0
+margin_right = 337.0
+margin_bottom = 302.0
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Button Border"]
+margin_top = 2.0
+margin_right = 93.0
+margin_bottom = 15.0
+text = "Button Border: "
+
+[node name="LineEdit" type="LineEdit" parent="ThemeEditor/Options/Button Border"]
+margin_left = 93.0
+margin_right = 337.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Button Background Pressed" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 302.0
+margin_right = 337.0
+margin_bottom = 319.0
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Button Background Pressed"]
+margin_top = 2.0
+margin_right = 174.0
+margin_bottom = 15.0
+text = "Button Background Pressed: "
+
+[node name="LineEdit" type="LineEdit" parent="ThemeEditor/Options/Button Background Pressed"]
+margin_left = 174.0
+margin_right = 337.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Button Border Pressed" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 319.0
+margin_right = 337.0
+margin_bottom = 336.0
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Button Border Pressed"]
+margin_top = 2.0
+margin_right = 144.0
+margin_bottom = 15.0
+text = "Button Border Pressed: "
+
+[node name="LineEdit" type="LineEdit" parent="ThemeEditor/Options/Button Border Pressed"]
+margin_left = 144.0
+margin_right = 337.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Button Background Hover" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 336.0
+margin_right = 337.0
+margin_bottom = 353.0
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Button Background Hover"]
+margin_top = 2.0
+margin_right = 160.0
+margin_bottom = 15.0
+text = "Button Background Hover: "
+
+[node name="LineEdit" type="LineEdit" parent="ThemeEditor/Options/Button Background Hover"]
+margin_left = 160.0
+margin_right = 337.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Button Border Hover" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 353.0
+margin_right = 337.0
+margin_bottom = 370.0
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Button Border Hover"]
+margin_top = 2.0
+margin_right = 130.0
+margin_bottom = 15.0
+text = "Button Border Hover: "
+
+[node name="LineEdit" type="LineEdit" parent="ThemeEditor/Options/Button Border Hover"]
+margin_left = 130.0
+margin_right = 337.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Buttons" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 370.0
+margin_right = 337.0
+margin_bottom = 387.0
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="ThemeEditor/Options/Buttons"]
@@ -549,7 +651,9 @@ rect_min_size = Vector2( 41.568, 0 )
 margin_left = 114.0
 margin_right = 220.0
 margin_bottom = 17.0
+focus_mode = 0
 size_flags_horizontal = 4
+enabled_focus_mode = 0
 text = "Reset to Default"
 
 [node name="Spacer2" type="Control" parent="ThemeEditor/Options/Buttons"]
@@ -579,6 +683,7 @@ __meta__ = {
 
 [connection signal="new_challenge" from="." to="Lobby" method="_on_new_challenge"]
 [connection signal="remove_challenge" from="." to="Lobby" method="_remove_challenge"]
+[connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/TEButton" to="ThemeEditor" method="show"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/hostBtn" to="." method="host_lobby"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/joinBtn" to="Lobby" method="_join_game"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/deButton" to="Lobby" method="_edit_deck"]
@@ -586,5 +691,5 @@ __meta__ = {
 [connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/sendButton" to="ChatRoom" method="_on_sendButton_pressed"]
 [connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/exitButton" to="ChatRoom" method="_on_exitButton_pressed"]
 [connection signal="pressed" from="ThemeEditor/Options/Buttons/SaveButton" to="ThemeEditor" method="save"]
-[connection signal="pressed" from="ThemeEditor/Options/Buttons/DefaultsButton" to="ThemeEditor" method="save"]
+[connection signal="pressed" from="ThemeEditor/Options/Buttons/DefaultsButton" to="ThemeEditor" method="defaults"]
 [connection signal="pressed" from="ThemeEditor/Options/Buttons/CloseButton" to="ThemeEditor" method="close_window"]

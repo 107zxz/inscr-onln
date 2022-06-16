@@ -3,7 +3,7 @@ extends PanelContainer
 var paperTheme = preload("res://themes/papertheme.tres")
 var sigilMat = preload("res://themes/sigilMat.tres")
 
-var theme_data = {
+const default_theme_data = {
 	"border_colour": "#000000",
 	"background_colour": "#99936d",
 	"edit_background_colour": "#807b5b",
@@ -46,6 +46,8 @@ var theme_data = {
 		}
 	}
 }
+
+var theme_data = default_theme_data
 
 func _ready():
 	attempt_load_theme()
@@ -103,7 +105,7 @@ func apply_theme():
 	paperTheme.set_color("default_color", "RichTextLabel", theme_data.text_colour)
 	
 	# Sigil Colours
-	sigilMat.set_shader_param("u_replacement_color", theme_data.pixart_colour)
+	sigilMat.set_shader_param("u_replacement_color", Color(theme_data.pixart_colour))
 	save_theme()
 
 func apply_controls():
@@ -111,7 +113,7 @@ func apply_controls():
 	theme_data.background_colour = $Options/Background/LineEdit.text
 	theme_data.edit_background_colour = $"Options/Editbox Background/LineEdit".text
 	theme_data.text_colour = $Options/Text/LineEdit.text
-	theme_data.pixart_colour = $"Options/Pixel Art/LineEdit".text
+	theme_data.pixart_colour = Color($"Options/Pixel Art/LineEdit".text).to_html()
 	theme_data.cards.common.normal = $"Options/Common Card Background/LineEdit".text
 	theme_data.cards.common.hover = $"Options/Common Card Background Hover/LineEdit".text
 	theme_data.cards.rare.normal = $"Options/Rare Card Background/LineEdit".text
@@ -122,6 +124,14 @@ func apply_controls():
 	theme_data.cards.rns.hover = $"Options/Rare Unsacrificeable Card Background Hover/LineEdit".text
 	theme_data.cards.nohammer.normal = $"Options/Unhammerable Card Background/LineEdit".text
 	theme_data.cards.nohammer.hover = $"Options/Unhammerable Card Background Hover/LineEdit".text
+
+	theme_data.buttons.normal.background = $"Options/Button Background/LineEdit".text
+	theme_data.buttons.normal.border = $"Options/Button Border/LineEdit".text 
+	theme_data.buttons.hover.background = $"Options/Button Background Hover/LineEdit".text
+	theme_data.buttons.hover.border = $"Options/Button Border Hover/LineEdit".text
+	theme_data.buttons.pressed.background = $"Options/Button Background Pressed/LineEdit".text
+	theme_data.buttons.pressed.border = $"Options/Button Border Pressed/LineEdit".text
+
 
 func save_theme():
 	var sFile = File.new()
@@ -146,6 +156,12 @@ func update_controls():
 	$"Options/Unhammerable Card Background/LineEdit".text = theme_data.cards.nohammer.normal
 	$"Options/Unhammerable Card Background Hover/LineEdit".text = theme_data.cards.nohammer.hover
 	
+	$"Options/Button Background/LineEdit".text = theme_data.buttons.normal.background
+	$"Options/Button Border/LineEdit".text = theme_data.buttons.normal.border
+	$"Options/Button Background Hover/LineEdit".text = theme_data.buttons.hover.background
+	$"Options/Button Border Hover/LineEdit".text = theme_data.buttons.hover.border
+	$"Options/Button Background Pressed/LineEdit".text = theme_data.buttons.pressed.background
+	$"Options/Button Border Pressed/LineEdit".text = theme_data.buttons.pressed.border
 
 func attempt_load_theme():
 	var tFile = File.new()
@@ -155,8 +171,12 @@ func attempt_load_theme():
 		if parse_json(tFile.get_as_text()):
 			theme_data = parse_json(tFile.get_as_text())
 			
-			
-
-
 func close_window():
 	visible = false
+
+func defaults():
+	print("Attempting to reset to default")
+	theme_data = default_theme_data.duplicate()
+	update_controls()
+	apply_theme()
+	
