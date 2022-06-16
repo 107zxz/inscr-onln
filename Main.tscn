@@ -147,7 +147,6 @@ margin_left = 427.0
 margin_right = 508.0
 margin_bottom = 17.0
 focus_mode = 0
-theme = ExtResource( 9 )
 enabled_focus_mode = 0
 text = "Theme Editor"
 
