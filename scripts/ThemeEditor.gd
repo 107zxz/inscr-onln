@@ -27,8 +27,8 @@ const default_theme_data = {
 			"hover": "#c2af7c"
 		},
 		"nohammer": {
-			"normal": "#969275",
-			"hover": "#b0ab89"
+			"normal": "#b39a7f",
+			"hover": "#c5996a"
 		}
 	},
 	"buttons": {
