@@ -1121,6 +1121,40 @@
             "energy_cost": 2,
             "nosac": true,
             "banned": true
+        },
+        {
+            "name": "Geck",
+            "attack": 1,
+            "health": 1
+        },
+        {
+            "name": "Ghost Squirrel",
+            "attack": 0,
+            "health": 1,
+            "sigils": [
+                "Unkillable",
+                "Boneless"
+            ]
+        },
+        {
+            "name": "Shambling Cairn",
+            "attack": 0,
+            "health": 1,
+            "bone_cost": -4,
+            "sigils": [
+                "Sprinter"
+            ],
+            "nohammer": true
+        },
+        {
+            "name": "Angel Statue",
+            "attack": 0,
+            "health": 1,
+            "sigils": [
+                "Scopophobic",
+                "Boneless"
+            ],
+            "nosac": true
         }
     ],
     "sigils": {
@@ -1159,10 +1193,11 @@
         "Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
         "Mighty Leap": "A card bearing this sigil will block an opposing creature bearing the airborne sigil.",
         "Orange Mox": "While a card bearing this sigil is on the board, it provides an orange gem to its owner.",
-        "Power Dice": "Pay 1 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
+        "Power Dice": "Pay 2 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
         "Rabbit Hole": "When a card bearing this sigil is played, a rabbit is created in your hand. [define:rabbit]",
         "Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
         "Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
+        "Scopophobic": "A card bearing this sigil gains 1 power when not facing an enemy creature.",
         "Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
         "Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
         "Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
@@ -1225,6 +1260,7 @@
         "Stimulate",
         "Energy Gun",
         "True Scholar",
-        "Bonehorn"
+        "Bonehorn",
+        "Boneless"
     ]
 }
