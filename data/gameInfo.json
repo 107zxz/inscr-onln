@@ -1125,7 +1125,8 @@
         {
             "name": "Geck",
             "attack": 1,
-            "health": 1
+            "health": 1,
+            "banned": true
         },
         {
             "name": "Ghost Squirrel",
@@ -1134,7 +1135,8 @@
             "sigils": [
                 "Unkillable",
                 "Boneless"
-            ]
+            ],
+            "banned": true
         },
         {
             "name": "Shambling Cairn",
@@ -1144,7 +1146,8 @@
             "sigils": [
                 "Sprinter"
             ],
-            "nohammer": true
+            "nohammer": true,
+            "banned": true
         },
         {
             "name": "Angel Statue",
@@ -1154,7 +1157,8 @@
                 "Scopophobic",
                 "Boneless"
             ],
-            "nosac": true
+            "nosac": true,
+            "banned": true
         }
     ],
     "sigils": {

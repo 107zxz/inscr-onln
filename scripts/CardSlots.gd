@@ -80,10 +80,21 @@ func attempt_sacrifice():
 		for victim in sacVictims:
 			if victim.has_sigil("Many Lives"):
 				victim.get_node("AnimationPlayer").play("CatSac")
-				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "CatSac")
+				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "CatSac")
+				victim.sacrifice_count += 1
+				
+				# Undeadd cat
+				if victim.card_data["name"] == "Cat" and victim.sacrifice_count == 9:
+					victim.from_data(allCards.all_cards[6])
+					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.all_cards[6])
+				# Pets to cat
+				if victim.card_data["name"] == "Pharaoh's Pets" and handManager.raisedCard.card_data["blood_cost"] > sacValue - 2:
+					victim.from_data(allCards.all_cards[5])
+					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.all_cards[5])
+
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
-				rpc_id(fightManager.opponent, "remote_card_anim", victim.get_parent().get_position_in_parent(), "Perish")
+				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "Perish")
 				
 			
 		sacVictims.clear()
@@ -510,6 +521,10 @@ remote func remote_card_stats(card_slot, new_attack, new_health):
 	card.attack = new_attack if new_attack != null else card.attack
 	card.health = new_health if new_health != null else card.health
 	card.draw_stats()
+
+remote func remote_card_data(card_slot, new_data):
+	var card = get_enemy_card(card_slot)
+	card.from_data(new_data)
 
 remote func handle_enemy_attack(from_slot, to_slot):
 	var direct_attack = false

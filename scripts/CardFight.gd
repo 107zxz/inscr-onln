@@ -385,7 +385,7 @@ func card_summoned(playedCard):
 	
 
 	# Die if gem dependant
-	if playedCard.has_sigil("Gem Dependant"):
+	if playedCard.has_sigil("Gem Dependant") and not "Perish" in playedCard.get_node("AnimationPlayer").current_animation:
 
 		var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
 
