@@ -92,6 +92,14 @@ func draw_cost():
 				26,
 				15
 			)
+		# Special case: shambling cairn
+		if card_data["bone_cost"] == -1:
+			$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
+				28,
+				97,
+				26,
+				15
+			)
 	else:
 		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
@@ -212,9 +220,10 @@ func _on_Button_pressed():
 						print(mox + " Mox missing")
 						return
 			
-			# Check if we're cat bricked (impossible now)
-			# if slotManager.is_cat_bricked():
-			# 	return
+			# Check there's a free slot to play me in (if not blood)\
+			if not "blood_cost" in card_data and slotManager.get_available_slots() == 0:
+				print("No room to play")
+				return
 			
 			# Enter sacrifice mode if card needs sacs
 			if "blood_cost" in card_data:
@@ -231,11 +240,11 @@ func _on_Button_pressed():
 			return
 		
 		# Is it hammer time? Am I on the player's side?
-		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name == "PlayerSlots":
+		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name == "PlayerSlots" and not "nohammer" in card_data:
 			$AnimationPlayer.play("Perish")
 			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
 			
-			if slotManager.get_available_slots() == 4:
+			if slotManager.get_hammerable_cards() == 0:
 				fightManager.hammer_mode()
 				# Jank workaround
 				fightManager.get_node("LeftSideUI/HammerButton").pressed = false
