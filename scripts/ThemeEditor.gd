@@ -134,8 +134,14 @@ func apply_controls():
 
 
 func save_theme():
+	
+	var theme_path = "theme.json"
+	
+	if OS.get_name() == "OSX":
+		theme_path = "user://theme.json"
+	
 	var sFile = File.new()
-	sFile.open("theme.json", File.WRITE)
+	sFile.open(theme_path, File.WRITE)
 	sFile.store_line(to_json(theme_data))
 	sFile.close()
 
@@ -164,10 +170,16 @@ func update_controls():
 	$"Options/Button Border Pressed/LineEdit".text = theme_data.buttons.pressed.border
 
 func attempt_load_theme():
+	
+	var theme_path = "theme.json"
+	
+	if OS.get_name() == "OSX":
+		theme_path = "user://theme.json"
+	
 	var tFile = File.new()
-	if tFile.file_exists("theme.json"):
+	if tFile.file_exists(theme_path):
 		print("Found theme.json!")
-		tFile.open("theme.json", File.READ)
+		tFile.open(theme_path, File.READ)
 		if parse_json(tFile.get_as_text()):
 			theme_data = parse_json(tFile.get_as_text())
 			
