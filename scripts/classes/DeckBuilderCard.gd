@@ -71,6 +71,14 @@ func draw_cost():
 				26,
 				15
 			)
+		# Special case: shambling cairn
+		if card_data["bone_cost"] == -4:
+			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
+				28,
+				97,
+				26,
+				15
+			)
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
