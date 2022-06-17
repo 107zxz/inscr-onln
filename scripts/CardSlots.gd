@@ -39,7 +39,16 @@ func get_available_slots() -> int:
 		freeSlots -= 1
 	
 	return freeSlots
+
+func get_hammerable_cards():
+	var nCards = 0
 	
+	for card in all_friendly_cards():
+		if not "nohammer" in card.card_data:
+			nCards += 1
+	
+	return nCards
+
 func is_cat_bricked() -> bool:
 	if get_available_slots():
 		return false

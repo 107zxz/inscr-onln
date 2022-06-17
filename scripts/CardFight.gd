@@ -5,15 +5,24 @@ extends Control
 # Side decks
 const side_decks = [
 	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
-#	[29, 29],
 	[81, 81, 81, 81, 81, 81, 81, 81, 81, 81],
 	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
+	[],
+	[],
+	[119, 119, 199],
+	[120],
+	[121, 121, 121, 121, 121, 121, 121, 121, 121, 121]
 ]
 
 const side_deck_names = [
 	"Squirrels",
 	"Skeletons",
 	"Vessels",
+	"Fuck",
+	"Fuck",
+	"Gecks",
+	"Ghost Squirrels",
+	"Cairns"
 ]
 
 # Carryovers from lobby
@@ -396,7 +405,7 @@ func hammer_mode():
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
 	
-	if slotManager.get_available_slots() == 4 and state == GameStates.NORMAL:
+	if slotManager.get_hammerable_cards() == 0 and state == GameStates.NORMAL:
 		$LeftSideUI/HammerButton.pressed = true
 		return
 	

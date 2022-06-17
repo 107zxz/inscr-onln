@@ -1140,7 +1140,7 @@
             "name": "Shambling Cairn",
             "attack": 0,
             "health": 1,
-            "bone_cost": -4,
+            "bone_cost": -1,
             "sigils": [
                 "Sprinter"
             ],

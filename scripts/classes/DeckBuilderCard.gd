@@ -72,7 +72,7 @@ func draw_cost():
 				15
 			)
 		# Special case: shambling cairn
-		if card_data["bone_cost"] == -4:
+		if card_data["bone_cost"] == -1:
 			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
 				28,
 				97,
