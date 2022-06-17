@@ -300,6 +300,7 @@ func lower():
 
 # Move to origin of new parent
 func move_to_parent(new_parent):
+	var from_hand = false
 	var moved = true
 
 	if new_parent == get_parent():
@@ -310,8 +311,9 @@ func move_to_parent(new_parent):
 		in_hand = false
 	
 	# Lower cards if just played by active player
-	if get_parent().name == "PlayerHand":
+	if get_parent().name in [ "PlayerHand", "EnemyHand" ]:
 		get_parent().get_parent().lower_all_cards()
+		from_hand = true
 	
 	# Reset position, as expected to be raised when this happens
 	$AnimationPlayer.play("RESET")
@@ -348,6 +350,15 @@ func move_to_parent(new_parent):
 					eCard.draw_stats()
 					if eCard.health <= 0 or has_sigil("Touch of Death"):
 						eCard.get_node("AnimationPlayer").play("Perish")
+		
+		# I am the sentry
+		# Activate when moved
+		if has_sigil("Sentry") and not from_hand:
+			if eCard:
+				eCard.health -= 1
+				eCard.draw_stats()
+				if eCard.health <= 0 or has_sigil("Touch of Death"):
+					eCard.get_node("AnimationPlayer").play("Perish")
 	if new_parent.get_parent().name == "EnemySlots":
 		var pCard = null
 		if slotManager.playerSlots[new_parent.get_position_in_parent()].get_child_count():
@@ -363,6 +374,15 @@ func move_to_parent(new_parent):
 					pCard.draw_stats()
 					if pCard.health <= 0 or has_sigil("Touch of Death"):
 						pCard.get_node("AnimationPlayer").play("Perish")
+		# I am the sentry
+		# Activate when moved
+		if has_sigil("Sentry") and not from_hand:
+			if pCard:
+				pCard.health -= 1
+				pCard.draw_stats()
+				if pCard.health <= 0 or has_sigil("Touch of Death"):
+					pCard.get_node("AnimationPlayer").play("Perish")
+	
 
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
