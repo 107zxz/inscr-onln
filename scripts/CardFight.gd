@@ -9,7 +9,7 @@ const side_decks = [
 	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
 	[],
 	[],
-	[119, 119, 199],
+	[119, 119, 119],
 	[120],
 	[121, 121, 121, 121, 121, 121, 121, 121, 121, 121]
 ]
@@ -21,7 +21,7 @@ const side_deck_names = [
 	"Fuck",
 	"Fuck",
 	"Gecks",
-	"Ghost Squirrels",
+	"GSquirrel",
 	"Cairns"
 ]
 
@@ -147,6 +147,8 @@ func init_match(opp_id: int):
 			break
 		
 	draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+	if side_deck.size() == 0:
+		$DrawPiles/YourDecks/SideDeck.visible = false
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
@@ -264,7 +266,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	if source.name == "Deck":
 		dst = str(len(deck)) + "/" + str(len(initial_deck))
 	else:
-		dst = str(len(side_deck)) + "/10"
+		dst = str(len(side_deck)) + "/" + str(len(side_decks[side_deck_index]))
 	
 	source.get_node("SizeLabel").text = dst
 	
