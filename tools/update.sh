@@ -9,21 +9,21 @@ echo Preparing to generate builds for version: $vno
 
 cd $pdir
 
-if [ -f "$bdir/win-$vno.exe" ]; then
+if false && [ -f "$bdir/win-$vno.exe" ]; then
     echo "$bdir/win-$vno.exe already exists! skipping..."
 else
     echo "Building $bdir/win-$vno.exe"
     $gex --export-debug "Windows Desktop" $bdir/win-$vno.exe
 fi
 
-if [ -f "$bdir/osx-$vno.zip" ]; then
+if false && [ -f "$bdir/osx-$vno.zip" ]; then
     echo "$bdir/osx-$vno.zip already exists! skipping..."
 else
     echo "Building $bdir/osx-$vno.zip"
     $gex --export-debug "Mac OSX" $bdir/osx-$vno.zip
 fi
 
-if [ -f "$bdir/linux-$vno.x86_64" ]; then
+if false && [ -f "$bdir/linux-$vno.x86_64" ]; then
     echo "$bdir/linux-$vno.x86_64 already exists! skipping..."
 else
     echo Building $bdir/linux-$vno.x86_64
