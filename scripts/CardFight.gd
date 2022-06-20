@@ -2,6 +2,9 @@ extends Control
 
 # Vanguard
 
+onready var allCards = get_node("/root/Main/AllCards")
+
+
 # Side decks
 const side_decks = [
 	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
@@ -39,7 +42,6 @@ var gameSettings = {
 onready var handManager = $HandsContainer/Hands
 onready var playerSlots = $CardSlots/PlayerSlots
 onready var enemySlots = $CardSlots/EnemySlots
-onready var allCards = get_node("/root/Main/AllCards")
 onready var slotManager = $CardSlots
 var cardPrefab = preload("res://packed/playingCard.tscn")
 
@@ -116,6 +118,11 @@ func init_match(opp_id: int):
 	opponent_lives = 2
 	damage_stun = false
 	turns_starving = 0
+
+	# Reset ouro
+	var ouro = allCards.from_name("Ouroboros")
+	ouro["attack"] = 1
+	ouro["health"] = 1
 	
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
 	$LeftSideUI/LivesLabel.text = "Lives: 2"
@@ -137,18 +144,21 @@ func init_match(opp_id: int):
 	handManager.clear_hands()
 	slotManager.clear_slots()
 		
-	# Draw starting hands
-	for _i in range(3):
-		draw_card(deck.pop_front())
-		
-		# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-		if deck.size() == 0:
-			$DrawPiles/YourDecks/Deck.visible = false
-			break
-		
+	# Draw starting hands (sidedeck first for starve check)
 	draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
 	if side_deck.size() == 0:
 		$DrawPiles/YourDecks/SideDeck.visible = false
+
+	for _i in range(3):
+		draw_card(deck.pop_front())
+		
+		# Some interaction here if your deck has less than 3 cards. Punish by giving opponent starvation
+		if deck.size() == 0:
+			$DrawPiles/YourDecks/Deck.visible = false
+			starve_check()
+			break
+		
+	
 	
 	$WaitingBlocker.visible = not get_tree().is_network_server()
 
@@ -197,8 +207,8 @@ func draw_maindeck():
 		
 		if deck.size() == 0:
 			$DrawPiles/YourDecks/Deck.visible = false
-	
-	
+		
+		starve_check()
 
 func draw_sidedeck():
 	if state == GameStates.DRAWPILE:
@@ -209,8 +219,8 @@ func draw_sidedeck():
 		if side_deck.size() == 0:
 			$DrawPiles/YourDecks/SideDeck.visible = false
 		
-		# starve_check()
-
+		starve_check()
+		
 func search_deck():
 	if deck.size() == 0:
 		return
@@ -231,6 +241,8 @@ func search_callback(index):
 
 	if deck.size() == 0:
 		$DrawPiles/YourDecks/Deck.visible = false
+
+	starve_check()
 
 	deck.shuffle()
 
@@ -266,10 +278,13 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	if source.name == "Deck":
 		dst = str(len(deck)) + "/" + str(len(initial_deck))
 	else:
-		dst = str(len(side_deck)) + "/" + str(len(side_decks[side_deck_index]))
+		if typeof(side_deck_index) == TYPE_ARRAY:
+			dst = str(len(side_deck)) + "/10"
+		else:
+			dst = str(len(side_deck)) + "/" + str(len(side_decks[side_deck_index]))
 	
 	source.get_node("SizeLabel").text = dst
-	
+
 	return nCard
 
 func play_card(slot):
@@ -310,7 +325,7 @@ func card_summoned(playedCard):
 		draw_card(old_data)
 
 	if playedCard.has_sigil("Rabbit Hole"):
-		draw_card(21)
+		draw_card(allCards.from_name("Rabbit"))
 	if playedCard.has_sigil("Battery Bearer"):
 		if max_energy < 6:
 			set_max_energy(max_energy + 1)
@@ -351,7 +366,6 @@ func card_summoned(playedCard):
 	
 	# Hoarder
 	if playedCard.has_sigil("Hoarder"):
-		print("SWAGPIE")
 		search_deck()
 	
 	# Mrs Bomb (wacky one)
@@ -360,8 +374,8 @@ func card_summoned(playedCard):
 			if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
 				continue
 
-			slotManager.summon_card(allCards.all_cards[40], cSlot)
-			slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
+			slotManager.summon_card(allCards.from_name("Explode Bot"), cSlot)
+			slotManager.rpc_id(opponent, "remote_card_summon", allCards.from_name("Explode Bot"), cSlot)
 
 	# Gem Animator
 	if playedCard.has_sigil("Gem Animator"):
@@ -472,8 +486,8 @@ remote func _opponent_played_card(card, slot):
 			if slotManager.playerSlots[cSlot].get_child_count() > 0:
 				continue
 
-			slotManager.summon_card(allCards.all_cards[40], cSlot)
-			slotManager.rpc_id(opponent, "remote_card_summon", allCards.all_cards[40], cSlot)
+			slotManager.summon_card(allCards.from_name("Explode Bot"), cSlot)
+			slotManager.rpc_id(opponent, "remote_card_summon", allCards.from_name("Explode Bot"), cSlot)
 	
 	
 	

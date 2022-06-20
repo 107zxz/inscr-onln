@@ -220,9 +220,14 @@ func load_deck(_arg = null):
 		sidedeck_de.select(dj["side_deck"])
 		
 		# More mox
-		for mId in [100, 100, 100, 101, 101, 101, 102, 102, 102, 102]:
+
+		var bMox = cardInfo.from_name("Sapphire Mox")
+		var oMox = cardInfo.from_name("Ruby Mox")
+		var gMox = cardInfo.from_name("Emerald Mox")
+
+		for mId in [gMox, gMox, gMox, oMox, oMox, oMox, bMox, bMox, bMox, bMox]:
 			var nCard = cardPrefab.instance()
-			nCard.from_data(cardInfo.all_cards[mId])
+			nCard.from_data(mId)
 			sidedeck_container.add_child(nCard)
 		
 		# Also setup the other card
