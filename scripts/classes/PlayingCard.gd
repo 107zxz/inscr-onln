@@ -25,34 +25,8 @@ var sacrifice_count = 0
 
 func from_data(cdat):
 	card_data = cdat
-	
-	$CardBody/VBoxContainer/Label.text = card_data.name
-	$CardBody/VBoxContainer/Portrait.texture = load("res://gfx/pixport/" + card_data.name + ".png")
-	
-	# Rare
-	if "rare" in card_data:
-		if "nosac" in card_data:
-			$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
-			$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
-		else:
-			$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("rare_normal", "Card"))
-			$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("rare_hover", "Card"))
-	elif "nosac" in card_data:
-		$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("nosac_hover", "Card"))
-		$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("nosac_normal", "Card"))
-	elif "nohammer" in card_data:
-		$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
-		$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
-	else:
-		$CardBody/Button.add_stylebox_override("normal", paperTheme.get_stylebox("normal", "Card"))
-		$CardBody/Button.add_stylebox_override("hover", paperTheme.get_stylebox("hover", "Card"))
-	
-	# Draw Conduit
-	$CardBody/VBoxContainer/ConduitIcon.visible = "conduit" in card_data
 
-	# Update card costs and sigils
-	draw_cost()
-	draw_sigils()
+	$CardBody.draw_from_data(cdat)
 	
 	# Set stats
 	attack = card_data["attack"]
@@ -62,128 +36,6 @@ func from_data(cdat):
 	# Enable interaction with the card
 	$CardBody/Button.disabled = false
 
-
-func draw_cost():
-	if "blood_cost" in card_data:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = true
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.duplicate()
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.region = Rect2(
-			28,
-			16 * (card_data["blood_cost"] - 1) + 1,
-			26,
-			15
-		)
-	else:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = false
-	
-	if "bone_cost" in card_data:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = true
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.duplicate()
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
-			1,
-			16 * (card_data["bone_cost"] - 1) + 1,
-			26,
-			15
-		)
-		# Special case: horseman
-		if card_data["bone_cost"] == 13:
-			$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
-				28,
-				145,
-				26,
-				15
-			)
-		# Special case: shambling cairn
-		if card_data["bone_cost"] == -1:
-			$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
-				28,
-				97,
-				26,
-				15
-			)
-	else:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
-		
-	if "energy_cost" in card_data:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = true
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.duplicate()
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.region = Rect2(
-			82,
-			16 * (card_data["energy_cost"] - 1) + 1,
-			26,
-			15
-		)
-	else:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = false
-	
-	# Mox cost BS
-	if "mox_cost" in card_data:
-		# Decide which mox to show
-		var true_mox = 0
-		
-		var gmox = "Green" in card_data["mox_cost"]
-		var omox = "Orange" in card_data["mox_cost"]
-		var bmox = "Blue" in card_data["mox_cost"]
-		
-		true_mox = moxIdx(gmox, omox, bmox)
-		
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.visible = true
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.texture = $CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.texture.duplicate()
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.texture.region = Rect2(
-			55,
-			16 * true_mox + 1,
-			26,
-			15
-		)
-	else:
-		$CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.visible = false
-
-func draw_sigils():
-	# Sigils
-	if not "active" in card_data:
-		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = false
-
-	if "sigils" in card_data:
-		if "active" in card_data:
-			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = true
-			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
-			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = false
-		else:
-			$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
-			$CardBody/VBoxContainer/HBoxContainer/Sigil.visible = true
-			$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.visible = false
-		
-		if len(card_data.sigils) > 1:
-			$CardBody/VBoxContainer/HBoxContainer/Sigil2.visible = true
-			$CardBody/VBoxContainer/HBoxContainer/Spacer3.visible = true
-			$CardBody/VBoxContainer/HBoxContainer/Sigil2.texture = load("res://gfx/sigils/" + card_data.sigils[1] + ".png")
-		else:
-			$CardBody/VBoxContainer/HBoxContainer/Sigil2.texture = null
-			$CardBody/VBoxContainer/HBoxContainer/Sigil2.visible = false
-			$CardBody/VBoxContainer/HBoxContainer/Spacer3.visible = false
-	else:
-		$CardBody/VBoxContainer/HBoxContainer/Sigil.texture = null
-		$CardBody/VBoxContainer/HBoxContainer/Sigil2.texture = null
-		$CardBody/VBoxContainer/HBoxContainer/Sigil2.visible = false
-		$CardBody/VBoxContainer/HBoxContainer/Spacer3.visible = false
-		
-# Garb
-func moxIdx(gmox, omox, bmox) -> int:
-	if gmox and omox and bmox:
-		return 6
-	if gmox and omox:
-		return 5
-	if omox and bmox:
-		return 4
-	if bmox and gmox:
-		return 3
-	if bmox:
-		return 2
-	if omox: 
-		return 1
-	if gmox:
-		return 0
-	return -1
 
 func draw_stats():
 	$CardBody/HBoxContainer/AtkScore.text = str(attack)
@@ -407,14 +259,14 @@ func begin_perish(doubleDeath = false):
 		## SIGILS
 		# Ruby Heart
 		if has_sigil("Ruby Heart"):
-			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[98], get_parent().get_position_in_parent())
-			slotManager.summon_card(allCardData.all_cards[98], get_parent().get_position_in_parent())
+			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.from_name("Ruby Mox"), get_parent().get_position_in_parent())
+			slotManager.summon_card(allCardData.from_name("Ruby Mox"), get_parent().get_position_in_parent())
 			canRespawn = false
 
 		# Frozen Away
 		if has_sigil("Frozen Away"):
-			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.all_cards[78], get_parent().get_position_in_parent())
-			slotManager.summon_card(allCardData.all_cards[78], get_parent().get_position_in_parent())
+			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.from_name("Skeleton"), get_parent().get_position_in_parent())
+			slotManager.summon_card(allCardData.from_name("Skeleton"), get_parent().get_position_in_parent())
 			canRespawn = false
 
 		# Unkillable
@@ -518,7 +370,7 @@ func begin_perish(doubleDeath = false):
 
 # This is called when a card evolves with the fledgeling sigil
 func evolve():
-	from_data(allCardData.all_cards[card_data["evolution"]])
+	from_data(allCardData.from_name(card_data["evolution"]))
 
 
 func _on_ActiveSigil_pressed():
@@ -605,7 +457,7 @@ func _on_ActiveSigil_pressed():
 			return
 
 		fightManager.add_bones(-1)
-		fightManager.draw_card(108)
+		fightManager.draw_card(allCardData.from_name("Withered Corpse"))
 	
 	# Disable button until start of next turn
 	if false and fightManager.gameSettings.optActives:

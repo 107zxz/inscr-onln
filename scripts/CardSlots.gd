@@ -85,12 +85,12 @@ func attempt_sacrifice():
 				
 				# Undeadd cat
 				if victim.card_data["name"] == "Cat" and victim.sacrifice_count == 9:
-					victim.from_data(allCards.all_cards[6])
-					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.all_cards[6])
+					victim.from_data(allCards.from_name("Undead Cat"))
+					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.from_name("Undead Cat"))
 				# Pets to cat
 				if victim.card_data["name"] == "Pharaoh's Pets" and handManager.raisedCard.card_data["blood_cost"] > sacValue - 2:
-					victim.from_data(allCards.all_cards[5])
-					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.all_cards[5])
+					victim.from_data(allCards.from_name("Cat"))
+					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.from_name("Cat"))
 
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
@@ -239,11 +239,11 @@ func post_turn_sigils():
 				else:
 					# Spawn a card if thats the one
 					if movSigil == "Squirrel Shedder":
-						summon_card(allCards.all_cards[29], curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", allCards.all_cards[29], curSlot)
+						summon_card(allCards.from_name("Squirrel"), curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", allCards.from_name("Squirrel"), curSlot)
 					if movSigil == "Skeleton Crew":
-						summon_card(allCards.all_cards[78], curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", allCards.all_cards[78], curSlot)
+						summon_card(allCards.from_name("Skeleton"), curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", allCards.from_name("Skeleton"), curSlot)
 						
 				card.move_to_parent(playerSlots[curSlot + sprintOffset])
 				rpc_id(

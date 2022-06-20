@@ -19,3 +19,9 @@ func read_game_info():
 	all_sigils = content_as_object["sigils"]
 	all_cards = content_as_object["cards"]
 	working_sigils = content_as_object["working_sigils"]
+
+
+func from_name(cName):
+	for card in all_cards:
+		if card.name == cName:
+			return card
