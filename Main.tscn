@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/Network.gd" type="Script" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
 [ext_resource path="res://scripts/LobbyUI.gd" type="Script" id=3]
-[ext_resource path="res://scripts/ChatRoom.gd" type="Script" id=4]
 [ext_resource path="res://packed/DeckEdit.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/ThemeEditor.gd" type="Script" id=6]
 [ext_resource path="res://packed/CardFight.tscn" type="PackedScene" id=7]
@@ -184,60 +183,6 @@ margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Edit Deck"
-
-[node name="ChatRoom" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 4 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ChatRoom"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="ChatRoom/VBoxContainer"]
-margin_right = 1024.0
-margin_bottom = 582.0
-size_flags_vertical = 3
-
-[node name="ChatLog" type="RichTextLabel" parent="ChatRoom/VBoxContainer/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-text = "Chat Room Opened
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ChatRoom/VBoxContainer"]
-margin_top = 582.0
-margin_right = 1024.0
-margin_bottom = 600.0
-
-[node name="textEdit" type="LineEdit" parent="ChatRoom/VBoxContainer/HBoxContainer"]
-margin_right = 929.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-
-[node name="sendButton" type="Button" parent="ChatRoom/VBoxContainer/HBoxContainer"]
-margin_left = 929.0
-margin_right = 1024.0
-margin_bottom = 18.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Send Message"
-
-[node name="exitButton" type="Button" parent="ChatRoom/VBoxContainer/HBoxContainer"]
-margin_right = 4.0
-margin_bottom = 18.0
-text = "Exit Chat"
 
 [node name="CardFight" parent="." instance=ExtResource( 7 )]
 visible = false
@@ -687,9 +632,6 @@ __meta__ = {
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/hostBtn" to="." method="host_lobby"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/joinBtn" to="Lobby" method="_join_game"]
 [connection signal="pressed" from="Lobby/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/deButton" to="Lobby" method="_edit_deck"]
-[connection signal="text_entered" from="ChatRoom/VBoxContainer/HBoxContainer/textEdit" to="ChatRoom" method="_on_textEdit_text_entered"]
-[connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/sendButton" to="ChatRoom" method="_on_sendButton_pressed"]
-[connection signal="pressed" from="ChatRoom/VBoxContainer/HBoxContainer/exitButton" to="ChatRoom" method="_on_exitButton_pressed"]
 [connection signal="pressed" from="ThemeEditor/Options/Buttons/SaveButton" to="ThemeEditor" method="save"]
 [connection signal="pressed" from="ThemeEditor/Options/Buttons/DefaultsButton" to="ThemeEditor" method="defaults"]
 [connection signal="pressed" from="ThemeEditor/Options/Buttons/CloseButton" to="ThemeEditor" method="close_window"]
