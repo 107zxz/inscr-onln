@@ -128,9 +128,14 @@ func pre_turn_sigils():
 			yield (cardAnim, "animation_finished")
 			
 		# Dive
-		if card.has_sigil("Waterborne"):
+		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
 			cardAnim.play("UnDive")
+
+			if card.card_data["name"] == "Great Kraken":
+				var nTent = allCards.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][randi() % 3])
+				card.from_data(nTent)
+				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
@@ -269,7 +274,7 @@ func post_turn_sigils():
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 		
 		# Diving
-		if card.has_sigil("Waterborne"):
+		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
 			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
 			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")

@@ -34,7 +34,13 @@ func draw_from_data(cdat):
 	# Update card costs and sigils
 	draw_cost()
 	draw_sigils()
-	pass
+
+	# Special attack values, etc
+	draw_special()
+
+func draw_special():
+	if card_data["name"] == "Great Kraken" and has_node("DiveOlay"):
+		$DiveOlay.texture = load("res://gfx/sigils/Tentacle.png")
 
 func draw_cost():
 	if "blood_cost" in card_data:
