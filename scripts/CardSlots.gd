@@ -224,7 +224,11 @@ func post_turn_sigils():
 										)
 										pushed = true
 							
-							if not pushed:
+							if pushed:
+								# A push has happened, recalculate stats
+								for fCard in all_friendly_cards():
+									fCard.calculate_buffs()
+							else:
 								if moveFailed:
 									cantMove = true
 									break
@@ -586,6 +590,45 @@ remote func set_card_offset(card_slot, offset):
 	
 	enemySlots[card_slot].get_child(0).rect_position.x = offset
 
+# Conduit madness
+func get_conduitfx(card):
+	
+	var slot_idx = card.slot_idx()
+	var slots = card.get_parent().get_parent().get_children()
+	
+	var conduitfx = []
+
+	var lconduit = false
+	var rconduit = false
+
+	# Check slots left of slot_idx
+	for sIdx in range(slot_idx - 1, -1, -1):
+		if slots[sIdx].get_child_count():
+			if "conduit" in slots[sIdx].get_child(0).card_data:
+				lconduit = slots[sIdx].get_child(0)
+				break
+	
+	# Check slots right of slot_idx
+	for sIdx in range(slot_idx + 1, 4):
+		if slots[sIdx].get_child_count():
+			if "conduit" in slots[sIdx].get_child(0).card_data:
+				rconduit = slots[sIdx].get_child(0)
+				break
+	
+	if not (lconduit and rconduit):
+		return []
+	
+	if "sigils" in lconduit.card_data:
+		conduitfx.append_array(lconduit.card_data["sigils"])
+	if "sigils" in rconduit.card_data:
+		conduitfx.append_array(rconduit.card_data["sigils"])
+
+	if conduitfx == []:
+		conduitfx = ["Basic"]
+	
+	print("Card at slot ", slot_idx, " has conduit fx: ", conduitfx)
+	
+	return conduitfx
 
 # New Helper functions
 func get_friendly_card(slot_idx):

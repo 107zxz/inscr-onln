@@ -377,21 +377,9 @@ func card_summoned(playedCard):
 			slotManager.summon_card(allCards.from_name("Explode Bot"), cSlot)
 			slotManager.rpc_id(opponent, "remote_card_summon", allCards.from_name("Explode Bot"), cSlot)
 
-	# Gem Animator
-	if playedCard.has_sigil("Gem Animator"):
-		for card in slotManager.all_friendly_cards():
-			if "Mox" in card.card_data["name"]:
-				card.attack += 1
-				card.draw_stats()
-				slotManager.rpc_id(opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
-
-	# More gem animator
-	if "Mox" in playedCard.card_data["name"]:
-		for _animator in slotManager.get_friendly_cards_sigil("Gem Animator"):
-			playedCard.attack += 1
-		playedCard.draw_stats()
-		slotManager.rpc_id(opponent, "remote_card_stats", playedCard.get_parent().get_position_in_parent(), playedCard.attack, null)
-
+	# Calculate buffs
+	for card in slotManager.all_friendly_cards():
+		card.calculate_buffs()
 
 	# Starvation, inflict damage if 9th onwards
 	if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
@@ -471,6 +459,10 @@ remote func _opponent_played_card(card, slot):
 			slotManager.rpc_id(opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot, false)
 			guardians[0].move_to_parent(slotManager.playerSlots[slot])
 	
+	# Buff handling
+	for eCard in slotManager.all_enemy_cards():
+		eCard.calculate_buffs()
+
 	if not "sigils" in card_dt:
 		return
 
