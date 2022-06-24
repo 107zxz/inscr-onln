@@ -278,14 +278,6 @@ func begin_perish(doubleDeath = false):
 
 			fightManager.draw_card(card_data)
 		
-		# Gem Animator
-		if has_sigil("Gem Animator"):
-			for card in slotManager.all_friendly_cards():
-				if "Mox" in card.card_data["name"]:
-					card.attack -= 1
-					card.draw_stats()
-					slotManager.rpc_id(fightManager.opponent, "remote_card_stats", card.slot_idx(), card.attack, null)
-
 		# Gem dependent (not this card)
 		if "sigils" in card_data:
 			for sigil in card_data["sigils"]:
@@ -333,7 +325,11 @@ func begin_perish(doubleDeath = false):
 					else:
 						eCard.draw_stats()
 						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx + 1, eCard.attack, eCard.health)
-		
+
+		# Get everyone to recalculate buffs (a card died)
+		for card in slotManager.all_friendly_cards():
+			card.calculate_buffs()
+
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
 			# Don't do it if I spawn a card on death
@@ -468,6 +464,27 @@ func _on_ActiveSigil_pressed():
 	$AnimationPlayer.play("ProcGeneric")
 	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
 
+
+# Should work for both friendly and unfriendly cards
+func calculate_buffs():
+	print("calculate called on ", card_data["name"], " in ", get_parent().get_parent().name)
+
+	var friendly = get_parent().get_parent().name == "PlayerSlots"
+	
+	# Reset attack before buff calculation
+	attack = card_data["attack"]
+
+	# Gem animator
+	if "Mox" in card_data["name"]:
+		for _ga in slotManager.get_friendly_cards_sigil("Gem Animator") if friendly else slotManager.get_enemy_cards_sigil("Gem Animator"):
+			attack += 1
+	
+	# Conduits
+	var cfx = slotManager.get_conduitfx(self)
+	if "Attack Conduit" in cfx:
+		attack += 1
+
+	draw_stats()
 
 # New helper funcs
 func slot_idx():
