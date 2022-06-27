@@ -68,8 +68,10 @@ var opponent_bones = 0
 
 var energy = 0
 var max_energy = 0
+var max_energy_buff = 0
 var opponent_energy = 0
 var opponent_max_energy = 0
+var opponent_max_energy_buff = 0
 
 # Decks
 var deck = []
@@ -543,11 +545,11 @@ func set_opponent_energy(ener_no):
 	$LeftSideUI/OpponentEnergyLabel.text = "Opponent Energy: " + str(opponent_energy)
 
 func set_max_energy(ener_no):
-	max_energy = ener_no
+	max_energy = ener_no + max_energy_buff
 	$LeftSideUI/MaxEnergyLabel.text = "Max Energy: " + str(max_energy)
 	
 func set_opponent_max_energy(ener_no):
-	opponent_max_energy = ener_no
+	opponent_max_energy = ener_no + opponent_max_energy_buff
 	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy)
 
 
