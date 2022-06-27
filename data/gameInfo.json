@@ -1016,7 +1016,8 @@
             "health": 1,
             "mox_cost": [
                 "Orange"
-            ]
+            ],
+            "nosac": true
         },
         {
             "name": "Stim Mage",
