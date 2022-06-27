@@ -41,6 +41,12 @@ func draw_from_data(cdat):
 func draw_special():
 	if card_data["name"] == "Great Kraken" and has_node("DiveOlay"):
 		$DiveOlay.texture = load("res://gfx/sigils/Tentacle.png")
+	if "atkspecial" in card_data:
+		$AtkIcon.visible = true
+		$HBoxContainer/AtkScore.visible = false
+	else:
+		$AtkIcon.visible = false
+		$HBoxContainer/AtkScore.visible = true
 
 func draw_cost():
 	if "blood_cost" in card_data:

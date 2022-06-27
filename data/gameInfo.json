@@ -834,7 +834,8 @@
             "health": 2,
             "mox_cost": [
                 "Green"
-            ]
+            ],
+            "atkspecial": 0
         },
         {
             "name": "Junior Sage",
