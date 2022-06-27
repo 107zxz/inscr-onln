@@ -282,6 +282,13 @@ func post_turn_sigils():
 			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
 			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
+	
+	# Spawn conduit
+	if get_friendly_cards_sigil("Spawn Conduit"):
+		for sIdx in range(4):
+			if playerSlots[sIdx].get_child_count() == 0 and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
+				rpc_id(fightManager.opponent, "remote_card_summon", allCards.from_name("L33pB0t"), sIdx)
+				summon_card(allCards.from_name("L33pB0t"), sIdx)
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
@@ -595,6 +602,44 @@ func get_conduitfx(card):
 	
 	var slot_idx = card.slot_idx()
 	var slots = card.get_parent().get_parent().get_children()
+	
+	var conduitfx = []
+
+	var lconduit = false
+	var rconduit = false
+
+	# Check slots left of slot_idx
+	for sIdx in range(slot_idx - 1, -1, -1):
+		if slots[sIdx].get_child_count():
+			if "conduit" in slots[sIdx].get_child(0).card_data:
+				lconduit = slots[sIdx].get_child(0)
+				break
+	
+	# Check slots right of slot_idx
+	for sIdx in range(slot_idx + 1, 4):
+		if slots[sIdx].get_child_count():
+			if "conduit" in slots[sIdx].get_child(0).card_data:
+				rconduit = slots[sIdx].get_child(0)
+				break
+	
+	if not (lconduit and rconduit):
+		return []
+	
+	if "sigils" in lconduit.card_data:
+		conduitfx.append_array(lconduit.card_data["sigils"])
+	if "sigils" in rconduit.card_data:
+		conduitfx.append_array(rconduit.card_data["sigils"])
+
+	if conduitfx == []:
+		conduitfx = ["Basic"]
+	
+	print("Card at slot ", slot_idx, " has conduit fx: ", conduitfx)
+	
+	return conduitfx
+
+func get_conduitfx_friendly(slot_idx):
+
+	var slots = playerSlots
 	
 	var conduitfx = []
 
