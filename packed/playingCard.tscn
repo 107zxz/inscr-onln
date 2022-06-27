@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/classes/PlayingCard.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://gfx/sigils/Great Mox.png" type="Texture" id=9]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=10]
 [ext_resource path="res://scripts/classes/DrawCard.gd" type="Script" id=11]
+[ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=12]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 6 )
@@ -23,6 +24,10 @@ region = Rect2( 1, 65, 26, 15 )
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
 region = Rect2( 5, 3, 40, 7 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 8 )
 
 [sub_resource type="Animation" id=8]
 resource_name = "Attack"
@@ -898,6 +903,18 @@ size_flags_vertical = 3
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 4
+
+[node name="AtkIcon" type="TextureRect" parent="CardBody"]
+visible = false
+margin_left = 2.0
+margin_top = 111.0
+margin_right = 83.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_vertical = 8
+texture = SubResource( 19 )
+expand = true
+stretch_mode = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 8 )
