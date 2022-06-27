@@ -541,7 +541,8 @@
             ],
             "attack": 0,
             "health": 1,
-            "bone_cost": 1
+            "bone_cost": 1,
+            "nosac": true
         },
         {
             "name": "Banshee",
@@ -1267,6 +1268,7 @@
         "True Scholar",
         "Bonehorn",
         "Boneless",
-        "Attack Conduit"
+        "Attack Conduit",
+        "Spawn Conduit"
     ]
 }
