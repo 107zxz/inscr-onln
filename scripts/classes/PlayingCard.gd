@@ -397,6 +397,12 @@ func begin_perish(doubleDeath = false):
 func evolve():
 	from_data(allCardData.from_name(card_data["evolution"]))
 
+	# Calculate buffs
+	for card in slotManager.all_friendly_cards():
+		card.calculate_buffs()
+	for eCard in slotManager.all_enemy_cards():
+		eCard.calculate_buffs()
+
 
 func _on_ActiveSigil_pressed():
 
@@ -514,6 +520,10 @@ func calculate_buffs():
 		for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
 			if "Mox" in mx.card_data["name"]:
 				attack += 1
+	
+	# Bell Tentacle
+	if card_data["name"] == "Bell Tentacle":
+		attack = 4 - slot_idx()
 	
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)

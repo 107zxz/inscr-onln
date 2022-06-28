@@ -137,6 +137,12 @@ func pre_turn_sigils():
 				card.from_data(nTent)
 				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
 			
+				# Calculate buffs
+				for fCard in all_friendly_cards():
+					fCard.calculate_buffs()
+				for eCard in all_enemy_cards():
+					eCard.calculate_buffs()
+
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
 
@@ -543,6 +549,12 @@ remote func remote_card_stats(card_slot, new_attack, new_health):
 remote func remote_card_data(card_slot, new_data):
 	var card = get_enemy_card(card_slot)
 	card.from_data(new_data)
+
+	# Calculate buffs
+	for fCard in all_friendly_cards():
+		fCard.calculate_buffs()
+	for eCard in all_enemy_cards():
+		eCard.calculate_buffs()
 
 remote func handle_enemy_attack(from_slot, to_slot):
 	var direct_attack = false
