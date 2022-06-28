@@ -287,7 +287,10 @@ func begin_perish(doubleDeath = false):
 				card_data["attack"] += 1
 				card_data["health"] += 1
 
-			fightManager.draw_card(card_data)
+			if card_data["name"] == "Ghost Squirrel" and doubleDeath:
+				pass
+			else:
+				fightManager.draw_card(card_data)
 		
 		# Gem dependent (not this card)
 		if "sigils" in card_data:
