@@ -525,6 +525,11 @@ func calculate_buffs():
 	if card_data["name"] == "Bell Tentacle":
 		attack = 4 - slot_idx()
 	
+	# Hand Tentacle
+	if card_data["name"] == "Hand Tentacle":
+		var hName = "PlayerHand" if friendly else "EnemyHand"
+		attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
+	
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
 	if "Attack Conduit" in cfx:
