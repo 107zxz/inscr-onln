@@ -211,6 +211,12 @@ func move_to_parent(new_parent):
 				eCard.draw_stats()
 				if eCard.health <= 0 or has_sigil("Touch of Death"):
 					eCard.get_node("AnimationPlayer").play("Perish")
+		
+		# Green Mage
+		if card_data["name"] == "Green Mage":
+			$CardBody/AtkIcon.visible = false
+			$CardBody/HBoxContainer/AtkScore.visible = true
+
 	if new_parent.get_parent().name == "EnemySlots":
 		var pCard = null
 		if slotManager.playerSlots[new_parent.get_position_in_parent()].get_child_count():
@@ -234,6 +240,11 @@ func move_to_parent(new_parent):
 				pCard.draw_stats()
 				if pCard.health <= 0 or has_sigil("Touch of Death"):
 					pCard.get_node("AnimationPlayer").play("Perish")
+		
+		# Green Mage
+		if card_data["name"] == "Green Mage":
+			$CardBody/AtkIcon.visible = false
+			$CardBody/HBoxContainer/AtkScore.visible = true
 	
 
 
@@ -493,6 +504,13 @@ func calculate_buffs():
 	if "Mox" in card_data["name"]:
 		for _ga in slotManager.get_friendly_cards_sigil("Gem Animator") if friendly else slotManager.get_enemy_cards_sigil("Gem Animator"):
 			attack += 1
+	
+	# Green Mage
+	if card_data["name"] == "Green Mage":
+		attack = 0
+		for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+			if "Mox" in mx.card_data["name"]:
+				attack += 1
 	
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
