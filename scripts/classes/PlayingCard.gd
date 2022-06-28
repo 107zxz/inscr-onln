@@ -530,6 +530,15 @@ func calculate_buffs():
 		var hName = "PlayerHand" if friendly else "EnemyHand"
 		attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
 	
+	# Mirror Tentacle
+	if card_data["name"] == "Mirror Tentacle":
+		if friendly:
+			if slotManager.get_enemy_card(slot_idx()):
+				attack = slotManager.get_enemy_card(slot_idx()).attack
+		else:
+			if slotManager.get_friendly_card(slot_idx()):
+				attack = slotManager.get_friendly_card(slot_idx()).attack
+
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
 	if "Attack Conduit" in cfx:
