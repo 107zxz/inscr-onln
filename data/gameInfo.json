@@ -248,15 +248,13 @@
             "name": "Hand Tentacle",
             "attack": 0,
             "health": 1,
-            "blood_cost": 1,
-            "banned": true
+            "blood_cost": 1
         },
         {
             "name": "Mirror Tentacle",
             "attack": 0,
             "health": 3,
-            "blood_cost": 1,
-            "banned": true
+            "blood_cost": 1
         },
         {
             "name": "Squirrel",

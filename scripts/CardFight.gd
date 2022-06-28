@@ -287,6 +287,10 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	
 	source.get_node("SizeLabel").text = dst
 
+	# Hand tenta
+	for card in slotManager.all_friendly_cards():
+		card.calculate_buffs()
+
 	return nCard
 
 func play_card(slot):
@@ -435,6 +439,10 @@ remote func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
 	nCard.move_to_parent(handManager.get_node("EnemyHand"))
+	
+	# Hand tenta
+	for eCard in slotManager.all_enemy_cards():
+		eCard.calculate_buffs()
 
 remote func _opponent_played_card(card, slot):
 	

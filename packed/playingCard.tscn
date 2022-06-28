@@ -622,6 +622,8 @@ script = ExtResource( 2 )
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 85.0
+margin_bottom = 123.0
 rect_min_size = Vector2( 85, 123 )
 mouse_filter = 1
 theme = ExtResource( 1 )
