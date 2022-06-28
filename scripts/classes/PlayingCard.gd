@@ -548,6 +548,7 @@ func calculate_buffs():
 		attack += 1
 	
 	# Energy Conduit
+	# TODO: Make this work (atm doesn't)
 	if has_sigil("Energy Conduit"):
 		if friendly:
 			if fightManager.max_energy_buff == 0:
