@@ -348,6 +348,9 @@ func begin_perish(doubleDeath = false):
 		for card in slotManager.all_friendly_cards():
 			card.calculate_buffs()
 
+		for eCard in slotManager.all_enemy_cards():
+			eCard.calculate_buffs()
+
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
 			# Don't do it if I spawn a card on death
@@ -554,6 +557,19 @@ func calculate_buffs():
 						fightManager.opponent_max_energy_buff = 0
 						fightManager.set_opponent_max_energy(fightManager.opponent_max_energy - 2)
 						fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
+	
+	# Stinky
+	if friendly:
+		if slotManager.get_enemy_card(slot_idx()):
+			var eCard = slotManager.get_enemy_card(slot_idx())
+			if eCard.has_sigil("Stinky"):
+				attack = max(0, attack - 1)
+	else:
+		if slotManager.get_friendly_card(slot_idx()):
+			var pCard = slotManager.get_friendly_card(slot_idx())
+			if pCard.has_sigil("Stinky"):
+				attack = max(0, attack - 1)
+	
 	draw_stats()
 
 # New helper funcs

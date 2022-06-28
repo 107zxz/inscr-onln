@@ -228,6 +228,8 @@ func post_turn_sigils():
 								# A push has happened, recalculate stats
 								for fCard in all_friendly_cards():
 									fCard.calculate_buffs()
+								for eCard in all_enemy_cards():
+									eCard.calculate_buffs()
 							else:
 								if moveFailed:
 									cantMove = true

@@ -382,6 +382,8 @@ func card_summoned(playedCard):
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
 		card.calculate_buffs()
+	for eCard in slotManager.all_enemy_cards():
+		eCard.calculate_buffs()
 
 	# Starvation, inflict damage if 9th onwards
 	if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
@@ -462,6 +464,8 @@ remote func _opponent_played_card(card, slot):
 			guardians[0].move_to_parent(slotManager.playerSlots[slot])
 	
 	# Buff handling
+	for card in slotManager.all_friendly_cards():
+		card.calculate_buffs()
 	for eCard in slotManager.all_enemy_cards():
 		eCard.calculate_buffs()
 
