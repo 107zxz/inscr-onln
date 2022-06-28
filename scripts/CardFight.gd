@@ -135,6 +135,8 @@ func init_match(opp_id: int):
 	add_bones(gameSettings.startingBones)
 	add_opponent_bones(gameSettings.startingBones)
 	
+	max_energy_buff = 0
+	opponent_max_energy_buff = 0
 	set_max_energy(int(get_tree().is_network_server()))
 	set_energy(max_energy)
 	set_opponent_max_energy(int(not get_tree().is_network_server()))
@@ -412,6 +414,9 @@ func card_summoned(playedCard):
 			playedCard.get_node("AnimationPlayer").play("Perish")
 			slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
 
+	if playedCard.card_data["name"] == "Edaxio's Vessel":
+		playedCard.card_data["energy_cost"] -= 1
+
 # Hammer Time
 func hammer_mode():
 	# Use inverted values for button value, as this happens before its state is toggled
@@ -634,8 +639,6 @@ remote func start_turn():
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
 	add_opponent_bones(bone_no)
-
-
 
 # Connect in-game signals
 func _ready():
