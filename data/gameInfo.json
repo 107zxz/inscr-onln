@@ -198,7 +198,8 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 2,
-            "rare": true
+            "rare": true,
+            "nohammer": true
         },
         {
             "name": "Rabbit",
