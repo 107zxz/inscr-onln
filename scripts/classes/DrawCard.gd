@@ -15,6 +15,9 @@ func draw_from_data(cdat):
 		if "nosac" in card_data:
 			$Button.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
 			$Button.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
+		elif "nohammer" in card_data:
+			$Button.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
+			$Button.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
 		else:
 			$Button.add_stylebox_override("normal", paperTheme.get_stylebox("rare_normal", "Card"))
 			$Button.add_stylebox_override("hover", paperTheme.get_stylebox("rare_hover", "Card"))
