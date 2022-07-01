@@ -337,7 +337,7 @@ func card_summoned(playedCard):
 	if playedCard.has_sigil("Battery Bearer"):
 		if max_energy < 6:
 			set_max_energy(max_energy + 1)
-		set_energy(min(max_energy, energy + 1))
+		set_energy(min(max_energy + max_energy_buff, energy + 1))
 	if playedCard.has_sigil("Handy"):
 		var cIdx = 0
 		for card in handManager.get_node("PlayerHand").get_children():
@@ -562,12 +562,12 @@ func set_opponent_energy(ener_no):
 	$LeftSideUI/OpponentEnergyLabel.text = "Opponent Energy: " + str(opponent_energy)
 
 func set_max_energy(ener_no):
-	max_energy = ener_no + max_energy_buff
-	$LeftSideUI/MaxEnergyLabel.text = "Max Energy: " + str(max_energy)
+	max_energy = ener_no
+	$LeftSideUI/MaxEnergyLabel.text = "Max Energy: " + str(max_energy + max_energy_buff)
 	
 func set_opponent_max_energy(ener_no):
-	opponent_max_energy = ener_no + opponent_max_energy_buff
-	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy)
+	opponent_max_energy = ener_no
+	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy + opponent_max_energy_buff)
 
 
 # Network interactions
@@ -634,7 +634,7 @@ remote func start_turn():
 	# Increment energy
 	if max_energy < 6:
 		set_max_energy(max_energy + 1)
-	set_energy(max_energy)
+	set_energy(max_energy + max_energy_buff)
 
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
