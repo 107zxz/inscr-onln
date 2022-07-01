@@ -350,6 +350,11 @@ func begin_perish(doubleDeath = false):
 			fightManager.set_max_energy(fightManager.max_energy)
 			fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
 			
+		# Edaxio cost up when one dies
+		if card_data["name"] == "Edaxio's Vessel":
+			card_data["energy_cost"] += 1
+			fightManager.reload_hand()
+
 		# Get everyone to recalculate buffs (a card died)
 		for card in slotManager.all_friendly_cards():
 			card.calculate_buffs()
@@ -558,7 +563,6 @@ func calculate_buffs():
 		attack += 1
 	
 	# Energy Conduit
-	# TODO: Make this work (atm doesn't)
 	if has_sigil("Energy Conduit"):
 		if friendly:
 			if fightManager.max_energy_buff == 0:

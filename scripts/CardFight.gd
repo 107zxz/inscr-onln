@@ -125,6 +125,9 @@ func init_match(opp_id: int):
 	var ouro = allCards.from_name("Ouroboros")
 	ouro["attack"] = 1
 	ouro["health"] = 1
+
+	var edax = allCards.from_name("Edaxio's Vessel")
+	edax["energy_cost"] = 7
 	
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
 	$LeftSideUI/LivesLabel.text = "Lives: 2"
@@ -396,8 +399,6 @@ func card_summoned(playedCard):
 		# Ramp damage over time so the game actually ends
 		inflict_damage(playedCard.attack - 8)
 	
-	
-
 	# Die if gem dependant
 	if playedCard.has_sigil("Gem Dependant") and not "Perish" in playedCard.get_node("AnimationPlayer").current_animation:
 
@@ -416,6 +417,12 @@ func card_summoned(playedCard):
 
 	if playedCard.card_data["name"] == "Edaxio's Vessel":
 		playedCard.card_data["energy_cost"] -= 1
+		reload_hand()
+
+		# Check for wincon
+		if playedCard.card_data["energy_cost"] < 4:
+			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
+			$WinScreen.visible = true
 
 # Hammer Time
 func hammer_mode():
@@ -500,6 +507,10 @@ remote func _opponent_played_card(card, slot):
 			slotManager.summon_card(allCards.from_name("Explode Bot"), cSlot)
 			slotManager.rpc_id(opponent, "remote_card_summon", allCards.from_name("Explode Bot"), cSlot)
 	
+	# Check for wincon
+	if card_dt["name"] == "Edaxio's Vessel" and card_dt["energy_cost"] <= 4:
+		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
+		$WinScreen.visible = true
 	
 	
 ## SPECIAL CARD STUFF
