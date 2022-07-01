@@ -344,7 +344,7 @@ func begin_perish(doubleDeath = false):
 		if has_sigil("Energy Conduit"):
 			print("Removing buff")
 			fightManager.max_energy_buff = 0
-			fightManager.set_max_energy(fightManager.max_energy - 2)
+			fightManager.set_max_energy(fightManager.max_energy)
 			fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
 			
 		# Get everyone to recalculate buffs (a card died)
@@ -387,9 +387,16 @@ func begin_perish(doubleDeath = false):
 		if has_sigil("Energy Conduit"):
 			print("Removing enemy buff")
 			fightManager.opponent_max_energy_buff = 0
-			fightManager.set_opponent_max_energy(fightManager.opponent_max_energy - 2)
+			fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
 			fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
-			
+		
+		# Get everyone to recalculate buffs (a card died)
+		for card in slotManager.all_friendly_cards():
+			card.calculate_buffs()
+
+		for eCard in slotManager.all_enemy_cards():
+			eCard.calculate_buffs()
+
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self:
 			$AnimationPlayer.play("DoublePerish")
@@ -556,36 +563,36 @@ func calculate_buffs():
 					if pCard != self and "conduit" in pCard.card_data:
 						fightManager.max_energy_buff = 2
 						fightManager.set_max_energy(fightManager.max_energy)
-						fightManager.set_energy(fightManager.energy + 2)
+						fightManager.set_energy(fightManager.energy + fightManager.max_energy_buff)
 						break
 			else:
+				var found = false
 				for pCard in slotManager.all_friendly_cards():
-					var found = false
 					if pCard != self and "conduit" in pCard.card_data:
 						found = true
 						break
-					if not found:
-						fightManager.max_energy_buff = 0
-						fightManager.set_max_energy(fightManager.max_energy - 2)
-						fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
+				if not found:
+					fightManager.max_energy_buff = 0
+					fightManager.set_max_energy(fightManager.max_energy)
+					fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
 		elif fightManager.opponent_max_energy_buff == 0:
 			for eCard in slotManager.all_enemy_cards():
 				if eCard != self and "conduit" in eCard.card_data:
 					fightManager.opponent_max_energy_buff = 2
 					fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
-					fightManager.set_opponent_energy(fightManager.opponent_energy + 2)
+					fightManager.set_opponent_energy(fightManager.opponent_energy + fightManager.opponent_max_energy_buff)
 					break
 		else:
+			var found = false
 			for eCard in slotManager.all_enemy_cards():
-					var found = false
-					if eCard != self and "conduit" in eCard.card_data:
-						found = true
-						break
-					if not found:
-						fightManager.opponent_max_energy_buff = 0
-						fightManager.set_opponent_max_energy(fightManager.opponent_max_energy - 2)
-						fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
-	
+				if eCard != self and "conduit" in eCard.card_data:
+					found = true
+					break
+				if not found:
+					fightManager.opponent_max_energy_buff = 0
+					fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
+					fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
+
 	# Stinky
 	if friendly:
 		if slotManager.get_enemy_card(slot_idx()):
