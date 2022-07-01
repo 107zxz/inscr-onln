@@ -569,6 +569,9 @@ func set_opponent_max_energy(ener_no):
 	opponent_max_energy = ener_no
 	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy + opponent_max_energy_buff)
 
+func reload_hand():
+	for card in handManager.get_node("PlayerHand").get_children():
+		card.from_data(card.card_data)
 
 # Network interactions
 ## LOCAL

@@ -287,6 +287,9 @@ func begin_perish(doubleDeath = false):
 				card_data["attack"] += 1
 				card_data["health"] += 1
 
+				# Update cards in hand
+				fightManager.reload_hand()
+
 			if card_data["name"] == "Ghost Squirrel" and doubleDeath:
 				pass
 			else:
