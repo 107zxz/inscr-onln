@@ -1,6 +1,5 @@
 extends VBoxContainer
 
-
 onready var playerSlots = $PlayerSlots.get_children()
 onready var enemySlots = $EnemySlots.get_children()
 onready var fightManager = get_node("/root/Main/CardFight")
