@@ -24,9 +24,9 @@ var sprint_left = false # Used for sprinter
 var sacrifice_count = 0
 
 func from_data(cdat):
-	card_data = cdat
+	card_data = cdat.duplicate()
 
-	$CardBody.draw_from_data(cdat)
+	$CardBody.draw_from_data(card_data)
 	
 	# Set stats
 	attack = card_data["attack"]
@@ -472,6 +472,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.set_energy(fightManager.energy - 2)
 		
 		attack = randi() % 6 + 1
+		card_data["attack"] = attack
 		draw_stats()
 		
 	if sName == "Enlarge":
@@ -481,6 +482,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.add_bones(-2)
 		health += 1
 		attack += 1
+		card_data["attack"] = attack # Save attack to avoid deletion later
 			
 		draw_stats()
 	
@@ -491,6 +493,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.set_energy(fightManager.energy - 3)
 		health += 1
 		attack += 1
+		card_data["attack"] = attack # Save attack to avoid deletion later
 			
 		draw_stats()
 	
