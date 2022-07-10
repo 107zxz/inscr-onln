@@ -125,6 +125,16 @@
             "rare": true
         },
         {
+            "name": "Raven Egg",
+            "sigils": [
+                "Fledgling"
+            ],
+            "attack": 0,
+            "health": 2,
+            "evolution": "Raven",
+            "blood_cost": 1
+        },
+        {
             "name": "Kingfisher",
             "sigils": [
                 "Airborne",

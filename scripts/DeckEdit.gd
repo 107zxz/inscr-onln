@@ -26,7 +26,7 @@ onready var sidedeck_container = $HBoxContainer/VBoxContainer/MainArea/VBoxConta
 onready var sidedeck_single = get_node("%SDCardSingle")
 
 
-const sdCards = [29, 81, 111, -1, -1, 119, 120, 121]
+const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
