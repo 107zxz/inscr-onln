@@ -22,7 +22,7 @@ _global_script_class_icons={
 
 config/name="Inscry_Mult_GD"
 run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+config/icon="res://newicon.png"
 
 [debug]
 
