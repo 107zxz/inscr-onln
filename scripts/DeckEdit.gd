@@ -26,7 +26,8 @@ onready var sidedeck_container = $HBoxContainer/VBoxContainer/MainArea/VBoxConta
 onready var sidedeck_single = get_node("%SDCardSingle")
 
 
-const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
+# const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
+const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Ghost Squirrel", "Shambling Cairn"]
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -231,7 +232,7 @@ func load_deck(_arg = null):
 			sidedeck_container.add_child(nCard)
 		
 		# Also setup the other card
-		sidedeck_single.from_data(cardInfo.all_cards[ sdCards[ dj["side_deck"]] ])
+		sidedeck_single.from_data(cardInfo.from_name( sdCards[ dj["side_deck"]] ))
 		
 		if "vessel_type" in dj:
 			sidedeck_single.from_data(cardInfo.all_cards[dj["vessel_type"]])
@@ -262,7 +263,7 @@ func _on_SDSel_item_selected(index):
 		sidedeck_container.visible = false
 		sidedeck_single.visible = true
 		
-		sidedeck_single.from_data(cardInfo.all_cards[ sdCards[ sidedeck_de.selected] ])
+		sidedeck_single.from_data(cardInfo.from_name( sdCards[ sidedeck_de.selected ] ))
 		
 		if index == 2:
 			get_node("%CustomizeLabel").visible = true

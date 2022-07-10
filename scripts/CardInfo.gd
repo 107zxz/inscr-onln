@@ -25,3 +25,11 @@ func from_name(cName):
 	for card in all_cards:
 		if card.name == cName:
 			return card
+
+func idx_from_name(cName):
+	var idx = 0
+
+	for card in all_cards:
+		if card.name == cName:
+			return idx
+		idx += 1

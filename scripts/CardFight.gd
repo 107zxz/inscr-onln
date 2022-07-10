@@ -4,15 +4,21 @@ extends Control
 
 onready var allCards = get_node("/root/Main/AllCards")
 
+onready var sqIdx = allCards.idx_from_name("Squirrel")
+onready var skIdx = allCards.idx_from_name("Skeleton")
+onready var geIdx = allCards.idx_from_name("Geck")
+onready var gsIdx = allCards.idx_from_name("Ghost Squirrel")
+onready var scIdx = allCards.idx_from_name("Shambling Cairn")
+
 
 # Side decks
-const side_decks = [
-	[29, 29, 29, 29, 29, 29, 29, 29, 29, 29],
-	[81, 81, 81, 81, 81, 81, 81, 81, 81, 81],
-	[107, 107, 107, 107, 107, 107, 107, 107, 107, 107],
+onready var side_decks = [
+	[sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx],
+	[skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx],
 	[],
 	[],
-	[119, 119, 119],
+	[],
+	[geIdx, geIdx, geIdx],
 	[120],
 	[121, 121, 121, 121, 121, 121, 121, 121, 121, 121]
 ]

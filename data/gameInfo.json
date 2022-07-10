@@ -19,6 +19,24 @@
             "blood_cost": 2
         },
         {
+            "name": "Bat",
+            "sigils": [
+                "Airborne"
+            ],
+            "attack": 2,
+            "health": 1,
+            "bone_cost": 4
+        },
+        {
+            "name": "Black Goat",
+            "attack": 0,
+            "health": 1,
+            "sigils": [
+                "Worthy Sacrifice"
+            ],
+            "blood_cost": 1
+        },
+        {
             "name": "Bloodhound",
             "sigils": [
                 "Guardian"
@@ -63,6 +81,15 @@
             "health": 6,
             "blood_cost": 1,
             "banned": true
+        },
+        {
+            "name": "Cockroach",
+            "attack": 1,
+            "health": 1,
+            "sigils": [
+                "Unkillable"
+            ],
+            "bone_cost": 4
         },
         {
             "name": "Elk",
@@ -165,6 +192,15 @@
             "blood_cost": 2
         },
         {
+            "name": "Mantis",
+            "sigils": [
+                "Bifurcated Strike"
+            ],
+            "attack": 1,
+            "health": 1,
+            "blood_cost": 1
+        },
+        {
             "name": "Mantis God",
             "sigils": [
                 "Trifurcated Strike"
@@ -195,6 +231,15 @@
             "rare": true
         },
         {
+            "name": "Moose Buck",
+            "attack": 3,
+            "health": 7,
+            "sigils": [
+                "Hefty"
+            ],
+            "blood_cost": 3
+        },
+        {
             "name": "Opossum",
             "attack": 1,
             "health": 1,
@@ -214,8 +259,16 @@
         {
             "name": "Rabbit",
             "attack": 0,
-            "health": 1,
-            "banned": true
+            "health": 1
+        },
+        {
+            "name": "Skunk",
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 1,
+            "sigils": [
+                "Stinky"
+            ]
         },
         {
             "name": "Coyote",
@@ -224,10 +277,44 @@
             "bone_cost": 4
         },
         {
+            "name": "Great White",
+            "attack": 4,
+            "health": 2,
+            "blood_cost": 3,
+            "sigils": [
+                "Waterborne"
+            ]
+        },
+        {
             "name": "Grizzly",
             "attack": 4,
             "health": 6,
             "blood_cost": 3
+        },
+        {
+            "name": "Porcupine",
+            "attack": 1,
+            "health": 2,
+            "sigils": [
+                "Sharp Quills"
+            ],
+            "blood_cost": 1
+        },
+        {
+            "name": "Pronghorn",
+            "attack": 1,
+            "health": 3,
+            "sigils":[
+                "Bifurcated Strike",
+                "Sprinter"
+            ],
+            "blood_cost": 2
+        },
+        {
+            "name": "Rattler",
+            "attack": 3,
+            "health": 1,
+            "bone_cost": 6
         },
         {
             "name": "Raven",
@@ -247,6 +334,64 @@
             "attack": 2,
             "health": 2,
             "blood_cost": 2
+        },
+        {
+            "name": "River Snapper",
+            "attack": 1,
+            "health": 6,
+            "blood_cost": 2
+        },
+        {
+            "name": "Sparrow",
+            "attack": 1,
+            "health": 2,
+            "sigils": [
+                "Airborne"
+            ],
+            "blood_cost": 1
+        },
+        {
+            "name": "Strange Larva",
+            "sigils": [
+                "Fledgling"
+            ],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 1,
+            "evolution": "Strange Pupa",
+            "rare": true
+        },
+        {
+            "name": "Strange Pupa",
+            "sigils": [
+                "Fledgling"
+            ],
+            "attack": 0,
+            "health": 3,
+            "blood_cost": 1,
+            "banned": true,
+            "evolution": "Mothman",
+            "rare": true
+        },
+        {
+            "name": "Mothman",
+            "sigils": [
+                "Airborne"
+            ],
+            "attack": 7,
+            "health": 3,
+            "blood_cost": 1,
+            "banned": true,
+            "rare": true
+        },
+        {
+            "name": "Turkey Vulture",
+            "attack": 3,
+            "health": 3,
+            "sigils": [
+                "Airborne"
+            ],
+            "bone_cost": 8
         },
         {
             "name": "Bell Tentacle",
@@ -768,7 +913,10 @@
             "name": "Zombie",
             "attack": 1,
             "health": 1,
-            "bone_cost": 2
+            "bone_cost": 3,
+            "sigils": [
+                "Stinky"
+            ]
         },
         {
             "name": "Gourmage",
@@ -1140,6 +1288,7 @@
             "name": "Geck",
             "attack": 1,
             "health": 1,
+            "rare": true,
             "banned": true
         },
         {
