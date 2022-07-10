@@ -32,16 +32,26 @@ func _on_Button_pressed():
 	
 	# Am I in the mox container? If so, cycle me
 	if get_parent().name == "MoxContainer":
+
+		var startIdx = allCardData.all_cards.find(allCardData.from_name("Emerald Mox"))
+
 		var currIdx = allCardData.all_cards.find(card_data)
-		var nextIdx = (currIdx - 99) % 3 + 100
+		var nextIdx = (currIdx - startIdx + 1) % 3 + startIdx
 		from_data(allCardData.all_cards[nextIdx])
 		_on_Card_mouse_entered()
 	
 	# Am I the editable empty vessel?
 	if name == "SDCardSingle":
+
+		var startIdx = allCardData.all_cards.find(allCardData.from_name("Empty Vessel"))
+		var endIdx = allCardData.all_cards.find(allCardData.from_name("Contaminated Vessel"))
+
 		var currIdx = allCardData.all_cards.find(card_data)
-		if currIdx > 110 and currIdx < 119:
-			var nextIdx = (currIdx - 110) % 8 + 111
+
+		print("Startidx: ", startIdx, " Endidx: ", endIdx, " Curridx: ", currIdx)
+
+		if currIdx > startIdx - 1 and currIdx < endIdx + 1:
+			var nextIdx = (currIdx - startIdx + 1) % (endIdx - startIdx + 1) + startIdx
 			from_data(allCardData.all_cards[nextIdx])
 			previewCont.get_child(0).from_data(card_data)
 			_on_Card_mouse_entered()
