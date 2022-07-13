@@ -207,7 +207,7 @@ script = ExtResource( 6 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 339.0
-margin_bottom = 389.0
+margin_bottom = 409.0
 
 [node name="Description" type="Label" parent="ThemeEditor/Options"]
 margin_right = 337.0
@@ -572,10 +572,30 @@ margin_right = 337.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 
-[node name="Buttons" type="HBoxContainer" parent="ThemeEditor/Options"]
+[node name="Accessibility icons" type="HBoxContainer" parent="ThemeEditor/Options"]
 margin_top = 370.0
 margin_right = 337.0
-margin_bottom = 387.0
+margin_bottom = 390.0
+custom_constants/separation = 211
+
+[node name="Label" type="Label" parent="ThemeEditor/Options/Accessibility icons"]
+margin_top = 3.0
+margin_right = 106.0
+margin_bottom = 16.0
+text = "Accessibility icons:"
+
+[node name="CheckBox" type="CheckBox" parent="ThemeEditor/Options/Accessibility icons"]
+margin_left = 317.0
+margin_right = 337.0
+margin_bottom = 20.0
+focus_mode = 0
+size_flags_horizontal = 0
+enabled_focus_mode = 0
+
+[node name="Buttons" type="HBoxContainer" parent="ThemeEditor/Options"]
+margin_top = 390.0
+margin_right = 337.0
+margin_bottom = 407.0
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="ThemeEditor/Options/Buttons"]
