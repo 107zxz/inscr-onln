@@ -45,6 +45,11 @@ func draw_stats():
 func _on_Button_pressed():
 	# Only allow raising while in hand
 	if in_hand:
+
+		# Turn off hammer if it's on
+		if fightManager.state == fightManager.GameStates.HAMMER:
+			fightManager.state = fightManager.GameStates.NORMAL
+
 		# Disable hand interactions while in a non-interactable phase
 		if not fightManager.state in [fightManager.GameStates.NORMAL, fightManager.GameStates.SACRIFICE]:
 			return

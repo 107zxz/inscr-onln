@@ -395,6 +395,9 @@
         },
         {
             "name": "Bell Tentacle",
+            "sigils": [
+                "Tentacle"
+            ],
             "attack": 0,
             "health": 3,
             "blood_cost": 2,
@@ -402,6 +405,9 @@
         },
         {
             "name": "Hand Tentacle",
+            "sigils": [
+                "Tentacle"
+            ],
             "attack": 0,
             "health": 1,
             "blood_cost": 1,
@@ -409,6 +415,9 @@
         },
         {
             "name": "Mirror Tentacle",
+            "sigils": [
+                "Tentacle"
+            ],
             "attack": 0,
             "health": 3,
             "blood_cost": 1,
