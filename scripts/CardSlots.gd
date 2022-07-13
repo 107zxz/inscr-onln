@@ -131,7 +131,7 @@ func pre_turn_sigils():
 			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
 			cardAnim.play("UnDive")
 
-			if card.card_data["name"] == "Great Kraken":
+			if card.has_sigil("Tentacle"):
 				var nTent = allCards.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][randi() % 3])
 				card.from_data(nTent)
 				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
@@ -512,6 +512,9 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
 		eCard.health += 1
 		eCard.attack += 1
+
+		eCard.card_data["attack"] = eCard.attack # save attack to avoid bug
+
 		eCard.draw_stats()
 	
 	if sName == "Bonehorn":
