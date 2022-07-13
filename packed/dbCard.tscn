@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Battery Bearer.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://gfx/sigils/Energy Conduit.png" type="Texture" id=8]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=9]
 [ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=10]
+[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.7, 0.7, 0.525, 1 )
@@ -21,11 +22,15 @@ border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 6 )
-region = Rect2( 28, 65, 26, 15 )
+region = Rect2( 28, 1, 26, 15 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 6 )
 region = Rect2( 1, 65, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 26, 15 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 5 )
@@ -36,8 +41,8 @@ atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 16, 8 )
 
 [node name="Card" type="PanelContainer"]
-margin_right = 186.0
-margin_bottom = 212.0
+margin_right = 155.0
+margin_bottom = 179.0
 rect_min_size = Vector2( 57, 82 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -47,8 +52,8 @@ script = ExtResource( 4 )
 [node name="Button" type="Button" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 184.0
-margin_bottom = 210.0
+margin_right = 153.0
+margin_bottom = 177.0
 focus_mode = 0
 button_mask = 3
 enabled_focus_mode = 0
@@ -56,13 +61,13 @@ enabled_focus_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 184.0
-margin_bottom = 210.0
+margin_right = 153.0
+margin_bottom = 177.0
 mouse_filter = 2
 custom_constants/separation = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 182.0
+margin_right = 151.0
 margin_bottom = 13.0
 size_flags_vertical = 1
 text = "Adder"
@@ -73,8 +78,8 @@ clip_text = true
 [node name="Portrait" type="TextureRect" parent="VBoxContainer"]
 material = ExtResource( 9 )
 margin_top = 14.0
-margin_right = 182.0
-margin_bottom = 126.0
+margin_right = 151.0
+margin_bottom = 107.0
 rect_min_size = Vector2( 50, 35 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -91,25 +96,24 @@ mouse_filter = 2
 alignment = 2
 
 [node name="Control" type="Control" parent="VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 91.0
-margin_bottom = 112.0
+margin_right = 75.0
+margin_bottom = 93.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 91.0
-margin_right = 182.0
-margin_bottom = 112.0
+margin_left = 75.0
+margin_right = 151.0
+margin_bottom = 93.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="BloodCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_right = 27.0
-margin_bottom = 35.0
+margin_right = 76.0
+margin_bottom = 93.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -153,8 +157,9 @@ __meta__ = {
 
 [node name="MoxCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_right = 27.0
-margin_bottom = 35.0
+margin_top = 46.0
+margin_right = 76.0
+margin_bottom = 93.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -165,6 +170,19 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Special" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_top = 46.0
+margin_right = 76.0
+margin_bottom = 93.0
+rect_min_size = Vector2( 13, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 5
 
 [node name="ConduitIcon" type="TextureRect" parent="VBoxContainer"]
 visible = false
@@ -179,16 +197,16 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 127.0
-margin_right = 182.0
-margin_bottom = 208.0
+margin_top = 108.0
+margin_right = 151.0
+margin_bottom = 175.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_right = 78.0
-margin_bottom = 81.0
+margin_right = 62.0
+margin_bottom = 67.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -197,10 +215,10 @@ expand = true
 stretch_mode = 6
 
 [node name="ActiveSigil" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 78.0
-margin_top = 32.0
-margin_right = 104.0
-margin_bottom = 49.0
+margin_left = 62.0
+margin_top = 25.0
+margin_right = 88.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 26, 17 )
 focus_mode = 0
 mouse_filter = 2
@@ -256,9 +274,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 104.0
-margin_right = 182.0
-margin_bottom = 81.0
+margin_left = 88.0
+margin_right = 151.0
+margin_bottom = 67.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -269,22 +287,22 @@ stretch_mode = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 184.0
-margin_bottom = 210.0
+margin_right = 153.0
+margin_bottom = 177.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AtkScore" type="Label" parent="HBoxContainer"]
-margin_right = 91.0
-margin_bottom = 208.0
+margin_right = 75.0
+margin_bottom = 175.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 valign = 2
 
 [node name="HpScore" type="Label" parent="HBoxContainer"]
-margin_left = 91.0
-margin_right = 182.0
-margin_bottom = 208.0
+margin_left = 75.0
+margin_right = 151.0
+margin_bottom = 175.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 2

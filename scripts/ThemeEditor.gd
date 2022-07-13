@@ -1,3 +1,6 @@
+
+# TODO: Add accessibility icons as a setting
+
 extends PanelContainer
 
 var paperTheme = preload("res://themes/papertheme.tres")
