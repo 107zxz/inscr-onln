@@ -420,7 +420,8 @@ func card_summoned(playedCard):
 			print("Gem dependant card should die!")
 			playedCard.get_node("AnimationPlayer").play("Perish")
 			slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
-
+	
+	# Edaxio
 	if playedCard.card_data["name"] == "Edaxio's Vessel":
 		playedCard.card_data["energy_cost"] -= 1
 		reload_hand()
@@ -429,6 +430,11 @@ func card_summoned(playedCard):
 		if playedCard.card_data["energy_cost"] < 4:
 			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
 			$WinScreen.visible = true
+
+	# Stoat easter egg
+	if playedCard.card_data["name"] == "Stoat":
+		playedCard.card_data["name"] = "Total Misplay"
+		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
 
 # Hammer Time
 func hammer_mode():

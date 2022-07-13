@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/classes/PlayingCard.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=10]
 [ext_resource path="res://scripts/classes/DrawCard.gd" type="Script" id=11]
 [ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=12]
+[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=13]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 6 )
@@ -20,6 +21,10 @@ region = Rect2( 28, 1, 26, 15 )
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 6 )
 region = Rect2( 1, 65, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 26, 15 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
@@ -670,9 +675,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
 margin_right = 40.0
@@ -693,7 +695,7 @@ size_flags_vertical = 3
 [node name="BloodCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
 margin_right = 41.0
-margin_bottom = 50.0
+margin_bottom = 56.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -707,8 +709,9 @@ __meta__ = {
 
 [node name="BoneCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_right = 27.0
-margin_bottom = 35.0
+margin_top = 18.0
+margin_right = 41.0
+margin_bottom = 37.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -722,8 +725,9 @@ __meta__ = {
 
 [node name="EnergyCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_right = 27.0
-margin_bottom = 35.0
+margin_top = 28.0
+margin_right = 41.0
+margin_bottom = 56.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -737,8 +741,9 @@ __meta__ = {
 
 [node name="MoxCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_right = 27.0
-margin_bottom = 35.0
+margin_top = 45.0
+margin_right = 41.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -749,6 +754,19 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Special" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_top = 28.0
+margin_right = 41.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 20, 0 )
+mouse_filter = 2
+size_flags_horizontal = 11
+size_flags_vertical = 3
+texture = SubResource( 20 )
+expand = true
+stretch_mode = 5
 
 [node name="ConduitIcon" type="TextureRect" parent="CardBody/VBoxContainer"]
 visible = false

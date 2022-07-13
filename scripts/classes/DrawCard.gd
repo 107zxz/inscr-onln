@@ -125,8 +125,36 @@ func draw_cost():
 		)
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.visible = false
-
-
+	
+	# Special mods
+	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = true
+	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.duplicate()
+	if "nosac" in card_data:
+		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
+			0,
+			0,
+			26,
+			15
+		)
+		pass
+	elif "nohammer" in card_data:
+		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
+			0,
+			30,
+			26,
+			15
+		)
+		pass
+	elif "rare" in card_data:
+		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
+			0,
+			15,
+			26,
+			15
+		)
+		pass
+	else:
+		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
 func draw_sigils():
 		# Sigils
 		

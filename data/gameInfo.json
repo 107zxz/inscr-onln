@@ -441,7 +441,7 @@
         {
             "name": "Stoat",
             "attack": 1,
-            "health": 2,
+            "health": 3,
             "blood_cost": 1
         },
         {
@@ -504,7 +504,7 @@
                 "Guardian"
             ],
             "attack": 2,
-            "health": 2,
+            "health": 3,
             "energy_cost": 6
         },
         {
@@ -679,7 +679,7 @@
         },
         {
             "name": "Steambot",
-            "attack": 2,
+            "attack": 3,
             "health": 2,
             "energy_cost": 6
         },
