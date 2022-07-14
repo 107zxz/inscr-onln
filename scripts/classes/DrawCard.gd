@@ -127,8 +127,18 @@ func draw_cost():
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.visible = false
 	
 	# Special mods
+#	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = true
+#	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.duplicate()
+#
+#	if false:
+	# $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
+	draw_symbols()
+
+
+func draw_symbols():
 	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = true
 	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.duplicate()
+	
 	if "nosac" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
 			0,

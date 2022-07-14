@@ -27,7 +27,7 @@ onready var sidedeck_single = get_node("%SDCardSingle")
 
 
 # const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
-const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Ghost Squirrel", "Shambling Cairn"]
+const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Ghost Squirrel", "Shambling Cairn", "Magnus Mox"]
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -94,6 +94,7 @@ func search(_arg = null):
 		
 		var cObject = cardPrefab.instance()
 		cObject.from_data(card)
+		
 		searchResults.add_child(cObject)
 		
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/PanelContainer/ResultsCount.text = str(resultCount) + "/" + str(len(cardInfo.all_cards))

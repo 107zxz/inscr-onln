@@ -9,6 +9,7 @@ onready var skIdx = allCards.idx_from_name("Skeleton")
 onready var geIdx = allCards.idx_from_name("Geck")
 onready var gsIdx = allCards.idx_from_name("Ghost Squirrel")
 onready var scIdx = allCards.idx_from_name("Shambling Cairn")
+onready var magIdx = allCards.idx_from_name("Magnus Mox")
 
 
 # Side decks
@@ -19,8 +20,9 @@ onready var side_decks = [
 	[],
 	[],
 	[geIdx, geIdx, geIdx],
-	[120],
-	[121, 121, 121, 121, 121, 121, 121, 121, 121, 121]
+	[gsIdx],
+	[scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx],
+	[magIdx, magIdx]
 ]
 
 const side_deck_names = [
@@ -31,7 +33,8 @@ const side_deck_names = [
 	"Fuck",
 	"Gecks",
 	"GSquirrel",
-	"Cairns"
+	"Cairns",
+	"Magnus Mox"
 ]
 
 # Carryovers from lobby

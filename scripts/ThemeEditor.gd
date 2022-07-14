@@ -47,7 +47,8 @@ const default_theme_data = {
 			"border": "#000000",
 			"background": "#99936d"
 		}
-	}
+	},
+	"show_accessibility_icons": false
 }
 
 var theme_data = default_theme_data
@@ -109,6 +110,7 @@ func apply_theme():
 	
 	# Sigil Colours
 	sigilMat.set_shader_param("u_replacement_color", Color(theme_data.pixart_colour))
+	
 	save_theme()
 
 func apply_controls():
@@ -135,6 +137,7 @@ func apply_controls():
 	theme_data.buttons.pressed.background = $"Options/Button Background Pressed/LineEdit".text
 	theme_data.buttons.pressed.border = $"Options/Button Border Pressed/LineEdit".text
 
+	theme_data.show_accessibility_icons = $"Options/Accessibility icons/CheckBox".pressed
 
 func save_theme():
 	
@@ -171,6 +174,8 @@ func update_controls():
 	$"Options/Button Border Hover/LineEdit".text = theme_data.buttons.hover.border
 	$"Options/Button Background Pressed/LineEdit".text = theme_data.buttons.pressed.background
 	$"Options/Button Border Pressed/LineEdit".text = theme_data.buttons.pressed.border
+
+#	$"Options/Accessibility icons/CheckBox".pressed = theme_data.show_accessibility_icons
 
 func attempt_load_theme():
 	
