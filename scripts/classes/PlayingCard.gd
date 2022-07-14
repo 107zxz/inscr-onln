@@ -48,7 +48,9 @@ func _on_Button_pressed():
 
 		# Turn off hammer if it's on
 		if fightManager.state == fightManager.GameStates.HAMMER:
-			fightManager.state = fightManager.GameStates.NORMAL
+			fightManager.hammer_mode()
+			# Jank workaround
+			fightManager.get_node("LeftSideUI/HammerButton").pressed = false
 
 		# Disable hand interactions while in a non-interactable phase
 		if not fightManager.state in [fightManager.GameStates.NORMAL, fightManager.GameStates.SACRIFICE]:
