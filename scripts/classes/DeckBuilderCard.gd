@@ -6,9 +6,10 @@ onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPrevie
 onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 onready var allCardData = get_node("/root/Main/AllCards")
 
+
 func from_data(cdat):
 	draw_from_data(cdat)
-
+	
 func _on_Button_pressed():
 	# Am I in the search window? If so, add me to the deck if space provides
 	if get_parent().name == "SearchContainer":

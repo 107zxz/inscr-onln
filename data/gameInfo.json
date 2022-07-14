@@ -1134,9 +1134,10 @@
                 "Great Mox"
             ],
             "attack": 0,
-            "health": 9,
+            "health": 2,
             "nosac": true,
-            "banned": true
+            "banned": true,
+            "rare": true
         },
         {
             "name": "Muscle Mage",
