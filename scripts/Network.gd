@@ -271,8 +271,8 @@ func _ready():
 	
 	$VersionLabel.text = VERSION
 	
-	if not OS.is_debug_build():
-		return
+#	if not OS.is_debug_build():
+#		return
 	
 	for option in OS.get_cmdline_args():
 		if option == "listen":
