@@ -626,14 +626,14 @@ func get_conduitfx(card):
 
 	# Check slots left of slot_idx
 	for sIdx in range(slot_idx - 1, -1, -1):
-		if slots[sIdx].get_child_count():
+		if slots[sIdx].get_child_count() and not "Perish" in slots[sIdx].get_child(0).get_node("AnimationPlayer").current_animation:
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				lconduit = slots[sIdx].get_child(0)
 				break
 	
 	# Check slots right of slot_idx
 	for sIdx in range(slot_idx + 1, 4):
-		if slots[sIdx].get_child_count():
+		if slots[sIdx].get_child_count() and not "Perish" in slots[sIdx].get_child(0).get_node("AnimationPlayer").current_animation:
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
 				break
