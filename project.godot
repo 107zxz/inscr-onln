@@ -27,6 +27,7 @@ config/icon="res://newicon.png"
 [autoload]
 
 CardInfo="*res://scripts/CardInfo.gd"
+TunnelHandler="*res://scripts/TunnelHandler.gd"
 
 [debug]
 
