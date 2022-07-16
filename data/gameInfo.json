@@ -928,6 +928,16 @@
             ]
         },
         {
+            "name": "Floating Eye",
+            "attack": 1,
+            "health": 3,
+            "bone_cost": 5,
+            "sigils": [
+                "Airborne",
+                "Sentry"
+            ]
+        },
+        {
             "name": "Gourmage",
             "sigils": [
                 "Enlarge"
