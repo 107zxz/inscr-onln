@@ -2,8 +2,6 @@ extends Control
 
 var dSize = 0
 
-onready var cardInfo = get_node("/root/Main/AllCards")
-
 onready var searchResults = get_node("%SearchContainer")
 onready var deckDisplay = get_node("%DeckContainer")
 onready var cardPreview = get_node("%PreviewContainer")
@@ -53,7 +51,7 @@ func init_search_ui():
 	for sb in [sigil_so_1, sigil_so_2]:
 		sb.add_item("Any", 0)
 		sb.add_item("None", 1)
-		for sigil in cardInfo.all_sigils:
+		for sigil in CardInfo.all_sigils:
 			sb.add_item(sigil, id)
 			id += 1
 
@@ -63,7 +61,7 @@ func search(_arg = null):
 		
 	var resultCount = 0
 	
-	for card in cardInfo.all_cards:
+	for card in CardInfo.all_cards:
 		# Don't show banned cards
 		if "banned" in card:
 			continue
@@ -97,7 +95,7 @@ func search(_arg = null):
 		
 		searchResults.add_child(cObject)
 		
-	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/PanelContainer/ResultsCount.text = str(resultCount) + "/" + str(len(cardInfo.all_cards))
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/PanelContainer/ResultsCount.text = str(resultCount) + "/" + str(len(CardInfo.all_cards))
 
 func update_deck_count(var diff = 0):
 	dSize += diff
@@ -127,7 +125,7 @@ func get_deck_object():
 	
 	# More side deck
 	if typeof(side_deck) == TYPE_INT and side_deck == 2:
-		deck_object["vessel_type"] = cardInfo.all_cards.find(sidedeck_single.card_data)
+		deck_object["vessel_type"] = CardInfo.all_cards.find(sidedeck_single.card_data)
 	
 	for card in deckDisplay.get_children():
 		deck_object["cards"].append(get_card_id(card.card_data))
@@ -144,13 +142,13 @@ func get_card_count(cDat):
 	return res
 
 func get_card_id(card_data):
-	return cardInfo.all_cards.find(card_data)
+	return CardInfo.all_cards.find(card_data)
 
 # UI for deck save
 func save_deck(_arg = null):
 	
 	var sFile = File.new()
-	sFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
+	sFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_deck_object()))
 	
 func save_deck_as(_arg = null):
@@ -158,7 +156,7 @@ func save_deck_as(_arg = null):
 		return
 	
 	var sFile = File.new()
-	sFile.open(cardInfo.deck_path + rename_de.text + ".deck", File.WRITE)
+	sFile.open(CardInfo.deck_path + rename_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_deck_object()))
 	sFile.close()
 	
@@ -172,16 +170,16 @@ func ensure_default_deck():
 	
 	fTest.open(".")
 	
-	if not fTest.dir_exists(cardInfo.deck_path):
-		print("Creating deck directory! Error code: ", fTest.make_dir(cardInfo.deck_path))
+	if not fTest.dir_exists(CardInfo.deck_path):
+		print("Creating deck directory! Error code: ", fTest.make_dir(CardInfo.deck_path))
 	
-	if not defDeck.file_exists(cardInfo.deck_path + "default.deck"):
-		defDeck.open(cardInfo.deck_path + "default.deck", File.WRITE)
+	if not defDeck.file_exists(CardInfo.deck_path + "default.deck"):
+		defDeck.open(CardInfo.deck_path + "default.deck", File.WRITE)
 		defDeck.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 
 func load_deck(_arg = null):
 	var dFile = File.new()
-	dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.READ)
+	dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.READ)
 	
 	for eCard in deckDisplay.get_children():
 		eCard.queue_free()
@@ -190,17 +188,17 @@ func load_deck(_arg = null):
 	var rdj = dFile.get_as_text()
 	
 	if not parse_json(rdj):
-		dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
+		dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
 		dFile.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 		
-		dFile.open(cardInfo.deck_path + selector_de.text + ".deck", File.READ)
+		dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.READ)
 		rdj = dFile.get_as_text()
 		
 	var dj = parse_json(rdj)
 	
 	for card in dj["cards"]:
 		var nCard = cardPrefab.instance()
-		nCard.from_data(cardInfo.all_cards[card])
+		nCard.from_data(CardInfo.all_cards[card])
 		deckDisplay.add_child(nCard)
 		dSize += 1
 	
@@ -216,16 +214,16 @@ func load_deck(_arg = null):
 		sidedeck_container.visible = true
 		for i in range(10):
 			var nCard = cardPrefab.instance()
-			nCard.from_data(cardInfo.all_cards[dj["side_deck"][i]])
+			nCard.from_data(CardInfo.all_cards[dj["side_deck"][i]])
 			sidedeck_container.add_child(nCard)
 	else:
 		sidedeck_de.select(dj["side_deck"])
 		
 		# More mox
 
-		var bMox = cardInfo.from_name("Sapphire Mox")
-		var oMox = cardInfo.from_name("Ruby Mox")
-		var gMox = cardInfo.from_name("Emerald Mox")
+		var bMox = CardInfo.from_name("Sapphire Mox")
+		var oMox = CardInfo.from_name("Ruby Mox")
+		var gMox = CardInfo.from_name("Emerald Mox")
 
 		for mId in [gMox, gMox, gMox, oMox, oMox, oMox, bMox, bMox, bMox, bMox]:
 			var nCard = cardPrefab.instance()
@@ -233,10 +231,10 @@ func load_deck(_arg = null):
 			sidedeck_container.add_child(nCard)
 		
 		# Also setup the other card
-		sidedeck_single.from_data(cardInfo.from_name( sdCards[ dj["side_deck"]] ))
+		sidedeck_single.from_data(CardInfo.from_name( sdCards[ dj["side_deck"]] ))
 		
 		if "vessel_type" in dj:
-			sidedeck_single.from_data(cardInfo.all_cards[dj["vessel_type"]])
+			sidedeck_single.from_data(CardInfo.all_cards[dj["vessel_type"]])
 			get_node("%CustomizeLabel").visible = true
 	
 	update_deck_count()
@@ -245,7 +243,7 @@ func populate_deck_list():
 	selector_de.clear()
 	
 	var dTest = Directory.new()
-	dTest.open(cardInfo.deck_path)
+	dTest.open(CardInfo.deck_path)
 	dTest.list_dir_begin()
 	var fName = dTest.get_next()
 	while fName != "":
@@ -264,7 +262,7 @@ func _on_SDSel_item_selected(index):
 		sidedeck_container.visible = false
 		sidedeck_single.visible = true
 		
-		sidedeck_single.from_data(cardInfo.from_name( sdCards[ sidedeck_de.selected ] ))
+		sidedeck_single.from_data(CardInfo.from_name( sdCards[ sidedeck_de.selected ] ))
 		
 		if index == 2:
 			get_node("%CustomizeLabel").visible = true
@@ -283,7 +281,7 @@ func _on_SortButton_pressed():
 	
 	for card in cardList:
 		var nCard = cardPrefab.instance()
-		nCard.from_data(cardInfo.all_cards[card])
+		nCard.from_data(CardInfo.all_cards[card])
 		deckDisplay.add_child(nCard)
 		dSize += 1
 		
@@ -297,6 +295,6 @@ func _on_ShuffleButton_pressed():
 	
 	for card in cardList:
 		var nCard = cardPrefab.instance()
-		nCard.from_data(cardInfo.all_cards[card])
+		nCard.from_data(CardInfo.all_cards[card])
 		deckDisplay.add_child(nCard)
 		dSize += 1

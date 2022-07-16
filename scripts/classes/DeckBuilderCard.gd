@@ -4,7 +4,6 @@ onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxCont
 onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPreview/PreviewContainer/")
 
 onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
-onready var allCardData = get_node("/root/Main/AllCards")
 
 
 func from_data(cdat):
@@ -34,26 +33,26 @@ func _on_Button_pressed():
 	# Am I in the mox container? If so, cycle me
 	if get_parent().name == "MoxContainer":
 
-		var startIdx = allCardData.all_cards.find(allCardData.from_name("Emerald Mox"))
+		var startIdx = CardInfo.all_cards.find(CardInfo.from_name("Emerald Mox"))
 
-		var currIdx = allCardData.all_cards.find(card_data)
+		var currIdx = CardInfo.all_cards.find(card_data)
 		var nextIdx = (currIdx - startIdx + 1) % 3 + startIdx
-		from_data(allCardData.all_cards[nextIdx])
+		from_data(CardInfo.all_cards[nextIdx])
 		_on_Card_mouse_entered()
 	
 	# Am I the editable empty vessel?
 	if name == "SDCardSingle":
 
-		var startIdx = allCardData.all_cards.find(allCardData.from_name("Empty Vessel"))
-		var endIdx = allCardData.all_cards.find(allCardData.from_name("Contaminated Vessel"))
+		var startIdx = CardInfo.all_cards.find(CardInfo.from_name("Empty Vessel"))
+		var endIdx = CardInfo.all_cards.find(CardInfo.from_name("Contaminated Vessel"))
 
-		var currIdx = allCardData.all_cards.find(card_data)
+		var currIdx = CardInfo.all_cards.find(card_data)
 
 		print("Startidx: ", startIdx, " Endidx: ", endIdx, " Curridx: ", currIdx)
 
 		if currIdx > startIdx - 1 and currIdx < endIdx + 1:
 			var nextIdx = (currIdx - startIdx + 1) % (endIdx - startIdx + 1) + startIdx
-			from_data(allCardData.all_cards[nextIdx])
+			from_data(CardInfo.all_cards[nextIdx])
 			previewCont.get_child(0).from_data(card_data)
 			_on_Card_mouse_entered()
 	
@@ -78,9 +77,9 @@ func _on_Card_mouse_entered():
 #		var sd = sigilDescPrefab.instance()
 		var sd = previewCont.get_child(1).get_child(sigIdx)
 		sd.get_child(1).texture = load("res://gfx/sigils/" + sigdat + ".png")
-		sd.get_child(2).text = sigdat + ":\n" + allCardData.all_sigils[sigdat]
+		sd.get_child(2).text = sigdat + ":\n" + CardInfo.all_sigils[sigdat]
 
-		if not sigdat in allCardData.working_sigils:
+		if not sigdat in CardInfo.working_sigils:
 			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
 			sd.get_child(2).add_color_override("font_color", Color.darkred)
 		else:

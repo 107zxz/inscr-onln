@@ -4,7 +4,6 @@ onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxCont
 onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPreview/PreviewContainer/")
 
 onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
-onready var allCardData = get_node("/root/Main/AllCards")
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var slotManager = get_node("/root/Main/CardFight/CardSlots")
 
@@ -277,14 +276,14 @@ func begin_perish(doubleDeath = false):
 		## SIGILS
 		# Ruby Heart
 		if has_sigil("Ruby Heart"):
-			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.from_name("Ruby Mox"), get_parent().get_position_in_parent())
-			slotManager.summon_card(allCardData.from_name("Ruby Mox"), get_parent().get_position_in_parent())
+			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
+			slotManager.summon_card(CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
 			canRespawn = false
 
 		# Frozen Away
 		if has_sigil("Frozen Away"):
-			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", allCardData.from_name("Skeleton"), get_parent().get_position_in_parent())
-			slotManager.summon_card(allCardData.from_name("Skeleton"), get_parent().get_position_in_parent())
+			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent())
+			slotManager.summon_card(CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent())
 			canRespawn = false
 
 		# Unkillable
@@ -420,7 +419,7 @@ func begin_perish(doubleDeath = false):
 
 # This is called when a card evolves with the fledgeling sigil
 func evolve():
-	from_data(allCardData.from_name(card_data["evolution"]))
+	from_data(CardInfo.from_name(card_data["evolution"]))
 
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
@@ -516,7 +515,7 @@ func _on_ActiveSigil_pressed():
 			return
 
 		fightManager.add_bones(-1)
-		fightManager.draw_card(allCardData.from_name("Withered Corpse"))
+		fightManager.draw_card(CardInfo.from_name("Withered Corpse"))
 	
 	# Disable button until start of next turn
 	if false and fightManager.gameSettings.optActives:

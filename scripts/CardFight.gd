@@ -2,14 +2,12 @@ extends Control
 
 # Vanguard
 
-onready var allCards = get_node("/root/Main/AllCards")
-
-onready var sqIdx = allCards.idx_from_name("Squirrel")
-onready var skIdx = allCards.idx_from_name("Skeleton")
-onready var geIdx = allCards.idx_from_name("Geck")
-onready var gsIdx = allCards.idx_from_name("Ghost Squirrel")
-onready var scIdx = allCards.idx_from_name("Shambling Cairn")
-onready var magIdx = allCards.idx_from_name("Magnus Mox")
+onready var sqIdx = CardInfo.idx_from_name("Squirrel")
+onready var skIdx = CardInfo.idx_from_name("Skeleton")
+onready var geIdx = CardInfo.idx_from_name("Geck")
+onready var gsIdx = CardInfo.idx_from_name("Ghost Squirrel")
+onready var scIdx = CardInfo.idx_from_name("Shambling Cairn")
+onready var magIdx = CardInfo.idx_from_name("Magnus Mox")
 
 
 # Side decks
@@ -131,11 +129,11 @@ func init_match(opp_id: int):
 	turns_starving = 0
 
 	# Reset ouro
-	var ouro = allCards.from_name("Ouroboros")
+	var ouro = CardInfo.from_name("Ouroboros")
 	ouro["attack"] = 1
 	ouro["health"] = 1
 
-	var edax = allCards.from_name("Edaxio's Vessel")
+	var edax = CardInfo.from_name("Edaxio's Vessel")
 	edax["energy_cost"] = 7
 	
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
@@ -247,7 +245,7 @@ func search_deck():
 	$DeckSearch/Panel/VBoxContainer/OptionButton.set_item_disabled(0, true)
 
 	for card in deck:
-		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(allCards.all_cards[card]["name"])
+		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(CardInfo.all_cards[card]["name"])
 
 	$DeckSearch.visible = true
 
@@ -278,7 +276,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	if typeof(card) == TYPE_DICTIONARY:
 		nCard.from_data(card)
 	else:
-		nCard.from_data(allCards.all_cards[card])
+		nCard.from_data(CardInfo.all_cards[card])
 	
 	source.add_child(nCard)
 	
@@ -345,7 +343,7 @@ func card_summoned(playedCard):
 		draw_card(old_data)
 
 	if playedCard.has_sigil("Rabbit Hole"):
-		draw_card(allCards.from_name("Rabbit"))
+		draw_card(CardInfo.from_name("Rabbit"))
 	if playedCard.has_sigil("Battery Bearer"):
 		if max_energy < 6:
 			set_max_energy(max_energy + 1)
@@ -394,8 +392,8 @@ func card_summoned(playedCard):
 			if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
 				continue
 
-			slotManager.summon_card(allCards.from_name("Explode Bot"), cSlot)
-			slotManager.rpc_id(opponent, "remote_card_summon", allCards.from_name("Explode Bot"), cSlot)
+			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
+			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
 
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
@@ -473,7 +471,7 @@ remote func _opponent_drew_card(source_path):
 
 remote func _opponent_played_card(card, slot):
 	
-	var card_dt = card if typeof(card) == TYPE_DICTIONARY else allCards.all_cards[card]
+	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
 	
 	# Special case: Starvation
 	if card_dt["name"] == "Starvation":
@@ -519,8 +517,8 @@ remote func _opponent_played_card(card, slot):
 			if slotManager.playerSlots[cSlot].get_child_count() > 0:
 				continue
 
-			slotManager.summon_card(allCards.from_name("Explode Bot"), cSlot)
-			slotManager.rpc_id(opponent, "remote_card_summon", allCards.from_name("Explode Bot"), cSlot)
+			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
+			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
 	
 	# Check for wincon
 	if card_dt["name"] == "Edaxio's Vessel" and card_dt["energy_cost"] <= 4:
@@ -532,7 +530,7 @@ remote func _opponent_played_card(card, slot):
 remote func force_draw_starv(strength):
 	var starv_card = draw_card(0)
 	
-	var starv_data = allCards.all_cards[0]
+	var starv_data = CardInfo.all_cards[0]
 	starv_data["attack"] = strength
 	if strength >= 5:
 		starv_data["sigils"].append("Mighty Leap")
