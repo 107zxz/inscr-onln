@@ -217,7 +217,11 @@ func load_deck(_arg = null):
 			nCard.from_data(CardInfo.all_cards[dj["side_deck"][i]])
 			sidedeck_container.add_child(nCard)
 	else:
-		sidedeck_de.select(dj["side_deck"])
+		# Banned
+		if sidedeck_de.is_item_disabled(dj["side_deck"]):
+			sidedeck_de.select(0)
+		else:
+			sidedeck_de.select(dj["side_deck"])
 		
 		# More mox
 
