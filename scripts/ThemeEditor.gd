@@ -111,6 +111,9 @@ func apply_theme():
 	# Sigil Colours
 	sigilMat.set_shader_param("u_replacement_color", Color(theme_data.pixart_colour))
 	
+	# Accessibility icons
+	GameOptions.enable_accessibility_icons = theme_data.show_accessibility_icons
+	
 	save_theme()
 
 func apply_controls():
@@ -174,8 +177,11 @@ func update_controls():
 	$"Options/Button Border Hover/LineEdit".text = theme_data.buttons.hover.border
 	$"Options/Button Background Pressed/LineEdit".text = theme_data.buttons.pressed.background
 	$"Options/Button Border Pressed/LineEdit".text = theme_data.buttons.pressed.border
-
-#	$"Options/Accessibility icons/CheckBox".pressed = theme_data.show_accessibility_icons
+	
+	if not "show_accessibility_icons" in theme_data:
+		theme_data["show_accessibility_icons"] = false
+	
+	$"Options/Accessibility icons/CheckBox".pressed = theme_data.show_accessibility_icons
 
 func attempt_load_theme():
 	

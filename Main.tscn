@@ -182,7 +182,6 @@ visible = false
 visible = false
 
 [node name="ThemeEditor" type="PanelContainer" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -564,7 +563,6 @@ margin_bottom = 17.0
 size_flags_horizontal = 3
 
 [node name="Accessibility icons" type="HBoxContainer" parent="ThemeEditor/Options"]
-visible = false
 margin_top = 370.0
 margin_right = 337.0
 margin_bottom = 390.0
