@@ -4,7 +4,6 @@ onready var playerSlots = $PlayerSlots.get_children()
 onready var enemySlots = $EnemySlots.get_children()
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var handManager = fightManager.get_node("HandsContainer/Hands")
-onready var allCards = get_node("/root/Main/AllCards")
 
 # Cards selected for sacrifice
 var sacVictims = []
@@ -84,12 +83,12 @@ func attempt_sacrifice():
 				
 				# Undeadd cat
 				if victim.card_data["name"] == "Cat" and victim.sacrifice_count == 9:
-					victim.from_data(allCards.from_name("Undead Cat"))
-					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.from_name("Undead Cat"))
+					victim.from_data(CardInfo.from_name("Undead Cat"))
+					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), CardInfo.from_name("Undead Cat"))
 				# Pets to cat
 				if victim.card_data["name"] == "Pharaoh's Pets" and handManager.raisedCard.card_data["blood_cost"] > sacValue - 2:
-					victim.from_data(allCards.from_name("Cat"))
-					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), allCards.from_name("Cat"))
+					victim.from_data(CardInfo.from_name("Cat"))
+					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), CardInfo.from_name("Cat"))
 
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
@@ -132,7 +131,7 @@ func pre_turn_sigils():
 			cardAnim.play("UnDive")
 
 			if card.has_sigil("Tentacle"):
-				var nTent = allCards.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][randi() % 3])
+				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][randi() % 3])
 				card.from_data(nTent)
 				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
 			
@@ -255,11 +254,11 @@ func post_turn_sigils():
 				else:
 					# Spawn a card if thats the one
 					if movSigil == "Squirrel Shedder":
-						summon_card(allCards.from_name("Squirrel"), curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", allCards.from_name("Squirrel"), curSlot)
+						summon_card(CardInfo.from_name("Squirrel"), curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Squirrel"), curSlot)
 					if movSigil == "Skeleton Crew":
-						summon_card(allCards.from_name("Skeleton"), curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", allCards.from_name("Skeleton"), curSlot)
+						summon_card(CardInfo.from_name("Skeleton"), curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
 						
 				card.move_to_parent(playerSlots[curSlot + sprintOffset])
 				rpc_id(
@@ -294,8 +293,8 @@ func post_turn_sigils():
 	if get_friendly_cards_sigil("Spawn Conduit"):
 		for sIdx in range(4):
 			if playerSlots[sIdx].get_child_count() == 0 and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
-				rpc_id(fightManager.opponent, "remote_card_summon", allCards.from_name("L33pB0t"), sIdx)
-				summon_card(allCards.from_name("L33pB0t"), sIdx)
+				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
+				summon_card(CardInfo.from_name("L33pB0t"), sIdx)
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")

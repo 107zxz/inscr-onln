@@ -24,14 +24,18 @@ config/name="Inscry_Mult_GD"
 run/main_scene="res://Main.tscn"
 config/icon="res://newicon.png"
 
+[autoload]
+
+CardInfo="*res://scripts/CardInfo.gd"
+
 [debug]
 
 gdscript/warnings/return_value_discarded=false
 multirun/number_of_windows=2
 multirun/window_distance=1270
 multirun/add_custom_args=true
-multirun/first_window_args="listen"
-multirun/other_window_args="join"
+multirun/first_window_args="join"
+multirun/other_window_args="listen"
 
 [display]
 
