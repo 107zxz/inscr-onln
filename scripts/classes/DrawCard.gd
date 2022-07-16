@@ -131,8 +131,10 @@ func draw_cost():
 #	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.duplicate()
 #
 #	if false:
-	# $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
-	draw_symbols()
+	if GameOptions.enable_accessibility_icons:
+		draw_symbols()
+	else:
+		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
 
 
 func draw_symbols():
