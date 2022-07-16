@@ -696,7 +696,7 @@
         {
             "name": "Thick Droid",
             "attack": 1,
-            "health": 3,
+            "health": 4,
             "energy_cost": 5
         },
         {
@@ -1041,10 +1041,11 @@
         {
             "name": "Master Goranj",
             "sigils": [
-                "Gem Dependant"
+                "Gem Dependant",
+                "Bifurcated Strike"
             ],
             "attack": 2,
-            "health": 6,
+            "health": 4,
             "mox_cost": [
                 "Green",
                 "Orange"
@@ -1058,7 +1059,7 @@
                 "Looter"
             ],
             "attack": 1,
-            "health": 1,
+            "health": 3,
             "mox_cost": [
                 "Orange",
                 "Blue"
