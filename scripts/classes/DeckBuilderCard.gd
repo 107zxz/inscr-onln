@@ -64,11 +64,19 @@ func _on_Card_mouse_entered():
 	
 	previewCont.get_child(0).from_data(card_data)
 	
+	
+
 	# Display sigils
-	var sigIdx = 0
+	var sigIdx = 1
 	
 	for sigdisp in previewCont.get_child(1).get_children():
 		sigdisp.visible = false
+
+	# Display description
+	if "description" in card_data:
+		var cDesc = previewCont.get_child(1).get_child(0)
+		cDesc.visible = true
+		cDesc.text = card_data["description"]
 	
 	if not "sigils" in card_data:
 		return
