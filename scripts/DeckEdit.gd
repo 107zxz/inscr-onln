@@ -289,7 +289,7 @@ func _on_SortButton_pressed():
 	
 	for card in cardList:
 		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.all_cards[card])
+		nCard.from_data(CardInfo.from_name(card))
 		deckDisplay.add_child(nCard)
 		dSize += 1
 		
@@ -303,6 +303,6 @@ func _on_ShuffleButton_pressed():
 	
 	for card in cardList:
 		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.all_cards[card])
+		nCard.from_data(CardInfo.from_name(card))
 		deckDisplay.add_child(nCard)
 		dSize += 1
