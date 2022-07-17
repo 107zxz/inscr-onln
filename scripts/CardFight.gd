@@ -14,7 +14,7 @@ onready var magIdx = CardInfo.idx_from_name("Magnus Mox")
 onready var side_decks = [
 	[sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx],
 	[skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx],
-	[],
+	[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
 	[],
 	[],
 	[geIdx, geIdx, geIdx],
@@ -246,7 +246,7 @@ func search_deck():
 	$DeckSearch/Panel/VBoxContainer/OptionButton.set_item_disabled(0, true)
 
 	for card in deck:
-		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(CardInfo.from_name("name"))
+		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(card)
 
 	$DeckSearch.visible = true
 
