@@ -42,7 +42,7 @@ var side_deck_index = null
 
 # Settings TBI
 var gameSettings = {
-	"startingBones": 8
+	"startingBones": 0
 }
 
 # Game components
