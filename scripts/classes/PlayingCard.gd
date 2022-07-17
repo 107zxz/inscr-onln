@@ -301,6 +301,10 @@ func begin_perish(doubleDeath = false):
 			else:
 				fightManager.draw_card(card_data)
 		
+		# Reconstitute
+		if has_sigil("Reconstitute"):
+			fightManager.gold_sarcophagus = card_data
+		
 		# Gem dependent (not this card)
 		if "sigils" in card_data:
 			for sigil in card_data["sigils"]:
