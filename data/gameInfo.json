@@ -34,7 +34,8 @@
             "sigils": [
                 "Worthy Sacrifice"
             ],
-            "blood_cost": 1
+            "blood_cost": 1,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Bloodhound",
@@ -73,7 +74,8 @@
             "attack": 0,
             "health": 1,
             "blood_cost": 1,
-            "rare": true
+            "rare": true,
+            "description": "Note: This card was changed to rare due to the amount of advantage given by this card."
         },
         {
             "name": "Undead Cat",
@@ -89,7 +91,8 @@
             "sigils": [
                 "Unkillable"
             ],
-            "bone_cost": 4
+            "bone_cost": 4,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Elk",
@@ -179,7 +182,8 @@
             "attack": 1,
             "health": 1,
             "blood_cost": 1,
-            "rare": true
+            "rare": true,
+            "description": "Note: This card's effect was changed due to it sucking."
         },
         {
             "name": "Magpie",
@@ -189,7 +193,8 @@
             ],
             "attack": 1,
             "health": 1,
-            "blood_cost": 2
+            "blood_cost": 2,
+            "description": "This card was unused in act 2, but had art."
         },
         {
             "name": "Mantis",
@@ -237,7 +242,8 @@
             "sigils": [
                 "Hefty"
             ],
-            "blood_cost": 3
+            "blood_cost": 3,
+            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
         },
         {
             "name": "Opossum",
@@ -254,7 +260,8 @@
             "health": 1,
             "blood_cost": 2,
             "rare": true,
-            "nohammer": true
+            "nohammer": true,
+            "description": "This card gains 1 power and 1 health each time it perishes."
         },
         {
             "name": "Rabbit",
@@ -268,7 +275,8 @@
             "blood_cost": 1,
             "sigils": [
                 "Stinky"
-            ]
+            ],
+            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
         },
         {
             "name": "Coyote",
@@ -283,7 +291,8 @@
             "blood_cost": 3,
             "sigils": [
                 "Waterborne"
-            ]
+            ],
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Grizzly",
@@ -298,7 +307,8 @@
             "sigils": [
                 "Sharp Quills"
             ],
-            "blood_cost": 1
+            "blood_cost": 1,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Pronghorn",
@@ -308,13 +318,15 @@
                 "Bifurcated Strike",
                 "Sprinter"
             ],
-            "blood_cost": 2
+            "blood_cost": 2,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Rattler",
             "attack": 3,
             "health": 1,
-            "bone_cost": 6
+            "bone_cost": 6,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Raven",
@@ -339,7 +351,8 @@
             "name": "River Snapper",
             "attack": 1,
             "health": 6,
-            "blood_cost": 2
+            "blood_cost": 2,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Sparrow",
@@ -348,7 +361,8 @@
             "sigils": [
                 "Airborne"
             ],
-            "blood_cost": 1
+            "blood_cost": 1,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Strange Larva",
@@ -359,7 +373,8 @@
             "health": 3,
             "blood_cost": 1,
             "evolution": "Strange Pupa",
-            "rare": true
+            "rare": true,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Strange Pupa",
@@ -391,7 +406,8 @@
             "sigils": [
                 "Airborne"
             ],
-            "bone_cost": 8
+            "bone_cost": 8,
+            "description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
         },
         {
             "name": "Bell Tentacle",
@@ -442,7 +458,8 @@
             "name": "Stoat",
             "attack": 1,
             "health": 3,
-            "blood_cost": 1
+            "blood_cost": 1,
+            "description": "Note: Health was increased to 3 to make it better than Bullfrog in at least one way. Bears a unique ability from Act 1."
         },
         {
             "name": "Urayuli",
@@ -487,7 +504,8 @@
             "name": "Automaton",
             "attack": 1,
             "health": 1,
-            "energy_cost": 2
+            "energy_cost": 2,
+            "description": "Note: The energy cost of this card was reduced to make it less terrible."
         },
         {
             "name": "Energy Bot",
@@ -505,7 +523,8 @@
             ],
             "attack": 2,
             "health": 3,
-            "energy_cost": 6
+            "energy_cost": 6,
+            "description": "Note: Health was increased to 3 to make it equivalent to other \"Hound\" cards."
         },
         {
             "name": "Buff Conduit",
@@ -535,7 +554,8 @@
             "health": 2,
             "energy_cost": 3,
             "conduit": true,
-            "rare": true
+            "rare": true,
+            "description": "Note: Effect was changed to prevent infinitely buffing stim mage."
         },
         {
             "name": "Explode Bot",
@@ -564,7 +584,8 @@
             "attack": 0,
             "health": 1,
             "energy_cost": 3,
-            "active": true
+            "active": true,
+            "description": "Note: The cost of this ability was increased to 2 energy due to this card being very strong for its cost."
         },
         {
             "name": "Insectodrone",
@@ -627,7 +648,8 @@
             ],
             "attack": 1,
             "health": 1,
-            "energy_cost": 4
+            "energy_cost": 4,
+            "description": "Note: Fecundity is nerfed as per Kaycee's Mod"
         },
         {
             "name": "Sentry Drone",
@@ -636,7 +658,8 @@
             ],
             "attack": 0,
             "health": 1,
-            "energy_cost": 1
+            "energy_cost": 1,
+            "description": "Note: The sentry sigil now triggers when this card is pushed by another card."
         },
         {
             "name": "Sentry Spore",
@@ -668,7 +691,8 @@
             "attack": 1,
             "health": 1,
             "energy_cost": 5,
-            "rare": true
+            "rare": true,
+            "description": "Note: The sentry sigil now triggers when this card is pushed by another card."
         },
         {
             "name": "Sniper Bot",
@@ -681,7 +705,8 @@
             "name": "Steambot",
             "attack": 3,
             "health": 2,
-            "energy_cost": 6
+            "energy_cost": 6,
+            "description": "Note: This card's attack was increased to make it worth 6 energy."
         },
         {
             "name": "Mox Module",
@@ -697,7 +722,8 @@
             "name": "Thick Droid",
             "attack": 1,
             "health": 4,
-            "energy_cost": 5
+            "energy_cost": 5,
+            "description": "Note: This card's health was increased to make it worth 5 energy."
         },
         {
             "name": "Draugr",
@@ -736,7 +762,8 @@
             "health": 1,
             "bone_cost": 3,
             "rare": true,
-            "active": true
+            "active": true,
+            "description": "Note: This card gives only 1 bone per 1 energy due to the previous effect being overpowered in combination with Bone Heap."
         },
         {
             "name": "Bone Heap",
@@ -785,7 +812,8 @@
             "attack": 0,
             "health": 1,
             "bone_cost": 6,
-            "rare": true
+            "rare": true,
+            "description": "Note: This card was made rare due to it's strength. This card will become a cat after its worthy sacrifice sigil is used."
         },
         {
             "name": "Drowned Soul",
@@ -868,7 +896,8 @@
             "attack": 1,
             "health": 2,
             "bone_cost": 3,
-            "rare": true
+            "rare": true,
+            "description": "This was the most annoying card to program."
         },
         {
             "name": "Revenant",
@@ -916,7 +945,8 @@
             "attack": 0,
             "health": 2,
             "rare": true,
-            "active": true
+            "active": true,
+            "description": "Note: Withered corpses have the Boneless sigil and will not drop bones.This change was made to prevent multiple infinite combos involving Tomb Robber."
         },
         {
             "name": "Zombie",
@@ -925,7 +955,8 @@
             "bone_cost": 3,
             "sigils": [
                 "Stinky"
-            ]
+            ],
+            "description": "This card was given the stinky sigil to differentiate it from Opossom. Suggested by SpelunkyGuy101."
         },
         {
             "name": "Floating Eye",
@@ -935,7 +966,8 @@
             "sigils": [
                 "Airborne",
                 "Sentry"
-            ]
+            ],
+            "description": "Custom card by SYNTHIA_2000"
         },
         {
             "name": "Gourmage",
@@ -993,7 +1025,8 @@
             "health": 1,
             "mox_cost": [
                 "Blue"
-            ]
+            ],
+            "description": "Dies to removal."
         },
         {
             "name": "Gem Fiend",
@@ -1013,7 +1046,8 @@
             "mox_cost": [
                 "Green"
             ],
-            "atkspecial": 0
+            "atkspecial": 0,
+            "description": "This card's attack is equal to the number of \"Mox\" cards you possess."
         },
         {
             "name": "Junior Sage",
@@ -1060,7 +1094,8 @@
                 "Green",
                 "Orange"
             ],
-            "rare": true
+            "rare": true,
+            "description": "Note: This card was given Bifurcated Strike due to being considerably weaker than the other masters, and to give it the ability to defend adjacent gems (potentially). Suggested by SpelunkyGuy101."
         },
         {
             "name": "Master Orlu",
@@ -1272,7 +1307,8 @@
             "health": 2,
             "energy_cost": 7,
             "nosac": true,
-            "banned": true
+            "banned": true,
+            "description": "The only alternate win condition. Get 4 of these to win with style. (Can only be played with effect of Energy Conduit)"
         },
         {
             "name": "Splintered Vessel",
@@ -1310,7 +1346,8 @@
             "attack": 1,
             "health": 1,
             "rare": true,
-            "banned": true
+            "banned": true,
+            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
         },
         {
             "name": "Ghost Squirrel",
@@ -1331,7 +1368,8 @@
                 "Sprinter"
             ],
             "nohammer": true,
-            "banned": true
+            "banned": true,
+            "description": "Custom card by Garf, zpan0317, and Me!"
         },
         {
             "name": "Angel Statue",

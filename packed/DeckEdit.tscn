@@ -55,6 +55,17 @@ margin_bottom = 596.0
 size_flags_vertical = 3
 custom_constants/separation = 10
 
+[node name="CardDescription" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer"]
+visible = false
+margin_left = 10.0
+margin_right = 190.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 180, 0 )
+size_flags_horizontal = 4
+text = "The venomous Adder, any card it attacks will perish in one hit."
+align = 1
+autowrap = true
+
 [node name="SigilDescription" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 0.0
 margin_bottom = 61.0
