@@ -246,7 +246,7 @@ func search_deck():
 	$DeckSearch/Panel/VBoxContainer/OptionButton.set_item_disabled(0, true)
 
 	for card in deck:
-		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(CardInfo.all_cards[card]["name"])
+		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(CardInfo.from_name("name"))
 
 	$DeckSearch.visible = true
 
