@@ -25,7 +25,7 @@ onready var sidedeck_single = get_node("%SDCardSingle")
 
 
 # const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
-const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Ghost Squirrel", "Shambling Cairn", "Magnus Mox"]
+const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Acid Squirrel", "Shambling Cairn", "Magnus Mox"]
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -128,7 +128,7 @@ func get_deck_object():
 		deck_object["vessel_type"] = CardInfo.all_cards.find(sidedeck_single.card_data)
 	
 	for card in deckDisplay.get_children():
-		deck_object["cards"].append(get_card_id(card.card_data))
+		deck_object["cards"].append(card.card_data["name"])
 	
 	return deck_object
 
@@ -198,7 +198,11 @@ func load_deck(_arg = null):
 	
 	for card in dj["cards"]:
 		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.all_cards[card])
+		
+		if typeof(card) == TYPE_STRING:
+			nCard.from_data(CardInfo.from_name(card))
+		else:
+			nCard.from_data(CardInfo.all_cards[card])
 		deckDisplay.add_child(nCard)
 		dSize += 1
 	

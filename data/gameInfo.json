@@ -1248,6 +1248,107 @@
             "active": true
         },
         {
+            "name": "Mox Tower",
+            "sigils": [
+                "Sentry",
+                "Orange Mox"
+            ],
+            "attack": 0,
+            "health": 2,
+            "mox_cost": [
+                "Orange"
+            ],
+            "description": "Custom card by SpelunkyGuy101"
+        },
+        {
+            "name": "Mox Bunker",
+            "sigils": [
+                "Sharp Quills",
+                "Blue Mox"
+            ],
+            "attack": 0,
+            "health": 2,
+            "mox_cost": [
+                "Blue"
+            ],
+            "description": "Custom Card by BishopAdams"
+        },
+        {
+            "name": "Mox Encampment",
+            "sigils": [
+                "Stinky",
+                "Green Mox"
+            ],
+            "attack": 0,
+            "health": 2,
+            "mox_cost": [
+                "Green"
+            ],
+            "description": "Custom Card by BishopAdams"
+        },
+        {
+            "name": "Thief Mage",
+            "attack": 1,
+            "health": 1,
+            "sigils": [
+                "Looter"
+            ],
+            "mox_cost": [
+                "Blue"
+            ],
+            "description": "Custom card by SpelunkyGuy101"
+        },
+        {
+            "name": "Life Mage",
+            "attack": 1,
+            "health": 1,
+            "sigils": [
+                "Unkillable"
+            ],
+            "mox_cost": [
+                "Blue"
+            ],
+            "bone_cost": 3,
+            "description": "Custom card by SpelunkyGuy101"
+        },
+        {
+            "name": "Dragon Egg",
+            "attack": 0,
+            "health": 2,
+            "sigils": [
+                "Fledgling"
+            ],
+            "mox_cost": [
+                "Orange"
+            ],
+            "evolution": "Ruby Dragon",
+            "description": "Custom card by SpelunkyGuy101"
+        },
+        {
+            "name": "Ruby Dragon",
+            "attack": 2,
+            "health": 2,
+            "sigils": [
+                "Bifurcated Strike"
+            ],
+            "mox_cost": [
+                "Orange"
+            ],
+            "banned": true
+        },
+        {
+            "name": "Shower Mage",
+            "mox_cost": [
+                "Green"
+            ],
+            "sigils": [
+                "Stinky"
+            ],
+            "attack": 1,
+            "health": 1,
+            "description": "Custom card by SpelunkyGuy101"
+        },
+        {
             "name": "Withered Corpse",
             "sigils": [
                 "Brittle",
@@ -1350,14 +1451,15 @@
             "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
         },
         {
-            "name": "Ghost Squirrel",
+            "name": "Acid Squirrel",
             "attack": 0,
             "health": 1,
             "sigils": [
-                "Unkillable",
+                "Reconstitute",
                 "Boneless"
             ],
-            "banned": true
+            "banned": true,
+            "description": "Card and sigil art by Sebas534"
         },
         {
             "name": "Shambling Cairn",
@@ -1420,7 +1522,8 @@
         "Mighty Leap": "A card bearing this sigil will block an opposing creature bearing the airborne sigil.",
         "Orange Mox": "While a card bearing this sigil is on the board, it provides an orange gem to its owner.",
         "Power Dice": "Pay 2 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
-        "Rabbit Hole": "When a card bearing this sigil is played, a rabbit is created in your hand. [define:rabbit]",
+        "Rabbit Hole": "When a card bearing this sigil is played, a Rabbit is created in your hand.",
+        "Reconstitute": "A card bearing this sigil returns to your hand the turn after it persihes.",
         "Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
         "Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
         "Scopophobic": "A card bearing this sigil gains 1 power when not facing an enemy creature.",
@@ -1493,6 +1596,7 @@
         "Spawn Conduit",
         "Energy Conduit",
         "Tentacle",
-        "Stinky"
+        "Stinky",
+        "Reconstitute"
     ]
 }

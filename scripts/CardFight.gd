@@ -5,7 +5,7 @@ extends Control
 onready var sqIdx = CardInfo.idx_from_name("Squirrel")
 onready var skIdx = CardInfo.idx_from_name("Skeleton")
 onready var geIdx = CardInfo.idx_from_name("Geck")
-onready var gsIdx = CardInfo.idx_from_name("Ghost Squirrel")
+onready var gsIdx = CardInfo.idx_from_name("Acid Squirrel")
 onready var scIdx = CardInfo.idx_from_name("Shambling Cairn")
 onready var magIdx = CardInfo.idx_from_name("Magnus Mox")
 
@@ -86,6 +86,7 @@ var side_deck = []
 
 # Persistent card state
 var turns_starving = 0
+var gold_sarcophagus = null
 
 # Network match state
 var want_rematch = false
@@ -646,6 +647,11 @@ remote func _rematch_occurs():
 remote func start_turn():
 	damage_stun = false
 	$WaitingBlocker.visible = false
+	
+	# Gold sarcophagus
+	if gold_sarcophagus:
+		draw_card(gold_sarcophagus)
+		gold_sarcophagus = null
 
 	# Resolve start-of-turn effects
 	slotManager.pre_turn_sigils()
