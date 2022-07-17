@@ -276,6 +276,8 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	var nCard = cardPrefab.instance()
 	if typeof(card) == TYPE_DICTIONARY:
 		nCard.from_data(card)
+	elif typeof(card) == TYPE_STRING:
+		nCard.from_data(CardInfo.from_name(card))
 	else:
 		nCard.from_data(CardInfo.all_cards[card])
 	
