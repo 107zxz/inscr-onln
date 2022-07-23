@@ -36,7 +36,7 @@
             ],
             "rare": true,
             "blood_cost": 1,
-            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
+            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod. Made rare for enabling early and consistent grizzlies for almost no cost."
         },
         {
             "name": "Bloodhound",
@@ -801,7 +801,8 @@
             ],
             "attack": 1,
             "health": 1,
-            "bone_cost": 5
+            "bone_cost": 5,
+            "description": "Note: Was made common due to lack of use."
         },
         {
             "name": "Pharaoh's Pets",
@@ -935,7 +936,8 @@
             ],
             "attack": 4,
             "health": 1,
-            "energy_cost": 4
+            "energy_cost": 4,
+            "description": "Note: Was given energy cost due to being too spammable and easy to draw into with Blue Mage."
         },
         {
             "name": "Tomb Robber",
@@ -1109,7 +1111,8 @@
                 "Orange",
                 "Blue"
             ],
-            "rare": true
+            "rare": true,
+            "description": "Note: Attack was increased to make it an acceptable rare card and to demonstrate its sigil effect more clearly."
         },
         {
             "name": "Bleene's Mox",
@@ -1398,7 +1401,8 @@
             "attack": 0,
             "health": 2,
             "energy_cost": 4,
-            "banned": true
+            "banned": true,
+            "description": "Note: Energy cost increased due to opponent not having enough time to build a board before bloody vessel is usable."
         },
         {
             "name": "Edaxio's Vessel",
@@ -1460,7 +1464,7 @@
                 "Reconstitute"
             ],
             "banned": true,
-            "description": "Card and Reconstitute sigil art by Sebas534. Boneless sigil art by syntaxevasion."
+            "description": "Card and Reconstitute sigil art by Sebas534. Boneless sigil art by syntaxevasion.\nThe most broken card, hopefully no longer."
         },
         {
             "name": "Shambling Cairn",
