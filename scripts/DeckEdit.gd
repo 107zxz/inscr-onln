@@ -33,6 +33,7 @@ var cardPrefab = preload("res://packed/dbCard.tscn")
 func _on_ExitButton_pressed():
 	visible = false
 	get_node("/root/Main/Lobby").populate_deck_list()
+	get_node("/root/Main/Lobby").select_deck(selector_de.selected)
 
 func _ready():
 	init_search_ui()
@@ -248,6 +249,11 @@ func load_deck(_arg = null):
 	update_deck_count()
 
 func populate_deck_list():
+	var prevSelected = ""
+	
+	if selector_de.selected >= 0:
+		prevSelected = selector_de.get_item_text(selector_de.selected)
+
 	selector_de.clear()
 	
 	var dTest = Directory.new()
@@ -258,6 +264,11 @@ func populate_deck_list():
 		if not dTest.current_is_dir() and fName.ends_with(".deck"):
 			selector_de.add_item(fName.split(".deck")[0])
 		fName = dTest.get_next()
+	
+	# Re-select deck
+	for item_idx in range(selector_de.get_item_count()):
+		if selector_de.get_item_text(item_idx) == prevSelected:
+			selector_de.select(item_idx)
 
 
 func _on_SDSel_item_selected(index):

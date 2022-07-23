@@ -32,6 +32,9 @@ func _edit_deck():
 	get_node("/root/Main/DeckEdit").visible = true
 	get_node("/root/Main/DeckEdit").ensure_default_deck()
 	get_node("/root/Main/DeckEdit").populate_deck_list()
+	get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select(selector_de.selected)
+	get_node("/root/Main/DeckEdit").load_deck()
+	
 
 func populate_deck_list():
 	selector_de.clear()
@@ -44,3 +47,6 @@ func populate_deck_list():
 		if not dTest.current_is_dir() and fName.ends_with(".deck"):
 			selector_de.add_item(fName.split(".deck")[0])
 		fName = dTest.get_next()
+
+func select_deck(idx):
+	selector_de.select(idx)
