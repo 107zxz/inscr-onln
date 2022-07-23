@@ -136,6 +136,8 @@ func init_match(opp_id: int):
 
 	var edax = CardInfo.from_name("Edaxio's Vessel")
 	edax["energy_cost"] = 7
+
+	gold_sarcophagus = null
 	
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
 	$LeftSideUI/LivesLabel.text = "Lives: 2"
