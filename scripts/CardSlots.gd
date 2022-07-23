@@ -148,7 +148,7 @@ func post_turn_sigils():
 	var cardsToMove = []
 	
 	for slot in playerSlots:
-		if is_slot_empty(slot.get_child_count()):
+		if is_slot_empty(slot):
 			continue
 		
 		if "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
