@@ -194,7 +194,7 @@ func move_to_parent(new_parent):
 	# Sentry stuff
 	if new_parent.get_parent().name == "PlayerSlots":
 		var eCard = null
-		if slotManager.enemySlots[new_parent.get_position_in_parent()].get_child_count():
+		if not slotManager.is_slot_empty(slotManager.enemySlots[new_parent.get_position_in_parent()]):
 			eCard = slotManager.enemySlots[new_parent.get_position_in_parent()].get_child(0)
 			if eCard.has_sigil("Sentry"):
 				health -= 1
@@ -225,7 +225,7 @@ func move_to_parent(new_parent):
 
 	if new_parent.get_parent().name == "EnemySlots":
 		var pCard = null
-		if slotManager.playerSlots[new_parent.get_position_in_parent()].get_child_count():
+		if not slotManager.is_slot_empty(slotManager.playerSlots[new_parent.get_position_in_parent()]):
 			pCard = slotManager.playerSlots[new_parent.get_position_in_parent()].get_child(0)
 			if pCard.has_sigil("Sentry"):
 				health -= 1
@@ -304,6 +304,7 @@ func begin_perish(doubleDeath = false):
 		# Reconstitute
 		if has_sigil("Reconstitute"):
 			fightManager.gold_sarcophagus = card_data
+			fightManager.sarcophagus_counter = 1
 		
 		# Gem dependent (not this card)
 		if "sigils" in card_data:

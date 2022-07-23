@@ -801,8 +801,7 @@
             ],
             "attack": 1,
             "health": 1,
-            "bone_cost": 5,
-            "rare": true
+            "bone_cost": 5
         },
         {
             "name": "Pharaoh's Pets",
@@ -936,7 +935,7 @@
             ],
             "attack": 4,
             "health": 1,
-            "bone_cost": 2
+            "energy_cost": 4
         },
         {
             "name": "Tomb Robber",
@@ -1104,7 +1103,7 @@
                 "Airborne",
                 "Looter"
             ],
-            "attack": 1,
+            "attack": 2,
             "health": 3,
             "mox_cost": [
                 "Orange",
@@ -1295,7 +1294,8 @@
                 "Looter"
             ],
             "mox_cost": [
-                "Blue"
+                "Blue",
+                "Orange"
             ],
             "description": "Custom card by SpelunkyGuy101"
         },
@@ -1307,7 +1307,7 @@
                 "Unkillable"
             ],
             "mox_cost": [
-                "Blue"
+                "Green"
             ],
             "bone_cost": 3,
             "description": "Custom card by SpelunkyGuy101"
@@ -1407,10 +1407,10 @@
             ],
             "attack": 0,
             "health": 2,
-            "energy_cost": 7,
+            "energy_cost": 6,
             "nosac": true,
             "banned": true,
-            "description": "The only alternate win condition. Get 4 of these to win with style. (Can only be played with effect of Energy Conduit)"
+            "description": "The only alternate win condition. Get 4 of these to win with style."
         },
         {
             "name": "Splintered Vessel",
@@ -1456,8 +1456,7 @@
             "attack": 0,
             "health": 1,
             "sigils": [
-                "Reconstitute",
-                "Boneless"
+                "Reconstitute"
             ],
             "banned": true,
             "description": "Card and Reconstitute sigil art by Sebas534. Boneless sigil art by syntaxevasion."

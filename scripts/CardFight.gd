@@ -87,6 +87,7 @@ var side_deck = []
 # Persistent card state
 var turns_starving = 0
 var gold_sarcophagus = null
+var sarcophagus_counter = 0
 
 # Network match state
 var want_rematch = false
@@ -135,10 +136,11 @@ func init_match(opp_id: int):
 	ouro["health"] = 1
 
 	var edax = CardInfo.from_name("Edaxio's Vessel")
-	edax["energy_cost"] = 7
+	edax["energy_cost"] = 6
 
 	gold_sarcophagus = null
-	
+	sarcophagus_counter = 0
+
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
 	$LeftSideUI/LivesLabel.text = "Lives: 2"
 	$LeftSideUI/OpponentLivesLabel.text = "Opponent Lives: 2"
@@ -654,8 +656,13 @@ remote func start_turn():
 	
 	# Gold sarcophagus
 	if gold_sarcophagus:
-		draw_card(gold_sarcophagus)
-		gold_sarcophagus = null
+		if sarcophagus_counter <= 0:
+			draw_card(gold_sarcophagus)
+			gold_sarcophagus = null
+			sarcophagus_counter = 0
+		else:
+			sarcophagus_counter -= 1
+	
 
 	# Resolve start-of-turn effects
 	slotManager.pre_turn_sigils()

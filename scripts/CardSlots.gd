@@ -634,14 +634,14 @@ func get_conduitfx(card):
 
 	# Check slots left of slot_idx
 	for sIdx in range(slot_idx - 1, -1, -1):
-		if slots[sIdx].get_child_count() and not "Perish" in slots[sIdx].get_child(0).get_node("AnimationPlayer").current_animation:
+		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				lconduit = slots[sIdx].get_child(0)
 				break
 	
 	# Check slots right of slot_idx
 	for sIdx in range(slot_idx + 1, 4):
-		if slots[sIdx].get_child_count() and not "Perish" in slots[sIdx].get_child(0).get_node("AnimationPlayer").current_animation:
+		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
 				break
@@ -672,14 +672,14 @@ func get_conduitfx_friendly(slot_idx):
 
 	# Check slots left of slot_idx
 	for sIdx in range(slot_idx - 1, -1, -1):
-		if slots[sIdx].get_child_count():
+		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				lconduit = slots[sIdx].get_child(0)
 				break
 	
 	# Check slots right of slot_idx
 	for sIdx in range(slot_idx + 1, 4):
-		if slots[sIdx].get_child_count():
+		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
 				break
@@ -716,7 +716,7 @@ func all_friendly_cards():
 	var cards = []
 
 	for slot in playerSlots:
-		if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
+		if not is_slot_empty(slot):
 			cards.append(slot.get_child(0))
 	
 	return cards
@@ -725,7 +725,7 @@ func all_enemy_cards():
 	var cards = []
 
 	for slot in enemySlots:
-		if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
+		if not is_slot_empty(slot):
 			cards.append(slot.get_child(0))
 	
 	return cards
