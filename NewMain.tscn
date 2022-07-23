@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
 [ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=3]
 [ext_resource path="res://scripts/NewNetwork.gd" type="Script" id=4]
+[ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.5 )
@@ -50,18 +51,91 @@ script = ExtResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="HostBtn" type="Button" parent="TitleScreen"]
-margin_right = 4.0
-margin_bottom = 17.0
+[node name="PanelContainer" type="PanelContainer" parent="TitleScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -227.0
+margin_top = -300.0
+margin_right = 227.0
+margin_bottom = 300.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 452.0
+margin_bottom = 598.0
+rect_min_size = Vector2( 450, 0 )
+custom_constants/separation = 35
+alignment = 1
+
+[node name="HostBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 185.0
+margin_right = 450.0
+margin_bottom = 215.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Host Game"
 
+[node name="JoinBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 250.0
+margin_right = 450.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Join Game"
+
+[node name="DeckEditorBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 315.0
+margin_right = 450.0
+margin_bottom = 345.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Deck Editor"
+
+[node name="ThemeEditorBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 380.0
+margin_right = 450.0
+margin_bottom = 410.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Theme Editor"
+
+[node name="Credit" type="Label" parent="TitleScreen"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -512.0
+margin_top = -61.0
+margin_right = 512.0
+text = "Thanks to the Daniel Mullins Games Discord,
+The Inscryption Multiplayer Discord,
+and everyone else who made this project possible
+"
+align = 1
+valign = 2
+
+[node name="Title" type="Label" parent="TitleScreen"]
+anchor_right = 1.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 5 )
+text = "
+Inscryption Multiplayer"
+align = 1
+
 [node name="Blocker" type="Panel" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="LobbyHostA" type="PanelContainer" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -310,3 +384,10 @@ percent_visible = 0.842105
 [node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingScreen"]
 anims/RESET = SubResource( 4 )
 anims/progress = SubResource( 3 )
+
+[node name="VersionLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+margin_right = 40.0
+text = "v0.1.0"

@@ -329,7 +329,7 @@ func begin_perish(doubleDeath = false):
 		if has_sigil("Detonator"):
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotIdx > 0 and slotManager.playerSlots[slotIdx - 1].get_child_count() > 0:
+			if slotIdx > 0 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx - 1]):
 				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -341,7 +341,7 @@ func begin_perish(doubleDeath = false):
 						eCard.draw_stats()
 						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
 
-			if slotIdx < 3 and slotManager.playerSlots[slotIdx + 1].get_child_count() > 0:
+			if slotIdx < 3 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx + 1]):
 				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -389,7 +389,7 @@ func begin_perish(doubleDeath = false):
 		if has_sigil("Detonator"):
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotManager.playerSlots[slotIdx].get_child_count() > 0:
+			if not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -466,7 +466,7 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 1:
 			return
 		
-		if slotManager.enemySlots[get_parent().get_position_in_parent()].get_child_count() == 0:
+		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]):
 			return
 		
 		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
