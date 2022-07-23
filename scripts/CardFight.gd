@@ -392,7 +392,7 @@ func card_summoned(playedCard):
 	# Mrs Bomb (wacky one)
 	if playedCard.has_sigil("Bomb Spewer"):
 		for cSlot in range(4):
-			if slotManager.playerSlots[cSlot].get_child_count() > 0 or slotManager.playerSlots[cSlot] == playedCard.get_parent():
+			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]) or slotManager.playerSlots[cSlot] == playedCard.get_parent():
 				continue
 
 			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
@@ -493,7 +493,7 @@ remote func _opponent_played_card(card, slot):
 		set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Guardian
-	if slotManager.playerSlots[slot].get_child_count() == 0:
+	if slotManager.is_slot_empty(slotManager.playerSlots[slot]):
 		var guardians = slotManager.get_friendly_cards_sigil("Guardian")
 		if guardians:
 			slotManager.rpc_id(opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot, false)
@@ -517,7 +517,7 @@ remote func _opponent_played_card(card, slot):
 	# Mrs Bomb (wacky one)
 	if "Bomb Spewer" in card_dt["sigils"]:
 		for cSlot in range(4):
-			if slotManager.playerSlots[cSlot].get_child_count() > 0:
+			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]):
 				continue
 
 			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)

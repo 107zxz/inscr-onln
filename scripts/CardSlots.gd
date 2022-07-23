@@ -105,7 +105,7 @@ signal resolve_sigils()
 
 func pre_turn_sigils():
 	for slot in playerSlots:
-		if slot.get_child_count() == 0:
+		if is_slot_empty(slot):
 			continue
 		
 		var card = slot.get_child(0)
@@ -148,7 +148,7 @@ func post_turn_sigils():
 	var cardsToMove = []
 	
 	for slot in playerSlots:
-		if slot.get_child_count() == 0:
+		if is_slot_empty(slot.get_child_count()):
 			continue
 		
 		if "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
@@ -193,14 +193,14 @@ func post_turn_sigils():
 						moveFailed = true
 						
 					# Occupied slots
-					elif playerSlots[curSlot + sprintOffset].get_child_count() > 0 and not playerSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
+					elif not is_slot_empty(playerSlots[curSlot + sprintOffset]) and not playerSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
 
 						if movSigil == "Hefty":
 
 							var pushed = false
 
 							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
-								if playerSlots[curSlot + sprintOffset * 2].get_child_count() == 0 or playerSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
+								if is_slot_empty(playerSlots[curSlot + sprintOffset * 2]) or playerSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
 									playerSlots[curSlot + sprintOffset].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 2])
 									rpc_id(
 									fightManager.opponent, "remote_card_move", 
@@ -211,7 +211,7 @@ func post_turn_sigils():
 									pushed = true
 							
 								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
-									if playerSlots[curSlot + sprintOffset * 3].get_child_count() == 0 or playerSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
+									if is_slot_empty(playerSlots[curSlot + sprintOffset * 3]) or playerSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
 										playerSlots[curSlot + sprintOffset].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 2])
 										rpc_id(
 										fightManager.opponent, "remote_card_move", 
@@ -292,7 +292,7 @@ func post_turn_sigils():
 	# Spawn conduit
 	if get_friendly_cards_sigil("Spawn Conduit"):
 		for sIdx in range(4):
-			if playerSlots[sIdx].get_child_count() == 0 and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
+			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
 				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
 				summon_card(CardInfo.from_name("L33pB0t"), sIdx)
 			
@@ -329,7 +329,7 @@ func initiate_combat():
 						continue
 					
 					# Don't attack repulsive cards!
-					if enemySlots[slot_index + s_offset].get_child_count() > 0 and enemySlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
+					if not is_slot_empty(enemySlots[slot_index + s_offset]) and enemySlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
 						continue
 					
 					# Visually represent the card's attack offset (hacky)
@@ -350,7 +350,7 @@ func initiate_combat():
 				# Regular attack
 				
 				# Don't attack repulsive cards!
-				if enemySlots[slot_index].get_child_count() > 0 and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
+				if not is_slot_empty(enemySlots[slot_index]) and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
 					if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
 						continue
 				
@@ -375,7 +375,7 @@ func handle_attack(from_slot, to_slot):
 	var pCard = playerSlots[from_slot].get_child(0)
 	var eCard = null
 	
-	if enemySlots[to_slot].get_child_count() == 0:
+	if is_slot_empty(enemySlots[to_slot]):
 		direct_attack = true
 
 		# Check for moles
@@ -569,7 +569,7 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	var eCard = get_enemy_card(from_slot)
 	var pCard = null
 	
-	if playerSlots[to_slot].get_child_count() == 0:
+	if is_slot_empty(playerSlots[to_slot]):
 		direct_attack = true
 
 		# Check for moles
@@ -726,3 +726,9 @@ func all_enemy_cards():
 			cards.append(slot.get_child(0))
 	
 	return cards
+
+func is_slot_empty(slot):
+	if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
+		return false
+
+	return true
