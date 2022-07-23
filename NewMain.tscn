@@ -1,16 +1,50 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
 [ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=3]
+[ext_resource path="res://scripts/NewNetwork.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.5 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "progress"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="TitleScreen" type="Control" parent="."]
 anchor_right = 1.0
@@ -28,155 +62,156 @@ anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="LobbyHostA" type="PanelContainer" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -75.0
+margin_left = -150.0
 margin_top = -75.0
-margin_right = 75.0
+margin_right = 150.0
 margin_bottom = 75.0
 
 [node name="Rows" type="VBoxContainer" parent="LobbyHostA"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 148.0
+margin_right = 298.0
 margin_bottom = 148.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="LobbyHostA/Rows"]
-margin_top = 11.0
-margin_right = 146.0
-margin_bottom = 24.0
+margin_top = 12.0
+margin_right = 296.0
+margin_bottom = 25.0
 text = "Host"
 align = 1
 
+[node name="HostType" type="HBoxContainer" parent="LobbyHostA/Rows"]
+margin_top = 35.0
+margin_right = 296.0
+margin_bottom = 52.0
+alignment = 1
+
+[node name="Label" type="Label" parent="LobbyHostA/Rows/HostType"]
+margin_left = 24.0
+margin_top = 2.0
+margin_right = 98.0
+margin_bottom = 15.0
+text = "Lobby Type: "
+
+[node name="Ruleset" type="OptionButton" parent="LobbyHostA/Rows/HostType"]
+margin_left = 98.0
+margin_right = 271.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Room Code (recommended)"
+items = [ "Room Code (recommended)", null, false, 0, null, "IP Address (for LAN)", null, false, 1, null ]
+selected = 0
+
 [node name="Nickname" type="HBoxContainer" parent="LobbyHostA/Rows"]
-margin_top = 34.0
-margin_right = 146.0
-margin_bottom = 51.0
+margin_top = 62.0
+margin_right = 296.0
+margin_bottom = 79.0
 alignment = 1
 
 [node name="Label" type="Label" parent="LobbyHostA/Rows/Nickname"]
-margin_left = 21.0
+margin_left = 63.0
 margin_top = 2.0
-margin_right = 60.0
+margin_right = 133.0
 margin_bottom = 15.0
-text = "Name: "
+text = "Your Name: "
 
 [node name="LineEdit" type="LineEdit" parent="LobbyHostA/Rows/Nickname"]
-margin_left = 60.0
-margin_right = 124.0
+margin_left = 133.0
+margin_right = 233.0
 margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
 
 [node name="RulesetOptions" type="HBoxContainer" parent="LobbyHostA/Rows"]
-margin_top = 61.0
-margin_right = 146.0
-margin_bottom = 78.0
+margin_top = 89.0
+margin_right = 296.0
+margin_bottom = 106.0
 alignment = 1
 
 [node name="Label" type="Label" parent="LobbyHostA/Rows/RulesetOptions"]
-margin_left = 20.0
+margin_left = 76.0
 margin_top = 2.0
-margin_right = 72.0
+margin_right = 128.0
 margin_bottom = 15.0
 text = "Ruleset: "
 
 [node name="Ruleset" type="OptionButton" parent="LobbyHostA/Rows/RulesetOptions"]
-margin_left = 72.0
-margin_right = 125.0
+margin_left = 128.0
+margin_right = 220.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Active"
-items = [ "Active", null, false, 0, null, "Act 2 vanilla", null, true, 1, null ]
+text = "Development"
+items = [ "Development", null, false, 0, null, "Act 2 vanilla", null, true, 1, null ]
 selected = 0
 
-[node name="HostMethod" type="HBoxContainer" parent="LobbyHostA/Rows"]
-margin_top = 88.0
-margin_right = 146.0
-margin_bottom = 108.0
-alignment = 1
-
-[node name="Label" type="Label" parent="LobbyHostA/Rows/HostMethod"]
-margin_left = 7.0
-margin_top = 3.0
-margin_right = 118.0
-margin_bottom = 16.0
-text = "Use localhost.run? "
-
-[node name="CheckBox" type="CheckBox" parent="LobbyHostA/Rows/HostMethod"]
-margin_left = 118.0
-margin_right = 138.0
-margin_bottom = 20.0
-focus_mode = 0
-pressed = true
-enabled_focus_mode = 0
-flat = true
-
 [node name="Buttons" type="HBoxContainer" parent="LobbyHostA/Rows"]
-margin_top = 118.0
-margin_right = 146.0
-margin_bottom = 135.0
+margin_top = 116.0
+margin_right = 296.0
+margin_bottom = 133.0
 alignment = 1
 
 [node name="Host" type="Button" parent="LobbyHostA/Rows/Buttons"]
-margin_left = 58.0
-margin_right = 88.0
+margin_left = 133.0
+margin_right = 163.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host"
 
-[node name="LobbyHostB" type="PanelContainer" parent="."]
+[node name="InLobby" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -100.0
-margin_top = -100.0
+margin_top = -115.0
 margin_right = 100.0
-margin_bottom = 100.0
+margin_bottom = 115.0
 
-[node name="Rows" type="VBoxContainer" parent="LobbyHostB"]
+[node name="Rows" type="VBoxContainer" parent="InLobby"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 198.0
-margin_bottom = 198.0
+margin_bottom = 228.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="Host" type="Label" parent="LobbyHostB/Rows"]
-margin_top = 9.0
+[node name="Host" type="Label" parent="InLobby/Rows"]
+margin_top = 10.0
 margin_right = 196.0
-margin_bottom = 22.0
+margin_bottom = 23.0
 text = "In Lobby"
 align = 1
 
-[node name="Label" type="Label" parent="LobbyHostB/Rows"]
-margin_top = 32.0
+[node name="Label" type="Label" parent="InLobby/Rows"]
+margin_top = 33.0
 margin_right = 196.0
-margin_bottom = 45.0
+margin_bottom = 46.0
 text = "Lobby Code: A1Xpan23a"
 align = 1
 
-[node name="ItemList" type="ItemList" parent="LobbyHostB/Rows"]
-margin_top = 55.0
+[node name="ItemList" type="ItemList" parent="InLobby/Rows"]
+margin_top = 56.0
 margin_right = 196.0
-margin_bottom = 106.0
+margin_bottom = 107.0
 mouse_filter = 2
 items = [ "107zxz (0 wins)", ExtResource( 2 ), false, "otherplayer (2 wins)", ExtResource( 3 ), false ]
 auto_height = true
 
-[node name="Buttons2" type="HBoxContainer" parent="LobbyHostB/Rows"]
-margin_top = 116.0
+[node name="Buttons2" type="HBoxContainer" parent="InLobby/Rows"]
+margin_top = 117.0
 margin_right = 196.0
-margin_bottom = 133.0
+margin_bottom = 134.0
 alignment = 1
 
-[node name="Kick" type="Button" parent="LobbyHostB/Rows/Buttons2"]
+[node name="Kick" type="Button" parent="InLobby/Rows/Buttons2"]
 margin_left = 54.0
 margin_right = 141.0
 margin_bottom = 17.0
@@ -184,22 +219,22 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Kick Opponent"
 
-[node name="DeckOptions" type="HBoxContainer" parent="LobbyHostB/Rows"]
-margin_top = 143.0
+[node name="DeckOptions" type="HBoxContainer" parent="InLobby/Rows"]
+margin_top = 144.0
 margin_right = 196.0
-margin_bottom = 160.0
+margin_bottom = 161.0
 alignment = 1
 
-[node name="Label" type="Label" parent="LobbyHostB/Rows/DeckOptions"]
-margin_left = 49.0
+[node name="Label" type="Label" parent="InLobby/Rows/DeckOptions"]
+margin_left = 29.0
 margin_top = 2.0
-margin_right = 85.0
+margin_right = 65.0
 margin_bottom = 15.0
 text = "Deck: "
 
-[node name="Ruleset" type="OptionButton" parent="LobbyHostB/Rows/DeckOptions"]
-margin_left = 85.0
-margin_right = 147.0
+[node name="Ruleset" type="OptionButton" parent="InLobby/Rows/DeckOptions"]
+margin_left = 65.0
+margin_right = 127.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -207,16 +242,71 @@ text = "default"
 items = [ "default", null, false, 0, null ]
 selected = 0
 
-[node name="Buttons" type="HBoxContainer" parent="LobbyHostB/Rows"]
-margin_top = 170.0
+[node name="OpenDE" type="Button" parent="InLobby/Rows/DeckOptions"]
+margin_left = 127.0
+margin_right = 166.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Editor"
+
+[node name="ProfilePic" type="HBoxContainer" parent="InLobby/Rows"]
+margin_top = 171.0
 margin_right = 196.0
-margin_bottom = 187.0
+margin_bottom = 188.0
 alignment = 1
 
-[node name="Ready" type="Button" parent="LobbyHostB/Rows/Buttons"]
+[node name="Label" type="Label" parent="InLobby/Rows/ProfilePic"]
+margin_left = 25.0
+margin_top = 2.0
+margin_right = 119.0
+margin_bottom = 15.0
+text = "Profile Picture: "
+
+[node name="Pic" type="OptionButton" parent="InLobby/Rows/ProfilePic"]
+margin_left = 119.0
+margin_right = 171.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Stoat"
+items = [ "Stoat", null, false, 0, null ]
+selected = 0
+
+[node name="Buttons" type="HBoxContainer" parent="InLobby/Rows"]
+margin_top = 198.0
+margin_right = 196.0
+margin_bottom = 215.0
+alignment = 1
+
+[node name="Ready" type="Button" parent="InLobby/Rows/Buttons"]
 margin_left = 78.0
 margin_right = 118.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ready"
+
+[node name="LoadingScreen" type="PanelContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -50.0
+margin_right = 150.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="LoadingScreen"]
+margin_left = 2.0
+margin_top = 43.0
+margin_right = 298.0
+margin_bottom = 56.0
+text = "Waiting for tunnel..."
+align = 1
+percent_visible = 0.842105
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingScreen"]
+anims/RESET = SubResource( 4 )
+anims/progress = SubResource( 3 )
