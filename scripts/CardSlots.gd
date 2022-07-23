@@ -731,7 +731,7 @@ func all_enemy_cards():
 	return cards
 
 func is_slot_empty(slot):
-	if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
+	if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation and not slot.get_child(0).is_queued_for_deletion():
 		return false
 
 	return true

@@ -100,6 +100,10 @@ func init_match(opp_id: int):
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
+	# Clean up hands and field
+	handManager.clear_hands()
+	slotManager.clear_slots()
+
 	# Reset deck
 	deck = initial_deck.duplicate()
 	deck.shuffle()
@@ -159,10 +163,6 @@ func init_match(opp_id: int):
 	
 	state = GameStates.NORMAL
 	
-	# Clean up hands and field
-	handManager.clear_hands()
-	slotManager.clear_slots()
-		
 	# Draw starting hands (sidedeck first for starve check)
 	draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
 	if side_deck.size() == 0:
