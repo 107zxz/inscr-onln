@@ -992,7 +992,9 @@
             "health": 1,
             "mox_cost": [
                 "Blue"
-            ]
+            ],
+            "nohammer": true,
+            "description": "Note: Made unhammerable to allow for better mox stuff in future"
         },
         {
             "name": "Blue Sporemage",
@@ -1305,15 +1307,15 @@
         },
         {
             "name": "Life Mage",
-            "attack": 1,
-            "health": 1,
+            "attack": 0,
+            "health": 2,
             "sigils": [
                 "Unkillable"
             ],
             "mox_cost": [
-                "Green"
+                "Blue"
             ],
-            "bone_cost": 2,
+            "bone_cost": 3,
             "description": "Custom card by SpelunkyGuy101"
         },
         {
