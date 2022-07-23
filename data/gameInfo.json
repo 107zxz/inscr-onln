@@ -34,6 +34,7 @@
             "sigils": [
                 "Worthy Sacrifice"
             ],
+            "rare": true,
             "blood_cost": 1,
             "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
         },
@@ -1395,7 +1396,7 @@
             ],
             "attack": 0,
             "health": 2,
-            "energy_cost": 3,
+            "energy_cost": 4,
             "banned": true
         },
         {
