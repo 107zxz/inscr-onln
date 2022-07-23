@@ -466,6 +466,9 @@ remote func set_sac_olay_vis(slot, vis):
 	enemySlots[slot].get_child(0).get_node("CardBody/SacOlay").visible = vis
 
 remote func remote_card_anim(slot, anim_name):
+	if is_slot_empty(enemySlots[slot]):
+		return
+	
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
 
