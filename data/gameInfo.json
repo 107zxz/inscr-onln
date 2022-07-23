@@ -1297,7 +1297,8 @@
                 "Blue",
                 "Orange"
             ],
-            "description": "Custom card by SpelunkyGuy101"
+            "description": "Custom card by SpelunkyGuy101",
+            "banned": "for being too op"
         },
         {
             "name": "Life Mage",
@@ -1309,7 +1310,7 @@
             "mox_cost": [
                 "Green"
             ],
-            "bone_cost": 3,
+            "bone_cost": 2,
             "description": "Custom card by SpelunkyGuy101"
         },
         {
@@ -1523,7 +1524,7 @@
         "Orange Mox": "While a card bearing this sigil is on the board, it provides an orange gem to its owner.",
         "Power Dice": "Pay 2 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
         "Rabbit Hole": "When a card bearing this sigil is played, a Rabbit is created in your hand.",
-        "Reconstitute": "A card bearing this sigil returns to your hand the turn after it persihes.",
+        "Reconstitute": "A card bearing this sigil returns to your hand 2 turns after it persihes.",
         "Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
         "Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
         "Scopophobic": "A card bearing this sigil gains 1 power when not facing an enemy creature.",
