@@ -8,7 +8,7 @@ onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 
 func from_data(cdat):
 	draw_from_data(cdat)
-	
+
 func _on_Button_pressed():
 	# Am I in the search window? If so, add me to the deck if space provides
 	if get_parent().name == "SearchContainer":
@@ -22,14 +22,14 @@ func _on_Button_pressed():
 		newCard.from_data(card_data)
 		deckContainer.add_child(newCard)
 		get_node("/root/Main/DeckEdit").update_deck_count(1)
-		
-	
+
+
 	# Am I in the deck window? If so, delete me
 	if get_parent().name == "DeckContainer":
 		get_node("/root/Main/DeckEdit").update_deck_count(-1)
-		
+
 		queue_free()
-	
+
 	# Am I in the mox container? If so, cycle me
 	if get_parent().name == "MoxContainer":
 
@@ -39,7 +39,7 @@ func _on_Button_pressed():
 		var nextIdx = (currIdx - startIdx + 1) % 3 + startIdx
 		from_data(CardInfo.all_cards[nextIdx])
 		_on_Card_mouse_entered()
-	
+
 	# Am I the editable empty vessel?
 	if name == "SDCardSingle":
 
@@ -55,20 +55,20 @@ func _on_Button_pressed():
 			from_data(CardInfo.all_cards[nextIdx])
 			previewCont.get_child(0).from_data(card_data)
 			_on_Card_mouse_entered()
-	
+
 
 
 func _on_Card_mouse_entered():
 	if not card_data:
 		return
-	
+
 	previewCont.get_child(0).from_data(card_data)
-	
-	
+
+
 
 	# Display sigils
 	var sigIdx = 1
-	
+
 	for sigdisp in previewCont.get_child(1).get_children():
 		sigdisp.visible = false
 
@@ -77,10 +77,10 @@ func _on_Card_mouse_entered():
 		var cDesc = previewCont.get_child(1).get_child(0)
 		cDesc.visible = true
 		cDesc.text = card_data["description"]
-	
+
 	if not "sigils" in card_data:
 		return
-	
+
 	for sigdat in card_data.sigils:
 #		var sd = sigilDescPrefab.instance()
 		var sd = previewCont.get_child(1).get_child(sigIdx)
@@ -96,4 +96,3 @@ func _on_Card_mouse_entered():
 #		previewCont.get_child(1).add_child(sd)
 		sd.visible = true
 		sigIdx += 1
-

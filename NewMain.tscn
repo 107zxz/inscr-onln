@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
 [ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=3]
-[ext_resource path="res://scripts/NewNetwork.gd" type="Script" id=4]
+[ext_resource path="res://scripts/NewLobby.gd" type="Script" id=4]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://packed/ThemeEditor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://packed/DeckEdit.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.5 )
@@ -45,11 +47,11 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
-script = ExtResource( 4 )
 
 [node name="TitleScreen" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 4 )
 
 [node name="PanelContainer" type="PanelContainer" parent="TitleScreen"]
 anchor_left = 0.5
@@ -71,40 +73,49 @@ custom_constants/separation = 35
 alignment = 1
 
 [node name="HostBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 185.0
+margin_top = 153.0
 margin_right = 450.0
-margin_bottom = 215.0
+margin_bottom = 183.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host Game"
 
 [node name="JoinBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 250.0
+margin_top = 218.0
 margin_right = 450.0
-margin_bottom = 280.0
+margin_bottom = 248.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join Game"
 
 [node name="DeckEditorBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 315.0
+margin_top = 283.0
 margin_right = 450.0
-margin_bottom = 345.0
+margin_bottom = 313.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Deck Editor"
 
 [node name="ThemeEditorBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 380.0
+margin_top = 348.0
 margin_right = 450.0
-margin_bottom = 410.0
+margin_bottom = 378.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Theme Editor"
+
+[node name="DiscordBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 413.0
+margin_right = 450.0
+margin_bottom = 443.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Inscryption Multiplayer Discord"
 
 [node name="Credit" type="Label" parent="TitleScreen"]
 anchor_left = 0.5
@@ -129,12 +140,13 @@ text = "
 Inscryption Multiplayer"
 align = 1
 
-[node name="Blocker" type="Panel" parent="."]
+[node name="Blocker" type="Panel" parent="TitleScreen"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 
-[node name="LobbyHost" type="PanelContainer" parent="."]
+[node name="LobbyHost" type="PanelContainer" parent="TitleScreen"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -145,7 +157,7 @@ margin_top = -87.5
 margin_right = 150.0
 margin_bottom = 87.5
 
-[node name="Rows" type="VBoxContainer" parent="LobbyHost"]
+[node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyHost"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 298.0
@@ -153,27 +165,27 @@ margin_bottom = 173.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="Host" type="Label" parent="LobbyHost/Rows"]
+[node name="Host" type="Label" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 10.0
 margin_right = 296.0
 margin_bottom = 23.0
 text = "Host"
 align = 1
 
-[node name="HostType" type="HBoxContainer" parent="LobbyHost/Rows"]
+[node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 33.0
 margin_right = 296.0
 margin_bottom = 50.0
 alignment = 1
 
-[node name="Label" type="Label" parent="LobbyHost/Rows/HostType"]
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/HostType"]
 margin_left = 24.0
 margin_top = 2.0
 margin_right = 98.0
 margin_bottom = 15.0
 text = "Lobby Type: "
 
-[node name="Ruleset" type="OptionButton" parent="LobbyHost/Rows/HostType"]
+[node name="Ruleset" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/HostType"]
 margin_left = 98.0
 margin_right = 271.0
 margin_bottom = 17.0
@@ -183,39 +195,39 @@ text = "Room Code (recommended)"
 items = [ "Room Code (recommended)", null, false, 0, null, "IP Address (for LAN)", null, false, 1, null ]
 selected = 0
 
-[node name="Nickname" type="HBoxContainer" parent="LobbyHost/Rows"]
+[node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 60.0
 margin_right = 296.0
 margin_bottom = 77.0
 alignment = 1
 
-[node name="Label" type="Label" parent="LobbyHost/Rows/Nickname"]
-margin_left = 63.0
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Nickname"]
+margin_left = 32.0
 margin_top = 2.0
-margin_right = 133.0
+margin_right = 163.0
 margin_bottom = 15.0
-text = "Your Name: "
+text = "Your Name (required): "
 
-[node name="LineEdit" type="LineEdit" parent="LobbyHost/Rows/Nickname"]
-margin_left = 133.0
-margin_right = 233.0
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Nickname"]
+margin_left = 163.0
+margin_right = 263.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 100, 0 )
 
-[node name="RulesetOptions" type="HBoxContainer" parent="LobbyHost/Rows"]
+[node name="RulesetOptions" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 87.0
 margin_right = 296.0
 margin_bottom = 104.0
 alignment = 1
 
-[node name="Label" type="Label" parent="LobbyHost/Rows/RulesetOptions"]
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/RulesetOptions"]
 margin_left = 76.0
 margin_top = 2.0
 margin_right = 128.0
 margin_bottom = 15.0
 text = "Ruleset: "
 
-[node name="Ruleset" type="OptionButton" parent="LobbyHost/Rows/RulesetOptions"]
+[node name="Ruleset" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/RulesetOptions"]
 margin_left = 128.0
 margin_right = 220.0
 margin_bottom = 17.0
@@ -225,20 +237,20 @@ text = "Development"
 items = [ "Development", null, false, 0, null, "Act 2 vanilla", null, true, 1, null ]
 selected = 0
 
-[node name="RulesetOptions2" type="HBoxContainer" parent="LobbyHost/Rows"]
+[node name="RulesetOptions2" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 114.0
 margin_right = 296.0
 margin_bottom = 134.0
 alignment = 1
 
-[node name="Label" type="Label" parent="LobbyHost/Rows/RulesetOptions2"]
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/RulesetOptions2"]
 margin_left = 55.0
 margin_top = 3.0
 margin_right = 221.0
 margin_bottom = 16.0
 text = "Spectate (don't join lobby): "
 
-[node name="CheckBox" type="CheckBox" parent="LobbyHost/Rows/RulesetOptions2"]
+[node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyHost/Rows/RulesetOptions2"]
 margin_left = 221.0
 margin_right = 241.0
 margin_bottom = 20.0
@@ -247,21 +259,31 @@ disabled = true
 enabled_focus_mode = 0
 flat = true
 
-[node name="Buttons" type="HBoxContainer" parent="LobbyHost/Rows"]
+[node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 144.0
 margin_right = 296.0
 margin_bottom = 161.0
+custom_constants/separation = 16
 alignment = 1
 
-[node name="Host" type="Button" parent="LobbyHost/Rows/Buttons"]
-margin_left = 133.0
-margin_right = 163.0
+[node name="Host" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
+margin_left = 104.0
+margin_right = 134.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host"
 
-[node name="InLobby" type="PanelContainer" parent="."]
+[node name="CancelHost" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
+margin_left = 150.0
+margin_right = 192.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+
+[node name="InLobby" type="PanelContainer" parent="TitleScreen"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -271,7 +293,7 @@ margin_top = -115.0
 margin_right = 100.0
 margin_bottom = 115.0
 
-[node name="Rows" type="VBoxContainer" parent="InLobby"]
+[node name="Rows" type="VBoxContainer" parent="TitleScreen/InLobby"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 198.0
@@ -279,34 +301,34 @@ margin_bottom = 228.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="Host" type="Label" parent="InLobby/Rows"]
+[node name="Host" type="Label" parent="TitleScreen/InLobby/Rows"]
 margin_top = 10.0
 margin_right = 196.0
 margin_bottom = 23.0
 text = "In Lobby"
 align = 1
 
-[node name="Label" type="Label" parent="InLobby/Rows"]
+[node name="Label" type="Label" parent="TitleScreen/InLobby/Rows"]
 margin_top = 33.0
 margin_right = 196.0
 margin_bottom = 46.0
 text = "Lobby Code: A1Xpan23a"
 align = 1
 
-[node name="ItemList" type="ItemList" parent="InLobby/Rows"]
+[node name="ItemList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
 margin_top = 56.0
 margin_right = 196.0
 margin_bottom = 107.0
 items = [ "107zxz (0 wins)", ExtResource( 2 ), true, "otherplayer (2 wins)", ExtResource( 3 ), false ]
 auto_height = true
 
-[node name="Buttons2" type="HBoxContainer" parent="InLobby/Rows"]
+[node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 117.0
 margin_right = 196.0
 margin_bottom = 134.0
 alignment = 1
 
-[node name="Kick" type="Button" parent="InLobby/Rows/Buttons2"]
+[node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
 margin_left = 36.0
 margin_right = 160.0
 margin_bottom = 17.0
@@ -314,20 +336,20 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Kick Selected Player"
 
-[node name="DeckOptions" type="HBoxContainer" parent="InLobby/Rows"]
+[node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 144.0
 margin_right = 196.0
 margin_bottom = 161.0
 alignment = 1
 
-[node name="Label" type="Label" parent="InLobby/Rows/DeckOptions"]
+[node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
 margin_left = 29.0
 margin_top = 2.0
 margin_right = 65.0
 margin_bottom = 15.0
 text = "Deck: "
 
-[node name="Ruleset" type="OptionButton" parent="InLobby/Rows/DeckOptions"]
+[node name="Ruleset" type="OptionButton" parent="TitleScreen/InLobby/Rows/DeckOptions"]
 margin_left = 65.0
 margin_right = 127.0
 margin_bottom = 17.0
@@ -337,7 +359,7 @@ text = "default"
 items = [ "default", null, false, 0, null ]
 selected = 0
 
-[node name="OpenDE" type="Button" parent="InLobby/Rows/DeckOptions"]
+[node name="OpenDE" type="Button" parent="TitleScreen/InLobby/Rows/DeckOptions"]
 margin_left = 127.0
 margin_right = 166.0
 margin_bottom = 17.0
@@ -345,20 +367,20 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Editor"
 
-[node name="ProfilePic" type="HBoxContainer" parent="InLobby/Rows"]
+[node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 171.0
 margin_right = 196.0
 margin_bottom = 188.0
 alignment = 1
 
-[node name="Label" type="Label" parent="InLobby/Rows/ProfilePic"]
+[node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
 margin_left = 25.0
 margin_top = 2.0
 margin_right = 119.0
 margin_bottom = 15.0
 text = "Profile Picture: "
 
-[node name="Pic" type="OptionButton" parent="InLobby/Rows/ProfilePic"]
+[node name="Pic" type="OptionButton" parent="TitleScreen/InLobby/Rows/ProfilePic"]
 margin_left = 119.0
 margin_right = 171.0
 margin_bottom = 17.0
@@ -368,13 +390,13 @@ text = "Stoat"
 items = [ "Stoat", null, false, 0, null ]
 selected = 0
 
-[node name="Buttons" type="HBoxContainer" parent="InLobby/Rows"]
+[node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 198.0
 margin_right = 196.0
 margin_bottom = 215.0
 alignment = 1
 
-[node name="Ready" type="Button" parent="InLobby/Rows/Buttons"]
+[node name="Ready" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
 margin_left = 78.0
 margin_right = 118.0
 margin_bottom = 17.0
@@ -382,7 +404,7 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Ready"
 
-[node name="LoadingScreen" type="PanelContainer" parent="."]
+[node name="LoadingScreen" type="PanelContainer" parent="TitleScreen"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -393,7 +415,7 @@ margin_top = -50.0
 margin_right = 150.0
 margin_bottom = 50.0
 
-[node name="Label" type="Label" parent="LoadingScreen"]
+[node name="Label" type="Label" parent="TitleScreen/LoadingScreen"]
 margin_left = 2.0
 margin_top = 43.0
 margin_right = 298.0
@@ -402,9 +424,17 @@ text = "Waiting for tunnel..."
 align = 1
 percent_visible = 0.842105
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingScreen"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/LoadingScreen"]
 anims/RESET = SubResource( 4 )
 anims/progress = SubResource( 3 )
+
+[node name="DeckEdit" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
+visible = false
+margin_top = -205.5
+margin_bottom = 205.5
 
 [node name="VersionLabel" type="Label" parent="."]
 anchor_top = 1.0
@@ -412,3 +442,9 @@ anchor_bottom = 1.0
 margin_top = -13.0
 margin_right = 40.0
 text = "v0.1.0"
+
+[connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/HostBtn" to="TitleScreen" method="_on_HostBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/CancelHost" to="TitleScreen" method="_on_CancelHost_pressed"]
