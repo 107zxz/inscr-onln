@@ -7,7 +7,8 @@ signal recieved_output(line)
 func start_tunnel():
 	print("Starting tunnel")
 	
-	pid = OS.execute ("bash", ["-c", "echo \"\" > lhrlog.txt; ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
+	OS.execute ("bash", ["-c", "echo \"\" > lhrlog.txt"], true)
+	pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
 	
 #	pid = OS.execute("bash", ["-c", "./cont_output.sh > lhrlog.txt"], false)	
 	
