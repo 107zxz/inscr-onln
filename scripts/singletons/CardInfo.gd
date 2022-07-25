@@ -9,7 +9,8 @@ func _enter_tree():
 	read_game_info()
 	
 	if OS.get_name() == "OSX":
-		deck_path = "user://decks/"
+#		deck_path = "user://decks/"
+		deck_path = OS.get_user_data_dir() + "/decks/"
 
 func read_game_info():
 	var file = File.new()

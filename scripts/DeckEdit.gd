@@ -317,3 +317,6 @@ func _on_ShuffleButton_pressed():
 		nCard.from_data(CardInfo.from_name(card))
 		deckDisplay.add_child(nCard)
 		dSize += 1
+
+func _on_ViewFolder_pressed():
+	OS.shell_open("file://" + CardInfo.deck_path)
