@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
-[ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=3]
 [ext_resource path="res://scripts/NewLobby.gd" type="Script" id=4]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://packed/ThemeEditor.tscn" type="PackedScene" id=6]
@@ -282,6 +281,138 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Cancel"
 
+[node name="LobbyJoin" type="PanelContainer" parent="TitleScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -87.5
+margin_right = 150.0
+margin_bottom = 87.5
+
+[node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyJoin"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 298.0
+margin_bottom = 173.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Host" type="Label" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 10.0
+margin_right = 296.0
+margin_bottom = 23.0
+text = "Join"
+align = 1
+
+[node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 33.0
+margin_right = 296.0
+margin_bottom = 50.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/HostType"]
+margin_left = 70.0
+margin_top = 2.0
+margin_right = 144.0
+margin_bottom = 15.0
+text = "Lobby Type: "
+
+[node name="Ruleset" type="OptionButton" parent="TitleScreen/LobbyJoin/Rows/HostType"]
+margin_left = 144.0
+margin_right = 226.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Room Code"
+items = [ "Room Code", null, false, 0, null, "IP Address", null, false, 1, null ]
+selected = 0
+
+[node name="Address" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 60.0
+margin_right = 296.0
+margin_bottom = 77.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Address"]
+margin_left = 65.0
+margin_top = 2.0
+margin_right = 130.0
+margin_bottom = 15.0
+text = "IP / Code: "
+
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Address"]
+margin_left = 130.0
+margin_right = 230.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 87.0
+margin_right = 296.0
+margin_bottom = 104.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
+margin_left = 32.0
+margin_top = 2.0
+margin_right = 163.0
+margin_bottom = 15.0
+text = "Your Name (required): "
+
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
+margin_left = 163.0
+margin_right = 263.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Spectate" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 114.0
+margin_right = 296.0
+margin_bottom = 134.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
+margin_left = 55.0
+margin_top = 3.0
+margin_right = 221.0
+margin_bottom = 16.0
+text = "Spectate (don't join lobby): "
+
+[node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
+margin_left = 221.0
+margin_right = 241.0
+margin_bottom = 20.0
+focus_mode = 0
+disabled = true
+enabled_focus_mode = 0
+flat = true
+
+[node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 144.0
+margin_right = 296.0
+margin_bottom = 161.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Join" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
+margin_left = 105.0
+margin_right = 133.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Join"
+
+[node name="CancelJoin" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
+margin_left = 149.0
+margin_right = 191.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+
 [node name="InLobby" type="PanelContainer" parent="TitleScreen"]
 visible = false
 anchor_left = 0.5
@@ -302,30 +433,37 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_top = 10.0
 margin_right = 196.0
-margin_bottom = 23.0
+margin_bottom = 13.0
 text = "In Lobby"
 align = 1
 
-[node name="Label" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_top = 33.0
+[node name="LCode" type="Label" parent="TitleScreen/InLobby/Rows"]
+margin_top = 23.0
 margin_right = 196.0
-margin_bottom = 46.0
-text = "Lobby Code: A1Xpan23a"
+margin_bottom = 36.0
+text = "Lobby Code: N/A"
 align = 1
 
+[node name="CopyCode" type="Button" parent="TitleScreen/InLobby/Rows"]
+margin_left = 66.0
+margin_top = 46.0
+margin_right = 130.0
+margin_bottom = 63.0
+size_flags_horizontal = 4
+text = "Copy Code"
+
 [node name="ItemList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
-margin_top = 56.0
+margin_top = 73.0
 margin_right = 196.0
-margin_bottom = 107.0
-items = [ "107zxz (0 wins)", ExtResource( 2 ), true, "otherplayer (2 wins)", ExtResource( 3 ), false ]
-auto_height = true
+margin_bottom = 118.0
+size_flags_vertical = 3
+items = [ "107zxz (0 wins)", ExtResource( 2 ), true ]
 
 [node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 117.0
+margin_top = 128.0
 margin_right = 196.0
-margin_bottom = 134.0
+margin_bottom = 145.0
 alignment = 1
 
 [node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
@@ -337,9 +475,9 @@ enabled_focus_mode = 0
 text = "Kick Selected Player"
 
 [node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 144.0
+margin_top = 155.0
 margin_right = 196.0
-margin_bottom = 161.0
+margin_bottom = 172.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
@@ -368,9 +506,9 @@ enabled_focus_mode = 0
 text = "Editor"
 
 [node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 171.0
+margin_top = 182.0
 margin_right = 196.0
-margin_bottom = 188.0
+margin_bottom = 199.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
@@ -391,18 +529,27 @@ items = [ "Stoat", null, false, 0, null ]
 selected = 0
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 198.0
+margin_top = 209.0
 margin_right = 196.0
-margin_bottom = 215.0
+margin_bottom = 226.0
+custom_constants/separation = 16
 alignment = 1
 
-[node name="Ready" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
-margin_left = 78.0
-margin_right = 118.0
+[node name="LobbyReady" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
+margin_left = 56.0
+margin_right = 96.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ready"
+
+[node name="LobbyQuit" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
+margin_left = 112.0
+margin_right = 139.0
+margin_bottom = 17.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Quit"
 
 [node name="LoadingScreen" type="PanelContainer" parent="TitleScreen"]
 visible = false
@@ -441,10 +588,14 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -13.0
 margin_right = 40.0
-text = "v0.1.0"
+text = "v0.1.0 DEV"
 
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/HostBtn" to="TitleScreen" method="_on_HostBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/JoinBtn" to="TitleScreen" method="_on_JoinBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/Host" to="TitleScreen" method="_on_Host_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/CancelHost" to="TitleScreen" method="_on_CancelHost_pressed"]
+[connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Buttons/CancelJoin" to="TitleScreen" method="_on_CancelJoin_pressed"]
+[connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
