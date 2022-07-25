@@ -222,6 +222,9 @@ func load_deck(_arg = null):
 			nCard.from_data(CardInfo.all_cards[dj["side_deck"][i]])
 			sidedeck_container.add_child(nCard)
 	else:
+		sidedeck_single.visible = true
+		sidedeck_container.visible = false
+		
 		# Banned
 		if sidedeck_de.is_item_disabled(dj["side_deck"]):
 			sidedeck_de.select(0)
@@ -244,6 +247,8 @@ func load_deck(_arg = null):
 		
 		if "vessel_type" in dj:
 			sidedeck_single.from_data(CardInfo.all_cards[dj["vessel_type"]])
+			get_node("%CustomizeLabel").visible = true
+		else:
 			get_node("%CustomizeLabel").visible = true
 	
 	update_deck_count()
