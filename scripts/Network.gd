@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.0.22"
+const VERSION = "v0.0.23"
 const DEFAULT_PORT = 10567
 
 const MAX_PEERS = 8

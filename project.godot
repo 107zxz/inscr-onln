@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Inscry_Mult_GD"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://NewMain.tscn"
 config/icon="res://newicon.png"
 
 [autoload]
@@ -29,6 +29,7 @@ config/icon="res://newicon.png"
 CardInfo="*res://scripts/singletons/CardInfo.gd"
 TunnelHandler="*res://scripts/singletons/TunnelHandler.gd"
 GameOptions="*res://scripts/singletons/GameOptions.gd"
+NetworkManager="*res://scripts/singletons/NetworkManager.gd"
 
 [debug]
 
