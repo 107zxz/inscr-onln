@@ -8,10 +8,15 @@ signal process_ended()
 func start_tunnel():
 	print("Starting tunnel")
 	
-	OS.execute ("bash", ["-c", "echo \"\" > lhrlog.txt"], true)
-	pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
-	
-#	pid = OS.execute("bash", ["-c", "./cont_output.sh > lhrlog.txt"], false)	
+	# These commands for windows systems
+	if OS.get_name() == "Windows":
+		print("Executing windows commands")
+		OS.execute ("cmd.exe", ["/c", "TYPE NUL > lhrlog.txt"], true)
+		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
+	# These commands for OSX / Linux systems
+	else:
+		OS.execute ("bash", ["-c", "echo \"\" > lhrlog.txt"], true)
+		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
 	
 	var fiel = File.new()
 	
@@ -33,11 +38,18 @@ func start_tunnel():
 	emit_signal("process_ended")
 		
 func kill_tunnel():
+#	return
+	
 	if pid > 0 and OS.is_process_running(pid):
 		print("Killing tunnel with pid ", pid)
-		
-		# Because of how pipes work, we need to do this (on linux at least)
-		print("Error code: ", OS.kill(pid+1))
+		if OS.get_name() == "Windows":
+			
+			# As windows PID is arbitrary, need to do this
+			OS.execute("taskkill", ["/IM", "ssh.exe", "/F"])
+			
+		else:
+			# Because of how pipes work, we need to do this (on linux at least)
+			print("Error code: ", OS.kill(pid+1))
 
 func _exit_tree():
 	kill_tunnel()
