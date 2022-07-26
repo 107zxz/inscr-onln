@@ -67,12 +67,14 @@ align = 1
 autowrap = true
 
 [node name="SigilDescription" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
+visible = false
 margin_top = 0.0
 margin_bottom = 61.0
 
 [node name="SigilDescription2" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 71.0
-margin_bottom = 132.0
+visible = false
+margin_top = 0.0
+margin_bottom = 61.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 204.0
