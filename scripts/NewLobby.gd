@@ -40,6 +40,15 @@ func _on_Host_pressed():
 	# Open a tunnel
 	TunnelHandler.start_tunnel()
 	TunnelHandler.connect("recieved_output", self, "_on_tunnel_output")
+	TunnelHandler.connect("process_ended", self, "_on_host_timeout")
+
+func _on_host_timeout():
+	$ErrorBox.visible = true
+	$LoadingScreen.visible = false
+	$ErrorBox/Contents/Label.text = "Failed to connect to localhost.run.\nAre you connected to the internet?"
+	
+	TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
+	TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
 
 func _on_tunnel_output(line):
 	if "tunneled with tls termination" in line:
@@ -50,6 +59,8 @@ func _on_tunnel_output(line):
 		$LoadingScreen.visible = false
 		$InLobby.visible = true
 		$InLobby/Rows/LCode.text = "Lobby Code: " + code
+		TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
+		
 		
 func _on_LobbyQuit_pressed():
 	TunnelHandler.kill_tunnel()
@@ -59,3 +70,7 @@ func _on_LobbyQuit_pressed():
 
 func _on_LogFolder_pressed():
 	OS.shell_open("file://" + OS.get_user_data_dir() + "/logs/")
+
+func _on_ErrorOk_pressed():
+	$ErrorBox.visible = false
+	$Blocker.visible = false

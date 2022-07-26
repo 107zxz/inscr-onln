@@ -3,6 +3,7 @@ extends Node
 var pid = -1
 
 signal recieved_output(line)
+signal process_ended()
 
 func start_tunnel():
 	print("Starting tunnel")
@@ -27,6 +28,9 @@ func start_tunnel():
 			emit_signal("recieved_output", fiel.get_as_text().right(current_size))
 			
 			current_size = fiel.get_len()
+	
+	print("Process died")
+	emit_signal("process_ended")
 		
 func kill_tunnel():
 	if pid > 0 and OS.is_process_running(pid):

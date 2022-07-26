@@ -3,14 +3,11 @@ extends Node
 var all_sigils = []
 var all_cards = []
 var working_sigils = []
-var deck_path = "decks/"
+var deck_path = OS.get_user_data_dir() + "/decks/"
+
 
 func _enter_tree():
 	read_game_info()
-	
-	if OS.get_name() == "OSX":
-#		deck_path = "user://decks/"
-		deck_path = OS.get_user_data_dir() + "/decks/"
 
 func read_game_info():
 	var file = File.new()

@@ -330,4 +330,5 @@ func _on_ShuffleButton_pressed():
 		dSize += 1
 
 func _on_ViewFolder_pressed():
+	print(CardInfo.deck_path)
 	OS.shell_open("file://" + CardInfo.deck_path)
