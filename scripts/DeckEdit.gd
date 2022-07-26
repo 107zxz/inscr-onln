@@ -155,14 +155,20 @@ func save_deck(_arg = null):
 func save_deck_as(_arg = null):
 	if rename_de.text == "":
 		return
+
+	var dTest : Directory = Directory.new()
+	if not dTest.file_exists(CardInfo.deck_path + rename_de.text + ".deck"):
+		selector_de.add_item(rename_de.text, selector_de.get_item_count())	
 	
-	var sFile = File.new()
+	var sFile: File = File.new()
 	sFile.open(CardInfo.deck_path + rename_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_deck_object()))
 	sFile.close()
 	
-	selector_de.add_item(rename_de.text, selector_de.get_item_count())
-	selector_de.select(selector_de.get_item_count() - 1)
+	for item in range(selector_de.get_item_count()):
+		if selector_de.get_item_text(item) == rename_de.text:
+			selector_de.select(item)
+
 	load_deck()
 
 func ensure_default_deck():

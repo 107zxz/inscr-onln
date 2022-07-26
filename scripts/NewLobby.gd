@@ -55,3 +55,7 @@ func _on_LobbyQuit_pressed():
 	TunnelHandler.kill_tunnel()
 	$InLobby.visible = false
 	$Blocker.visible = false
+
+
+func _on_LogFolder_pressed():
+	OS.shell_open("file://" + OS.get_user_data_dir() + "/logs/")

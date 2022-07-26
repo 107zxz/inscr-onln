@@ -72,45 +72,54 @@ custom_constants/separation = 35
 alignment = 1
 
 [node name="HostBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 153.0
+margin_top = 120.0
 margin_right = 450.0
-margin_bottom = 183.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host Game"
 
 [node name="JoinBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 218.0
+margin_top = 185.0
 margin_right = 450.0
-margin_bottom = 248.0
+margin_bottom = 215.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join Game"
 
 [node name="DeckEditorBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 283.0
+margin_top = 250.0
 margin_right = 450.0
-margin_bottom = 313.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Deck Editor"
 
 [node name="ThemeEditorBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 348.0
+margin_top = 315.0
 margin_right = 450.0
-margin_bottom = 378.0
+margin_bottom = 345.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Theme Editor"
 
-[node name="DiscordBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
-margin_top = 413.0
+[node name="LogFolder" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 380.0
 margin_right = 450.0
-margin_bottom = 443.0
+margin_bottom = 410.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Open Logs Folder"
+
+[node name="DiscordBtn" type="Button" parent="TitleScreen/PanelContainer/VBoxContainer"]
+margin_top = 445.0
+margin_right = 450.0
+margin_bottom = 475.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
@@ -594,6 +603,7 @@ text = "v0.1.0 DEV"
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/JoinBtn" to="TitleScreen" method="_on_JoinBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
 [connection signal="pressed" from="TitleScreen/PanelContainer/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/Host" to="TitleScreen" method="_on_Host_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/CancelHost" to="TitleScreen" method="_on_CancelHost_pressed"]
