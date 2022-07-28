@@ -37,15 +37,19 @@ func _on_Host_pressed():
 	$LoadingScreen.visible = true
 	$LoadingScreen/AnimationPlayer.play("progress")
 	
-	# Open a tunnel
-	TunnelHandler.start_tunnel()
-	TunnelHandler.connect("recieved_output", self, "_on_tunnel_output")
-	TunnelHandler.connect("process_ended", self, "_on_host_timeout")
+	if $LobbyHost/Rows/HostType/Type.selected == 0:
+		# Open a tunnel
+		TunnelHandler.start_tunnel()
+		TunnelHandler.connect("recieved_output", self, "_on_tunnel_output")
+		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
+	
+	# Host Lobby
+	NetworkManager.host_lobby("107zxz")
+	
 
 func _on_host_timeout():
-	$ErrorBox.visible = true
 	$LoadingScreen.visible = false
-	$ErrorBox/Contents/Label.text = "Failed to connect to localhost.run.\nAre you connected to the internet?"
+	errorBox("Failed to connect to localhost.run.\nAre you connected to the internet?")
 	
 	TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
 	TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
@@ -67,10 +71,13 @@ func _on_LobbyQuit_pressed():
 	$InLobby.visible = false
 	$Blocker.visible = false
 
-
 func _on_LogFolder_pressed():
 	OS.shell_open("file://" + OS.get_user_data_dir() + "/logs/")
 
 func _on_ErrorOk_pressed():
 	$ErrorBox.visible = false
 	$Blocker.visible = false
+
+func errorBox(message):
+	$ErrorBox/Contents/Label.text = message
+	$ErrorBox.visible = true

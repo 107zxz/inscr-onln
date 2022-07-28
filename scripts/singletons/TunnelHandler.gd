@@ -38,13 +38,13 @@ func start_tunnel():
 	emit_signal("process_ended")
 		
 func kill_tunnel():
-#	return
-	
 	if pid > 0 and OS.is_process_running(pid):
 		print("Killing tunnel with pid ", pid)
 		if OS.get_name() == "Windows":
 			
 			# As windows PID is arbitrary, need to do this
+			# This WILL interfere with other SSH sessions, write this somewhere
+			# or fix by parsing tasklist
 			OS.execute("taskkill", ["/IM", "ssh.exe", "/F"])
 			
 		else:

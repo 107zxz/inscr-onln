@@ -201,7 +201,7 @@ margin_right = 98.0
 margin_bottom = 15.0
 text = "Lobby Type: "
 
-[node name="Ruleset" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/HostType"]
+[node name="Type" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/HostType"]
 margin_left = 98.0
 margin_right = 271.0
 margin_bottom = 17.0
