@@ -3,7 +3,7 @@ extends Node
 const VERSION = "v0.0.23"
 const DEFAULT_PORT = 10567
 
-const MAX_PEERS = 8
+const MAX_PEERS = 7
 
 # Current challengers
 var challengers = {}
@@ -35,7 +35,7 @@ func _player_disconnected(id):
 	# Wipe opponent from challengers dict
 	challengers.erase(id)
 	pids.erase(id)
-	
+
 	# Is game in progress?
 	if opponent != -1:
 		# $ChatRoom.visible = false

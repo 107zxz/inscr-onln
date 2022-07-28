@@ -11,16 +11,41 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 func _player_connected():
-	pass
+	print("Player connected")
 	
 func _player_disconnected():
-	pass
+	print("Player disconnected")
 
 func _connected_ok():
-	pass
+	print("Connected Successfully")
 
 func _conncetion_failed():
-	pass
+	print("Connection Failed")
 
 func _server_disconnected():
-	pass
+	print("Connection to server lost")
+
+func host_lobby(username: String) -> int:
+	var peer = WebSocketServer.new()
+	var err = peer.listen(PORT, PoolStringArray(), true)
+	
+	if err:
+		return err
+	else:
+		get_tree().network_peer = peer
+		return 0
+
+func join_lobby(username: String, url: String) -> int:
+	var peer = WebSocketClient.new()
+	var err = peer.connect_to_url(url, PoolStringArray(), true)
+	
+	if err:
+		return err
+	else:
+		get_tree().network_peer = peer
+		return 0
+
+func kill():
+	if get_tree().network_peer:
+		get_tree().network_peer.stop() if get_tree().is_network_server() else get_tree().network_peer.disconnect_from_host()
+		get_tree().network_peer = null

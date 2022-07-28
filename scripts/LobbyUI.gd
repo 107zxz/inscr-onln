@@ -2,7 +2,7 @@ extends Control
 
 var cnotify = preload("res://packed/cnotify.tscn")
 var validpfps = ["cat", "grizzly", "stoat", "mantisgod", "packrat", "ant", "geck", "orlu", "lil boi"]
-onready var selector_de = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect
+onready var selector_de: OptionButton = $HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer2/dSelect
 
 func _on_new_challenge(name: String, portrait: int, version: String):
 	var notif = cnotify.instance()
