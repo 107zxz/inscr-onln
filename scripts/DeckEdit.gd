@@ -32,8 +32,8 @@ var cardPrefab = preload("res://packed/dbCard.tscn")
 
 func _on_ExitButton_pressed():
 	visible = false
-#	get_node("/root/Main/Lobby").populate_deck_list()
-#	get_node("/root/Main/Lobby").select_deck(selector_de.selected)
+	get_node("/root/Main/TitleScreen").populate_deck_list()
+	get_node("/root/Main/TitleScreen").select_deck(selector_de.selected)
 
 func _ready():
 	init_search_ui()
@@ -41,7 +41,7 @@ func _ready():
 	
 	ensure_default_deck()
 	populate_deck_list()
-#	get_node("/root/Main/Lobby/").populate_deck_list()
+	get_node("/root/Main/TitleScreen").populate_deck_list()
 	
 	load_deck()
 

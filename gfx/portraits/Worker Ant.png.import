@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_packrat.png-d2bb9f0fd592fdaee1cb67e1f1b8a80a.stex"
+path="res://.import/Worker Ant.png-d727f909cad304743dfea3d4f826f74a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_packrat.png"
-dest_files=[ "res://.import/portrait_packrat.png-d2bb9f0fd592fdaee1cb67e1f1b8a80a.stex" ]
+source_file="res://gfx/portraits/Worker Ant.png"
+dest_files=[ "res://.import/Worker Ant.png-d727f909cad304743dfea3d4f826f74a.stex" ]
 
 [params]
 

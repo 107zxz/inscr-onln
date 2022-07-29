@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_lil boi.png-d54ac392c22e387922fc4d7bb34eb9de.stex"
+path="res://.import/Lil Boi.png-11112ac0ba2abad3947e8d210d6be210.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_lil boi.png"
-dest_files=[ "res://.import/portrait_lil boi.png-d54ac392c22e387922fc4d7bb34eb9de.stex" ]
+source_file="res://gfx/portraits/Lil Boi.png"
+dest_files=[ "res://.import/Lil Boi.png-11112ac0ba2abad3947e8d210d6be210.stex" ]
 
 [params]
 

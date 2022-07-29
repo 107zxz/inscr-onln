@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_stoat.png-e0f91d3667565cda6220e1cb1f105e0e.stex"
+path="res://.import/Orlu's Vessel.png-62de737414d68c96d34493b67c4f12a0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_stoat.png"
-dest_files=[ "res://.import/portrait_stoat.png-e0f91d3667565cda6220e1cb1f105e0e.stex" ]
+source_file="res://gfx/portraits/Orlu's Vessel.png"
+dest_files=[ "res://.import/Orlu's Vessel.png-62de737414d68c96d34493b67c4f12a0.stex" ]
 
 [params]
 

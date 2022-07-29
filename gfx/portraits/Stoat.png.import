@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_orlu.png-540c80267171a1a20c29ba75bfb7590e.stex"
+path="res://.import/Stoat.png-10c9f87fe157552701bf6fdb77f3add9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_orlu.png"
-dest_files=[ "res://.import/portrait_orlu.png-540c80267171a1a20c29ba75bfb7590e.stex" ]
+source_file="res://gfx/portraits/Stoat.png"
+dest_files=[ "res://.import/Stoat.png-10c9f87fe157552701bf6fdb77f3add9.stex" ]
 
 [params]
 
