@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_ant.png-dd80d0ce4b604ae173927f70945323e3.stex"
+path="res://.import/Mantis God.png-d97de59fde434da405bd565b088a56f5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_ant.png"
-dest_files=[ "res://.import/portrait_ant.png-dd80d0ce4b604ae173927f70945323e3.stex" ]
+source_file="res://gfx/portraits/Mantis God.png"
+dest_files=[ "res://.import/Mantis God.png-d97de59fde434da405bd565b088a56f5.stex" ]
 
 [params]
 

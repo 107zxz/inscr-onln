@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_mantisgod.png-5f910337bd458577a678e035b5161a6a.stex"
+path="res://.import/Cat.png-3a80b558130e28336bd65275dc6a1fb9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_mantisgod.png"
-dest_files=[ "res://.import/portrait_mantisgod.png-5f910337bd458577a678e035b5161a6a.stex" ]
+source_file="res://gfx/portraits/Cat.png"
+dest_files=[ "res://.import/Cat.png-3a80b558130e28336bd65275dc6a1fb9.stex" ]
 
 [params]
 

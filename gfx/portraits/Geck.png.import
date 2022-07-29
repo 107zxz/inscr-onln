@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/portrait_geck.png-2ea9f216702a3cd3e65c8ae2eff432c3.stex"
+path="res://.import/Geck.png-335852766f88d5ae1d818016c0c1e1dc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/portraits/portrait_geck.png"
-dest_files=[ "res://.import/portrait_geck.png-2ea9f216702a3cd3e65c8ae2eff432c3.stex" ]
+source_file="res://gfx/portraits/Geck.png"
+dest_files=[ "res://.import/Geck.png-335852766f88d5ae1d818016c0c1e1dc.stex" ]
 
 [params]
 
