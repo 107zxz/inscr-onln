@@ -35,8 +35,23 @@ func _ready():
 		if not dTest.current_is_dir() and fName.ends_with(".png"):
 			pfpsel.add_item(fName.split(".png")[0])
 		fName = dTest.get_next()
+	
+	for option in OS.get_cmdline_args():
+		if option == "listen":
+			debug_host()
+		if option == "join":
+			debug_join()
 
 # Methods
+func debug_host():
+	$LobbyHost/Rows/HostType/Type.selected = 1
+	$LobbyHost/Rows/Nickname/LineEdit.text = "DEBUG_HOST"
+
+	_on_Host_pressed()
+
+func debug_join():
+	pass
+
 func errorBox(message):
 	$ErrorBox/Contents/Label.text = message
 	$ErrorBox.visible = true
@@ -71,11 +86,17 @@ func update_lobby():
 func init_fight(go_first: bool):
 	print("Morbin time")
 
+	lobbyList.set_item_icon(0, unreadyIcon)
+	lobbyList.set_item_icon(1, unreadyIcon)
+
 	# Identify players
 	var myId = get_tree().get_network_unique_id()
 	var oppId = -1
 
 	for player in lobby_data.players:
+
+		lobby_data.players[player].ready = false
+
 		if player != myId:
 			oppId = player
 	
@@ -308,6 +329,7 @@ func _connected_fail():
 	
 	$LoadingScreen.visible = false
 	$InLobby.visible = false
+	cardFight.visible = false
 	errorBox("Connection to url: " + url + " failed!")
 
 func _player_connected():
@@ -349,6 +371,7 @@ remote func _erase_player(player_id):
 
 	if player_id in lobby_data.players:
 		lobby_data.players.erase(player_id)
+		cardFight.visible = false
 
 	update_lobby()
 
