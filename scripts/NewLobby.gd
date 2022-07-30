@@ -3,6 +3,7 @@ extends Node
 # Nodes
 onready var themeEditor = get_node("../ThemeEditor")
 onready var deckEditor = get_node("../DeckEdit")
+onready var cardFight = get_node("../CardFight")
 onready var hostUnameBox = $LobbyHost/Rows/Nickname/LineEdit
 onready var joinUnameBox = $LobbyJoin/Rows/Nickname/LineEdit
 onready var lobbyList: ItemList = $InLobby/Rows/PlayerList
@@ -67,8 +68,30 @@ func update_lobby():
 	
 func init_fight():
 	print("Morbin time")
-	pass
 
+	# Identify players
+	var myId = get_tree().get_network_unique_id()
+	var oppId = -1
+
+	for player in lobby_data.players:
+		if player != myId:
+			oppId = player
+	
+	# Pass deck to CardFight
+	deckEditor.load_deck()
+	var ddata = deckEditor.get_deck_object()
+
+	cardFight.initial_deck = ddata.cards
+	cardFight.side_deck_index = ddata.side_deck
+	if "vessel_type" in ddata:
+		cardFight.side_deck = [ddata.vessel_type]
+	
+	# Usernames and profile pictures
+	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name
+	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name
+
+	cardFight.visible = true
+	cardFight.init_match(oppId)
 
 # UI Callbacks
 func _on_DiscordBtn_pressed():
@@ -148,7 +171,7 @@ func _on_Host_pressed():
 		lobby_data.spectators = [1]
 	$LoadingScreen/AnimationPlayer.play("progress")
 
-	update_lobby()
+#	update_lobby()
 	
 
 func _on_LobbyQuit_pressed():
@@ -210,6 +233,10 @@ func _on_LobbyReady_pressed():
 	if not get_tree().is_network_server():
 		return
 
+	# Are there 2 players?
+	if len(lobby_data.players.keys()) < 2:
+		return
+
 	for player in lobby_data.players:
 		if not lobby_data.players[player].ready:
 			return
@@ -226,10 +253,12 @@ func _on_tunnel_output(line):
 		
 		$LoadingScreen.visible = false
 		$InLobby.visible = true
-		$InLobby/Rows/LCode.text = "Lobby Code: " + code
+#		$InLobby/Rows/LCode.text = "Lobby Code: " + code
 		
 		lobby_data.code = code
 		lobby_data.is_ip = false
+		
+		update_lobby()
 
 		TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
 		

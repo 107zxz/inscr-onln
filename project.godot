@@ -34,7 +34,7 @@ NetworkManager="*res://scripts/singletons/NetworkManager.gd"
 [debug]
 
 gdscript/warnings/return_value_discarded=false
-multirun/number_of_windows=3
+multirun/number_of_windows=2
 multirun/window_distance=1270
 multirun/add_custom_args=true
 multirun/first_window_args="listen"
