@@ -16,6 +16,8 @@ var lobby_data = {"players": {}, "spectators": []}
 # Godot Handlers
 func _ready():
 
+	randomize()
+
 	# Signals
 	get_tree().connect("connected_to_server", self, "_joined_game")
 	get_tree().connect("connection_failed", self, "_connected_fail")
@@ -66,7 +68,7 @@ func update_lobby():
 	
 	$InLobby/Rows/LCode.text = ("IP: " if lobby_data.is_ip else "Lobby Code: ") + lobby_data.code
 	
-func init_fight():
+func init_fight(go_first: bool):
 	print("Morbin time")
 
 	# Identify players
@@ -91,7 +93,7 @@ func init_fight():
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name
 
 	cardFight.visible = true
-	cardFight.init_match(oppId)
+	cardFight.init_match(oppId, go_first)
 
 # UI Callbacks
 func _on_DiscordBtn_pressed():
@@ -145,15 +147,21 @@ func _on_Host_pressed():
 	# Host Lobby
 	NetworkManager.host_lobby()
 	
+	# only add myself to the list if not spectating
+	if not $LobbyHost/Rows/Spectating/CheckBox.pressed:
+		lobby_data.players = {1: {"name": hostUnameBox.text, "ready": false}}
+	else:
+		lobby_data.spectators = [1]
+	
 	if $LobbyHost/Rows/HostType/Type.selected == 0:
 		$LoadingScreen.visible = true		
+		$LoadingScreen/AnimationPlayer.play("progress")
 		# Open a tunnel
 		TunnelHandler.start_tunnel()
 		TunnelHandler.connect("recieved_output", self, "_on_tunnel_output")
 		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
 	else:
 		$InLobby.visible = true
-
 
 		$InLobby/Rows/LCode.text = "IP: N/A"
 		for ip in IP.get_local_addresses():
@@ -163,16 +171,9 @@ func _on_Host_pressed():
 				lobby_data.code = ip
 				lobby_data.is_ip = true
 				break
-	
-	# only add myself to the list if not spectating
-	if not $LobbyHost/Rows/Spectating/CheckBox.pressed:
-		lobby_data.players = {1: {"name": hostUnameBox.text, "ready": false}}
-	else:
-		lobby_data.spectators = [1]
-	$LoadingScreen/AnimationPlayer.play("progress")
 
-#	update_lobby()
-	
+		update_lobby()
+
 
 func _on_LobbyQuit_pressed():
 	TunnelHandler.kill_tunnel()
@@ -241,8 +242,11 @@ func _on_LobbyReady_pressed():
 		if not lobby_data.players[player].ready:
 			return
 
-	rpc("_start_match")
-	init_fight()
+	# Turn order
+	var go_first = randf() < 0.5
+
+	rpc("_start_match", not go_first)
+	init_fight(go_first)
 
 # Network callbacks
 func _on_tunnel_output(line):
@@ -366,8 +370,10 @@ remote func _player_ready(ready: bool):
 		if not lobby_data.players[player].ready:
 			return
 
-	rpc("_start_match")
-	init_fight()
+	var go_first = randf() < 0.5
+
+	rpc("_start_match", not go_first)
+	init_fight(go_first)
 	
-remote func _start_match():
-	init_fight()
+remote func _start_match(go_first: bool):
+	init_fight(go_first)
