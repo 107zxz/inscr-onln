@@ -255,7 +255,7 @@ func load_deck(_arg = null):
 			sidedeck_single.from_data(CardInfo.all_cards[dj["vessel_type"]])
 			get_node("%CustomizeLabel").visible = true
 		else:
-			get_node("%CustomizeLabel").visible = true
+			get_node("%CustomizeLabel").visible = false
 	
 	update_deck_count()
 
