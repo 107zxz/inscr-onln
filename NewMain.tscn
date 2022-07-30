@@ -688,6 +688,7 @@ enabled_focus_mode = 0
 text = "Ok"
 
 [node name="DeckEdit" parent="." instance=ExtResource( 7 )]
+visible = false
 
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
 visible = false

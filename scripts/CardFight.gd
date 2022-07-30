@@ -39,6 +39,7 @@ const side_deck_names = [
 var opponent = -100
 var initial_deck = []
 var side_deck_index = null
+var go_first = null
 
 # Settings TBI
 var gameSettings = {
@@ -92,8 +93,9 @@ var sarcophagus_counter = 0
 # Network match state
 var want_rematch = false
 
-func init_match(opp_id: int):
+func init_match(opp_id: int, do_go_first: bool):
 	opponent = opp_id
+	go_first = do_go_first
 	
 	# Hide rematch UI
 	$WinScreen.visible = false
@@ -156,9 +158,9 @@ func init_match(opp_id: int):
 	
 	max_energy_buff = 0
 	opponent_max_energy_buff = 0
-	set_max_energy(int(get_tree().is_network_server()))
+	set_max_energy(int(go_first))
 	set_energy(max_energy)
-	set_opponent_max_energy(int(not get_tree().is_network_server()))
+	set_opponent_max_energy(int(not go_first))
 	set_opponent_energy(opponent_max_energy)
 	
 	state = GameStates.NORMAL
@@ -179,7 +181,7 @@ func init_match(opp_id: int):
 		
 	
 	
-	$WaitingBlocker.visible = not get_tree().is_network_server()
+	$WaitingBlocker.visible = not go_first
 
 
 # Gameplay functions
@@ -643,12 +645,12 @@ remote func _rematch_requested():
 	if want_rematch:
 		rpc_id(opponent, "_rematch_occurs")
 		
-		init_match(opponent)
+		init_match(opponent, not go_first)
 	else:
 		$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"	
 
 remote func _rematch_occurs():
-	init_match(opponent)
+	init_match(opponent, not go_first)
 
 remote func start_turn():
 	damage_stun = false
