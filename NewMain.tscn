@@ -313,6 +313,7 @@ margin_left = 221.0
 margin_right = 241.0
 margin_bottom = 20.0
 focus_mode = 0
+disabled = true
 enabled_focus_mode = 0
 flat = true
 
@@ -452,6 +453,7 @@ margin_left = 221.0
 margin_right = 241.0
 margin_bottom = 20.0
 focus_mode = 0
+disabled = true
 enabled_focus_mode = 0
 flat = true
 
@@ -700,7 +702,6 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -13.0
 margin_right = 40.0
-text = "v0.1.0 DEV"
 
 [node name="CardFight" parent="." instance=ExtResource( 3 )]
 visible = false

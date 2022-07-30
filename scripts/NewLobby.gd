@@ -1,5 +1,8 @@
 extends Node
 
+# History
+const VERSION = "0.1.0 DEV"
+
 # Nodes
 onready var themeEditor = get_node("../ThemeEditor")
 onready var deckEditor = get_node("../DeckEdit")
@@ -24,6 +27,9 @@ func _ready():
 	# get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_erase_player")
 
+	# Version
+	get_node("../VersionLabel").text = VERSION
+
 	# Register profile pictures
 	var pfpsel = $InLobby/Rows/ProfilePic/Pic
 
@@ -46,11 +52,22 @@ func _ready():
 func debug_host():
 	$LobbyHost/Rows/HostType/Type.selected = 1
 	$LobbyHost/Rows/Nickname/LineEdit.text = "DEBUG_HOST"
+	$Blocker.visible = true
 
 	_on_Host_pressed()
+	_on_LobbyReady_pressed()
 
 func debug_join():
-	pass
+
+	yield(get_tree().create_timer(0.1), "timeout")
+
+	$LobbyJoin/Rows/Address/IPInput.text = "127.0.0.1"
+	$LobbyJoin/Rows/Nickname/LineEdit.text = "DEBUG_CLIENT"
+	$LobbyJoin/Rows/HostType/LType.selected = 1
+
+	_on_Join_pressed()
+	yield(get_tree().create_timer(0.2), "timeout")
+	_on_LobbyReady_pressed()
 
 func errorBox(message):
 	$ErrorBox/Contents/Label.text = message
@@ -112,6 +129,8 @@ func init_fight(go_first: bool):
 	# Usernames and profile pictures
 	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name
+	cardFight.get_node("PlayerInfo/MyInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[myId].pfp + ".png")
+	cardFight.get_node("PlayerInfo/TheirInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[oppId].pfp + ".png")
 
 	cardFight.visible = true
 	cardFight.init_match(oppId, go_first)
@@ -170,7 +189,7 @@ func _on_Host_pressed():
 	
 	# only add myself to the list if not spectating
 	if not $LobbyHost/Rows/Spectating/CheckBox.pressed:
-		lobby_data.players = {1: {"name": hostUnameBox.text, "ready": false}}
+		lobby_data.players = {1: {"name": hostUnameBox.text, "ready": false, "pfp": "Grizzly", "wins": 0}}
 	else:
 		lobby_data.spectators = [1]
 	
@@ -246,8 +265,9 @@ func _on_LobbyReady_pressed():
 	for key in lobby_data.players:
 		if key == get_tree().get_network_unique_id():
 			lobby_data.players[key].ready = not lobby_data.players[key].ready
+			lobby_data.players[key].pfp = $InLobby/Rows/ProfilePic/Pic.text
 			lobbyList.set_item_icon(index, readyIcon if lobby_data.players[key].ready else unreadyIcon)
-			rpc("_player_ready", lobby_data.players[key].ready)
+			rpc("_player_status", lobby_data.players[key])
 			break
 		index = index + 1
 
@@ -312,7 +332,9 @@ func _joined_game():
 		rpc("_register_player", 
 			{
 				"name": joinUnameBox.text,
-				"ready": false
+				"ready": false,
+				"pfp": "Grizzly",
+				"wins": 0
 			}
 		)
 		$InLobby/Rows/DeckOptions.visible = true
@@ -380,8 +402,8 @@ remote func _recieve_lobby_info(new_ld: Dictionary):
 	lobby_data = new_ld
 	update_lobby()
 
-remote func _player_ready(ready: bool):
-	lobby_data.players[get_tree().get_rpc_sender_id()].ready = ready
+remote func _player_status(status: Dictionary):
+	lobby_data.players[get_tree().get_rpc_sender_id()] = status
 
 	update_lobby()
 
