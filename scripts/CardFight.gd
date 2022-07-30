@@ -623,17 +623,11 @@ func quit_match():
 	# Tell opponent I surrendered
 	rpc_id(opponent, "_opponent_quit")
 	
-	# Force a disconnect if I'm server
-	if get_tree().is_network_server():
-		get_tree().network_peer.disconnect_peer(opponent)
-	else:
-		get_tree().network_peer = null
-		visible = false
+	visible = false
 
 ## REMOTE
 remote func _opponent_quit():
 	# Quit network
-	get_tree().network_peer = null
 	visible = false
 
 remote func _opponent_surrendered():
