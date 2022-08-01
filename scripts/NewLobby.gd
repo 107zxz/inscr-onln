@@ -29,8 +29,6 @@ func _ready():
 	get_node("../RulesetLabel").text = CardInfo.ruleset
 
 	# Register profile pictures
-	var pfpsel = $InLobby/Rows/ProfilePic/Pic
-
 #	var dTest = Directory.new()
 #	dTest.open("res://gfx/portraits")
 #	dTest.list_dir_begin()
