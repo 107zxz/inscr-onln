@@ -122,54 +122,63 @@ custom_constants/separation = 35
 alignment = 1
 
 [node name="HostBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 120.0
+margin_top = 88.0
 margin_right = 450.0
-margin_bottom = 150.0
+margin_bottom = 118.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host Game"
 
 [node name="JoinBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 185.0
+margin_top = 153.0
 margin_right = 450.0
-margin_bottom = 215.0
+margin_bottom = 183.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join Game"
 
 [node name="DeckEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 250.0
+margin_top = 218.0
 margin_right = 450.0
-margin_bottom = 280.0
+margin_bottom = 248.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Deck Editor"
 
-[node name="ThemeEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 315.0
+[node name="SelectVersionBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 283.0
 margin_right = 450.0
-margin_bottom = 345.0
+margin_bottom = 313.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Select Ruleset"
+
+[node name="ThemeEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 348.0
+margin_right = 450.0
+margin_bottom = 378.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Theme Editor"
 
 [node name="LogFolder" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 380.0
+margin_top = 413.0
 margin_right = 450.0
-margin_bottom = 410.0
+margin_bottom = 443.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Logs Folder"
 
 [node name="DiscordBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 445.0
+margin_top = 478.0
 margin_right = 450.0
-margin_bottom = 475.0
+margin_bottom = 508.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
@@ -697,18 +706,27 @@ visible = false
 margin_top = -205.5
 margin_bottom = 205.5
 
+[node name="CardFight" parent="." instance=ExtResource( 3 )]
+visible = false
+
 [node name="VersionLabel" type="Label" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -13.0
-margin_right = 40.0
+text = "version"
 
-[node name="CardFight" parent="." instance=ExtResource( 3 )]
-visible = false
+[node name="RulesetLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+text = "Ruleset: "
+align = 2
 
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/HostBtn" to="TitleScreen" method="_on_HostBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/JoinBtn" to="TitleScreen" method="_on_JoinBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/SelectVersionBtn" to="TitleScreen" method="_on_SelectVersionBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]

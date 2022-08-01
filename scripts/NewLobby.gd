@@ -1,8 +1,5 @@
 extends Node
 
-# History
-const VERSION = "0.1.0 DEV"
-
 # Nodes
 onready var themeEditor = get_node("../ThemeEditor")
 onready var deckEditor = get_node("../DeckEdit")
@@ -28,7 +25,8 @@ func _ready():
 	get_tree().connect("network_peer_disconnected", self, "_erase_player")
 
 	# Version
-	get_node("../VersionLabel").text = VERSION
+	get_node("../VersionLabel").text = CardInfo.VERSION
+	get_node("../RulesetLabel").text = CardInfo.ruleset
 
 	# Register profile pictures
 	var pfpsel = $InLobby/Rows/ProfilePic/Pic
@@ -422,3 +420,7 @@ remote func _player_status(status: Dictionary):
 	
 remote func _start_match(go_first: bool):
 	init_fight(go_first)
+
+
+func _on_SelectVersionBtn_pressed():
+	get_tree().change_scene("res://AutoUpdate.tscn")

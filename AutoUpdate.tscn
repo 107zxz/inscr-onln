@@ -1,0 +1,179 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/AutoUpdate.gd" type="Script" id=1]
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "progress"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 15, 16, 17, 18 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Updating ruleset..." ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "progressjoin"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Connecting to game..." ]
+}
+
+[node name="AutoUpdate" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="LoadingBox" type="PanelContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -50.0
+margin_right = 150.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="LoadingBox"]
+margin_left = 2.0
+margin_top = 43.0
+margin_right = 298.0
+margin_bottom = 56.0
+text = "Updating ruleset..."
+align = 1
+percent_visible = 0.888889
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingBox"]
+anims/RESET = SubResource( 7 )
+anims/progress = SubResource( 8 )
+anims/progressjoin = SubResource( 9 )
+
+[node name="SelectionBox" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.0
+margin_top = -40.5
+margin_right = 127.0
+margin_bottom = 40.5
+
+[node name="Rows" type="VBoxContainer" parent="SelectionBox"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 252.0
+margin_bottom = 123.0
+custom_constants/separation = 5
+
+[node name="Label" type="Label" parent="SelectionBox/Rows"]
+margin_right = 250.0
+margin_bottom = 77.0
+rect_min_size = Vector2( 250, 0 )
+text = "Select Ruleset:
+
+A ruleset defines the behaviour of the game, as well as the stats and sigils of each card."
+align = 1
+autowrap = true
+
+[node name="OptionButton" type="OptionButton" parent="SelectionBox/Rows"]
+margin_top = 82.0
+margin_right = 250.0
+margin_bottom = 99.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Current Competitive Ruleset"
+items = [ "Current Competitive Ruleset", null, false, 0, null, "Vanilla Act 2", null, true, 1, null, "Vanilla Act 1", null, true, 2, null, "Vanilla Kaycee's Mod", null, true, 3, null, "Custom", null, false, 4, null ]
+selected = 0
+
+[node name="Url" type="LineEdit" parent="SelectionBox/Rows"]
+visible = false
+margin_top = 104.0
+margin_right = 250.0
+margin_bottom = 121.0
+placeholder_text = "Custom Ruleset URL"
+
+[node name="Continue" type="Button" parent="SelectionBox/Rows"]
+margin_top = 104.0
+margin_right = 250.0
+margin_bottom = 121.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Continue"
+
+[node name="ErrLabel" type="Label" parent="SelectionBox/Rows"]
+visible = false
+margin_top = 126.0
+margin_right = 250.0
+margin_bottom = 139.0
+align = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="VersionLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+margin_right = 40.0
+
+[connection signal="item_selected" from="SelectionBox/Rows/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="SelectionBox/Rows/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
