@@ -27,6 +27,14 @@ func _on_Continue_pressed():
 	if $SelectionBox/Rows/OptionButton.selected < 4:
 		rulesetUrl = rulesetURLs[$SelectionBox/Rows/OptionButton.selected]
 	
+	if $SelectionBox/Rows/OptionButton.selected == 5:
+		CardInfo.read_game_info()
+		
+		print("Using cached ruleset")
+		
+		get_tree().change_scene("res://NewMain.tscn")
+		return
+	
 	# Should I update?
 	if $HTTPRequest.request(rulesetUrl) != 0:
 		$SelectionBox.visible = true

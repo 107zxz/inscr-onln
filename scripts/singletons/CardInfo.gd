@@ -3,11 +3,11 @@ extends Node
 const VERSION = "0.1.0 DEV"
 
 var all_data = {}
-var ruleset = "unnamed/cached ruleset"
+var ruleset = "undefined ruleset"
 var all_sigils = []
 var all_cards = []
 var working_sigils = []
-var deck_path = OS.get_user_data_dir() + "/decks/"
+var deck_path = OS.get_user_data_dir() + "/decks/undef"
 var rules_path = OS.get_user_data_dir() + "/gameInfo.json"
 
 func _enter_tree():
@@ -22,6 +22,7 @@ func from_game_info_json(content_as_object):
 	
 	if "ruleset" in all_data:
 		ruleset = all_data.ruleset
+		deck_path = OS.get_user_data_dir() + "/decks/" + ruleset + "/"
 
 func read_game_info():
 	
