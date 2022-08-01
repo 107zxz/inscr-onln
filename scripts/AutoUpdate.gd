@@ -1,10 +1,11 @@
 extends Control
 
 const rulesetURLs = [
-	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/gameInfo.json",
+	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/competitive.json",
 	null,
 	null,
-	null
+	null,
+	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/sandbox.json"
 ]
 
 func _ready():
@@ -24,16 +25,18 @@ func _on_Continue_pressed():
 	
 	var rulesetUrl = $SelectionBox/Rows/Url.text
 	
-	if $SelectionBox/Rows/OptionButton.selected < 4:
+	if $SelectionBox/Rows/OptionButton.selected < 5:
 		rulesetUrl = rulesetURLs[$SelectionBox/Rows/OptionButton.selected]
 	
-	if $SelectionBox/Rows/OptionButton.selected == 5:
+	if $SelectionBox/Rows/OptionButton.selected == 6:
 		CardInfo.read_game_info()
 		
 		print("Using cached ruleset")
 		
 		get_tree().change_scene("res://NewMain.tscn")
 		return
+	
+	print("Downloading ruleset from url: " + rulesetUrl)
 	
 	# Should I update?
 	if $HTTPRequest.request(rulesetUrl) != 0:
@@ -46,6 +49,7 @@ func _on_Continue_pressed():
 func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
 		var parse = JSON.parse(body.get_string_from_utf8())
+		print(parse.result.ruleset)
 		if parse.error != 0:
 			$SelectionBox.visible = true
 			$LoadingBox.visible = false
@@ -84,7 +88,7 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 
 
 func _on_OptionButton_item_selected(index):
-	if index == 4:
+	if index == 5:
 		$SelectionBox/Rows/Url.visible = true
 	else:
 		$SelectionBox/Rows/Url.visible = false

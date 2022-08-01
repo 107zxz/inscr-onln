@@ -41,11 +41,6 @@ var initial_deck = []
 var side_deck_index = null
 var go_first = null
 
-# Settings TBI
-var gameSettings = {
-	"startingBones": 0
-}
-
 # Game components
 onready var handManager = $HandsContainer/Hands
 onready var playerSlots = $CardSlots/PlayerSlots
@@ -153,14 +148,23 @@ func init_match(opp_id: int, do_go_first: bool):
 	
 	bones = 0
 	opponent_bones = 0
-	add_bones(gameSettings.startingBones)
-	add_opponent_bones(gameSettings.startingBones)
+	add_bones(0)
+	add_opponent_bones(0)
+	
+	if "starting_bones" in CardInfo.all_data:
+		add_bones(CardInfo.all_data.starting_bones)
+		add_opponent_bones(CardInfo.all_data.starting_bones)
 	
 	max_energy_buff = 0
 	opponent_max_energy_buff = 0
 	set_max_energy(int(go_first))
-	set_energy(max_energy)
 	set_opponent_max_energy(int(not go_first))
+	
+	if "starting_energy_max" in CardInfo.all_data:
+		set_max_energy(CardInfo.all_data.starting_energy_max)
+		set_opponent_max_energy(CardInfo.all_data.starting_energy_max)
+	
+	set_energy(max_energy)
 	set_opponent_energy(opponent_max_energy)
 	
 	state = GameStates.NORMAL
@@ -571,11 +575,13 @@ func inflict_damage(dmg):
 	if lives == 0:
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Lose!"
 		$WinScreen.visible = true
+		get_node("/root/Main/TitleScreen").count_loss(opponent)
 	
 	if opponent_lives == 0:
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
 		$WinScreen.visible = true
-
+		get_node("/root/Main/TitleScreen").count_victory()
+		
 
 # Resource visualisation and management
 func add_bones(bone_no):
@@ -618,22 +624,30 @@ func surrender():
 	$WinScreen.visible = true
 	
 	rpc_id(opponent, "_opponent_surrendered")
+	
+	# Document Result
+	get_node("/root/Main/TitleScreen").count_loss(opponent)
 
 func quit_match():
 	# Tell opponent I surrendered
 	rpc_id(opponent, "_opponent_quit")
 	
 	visible = false
+	get_node("/root/Main/TitleScreen").update_lobby()
 
 ## REMOTE
 remote func _opponent_quit():
 	# Quit network
 	visible = false
+	get_node("/root/Main/TitleScreen").update_lobby()
 
 remote func _opponent_surrendered():
 	# Force the game to end
 	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Your opponent Surrendered!"
 	$WinScreen.visible = true
+	
+	# Document Result
+	get_node("/root/Main/TitleScreen").count_victory()
 
 remote func _rematch_requested():
 	if want_rematch:
