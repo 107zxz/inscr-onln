@@ -361,11 +361,6 @@ func begin_perish(doubleDeath = false):
 			fightManager.set_max_energy(fightManager.max_energy)
 			fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
 			
-		# Edaxio cost up when one dies
-		if card_data["name"] == "Edaxio's Vessel":
-			card_data["energy_cost"] += 1
-			fightManager.reload_hand()
-
 		# Get everyone to recalculate buffs (a card died)
 		for card in slotManager.all_friendly_cards():
 			card.calculate_buffs()
@@ -545,6 +540,29 @@ func calculate_buffs():
 	# Reset attack before buff calculation
 	attack = card_data["attack"]
 
+	# Edaxio
+	if card_data["name"] == "Edaxio's Vessel":
+		var win = true
+		
+		if friendly:
+			for i in range(4):
+				if slotManager.is_slot_empty(slotManager.playerSlots[i]) or slotManager.get_friendly_card(i).card_data.name != "Edaxio's Vessel":
+					win = false
+		else:
+			for i in range(4):
+				if slotManager.is_slot_empty(slotManager.enemySlots[i]) or slotManager.get_enemy_card(i).card_data.name != "Edaxio's Vessel":
+					win = false
+		
+		if win and friendly and not fightManager.get_node("WinScreen").visible:
+			fightManager.get_node("WinScreen").visible = true
+			fightManager.get_node("WinScreen/Panel/VBoxContainer/WinLabel").text = "You win via Edaxio's Vessels"
+			get_node("/root/Main/TitleScreen").count_victory()
+		
+		if win and not friendly and not fightManager.get_node("WinScreen").visible:
+			fightManager.get_node("WinScreen").visible = true
+			fightManager.get_node("WinScreen/Panel/VBoxContainer/WinLabel").text = "You lose via Edaxio's Vessels"
+			get_node("/root/Main/TitleScreen").count_loss(fightManager.opponent)
+			
 	# Gem animator
 	if "Mox" in card_data["name"]:
 		for _ga in slotManager.get_friendly_cards_sigil("Gem Animator") if friendly else slotManager.get_enemy_cards_sigil("Gem Animator"):

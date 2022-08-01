@@ -136,9 +136,6 @@ func init_match(opp_id: int, do_go_first: bool):
 	ouro["attack"] = 1
 	ouro["health"] = 1
 
-	var edax = CardInfo.from_name("Edaxio's Vessel")
-	edax["energy_cost"] = 6
-
 	gold_sarcophagus = null
 	sarcophagus_counter = 0
 
@@ -435,16 +432,6 @@ func card_summoned(playedCard):
 			playedCard.get_node("AnimationPlayer").play("Perish")
 			slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
 	
-	# Edaxio
-	if playedCard.card_data["name"] == "Edaxio's Vessel":
-		playedCard.card_data["energy_cost"] -= 1
-		reload_hand()
-
-		# Check for wincon
-		if playedCard.card_data["energy_cost"] < 4:
-			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
-			$WinScreen.visible = true
-
 	# Stoat easter egg
 	if playedCard.card_data["name"] == "Stoat":
 		playedCard.card_data["name"] = "Total Misplay"
@@ -532,11 +519,7 @@ remote func _opponent_played_card(card, slot):
 
 			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
 			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
-	
-	# Check for wincon
-	if card_dt["name"] == "Edaxio's Vessel" and card_dt["energy_cost"] <= 4:
-		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
-		$WinScreen.visible = true
+
 	
 	
 ## SPECIAL CARD STUFF
