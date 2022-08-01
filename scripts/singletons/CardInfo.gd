@@ -7,8 +7,10 @@ var ruleset = "undefined ruleset"
 var all_sigils = []
 var all_cards = []
 var working_sigils = []
+
 var deck_path = OS.get_user_data_dir() + "/decks/undef"
 var rules_path = OS.get_user_data_dir() + "/gameInfo.json"
+var tunnellog_path = OS.get_user_data_dir() + "/lhrlog.txt"
 
 func _enter_tree():
 	read_game_info()

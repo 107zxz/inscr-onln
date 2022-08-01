@@ -129,7 +129,8 @@ func get_deck_object():
 		deck_object["vessel_type"] = CardInfo.all_cards.find(sidedeck_single.card_data)
 	
 	for card in deckDisplay.get_children():
-		deck_object["cards"].append(card.card_data["name"])
+		if not card.is_queued_for_deletion():
+			deck_object["cards"].append(card.card_data["name"])
 	
 	return deck_object
 
@@ -206,10 +207,7 @@ func load_deck(_arg = null):
 	for card in dj["cards"]:
 		var nCard = cardPrefab.instance()
 		
-		if typeof(card) == TYPE_STRING:
-			nCard.from_data(CardInfo.from_name(card))
-		else:
-			nCard.from_data(CardInfo.all_cards[card])
+		nCard.from_data(CardInfo.from_name(card))
 		deckDisplay.add_child(nCard)
 		dSize += 1
 	

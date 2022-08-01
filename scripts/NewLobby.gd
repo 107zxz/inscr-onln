@@ -31,14 +31,16 @@ func _ready():
 	# Register profile pictures
 	var pfpsel = $InLobby/Rows/ProfilePic/Pic
 
-	var dTest = Directory.new()
-	dTest.open("res://gfx/portraits")
-	dTest.list_dir_begin()
-	var fName = dTest.get_next()
-	while fName != "":
-		if not dTest.current_is_dir() and fName.ends_with(".png"):
-			pfpsel.add_item(fName.split(".png")[0])
-		fName = dTest.get_next()
+#	var dTest = Directory.new()
+#	dTest.open("res://gfx/portraits")
+#	dTest.list_dir_begin()
+#	var fName = dTest.get_next()
+#	while fName != "":
+#		if not dTest.current_is_dir() and fName.ends_with(".png"):
+#			pfpsel.add_item(fName.split(".png")[0])
+#		fName = dTest.get_next()
+
+	yield(get_tree().create_timer(0.1), "timeout")
 	
 	for option in OS.get_cmdline_args():
 		if option == "listen":
@@ -92,12 +94,18 @@ func update_lobby():
 	lobbyList.clear()
 
 	for player in lobby_data.players:
-		lobbyList.add_item(lobby_data.players[player].name, readyIcon if lobby_data.players[player].ready else unreadyIcon)
+		lobbyList.add_item(lobby_data.players[player].name + " (" + str(lobby_data.players[player].wins) + " wins)", readyIcon if lobby_data.players[player].ready else unreadyIcon)
 
 	$InLobby/Rows/Spectators.text = str(len(lobby_data.spectators)) + " Spectators"
 	
 	$InLobby/Rows/LCode.text = ("IP: " if lobby_data.is_ip else "Lobby Code: ") + lobby_data.code
-	
+
+func count_victory():
+	lobby_data.players[get_tree().get_network_unique_id()].wins += 1
+
+func count_loss(opponent):
+	lobby_data.players[opponent].wins += 1
+
 func init_fight(go_first: bool):
 	print("Morbin time")
 
@@ -262,6 +270,9 @@ func _on_LobbyReady_pressed():
 	
 	for key in lobby_data.players:
 		if key == get_tree().get_network_unique_id():
+			if not lobby_data.players[key].ready and len(deckEditor.get_deck_object()["cards"]) == 0:
+				return
+			
 			lobby_data.players[key].ready = not lobby_data.players[key].ready
 			lobby_data.players[key].pfp = $InLobby/Rows/ProfilePic/Pic.text
 			lobbyList.set_item_icon(index, readyIcon if lobby_data.players[key].ready else unreadyIcon)
@@ -286,6 +297,12 @@ func _on_LobbyReady_pressed():
 
 	rpc("_start_match", not go_first)
 	init_fight(go_first)
+
+func _on_SelectVersionBtn_pressed():
+	get_tree().change_scene("res://AutoUpdate.tscn")
+
+func _on_Kick_pressed():
+	rpc_id(lobby_data.players.keys()[lobbyList.get_selected_items()[0]], "_rejected", "Kicked by lobby host")
 
 # Network callbacks
 func _on_tunnel_output(line):
@@ -332,7 +349,8 @@ func _joined_game():
 				"name": joinUnameBox.text,
 				"ready": false,
 				"pfp": "Grizzly",
-				"wins": 0
+				"wins": 0,
+				"ruleset": CardInfo.ruleset
 			}
 		)
 		$InLobby/Rows/DeckOptions.visible = true
@@ -358,10 +376,16 @@ func _player_connected():
 # Remotes
 remote func _register_player(player_data: Dictionary):
 
+	# Reject if 2 players already in lobby
 	if len(lobby_data.players.keys()) == 2 and get_tree().is_network_server():
 		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Lobby is full, you may still join as a spectator")
 		return
 	
+	# Reject if running a different game version
+	if player_data["ruleset"] != CardInfo.ruleset:
+		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different ruleset to you (\"" + CardInfo.ruleset + "\")")
+		return
+		
 	lobby_data.players[get_tree().get_rpc_sender_id()] = player_data
 	update_lobby()
 
@@ -421,6 +445,3 @@ remote func _player_status(status: Dictionary):
 remote func _start_match(go_first: bool):
 	init_fight(go_first)
 
-
-func _on_SelectVersionBtn_pressed():
-	get_tree().change_scene("res://AutoUpdate.tscn")

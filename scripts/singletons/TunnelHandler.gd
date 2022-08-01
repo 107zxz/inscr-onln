@@ -11,18 +11,18 @@ func start_tunnel():
 	# These commands for windows systems
 	if OS.get_name() == "Windows":
 		print("Executing windows commands")
-		OS.execute ("cmd.exe", ["/c", "TYPE NUL > lhrlog.txt"], true)
-		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
+		OS.execute ("cmd.exe", ["/c", "TYPE NUL > " + CardInfo.tunnellog_path], true)
+		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > " + CardInfo.tunnellog_path], false)
 	# These commands for OSX / Linux systems
 	else:
-		OS.execute ("bash", ["-c", "echo \"\" > lhrlog.txt"], true)
-		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > lhrlog.txt"], false)
+		OS.execute ("bash", ["-c", "echo \"\" > " + CardInfo.tunnellog_path], true)
+		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > " + CardInfo.tunnellog_path], false)
 	
 	var fiel = File.new()
 	
 	var current_size = 0
 	
-	print("Opening lhrlog.txt with err code: ", fiel.open("lhrlog.txt", File.READ))
+	print("Opening lhrlog.txt with err code: ", fiel.open(CardInfo.tunnellog_path, File.READ))
 	while OS.is_process_running(pid):
 		yield(get_tree().create_timer(1), "timeout")
 		
