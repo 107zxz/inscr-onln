@@ -141,7 +141,7 @@ margin_bottom = 99.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Current Competitive Ruleset"
-items = [ "Current Competitive Ruleset", null, false, 0, null, "Vanilla Act 2", null, true, 1, null, "Vanilla Act 1", null, true, 2, null, "Vanilla Kaycee's Mod", null, true, 3, null, "Custom", null, false, 4, null ]
+items = [ "Current Competitive Ruleset", null, false, 0, null, "Vanilla Act 2", null, true, 1, null, "Vanilla Act 1", null, true, 2, null, "Vanilla Kaycee's Mod", null, true, 3, null, "Custom", null, false, 4, null, "Previously Downloaded", null, false, 5, null ]
 selected = 0
 
 [node name="Url" type="LineEdit" parent="SelectionBox/Rows"]
