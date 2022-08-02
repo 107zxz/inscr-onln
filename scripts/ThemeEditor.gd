@@ -78,11 +78,14 @@ func apply_theme():
 	paperTheme.get_stylebox("rare_normal", "Card").bg_color = theme_data.cards.rare.normal
 	paperTheme.get_stylebox("rns_normal", "Card").bg_color = theme_data.cards.rns.normal
 	paperTheme.get_stylebox("nosac_normal", "Card").bg_color = theme_data.cards.nosac.normal
+	paperTheme.get_stylebox("nohammer_normal", "Card").bg_color = theme_data.cards.nohammer.normal
 	
 	paperTheme.get_stylebox("hover", "Card").bg_color = theme_data.cards.common.hover
 	paperTheme.get_stylebox("rare_hover", "Card").bg_color = theme_data.cards.rare.hover
 	paperTheme.get_stylebox("rns_hover", "Card").bg_color = theme_data.cards.rns.hover
 	paperTheme.get_stylebox("nosac_hover", "Card").bg_color = theme_data.cards.nosac.hover
+	
+	paperTheme.get_stylebox("nohammer_hover", "Card").bg_color = theme_data.cards.nohammer.hover
 	
 	# Button colours
 	for col in paperTheme.get_color_list("Button"):

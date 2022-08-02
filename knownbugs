@@ -1,7 +1,6 @@
-TODO: Side deck format
 TODO: Deck checking
 
-Deck editor not selecting correct deck (always top)
+Battle not selecting correct deck (always top)
 Sharp Quills not looping as in vanilla
 Sometimes extra cards drawn at the start of the round (high ping?)
 Gem dep not dying when all mox broken
@@ -9,7 +8,10 @@ Animation bug when Ruby Golem attacks Sharp Quills
 Card effect spawns not noticed by Guardian (factory conduit)
 Conduit effects not applying to entire circuit
 Fledgling should calculate evolution health by damage taken
+Theme editor not working on unhammerable cards
 
 
 Low priority:
 Starter decks
+Side deck format and ruleset customisability
+Spectating
