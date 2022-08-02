@@ -604,7 +604,7 @@ func calculate_buffs():
 			if fightManager.max_energy_buff == 0:
 				for pCard in slotManager.all_friendly_cards():
 					if pCard != self and "conduit" in pCard.card_data:
-						fightManager.max_energy_buff = 2
+						fightManager.max_energy_buff = 3
 						fightManager.set_max_energy(fightManager.max_energy)
 						fightManager.set_energy(fightManager.energy + fightManager.max_energy_buff)
 						break
