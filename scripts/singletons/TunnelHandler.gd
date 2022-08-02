@@ -15,14 +15,15 @@ func start_tunnel():
 		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > " + CardInfo.tunnellog_path], false)
 	# These commands for OSX / Linux systems
 	else:
-		OS.execute ("bash", ["-c", "echo \"\" > " + CardInfo.tunnellog_path], true)
-		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > " + CardInfo.tunnellog_path], false)
+		print("Executing Linux / OSX commands")
+		OS.execute ("bash", ["-c", "echo \"\" > '" + CardInfo.tunnellog_path + "'"], true)
+		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > '" + CardInfo.tunnellog_path + "'"], false)
 	
 	var fiel = File.new()
 	
 	var current_size = 0
 	
-	print("Opening lhrlog.txt with err code: ", fiel.open(CardInfo.tunnellog_path, File.READ))
+	print("Opening '", CardInfo.tunnellog_path, "' with err code: ", fiel.open(CardInfo.tunnellog_path, File.READ))
 	while OS.is_process_running(pid):
 		yield(get_tree().create_timer(1), "timeout")
 		
@@ -33,6 +34,8 @@ func start_tunnel():
 			emit_signal("recieved_output", fiel.get_as_text().right(current_size))
 			
 			current_size = fiel.get_len()
+	
+	fiel.close()
 	
 	print("Process died")
 	emit_signal("process_ended")
