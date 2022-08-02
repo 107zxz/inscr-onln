@@ -207,7 +207,24 @@ func load_deck(_arg = null):
 	for card in dj["cards"]:
 		var nCard = cardPrefab.instance()
 		
-		nCard.from_data(CardInfo.from_name(card))
+		var cdat = CardInfo.from_name(card)
+		
+		if "banned" in cdat:
+			continue
+		
+		if "rare" in cdat:
+			var found = false
+			for child in deckDisplay.get_children():
+				if child.is_queued_for_deletion():
+					continue
+				
+				if child.card_data.name == cdat.name:
+					found = true
+					break
+			if found:
+				continue
+		
+		nCard.from_data(cdat)
 		deckDisplay.add_child(nCard)
 		dSize += 1
 	
