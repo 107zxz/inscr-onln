@@ -50,5 +50,5 @@ func join_lobby(url: String) -> int:
 
 func kill():
 	if get_tree().network_peer:
-		get_tree().network_peer.stop() if get_tree().is_network_server() else get_tree().network_peer.disconnect_from_host()
+		var _nop = get_tree().network_peer.stop() if get_tree().is_network_server() else get_tree().network_peer.disconnect_from_host()
 		get_tree().network_peer = null
