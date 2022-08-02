@@ -140,9 +140,9 @@ margin_right = 250.0
 margin_bottom = 99.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Latest IMF Competitive"
-items = [ "Latest IMF Competitive", null, false, 0, null, "Vanilla Act 2", null, true, 1, null, "Vanilla Act 1", null, true, 2, null, "Vanilla Kaycee's Mod", null, true, 3, null, "Sandbox (infinite stuff)", null, false, 4, null, "Custom", null, false, 5, null, "Use Current (Offline)", null, false, 6, null ]
-selected = 0
+text = "Use Current (Reload)"
+items = [ "Latest IMF Competitive", null, false, 0, null, "Vanilla Act 2", null, true, 1, null, "Vanilla Act 1", null, true, 2, null, "Vanilla Kaycee's Mod", null, true, 3, null, "Sandbox (infinite stuff)", null, false, 4, null, "Custom", null, false, 5, null, "Use Current (Reload)", null, false, 6, null ]
+selected = 6
 
 [node name="Url" type="LineEdit" parent="SelectionBox/Rows"]
 visible = false
