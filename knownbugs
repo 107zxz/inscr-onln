@@ -7,6 +7,7 @@ Gem dep not dying when all mox broken
 Animation bug when Ruby Golem attacks Sharp Quills
 Card effect spawns not noticed by Guardian (factory conduit)
 Conduit effects not applying to entire circuit
+Fledgling should calculate evolution health by damage taken
 
 
 Low priority:
