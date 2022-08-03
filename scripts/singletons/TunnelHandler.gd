@@ -11,8 +11,8 @@ func start_tunnel():
 	# These commands for windows systems
 	if OS.get_name() == "Windows":
 		print("Executing windows commands")
-		OS.execute ("cmd.exe", ["/c", "TYPE NUL > " + CardInfo.tunnellog_path], true)
-		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > " + CardInfo.tunnellog_path], false)
+		OS.execute ("cmd.exe", ["/c", "TYPE NUL > '" + CardInfo.tunnellog_path + "'"], true)
+		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > '" + CardInfo.tunnellog_path + "'"], false)
 	# These commands for OSX / Linux systems
 	else:
 		print("Executing Linux / OSX commands")
