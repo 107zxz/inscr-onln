@@ -179,7 +179,7 @@ func ensure_default_deck():
 	fTest.open(OS.get_user_data_dir())
 	
 	if not fTest.dir_exists(CardInfo.deck_path):
-		print("Creating deck directory! Error code: ", fTest.make_dir(CardInfo.deck_path))
+		print("Creating deck directory! Error code: ", fTest.make_dir_recursive(CardInfo.deck_path))
 	
 	if not defDeck.file_exists(CardInfo.deck_path + "default.deck"):
 		defDeck.open(CardInfo.deck_path + "default.deck", File.WRITE)
@@ -317,10 +317,11 @@ func _on_SDSel_item_selected(index):
 
 
 func _on_SortButton_pressed():
+	var cardList = get_deck_object()["cards"]
+
 	for eCard in deckDisplay.get_children():
 		eCard.queue_free()
 	
-	var cardList = get_deck_object()["cards"]
 	
 	cardList.sort()
 	
@@ -331,10 +332,11 @@ func _on_SortButton_pressed():
 		dSize += 1
 		
 func _on_ShuffleButton_pressed():
+	var cardList = get_deck_object()["cards"]
+
 	for eCard in deckDisplay.get_children():
 		eCard.queue_free()
 	
-	var cardList = get_deck_object()["cards"]
 	
 	cardList.shuffle()
 	
