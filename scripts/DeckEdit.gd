@@ -176,7 +176,7 @@ func ensure_default_deck():
 	var fTest = Directory.new()
 	var defDeck = File.new()
 	
-	fTest.open(".")
+	fTest.open(OS.get_user_data_dir())
 	
 	if not fTest.dir_exists(CardInfo.deck_path):
 		print("Creating deck directory! Error code: ", fTest.make_dir(CardInfo.deck_path))
