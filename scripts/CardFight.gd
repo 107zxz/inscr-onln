@@ -89,6 +89,8 @@ var sarcophagus_counter = 0
 var want_rematch = false
 
 func init_match(opp_id: int, do_go_first: bool):
+	print("Starting match...")
+	
 	opponent = opp_id
 	go_first = do_go_first
 	
@@ -130,11 +132,6 @@ func init_match(opp_id: int, do_go_first: bool):
 	opponent_lives = 2
 	damage_stun = false
 	turns_starving = 0
-
-	# Reset ouro
-	var ouro = CardInfo.from_name("Ouroboros")
-	ouro["attack"] = 1
-	ouro["health"] = 1
 
 	gold_sarcophagus = null
 	sarcophagus_counter = 0

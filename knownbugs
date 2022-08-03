@@ -1,18 +1,8 @@
-TODO: Allow user to use their opponent's ruleset
-TODO: Save each ruleset in a different file "rules/" directory?
-TODO: Nerf stim mage somehow
-
-Battle not selecting correct deck (always top)
-Sharp Quills not looping as in vanilla
-Sometimes extra cards drawn at the start of the round (high ping?)
-Gem dep not dying when all mox broken
-Card effect spawns not noticed by Guardian (factory conduit)
-Conduit effects not applying to entire circuit
-Fledgling should calculate evolution health by damage taken
-
-
 Low priority:
+Allow user to use their opponent's ruleset
+Save each ruleset in a different file "rules/" directory?
 Starter decks
 Side deck format and ruleset customisability
 Spectating
-Animation bug when Ruby Golem attacks Sharp Quills
+Do something with HandManager (move hand functions there from CardFight)
+Sometimes extra cards drawn at the start of the round (high ping?)
