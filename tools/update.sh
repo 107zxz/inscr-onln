@@ -3,7 +3,7 @@
 gex="/Applications/Godot.app/Contents/MacOS/Godot"
 bdir="Export"
 pdir=".."
-vno=$(awk -F'"' '/^const VERSION/ {print $2}' ../scripts/Network.gd)
+vno=$(awk -F'"' '/^const VERSION/ {print $2}' ../scripts/singletons/CardInfo.gd)
 
 echo Preparing to generate builds for version: $vno
 
