@@ -1,3 +1,8 @@
+TODO:
+Display wins in game
+Fix deck folder not auto-creating
+Prompt to download ruleset on first launch
+
 Low priority:
 Allow user to use their opponent's ruleset
 Save each ruleset in a different file "rules/" directory?

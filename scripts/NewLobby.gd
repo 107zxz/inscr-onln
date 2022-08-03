@@ -100,9 +100,11 @@ func update_lobby():
 
 func count_victory():
 	lobby_data.players[get_tree().get_network_unique_id()].wins += 1
+	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[get_tree().get_network_unique_id()].name + " (" + lobby_data.players[get_tree().get_network_unique_id()].wins + ")"	
 
 func count_loss(opponent):
 	lobby_data.players[opponent].wins += 1
+	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[opponent].name + " (" + lobby_data.players[opponent].wins + ")"
 
 func init_fight(go_first: bool):
 	print("Morbin time")
@@ -134,8 +136,8 @@ func init_fight(go_first: bool):
 		cardFight.side_deck = [ddata.vessel_type]
 	
 	# Usernames and profile pictures
-	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name
-	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name
+	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name + " (" + lobby_data.players[myId].wins + ")"
+	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name + " (" + lobby_data.players[oppId].wins + ")"
 	cardFight.get_node("PlayerInfo/MyInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[myId].pfp + ".png")
 	cardFight.get_node("PlayerInfo/TheirInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[oppId].pfp + ".png")
 

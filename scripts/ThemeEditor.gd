@@ -147,10 +147,7 @@ func apply_controls():
 
 func save_theme():
 	
-	var theme_path = "theme.json"
-	
-	if OS.get_name() == "OSX":
-		theme_path = "user://theme.json"
+	var theme_path = "user://theme.json"
 	
 	var sFile = File.new()
 	sFile.open(theme_path, File.WRITE)
@@ -188,10 +185,7 @@ func update_controls():
 
 func attempt_load_theme():
 	
-	var theme_path = "theme.json"
-	
-	if OS.get_name() == "OSX":
-		theme_path = "user://theme.json"
+	var theme_path = "user://theme.json"
 	
 	var tFile = File.new()
 	if tFile.file_exists(theme_path):
