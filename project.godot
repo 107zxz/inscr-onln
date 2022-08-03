@@ -37,8 +37,8 @@ gdscript/warnings/return_value_discarded=false
 multirun/number_of_windows=2
 multirun/window_distance=1270
 multirun/add_custom_args=true
-multirun/first_window_args="listen noupdate"
-multirun/other_window_args="join noupdate"
+multirun/first_window_args="listen"
+multirun/other_window_args="join"
 
 [display]
 
