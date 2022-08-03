@@ -21,6 +21,8 @@ func get_available_blood() -> int:
 	var blood = 0
 	
 	for card in all_friendly_cards():
+		if card.has_sigil("Sacrificial Substitute"):
+			blood += 1
 		if card.has_sigil("Worthy Sacrifice"):
 			blood += 2
 		# Don't allow saccing mox cards
@@ -72,6 +74,8 @@ func attempt_sacrifice():
 		sacValue += 1
 		if victim.has_sigil("Worthy Sacrifice"):
 			sacValue += 2
+		if victim.has_sigil("Sacrificial Substitute"):
+			sacValue += 1
 
 	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
 		# Kill sacrifical victims
@@ -517,7 +521,7 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 	
 	if sName == "Stimulate":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 4)
 		eCard.health += 1
 		eCard.attack += 1
 

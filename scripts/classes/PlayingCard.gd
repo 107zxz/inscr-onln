@@ -497,10 +497,10 @@ func _on_ActiveSigil_pressed():
 		draw_stats()
 	
 	if sName == "Stimulate":
-		if fightManager.energy < 3:
+		if fightManager.energy < 4:
 			return
 	
-		fightManager.set_energy(fightManager.energy - 3)
+		fightManager.set_energy(fightManager.energy - 4)
 		health += 1
 		attack += 1
 		card_data["attack"] = attack # Save attack to avoid deletion later
