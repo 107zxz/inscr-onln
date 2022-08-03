@@ -36,8 +36,9 @@ func read_game_info():
 		file.open(rules_path, File.READ)
 		print(rules_path)
 	else:
-		print("Downloaded rules not found! Using saved as fallback (this is normal for first use after install)")
+		print("Downloaded rules not found! Prompting for download")
 		file.open("res://data/gameInfo.json", File.READ)
+		get_tree().change_scene("res://AutoUpdate.tscn")
 		
 	var file_content = file.get_as_text()
 	var content_as_object = parse_json(file_content)
