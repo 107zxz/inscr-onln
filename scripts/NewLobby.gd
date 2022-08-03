@@ -122,6 +122,9 @@ func init_fight(go_first: bool):
 			oppId = player
 	
 	# Pass deck to CardFight
+	deckEditor.ensure_default_deck()
+	deckEditor.populate_deck_list()
+	deckEditor.get_node("HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
 	deckEditor.load_deck()
 	var ddata = deckEditor.get_deck_object()
 
@@ -149,11 +152,11 @@ func _on_ThemeEditorBtn_pressed():
 func _on_DeckEditorBtn_pressed():
 	deckEditor.visible = true
 
-	get_node("/root/Main/DeckEdit").visible = true
-	get_node("/root/Main/DeckEdit").ensure_default_deck()
-	get_node("/root/Main/DeckEdit").populate_deck_list()
-	get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
-	get_node("/root/Main/DeckEdit").load_deck()
+	deckEditor.visible = true
+	deckEditor.ensure_default_deck()
+	deckEditor.populate_deck_list()
+	deckEditor.get_node("HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
+	deckEditor.load_deck()
 func _on_HostBtn_pressed():
 	$LobbyHost.visible = true
 	$Blocker.visible = true

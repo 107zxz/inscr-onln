@@ -417,13 +417,13 @@ func begin_perish(doubleDeath = false):
 			return
 
 
-# This is called when a card evolves with the fledgeling sigil
+# This is called when a card evolves with the fledgling sigil
 func evolve():
-	var pHealth = health
+	var dmgTaken = card_data["health"] - health
 
 	from_data(CardInfo.from_name(card_data["evolution"]))
 
-	health = pHealth
+	health = card_data["health"] - dmgTaken
 
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():

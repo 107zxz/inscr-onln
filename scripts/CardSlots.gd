@@ -429,10 +429,29 @@ func handle_attack(from_slot, to_slot):
 		
 		# Sharp quills
 		if eCard.has_sigil("Sharp Quills"):
+
 			pCard.health -= 1
 			pCard.draw_stats()
 			if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
 				pCard.get_node("AnimationPlayer").play("Perish")
+			
+			# Special loop interaction
+			if pCard.has_sigil("Sharp Quills"):
+				while pCard.health > 0 and eCard.health > 0:
+					
+					eCard.health -= 1
+
+					eCard.draw_stats()
+					if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
+						eCard.get_node("AnimationPlayer").play("Perish")
+						break
+					
+					pCard.health -= 1
+
+					pCard.draw_stats()
+					if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
+						pCard.get_node("AnimationPlayer").play("Perish")
+						break
 		
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
@@ -482,6 +501,13 @@ remote func remote_card_summon(cDat, slot_idx):
 	nCard.in_hand = false
 	enemySlots[slot_idx].add_child(nCard)
 
+	# Guardian
+	if is_slot_empty(playerSlots[slot_idx]):
+		var guardians = get_friendly_cards_sigil("Guardian")
+		if guardians:
+			rpc_id(fightManager.opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot_idx, false)
+			guardians[0].move_to_parent(playerSlots[slot_idx])
+	
 
 remote func remote_activate_sigil(card_slot, arg = 0):
 	var eCard = enemySlots[card_slot].get_child(0)
@@ -610,11 +636,29 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		
 		# Sharp quills
 		if pCard.has_sigil("Sharp Quills"):
+
 			eCard.health -= 1
 			eCard.draw_stats()
-			if eCard.health <= 0 or "Touch of Death" in pCard.has_sigil("Touch of Death"):
+			if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
 				eCard.get_node("AnimationPlayer").play("Perish")
+			
+			# Special loop interaction
+			if eCard.has_sigil("Sharp Quills"):
+				while eCard.health > 0 and pCard.health > 0:
+					pCard.health -= 1
 
+					pCard.draw_stats()
+					if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
+						pCard.get_node("AnimationPlayer").play("Perish")
+						break
+					
+					eCard.health -= 1
+
+					eCard.draw_stats()
+					if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
+						eCard.get_node("AnimationPlayer").play("Perish")
+						break
+					
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
 	if card_slot < 3:
@@ -641,23 +685,21 @@ func get_conduitfx(card):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				lconduit = slots[sIdx].get_child(0)
-				break
-	
+				if "sigils" in lconduit.card_data:
+					conduitfx.append_array(lconduit.card_data["sigils"])
+
+
 	# Check slots right of slot_idx
 	for sIdx in range(slot_idx + 1, 4):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
-				break
+				if "sigils" in rconduit.card_data:
+					conduitfx.append_array(rconduit.card_data["sigils"])
 	
 	if not (lconduit and rconduit):
 		return []
 	
-	if "sigils" in lconduit.card_data:
-		conduitfx.append_array(lconduit.card_data["sigils"])
-	if "sigils" in rconduit.card_data:
-		conduitfx.append_array(rconduit.card_data["sigils"])
-
 	if conduitfx == []:
 		conduitfx = ["Basic"]
 	
@@ -679,23 +721,21 @@ func get_conduitfx_friendly(slot_idx):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				lconduit = slots[sIdx].get_child(0)
-				break
-	
+				if "sigils" in lconduit.card_data:
+					conduitfx.append_array(lconduit.card_data["sigils"])
+
+
 	# Check slots right of slot_idx
 	for sIdx in range(slot_idx + 1, 4):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
-				break
+				if "sigils" in rconduit.card_data:
+					conduitfx.append_array(rconduit.card_data["sigils"])
 	
 	if not (lconduit and rconduit):
 		return []
 	
-	if "sigils" in lconduit.card_data:
-		conduitfx.append_array(lconduit.card_data["sigils"])
-	if "sigils" in rconduit.card_data:
-		conduitfx.append_array(rconduit.card_data["sigils"])
-
 	if conduitfx == []:
 		conduitfx = ["Basic"]
 	
