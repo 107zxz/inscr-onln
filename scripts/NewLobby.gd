@@ -213,13 +213,14 @@ func _on_Host_pressed():
 		$InLobby.visible = true
 
 		$InLobby/Rows/LCode.text = "IP: N/A"
+		lobby_data.code = "N/A"
 		for ip in IP.get_local_addresses():
 			if ip.begins_with("192"):
 				$InLobby/Rows/LCode.text = "IP: " + ip
-
 				lobby_data.code = ip
-				lobby_data.is_ip = true
 				break
+				
+		lobby_data.is_ip = true
 
 		update_lobby()
 
