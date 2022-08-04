@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sacrificial Substitute.png-78f5fd1b331713c68ac0017872572465.stex"
+path="res://.import/Noble Sacrifice.png-6338655ee3bfa40bbf691363686ff0eb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/sigils/Sacrificial Substitute.png"
-dest_files=[ "res://.import/Sacrificial Substitute.png-78f5fd1b331713c68ac0017872572465.stex" ]
+source_file="res://gfx/sigils/Noble Sacrifice.png"
+dest_files=[ "res://.import/Noble Sacrifice.png-6338655ee3bfa40bbf691363686ff0eb.stex" ]
 
 [params]
 

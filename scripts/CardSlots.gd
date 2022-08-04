@@ -21,7 +21,7 @@ func get_available_blood() -> int:
 	var blood = 0
 	
 	for card in all_friendly_cards():
-		if card.has_sigil("Sacrificial Substitute"):
+		if card.has_sigil("Noble Sacrifice"):
 			blood += 1
 		if card.has_sigil("Worthy Sacrifice"):
 			blood += 2
@@ -74,7 +74,7 @@ func attempt_sacrifice():
 		sacValue += 1
 		if victim.has_sigil("Worthy Sacrifice"):
 			sacValue += 2
-		if victim.has_sigil("Sacrificial Substitute"):
+		if victim.has_sigil("Noble Sacrifice"):
 			sacValue += 1
 
 	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
