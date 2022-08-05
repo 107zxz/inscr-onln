@@ -8,15 +8,22 @@ signal process_ended()
 func start_tunnel():
 	print("Starting tunnel")
 	
+	# Clear / create log file
+	var lf = File.new()
+	lf.open(CardInfo.tunnellog_path, File.WRITE)
+	lf.close()
+	
+	print(CardInfo.tunnellog_path.replace("/", "\\"))
+	
 	# These commands for windows systems
 	if OS.get_name() == "Windows":
 		print("Executing windows commands")
-		OS.execute ("cmd.exe", ["/c", "TYPE NUL > '" + CardInfo.tunnellog_path + "'"], true)
-		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > '" + CardInfo.tunnellog_path + "'"], false)
+#		OS.execute ("cmd.exe", ["/c", "TYPE NUL > '" + CardInfo.tunnellog_path + "'"], true)
+		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > \"" + CardInfo.tunnellog_path.replace("/", "\\") + "\""], false)
 	# These commands for OSX / Linux systems
 	else:
 		print("Executing Linux / OSX commands")
-		OS.execute ("bash", ["-c", "echo \"\" > '" + CardInfo.tunnellog_path + "'"], true)
+#		OS.execute ("bash", ["-c", "echo \"\" > '" + CardInfo.tunnellog_path + "'"], true)
 		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > '" + CardInfo.tunnellog_path + "'"], false)
 	
 	var fiel = File.new()

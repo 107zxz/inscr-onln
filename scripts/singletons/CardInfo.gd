@@ -10,6 +10,7 @@ var working_sigils = []
 
 var deck_path = OS.get_user_data_dir() + "/decks/undef/"
 var rules_path = OS.get_user_data_dir() + "/gameInfo.json"
+var theme_path = OS.get_user_data_dir() + "/theme.json"
 var tunnellog_path = OS.get_user_data_dir() + "/lhrlog.txt"
 
 func _enter_tree():

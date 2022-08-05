@@ -147,10 +147,9 @@ func apply_controls():
 
 func save_theme():
 	
-	var theme_path = "user://theme.json"
 	
 	var sFile = File.new()
-	sFile.open(theme_path, File.WRITE)
+	sFile.open(CardInfo.theme_path, File.WRITE)
 	sFile.store_line(to_json(theme_data))
 	sFile.close()
 
@@ -185,12 +184,10 @@ func update_controls():
 
 func attempt_load_theme():
 	
-	var theme_path = "user://theme.json"
-	
 	var tFile = File.new()
-	if tFile.file_exists(theme_path):
+	if tFile.file_exists(CardInfo.theme_path):
 		print("Found theme.json!")
-		tFile.open(theme_path, File.READ)
+		tFile.open(CardInfo.theme_path, File.READ)
 		if parse_json(tFile.get_as_text()):
 			theme_data = parse_json(tFile.get_as_text())
 			
