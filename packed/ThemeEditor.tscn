@@ -19,7 +19,7 @@ script = ExtResource( 2 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 339.0
-margin_bottom = 409.0
+margin_bottom = 429.0
 
 [node name="Description" type="Label" parent="Options"]
 margin_right = 337.0
@@ -388,12 +388,12 @@ size_flags_horizontal = 3
 margin_top = 370.0
 margin_right = 337.0
 margin_bottom = 390.0
-custom_constants/separation = 211
 
 [node name="Label" type="Label" parent="Options/Accessibility icons"]
 margin_top = 3.0
-margin_right = 106.0
+margin_right = 317.0
 margin_bottom = 16.0
+size_flags_horizontal = 3
 text = "Accessibility icons:"
 
 [node name="CheckBox" type="CheckBox" parent="Options/Accessibility icons"]
@@ -404,10 +404,30 @@ focus_mode = 0
 size_flags_horizontal = 0
 enabled_focus_mode = 0
 
-[node name="Buttons" type="HBoxContainer" parent="Options"]
+[node name="Card Tooltips" type="HBoxContainer" parent="Options"]
 margin_top = 390.0
 margin_right = 337.0
-margin_bottom = 407.0
+margin_bottom = 410.0
+
+[node name="Label" type="Label" parent="Options/Card Tooltips"]
+margin_top = 3.0
+margin_right = 317.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+text = "Card Tooltips:"
+
+[node name="CheckBox" type="CheckBox" parent="Options/Card Tooltips"]
+margin_left = 317.0
+margin_right = 337.0
+margin_bottom = 20.0
+focus_mode = 0
+size_flags_horizontal = 0
+enabled_focus_mode = 0
+
+[node name="Buttons" type="HBoxContainer" parent="Options"]
+margin_top = 410.0
+margin_right = 337.0
+margin_bottom = 427.0
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="Options/Buttons"]
