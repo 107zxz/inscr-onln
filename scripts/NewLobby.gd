@@ -106,7 +106,7 @@ func count_loss(opponent):
 	lobby_data.players[opponent].wins += 1
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[opponent].name + " (" + str(lobby_data.players[opponent].wins) + " wins)"
 
-func init_fight(go_first: bool):
+func init_fight(go_first: int):
 	print("Morbin time")
 
 	lobbyList.set_item_icon(0, unreadyIcon)
@@ -115,6 +115,10 @@ func init_fight(go_first: bool):
 	# Identify players
 	var myId = get_tree().get_network_unique_id()
 	var oppId = -1
+	
+	# Spectator oppid
+	if not myId in lobby_data.players:
+		oppId = go_first
 
 	for player in lobby_data.players:
 
@@ -122,27 +126,32 @@ func init_fight(go_first: bool):
 
 		if player != myId:
 			oppId = player
+		
+		# Sepc testing
+		if player != go_first and not myId in lobby_data.players:
+			myId = player
 	
-	# Pass deck to CardFight
-	deckEditor.ensure_default_deck()
-	deckEditor.populate_deck_list()
-	deckEditor.get_node("HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
-	deckEditor.load_deck()
-	var ddata = deckEditor.get_deck_object()
 
-	cardFight.initial_deck = ddata.cards
-	cardFight.side_deck_index = ddata.side_deck
-	if "vessel_type" in ddata:
-		cardFight.side_deck = [ddata.vessel_type]
+	# Pass deck to CardFight
+	if myId in lobby_data.players:
+		deckEditor.ensure_default_deck()
+		deckEditor.populate_deck_list()
+		deckEditor.get_node("HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
+		deckEditor.load_deck()
+		var ddata = deckEditor.get_deck_object()
+
+		cardFight.initial_deck = ddata.cards
+		cardFight.side_deck_index = ddata.side_deck
+		if "vessel_type" in ddata:
+			cardFight.side_deck = [ddata.vessel_type]
 	
-	# Usernames and profile pictures
 	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name + " (" + str(lobby_data.players[myId].wins) + " wins)"
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name + " (" + str(lobby_data.players[oppId].wins) + " wins)"
 	cardFight.get_node("PlayerInfo/MyInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[myId].pfp + ".png")
 	cardFight.get_node("PlayerInfo/TheirInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[oppId].pfp + ".png")
 
 	cardFight.visible = true
-	cardFight.init_match(oppId, go_first)
+	cardFight.init_match(oppId, go_first == myId)
 
 # UI Callbacks
 func _on_DiscordBtn_pressed():
@@ -297,9 +306,12 @@ func _on_LobbyReady_pressed():
 			return
 
 	# Turn order
-	var go_first = randf() < 0.5
-
-	rpc("_start_match", not go_first)
+	print(lobby_data.players)
+	var go_first = lobby_data.players.keys()[randi() % lobby_data.players.size()]
+	
+	print("Chosen player to go first is : ", go_first)
+	
+	rpc("_start_match", go_first)
 	init_fight(go_first)
 
 func _on_SelectVersionBtn_pressed():
@@ -354,7 +366,9 @@ func _joined_game():
 				"ready": false,
 				"pfp": "Grizzly",
 				"wins": 0,
-				"ruleset": CardInfo.ruleset
+				"ruleset": CardInfo.ruleset,
+				"version": CardInfo.VERSION
+#				"version": "0.0.69"
 			}
 		)
 		$InLobby/Rows/DeckOptions.visible = true
@@ -385,10 +399,17 @@ remote func _register_player(player_data: Dictionary):
 		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Lobby is full, you may still join as a spectator")
 		return
 	
-	# Reject if running a different game version
+	# Reject if running a different game version or ruleset
+	if player_data["version"] != CardInfo.VERSION:
+		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different game version to you (\"" + CardInfo.VERSION + "\")")
+		return
+	
+	
 	if player_data["ruleset"] != CardInfo.ruleset:
 		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different ruleset to you (\"" + CardInfo.ruleset + "\")")
 		return
+	
+	
 		
 	lobby_data.players[get_tree().get_rpc_sender_id()] = player_data
 	update_lobby()
@@ -397,6 +418,12 @@ remote func _register_player(player_data: Dictionary):
 	rpc("_recieve_lobby_info", lobby_data)
 
 remote func _register_spectator():
+	
+	# Don't allow spectating if in game
+	if cardFight.visible:
+		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Match already in progress")
+		return
+	
 	if not get_tree().get_rpc_sender_id() in lobby_data.spectators:
 		lobby_data.spectators.append(get_tree().get_rpc_sender_id())
 	
@@ -441,11 +468,15 @@ remote func _player_status(status: Dictionary):
 		if not lobby_data.players[player].ready:
 			return
 
-	var go_first = randf() < 0.5
-
-	rpc("_start_match", not go_first)
+	# Turn order
+	print(lobby_data.players)
+	var go_first = lobby_data.players.keys()[randi() % lobby_data.players.size()]
+	
+	print("Chosen player to go first is : ", go_first)
+	
+	rpc("_start_match", go_first)
 	init_fight(go_first)
 	
-remote func _start_match(go_first: bool):
+remote func _start_match(go_first: int):
 	init_fight(go_first)
 
