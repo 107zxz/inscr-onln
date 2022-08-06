@@ -322,6 +322,11 @@ func initiate_combat():
 				
 				# Tri strike attack
 				for s_offset in range(-1, 2):
+					yield(get_tree().create_timer(0.01), "timeout")
+					
+					# Break if attacker died from sharp quills
+					if is_slot_empty(playerSlots[slot_index]):
+						break
 
 					# Skip middle if bi-strike
 					if s_offset == 0 and pCard.has_sigil("Bifurcated Strike"):
@@ -348,8 +353,11 @@ func initiate_combat():
 				# Reset attack effect
 				if slot_index < 3:
 					playerSlots[slot_index + 1].show_behind_parent = false
-				pCard.rect_position.x = 0
-				rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
+
+				if not is_slot_empty(playerSlots[slot_index]):
+					pCard.rect_position.x = 0
+					rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
+					
 			else:
 				# Regular attack
 				
@@ -362,6 +370,10 @@ func initiate_combat():
 				rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
 				yield(cardAnim, "animation_finished")
 		
+			# Did the card get boned?
+			if is_slot_empty(playerSlots[slot_index]):
+				continue
+			
 			# Any form of attack went through
 			# Brittle: Die after attacking
 			if pCard.has_sigil("Brittle"):
@@ -661,6 +673,9 @@ remote func handle_enemy_attack(from_slot, to_slot):
 					
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
+	if is_slot_empty(enemySlots[card_slot]):
+		return
+	
 	if card_slot < 3:
 		if offset > 0:
 			enemySlots[card_slot + 1].show_behind_parent = true
