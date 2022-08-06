@@ -88,6 +88,11 @@ var sarcophagus_counter = 0
 # Network match state
 var want_rematch = false
 
+# Connect in-game signals
+func _ready():
+	for slot in playerSlots.get_children():
+		slot.connect("pressed", self, "play_card", [slot])
+		
 func init_match(opp_id: int, do_go_first: bool):
 	print("Starting match...")
 	
@@ -455,7 +460,16 @@ func hammer_mode():
 
 ## REMOTE
 remote func _opponent_hand_animation(index, animation):
+	if opponent > 0:
+		player_opponent_hand_animation(index, animation)
+	else:
+		spec_opponent_hand_animation(get_tree().get_rpc_sender_id(), index, animation)
+
+func player_opponent_hand_animation(index, animation):
 	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
+
+func spec_opponent_hand_animation(player, index, animation):
+	pass
 
 remote func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
@@ -652,7 +666,6 @@ remote func start_turn():
 			sarcophagus_counter = 0
 		else:
 			sarcophagus_counter -= 1
-	
 
 	# Resolve start-of-turn effects
 	slotManager.pre_turn_sigils()
@@ -674,7 +687,3 @@ remote func start_turn():
 remote func add_remote_bones(bone_no):
 	add_opponent_bones(bone_no)
 
-# Connect in-game signals
-func _ready():
-	for slot in playerSlots.get_children():
-		slot.connect("pressed", self, "play_card", [slot])
