@@ -119,6 +119,9 @@ func apply_theme():
 	GameOptions.enable_accessibility_icons = theme_data.show_accessibility_icons
 	GameOptions.show_card_tooltips = theme_data.show_card_tooltips
 	
+	# Reload deck editor
+	get_node("/root/Main/DeckEdit").search()
+	
 	save_theme()
 
 func apply_controls():
