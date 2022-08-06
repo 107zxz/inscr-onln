@@ -168,7 +168,9 @@ margin_right = 250.0
 margin_bottom = 139.0
 align = 1
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="RulesetRequest" type="HTTPRequest" parent="."]
+
+[node name="ImageRequest" type="HTTPRequest" parent="."]
 
 [node name="VersionLabel" type="Label" parent="."]
 anchor_top = 1.0
@@ -178,4 +180,5 @@ margin_right = 40.0
 
 [connection signal="item_selected" from="SelectionBox/Rows/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="SelectionBox/Rows/Continue" to="." method="_on_Continue_pressed"]
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="RulesetRequest" to="." method="_on_RulesetRequest_request_completed"]
+[connection signal="request_completed" from="ImageRequest" to="." method="_on_RulesetRequest_request_completed"]
