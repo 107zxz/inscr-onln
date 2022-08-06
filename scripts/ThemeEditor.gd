@@ -48,7 +48,8 @@ const default_theme_data = {
 			"background": "#99936d"
 		}
 	},
-	"show_accessibility_icons": false
+	"show_accessibility_icons": false,
+	"show_card_tooltips": true
 }
 
 var theme_data = default_theme_data
@@ -116,6 +117,7 @@ func apply_theme():
 	
 	# Accessibility icons
 	GameOptions.enable_accessibility_icons = theme_data.show_accessibility_icons
+	GameOptions.show_card_tooltips = theme_data.show_card_tooltips
 	
 	save_theme()
 
@@ -144,6 +146,7 @@ func apply_controls():
 	theme_data.buttons.pressed.border = $"Options/Button Border Pressed/LineEdit".text
 
 	theme_data.show_accessibility_icons = $"Options/Accessibility icons/CheckBox".pressed
+	theme_data.show_card_tooltips = $"Options/Card Tooltips/CheckBox".pressed
 
 func save_theme():
 	
@@ -180,7 +183,11 @@ func update_controls():
 	if not "show_accessibility_icons" in theme_data:
 		theme_data["show_accessibility_icons"] = false
 	
+	if not "show_card_tooltips" in theme_data:
+		theme_data.show_card_tooltips = true
+	
 	$"Options/Accessibility icons/CheckBox".pressed = theme_data.show_accessibility_icons
+	$"Options/Card Tooltips/CheckBox".pressed = theme_data.show_card_tooltips
 
 func attempt_load_theme():
 	

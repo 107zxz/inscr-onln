@@ -56,7 +56,45 @@ func draw_special():
 	else:
 		$AtkIcon.visible = false
 		$HBoxContainer/AtkScore.visible = true
-
+	
+	# Tooltip
+	$Button.hint_tooltip = ""
+	
+	if GameOptions.show_card_tooltips:
+		if "rare" in card_data:
+			$Button.hint_tooltip += "Rare: You may only use one copy of this card in your deck.\n"
+			
+		if "nosac" in card_data:
+			$Button.hint_tooltip += "Terrain: This card cannot be sacrificed.\n"
+		
+		if "nohammer" in card_data:
+			$Button.hint_tooltip += "Unhammerable: This card cannot be hammered.\n"
+		
+		if "conduit" in card_data:
+			$Button.hint_tooltip += "Conduit: This card completes a circuit. At least 2 circuit completing \ncards are needed to complete a circuit.\n"
+		
+		if "sigils" in card_data:
+			for sigil in card_data.sigils:
+				var target_text = "\n" + sigil + ": " + CardInfo.all_sigils[sigil]
+				
+				var charcnt = 0
+				
+				for word in target_text.split(" "):
+					charcnt += len(word)
+					$Button.hint_tooltip += word + " "
+					
+					if charcnt > 50:
+						$Button.hint_tooltip += "\n"
+						charcnt = 0
+				
+				# Make sure newlines don't double up on occasion
+				if $Button.hint_tooltip.right(len($Button.hint_tooltip) - 1) != "\n":
+					$Button.hint_tooltip += "\n"
+		
+		if "evolution" in card_data:
+			$Button.hint_tooltip += "This card evolves into: %s\n\n" % card_data.evolution
+		
+		
 func draw_cost():
 	if "blood_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = true
@@ -185,6 +223,9 @@ func draw_sigils():
 				$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
 				$VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 				$VBoxContainer/HBoxContainer/Sigil.visible = false
+				
+				# Tooltip
+#				$VBoxContainer/HBoxContainer/Sigil.hint_tooltip = "AMGOUS"
 			else:
 				$VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 				$VBoxContainer/HBoxContainer/Sigil.visible = true
