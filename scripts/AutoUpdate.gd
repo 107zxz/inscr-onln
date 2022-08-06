@@ -39,14 +39,14 @@ func _on_Continue_pressed():
 	print("Downloading ruleset from url: " + rulesetUrl)
 	
 	# Should I update?
-	if $HTTPRequest.request(rulesetUrl) != 0:
+	if $RulesetRequest.request(rulesetUrl) != 0:
 		$SelectionBox.visible = true
 		$LoadingBox.visible = false
 		
 		$SelectionBox/Rows/ErrLabel.visible = true
 		$SelectionBox/Rows/ErrLabel.text = "Invalid URL"
 
-func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
+func _on_RulesetRequest_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
 		var parse = JSON.parse(body.get_string_from_utf8())
 		print(parse.result.ruleset)

@@ -449,6 +449,12 @@ remote func _erase_player(player_id):
 		cardFight.visible = false
 
 	update_lobby()
+	
+	if get_tree().get_network_unique_id() in lobby_data.players and lobby_data.players[get_tree().get_network_unique_id()].name == "DEBUG_HOST":
+		# Fun fact: removing this line makes the game crash
+		yield(get_tree().create_timer(0.1), "timeout")
+		
+		_on_LobbyQuit_pressed()
 
 remote func _recieve_lobby_info(new_ld: Dictionary):
 
