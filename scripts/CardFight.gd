@@ -628,12 +628,17 @@ func quit_match():
 	
 	visible = false
 	get_node("/root/Main/TitleScreen").update_lobby()
+	
+	debug_cleanup()
 
 ## REMOTE
 remote func _opponent_quit():
 	# Quit network
 	visible = false
 	get_node("/root/Main/TitleScreen").update_lobby()
+	
+	debug_cleanup()
+	
 
 remote func _opponent_surrendered():
 	# Force the game to end
@@ -642,6 +647,16 @@ remote func _opponent_surrendered():
 	
 	# Document Result
 	get_node("/root/Main/TitleScreen").count_victory()
+
+func debug_cleanup():
+	# Quit if I'm a debug instance
+	if "listen" in OS.get_cmdline_args() or "join" in OS.get_cmdline_args():
+		get_tree().quit()
+	
+	if "DEBUG_HOST" in get_node("PlayerInfo/MyInfo/Username").text:
+		get_node("/root/Main/TitleScreen")._on_LobbyQuit_pressed()
+	else:
+		print("\"%s\"" % get_node("PlayerInfo/MyInfo/Username").text)
 
 remote func _rematch_requested():
 	if want_rematch:

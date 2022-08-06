@@ -165,7 +165,7 @@ margin_bottom = 55.0
 alignment = 1
 
 [node name="ExitButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_right = 80.0
+margin_right = 66.0
 margin_bottom = 17.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -173,8 +173,8 @@ enabled_focus_mode = 0
 text = "Exit"
 
 [node name="ShuffleButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 80.0
-margin_right = 161.0
+margin_left = 66.0
+margin_right = 132.0
 margin_bottom = 17.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -182,8 +182,8 @@ enabled_focus_mode = 0
 text = "Shuffle"
 
 [node name="SortButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 161.0
-margin_right = 242.0
+margin_left = 132.0
+margin_right = 198.0
 margin_bottom = 17.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -191,8 +191,8 @@ enabled_focus_mode = 0
 text = "Sort"
 
 [node name="ClearButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 242.0
-margin_right = 323.0
+margin_left = 198.0
+margin_right = 264.0
 margin_bottom = 17.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -200,13 +200,22 @@ enabled_focus_mode = 0
 text = "Clear"
 
 [node name="ViewFolder" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 323.0
-margin_right = 404.0
+margin_left = 264.0
+margin_right = 337.0
 margin_bottom = 17.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = "Deck Folder"
+
+[node name="TestButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+margin_left = 337.0
+margin_right = 404.0
+margin_bottom = 17.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = "Test"
 
 [node name="SearchOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
 unique_name_in_owner = true
@@ -516,6 +525,7 @@ columns = 4
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/SortButton" to="." method="_on_SortButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ClearButton" to="." method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder" to="." method="_on_ViewFolder_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton" to="." method="_on_TestButton_pressed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="." method="search"]

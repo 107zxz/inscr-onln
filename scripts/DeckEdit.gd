@@ -34,7 +34,7 @@ func _on_ExitButton_pressed():
 	visible = false
 	get_node("/root/Main/TitleScreen").populate_deck_list()
 	get_node("/root/Main/TitleScreen").select_deck(selector_de.selected)
-
+	
 func _ready():
 	init_search_ui()
 	search()
@@ -349,3 +349,8 @@ func _on_ShuffleButton_pressed():
 func _on_ViewFolder_pressed():
 	print(CardInfo.deck_path)
 	OS.shell_open("file://" + CardInfo.deck_path)
+
+
+func _on_TestButton_pressed():
+	get_node("/root/Main/TitleScreen").debug_host()
+	OS.execute(OS.get_executable_path(), ["join"], false)
