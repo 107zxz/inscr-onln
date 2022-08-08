@@ -1,5 +1,5 @@
 {
-    "ruleset": "Preinstalled",
+    "ruleset": "IMF Competitive Ruleset v0.02",
     "cards": [
         {
             "name": "Starvation",
@@ -36,7 +36,7 @@
                 "Worthy Sacrifice"
             ],
             "blood_cost": 1,
-            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod. Made rare for enabling early and consistent grizzlies for almost no cost."
+            "description": "Ported from Act 1. Act 2 sprite from Kaycee's Mod."
         },
         {
             "name": "Bloodhound",
@@ -609,7 +609,7 @@
         {
             "name": "M3atB0t",
             "sigils": [
-                "Worthy Sacrifice"
+                "Noble Sacrifice"
             ],
             "attack": 0,
             "health": 1,
@@ -1398,7 +1398,7 @@
         {
             "name": "Bloody Vessel",
             "sigils": [
-                "Worthy Sacrifice"
+                "Noble Sacrifice"
             ],
             "attack": 0,
             "health": 2,
@@ -1407,17 +1407,16 @@
             "description": "Note: Energy cost increased due to opponent not having enough time to build a board before bloody vessel is usable."
         },
         {
-            "name": "Edaxio's Vessel",
+            "name": "Moon Shard",
             "sigils": [
-                "Repulsive",
                 "Mighty Leap"
             ],
             "attack": 0,
-            "health": 2,
+            "health": 10,
             "energy_cost": 6,
-            "nosac": true,
+            "nosac": false,
             "banned": true,
-            "description": "The only alternate win condition. Get 4 of these to win with style."
+            "description": "Emits a pale white light. You feel as though it calls to its brethren."
         },
         {
             "name": "Splintered Vessel",
@@ -1533,6 +1532,7 @@
         "Reconstitute": "A card bearing this sigil returns to your hand 2 turns after it persihes.",
         "Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
         "Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
+        "Noble Sacrifice": "A card bearing this sigil is counted as 2 blood rather than 1 blood when sacrificed.",
         "Scopophobic": "A card bearing this sigil gains 1 power when not facing an enemy creature.",
         "Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
         "Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
@@ -1541,7 +1541,7 @@
         "Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
         "Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",
         "Stinky": "The creature opposing a card bearing this sigil loses 1 Power.",
-        "Stimulate": "Pay 3 energy to increase the power and health of a card bearing this sigil by 1.",
+        "Stimulate": "Pay 4 energy to increase the power and health of a card bearing this sigil by 1.",
         "Tentacle": "Includes effect of Waterborne. In addition, a card bearing this sigil will transform into a random tentacle at the start of each turn.",
         "Touch of Death": "When a card bearing this sigil damages another creature, that creature perishes.",
         "Trifurcated Strike": "A card bearing this sigil will strike each opposing space to the left, right, and center of it.",
@@ -1604,6 +1604,7 @@
         "Energy Conduit",
         "Tentacle",
         "Stinky",
-        "Reconstitute"
+        "Reconstitute",
+        "Noble Sacrifice"
     ]
 }
