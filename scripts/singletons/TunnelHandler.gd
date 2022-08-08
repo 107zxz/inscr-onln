@@ -13,6 +13,9 @@ func start_tunnel():
 	lf.open(CardInfo.tunnellog_path, File.WRITE)
 	lf.close()
 	
+	# Add a delay here for safety, maybe it will fix the bugs?
+	yield(get_tree().create_timer(0.25), "timeout")
+	
 	print(CardInfo.tunnellog_path.replace("/", "\\"))
 	
 	# These commands for windows systems
