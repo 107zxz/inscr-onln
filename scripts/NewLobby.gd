@@ -27,17 +27,10 @@ func _ready():
 	# Version
 	get_node("../VersionLabel").text = CardInfo.VERSION
 	get_node("../RulesetLabel").text = CardInfo.ruleset
-
-	# Register profile pictures
-#	var dTest = Directory.new()
-#	dTest.open("res://gfx/portraits")
-#	dTest.list_dir_begin()
-#	var fName = dTest.get_next()
-#	while fName != "":
-#		if not dTest.current_is_dir() and fName.ends_with(".png"):
-#			pfpsel.add_item(fName.split(".png")[0])
-#		fName = dTest.get_next()
-
+	
+	# Custom Bg
+	$CustomBackground.texture = CardInfo.background_texture
+	
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	for option in OS.get_cmdline_args():

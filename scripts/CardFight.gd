@@ -32,7 +32,7 @@ const side_deck_names = [
 	"Gecks",
 	"GSquirrel",
 	"Cairns",
-	"Magnus Mox"
+	"Moon Shards"
 ]
 
 # Carryovers from lobby
@@ -92,7 +92,9 @@ var want_rematch = false
 func _ready():
 	for slot in playerSlots.get_children():
 		slot.connect("pressed", self, "play_card", [slot])
-		
+	
+	$CustomBg.texture = CardInfo.background_texture
+	
 func init_match(opp_id: int, do_go_first: bool):
 	print("Starting match...")
 	

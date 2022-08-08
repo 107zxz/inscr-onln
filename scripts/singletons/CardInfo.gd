@@ -8,13 +8,32 @@ var all_sigils = []
 var all_cards = []
 var working_sigils = []
 
-var deck_path = OS.get_user_data_dir() + "/decks/undef/"
-var rules_path = OS.get_user_data_dir() + "/gameInfo.json"
-var theme_path = OS.get_user_data_dir() + "/theme.json"
-var tunnellog_path = OS.get_user_data_dir() + "/lhrlog.txt"
+var data_path = OS.get_user_data_dir()
+
+var deck_path = data_path + "/decks/undef/"
+var rules_path = data_path + "/gameInfo.json"
+var theme_path = data_path + "/theme.json"
+var tunnellog_path = data_path + "/lhrlog.txt"
+
+# CB
+var background_texture = null
 
 func _enter_tree():
 	read_game_info()
+	
+	# Custom background
+	load_background_texture()
+
+func load_background_texture():
+	var d = Directory.new()
+	d.change_dir(OS.get_data_dir())
+	for ext in ["png", "jpg"]:
+		var path = "%s/background.%s" % [CardInfo.data_path, ext]
+		if d.file_exists(path):
+			var i = Image.new()
+			i.load(path)
+			background_texture = ImageTexture.new()
+			background_texture.create_from_image(i)
 
 func from_game_info_json(content_as_object):
 	all_data = content_as_object
