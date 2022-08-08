@@ -19,6 +19,11 @@ anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
+[node name="CustomBG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -407,7 +412,7 @@ focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
 text = "Squirrels"
-items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Empty Vessels", null, false, 2, null, "Mox", null, false, 3, null, "WIP BELOW", null, true, 4, null, "3 Gecks", null, false, 4, null, "1 Acid Squirrel", null, false, 5, null, "Shambling Cairns", null, false, 6, null, "2 Weak Magnus Mox", null, true, 8, null ]
+items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Empty Vessels", null, false, 2, null, "Mox", null, false, 3, null, "WIP BELOW", null, true, 4, null, "3 Gecks", null, false, 4, null, "1 Acid Squirrel", null, false, 5, null, "Shambling Cairns", null, false, 6, null, "Moon Shards", null, false, 8, null ]
 selected = 0
 
 [node name="MoxContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]

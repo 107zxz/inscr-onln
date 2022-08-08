@@ -25,7 +25,7 @@ onready var sidedeck_single = get_node("%SDCardSingle")
 
 
 # const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
-const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Acid Squirrel", "Shambling Cairn", "Magnus Mox"]
+const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Acid Squirrel", "Shambling Cairn", "Moon Shard"]
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -34,8 +34,23 @@ func _on_ExitButton_pressed():
 	visible = false
 	get_node("/root/Main/TitleScreen").populate_deck_list()
 	get_node("/root/Main/TitleScreen").select_deck(selector_de.selected)
+
+func apply_custom_background():
+	$CustomBG.texture = CardInfo.background_texture
+	$HBoxContainer/CardPreview.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/DeckOptions.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer.theme_type_variation = "TspBg"
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.theme_type_variation = "TspBg"
 	
 func _ready():
+	
+	if CardInfo.background_texture != null:
+		apply_custom_background()
+	
 	init_search_ui()
 	search()
 	
