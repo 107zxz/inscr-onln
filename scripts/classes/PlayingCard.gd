@@ -114,6 +114,12 @@ func _on_Button_pressed():
 				slotManager.sacVictims.erase(self)
 				$CardBody/SacOlay.visible = false
 			else:
+				
+				# How tf did this not get patched 6 months ago
+				if get_parent().get_parent().name != "PlayerSlots":
+					print("Nice try dumbass!")
+					return
+				
 				# Make sure we're not about to catbrick
 				var brick = true
 				
@@ -128,7 +134,7 @@ func _on_Button_pressed():
 				if brick:
 					return
 				
-				# Don't allow sacrificing "Mox" cards
+				# Don't allow sacrificing nosac cards
 				if "nosac" in card_data:
 					return
 				
@@ -595,8 +601,9 @@ func calculate_buffs():
 
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
-	if "Attack Conduit" in cfx:
-		attack += 1
+
+	# Buff Conduit
+	attack += cfx.count("Attack Conduit")
 	
 	# Energy Conduit
 	if has_sigil("Energy Conduit"):
