@@ -770,6 +770,7 @@ stretch_mode = 5
 
 [node name="ConduitIcon" type="TextureRect" parent="CardBody/VBoxContainer"]
 visible = false
+material = ExtResource( 10 )
 margin_top = 69.0
 margin_right = 81.0
 margin_bottom = 84.0
