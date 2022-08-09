@@ -121,7 +121,7 @@ func download_card_portraits():
 	get_tree().change_scene("res://NewMain.tscn")
 	
 
-func _on_ImageRequest_request_completed(result, response_code, headers, body):
+func _on_ImageRequest_request_completed(_result, response_code, _headers, _body):
 	if response_code != 200:
 		print("Error downloading! Skipping...")
 	
