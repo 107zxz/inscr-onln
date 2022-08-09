@@ -240,7 +240,10 @@ func _on_LogFolder_pressed():
 
 func _on_ErrorOk_pressed():
 	$ErrorBox.visible = false
-	$Blocker.visible = false
+	if $SpecialBlocker.visible:
+		$SpecialBlocker.visible = false
+	else:
+		$Blocker.visible = false
 
 
 func _on_Join_pressed():
@@ -285,6 +288,8 @@ func _on_LobbyReady_pressed():
 	for key in lobby_data.players:
 		if key == get_tree().get_network_unique_id():
 			if not lobby_data.players[key].ready and len(deckEditor.get_deck_object()["cards"]) == 0:
+				$SpecialBlocker.visible = true
+				errorBox("The currently selected deck is empty!")
 				return
 			
 			lobby_data.players[key].ready = not lobby_data.players[key].ready

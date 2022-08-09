@@ -650,6 +650,12 @@ anims/RESET = SubResource( 4 )
 anims/progress = SubResource( 3 )
 anims/progressjoin = SubResource( 6 )
 
+[node name="SpecialBlocker" type="Panel" parent="TitleScreen"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
 [node name="ErrorBox" type="PanelContainer" parent="TitleScreen"]
 visible = false
 anchor_left = 0.5

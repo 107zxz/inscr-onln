@@ -497,8 +497,8 @@ func _on_ActiveSigil_pressed():
 	
 		fightManager.add_bones(-2)
 		health += 1
-		attack += 1
-		card_data["attack"] = attack # Save attack to avoid deletion later
+		card_data.attack += 1 # Save attack to avoid deletion later
+		attack = card_data.attack
 			
 		draw_stats()
 	
@@ -508,9 +508,9 @@ func _on_ActiveSigil_pressed():
 	
 		fightManager.set_energy(fightManager.energy - 4)
 		health += 1
-		attack += 1
-		card_data["attack"] = attack # Save attack to avoid deletion later
-			
+		card_data.attack += 1 # Save attack to avoid deletion later
+		attack = card_data.attack
+		
 		draw_stats()
 	
 	if sName == "Bonehorn":
@@ -539,7 +539,7 @@ func _on_ActiveSigil_pressed():
 
 # Should work for both friendly and unfriendly cards
 func calculate_buffs():
-	print("calculate called on ", card_data["name"], " in ", get_parent().get_parent().name)
+#	print("calculate called on ", card_data["name"], " in ", get_parent().get_parent().name)
 
 	var friendly = get_parent().get_parent().name == "PlayerSlots"
 	
