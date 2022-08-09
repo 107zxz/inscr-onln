@@ -132,7 +132,8 @@ func get_deck_object():
 	if side_deck == 3:
 		side_deck = []
 		for card in sidedeck_container.get_children():
-			side_deck.append(get_card_id(card.card_data))
+			if not card.is_queued_for_deletion():
+				side_deck.append(card.card_data.name)
 	
 	var deck_object = {
 		"cards": [],
@@ -141,7 +142,7 @@ func get_deck_object():
 	
 	# More side deck
 	if typeof(side_deck) == TYPE_INT and side_deck == 2:
-		deck_object["vessel_type"] = CardInfo.all_cards.find(sidedeck_single.card_data)
+		deck_object["vessel_type"] = sidedeck_single.card_data.name
 	
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
@@ -255,7 +256,7 @@ func load_deck(_arg = null):
 		sidedeck_container.visible = true
 		for i in range(10):
 			var nCard = cardPrefab.instance()
-			nCard.from_data(CardInfo.all_cards[dj["side_deck"][i]])
+			nCard.from_data(CardInfo.from_name(dj["side_deck"][i]))
 			sidedeck_container.add_child(nCard)
 	else:
 		sidedeck_single.visible = true
@@ -282,7 +283,7 @@ func load_deck(_arg = null):
 		sidedeck_single.from_data(CardInfo.from_name( sdCards[ dj["side_deck"]] ))
 		
 		if "vessel_type" in dj:
-			sidedeck_single.from_data(CardInfo.all_cards[dj["vessel_type"]])
+			sidedeck_single.from_data(CardInfo.from_name(dj["vessel_type"]))
 			get_node("%CustomizeLabel").visible = true
 		else:
 			get_node("%CustomizeLabel").visible = false
