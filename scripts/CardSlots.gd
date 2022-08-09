@@ -277,7 +277,7 @@ func post_turn_sigils():
 	
 	# Other end-of-turn sigils
 	for card in all_friendly_cards():
-		if card.get_node("AnimationPlayer").is_playing():
+		if "Perish" in card.get_node("AnimationPlayer").current_animation:
 			continue
 		
 		if card.has_sigil("Bone Digger"):
