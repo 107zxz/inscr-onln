@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "0.1.3"
+const VERSION = "0.1.4 DEV"
 
 var all_data = {}
 var ruleset = "undefined ruleset"
@@ -8,12 +8,15 @@ var all_sigils = []
 var all_cards = []
 var working_sigils = []
 
+var custom_portraits = {}
+
 var data_path = OS.get_user_data_dir()
 
 var deck_path = data_path + "/decks/undef/"
 var rules_path = data_path + "/gameInfo.json"
 var theme_path = data_path + "/theme.json"
 var tunnellog_path = data_path + "/lhrlog.txt"
+var custom_portrait_path = data_path + "/portraits/"
 
 # CB
 var background_texture = null
@@ -23,7 +26,7 @@ func _enter_tree():
 	
 	# Custom background
 	load_background_texture()
-
+	
 func load_background_texture():
 	var d = Directory.new()
 	d.change_dir(OS.get_data_dir())

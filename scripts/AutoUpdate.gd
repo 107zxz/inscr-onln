@@ -33,7 +33,10 @@ func _on_Continue_pressed():
 		
 		print("Using cached ruleset")
 		
-		get_tree().change_scene("res://NewMain.tscn")
+		# Special, download portraits (maybe remove this later)
+		download_card_portraits()
+		
+#		get_tree().change_scene("res://NewMain.tscn")
 		return
 	
 	print("Downloading ruleset from url: " + rulesetUrl)
@@ -45,6 +48,8 @@ func _on_Continue_pressed():
 		
 		$SelectionBox/Rows/ErrLabel.visible = true
 		$SelectionBox/Rows/ErrLabel.text = "Invalid URL"
+
+
 
 func _on_RulesetRequest_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
@@ -75,7 +80,8 @@ func _on_RulesetRequest_request_completed(_result, response_code, _headers, body
 		
 		print("Ruleset updated successfully")
 		
-		get_tree().change_scene("res://NewMain.tscn")
+		download_card_portraits()
+		
 		
 	else:
 		print("ERROR UPDATING RULESET")
@@ -84,7 +90,6 @@ func _on_RulesetRequest_request_completed(_result, response_code, _headers, body
 		
 		$SelectionBox/Rows/ErrLabel.visible = true
 		$SelectionBox/Rows/ErrLabel.text = "Target file gave error " + str(response_code)
-#		get_tree().change_scene("res://NewMain.tscn")
 
 
 func _on_OptionButton_item_selected(index):
@@ -92,3 +97,31 @@ func _on_OptionButton_item_selected(index):
 		$SelectionBox/Rows/Url.visible = true
 	else:
 		$SelectionBox/Rows/Url.visible = false
+
+func download_card_portraits():
+	var d = Directory.new()
+	d.change_dir(CardInfo.custom_portrait_path)
+	
+	for card in CardInfo.all_cards:
+		if "pixport_url" in card:
+			
+			var fp = CardInfo.custom_portrait_path + card.name + ".png"
+			
+			if d.file_exists(fp):
+				print("File %s already exists! Skipping download" % fp)
+				continue
+			
+			$ImageRequest.download_file = fp
+			$ImageRequest.request(card.pixport_url)
+			print("Requesting image %s..." % card.pixport_url)
+			
+			yield($ImageRequest, "request_completed")
+
+	# Now switch to main scene
+	get_tree().change_scene("res://NewMain.tscn")
+	
+
+func _on_ImageRequest_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		print("Error downloading! Skipping...")
+	

@@ -29,7 +29,8 @@ func _ready():
 	get_node("../RulesetLabel").text = CardInfo.ruleset
 	
 	# Custom Bg
-	$CustomBackground.texture = CardInfo.background_texture
+	if CardInfo.background_texture:
+		$CustomBackground.texture = CardInfo.background_texture
 	
 	yield(get_tree().create_timer(0.1), "timeout")
 	
