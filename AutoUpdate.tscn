@@ -181,4 +181,4 @@ margin_right = 40.0
 [connection signal="item_selected" from="SelectionBox/Rows/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="pressed" from="SelectionBox/Rows/Continue" to="." method="_on_Continue_pressed"]
 [connection signal="request_completed" from="RulesetRequest" to="." method="_on_RulesetRequest_request_completed"]
-[connection signal="request_completed" from="ImageRequest" to="." method="_on_RulesetRequest_request_completed"]
+[connection signal="request_completed" from="ImageRequest" to="." method="_on_ImageRequest_request_completed"]
