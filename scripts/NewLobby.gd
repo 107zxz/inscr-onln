@@ -273,6 +273,13 @@ func _on_CopyCode_pressed():
 	OS.clipboard = lobby_data.code
 
 func _on_LobbyReady_pressed():
+	
+	# handle deck
+	deckEditor.ensure_default_deck()
+	deckEditor.populate_deck_list()
+	deckEditor.get_node("HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
+	deckEditor.load_deck()
+
 	var index = 0
 	
 	for key in lobby_data.players:
