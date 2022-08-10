@@ -1,8 +1,9 @@
 Make skelemagus have 1/100 chance to be skelemagun
 Same for other cards
-Fix lobby sometimes not readying up
+Move damage calculation logic to PlayingCard
 
-
+Sharp quills loop always killing
+Test other damage stuff
 
 Low priority:
 Allow user to use their opponent's ruleset

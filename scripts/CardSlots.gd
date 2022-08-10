@@ -434,37 +434,7 @@ func handle_attack(from_slot, to_slot):
 					get_node("../DrawPiles/YourDecks/Deck").visible = false
 					break
 	else:
-		eCard.health -= pCard.attack
-		eCard.draw_stats()
-		if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
-			eCard.get_node("AnimationPlayer").play("Perish")
-		
-		# Sharp quills
-		if eCard.has_sigil("Sharp Quills"):
-
-			pCard.health -= 1
-			pCard.draw_stats()
-			if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
-				pCard.get_node("AnimationPlayer").play("Perish")
-			
-			# Special loop interaction
-			if pCard.has_sigil("Sharp Quills"):
-				while pCard.health > 0 and eCard.health > 0:
-					
-					eCard.health -= 1
-
-					eCard.draw_stats()
-					if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
-						eCard.get_node("AnimationPlayer").play("Perish")
-						break
-					
-					pCard.health -= 1
-
-					pCard.draw_stats()
-					if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
-						pCard.get_node("AnimationPlayer").play("Perish")
-						break
-		
+		eCard.take_damage(pCard);	
 	
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
@@ -641,35 +611,7 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	if direct_attack:
 		fightManager.inflict_damage(-eCard.attack)
 	else:
-		pCard.health -= eCard.attack
-		pCard.draw_stats()
-		if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
-			pCard.get_node("AnimationPlayer").play("Perish")
-		
-		# Sharp quills
-		if pCard.has_sigil("Sharp Quills"):
-
-			eCard.health -= 1
-			eCard.draw_stats()
-			if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
-				eCard.get_node("AnimationPlayer").play("Perish")
-			
-			# Special loop interaction
-			if eCard.has_sigil("Sharp Quills"):
-				while eCard.health > 0 and pCard.health > 0:
-					pCard.health -= 1
-
-					pCard.draw_stats()
-					if pCard.health <= 0 or eCard.has_sigil("Touch of Death"):
-						pCard.get_node("AnimationPlayer").play("Perish")
-						break
-					
-					eCard.health -= 1
-
-					eCard.draw_stats()
-					if eCard.health <= 0 or pCard.has_sigil("Touch of Death"):
-						eCard.get_node("AnimationPlayer").play("Perish")
-						break
+		pCard.take_damage(eCard)
 					
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
@@ -790,7 +732,7 @@ func all_enemy_cards():
 	return cards
 
 func is_slot_empty(slot):
-	if slot.get_child_count() and not "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation and not slot.get_child(0).is_queued_for_deletion():
+	if slot.get_child_count() and slot.get_child(0).is_alive():
 		return false
 
 	return true

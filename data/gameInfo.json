@@ -1409,7 +1409,8 @@
         {
             "name": "Moon Shard",
             "sigils": [
-                "Mighty Leap"
+                "Mighty Leap",
+                "Made of Stone"
             ],
             "attack": 0,
             "health": 10,
@@ -1522,6 +1523,7 @@
         "Hefty": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil. creatures in the way will be pushed in the same direction.",
         "Hoarder": "When a card bearing this sigil is played, you may search your deck for any card and take it into your hand.",
         "Looter": "When a card bearing this sigil deals damage directly, draw a card for each damage dealt.",
+        "Made of Stone": "A card bearing this sigil is immune to the effects of touch of death and stinky.",
         "Many Lives": "When a card bearing this sigil is sacrificed it does not perish.",
         "Marrow Sucker": "Pay 2 bones to heal a card bearing this sigil.",
         "Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
