@@ -37,8 +37,8 @@ gdscript/warnings/return_value_discarded=false
 multirun/number_of_windows=2
 multirun/window_distance=1270
 multirun/add_custom_args=true
-multirun/other_window_args="join"
-multirun/first_window_args="listen"
+multirun/other_window_args="join noupdate"
+multirun/first_window_args="listen noupdate"
 
 [display]
 
@@ -71,5 +71,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 0.537255, 0.537255, 0.403922, 1 )
 environment/default_environment="res://default_env.tres"
