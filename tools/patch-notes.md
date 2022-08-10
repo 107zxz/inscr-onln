@@ -2,6 +2,9 @@ v0.1.4 is out!
 
 This update fixes all those bugs discovered during the tournament and provides graphical customisation options
 
+* New Cards
+    * "Moon Shard" sidedeck replaces Edaxio's Vessels
+        * Edaxio's vessels weren't overpowered, but these cards serve a much flashier purpose
 * New Features
     * "Test" mode in deck editor. Lets you play the currently selected deck against yourself
     * Custom background images (place a file named background.png/jpg in the game directory (suggested by Desaft)

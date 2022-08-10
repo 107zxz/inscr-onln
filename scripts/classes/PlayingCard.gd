@@ -203,26 +203,13 @@ func move_to_parent(new_parent):
 		if not slotManager.is_slot_empty(slotManager.enemySlots[new_parent.get_position_in_parent()]):
 			eCard = slotManager.enemySlots[new_parent.get_position_in_parent()].get_child(0)
 			if eCard.has_sigil("Sentry"):
-				health -= 1
-				draw_stats()
-				if health <= 0 or eCard.has_sigil("Touch of Death"):
-					$AnimationPlayer.play("Perish")
-				
-				# Sharp quills
-				if has_sigil("Sharp Quills"):
-					eCard.health -= 1
-					eCard.draw_stats()
-					if eCard.health <= 0 or has_sigil("Touch of Death"):
-						eCard.get_node("AnimationPlayer").play("Perish")
+				take_damage(eCard, 1)
 		
 		# I am the sentry
 		# Activate when moved
 		if has_sigil("Sentry") and not from_hand:
 			if eCard:
-				eCard.health -= 1
-				eCard.draw_stats()
-				if eCard.health <= 0 or has_sigil("Touch of Death"):
-					eCard.get_node("AnimationPlayer").play("Perish")
+				eCard.take_damage(self, 1)
 		
 		# Green Mage
 		if card_data["name"] == "Green Mage":
@@ -234,24 +221,13 @@ func move_to_parent(new_parent):
 		if not slotManager.is_slot_empty(slotManager.playerSlots[new_parent.get_position_in_parent()]):
 			pCard = slotManager.playerSlots[new_parent.get_position_in_parent()].get_child(0)
 			if pCard.has_sigil("Sentry"):
-				health -= 1
-				draw_stats()
-				if health <= 0 or pCard.has_sigil("Touch of Death"):
-					$AnimationPlayer.play("Perish")
-				# Sharp quills
-				if has_sigil("Sharp Quills"):
-					pCard.health -= 1
-					pCard.draw_stats()
-					if pCard.health <= 0 or has_sigil("Touch of Death"):
-						pCard.get_node("AnimationPlayer").play("Perish")
+				take_damage(pCard, 1)
+
 		# I am the sentry
 		# Activate when moved
 		if has_sigil("Sentry") and not from_hand:
 			if pCard:
-				pCard.health -= 1
-				pCard.draw_stats()
-				if pCard.health <= 0 or has_sigil("Touch of Death"):
-					pCard.get_node("AnimationPlayer").play("Perish")
+				pCard.take_damage(self, 1)
 		
 		# Green Mage
 		if card_data["name"] == "Green Mage":
@@ -667,3 +643,22 @@ func has_sigil(sigName):
 	else:
 		if sigName in card_data["sigils"]:
 			return true
+
+# Take damage and die if needed
+func take_damage(enemyCard, dmg_amt = -1):
+
+	if enemyCard and dmg_amt == -1:
+		dmg_amt = enemyCard.attack
+
+	health -= dmg_amt
+	draw_stats()
+
+	if health <= 0 or (enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
+		$AnimationPlayer.play("Perish")
+	
+	# Sharp quills
+	if enemyCard and enemyCard.is_alive() and has_sigil("Sharp Quills"):
+		enemyCard.take_damage(self, 1)
+
+func is_alive():
+	return not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion()
