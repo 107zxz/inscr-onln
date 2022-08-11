@@ -310,6 +310,13 @@ func initiate_combat():
 	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 		# Moon fight logic
 		# TODO: This
+		
+		for eCard in all_enemy_cards():
+			pass
+		
+		yield(get_tree().create_timer(0.01), "timeout")
+		emit_signal("complete_combat")
+		
 		return
 	
 	for card in all_friendly_cards():
@@ -394,6 +401,9 @@ func handle_attack(from_slot, to_slot):
 	# Special moon logic
 	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 		# TODO: This
+		
+		var pCard = fightManager.get_node("MoonFight/BothMoons/EnemyMoon")
+		
 		return
 	
 	var direct_attack = false
