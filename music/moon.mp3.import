@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/moon.mp3-22e9d28fee9b88fec6c11b3554efea6b.mp3str"
+
+[deps]
+
+source_file="res://music/moon.mp3"
+dest_files=[ "res://.import/moon.mp3-22e9d28fee9b88fec6c11b3554efea6b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

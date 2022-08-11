@@ -523,27 +523,20 @@ func calculate_buffs():
 	attack = card_data["attack"]
 
 	# Edaxio
-	if card_data["name"] == "Edaxio's Vessel":
-		var win = true
+	if card_data["name"] == "Moon Shard":
+		var moon = not (fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible if friendly else fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible)
 		
 		if friendly:
 			for i in range(4):
-				if slotManager.is_slot_empty(slotManager.playerSlots[i]) or slotManager.get_friendly_card(i).card_data.name != "Edaxio's Vessel":
-					win = false
+				if slotManager.is_slot_empty(slotManager.playerSlots[i]) or slotManager.get_friendly_card(i).card_data.name != "Moon Shard":
+					moon = false
 		else:
 			for i in range(4):
-				if slotManager.is_slot_empty(slotManager.enemySlots[i]) or slotManager.get_enemy_card(i).card_data.name != "Edaxio's Vessel":
-					win = false
+				if slotManager.is_slot_empty(slotManager.enemySlots[i]) or slotManager.get_enemy_card(i).card_data.name != "Moon Shard":
+					moon = false
 		
-		if win and friendly and not fightManager.get_node("WinScreen").visible:
-			fightManager.get_node("WinScreen").visible = true
-			fightManager.get_node("WinScreen/Panel/VBoxContainer/WinLabel").text = "You win via Edaxio's Vessels"
-			get_node("/root/Main/TitleScreen").count_victory()
-		
-		if win and not friendly and not fightManager.get_node("WinScreen").visible:
-			fightManager.get_node("WinScreen").visible = true
-			fightManager.get_node("WinScreen/Panel/VBoxContainer/WinLabel").text = "You lose via Edaxio's Vessels"
-			get_node("/root/Main/TitleScreen").count_loss(fightManager.opponent)
+		if moon:
+			fightManager.moon_cutscene(friendly)
 			
 	# Gem animator
 	if "Mox" in card_data["name"]:
@@ -623,12 +616,12 @@ func calculate_buffs():
 	if friendly:
 		if slotManager.get_enemy_card(slot_idx()):
 			var eCard = slotManager.get_enemy_card(slot_idx())
-			if eCard.has_sigil("Stinky"):
+			if eCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
 				attack = max(0, attack - 1)
 	else:
 		if slotManager.get_friendly_card(slot_idx()):
 			var pCard = slotManager.get_friendly_card(slot_idx())
-			if pCard.has_sigil("Stinky"):
+			if pCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
 				attack = max(0, attack - 1)
 	
 	draw_stats()

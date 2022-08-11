@@ -7,7 +7,7 @@ onready var skIdx = CardInfo.idx_from_name("Skeleton")
 onready var geIdx = CardInfo.idx_from_name("Geck")
 onready var gsIdx = CardInfo.idx_from_name("Acid Squirrel")
 onready var scIdx = CardInfo.idx_from_name("Shambling Cairn")
-onready var magIdx = CardInfo.idx_from_name("Magnus Mox")
+onready var moonIdx = CardInfo.idx_from_name("Moon Shard")
 
 
 # Side decks
@@ -20,7 +20,7 @@ onready var side_decks = [
 	[geIdx, geIdx, geIdx],
 	[gsIdx],
 	[scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx],
-	[magIdx, magIdx]
+	[moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx]
 ]
 
 const side_deck_names = [
@@ -85,6 +85,9 @@ var turns_starving = 0
 var gold_sarcophagus = null
 var sarcophagus_counter = 0
 
+# Special Event state
+var moon_event = false
+
 # Network match state
 var want_rematch = false
 
@@ -142,6 +145,9 @@ func init_match(opp_id: int, do_go_first: bool):
 
 	gold_sarcophagus = null
 	sarcophagus_counter = 0
+
+	# Remove moon
+	$MoonFight/AnimationPlayer.play("RESET")
 
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
 	$LeftSideUI/LivesLabel.text = "Lives: 2"
@@ -599,6 +605,22 @@ func reload_hand():
 	for card in handManager.get_node("PlayerHand").get_children():
 		card.from_data(card.card_data)
 
+
+# CUTSCENES
+func moon_cutscene(friendly: bool):
+	
+	moon_event = true
+	
+	if friendly:
+		$MoonFight/AnimationPlayer.play("friendlyMoon")
+	else:
+		$MoonFight/AnimationPlayer.play("enemyMoon")
+
+#	$AudioStreamPlayer.play()
+
+
+
+
 # Network interactions
 ## LOCAL
 func request_rematch():
@@ -620,6 +642,7 @@ func quit_match():
 	rpc_id(opponent, "_opponent_quit")
 	
 	visible = false
+	$MoonFight/AnimationPlayer.play("RESET")
 	get_node("/root/Main/TitleScreen").update_lobby()
 	
 	debug_cleanup()
@@ -628,6 +651,7 @@ func quit_match():
 remote func _opponent_quit():
 	# Quit network
 	visible = false
+	$MoonFight/AnimationPlayer.play("RESET")
 	get_node("/root/Main/TitleScreen").update_lobby()
 	
 	debug_cleanup()
@@ -679,17 +703,22 @@ remote func start_turn():
 	slotManager.pre_turn_sigils()
 	yield (slotManager, "resolve_sigils")
 	
-	# Draw yer cards, if you have any (move this to after effect resolution)
-	if starve_check():
-		state = GameStates.NORMAL
-	else:
-		state = GameStates.DRAWPILE
-		$DrawPiles/Notify.visible = true
-	
 	# Increment energy
 	if max_energy < 6:
 		set_max_energy(max_energy + 1)
 	set_energy(max_energy + max_energy_buff)
+
+	if $MoonFight/BothMoons/FriendlyMoon.visible:
+		# Special moon logic
+		state = GameStates.NORMAL
+		pass
+	else:
+		# Draw yer cards, if you have any (move this to after effect resolution)
+		if starve_check():
+			state = GameStates.NORMAL
+		else:
+			state = GameStates.DRAWPILE
+			$DrawPiles/Notify.visible = true
 
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
