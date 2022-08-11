@@ -307,13 +307,17 @@ func post_turn_sigils():
 signal complete_combat()
 
 func initiate_combat():
+	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
+		# Moon fight logic
+		# TODO: This
+		return
+	
 	for card in all_friendly_cards():
 		if card.attack > 0 and not "Perish" in card.get_node("AnimationPlayer").current_animation:
 			
 			var pCard = card
 			var cardAnim = pCard.get_node("AnimationPlayer")
 			var slot_index = card.slot_idx()
-			
 			
 			if pCard.has_sigil("Trifurcated Strike") or pCard.has_sigil("Bifurcated Strike"):
 				# Lower slot to right for attack anim (JANK AF)
@@ -386,6 +390,12 @@ func initiate_combat():
 
 # Do the attack damage
 func handle_attack(from_slot, to_slot):
+	
+	# Special moon logic
+	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+		# TODO: This
+		return
+	
 	var direct_attack = false
 	
 	var pCard = playerSlots[from_slot].get_child(0)
