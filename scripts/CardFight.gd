@@ -288,6 +288,9 @@ func starve_check():
 	return false
 
 func draw_card(card, source = $DrawPiles/YourDecks/Deck):
+	
+	print("Local player drew card ", card)
+	
 	var nCard = cardPrefab.instance()
 	if typeof(card) == TYPE_DICTIONARY:
 		nCard.from_data(card)
@@ -300,8 +303,11 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	
 	nCard.rect_position = Vector2.ZERO
 	
+	var pHand = handManager.get_node("PlayerHand")
+	pHand.add_constant_override("separation", - pHand.get_child_count() * 4)
+	
 	# Animate the card
-	nCard.move_to_parent(handManager.get_node("PlayerHand"))
+	nCard.move_to_parent(pHand)
 	
 	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
 	
@@ -344,6 +350,11 @@ func play_card(slot):
 			
 			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
+
+			# Visual hand update
+			var pHand = handManager.get_node("PlayerHand")
+			pHand.add_constant_override("separation", - pHand.get_child_count() * 4)
+
 			state = GameStates.NORMAL
 			
 			card_summoned(playedCard)
@@ -469,9 +480,18 @@ remote func _opponent_hand_animation(index, animation):
 	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
 
 remote func _opponent_drew_card(source_path):
+	
+	print("Opponent drew card!")
+	
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
-	nCard.move_to_parent(handManager.get_node("EnemyHand"))
+
+	# Visual hand update
+	var eHand = handManager.get_node("EnemyHand")
+
+	nCard.move_to_parent(eHand)
+	eHand.add_constant_override("separation", - eHand.get_child_count() * 4)
+
 	
 	# Hand tenta
 	for eCard in slotManager.all_enemy_cards():
@@ -490,6 +510,10 @@ remote func _opponent_played_card(card, slot):
 	
 	handManager.opponentRaisedCard.from_data(card_dt)
 	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
+
+	# Visual hand update
+	var eHand = handManager.get_node("EnemyHand")
+	eHand.add_constant_override("separation", - eHand.get_child_count() * 4)
 	
 	# Costs
 	if "bone_cost" in card_dt:
