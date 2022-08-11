@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -7,6 +7,545 @@
 [ext_resource path="res://scripts/HandManager.gd" type="Script" id=5]
 [ext_resource path="res://gfx/portraits/Worker Ant.png" type="Texture" id=6]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=7]
+[ext_resource path="res://music/moon.mp3" type="AudioStream" id=8]
+[ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.5 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "RESET"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../DrawPiles/YourDecks:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CardSlots/PlayerSlots:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BothMoons/FriendlyMoon:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 212, 500 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BothMoons/FriendlyMoon:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../HandsContainer/Hands/PlayerHand:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../DrawPiles/YourDecks:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../CardSlots/PlayerSlots:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../HandsContainer/Hands/PlayerHand:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../LeftSideUI/PassButton:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../LeftSideUI/HammerButton:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("../LeftSideUI/HammerButton:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/12/type = "method"
+tracks/12/path = NodePath("AudioStreamPlayer")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("../DrawPiles/EnemyDecks:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("../DrawPiles/EnemyDecks:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("../HandsContainer/Hands/EnemyHand:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("../HandsContainer/Hands/EnemyHand:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("../CardSlots/EnemySlots:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("../CardSlots/EnemySlots:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("BothMoons/EnemyMoon:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "enemyMoon"
+length = 6.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("../DrawPiles/EnemyDecks:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CardSlots/EnemySlots:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BothMoons/EnemyMoon:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 212, -125 ), Vector2( 212, 27 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BothMoons/EnemyMoon:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../HandsContainer/Hands/EnemyHand:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../DrawPiles/EnemyDecks:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../CardSlots/EnemySlots:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../HandsContainer/Hands/EnemyHand:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "friendlyMoon"
+length = 6.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("../DrawPiles/YourDecks:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CardSlots/PlayerSlots:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BothMoons/FriendlyMoon:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 212, 500 ), Vector2( 212, 317 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BothMoons/FriendlyMoon:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../HandsContainer/Hands/PlayerHand:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../DrawPiles/YourDecks:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../CardSlots/PlayerSlots:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../HandsContainer/Hands/PlayerHand:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../LeftSideUI/PassButton:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("../LeftSideUI/HammerButton:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("../LeftSideUI/HammerButton:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.235294 )
@@ -21,6 +560,36 @@ script = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 expand = true
+
+[node name="MoonFight" type="PanelContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MoonFight"]
+stream = ExtResource( 8 )
+
+[node name="BothMoons" type="Control" parent="MoonFight"]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+
+[node name="EnemyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
+visible = false
+margin_top = 27.0
+margin_bottom = 277.001
+
+[node name="FriendlyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
+visible = false
+margin_top = 500.0
+margin_bottom = 750.001
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MoonFight"]
+anims/RESET = SubResource( 5 )
+anims/enemyMoon = SubResource( 6 )
+anims/friendlyMoon = SubResource( 4 )
 
 [node name="PlayerInfo" type="Control" parent="."]
 anchor_right = 1.0
@@ -180,15 +749,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CardSlots" type="VBoxContainer" parent="."]
+[node name="CardSlots" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/separation = 16
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EnemySlots" type="HBoxContainer" parent="CardSlots"]
 margin_top = 169.0
@@ -513,9 +1078,6 @@ margin_left = -71.0
 margin_right = -5.0
 mouse_filter = 2
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ForfeitButton" type="Button" parent="RightSideUI"]
 margin_top = 283.0

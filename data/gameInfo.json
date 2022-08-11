@@ -972,6 +972,18 @@
             "description": "Custom card by SYNTHIA_2000"
         },
         {
+            "name": "Gargoyle",
+            "attack": 1,
+            "health": 4,
+            "bone_cost": 6,
+            "sigils": [
+                "Airborne",
+                "Made of Stone"
+            ],
+            "description": "Custom card by syntaxevasion.\nLong overdue.",
+            "nosac": true
+        },
+        {
             "name": "Gourmage",
             "sigils": [
                 "Enlarge"
@@ -1407,19 +1419,6 @@
             "description": "Note: Energy cost increased due to opponent not having enough time to build a board before bloody vessel is usable."
         },
         {
-            "name": "Moon Shard",
-            "sigils": [
-                "Mighty Leap",
-                "Made of Stone"
-            ],
-            "attack": 0,
-            "health": 10,
-            "energy_cost": 6,
-            "nosac": false,
-            "banned": true,
-            "description": "Emits a pale white light. You feel as though it calls to its brethren."
-        },
-        {
             "name": "Splintered Vessel",
             "sigils": [
                 "Sharp Quills"
@@ -1479,6 +1478,19 @@
             "nohammer": true,
             "banned": true,
             "description": "Custom card by Garf, zpan0317, and Me!"
+        },
+        {
+            "name": "Moon Shard",
+            "sigils": [
+                "Mighty Leap",
+                "Made of Stone"
+            ],
+            "attack": 0,
+            "health": 10,
+            "energy_cost": 6,
+            "nosac": false,
+            "banned": true,
+            "description": "Emits a pale white light. You feel as though it calls to its brethren."
         },
         {
             "name": "Angel Statue",
@@ -1607,6 +1619,7 @@
         "Tentacle",
         "Stinky",
         "Reconstitute",
-        "Noble Sacrifice"
+        "Noble Sacrifice",
+        "Made of Stone"
     ]
 }

@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 
 onready var playerSlots = $PlayerSlots.get_children()
 onready var enemySlots = $EnemySlots.get_children()
