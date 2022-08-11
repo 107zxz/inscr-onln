@@ -190,8 +190,6 @@ func init_match(opp_id: int, do_go_first: bool):
 			starve_check()
 			break
 		
-	
-	
 	$WaitingBlocker.visible = not go_first
 
 
@@ -710,7 +708,7 @@ remote func start_turn():
 
 	if $MoonFight/BothMoons/FriendlyMoon.visible:
 		# Special moon logic
-		state = GameStates.NORMAL
+		end_turn()
 		pass
 	else:
 		# Draw yer cards, if you have any (move this to after effect resolution)
