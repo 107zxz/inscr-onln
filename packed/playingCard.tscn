@@ -628,7 +628,7 @@ script = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 85, 123 )
-mouse_filter = 1
+mouse_filter = 2
 theme = ExtResource( 1 )
 script = ExtResource( 11 )
 
@@ -797,6 +797,7 @@ rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 expand = true
 stretch_mode = 6
 
@@ -824,9 +825,9 @@ stretch_mode = 6
 [node name="Sigil" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
 material = ExtResource( 10 )
-margin_left = 83.0
-margin_right = 167.0
-margin_bottom = 164.0
+margin_left = 13.0
+margin_right = 40.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -837,22 +838,23 @@ stretch_mode = 6
 
 [node name="Spacer3" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 27.0
-margin_right = 54.0
-margin_bottom = 51.0
+margin_left = 34.0
+margin_right = 46.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 3, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 expand = true
 stretch_mode = 6
 
 [node name="Sigil2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
 material = ExtResource( 10 )
-margin_left = 25.0
-margin_right = 40.0
-margin_bottom = 25.0
+margin_left = 20.0
+margin_right = 60.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -869,6 +871,7 @@ rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 expand = true
 stretch_mode = 6
 

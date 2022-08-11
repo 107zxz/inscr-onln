@@ -392,6 +392,7 @@ func _connected_fail():
 	$LoadingScreen.visible = false
 	$InLobby.visible = false
 	cardFight.visible = false
+	cardFight.get_node("MoonFight/AnimationPlayer").play("RESET")	
 	errorBox("Connection to url: " + url + " failed!")
 
 func _player_connected():
@@ -453,6 +454,7 @@ remote func _erase_player(player_id):
 	if player_id in lobby_data.players:
 		lobby_data.players.erase(player_id)
 		cardFight.visible = false
+		cardFight.get_node("MoonFight/AnimationPlayer").play("RESET")
 
 	update_lobby()
 	

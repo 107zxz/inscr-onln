@@ -732,6 +732,7 @@ remote func start_turn():
 
 	if $MoonFight/BothMoons/FriendlyMoon.visible:
 		# Special moon logic
+		state = GameStates.NORMAL
 		end_turn()
 		pass
 	else:
