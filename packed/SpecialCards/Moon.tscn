@@ -31,11 +31,13 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 598.0
 margin_bottom = 248.0
+mouse_filter = 2
 
 [node name="Portrait" type="TextureRect" parent="CBody"]
 material = ExtResource( 4 )
 margin_right = 596.0
 margin_bottom = 208.0
+mouse_filter = 2
 size_flags_vertical = 3
 texture = ExtResource( 3 )
 expand = true
@@ -45,6 +47,7 @@ stretch_mode = 5
 margin_top = 208.0
 margin_right = 596.0
 margin_bottom = 246.0
+mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.18
 custom_constants/separation = 4
@@ -56,6 +59,7 @@ margin_left = 216.0
 margin_right = 254.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 38, 38 )
+mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
 
@@ -65,6 +69,7 @@ margin_left = 258.0
 margin_right = 296.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 38, 38 )
+mouse_filter = 2
 texture = ExtResource( 7 )
 expand = true
 
@@ -74,6 +79,7 @@ margin_left = 300.0
 margin_right = 338.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 38, 38 )
+mouse_filter = 2
 texture = ExtResource( 6 )
 expand = true
 
@@ -83,6 +89,7 @@ margin_left = 342.0
 margin_right = 380.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 38, 38 )
+mouse_filter = 2
 texture = ExtResource( 2 )
 expand = true
 

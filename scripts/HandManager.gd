@@ -12,6 +12,9 @@ func lower_all_cards():
 
 func clear_hands():
 	for hand in get_children():
+		
+		print("Wiping ", hand.name)
+		
 		for bcard in hand.get_children():
 			bcard.queue_free()
 			
