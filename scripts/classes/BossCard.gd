@@ -1,7 +1,9 @@
 extends PanelContainer
 
+const MAX_HEALTH = 40
+
 var attack: int = 1
-var health: int = 40
+var health: int = MAX_HEALTH
 
 onready var friendly = (name == "FriendlyMoon")
 
@@ -20,3 +22,6 @@ func _ready():
 func take_damage(dmg: int):
 	health -= dmg
 	update_stats()
+
+func reset():
+	health = MAX_HEALTH

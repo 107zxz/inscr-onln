@@ -146,7 +146,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	gold_sarcophagus = null
 	sarcophagus_counter = 0
 
-	# Remove moon
+	# Remove and reset moon
 	$MoonFight/AnimationPlayer.play("RESET")
 
 	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
