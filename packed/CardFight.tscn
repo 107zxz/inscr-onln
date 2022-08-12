@@ -872,6 +872,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 212, 322 ), Vector2( 212, 349 ), Vector2( 212, 295 ), Vector2( 212, 322 ) ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../CardSlots")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0, 0 ],
+"method": "handle_attack"
+} ]
+}
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.235294 )
