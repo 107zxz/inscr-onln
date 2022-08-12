@@ -475,6 +475,12 @@ func hammer_mode():
 	else:
 		$LeftSideUI/HammerButton.pressed = true
 
+func count_win():
+	get_node("/root/Main/TitleScreen").count_victory()
+
+func count_loss():
+	get_node("/root/Main/TitleScreen").count_loss(opponent)
+
 ## REMOTE
 remote func _opponent_hand_animation(index, animation):
 	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
