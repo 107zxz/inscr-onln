@@ -524,16 +524,16 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		return
 	
 	if sName == "Energy Gun":
+
+		if fightManager.moon_event:
+			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(1)
+			return
 		
 		var pCard = playerSlots[card_slot].get_child(0)
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		
-		pCard.health -= 1
-		if pCard.health <= 0:
-			pCard.get_node("AnimationPlayer").play("Perish")
-		else:
-			pCard.draw_stats()
-	
+		pCard.take_damage(null, 1)
+
 	if sName == "Power Dice":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 2)
 		
