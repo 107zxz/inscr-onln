@@ -310,9 +310,15 @@ func begin_perish(doubleDeath = false):
 			
 		# Explosive motherfucker
 		if has_sigil("Detonator"):
+
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if slotIdx > 0 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx - 1]):
+			# Attack the moon
+			if fightManager.moon_event:
+
+				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(10)
+
+			elif slotIdx > 0 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx - 1]):
 				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -365,9 +371,15 @@ func begin_perish(doubleDeath = false):
 		
 		# Explosive motherfucker
 		if has_sigil("Detonator"):
+
 			var slotIdx = get_parent().get_position_in_parent()
 
-			if not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
+			# Attack the moon
+			if fightManager.moon_event:
+
+				fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(10)
+
+			elif not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
@@ -444,19 +456,17 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 1:
 			return
 		
-		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]):
+		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]) and not fightManager.moon_event:
 			return
 		
 		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
 		fightManager.set_energy(fightManager.energy - 1)
 		
-		eCard.health -= 1
-		if eCard.health <= 0:
-			eCard.get_node("AnimationPlayer").play("Perish")
+		if fightManager.moon_event:
+			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
 		else:
-			eCard.draw_stats()
-		
-	
+			eCard.take_damage(null, 1)
+
 	if sName == "Power Dice":
 		if fightManager.energy < 2:
 			return
