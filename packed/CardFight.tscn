@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -296,6 +296,234 @@ tracks/22/keys = {
 "values": [ {
 "args": [  ],
 "method": "reset"
+} ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("BothMoons/EnemyMoon:modulate")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("BothMoons/FriendlyMoon:modulate")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("BothMoons/EnemyMoon:rect_scale")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("BothMoons/FriendlyMoon:rect_scale")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "eggmanEnemy"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("BothMoons/EnemyMoon:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BothMoons/EnemyMoon:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 212, 27.5 ), Vector2( 362, 90 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BothMoons/EnemyMoon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BothMoons/EnemyMoon:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../WinScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../WinScreen/Panel/VBoxContainer/WinLabel:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "You Win via Lunacide!" ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "count_win"
+} ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "eggmanFriendly"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("BothMoons/FriendlyMoon:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BothMoons/FriendlyMoon:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 212, 322 ), Vector2( 362, 384 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BothMoons/FriendlyMoon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BothMoons/FriendlyMoon:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../WinScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../WinScreen/Panel/VBoxContainer/WinLabel:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "You Lose via Lunacide!" ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "count_loss"
 } ]
 }
 
@@ -676,8 +904,10 @@ mouse_filter = 2
 
 [node name="EnemyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
 visible = false
-margin_top = 27.5
-margin_bottom = 277.501
+margin_left = 362.0
+margin_top = 90.0
+margin_right = 962.0
+margin_bottom = 340.001
 
 [node name="FriendlyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
 visible = false
@@ -686,6 +916,8 @@ margin_bottom = 750.001
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MoonFight"]
 anims/RESET = SubResource( 5 )
+anims/eggmanEnemy = SubResource( 9 )
+anims/eggmanFriendly = SubResource( 10 )
 anims/enemyMoon = SubResource( 6 )
 anims/enemyMoonSlap = SubResource( 7 )
 anims/friendlyMoon = SubResource( 4 )
@@ -1231,10 +1463,10 @@ __meta__ = {
 }
 
 [node name="WinLabel" type="Label" parent="WinScreen/Panel/VBoxContainer"]
-margin_top = 275.0
+margin_top = 276.0
 margin_right = 1024.0
 margin_bottom = 289.0
-text = "You Win!"
+text = "You Lose via Lunacide!"
 align = 1
 valign = 1
 __meta__ = {
@@ -1244,7 +1476,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="WinScreen/Panel/VBoxContainer"]
 margin_top = 307.0
 margin_right = 1024.0
-margin_bottom = 325.0
+margin_bottom = 324.0
 custom_constants/separation = 40
 alignment = 1
 __meta__ = {
@@ -1252,17 +1484,17 @@ __meta__ = {
 }
 
 [node name="RematchBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
-margin_left = 429.0
-margin_right = 522.0
-margin_bottom = 18.0
+margin_left = 435.0
+margin_right = 521.0
+margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Rematch (0/2)"
 
 [node name="QuitBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
-margin_left = 562.0
-margin_right = 594.0
-margin_bottom = 18.0
+margin_left = 561.0
+margin_right = 588.0
+margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"

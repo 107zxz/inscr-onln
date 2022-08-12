@@ -11,7 +11,7 @@ func _ready():
 	$HTTPRequest.request("https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/motd.json")
 	
 
-func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
 		var parse = JSON.parse(body.get_string_from_utf8())
 		

@@ -14,8 +14,18 @@ func update_stats():
 	$Health.text = str(health)
 	
 	if health <= 0:
-		print("Lunacide")
+		lunacide()
+
+# I gotta use these fancy half-latin names somewhere
+func lunacide():
+	print("Lunacide")
 	
+	# https://youtu.be/IMC0uZY2iH0?t=776
+	if friendly:
+		animPlayer.play("eggmanFriendly")
+	else:
+		animPlayer.play("eggmanEnemy")
+
 func _ready():
 	update_stats()
 
@@ -25,3 +35,4 @@ func take_damage(dmg: int):
 
 func reset():
 	health = MAX_HEALTH
+	update_stats()
