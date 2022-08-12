@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
@@ -7,6 +7,119 @@
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://packed/ThemeEditor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://packed/DeckEdit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://gfx/extra/stoat_character_sheet.png" type="Texture" id=8]
+[ext_resource path="res://gfx/extra/stinkbug_character_sheet.png" type="Texture" id=9]
+[ext_resource path="res://scripts/PullInfo.gd" type="Script" id=10]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 8 )
+region = Rect2( 16, 0, 80, 96 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 8 )
+region = Rect2( 112, 0, 64, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 8 )
+region = Rect2( 117, 36, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 8 )
+region = Rect2( 117, 72, 59, 35 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "Talk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("StoatMouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ SubResource( 10 ), SubResource( 9 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 1 )
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 3, 3, 107, 86 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 200, 4, 75, 21 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 9 )
+region = Rect2( 118, 4, 66, 31 )
+
+[sub_resource type="Animation" id=16]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BugMouth:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 23.8864, 52.0646 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
+region = Rect2( 115, 35, 71, 32 )
+
+[sub_resource type="Animation" id=18]
+resource_name = "Talk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BugMouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ SubResource( 15 ), SubResource( 17 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BugMouth:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 13.533, 51.993 ), Vector2( 11.662, 52.065 ) ]
+}
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.5 )
@@ -211,6 +324,109 @@ custom_fonts/font = ExtResource( 5 )
 text = "
 Inscryption Multiplayer"
 align = 1
+
+[node name="PullInfo" type="Control" parent="TitleScreen"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 10 )
+
+[node name="PatchStoats" type="Control" parent="TitleScreen/PullInfo"]
+visible = false
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = 227.0
+margin_right = 80.0
+margin_bottom = 323.0
+
+[node name="Stoatbg" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
+margin_right = 80.0
+margin_bottom = 96.0
+texture = SubResource( 7 )
+
+[node name="StoatEyes" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
+margin_left = 14.4892
+margin_top = 29.7835
+margin_right = 78.4892
+margin_bottom = 45.7835
+texture = SubResource( 8 )
+
+[node name="StoatMouth" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
+margin_left = 19.2333
+margin_top = 39.0083
+margin_right = 83.2333
+margin_bottom = 79.0083
+texture = SubResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/PullInfo/PatchStoats"]
+autoplay = "Talk"
+anims/Talk = SubResource( 11 )
+
+[node name="Notes" type="Label" parent="TitleScreen/PullInfo/PatchStoats"]
+margin_left = 25.0
+margin_top = -40.0
+margin_right = 260.0
+margin_bottom = -9.0
+grow_vertical = 0
+custom_styles/normal = SubResource( 12 )
+text = "Stoat News Here"
+autowrap = true
+
+[node name="Button" type="Button" parent="TitleScreen/PullInfo/PatchStoats/Notes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+
+[node name="Grimorger" type="Control" parent="TitleScreen/PullInfo"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 877.0
+margin_top = 232.0
+margin_right = 984.0
+margin_bottom = 328.0
+
+[node name="BugBg" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
+margin_right = 80.0
+margin_bottom = 96.0
+texture = SubResource( 13 )
+flip_h = true
+
+[node name="BugEyes" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
+margin_left = 14.2258
+margin_top = 19.6061
+margin_right = 89.2258
+margin_bottom = 40.6061
+texture = SubResource( 14 )
+flip_h = true
+
+[node name="BugMouth" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
+margin_left = 23.8864
+margin_top = 52.0646
+margin_right = 94.8864
+margin_bottom = 92.0646
+texture = SubResource( 15 )
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/PullInfo/Grimorger"]
+autoplay = "Talk"
+anims/RESET = SubResource( 16 )
+anims/Talk = SubResource( 18 )
+
+[node name="Notes" type="Label" parent="TitleScreen/PullInfo/Grimorger"]
+margin_left = -155.0
+margin_top = -40.0
+margin_right = 80.0
+margin_bottom = -9.0
+grow_vertical = 0
+custom_styles/normal = SubResource( 12 )
+text = "Grimorger News Here"
+autowrap = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="TitleScreen/PullInfo"]
 
 [node name="Blocker" type="Panel" parent="TitleScreen"]
 visible = false
@@ -727,6 +943,8 @@ align = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
+[connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/Host" to="TitleScreen" method="_on_Host_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/CancelHost" to="TitleScreen" method="_on_CancelHost_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Address/PasteButton" to="TitleScreen" method="_on_PasteButton_pressed"]
