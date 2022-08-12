@@ -270,10 +270,38 @@ tracks/20/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/21/type = "method"
+tracks/21/path = NodePath("BothMoons/EnemyMoon")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset"
+} ]
+}
+tracks/22/type = "method"
+tracks/22/path = NodePath("BothMoons/FriendlyMoon")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "enemyMoon"
-length = 6.6
+length = 6.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("../DrawPiles/EnemyDecks:modulate")
 tracks/0/interp = 1
@@ -331,7 +359,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 6.6 ),
+"times": PoolRealArray( 0, 6.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -415,7 +443,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "friendlyMoon"
-length = 7.6
+length = 6.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("../DrawPiles/YourDecks:modulate")
 tracks/0/interp = 1
@@ -473,7 +501,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 6.6 ),
+"times": PoolRealArray( 0, 6.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -581,7 +609,7 @@ tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 7.6 ),
+"times": PoolRealArray( 6.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
