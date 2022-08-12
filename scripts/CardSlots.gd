@@ -400,9 +400,13 @@ func handle_attack(from_slot, to_slot):
 	
 	# Special moon logic
 	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
-		# TODO: This
+		# This means you're attacking the moon
 		
-		var pCard = fightManager.get_node("MoonFight/BothMoons/EnemyMoon")
+		fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(
+			playerSlots[from_slot].get_child(0).attack
+		)
+		
+		rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 		
 		return
 	
@@ -599,6 +603,16 @@ remote func remote_card_data(card_slot, new_data):
 		eCard.calculate_buffs()
 
 remote func handle_enemy_attack(from_slot, to_slot):
+	
+	# Special moon logic
+	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
+		# This means they're attacking your moon
+		
+		fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(
+			enemySlots[from_slot].get_child(0).attack
+		)
+		return
+	
 	var direct_attack = false
 	
 	var eCard = get_enemy_card(from_slot)
