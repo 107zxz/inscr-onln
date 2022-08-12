@@ -5,6 +5,9 @@ const MAX_HEALTH = 40
 var attack: int = 1
 var health: int = MAX_HEALTH
 
+# Slot to hit when attacking
+var target = -1
+
 onready var friendly = (name == "FriendlyMoon")
 
 onready var animPlayer = get_node("../../AnimationPlayer")

@@ -311,9 +311,37 @@ func initiate_combat():
 		# Moon fight logic
 		# TODO: This
 		
-		for eCard in all_enemy_cards():
-			pass
+		var moon = fightManager.get_node("MoonFight/BothMoons/FriendlyMoon")
+		var moonAnim = fightManager.get_node("MoonFight/AnimationPlayer")
 		
+		# Attack face by default
+		moon.target = -1
+		
+		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+			
+			moon.target = 4
+			moonAnim.play("friendlyMoonSlap")
+			print("Moon attacking another moon!")
+			yield(moonAnim, "animation_finished")
+			
+		elif len(all_enemy_cards()) == 0:
+			
+			moonAnim.play("friendlyMoonSlap")
+			print("Moon attacking dieectly")
+
+			yield(moonAnim, "animation_finished")
+		
+		else:
+			
+			for eCard in all_enemy_cards():
+
+				moon.target = eCard.slot_idx()
+				moonAnim.play("friendlyMoonSlap")
+
+				print("Moon attacking slot: %s" % moon.target)
+
+				yield(moonAnim, "animation_finished")
+			
 		yield(get_tree().create_timer(0.01), "timeout")
 		emit_signal("complete_combat")
 		
@@ -398,7 +426,23 @@ func initiate_combat():
 # Do the attack damage
 func handle_attack(from_slot, to_slot):
 	
+	print("Handling attack")
+
 	# Special moon logic
+	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
+		# This means you're hitting something with the moon
+		
+		var moon = fightManager.get_node("MoonFight/BothMoons/FriendlyMoon")
+		
+		if moon.target == 4:
+			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(moon.attack)
+		elif moon.target >= 0:
+			enemySlots[moon.target].get_child(0).take_damage(null, moon.attack)
+		else:
+			fightManager.inflict_damage(moon.attack)
+		
+		return
+	
 	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 		# This means you're attacking the moon
 		
@@ -605,6 +649,18 @@ remote func remote_card_data(card_slot, new_data):
 remote func handle_enemy_attack(from_slot, to_slot):
 	
 	# Special moon logic
+	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+		# This means they're hitting something with the moon
+		
+		var moon = fightManager.get_node("MoonFight/BothMoons/EnemyMoon")
+		
+		if moon.target == 4:
+			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(moon.attack)
+		elif moon.target >= 0:
+			playerSlots[moon.target].get_child(0).take_damage(null, moon.attack)
+		else:
+			fightManager.inflict_damage(-moon.attack)
+	
 	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 		# This means they're attacking your moon
 		
