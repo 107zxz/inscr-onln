@@ -1,5 +1,7 @@
 {
-    "ruleset": "IMF Competitive Ruleset v0.02",
+    "starting_energy_max": 999,
+
+    "ruleset": "IMF Competitive Ruleset v0.03",
     "cards": [
         {
             "name": "Starvation",
@@ -493,6 +495,17 @@
             "health": 1,
             "blood_cost": 1,
             "evolution": "Wolf"
+        },
+        {
+            "name": "Fox",
+            "sigils": [
+                "Sprinter",
+                "Side Hustle"
+            ],
+            "attack": 1,
+            "health": 2,
+            "blood_cost": 2,
+            "description": "Custom card by SpelunkyGuy101. Placeholder art for card and sigil by me."
         },
         {
             "name": "Curve Hopper",
@@ -1486,22 +1499,10 @@
                 "Made of Stone"
             ],
             "attack": 0,
-            "health": 10,
+            "health": 5,
             "energy_cost": 6,
             "nosac": false,
-            "banned": true,
             "description": "Emits a pale white light. You feel as though it calls to its brethren."
-        },
-        {
-            "name": "Angel Statue",
-            "attack": 0,
-            "health": 1,
-            "sigils": [
-                "Scopophobic",
-                "Boneless"
-            ],
-            "nosac": true,
-            "banned": true
         }
     ],
     "sigils": {
@@ -1550,6 +1551,7 @@
         "Scopophobic": "A card bearing this sigil gains 1 power when not facing an enemy creature.",
         "Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
         "Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
+        "Side Hustle": "When a card bearing this sigil deals damage directly, draw a card from your side deck for each damage dealt.",
         "Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
         "Spawn Conduit": "Empty spaces within a circuit completed by a card bearing this sigil spawn L33pB0ts at the end of the owner's turn.",
         "Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
@@ -1620,6 +1622,7 @@
         "Stinky",
         "Reconstitute",
         "Noble Sacrifice",
-        "Made of Stone"
+        "Made of Stone",
+        "Side Hustle"
     ]
 }

@@ -682,9 +682,6 @@ func moon_cutscene(friendly: bool):
 
 #	$AudioStreamPlayer.play()
 
-
-
-
 # Network interactions
 ## LOCAL
 func request_rematch():
@@ -784,6 +781,8 @@ remote func start_turn():
 		else:
 			state = GameStates.DRAWPILE
 			$DrawPiles/Notify.visible = true
+	
+	
 
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):

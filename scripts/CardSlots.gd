@@ -149,16 +149,7 @@ func pre_turn_sigils():
 	emit_signal("resolve_sigils")
 
 func post_turn_sigils():
-	var cardsToMove = []
-	
-	for slot in playerSlots:
-		if is_slot_empty(slot):
-			continue
-		
-		if "Perish" in slot.get_child(0).get_node("AnimationPlayer").current_animation:
-			continue
-		
-		cardsToMove.append(slot.get_child(0))
+	var cardsToMove = all_friendly_cards()
 	
 	# Sprinting
 	for card in cardsToMove:
@@ -293,6 +284,15 @@ func post_turn_sigils():
 			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 	
+		# Kill side deck cards if moon
+		for sn in ["Squirrel", "Skeleton", "Geck", "Vessel", "Ruby", "Sapphire", "Emerald", "Cairn"]:
+			if sn in card.card_data.name:
+				card.get_node("AnimationPlayer").play("Perish")
+				rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Perish")
+				yield(card.get_node("AnimationPlayer"), "animation_finished")
+				
+			
+	
 	# Spawn conduit
 	if get_friendly_cards_sigil("Spawn Conduit"):
 		for sIdx in range(4):
@@ -302,6 +302,8 @@ func post_turn_sigils():
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
+	
+	
 
 # Combat
 signal complete_combat()
