@@ -284,6 +284,12 @@ func starve_check():
 		
 		# Give opponent a starvation
 		rpc_id(opponent, "force_draw_starv", turns_starving)
+
+		# Special: Increase strength of opponent's moon
+		if moon_event:
+			$MoonFight/BothMoons/EnemyMoon.attack += 1
+			$MoonFight/BothMoons/EnemyMoon.update_stats()
+
 		return true
 	return false
 
@@ -304,7 +310,14 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	nCard.rect_position = Vector2.ZERO
 	
 	var pHand = handManager.get_node("PlayerHand")
-	pHand.add_constant_override("separation", - pHand.get_child_count() * 4)
+	
+	# Count cards in their hand
+	var nC = 0
+	for card in pHand.get_children():
+		if not card.is_queued_for_deletion():
+			nC += 1
+	
+	pHand.add_constant_override("separation", - nC * 4)
 	
 	# Animate the card
 	nCard.move_to_parent(pHand)
@@ -496,12 +509,19 @@ remote func _opponent_drew_card(source_path):
 	var eHand = handManager.get_node("EnemyHand")
 
 	nCard.move_to_parent(eHand)
-	eHand.add_constant_override("separation", - eHand.get_child_count() * 4)
-
 	
 	# Hand tenta
 	for eCard in slotManager.all_enemy_cards():
 		eCard.calculate_buffs()
+	
+	# Count cards in their hand
+	var nC = 0
+	for card in eHand.get_children():
+		if not card.is_queued_for_deletion():
+			nC += 1
+	
+	eHand.add_constant_override("separation", - nC * 4)
+
 
 remote func _opponent_played_card(card, slot):
 	
@@ -562,6 +582,12 @@ remote func _opponent_played_card(card, slot):
 	
 ## SPECIAL CARD STUFF
 remote func force_draw_starv(strength):
+
+	# Moon
+	if $MoonFight/BothMoons/FriendlyMoon.visible:
+		$MoonFight/BothMoons/FriendlyMoon.attack += 1
+		$MoonFight/BothMoons/FriendlyMoon.update_stats()
+
 	var starv_card = draw_card(0)
 	
 	var starv_data = CardInfo.all_cards[0]
@@ -595,11 +621,21 @@ func inflict_damage(dmg):
 	# Win condition
 	if lives == 0:
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Lose!"
+
+		# Moon special
+		if $MoonFight/BothMoons/EnemyMoon.visible:
+			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Lose via Coup de Lune!"
+
 		$WinScreen.visible = true
 		get_node("/root/Main/TitleScreen").count_loss(opponent)
 	
 	if opponent_lives == 0:
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
+
+		# Moon special
+		if $MoonFight/BothMoons/FriendlyMoon.visible:
+			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win via Coup de Lune!"
+
 		$WinScreen.visible = true
 		get_node("/root/Main/TitleScreen").count_victory()
 		

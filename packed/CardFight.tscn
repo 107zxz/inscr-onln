@@ -668,6 +668,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 212, 27.5 ), Vector2( 212, 0 ), Vector2( 212, 55 ), Vector2( 212, 27.5 ) ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../CardSlots")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0, 0 ],
+"method": "handle_enemy_attack"
+} ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "friendlyMoon"
@@ -918,10 +932,8 @@ mouse_filter = 2
 
 [node name="EnemyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
 visible = false
-margin_left = 362.0
-margin_top = 90.0
-margin_right = 962.0
-margin_bottom = 340.001
+margin_top = 55.0
+margin_bottom = 305.001
 
 [node name="FriendlyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
 visible = false

@@ -1,8 +1,9 @@
 extends PanelContainer
 
 const MAX_HEALTH = 40
+const INITIAL_ATK = 1
 
-var attack: int = 1
+var attack: int = INITIAL_ATK
 var health: int = MAX_HEALTH
 
 # Slot to hit when attacking
@@ -38,4 +39,12 @@ func take_damage(dmg: int):
 
 func reset():
 	health = MAX_HEALTH
+	attack = INITIAL_ATK
 	update_stats()
+
+remote func remote_attack(slot: int):
+	target = slot
+	animPlayer.stop()
+	animPlayer.play("enemyMoonSlap")
+	
+	# TODO: Queue attacks or resolve entirely client-side
