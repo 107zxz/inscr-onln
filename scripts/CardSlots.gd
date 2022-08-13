@@ -493,7 +493,6 @@ func handle_attack(from_slot, to_slot):
 	
 	if direct_attack:
 		
-
 		fightManager.inflict_damage(pCard.attack)
 
 		# Looter
@@ -507,6 +506,18 @@ func handle_attack(from_slot, to_slot):
 				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
 				if fightManager.deck.size() == 0:
 					get_node("../DrawPiles/YourDecks/Deck").visible = false
+					break
+		
+		if pCard.has_sigil("Side Hustle"):
+			for _i in range(pCard.attack):
+				if fightManager.side_deck.size() == 0:
+					break
+					
+				fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
+		
+				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+				if fightManager.side_deck.size() == 0:
+					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
 					break
 	else:
 		eCard.take_damage(pCard);	
