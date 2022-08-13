@@ -322,21 +322,28 @@ func initiate_combat():
 			moon.target = 4
 			moonAnim.play("friendlyMoonSlap")
 			print("Moon attacking another moon!")
+			rpc_id(fightManager.opponent, fightManager.get_node("MoonFight/BothMoons/EnemyMoon"), "remote_attack", 4)
+			
 			yield(moonAnim, "animation_finished")
 			
-		elif len(all_enemy_cards()) == 0:
+		elif len(all_enemy_cards()) == 0 or all_enemy_cards() == get_enemy_cards_sigil("Repulsive") + get_enemy_cards_sigil("Waterborne"):
 			
 			moonAnim.play("friendlyMoonSlap")
 			print("Moon attacking dieectly")
+			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", -1)
 
 			yield(moonAnim, "animation_finished")
 		
 		else:
 			
 			for eCard in all_enemy_cards():
-
+				
+				if eCard.has_sigil("Repulsive") or eCard.has_sigil("Waterborne"):
+					continue
+				
 				moon.target = eCard.slot_idx()
 				moonAnim.play("friendlyMoonSlap")
+				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", moon.target)
 
 				print("Moon attacking slot: %s" % moon.target)
 
