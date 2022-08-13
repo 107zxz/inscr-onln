@@ -8,6 +8,9 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if "noupdate" in OS.get_cmdline_args():
+		return
+		
 	$HTTPRequest.request("https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/motd.json")
 	
 
