@@ -1,6 +1,4 @@
 {
-    "starting_energy_max": 999,
-
     "ruleset": "IMF Competitive Ruleset v0.03",
     "cards": [
         {
@@ -1502,7 +1500,8 @@
             "health": 5,
             "energy_cost": 6,
             "nosac": false,
-            "description": "Emits a pale white light. You feel as though it calls to its brethren."
+            "description": "Emits a pale white light. You feel as though it calls to its brethren.",
+            "banned": true
         }
     ],
     "sigils": {
@@ -1624,5 +1623,7 @@
         "Noble Sacrifice",
         "Made of Stone",
         "Side Hustle"
-    ]
+    ],
+    "easter_egg": "DM me a screenshot of this to get a portrait in the game ;)"
 }
+

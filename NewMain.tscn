@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://gfx/extra/stoat_character_sheet.png" type="Texture" id=8]
 [ext_resource path="res://gfx/extra/stinkbug_character_sheet.png" type="Texture" id=9]
 [ext_resource path="res://scripts/PullInfo.gd" type="Script" id=10]
+[ext_resource path="res://gfx/portraits/Amoeba.png" type="Texture" id=11]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 8 )
@@ -694,41 +695,41 @@ enabled_focus_mode = 0
 text = "Cancel"
 
 [node name="InLobby" type="PanelContainer" parent="TitleScreen"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -100.0
-margin_top = -129.5
-margin_right = 100.0
-margin_bottom = 129.5
+margin_left = -130.0
+margin_top = -139.0
+margin_right = 130.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 260, 0 )
 
 [node name="Rows" type="VBoxContainer" parent="TitleScreen/InLobby"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 198.0
-margin_bottom = 257.0
+margin_right = 258.0
+margin_bottom = 276.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_right = 196.0
+margin_right = 256.0
 margin_bottom = 13.0
 text = "In Lobby"
 align = 1
 
 [node name="LCode" type="Label" parent="TitleScreen/InLobby/Rows"]
 margin_top = 23.0
-margin_right = 196.0
+margin_right = 256.0
 margin_bottom = 36.0
 text = "Lobby Code: N/A"
 align = 1
 
 [node name="CopyCode" type="Button" parent="TitleScreen/InLobby/Rows"]
-margin_left = 82.0
+margin_left = 112.0
 margin_top = 46.0
-margin_right = 113.0
+margin_right = 143.0
 margin_bottom = 63.0
 focus_mode = 0
 size_flags_horizontal = 4
@@ -737,7 +738,7 @@ text = "Copy"
 
 [node name="PlayerList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
 margin_top = 73.0
-margin_right = 196.0
+margin_right = 256.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 0, 51 )
 size_flags_vertical = 5
@@ -745,20 +746,20 @@ items = [ "Item 0", ExtResource( 2 ), false, "Item 1", ExtResource( 2 ), false ]
 
 [node name="Spectators" type="Label" parent="TitleScreen/InLobby/Rows"]
 margin_top = 134.0
-margin_right = 196.0
+margin_right = 256.0
 margin_bottom = 147.0
 text = "0 Spectators"
 align = 1
 
 [node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 157.0
-margin_right = 196.0
+margin_right = 256.0
 margin_bottom = 174.0
 alignment = 1
 
 [node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
-margin_left = 36.0
-margin_right = 160.0
+margin_left = 66.0
+margin_right = 190.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -766,20 +767,20 @@ text = "Kick Selected Player"
 
 [node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 184.0
-margin_right = 196.0
+margin_right = 256.0
 margin_bottom = 201.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
-margin_left = 29.0
+margin_left = 59.0
 margin_top = 2.0
-margin_right = 65.0
+margin_right = 95.0
 margin_bottom = 15.0
 text = "Deck: "
 
 [node name="Deck" type="OptionButton" parent="TitleScreen/InLobby/Rows/DeckOptions"]
-margin_left = 65.0
-margin_right = 127.0
+margin_left = 95.0
+margin_right = 157.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -788,8 +789,8 @@ items = [ "default", null, false, 0, null ]
 selected = 0
 
 [node name="OpenDE" type="Button" parent="TitleScreen/InLobby/Rows/DeckOptions"]
-margin_left = 127.0
-margin_right = 166.0
+margin_left = 157.0
+margin_right = 196.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -797,45 +798,59 @@ text = "Editor"
 
 [node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 211.0
-margin_right = 196.0
-margin_bottom = 228.0
+margin_right = 256.0
+margin_bottom = 247.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
-margin_left = 31.0
-margin_top = 2.0
-margin_right = 125.0
-margin_bottom = 15.0
+margin_left = 25.0
+margin_top = 11.0
+margin_right = 119.0
+margin_bottom = 24.0
 text = "Profile Picture: "
 
 [node name="Pic" type="OptionButton" parent="TitleScreen/InLobby/Rows/ProfilePic"]
-margin_left = 125.0
-margin_right = 164.0
-margin_bottom = 17.0
+margin_left = 119.0
+margin_right = 182.0
+margin_bottom = 36.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Cat"
-items = [ "Cat", null, false, 0, null, "Geck", null, false, 1, null, "Grizzly", null, false, 2, null, "Lil Boi", null, false, 3, null, "Mantis God", null, false, 4, null, "Orlu's Vessel", null, false, 5, null, "Pack Rat", null, false, 6, null, "Stoat", null, false, 7, null, "Worker Ant", null, false, 8, null ]
+text = "Amoeba"
+items = [ "Amoeba", null, false, 0, null, "Cat", null, false, 1, null, "Geck", null, false, 2, null, "Grizzly", null, false, 3, null, "Lil Boi", null, false, 4, null, "Mantis God", null, false, 5, null, "Orlu's Vessel", null, false, 6, null, "Pack Rat", null, false, 7, null, "Stoat", null, false, 8, null, "Worker Ant", null, false, 9, null ]
 selected = 0
 
+[node name="Spacer" type="Control" parent="TitleScreen/InLobby/Rows/ProfilePic"]
+margin_left = 182.0
+margin_right = 187.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="Preview" type="TextureRect" parent="TitleScreen/InLobby/Rows/ProfilePic"]
+margin_left = 187.0
+margin_right = 230.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 43, 36 )
+texture = ExtResource( 11 )
+expand = true
+
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 238.0
-margin_right = 196.0
-margin_bottom = 255.0
+margin_top = 257.0
+margin_right = 256.0
+margin_bottom = 274.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="LobbyReady" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
-margin_left = 56.0
-margin_right = 96.0
+margin_left = 86.0
+margin_right = 126.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ready"
 
 [node name="LobbyQuit" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
-margin_left = 112.0
-margin_right = 139.0
+margin_left = 142.0
+margin_right = 169.0
 margin_bottom = 17.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -953,6 +968,7 @@ align = 2
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/CopyCode" to="TitleScreen" method="_on_CopyCode_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons2/Kick" to="TitleScreen" method="_on_Kick_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/DeckOptions/OpenDE" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
+[connection signal="item_selected" from="TitleScreen/InLobby/Rows/ProfilePic/Pic" to="TitleScreen" method="_on_Pic_item_selected"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyReady" to="TitleScreen" method="_on_LobbyReady_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
 [connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorOk" to="TitleScreen" method="_on_ErrorOk_pressed"]
