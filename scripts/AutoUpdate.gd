@@ -100,6 +100,9 @@ func _on_OptionButton_item_selected(index):
 
 func download_card_portraits():
 	var d = Directory.new()
+
+	# TODO: Make directory if possible
+
 	d.change_dir(CardInfo.custom_portrait_path)
 	
 	for card in CardInfo.all_cards:
