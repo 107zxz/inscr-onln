@@ -7,7 +7,7 @@
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=5]
 [ext_resource path="res://gfx/sigils/Tidal Lock.png" type="Texture" id=6]
 [ext_resource path="res://gfx/sigils/Omni Strike.png" type="Texture" id=7]
-[ext_resource path="res://scripts/classes/BossCard.gd" type="Script" id=8]
+[ext_resource path="res://scripts/classes/cards/BossCard.gd" type="Script" id=8]
 
 [node name="Moon" type="PanelContainer"]
 margin_left = 212.0
