@@ -285,11 +285,12 @@ func post_turn_sigils():
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 	
 		# Kill side deck cards if moon
-		for sn in ["Squirrel", "Skeleton", "Geck", "Vessel", "Ruby", "Sapphire", "Emerald", "Cairn"]:
-			if sn in card.card_data.name:
-				card.get_node("AnimationPlayer").play("Perish")
-				rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Perish")
-				yield(card.get_node("AnimationPlayer"), "animation_finished")
+		if fightManager.moon_event:
+			for sn in ["Squirrel", "Skeleton", "Geck", "Vessel", "Ruby", "Sapphire", "Emerald", "Cairn"]:
+				if sn in card.card_data.name:
+					card.get_node("AnimationPlayer").play("Perish")
+					rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Perish")
+					yield(card.get_node("AnimationPlayer"), "animation_finished")
 				
 			
 	

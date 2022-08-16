@@ -1,10 +1,7 @@
 extends PanelContainer
 
-const MAX_HEALTH = 40
-const INITIAL_ATK = 1
-
-var attack: int = INITIAL_ATK
-var health: int = MAX_HEALTH
+var attack: int = 1
+var health: int = 40
 
 # Slot to hit when attacking
 var target = -1
@@ -31,6 +28,12 @@ func lunacide():
 		animPlayer.play("eggmanEnemy")
 
 func _ready():
+	
+	var mn = CardInfo.from_name("The Moon")
+	
+	attack = mn.attack
+	health = mn.health
+	
 	update_stats()
 
 func take_damage(dmg: int):
@@ -38,8 +41,10 @@ func take_damage(dmg: int):
 	update_stats()
 
 func reset():
-	health = MAX_HEALTH
-	attack = INITIAL_ATK
+	var mn = CardInfo.from_name("The Moon")
+	
+	attack = mn.attack
+	health = mn.health
 	update_stats()
 
 remote func remote_attack(slot: int):

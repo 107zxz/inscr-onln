@@ -49,7 +49,8 @@ const default_theme_data = {
 		}
 	},
 	"show_accessibility_icons": false,
-	"show_card_tooltips": true
+	"show_card_tooltips": true,
+	"enable_moon_music": true
 }
 
 var theme_data = default_theme_data
@@ -118,6 +119,7 @@ func apply_theme():
 	# Accessibility icons
 	GameOptions.enable_accessibility_icons = theme_data.show_accessibility_icons
 	GameOptions.show_card_tooltips = theme_data.show_card_tooltips
+	GameOptions.enable_moon_music = theme_data.enable_moon_music
 	
 	# Reload deck editor
 	get_node("/root/Main/DeckEdit").search()
@@ -150,6 +152,7 @@ func apply_controls():
 
 	theme_data.show_accessibility_icons = $"Options/Accessibility icons/CheckBox".pressed
 	theme_data.show_card_tooltips = $"Options/Card Tooltips/CheckBox".pressed
+	theme_data.enable_moon_music = $"Options/Moon Music/CheckBox".pressed
 
 func save_theme():
 	
@@ -189,8 +192,12 @@ func update_controls():
 	if not "show_card_tooltips" in theme_data:
 		theme_data.show_card_tooltips = true
 	
+	if not "enable_moon_music" in theme_data:
+		theme_data.enable_moon_music = true
+	
 	$"Options/Accessibility icons/CheckBox".pressed = theme_data.show_accessibility_icons
 	$"Options/Card Tooltips/CheckBox".pressed = theme_data.show_card_tooltips
+	$"Options/Moon Music/CheckBox".pressed = theme_data.enable_moon_music
 
 func attempt_load_theme():
 	
