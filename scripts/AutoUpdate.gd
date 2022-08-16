@@ -11,7 +11,7 @@ const rulesetURLs = [
 func _ready():
 	for option in OS.get_cmdline_args():
 		if option == "noupdate":
-			get_tree().change_scene("res://NewMain.tscn")
+#			get_tree().change_scene("res://NewMain.tscn")
 			return
 	
 	get_node("VersionLabel").text = CardInfo.VERSION
@@ -102,8 +102,11 @@ func download_card_portraits():
 	var d = Directory.new()
 
 	# TODO: Make directory if possible
-
-	d.change_dir(CardInfo.custom_portrait_path)
+	if not d.dir_exists(CardInfo.custom_portrait_path):
+		d.make_dir(CardInfo.custom_portrait_path)
+	
+	if not d.dir_exists(CardInfo.portrait_override_path):
+		d.make_dir(CardInfo.portrait_override_path)
 	
 	for card in CardInfo.all_cards:
 		if "pixport_url" in card:

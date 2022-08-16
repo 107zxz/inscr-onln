@@ -16,7 +16,8 @@ var deck_path = data_path + "/decks/undef/"
 var rules_path = data_path + "/gameInfo.json"
 var theme_path = data_path + "/theme.json"
 var tunnellog_path = data_path + "/lhrlog.txt"
-var custom_portrait_path = data_path + "/portraits/"
+var custom_portrait_path = data_path + "/custom_portraits/"
+var portrait_override_path = data_path + "/portrait_overrides/"
 
 # CB
 var background_texture = null

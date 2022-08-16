@@ -1,4 +1,4 @@
-extends "res://scripts/classes/DrawCard.gd"
+extends "res://scripts/classes/cards/DrawCard.gd"
 
 onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer")
 onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPreview/PreviewContainer/")

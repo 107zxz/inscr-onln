@@ -728,7 +728,7 @@ remote func _opponent_surrendered():
 
 func debug_cleanup():
 	# Quit if I'm a debug instance
-	if "listen" in OS.get_cmdline_args() or "join" in OS.get_cmdline_args():
+	if "autoquit" in OS.get_cmdline_args():
 		get_tree().quit()
 	
 	if "DEBUG_HOST" in get_node("PlayerInfo/MyInfo/Username").text:
