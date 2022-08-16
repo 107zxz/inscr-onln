@@ -680,7 +680,8 @@ func moon_cutscene(friendly: bool):
 	else:
 		$MoonFight/AnimationPlayer.play("enemyMoon")
 
-#	$AudioStreamPlayer.play()
+	if GameOptions.enable_moon_music:
+		$MoonFight/AudioStreamPlayer.play()
 
 # Network interactions
 ## LOCAL
