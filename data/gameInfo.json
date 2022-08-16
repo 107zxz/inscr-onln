@@ -1,5 +1,5 @@
 {
-    "ruleset": "IMF Competitive Ruleset v0.03",
+    "ruleset": "IMF Competitive Ruleset v0.04",
     "cards": [
         {
             "name": "Starvation",
@@ -1239,6 +1239,9 @@
             "name": "Practice Wizard",
             "attack": 0,
             "health": 3,
+            "sigils": [
+                "Made of Stone"
+            ],
             "mox_cost": [
                 "Orange"
             ]
@@ -1476,7 +1479,7 @@
                 "Reconstitute"
             ],
             "banned": true,
-            "description": "Card and Reconstitute sigil art by Sebas534. Boneless sigil art by syntaxevasion.\nThe most broken card, hopefully no longer."
+            "description": "Card and Reconstitute sigil art by Sebas534.\nThe most broken card, hopefully no longer."
         },
         {
             "name": "Shambling Cairn",
@@ -1624,6 +1627,6 @@
         "Made of Stone",
         "Side Hustle"
     ],
-    "easter_egg": "DM me a screenshot of this to get a portrait in the game ;)"
+    "easter_egg": "DM me a screenshot of this to get a portrait in the game ;) (claimed by zippycat9)"
 }
 

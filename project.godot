@@ -9,13 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "BuffEffect",
+"language": "GDScript",
+"path": "res://scripts/classes/buffs/BuffEffect.gd"
+}, {
 "base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
+"base": "Reference",
+"class": "SigilEffect",
+"language": "GDScript",
+"path": "res://scripts/classes/sigils/SigilEffect.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"BuffEffect": "",
+"GitAPI": "",
+"SigilEffect": ""
 }
 
 [application]
