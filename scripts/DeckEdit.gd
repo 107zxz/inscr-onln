@@ -369,4 +369,4 @@ func _on_ViewFolder_pressed():
 
 func _on_TestButton_pressed():
 	get_node("/root/Main/TitleScreen").debug_host()
-	OS.execute(OS.get_executable_path(), ["join"], false)
+	OS.execute(OS.get_executable_path(), ["join", "autoquit"], false)

@@ -9,8 +9,16 @@ func draw_from_data(cdat):
 
 	$VBoxContainer/Label.text = card_data.name
 	
-	# Special
-	if "pixport_url" in card_data:
+	# Special portrait overrides
+	var d = Directory.new()
+	if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
+		var i = Image.new()
+		i.load(CardInfo.portrait_override_path + card_data.name + ".png")
+		var tx = ImageTexture.new()
+		tx.create_from_image(i)
+		tx.flags -= tx.FLAG_FILTER
+		$VBoxContainer/Portrait.texture = tx
+	elif "pixport_url" in card_data:
 		var i = Image.new()
 		i.load(CardInfo.custom_portrait_path + card_data.name + ".png")
 		var tx = ImageTexture.new()
