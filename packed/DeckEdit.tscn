@@ -264,10 +264,58 @@ text = "Any"
 items = [ "Any", null, false, 0, null, "Blood", null, false, 1, null, "Bone", null, false, 2, null, "Energy", null, false, 3, null, "Mox", null, false, 4, null ]
 selected = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
 margin_top = 19.0
 margin_right = 199.0
-margin_bottom = 19.0
+margin_bottom = 36.0
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_top = 2.0
+margin_right = 48.0
+margin_bottom = 15.0
+text = "Attack: "
+
+[node name="Operator" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 48.0
+margin_right = 75.0
+margin_bottom = 17.0
+focus_mode = 0
+text = ">="
+items = [ "=", null, false, 0, null, "<=", null, false, 1, null, ">=", null, false, 2, null ]
+selected = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 75.0
+margin_right = 199.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "0"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
+margin_top = 38.0
+margin_right = 199.0
+margin_bottom = 55.0
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
+margin_top = 2.0
+margin_right = 46.0
+margin_bottom = 15.0
+text = "Health: "
+
+[node name="Operator" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 46.0
+margin_right = 73.0
+margin_bottom = 17.0
+text = ">="
+items = [ "=", null, false, 0, null, "<=", null, false, 1, null, ">=", null, false, 2, null ]
+selected = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 73.0
+margin_right = 199.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "0"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
 margin_left = 204.0
@@ -532,6 +580,10 @@ columns = 4
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder" to="." method="_on_ViewFolder_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton" to="." method="_on_TestButton_pressed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect" to="." method="search"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3/Operator" to="." method="search"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3/LineEdit" to="." method="search"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4/Operator" to="." method="search"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4/LineEdit" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="." method="search"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit" to="." method="search"]
