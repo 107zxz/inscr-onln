@@ -14,6 +14,11 @@ onready var sigil_so_2 = searchOptions.get_node("HBoxContainer/VBoxContainer2/Si
 onready var cost_type_so = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect")
 onready var name_so = searchOptions.get_node("HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit")
 
+onready var attack_so_op = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer3/Operator")
+onready var attack_so_num = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer3/LineEdit")
+onready var health_so_op = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer4/Operator")
+onready var health_so_num = searchOptions.get_node("HBoxContainer/VBoxContainer/HBoxContainer4/LineEdit")
+
 # Deck creation units
 onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel
 onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/LineEdit
@@ -102,6 +107,21 @@ func search(_arg = null):
 		if cost_type_so.selected == 3 and not "energy_cost" in card:
 			continue
 		if cost_type_so.selected == 4 and not "mox_cost" in card:
+			continue
+		
+		# Attack, hp
+		if attack_so_op.selected == 0 and not card.attack == int(attack_so_num.text):
+			continue
+		if attack_so_op.selected == 1 and not card.attack <= int(attack_so_num.text):
+			continue
+		if attack_so_op.selected == 2 and not card.attack >= int(attack_so_num.text):
+			continue
+		
+		if health_so_op.selected == 0 and not card.health == int(health_so_num.text):
+			continue
+		if health_so_op.selected == 1 and not card.health <= int(health_so_num.text):
+			continue
+		if health_so_op.selected == 2 and not card.health >= int(health_so_num.text):
 			continue
 		
 		resultCount += 1

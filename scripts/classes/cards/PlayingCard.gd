@@ -322,7 +322,7 @@ func begin_perish(doubleDeath = false):
 				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.health -= 10
+					eCard.health -= 5
 					if eCard.health <= 0:
 						eCard.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
@@ -334,7 +334,7 @@ func begin_perish(doubleDeath = false):
 				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.health -= 10
+					eCard.health -= 5
 					if eCard.health <= 0:
 						eCard.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
@@ -383,7 +383,7 @@ func begin_perish(doubleDeath = false):
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.health -= 10
+					eCard.health -= 5
 					if eCard.health <= 0:
 						eCard.get_node("AnimationPlayer").play("Perish")
 						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
