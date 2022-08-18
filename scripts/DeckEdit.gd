@@ -260,6 +260,17 @@ func load_deck(_arg = null):
 			if found:
 				continue
 		
+		else:
+			var found = 0
+			for child in deckDisplay.get_children():
+				if child.is_queued_for_deletion():
+					continue
+				
+				if child.card_data.name == cdat.name:
+					found += 1
+			if found >= 4:
+				continue
+		
 		nCard.from_data(cdat)
 		deckDisplay.add_child(nCard)
 		dSize += 1
