@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.1.4"
+const VERSION = "v0.1.5"
 
 var all_data = {}
 var ruleset = "undefined ruleset"
@@ -17,6 +17,7 @@ var rules_path = data_path + "/gameInfo.json"
 var theme_path = data_path + "/theme.json"
 var tunnellog_path = data_path + "/lhrlog.txt"
 var custom_portrait_path = data_path + "/custom_portraits/"
+var custom_icon_path = data_path + "/custom_sigil_icons/"
 var portrait_override_path = data_path + "/portrait_overrides/"
 
 # CB

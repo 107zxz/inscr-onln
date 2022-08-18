@@ -11,7 +11,7 @@ const rulesetURLs = [
 func _ready():
 	for option in OS.get_cmdline_args():
 		if option == "noupdate":
-#			get_tree().change_scene("res://NewMain.tscn")
+			# get_tree().change_scene("res://NewMain.tscn")
 			return
 	
 	get_node("VersionLabel").text = CardInfo.VERSION
@@ -121,10 +121,36 @@ func download_card_portraits():
 			print("Requesting image %s..." % card.pixport_url)
 			
 			yield($ImageRequest, "request_completed")
+	
+	download_sigil_icons()
+	
+	# Now switch to main scene
+	# get_tree().change_scene("res://NewMain.tscn")
+
+func download_sigil_icons():
+	var d = Directory.new()
+
+	if not d.dir_exists(CardInfo.custom_icon_path):
+		d.make_dir(CardInfo.custom_icon_path)
+	
+	if "sigil_urls" in CardInfo.all_data:
+		for sigil in CardInfo.all_sigils:
+			if sigil in CardInfo.all_data.sigil_urls:
+				
+				var fp = CardInfo.custom_icon_path + sigil + ".png"
+				
+				if d.file_exists(fp):
+					print("File %s already exists! Skipping download" % fp)
+					continue
+				
+				$ImageRequest.download_file = fp
+				$ImageRequest.request(CardInfo.all_data.sigil_urls[sigil])
+				print("Requesting sigil image %s..." % CardInfo.all_data.sigil_urls[sigil])
+				
+				yield($ImageRequest, "request_completed")
 
 	# Now switch to main scene
 	get_tree().change_scene("res://NewMain.tscn")
-	
 
 func _on_ImageRequest_request_completed(_result, response_code, _headers, _body):
 	if response_code != 200:

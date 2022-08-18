@@ -237,6 +237,32 @@ func draw_symbols():
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
 func draw_sigils():
 		# Sigils
+
+		var sig1 = null
+		var sig2 = null
+		var d = Directory.new()
+
+		if "sigils" in card_data and len(card_data.sigils) >= 1:
+			var sPath = CardInfo.custom_icon_path + card_data.sigils[0] + ".png"
+			if d.file_exists(sPath):
+				var i = Image.new()
+				i.load(sPath)
+				sig1 = ImageTexture.new()
+				sig1.create_from_image(i)
+				sig1.flags -= sig1.FLAG_FILTER
+			else:
+				sig1 = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+
+			if len(card_data.sigils) == 2:
+				sPath = CardInfo.custom_icon_path + card_data.sigils[0] + ".png"
+				if d.file_exists(sPath):
+					var i = Image.new()
+					i.load(sPath)
+					sig2 = ImageTexture.new()
+					sig2.create_from_image(i)
+					sig2.flags -= sig2.FLAG_FILTER
+				else:
+					sig2 = load("res://gfx/sigils/" + card_data.sigils[1] + ".png")
 		
 		# Minor fix
 		if not "active" in card_data:
@@ -245,20 +271,20 @@ func draw_sigils():
 		if "sigils" in card_data:
 			if "active" in card_data:
 				$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
-				$VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+				$VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = sig1
 				$VBoxContainer/HBoxContainer/Sigil.visible = false
 				
 				# Tooltip
 #				$VBoxContainer/HBoxContainer/Sigil.hint_tooltip = "AMGOUS"
 			else:
-				$VBoxContainer/HBoxContainer/Sigil.texture = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
+				$VBoxContainer/HBoxContainer/Sigil.texture = sig1
 				$VBoxContainer/HBoxContainer/Sigil.visible = true
 				$VBoxContainer/HBoxContainer/ActiveSigil.visible = false
 			
 			if len(card_data.sigils) > 1:
 				$VBoxContainer/HBoxContainer/Sigil2.visible = true
 				$VBoxContainer/HBoxContainer/Spacer3.visible = true
-				$VBoxContainer/HBoxContainer/Sigil2.texture = load("res://gfx/sigils/" + card_data.sigils[1] + ".png")
+				$VBoxContainer/HBoxContainer/Sigil2.texture = sig2
 			else:
 				$VBoxContainer/HBoxContainer/Sigil2.texture = null
 				$VBoxContainer/HBoxContainer/Sigil2.visible = false
