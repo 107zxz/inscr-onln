@@ -1,5 +1,5 @@
 {
-    "ruleset": "IMF Competitive Ruleset v0.04",
+    "ruleset": "IMF Competitive Ruleset v0.05",
     "cards": [
         {
             "name": "Starvation",
@@ -16,7 +16,7 @@
                 "Touch of Death"
             ],
             "attack": 1,
-            "health": 1,
+            "health": 3,
             "blood_cost": 2
         },
         {
@@ -438,6 +438,7 @@
             "attack": 0,
             "health": 3,
             "blood_cost": 1,
+            "atkspecial": 1,
             "banned": true
         },
         {
@@ -503,7 +504,7 @@
             "attack": 1,
             "health": 2,
             "blood_cost": 2,
-            "description": "Custom card by SpelunkyGuy101. Placeholder art for card and sigil by me."
+            "description": "Custom card by SpelunkyGuy101.\nCard and sigil art by syntaxevasion"
         },
         {
             "name": "Curve Hopper",
@@ -1355,7 +1356,7 @@
                 "Orange"
             ],
             "evolution": "Ruby Dragon",
-            "description": "Custom card by SpelunkyGuy101"
+            "description": "Custom card by SpelunkyGuy101.\nUpdated art by syntaxevasion"
         },
         {
             "name": "Ruby Dragon",
@@ -1505,6 +1506,12 @@
             "nosac": false,
             "description": "Emits a pale white light. You feel as though it calls to its brethren.",
             "banned": true
+        },
+        {
+            "name": "The Moon",
+            "attack": 1,
+            "health": 40,
+            "banned": true
         }
     ],
     "sigils": {
@@ -1626,7 +1633,5 @@
         "Noble Sacrifice",
         "Made of Stone",
         "Side Hustle"
-    ],
-    "easter_egg": "DM me a screenshot of this to get a portrait in the game ;) (claimed by zippycat9)"
+    ]
 }
-

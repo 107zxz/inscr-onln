@@ -36,6 +36,9 @@ const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Acid S
 var cardPrefab = preload("res://packed/dbCard.tscn")
 
 func _on_ExitButton_pressed():
+	
+	save_deck()
+	
 	visible = false
 	get_node("/root/Main/TitleScreen").populate_deck_list()
 	get_node("/root/Main/TitleScreen").select_deck(selector_de.selected)
@@ -401,3 +404,7 @@ func _on_ViewFolder_pressed():
 func _on_TestButton_pressed():
 	get_node("/root/Main/TitleScreen").debug_host()
 	OS.execute(OS.get_executable_path(), ["join", "autoquit"], false)
+
+
+func _exit_tree():
+	save_deck()

@@ -84,7 +84,13 @@ func _on_Card_mouse_entered():
 	for sigdat in card_data.sigils:
 #		var sd = sigilDescPrefab.instance()
 		var sd = previewCont.get_child(1).get_child(sigIdx)
-		sd.get_child(1).texture = load("res://gfx/sigils/" + sigdat + ".png")
+
+
+		# Steal texture from card
+		sd.get_child(1).texture = $VBoxContainer/HBoxContainer.get_child(sigIdx * 2).texture
+		
+
+
 		sd.get_child(2).text = sigdat + ":\n" + CardInfo.all_sigils[sigdat]
 
 		if not sigdat in CardInfo.working_sigils:
