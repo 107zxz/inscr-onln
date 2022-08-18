@@ -71,7 +71,9 @@ func draw_special():
 	if "atkspecial" in card_data:
 
 		$AtkIcon.texture = $AtkIcon.texture.duplicate()
-		$AtkIcon.texture.region = Rect2(0, 27, 16, 8)
+
+		if card_data.atkspecial == 1:
+			$AtkIcon.texture.region = Rect2(0, 27, 16, 8)
 
 		$AtkIcon.visible = true
 		$HBoxContainer/AtkScore.visible = false
