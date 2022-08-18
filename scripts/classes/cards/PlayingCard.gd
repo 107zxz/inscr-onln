@@ -484,7 +484,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.add_bones(-2)
 		health += 1
 		card_data.attack += 1 # Save attack to avoid deletion later
-		attack = card_data.attack
+		attack += 1
 			
 		draw_stats()
 	
@@ -495,7 +495,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.set_energy(fightManager.energy - 4)
 		health += 1
 		card_data.attack += 1 # Save attack to avoid deletion later
-		attack = card_data.attack
+		attack += 1
 		
 		draw_stats()
 	

@@ -610,27 +610,29 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 	if sName == "Power Dice":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 2)
 		
-		eCard.attack = arg
-
-		eCard.card_data["attack"] = eCard.attack # save attack to avoid bug
+		var diff = eCard.attack - eCard.card_data["attack"]
+		
+		eCard.card_data["attack"] = arg
+		
+		eCard.attack = arg + diff
 
 		eCard.draw_stats()
 	
 	if sName == "Enlarge":
 		fightManager.add_opponent_bones(-2)
 		eCard.health += 1
-		eCard.attack += 1
 
-		eCard.card_data["attack"] = eCard.attack # save attack to avoid bug
+		eCard.card_data["attack"] += 1 # save attack to avoid bug
+		eCard.attack += 1
 
 		eCard.draw_stats()
 	
 	if sName == "Stimulate":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 4)
 		eCard.health += 1
-		eCard.attack += 1
 
-		eCard.card_data["attack"] = eCard.attack # save attack to avoid bug
+		eCard.card_data["attack"] += 1 # save attack to avoid bug
+		eCard.attack += 1
 
 		eCard.draw_stats()
 	
