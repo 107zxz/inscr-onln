@@ -658,6 +658,10 @@ func has_sigil(sigName):
 # Take damage and die if needed
 func take_damage(enemyCard, dmg_amt = -1):
 
+	if $CardBody/HighlightHolder.visible:
+		$CardBody/HighlightHolder.visible = false
+		return
+
 	if enemyCard and dmg_amt == -1:
 		dmg_amt = enemyCard.attack
 

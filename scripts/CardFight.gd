@@ -468,6 +468,10 @@ func card_summoned(playedCard):
 	if playedCard.card_data["name"] == "Stoat":
 		playedCard.card_data["name"] = "Total Misplay"
 		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
+	
+	# TODO: Highlight
+	if playedCard.has_sigil(PoolByteArray([065,114,109,111,114,101,100]).get_string_from_utf8()):
+		playedCard.get_node("CardBody/HighlightHolder").visible = true
 
 # Hammer Time
 func hammer_mode():
@@ -577,6 +581,10 @@ remote func _opponent_played_card(card, slot):
 
 			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
 			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
+	
+	# TODO: Highlight
+	if PoolByteArray([065,114,109,111,114,101,100]).get_string_from_utf8() in card_dt.sigils:
+		slotManager.enemySlots[slot].get_child(0).get_node("CardBody/HighlightHolder").visible = true
 
 	
 	
