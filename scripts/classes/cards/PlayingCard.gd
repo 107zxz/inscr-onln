@@ -571,7 +571,7 @@ func calculate_buffs():
 		attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
 	
 	# Mirror Tentacle
-	if card_data["name"] == "Mirror Tentacle":
+	if "Mirror" in card_data["name"]:
 		if friendly:
 			if slotManager.get_enemy_card(sIdx):
 				attack = slotManager.get_enemy_card(sIdx).attack
