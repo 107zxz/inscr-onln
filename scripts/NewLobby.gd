@@ -494,7 +494,5 @@ remote func _player_status(status: Dictionary):
 remote func _start_match(go_first: int):
 	init_fight(go_first)
 
-
-
 func _on_Pic_item_selected(index):
 	$InLobby/Rows/ProfilePic/Preview.texture = load("res://gfx/portraits/" + $InLobby/Rows/ProfilePic/Pic.get_item_text(index) + ".png")

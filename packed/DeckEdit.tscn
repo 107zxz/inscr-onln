@@ -306,6 +306,7 @@ text = "Health: "
 margin_left = 46.0
 margin_right = 73.0
 margin_bottom = 17.0
+focus_mode = 0
 text = ">="
 items = [ "=", null, false, 0, null, "<=", null, false, 1, null, ">=", null, false, 2, null ]
 selected = 2

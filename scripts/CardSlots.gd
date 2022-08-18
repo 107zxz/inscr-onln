@@ -144,6 +144,10 @@ func pre_turn_sigils():
 					fCard.calculate_buffs()
 				for eCard in all_enemy_cards():
 					eCard.calculate_buffs()
+				
+				# Hide tentacle atk symbol
+				card.get_node("CardBody/AtkIcon").visible = false
+				card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
 
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
@@ -254,6 +258,11 @@ func post_turn_sigils():
 					if movSigil == "Skeleton Crew":
 						summon_card(CardInfo.from_name("Skeleton"), curSlot)
 						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
+					# TODO: Cleanup
+					if card.card_data.name == PoolByteArray([76,111,110,103,32,69,108,107]).get_string_from_utf8():
+						var sName = PoolByteArray([86,101,114,116,101,98,114,97,101]).get_string_from_utf8()
+						summon_card(CardInfo.from_name(sName), curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name(sName), curSlot)
 						
 				card.move_to_parent(playerSlots[curSlot + sprintOffset])
 				rpc_id(
@@ -312,7 +321,6 @@ signal complete_combat()
 func initiate_combat():
 	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 		# Moon fight logic
-		# TODO: This
 		
 		var moon = fightManager.get_node("MoonFight/BothMoons/FriendlyMoon")
 		var moonAnim = fightManager.get_node("MoonFight/AnimationPlayer")
@@ -666,6 +674,10 @@ remote func remote_card_data(card_slot, new_data):
 		fCard.calculate_buffs()
 	for eCard in all_enemy_cards():
 		eCard.calculate_buffs()
+	
+	# Hide tentacle atk symbol
+	card.get_node("CardBody/AtkIcon").visible = false
+	card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
 
 remote func handle_enemy_attack(from_slot, to_slot):
 	
