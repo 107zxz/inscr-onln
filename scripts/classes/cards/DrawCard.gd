@@ -69,6 +69,10 @@ func draw_special():
 	if "sigils" in card_data and "Tentacle" in card_data["sigils"] and has_node("DiveOlay"):
 		$DiveOlay.texture = load("res://gfx/sigils/Tentacle.png")
 	if "atkspecial" in card_data:
+
+		$AtkIcon.texture = $AtkIcon.texture.duplicate()
+		$AtkIcon.texture.region = Rect2(0, 27, 16, 8)
+
 		$AtkIcon.visible = true
 		$HBoxContainer/AtkScore.visible = false
 	else:

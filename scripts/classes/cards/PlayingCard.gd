@@ -211,8 +211,8 @@ func move_to_parent(new_parent):
 			if eCard:
 				eCard.take_damage(self, 1)
 		
-		# Green Mage
-		if card_data["name"] == "Green Mage":
+		# Special atk stats
+		if "atkspecial" in card_data:
 			$CardBody/AtkIcon.visible = false
 			$CardBody/HBoxContainer/AtkScore.visible = true
 
@@ -230,7 +230,7 @@ func move_to_parent(new_parent):
 				pCard.take_damage(self, 1)
 		
 		# Green Mage
-		if card_data["name"] == "Green Mage":
+		if "atkspecial" in card_data:
 			$CardBody/AtkIcon.visible = false
 			$CardBody/HBoxContainer/AtkScore.visible = true
 	
@@ -528,6 +528,7 @@ func calculate_buffs():
 #	print("calculate called on ", card_data["name"], " in ", get_parent().get_parent().name)
 
 	var friendly = get_parent().get_parent().name == "PlayerSlots"
+	var sIdx = slot_idx()
 	
 	# Reset attack before buff calculation
 	attack = card_data["attack"]
@@ -562,7 +563,7 @@ func calculate_buffs():
 	
 	# Bell Tentacle
 	if card_data["name"] == "Bell Tentacle":
-		attack = 4 - slot_idx()
+		attack = 4 - sIdx
 	
 	# Hand Tentacle
 	if card_data["name"] == "Hand Tentacle":
@@ -572,11 +573,11 @@ func calculate_buffs():
 	# Mirror Tentacle
 	if card_data["name"] == "Mirror Tentacle":
 		if friendly:
-			if slotManager.get_enemy_card(slot_idx()):
-				attack = slotManager.get_enemy_card(slot_idx()).attack
+			if slotManager.get_enemy_card(sIdx):
+				attack = slotManager.get_enemy_card(sIdx).attack
 		else:
-			if slotManager.get_friendly_card(slot_idx()):
-				attack = slotManager.get_friendly_card(slot_idx()).attack
+			if slotManager.get_friendly_card(sIdx):
+				attack = slotManager.get_friendly_card(sIdx).attack
 
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
@@ -624,15 +625,22 @@ func calculate_buffs():
 
 	# Stinky
 	if friendly:
-		if slotManager.get_enemy_card(slot_idx()):
-			var eCard = slotManager.get_enemy_card(slot_idx())
+		if slotManager.get_enemy_card(sIdx):
+			var eCard = slotManager.get_enemy_card(sIdx)
 			if eCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
 				attack = max(0, attack - 1)
 	else:
-		if slotManager.get_friendly_card(slot_idx()):
-			var pCard = slotManager.get_friendly_card(slot_idx())
+		if slotManager.get_friendly_card(sIdx):
+			var pCard = slotManager.get_friendly_card(sIdx)
 			if pCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
 				attack = max(0, attack - 1)
+	
+	# TODO: hmm
+	var sigName = PoolByteArray([76,101,097,100,101,114]).get_string_from_utf8()
+	for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+		if abs(c.slot_idx() - sIdx) == 1 and c.has_sigil(sigName):
+			attack += 1
+		
 	
 	draw_stats()
 

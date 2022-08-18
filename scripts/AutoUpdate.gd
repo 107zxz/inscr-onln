@@ -101,7 +101,6 @@ func _on_OptionButton_item_selected(index):
 func download_card_portraits():
 	var d = Directory.new()
 
-	# TODO: Make directory if possible
 	if not d.dir_exists(CardInfo.custom_portrait_path):
 		d.make_dir(CardInfo.custom_portrait_path)
 	
