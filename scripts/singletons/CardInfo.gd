@@ -12,7 +12,8 @@ var custom_portraits = {}
 
 var data_path = OS.get_user_data_dir()
 
-var deck_path = data_path + "/decks/undef/"
+var deck_path = data_path + "/decks/"
+var deck_backup_path = data_path + "/decks/undef/"
 var rules_path = data_path + "/gameInfo.json"
 var theme_path = data_path + "/theme.json"
 var tunnellog_path = data_path + "/lhrlog.txt"
@@ -49,7 +50,7 @@ func from_game_info_json(content_as_object):
 	
 	if "ruleset" in all_data:
 		ruleset = all_data.ruleset
-		deck_path = OS.get_user_data_dir() + "/decks/" + ruleset + "/"
+		deck_backup_path = OS.get_user_data_dir() + "/decks/" + ruleset + "/"
 
 func read_game_info():
 	

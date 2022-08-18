@@ -191,6 +191,11 @@ func save_deck(_arg = null):
 	var sFile = File.new()
 	sFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_deck_object()))
+	sFile.close()
+
+	sFile.open(CardInfo.deck_backup_path + selector_de.text + ".deck", File.WRITE)
+	sFile.store_line(to_json(get_deck_object()))
+	sFile.close()
 	
 func save_deck_as(_arg = null):
 	if rename_de.text == "":
@@ -202,6 +207,10 @@ func save_deck_as(_arg = null):
 	
 	var sFile: File = File.new()
 	sFile.open(CardInfo.deck_path + rename_de.text + ".deck", File.WRITE)
+	sFile.store_line(to_json(get_deck_object()))
+	sFile.close()
+
+	sFile.open(CardInfo.deck_backup_path + rename_de.text + ".deck", File.WRITE)
 	sFile.store_line(to_json(get_deck_object()))
 	sFile.close()
 	
@@ -220,11 +229,15 @@ func ensure_default_deck():
 	if not fTest.dir_exists(CardInfo.deck_path):
 		print("Creating deck directory! Error code: ", fTest.make_dir_recursive(CardInfo.deck_path))
 	
+	if not fTest.dir_exists(CardInfo.deck_backup_path):
+		print("Creating deck backup directory! Error code: ", fTest.make_dir_recursive(CardInfo.deck_backup_path))
+	
 	if not defDeck.file_exists(CardInfo.deck_path + "default.deck"):
 		defDeck.open(CardInfo.deck_path + "default.deck", File.WRITE)
 		defDeck.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 
 func load_deck(_arg = null):
+
 	var dFile = File.new()
 	dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.READ)
 	
@@ -397,7 +410,6 @@ func _on_ShuffleButton_pressed():
 		dSize += 1
 
 func _on_ViewFolder_pressed():
-	print(CardInfo.deck_path)
 	OS.shell_open("file://" + CardInfo.deck_path)
 
 
