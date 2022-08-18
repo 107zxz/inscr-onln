@@ -32,6 +32,10 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 			$PatchStoats.visible = true
 			$PatchStoats/Notes.text = res.motd_stoat_force
 		
+		if "IMF Competitive" in CardInfo.ruleset and res.latest_ruleset != CardInfo.ruleset:
+			$Grimorger.visible = true
+			$Grimorger/Notes.text = res.motd_grimorger_update
+		
 		if res.motd_grimorger != "":
 			$Grimorger.visible = true
 			$Grimorger/Notes.text = res.motd_grimorger
