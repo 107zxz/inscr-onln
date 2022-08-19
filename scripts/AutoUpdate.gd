@@ -133,6 +133,9 @@ func download_sigil_icons():
 	if not d.dir_exists(CardInfo.custom_icon_path):
 		d.make_dir(CardInfo.custom_icon_path)
 	
+	if not d.dir_exists(CardInfo.icon_override_path):
+		d.make_dir(CardInfo.icon_override_path)
+	
 	if "sigil_urls" in CardInfo.all_data:
 		for sigil in CardInfo.all_sigils:
 			if sigil in CardInfo.all_data.sigil_urls:
