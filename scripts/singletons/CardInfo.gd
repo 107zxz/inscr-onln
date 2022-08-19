@@ -20,6 +20,7 @@ var tunnellog_path = data_path + "/lhrlog.txt"
 var custom_portrait_path = data_path + "/custom_portraits/"
 var custom_icon_path = data_path + "/custom_sigil_icons/"
 var portrait_override_path = data_path + "/portrait_overrides/"
+var icon_override_path = data_path + "/sigil_icon_overrides/"
 
 # CB
 var background_texture = null

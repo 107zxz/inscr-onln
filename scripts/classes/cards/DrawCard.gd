@@ -243,10 +243,15 @@ func draw_sigils():
 		var d = Directory.new()
 
 		if "sigils" in card_data and len(card_data.sigils) >= 1:
-			var sPath = CardInfo.custom_icon_path + card_data.sigils[0] + ".png"
-			if d.file_exists(sPath):
+			if d.file_exists(CardInfo.icon_override_path + card_data.sigils[0] + ".png"):
 				var i = Image.new()
-				i.load(sPath)
+				i.load(CardInfo.icon_override_path + card_data.sigils[0] + ".png")
+				sig1 = ImageTexture.new()
+				sig1.create_from_image(i)
+				sig1.flags -= sig1.FLAG_FILTER
+			elif d.file_exists(CardInfo.custom_icon_path + card_data.sigils[0] + ".png"):
+				var i = Image.new()
+				i.load(CardInfo.custom_icon_path + card_data.sigils[0] + ".png")
 				sig1 = ImageTexture.new()
 				sig1.create_from_image(i)
 				sig1.flags -= sig1.FLAG_FILTER
@@ -254,13 +259,18 @@ func draw_sigils():
 				sig1 = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 
 			if len(card_data.sigils) == 2:
-				sPath = CardInfo.custom_icon_path + card_data.sigils[0] + ".png"
-				if d.file_exists(sPath):
+				if d.file_exists(CardInfo.icon_override_path + card_data.sigils[1] + ".png"):
 					var i = Image.new()
-					i.load(sPath)
+					i.load(CardInfo.icon_override_path + card_data.sigils[1] + ".png")
 					sig2 = ImageTexture.new()
 					sig2.create_from_image(i)
-					sig2.flags -= sig2.FLAG_FILTER
+					sig2.flags -= sig1.FLAG_FILTER
+				elif d.file_exists(CardInfo.custom_icon_path + card_data.sigils[1] + ".png"):
+					var i = Image.new()
+					i.load(CardInfo.custom_icon_path + card_data.sigils[1] + ".png")
+					sig2 = ImageTexture.new()
+					sig2.create_from_image(i)
+					sig2.flags -= sig1.FLAG_FILTER
 				else:
 					sig2 = load("res://gfx/sigils/" + card_data.sigils[1] + ".png")
 		
