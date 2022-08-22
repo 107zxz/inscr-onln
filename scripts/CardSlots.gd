@@ -258,11 +258,9 @@ func post_turn_sigils():
 					if movSigil == "Skeleton Crew":
 						summon_card(CardInfo.from_name("Skeleton"), curSlot)
 						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
-					# TODO: Cleanup
-					if card.card_data.name == PoolByteArray([76,111,110,103,32,69,108,107]).get_string_from_utf8():
-						var sName = PoolByteArray([86,101,114,116,101,98,114,97,101]).get_string_from_utf8()
-						summon_card(CardInfo.from_name(sName), curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name(sName), curSlot)
+					if card.card_data.name == "Long Elk":
+						summon_card(CardInfo.from_name("Vertebrae"), curSlot)
+						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Vertebrae"), curSlot)
 						
 				card.move_to_parent(playerSlots[curSlot + sprintOffset])
 				rpc_id(
@@ -271,6 +269,12 @@ func post_turn_sigils():
 					curSlot + sprintOffset,
 					sprintSigil.flip_h != ogFlipped
 					)
+				
+				# A push has happened, recalculate stats
+				for fCard in all_friendly_cards():
+					fCard.calculate_buffs()
+				for eCard in all_enemy_cards():
+					eCard.calculate_buffs()
 				
 				# Wait for move to finish
 				yield (cardTween, "tween_completed")
@@ -660,6 +664,12 @@ remote func remote_card_move(from_slot, to_slot, flip_sigil):
 				)
 				
 				sig.flip_h = not sig.flip_h
+		
+	# A push has happened, recalculate stats
+	for fCard in all_friendly_cards():
+		fCard.calculate_buffs()
+	for eCard2 in all_enemy_cards():
+		eCard2.calculate_buffs()
 
 remote func remote_card_stats(card_slot, new_attack, new_health):
 	var card = get_enemy_card(card_slot)

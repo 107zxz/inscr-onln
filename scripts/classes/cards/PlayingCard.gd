@@ -635,8 +635,7 @@ func calculate_buffs():
 			if pCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
 				attack = max(0, attack - 1)
 	
-	# TODO: hmm
-	var sigName = PoolByteArray([76,101,097,100,101,114]).get_string_from_utf8()
+	var sigName = "Leader"
 	for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
 		if abs(c.slot_idx() - sIdx) == 1 and c.has_sigil(sigName):
 			attack += 1
