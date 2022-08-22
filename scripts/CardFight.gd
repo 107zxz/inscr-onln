@@ -109,6 +109,8 @@ var opponent_energy = 0
 var opponent_max_energy = 0
 var opponent_max_energy_buff = 0
 
+var hammers_left = -1
+
 # Decks
 var deck = []
 var side_deck = []
@@ -175,6 +177,19 @@ func init_match(opp_id: int, do_go_first: bool):
 
 	gold_sarcophagus = null
 	sarcophagus_counter = 0
+
+	# Hammers
+	$LeftSideUI/HammerButton.visible = true
+	$LeftSideUI/HammerButton.disabled = false
+
+	if "hammers_per_turn" in CardInfo.all_data:
+		hammers_left = CardInfo.all_data.hammers_per_turn
+
+		$LeftSideUI/HammerButton.text = "Hammer (%d/%d)" % [hammers_left, CardInfo.all_data.hammers_per_turn]
+
+		if hammers_left == 0:
+			$LeftSideUI/HammerButton.visible = false
+			
 
 	# Remove and reset moon
 	$MoonFight/AnimationPlayer.play("RESET")
@@ -794,6 +809,13 @@ remote func start_turn():
 			sarcophagus_counter = 0
 		else:
 			sarcophagus_counter -= 1
+	
+	# Hammers
+	if "hammers_per_turn" in CardInfo.all_data:
+		hammers_left = CardInfo.all_data.hammers_per_turn
+		$LeftSideUI/HammerButton.text = "Hammer (%d/%d)" % [hammers_left, CardInfo.all_data.hammers_per_turn]
+	
+	$LeftSideUI/HammerButton.disabled = false
 
 	# Resolve start-of-turn effects
 	slotManager.pre_turn_sigils()
