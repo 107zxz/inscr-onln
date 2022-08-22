@@ -35,6 +35,39 @@ const side_deck_names = [
 	"Moon Shards"
 ]
 
+var replay = {
+	"players": ["pl1", "pl2"],
+	"turns": [
+		{
+			"player": "pl1",
+			"actions": [
+				{
+					"type": "draw",
+					"from": "main",
+					"card": {
+						# Card Data here
+					},
+				},
+				{
+					"type": "play",
+					"slot": 2,
+					"card": {
+						# Card Data here
+					}
+				},
+				{
+					"type": "sacplay",
+					"sacslots": [2],
+					"summonslot": 1,
+					"card": {
+						# Card Data here
+					}
+				}
+			]
+		}
+	]
+}
+
 # Carryovers from lobby
 var opponent = -100
 var initial_deck = []
@@ -469,8 +502,7 @@ func card_summoned(playedCard):
 		playedCard.card_data["name"] = "Total Misplay"
 		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
 	
-	# TODO: Highlight
-	if playedCard.has_sigil(PoolByteArray([065,114,109,111,114,101,100]).get_string_from_utf8()):
+	if playedCard.has_sigil("Armored"):
 		playedCard.get_node("CardBody/HighlightHolder").visible = true
 
 # Hammer Time
@@ -582,8 +614,7 @@ remote func _opponent_played_card(card, slot):
 			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
 			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
 	
-	# TODO: Highlight
-	if PoolByteArray([065,114,109,111,114,101,100]).get_string_from_utf8() in card_dt.sigils:
+	if "Armored" in card_dt.sigils:
 		slotManager.enemySlots[slot].get_child(0).get_node("CardBody/HighlightHolder").visible = true
 
 	

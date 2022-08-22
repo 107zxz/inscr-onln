@@ -333,7 +333,7 @@ func initiate_combat():
 			moon.target = 4
 			moonAnim.play("friendlyMoonSlap")
 			print("Moon attacking another moon!")
-			rpc_id(fightManager.opponent, fightManager.get_node("MoonFight/BothMoons/EnemyMoon"), "remote_attack", 4)
+			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", 4)
 			
 			yield(moonAnim, "animation_finished")
 			
@@ -689,7 +689,7 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		
 		var moon = fightManager.get_node("MoonFight/BothMoons/EnemyMoon")
 		
-		if moon.target == 4:
+		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(moon.attack)
 		elif moon.target >= 0:
 			playerSlots[moon.target].get_child(0).take_damage(null, moon.attack)
