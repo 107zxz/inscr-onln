@@ -1,46 +1,37 @@
-v0.1.4 is out!
+v0.1.5 is out!
 
-This update fixes all those bugs discovered during the tournament and provides graphical customisation options
+This update 
 
 * New Cards
-    * Fox
-        * 2 blood cost
-        * 1/2
-        * Sprinter
-        * Side Hustle
-    * Gargoyle
-        * 6 bone cost
-        * 1/4
-        * Airborne
-        * Made of Stone
-    * "Moon Shard" sidedeck replaces Edaxio's Vessels
-        * 6 energy cost
-        * 0/5
-        * Made of Stone
-        * Mighty Leap
+    * ???
 * New Sigils
-    * Made of Stone
-    * Omni Strike
-    * Tidal Lock
-    * Side Hustle
-        * When inflicting direct damage, draw a number of cards from your side deck equal to the damage dealt
+    * ???
 * Balance Changes
-    * Practice Mage
-        * Added "Made of Stone"
+    * Adder
+        * Stats changed from 1/1 to 1/3
+        This is to give it more utility in a game with drowned soul in it
+    * Bullfrog
+        * Stats changed from 1/2 to 1/3
+        This is to make it significantly better than l33pb0t given the cost difference
 * New Features
-    * "Test" mode in deck editor. Lets you play the currently selected deck against yourself
-    * Custom background images (place a file named background.png/jpg in the game directory (suggested by Desaft)
-    * Custom card artwork can now be included in rulesets
-    * New title screen features
-    * Hand spacing will now update depending on number of cards
+    * Deck editor can now sort cards by stats
+    * The moon's music from act 1 is now toggleable in the theme editor (I'll make an options menu someday)
+    * The moon's attack and health can now be customised in a custom ruleset
+* Graphical Changes
+    * Portraits for Ruby Dragon, Dragon Egg, and Fox have been redrawn by syntaxevasion
+    * Sigil icon for Side Hustle has been redrawn by syntaxevasion
 * Bug Fixes
-    * You can no longer sacrifice your opponent's cards (Discovered by SpelunkyGuy101 and Dracktor)
-    * Hopefully fixed the room code system on windows not working the first time after install (Discovered by 7dawn)
-    * Buff Conduit's effect now stacks (Bug discovered by CryoRyo)
-    * The conduit icon now changes colour to match the current theme
-    * Side decks no longer depend on card IDs
-    * Deck editor will now warn you when readying up with an empty deck, and no longer prevent you from readying up when an empty deck was most recently viewed (Discovered by Dracktor)
-    * Cards that buff themselves will no longer permenantly retain buffs / debuffs (Discovered by Mouthless Stoat and Garf)
+    * Side deck cards will no longer instantly die at the end of your turn (discovered by 
+    * Self-buffing cards will now correctly calculate attack when under the influence of a Buff Conduit (Discovered by Mouthless Stoat)
 * Other changes
-    * Changed graphics backend to GLES2
-        * Should make the game run faster and use less memory
+    * Two new lobby profile pictures
+        * Energy Gunner (earned by syntaxevasion)
+        * Amoeba (earned by zippycat9)
+    * Card portrait and sigil overrides are now possible!
+        Put an image with the same name as a card or sigil in the portrait_overrides or sigil_icon_overrides folder in the game directory respectively
+        e.g. "Adder.png"
+    * Stinkbug
+        * Can now inform you of competitive ruleset updates
+        * ???
+    * Decks now persist between rulesets
+        A backup of each deck is created in a folder named after the current ruleset
