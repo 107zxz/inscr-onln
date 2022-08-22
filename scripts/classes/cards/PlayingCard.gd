@@ -103,10 +103,18 @@ func _on_Button_pressed():
 			$AnimationPlayer.play("Perish")
 			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
 			
-			if slotManager.get_hammerable_cards() == 0:
-				fightManager.hammer_mode()
-				# Jank workaround
-				fightManager.get_node("LeftSideUI/HammerButton").pressed = false
+			# Always turn off hammer after hammering something (requested)
+			fightManager.hammer_mode()
+			# Jank workaround
+			fightManager.get_node("LeftSideUI/HammerButton").pressed = false
+
+			if "hammers_per_turn" in CardInfo.all_data:
+				fightManager.hammers_left -= 1
+
+				fightManager.get_node("LeftSideUI/HammerButton").text = "Hammer (%d/%d)" % [fightManager.hammers_left, CardInfo.all_data.hammers_per_turn]
+
+				if fightManager.hammers_left <= 0:
+					fightManager.get_node("LeftSideUI/HammerButton").disabled = true
 		
 		# Am I about to be sacrificed
 		if fightManager.state == fightManager.GameStates.SACRIFICE:
