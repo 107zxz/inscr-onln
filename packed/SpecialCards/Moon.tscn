@@ -55,7 +55,7 @@ size_flags_stretch_ratio = 0.18
 custom_constants/separation = 4
 alignment = 1
 
-[node name="Mighty Leap of Stone2" type="TextureRect" parent="CBody/SigilCont"]
+[node name="Mighty Leap" type="TextureRect" parent="CBody/SigilCont"]
 material = ExtResource( 4 )
 margin_left = 216.0
 margin_right = 254.0
@@ -85,7 +85,7 @@ mouse_filter = 2
 texture = ExtResource( 6 )
 expand = true
 
-[node name="Made of Stone2" type="TextureRect" parent="CBody/SigilCont"]
+[node name="Made of Stone" type="TextureRect" parent="CBody/SigilCont"]
 material = ExtResource( 4 )
 margin_left = 342.0
 margin_right = 380.0
