@@ -416,6 +416,9 @@ func _on_ViewFolder_pressed():
 func _on_TestButton_pressed():
 	save_deck()
 	
+	# Set deck in lobby thing
+	get_node("/root/Main/TitleScreen/InLobby/Rows/DeckOptions/Deck").select($HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel.selected)
+	
 	get_node("/root/Main/TitleScreen").debug_host()
 	OS.execute(OS.get_executable_path(), ["join", "autoquit"], false)
 
