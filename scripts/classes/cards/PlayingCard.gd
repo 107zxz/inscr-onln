@@ -314,9 +314,9 @@ func begin_perish(doubleDeath = false):
 			var slotIdx = get_parent().get_position_in_parent()
 
 			# Attack the moon
-			if fightManager.moon_event:
+			if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 
-				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(10)
+				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(5)
 
 			elif slotIdx > 0 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx - 1]):
 				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
@@ -375,9 +375,9 @@ func begin_perish(doubleDeath = false):
 			var slotIdx = get_parent().get_position_in_parent()
 
 			# Attack the moon
-			if fightManager.moon_event:
+			if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 
-				fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(10)
+				fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(5)
 
 			elif not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
@@ -456,13 +456,13 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 1:
 			return
 		
-		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]) and not fightManager.moon_event:
+		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]) and not fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			return
 		
 		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
 		fightManager.set_energy(fightManager.energy - 1)
 		
-		if fightManager.moon_event:
+		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
 		else:
 			eCard.take_damage(null, 1)

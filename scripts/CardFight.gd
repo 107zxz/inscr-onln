@@ -118,9 +118,6 @@ var turns_starving = 0
 var gold_sarcophagus = null
 var sarcophagus_counter = 0
 
-# Special Event state
-var moon_event = false
-
 # Network match state
 var want_rematch = false
 
@@ -319,7 +316,7 @@ func starve_check():
 		rpc_id(opponent, "force_draw_starv", turns_starving)
 
 		# Special: Increase strength of opponent's moon
-		if moon_event:
+		if $MoonFight/BothMoons/EnemyMoon.visible:
 			$MoonFight/BothMoons/EnemyMoon.attack += 1
 			$MoonFight/BothMoons/EnemyMoon.update_stats()
 
@@ -711,8 +708,6 @@ func reload_hand():
 
 # CUTSCENES
 func moon_cutscene(friendly: bool):
-	
-	moon_event = true
 	
 	if friendly:
 		$MoonFight/AnimationPlayer.play("friendlyMoon")
