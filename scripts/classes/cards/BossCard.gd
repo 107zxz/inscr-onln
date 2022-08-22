@@ -35,6 +35,23 @@ func _ready():
 	health = mn.health
 	
 	update_stats()
+	
+	# Custom portrait
+	var d = Directory.new()
+	if d.file_exists(CardInfo.portrait_override_path + "The Moon.png"):
+		var i = Image.new()
+		i.load(CardInfo.portrait_override_path + "The Moon.png")
+		var tx = ImageTexture.new()
+		tx.create_from_image(i)
+		tx.flags -= tx.FLAG_FILTER
+		$CBody/Portrait.texture = tx
+	elif "pixport_url" in mn:
+		var i = Image.new()
+		i.load(CardInfo.custom_portrait_path + "The Moon.png")
+		var tx = ImageTexture.new()
+		tx.create_from_image(i)
+		tx.flags -= tx.FLAG_FILTER
+		$CBody/Portrait.texture = tx
 
 func take_damage(dmg: int):
 	health -= dmg
