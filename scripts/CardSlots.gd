@@ -294,7 +294,7 @@ func post_turn_sigils():
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 	
 		# Kill side deck cards if moon
-		if fightManager.moon_event:
+		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			for sn in ["Squirrel", "Skeleton", "Geck", "Vessel", "Ruby", "Sapphire", "Emerald", "Cairn"]:
 				if sn in card.card_data.name:
 					card.get_node("AnimationPlayer").play("Perish")
@@ -598,7 +598,7 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 	
 	if sName == "Energy Gun":
 
-		if fightManager.moon_event:
+		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(1)
 			return
 		
