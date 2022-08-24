@@ -1,37 +1,35 @@
-v0.1.5 is out!
+v0.1.6 is out!
 
-This update 
+This update makes some important bug fixes and shakes up the meta for the tournament
 
-* New Cards
-    * ???
+* New Cards (added in arg)
+    * Long Elk
+    * Mirror Bot
+        * 2 energy cost
+        * ?/1
+        * Mirror attack
+    * Alpha
+    * Holo Mox
+        * Orange Mox + 2 energy cost
+        * 0/1
+        * Armored
 * New Sigils
-    * ???
-* Balance Changes
-    * Adder
-        * Stats changed from 1/1 to 1/3
-        This is to give it more utility in a game with drowned soul in it
-    * Bullfrog
-        * Stats changed from 1/2 to 1/3
-        This is to make it significantly better than l33pb0t given the cost difference
+    * Leader
+    * Armored
+* Balance Changes (IMF Competitive v0.0.7)
+    * Wolf Cub, Elk Fawn
+        * Increased health from 1 => 2
+        * This is to give them a better chance to evolve
+    * Blue Mage
+        * Is once again hammerable
+    * Limited hammer usage to once per turn
 * New Features
-    * Deck editor can now sort cards by stats
-    * The moon's music from act 1 is now toggleable in the theme editor (I'll make an options menu someday)
-    * The moon's attack and health can now be customised in a custom ruleset
-* Graphical Changes
-    * Portraits for Ruby Dragon, Dragon Egg, and Fox have been redrawn by syntaxevasion
-    * Sigil icon for Side Hustle has been redrawn by syntaxevasion
+    * The amount of times the hammer can be used each turn can now be specified in rulesets
+    * This can be used to disable the hammer entirely
+    * The moon's pixel art can now be customised in rulesets
+    * A very WIP replay system can be enabled in the Theme Editor (the ghetto options menu)
 * Bug Fixes
-    * Side deck cards will no longer instantly die at the end of your turn (discovered by 
-    * Self-buffing cards will now correctly calculate attack when under the influence of a Buff Conduit (Discovered by Mouthless Stoat)
-* Other changes
-    * Two new lobby profile pictures
-        * Energy Gunner (earned by syntaxevasion)
-        * Amoeba (earned by zippycat9)
-    * Card portrait and sigil overrides are now possible!
-        Put an image with the same name as a card or sigil in the portrait_overrides or sigil_icon_overrides folder in the game directory respectively
-        e.g. "Adder.png"
-    * Stinkbug
-        * Can now inform you of competitive ruleset updates
-        * ???
-    * Decks now persist between rulesets
-        A backup of each deck is created in a folder named after the current ruleset
+    * Certain sigils will no longer try to target the moon when it isn't there after restarting the round
+    * The Test Deck feature will now select the correct deck when testing
+    * The game will no longer softlock when two moons fight
+    * Fixed cards spawned by Squirrel Shedder and similar sigils not being buffed correctly by Leader
