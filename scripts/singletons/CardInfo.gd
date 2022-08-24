@@ -21,6 +21,7 @@ var custom_portrait_path = data_path + "/custom_portraits/"
 var custom_icon_path = data_path + "/custom_sigil_icons/"
 var portrait_override_path = data_path + "/portrait_overrides/"
 var icon_override_path = data_path + "/sigil_icon_overrides/"
+var replay_path = data_path + "/replays/"
 
 # CB
 var background_texture = null

@@ -569,9 +569,16 @@ func summon_card(cDat, slot_idx):
 
 # Remote
 remote func set_sac_olay_vis(slot, vis):
+	#Replay
+	fightManager.replay.record_action({"type": "opponent_sac_olay", "slot": slot, "visible": vis})
+
 	enemySlots[slot].get_child(0).get_node("CardBody/SacOlay").visible = vis
 
 remote func remote_card_anim(slot, anim_name):
+
+	# Replay
+	fightManager.replay.record_action({"type": "opponent_card_anim", "slot": slot, "anim": anim_name})
+
 	if is_slot_empty(enemySlots[slot]):
 		return
 	
@@ -593,6 +600,10 @@ remote func remote_card_summon(cDat, slot_idx):
 	
 
 remote func remote_activate_sigil(card_slot, arg = 0):
+
+	# Replay
+	fightManager.replay.record_action({"type": "opponent_activated_sigil", "slot": card_slot})
+
 	var eCard = enemySlots[card_slot].get_child(0)
 	var sName = eCard.card_data["sigils"][0]
 	
@@ -651,6 +662,10 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 
 
 remote func remote_card_move(from_slot, to_slot, flip_sigil):
+
+	# Replay
+	fightManager.replay.record_action({"type": "opponent_card_moved", "from_slot": from_slot, "to_slot": to_slot})
+
 	var eCard = enemySlots[from_slot].get_child(0)
 	
 	if from_slot != to_slot:
