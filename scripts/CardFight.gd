@@ -2,25 +2,17 @@ extends Control
 
 # Vanguard
 
-onready var sqIdx = CardInfo.idx_from_name("Squirrel")
-onready var skIdx = CardInfo.idx_from_name("Skeleton")
-onready var geIdx = CardInfo.idx_from_name("Geck")
-onready var gsIdx = CardInfo.idx_from_name("Acid Squirrel")
-onready var scIdx = CardInfo.idx_from_name("Shambling Cairn")
-onready var moonIdx = CardInfo.idx_from_name("Moon Shard")
-
-
 # Side decks
 onready var side_decks = [
-	[sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx, sqIdx],
-	[skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx, skIdx],
+	["Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel"],
+	["Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"],
 	[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
 	[],
 	[],
-	[geIdx, geIdx, geIdx],
-	[gsIdx],
-	[scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx, scIdx],
-	[moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx, moonIdx]
+	["Geck", "Geck", "Geck"],
+	["Acid Squirrel"],
+	["Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn"],
+	["Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard"]
 ]
 
 const side_deck_names = [
@@ -35,38 +27,7 @@ const side_deck_names = [
 	"Moon Shards"
 ]
 
-var replay = {
-	"players": ["pl1", "pl2"],
-	"turns": [
-		{
-			"player": "pl1",
-			"actions": [
-				{
-					"type": "draw",
-					"from": "main",
-					"card": {
-						# Card Data here
-					},
-				},
-				{
-					"type": "play",
-					"slot": 2,
-					"card": {
-						# Card Data here
-					}
-				},
-				{
-					"type": "sacplay",
-					"sacslots": [2],
-					"summonslot": 1,
-					"card": {
-						# Card Data here
-					}
-				}
-			]
-		}
-	]
-}
+
 
 # Carryovers from lobby
 var opponent = -100
@@ -80,6 +41,9 @@ onready var playerSlots = $CardSlots/PlayerSlots
 onready var enemySlots = $CardSlots/EnemySlots
 onready var slotManager = $CardSlots
 var cardPrefab = preload("res://packed/playingCard.tscn")
+
+# Replay
+var replay = null
 
 # Game state
 enum GameStates {
@@ -132,6 +96,7 @@ func _ready():
 	
 func init_match(opp_id: int, do_go_first: bool):
 	print("Starting match...")
+	
 	
 	opponent = opp_id
 	go_first = do_go_first
@@ -219,15 +184,31 @@ func init_match(opp_id: int, do_go_first: bool):
 	set_energy(max_energy)
 	set_opponent_energy(opponent_max_energy)
 	
+	# Start replay
+	# TODO: Change names
+	replay = Replay.new()
+	replay.start($PlayerInfo/MyInfo/Username.text, $PlayerInfo/TheirInfo/Username.text)
+	
 	state = GameStates.NORMAL
 	
 	# Draw starting hands (sidedeck first for starve check)
-	draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+	
+	var next_card = side_deck.pop_front()
+	
+	draw_card(next_card, $DrawPiles/YourDecks/SideDeck)
+	
+	replay.record_action({"type": "draw_side", "card": next_card})
+	
 	if side_deck.size() == 0:
 		$DrawPiles/YourDecks/SideDeck.visible = false
 
 	for _i in range(3):
-		draw_card(deck.pop_front())
+
+		next_card = deck.pop_front()
+
+		draw_card(next_card)
+
+		replay.record_action({"type": "draw_main", "card": next_card})
 		
 		# Some interaction here if your deck has less than 3 cards. Punish by giving opponent starvation
 		if deck.size() == 0:
@@ -243,6 +224,9 @@ func init_match(opp_id: int, do_go_first: bool):
 func end_turn():
 	if not state in [GameStates.NORMAL, GameStates.SACRIFICE]:
 		return
+		
+	# End turn in replay
+	replay.end_turn()
 	
 	# Lower all cards
 	handManager.lower_all_cards()
@@ -275,6 +259,9 @@ func draw_maindeck():
 		
 		var next_card = deck.pop_front()
 
+		# Replay
+		replay.record_action({"type": "draw_main", "card": next_card})
+
 		draw_card(next_card)
 		
 		state = GameStates.NORMAL
@@ -287,7 +274,13 @@ func draw_maindeck():
 
 func draw_sidedeck():
 	if state == GameStates.DRAWPILE:
-		draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+		var next_card = side_deck.pop_front()
+
+		draw_card(next_card, $DrawPiles/YourDecks/SideDeck)
+
+		# Replay
+		replay.record_action({"type": "draw_side", "card": next_card})
+
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
 		
@@ -312,7 +305,12 @@ func search_deck():
 
 func search_callback(index):
 
-	draw_card(deck.pop_at(index - 1))
+	var targetCard = deck.pop_at(index - 1)
+
+	# Replay
+	replay.record_action({"type": "search_deck", "card": targetCard})
+
+	draw_card(targetCard)
 
 	if deck.size() == 0:
 		$DrawPiles/YourDecks/Deck.visible = false
@@ -546,9 +544,17 @@ func count_loss():
 remote func _opponent_hand_animation(index, animation):
 	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
 
+	if animation == "Raise":
+		replay.record_action({"type": "opponent_raised_card", "index": index})
+	else:
+		replay.record_action({"type": "opponent_lowered_card", "index": index})
+
 remote func _opponent_drew_card(source_path):
 	
 	print("Opponent drew card!")
+	
+	# Replay doesn't need to know why opponent drew
+	replay.record_action({"type": "opponent_drew_card"})
 	
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
@@ -572,6 +578,9 @@ remote func _opponent_drew_card(source_path):
 
 
 remote func _opponent_played_card(card, slot):
+	
+	# Replay
+	replay.record_action({"type": "opponent_summoned_card", "card": card})
 	
 	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
 	
@@ -800,6 +809,9 @@ remote func _rematch_occurs():
 remote func start_turn():
 	damage_stun = false
 	$WaitingBlocker.visible = false
+	
+	# Update Replay
+	replay.start_turn()
 	
 	# Gold sarcophagus
 	if gold_sarcophagus:
