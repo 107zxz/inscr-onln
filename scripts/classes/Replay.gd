@@ -66,6 +66,9 @@ func start_turn():
 	
 func save():
 	end_turn()
+
+	if not GameOptions.save_replays:
+		return
 	
 	var d = Directory.new()
 	
