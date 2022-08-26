@@ -1,5 +1,6 @@
 {
-    "ruleset": "IMF Competitive Ruleset v0.05",
+    "ruleset": "IMF Competitive Ruleset v0.09",
+    "hammers_per_turn": 1,
     "cards": [
         {
             "name": "Starvation",
@@ -53,7 +54,7 @@
                 "Mighty Leap"
             ],
             "attack": 1,
-            "health": 2,
+            "health": 3,
             "blood_cost": 1
         },
         {
@@ -111,7 +112,7 @@
                 "Fledgling"
             ],
             "attack": 1,
-            "health": 1,
+            "health": 2,
             "blood_cost": 1,
             "evolution": "Elk"
         },
@@ -185,6 +186,33 @@
             "blood_cost": 1,
             "rare": true,
             "description": "Note: This card's effect was changed due to it sucking."
+        },
+        {
+            "name": "Long Elk",
+            "attack": 1,
+            "health": 2,
+            "sigils": [
+                "Sprinter",
+                "Touch of Death"
+            ],
+            "sheds": "Vertebrae",
+            "bone_cost": 4,
+            "rare": true
+        },
+        {
+            "name": "Vertebrae",
+            "attack": 0,
+            "health": 1,
+            "banned": true
+        },
+        {
+            "name": "Alpha",
+            "attack": 1,
+            "health": 2,
+            "sigils": [
+                "Leader"
+            ],
+            "bone_cost": 4
         },
         {
             "name": "Magpie",
@@ -491,7 +519,7 @@
                 "Fledgling"
             ],
             "attack": 1,
-            "health": 1,
+            "health": 2,
             "blood_cost": 1,
             "evolution": "Wolf"
         },
@@ -505,6 +533,33 @@
             "health": 2,
             "blood_cost": 2,
             "description": "Custom card by SpelunkyGuy101.\nCard and sigil art by syntaxevasion"
+        },
+        {
+            "name": "Worker Ant",
+            "attack": 0,
+            "health": 2,
+            "atkspecial": 2,
+            "blood_cost": 1
+        },
+        {
+            "name": "Ant Queen",
+            "attack": 0,
+            "health": 3,
+            "atkspecial": 2,
+            "blood_cost": 2,
+            "sigils": [
+                "Ant Spawner"
+            ]
+        },
+        {
+            "name": "Flying Ant",
+            "attack": 0,
+            "health": 2,
+            "atkspecial": 2,
+            "blood_cost": 1,
+            "sigils": [
+                "Airborne"
+            ]
         },
         {
             "name": "Curve Hopper",
@@ -730,6 +785,13 @@
             "health": 3,
             "energy_cost": 3,
             "rare": true
+        },
+        {
+            "name": "Mirror Bot",
+            "energy_cost": 2,
+            "atkspecial": 1,
+            "attack": 0,
+            "health": 1
         },
         {
             "name": "Thick Droid",
@@ -1016,9 +1078,7 @@
             "health": 1,
             "mox_cost": [
                 "Blue"
-            ],
-            "nohammer": true,
-            "description": "Note: Made unhammerable to allow for better mox stuff in future"
+            ]
         },
         {
             "name": "Blue Sporemage",
@@ -1383,6 +1443,18 @@
             "description": "Custom card by SpelunkyGuy101"
         },
         {
+            "name": "Holo Mox",
+            "mox_cost": [
+                "Orange"
+            ],
+            "sigils": [
+                "Armored"
+            ],
+            "energy_cost": 2,
+            "attack": 0,
+            "health": 1
+        },
+        {
             "name": "Withered Corpse",
             "sigils": [
                 "Brittle",
@@ -1516,6 +1588,8 @@
     ],
     "sigils": {
         "Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
+        "Ant Spawner": "When a card bearing this sigil is played, an ant is created in your hand.",
+        "Armored": "The first time a card bearing this sigil would take damage, prevent that damage.",
         "Attack Conduit": "Other creatures within a circuit completed by a card bearing this sigil gain 1 power.",
         "Battery Bearer": "When a card bearing this sigil is played, it provides an energy cell to its owner.",
         "Bifurcated Strike": "A card bearing this sigil will strike each opposing space to the left and right of the space across from it.",
@@ -1544,6 +1618,7 @@
         "Handy": "When a card bearing this sigil is played, discard your hand then draw a new hand of 4 cards.",
         "Hefty": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil. creatures in the way will be pushed in the same direction.",
         "Hoarder": "When a card bearing this sigil is played, you may search your deck for any card and take it into your hand.",
+        "Leader": "Creatures adjacent to a card bearing this sigil gain 1 Power.",
         "Looter": "When a card bearing this sigil deals damage directly, draw a card for each damage dealt.",
         "Made of Stone": "A card bearing this sigil is immune to the effects of touch of death and stinky.",
         "Many Lives": "When a card bearing this sigil is sacrificed it does not perish.",
@@ -1632,6 +1707,10 @@
         "Reconstitute",
         "Noble Sacrifice",
         "Made of Stone",
-        "Side Hustle"
+        "Side Hustle",
+        "Armored",
+        "Leader",
+        "Ant Spawner"
     ]
 }
+
