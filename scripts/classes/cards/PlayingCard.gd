@@ -563,12 +563,26 @@ func calculate_buffs():
 			attack += 1
 	
 	# Green Mage
-	if card_data["name"] == "Green Mage":
-		attack = 0
-		for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-			if "Mox" in mx.card_data["name"]:
-				attack += 1
-	
+	if "atkspecial" in card_data:
+		match card_data.atkspecial:
+			0.0:
+				attack = 0
+				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+					if "Mox" in mx.card_data["name"]:
+						attack += 1
+			1.0:
+				if friendly:
+					if slotManager.get_enemy_card(sIdx):
+						attack = slotManager.get_enemy_card(sIdx).attack
+				else:
+					if slotManager.get_friendly_card(sIdx):
+						attack = slotManager.get_friendly_card(sIdx).attack
+			2.0:
+				attack = 0
+				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+					if "Ant" in ant.card_data["name"]:
+						attack += 1
+		
 	# Bell Tentacle
 	if card_data["name"] == "Bell Tentacle":
 		attack = 4 - sIdx
@@ -577,15 +591,6 @@ func calculate_buffs():
 	if card_data["name"] == "Hand Tentacle":
 		var hName = "PlayerHand" if friendly else "EnemyHand"
 		attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
-	
-	# Mirror Tentacle
-	if "Mirror" in card_data["name"]:
-		if friendly:
-			if slotManager.get_enemy_card(sIdx):
-				attack = slotManager.get_enemy_card(sIdx).attack
-		else:
-			if slotManager.get_friendly_card(sIdx):
-				attack = slotManager.get_friendly_card(sIdx).attack
 
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)

@@ -429,6 +429,8 @@ func card_summoned(playedCard):
 
 	if playedCard.has_sigil("Rabbit Hole"):
 		draw_card(CardInfo.from_name("Rabbit"))
+	if playedCard.has_sigil("Ant Spawner"):
+		draw_card(CardInfo.from_name("Worker Ant"))
 	if playedCard.has_sigil("Battery Bearer"):
 		if max_energy < 6:
 			set_max_energy(max_energy + 1)
