@@ -15,7 +15,7 @@ func start(yourName: String, enemyName: String):
 	if len(minString) == 1:
 		minString = "0" + minString
 	
-	var dateString = "%s:%s %s-%s-%s" % [dt.hour, minString, dt.day, dt.month, dt.year]
+	var dateString = "%s-%s %s-%s-%s" % [dt.hour, minString, dt.day, dt.month, dt.year]
 	
 	fileName = "%s vs %s %s.irp" % [yourName.left(9), enemyName.left(9), dateString]
 	

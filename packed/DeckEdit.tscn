@@ -28,9 +28,6 @@ expand = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_stretch_ratio = 0.08
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CardPreview" type="PanelContainer" parent="HBoxContainer"]
 margin_right = 204.0
@@ -92,40 +89,40 @@ __meta__ = {
 
 [node name="DeckOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
 margin_right = 820.0
-margin_bottom = 63.0
+margin_bottom = 81.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 818.0
-margin_bottom = 61.0
+margin_bottom = 79.0
 
 [node name="DeckOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
 margin_right = 408.0
-margin_bottom = 59.0
+margin_bottom = 77.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 406.0
-margin_bottom = 57.0
+margin_bottom = 75.0
 custom_constants/separation = 2
 
 [node name="DSelLine" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
 margin_right = 404.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 46.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Deck:   "
 
 [node name="DSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
 margin_left = 46.0
 margin_right = 404.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -140,39 +137,39 @@ enabled_focus_mode = 0
 text = "Save"
 
 [node name="DNameLine" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
-margin_top = 19.0
+margin_top = 25.0
 margin_right = 404.0
-margin_bottom = 36.0
+margin_bottom = 48.0
 
 [node name="Spacer" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 55.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "           "
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
 margin_left = 55.0
 margin_right = 353.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
 margin_left = 353.0
 margin_right = 404.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Save as"
 
 [node name="Stoof" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
-margin_top = 38.0
+margin_top = 50.0
 margin_right = 404.0
-margin_bottom = 55.0
+margin_bottom = 73.0
 alignment = 1
 
 [node name="ExitButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_right = 66.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -181,7 +178,7 @@ text = "Exit"
 [node name="ShuffleButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 66.0
 margin_right = 132.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -190,7 +187,7 @@ text = "Shuffle"
 [node name="SortButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 132.0
 margin_right = 198.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -199,7 +196,7 @@ text = "Sort"
 [node name="ClearButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 198.0
 margin_right = 264.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -208,7 +205,7 @@ text = "Clear"
 [node name="ViewFolder" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 264.0
 margin_right = 337.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -217,7 +214,7 @@ text = "Deck Folder"
 [node name="TestButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 337.0
 margin_right = 404.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -227,37 +224,37 @@ text = "Test"
 unique_name_in_owner = true
 margin_left = 408.0
 margin_right = 816.0
-margin_bottom = 59.0
+margin_bottom = 77.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 406.0
-margin_bottom = 57.0
+margin_bottom = 75.0
 custom_constants/separation = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
 margin_right = 199.0
-margin_bottom = 55.0
+margin_bottom = 73.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
 margin_right = 199.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 66.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Cost Type: "
 
 [node name="CTSelect" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 66.0
 margin_right = 199.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -266,20 +263,20 @@ items = [ "Any", null, false, 0, null, "Blood", null, false, 1, null, "Bone", nu
 selected = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
-margin_top = 19.0
+margin_top = 25.0
 margin_right = 199.0
-margin_bottom = 36.0
+margin_bottom = 48.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 48.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Attack: "
 
 [node name="Operator" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 48.0
 margin_right = 75.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 text = ">="
 items = [ "=", null, false, 0, null, "<=", null, false, 1, null, ">=", null, false, 2, null ]
@@ -288,25 +285,26 @@ selected = 2
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 75.0
 margin_right = 199.0
-margin_bottom = 17.0
+margin_bottom = 23.0
+focus_mode = 1
 size_flags_horizontal = 3
 text = "0"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
-margin_top = 38.0
+margin_top = 50.0
 margin_right = 199.0
-margin_bottom = 55.0
+margin_bottom = 73.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 46.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Health: "
 
 [node name="Operator" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
 margin_left = 46.0
 margin_right = 73.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 text = ">="
 items = [ "=", null, false, 0, null, "<=", null, false, 1, null, ">=", null, false, 2, null ]
@@ -315,59 +313,59 @@ selected = 2
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
 margin_left = 73.0
 margin_right = 199.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 size_flags_horizontal = 3
 text = "0"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
 margin_left = 204.0
 margin_right = 404.0
-margin_bottom = 55.0
+margin_bottom = 73.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
 
 [node name="SigilSearchA" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
 margin_right = 200.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 31.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Sigil: "
 
 [node name="OptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA"]
 margin_left = 31.0
 margin_right = 200.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 
 [node name="SigilSearchB" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
-margin_top = 19.0
+margin_top = 25.0
 margin_right = 200.0
-margin_bottom = 36.0
+margin_bottom = 48.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB"]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 42.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Sigil 2: "
 
 [node name="OptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB"]
 margin_left = 42.0
 margin_right = 200.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
-margin_top = 38.0
+margin_top = 50.0
 margin_right = 200.0
-margin_bottom = 55.0
+margin_bottom = 67.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3"]
 margin_top = 2.0
@@ -379,10 +377,11 @@ text = "Name: "
 margin_left = 39.0
 margin_right = 200.0
 margin_bottom = 17.0
+focus_mode = 1
 size_flags_horizontal = 3
 
 [node name="MainArea" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
-margin_top = 63.0
+margin_top = 81.0
 margin_right = 820.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -390,7 +389,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
 margin_right = 574.0
-margin_bottom = 537.0
+margin_bottom = 519.0
 size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
@@ -408,7 +407,7 @@ align = 2
 [node name="DeckPreview" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
 margin_top = 17.0
 margin_right = 574.0
-margin_bottom = 352.0
+margin_bottom = 340.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -425,9 +424,9 @@ custom_constants/hseparation = 0
 columns = 10
 
 [node name="DeckPreview2" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
-margin_top = 352.0
+margin_top = 340.0
 margin_right = 574.0
-margin_bottom = 537.0
+margin_bottom = 519.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.55
@@ -436,28 +435,28 @@ size_flags_stretch_ratio = 0.55
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 572.0
-margin_bottom = 183.0
+margin_bottom = 177.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
-margin_top = 36.0
+margin_top = 30.0
 margin_right = 570.0
 margin_bottom = 53.0
 alignment = 1
 
 [node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
 margin_left = 218.0
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 283.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Side Deck: "
 align = 1
 
 [node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
 margin_left = 283.0
 margin_right = 351.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
@@ -531,15 +530,14 @@ valign = 1
 [node name="SearchResults" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
 margin_left = 574.0
 margin_right = 820.0
-margin_bottom = 537.0
-rect_min_size = Vector2( 246, 537 )
+margin_bottom = 519.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 244.0
-margin_bottom = 535.0
+margin_bottom = 517.0
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
 margin_right = 242.0
@@ -556,8 +554,7 @@ align = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
 margin_top = 17.0
 margin_right = 242.0
-margin_bottom = 533.0
-rect_min_size = Vector2( 242, 0 )
+margin_bottom = 515.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -568,7 +565,6 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 240.0
 margin_bottom = 2.0
-rect_min_size = Vector2( 216, 0 )
 size_flags_horizontal = 3
 columns = 4
 

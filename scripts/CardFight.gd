@@ -713,19 +713,22 @@ func add_opponent_bones(bone_no):
 
 func set_energy(ener_no):
 	energy = ener_no
-	$LeftSideUI/EnergyLabel.text = "Energy: " + str(energy)
+	$PlayerInfo/MyInfo/AvailableEnergy.rect_size.x = 10 * ener_no
 	
 func set_opponent_energy(ener_no):
 	opponent_energy = ener_no
-	$LeftSideUI/OpponentEnergyLabel.text = "Opponent Energy: " + str(opponent_energy)
+	$PlayerInfo/TheirInfo/AvailableEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/TheirInfo/AvailableEnergy.rect_position.x = 20 - 20 * ener_no
 
 func set_max_energy(ener_no):
 	max_energy = ener_no
-	$LeftSideUI/MaxEnergyLabel.text = "Max Energy: " + str(max_energy + max_energy_buff)
+	$PlayerInfo/MyInfo/MaxEnergy.rect_size.x = 10 * ener_no
 	
 func set_opponent_max_energy(ener_no):
 	opponent_max_energy = ener_no
-	$LeftSideUI/OpponentMaxEnergyLabel.text = "Opponent Max Energy: " + str(opponent_max_energy + opponent_max_energy_buff)
+	$PlayerInfo/TheirInfo/MaxEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/TheirInfo/MaxEnergy.rect_position.x = 20 - 20 * ener_no
+
 
 func reload_hand():
 	for card in handManager.get_node("PlayerHand").get_children():

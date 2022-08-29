@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=7]
 [ext_resource path="res://music/moon.mp3" type="AudioStream" id=8]
 [ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
+[ext_resource path="res://gfx/cardextras/cost_energy.png" type="Texture" id=10]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 0.5 )
@@ -974,6 +975,27 @@ margin_right = 194.0
 margin_bottom = -67.0
 text = "Ant Enthusiast"
 
+[node name="MaxEnergy" type="TextureRect" parent="PlayerInfo/MyInfo"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
+margin_left = 10.0
+margin_top = -115.0
+margin_right = 30.0
+margin_bottom = -100.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 2
+
+[node name="AvailableEnergy" type="TextureRect" parent="PlayerInfo/MyInfo"]
+margin_left = 10.0
+margin_top = -115.0
+margin_right = 20.0
+margin_bottom = -100.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 2
+
 [node name="TheirInfo" type="Control" parent="PlayerInfo"]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1000,6 +1022,25 @@ margin_right = -5.0
 margin_bottom = 3.0
 text = "Pack Rat Enjoyer"
 align = 2
+
+[node name="MaxEnergy" type="TextureRect" parent="PlayerInfo/TheirInfo"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
+margin_top = 120.0
+margin_right = 10.0
+margin_bottom = 135.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 2
+
+[node name="AvailableEnergy" type="TextureRect" parent="PlayerInfo/TheirInfo"]
+margin_top = 120.0
+margin_right = 10.0
+margin_bottom = 135.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 2
 
 [node name="DrawPiles" type="Control" parent="."]
 margin_right = 40.0
@@ -1248,99 +1289,57 @@ __meta__ = {
 }
 
 [node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 172.0
+margin_top = 206.0
 margin_right = 140.0
-margin_bottom = 185.0
+margin_bottom = 219.0
 text = "Advantage: 0"
 
 [node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 185.0
+margin_top = 219.0
 margin_right = 140.0
-margin_bottom = 198.0
+margin_bottom = 232.0
 text = "Lives: 2"
 
 [node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 198.0
+margin_top = 232.0
 margin_right = 140.0
-margin_bottom = 211.0
+margin_bottom = 245.0
 text = "Opponent Lives: 2"
 
 [node name="Spacer" type="Control" parent="LeftSideUI"]
-margin_top = 211.0
+margin_top = 245.0
 margin_right = 140.0
-margin_bottom = 227.0
+margin_bottom = 261.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="BonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 227.0
+margin_top = 261.0
 margin_right = 140.0
-margin_bottom = 240.0
+margin_bottom = 274.0
 text = "Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OpponentBonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 240.0
+margin_top = 274.0
 margin_right = 140.0
-margin_bottom = 253.0
+margin_bottom = 287.0
 text = "Opponent Bones: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer2" type="Control" parent="LeftSideUI"]
-margin_top = 253.0
-margin_right = 140.0
-margin_bottom = 269.0
-rect_min_size = Vector2( 0, 16 )
-
-[node name="EnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 269.0
-margin_right = 140.0
-margin_bottom = 282.0
-text = "Energy: 1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MaxEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 282.0
-margin_right = 140.0
-margin_bottom = 295.0
-text = "Max Energy: 1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OpponentEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 295.0
-margin_right = 140.0
-margin_bottom = 308.0
-text = "Opponent Energy: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OpponentMaxEnergyLabel" type="Label" parent="LeftSideUI"]
-margin_top = 308.0
-margin_right = 140.0
-margin_bottom = 321.0
-text = "Opponent Max Energy: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Spacer3" type="Control" parent="LeftSideUI"]
-margin_top = 321.0
+margin_top = 287.0
 margin_right = 140.0
-margin_bottom = 337.0
+margin_bottom = 303.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="HammerButton" type="Button" parent="LeftSideUI"]
-margin_top = 337.0
+margin_top = 303.0
 margin_right = 140.0
-margin_bottom = 371.0
+margin_bottom = 337.0
 rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 toggle_mode = true
@@ -1348,15 +1347,15 @@ enabled_focus_mode = 0
 text = "Hammer"
 
 [node name="Spacer4" type="Control" parent="LeftSideUI"]
-margin_top = 371.0
+margin_top = 337.0
 margin_right = 140.0
-margin_bottom = 393.347
+margin_bottom = 359.347
 rect_min_size = Vector2( 0, 22.347 )
 
 [node name="PassButton" type="Button" parent="LeftSideUI"]
-margin_top = 393.0
+margin_top = 359.0
 margin_right = 140.0
-margin_bottom = 427.0
+margin_bottom = 393.0
 rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 enabled_focus_mode = 0

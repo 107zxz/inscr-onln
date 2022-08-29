@@ -3,6 +3,8 @@
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 
 [sub_resource type="StyleBoxFlat" id=9]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
 bg_color = Color( 0.701961, 0.67451, 0.498039, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -193,7 +195,7 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=4]
-content_margin_left = 12.0
+content_margin_left = 20.0
 bg_color = Color( 0.501961, 0.482353, 0.356863, 1 )
 border_width_left = 2
 border_width_top = 2

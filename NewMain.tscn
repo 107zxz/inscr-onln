@@ -501,7 +501,7 @@ text = "Your Name (required): "
 margin_left = 163.0
 margin_right = 263.0
 margin_bottom = 17.0
-rect_min_size = Vector2( 100, 0 )
+rect_min_size = Vector2( 100, 23 )
 caret_blink = true
 caret_blink_speed = 0.5
 
@@ -565,34 +565,33 @@ margin_bottom = 87.5
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 298.0
-margin_bottom = 173.0
+margin_bottom = 183.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 10.0
 margin_right = 296.0
-margin_bottom = 23.0
+margin_bottom = 13.0
 text = "Join"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 33.0
+margin_top = 23.0
 margin_right = 296.0
-margin_bottom = 50.0
+margin_bottom = 46.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/HostType"]
 margin_left = 70.0
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 144.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Lobby Type: "
 
 [node name="LType" type="OptionButton" parent="TitleScreen/LobbyJoin/Rows/HostType"]
 margin_left = 144.0
 margin_right = 226.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Room Code"
@@ -600,22 +599,22 @@ items = [ "Room Code", null, false, 0, null, "IP Address", null, false, 1, null 
 selected = 0
 
 [node name="Address" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 60.0
+margin_top = 56.0
 margin_right = 296.0
-margin_bottom = 77.0
+margin_bottom = 79.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Address"]
 margin_left = 15.0
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 141.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "IP / Code (required): "
 
 [node name="IPInput" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Address"]
 margin_left = 141.0
 margin_right = 241.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 rect_min_size = Vector2( 100, 0 )
 caret_blink = true
 caret_blink_speed = 0.5
@@ -623,65 +622,65 @@ caret_blink_speed = 0.5
 [node name="PasteButton" type="Button" parent="TitleScreen/LobbyJoin/Rows/Address"]
 margin_left = 241.0
 margin_right = 280.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Paste"
 
 [node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 87.0
+margin_top = 89.0
 margin_right = 296.0
-margin_bottom = 104.0
+margin_bottom = 112.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
 margin_left = 32.0
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 163.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Your Name (required): "
 
 [node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
 margin_left = 163.0
 margin_right = 263.0
-margin_bottom = 17.0
-rect_min_size = Vector2( 100, 0 )
+margin_bottom = 23.0
+rect_min_size = Vector2( 100, 23 )
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectate" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 114.0
+margin_top = 122.0
 margin_right = 296.0
-margin_bottom = 134.0
+margin_bottom = 148.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
 margin_left = 55.0
-margin_top = 3.0
+margin_top = 6.0
 margin_right = 221.0
-margin_bottom = 16.0
+margin_bottom = 19.0
 text = "Spectate (don't join lobby): "
 
 [node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
 margin_left = 221.0
 margin_right = 241.0
-margin_bottom = 20.0
+margin_bottom = 26.0
 focus_mode = 0
 disabled = true
 enabled_focus_mode = 0
 flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 144.0
+margin_top = 158.0
 margin_right = 296.0
-margin_bottom = 161.0
+margin_bottom = 181.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="Join" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
 margin_left = 105.0
 margin_right = 133.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join"
@@ -689,7 +688,7 @@ text = "Join"
 [node name="CancelJoin" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
 margin_left = 149.0
 margin_right = 191.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Cancel"
@@ -962,9 +961,15 @@ align = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
 [connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
+[connection signal="focus_entered" from="TitleScreen/LobbyHost/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyHost/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/Host" to="TitleScreen" method="_on_Host_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/CancelHost" to="TitleScreen" method="_on_CancelHost_pressed"]
+[connection signal="focus_entered" from="TitleScreen/LobbyJoin/Rows/Address/IPInput" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyJoin/Rows/Address/IPInput" to="TitleScreen" method="_LineEdit_unfocused"]
 [connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Address/PasteButton" to="TitleScreen" method="_on_PasteButton_pressed"]
+[connection signal="focus_entered" from="TitleScreen/LobbyJoin/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyJoin/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
 [connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Buttons/Join" to="TitleScreen" method="_on_Join_pressed"]
 [connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Buttons/CancelJoin" to="TitleScreen" method="_on_CancelJoin_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/CopyCode" to="TitleScreen" method="_on_CopyCode_pressed"]

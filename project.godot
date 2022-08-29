@@ -60,6 +60,7 @@ multirun/first_window_args="noupdate listen"
 
 [display]
 
+window/handheld/orientation="sensor_landscape"
 window/stretch/mode="viewport"
 
 [editor]
@@ -68,10 +69,6 @@ version_control_autoload_on_startup=true
 version_control_plugin_name="GitAPI"
 version_control/autoload_on_startup=true
 version_control/plugin_name="GitAPI"
-
-[editor_plugins]
-
-enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
 
 [gdnative]
 
@@ -90,5 +87,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
 environment/default_clear_color=Color( 0.537255, 0.537255, 0.403922, 1 )
 environment/default_environment="res://default_env.tres"
