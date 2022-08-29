@@ -58,6 +58,7 @@ func _on_Button_pressed():
 		if self == get_parent().get_parent().raisedCard:
 			lower()
 			get_parent().get_parent().raisedCard = null
+			fightManager.state = fightManager.GameStates.NORMAL
 		elif in_hand:
 			
 			# Only raise if all costs are met

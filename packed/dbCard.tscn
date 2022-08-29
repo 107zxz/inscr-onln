@@ -54,6 +54,7 @@ margin_top = 2.0
 margin_right = 153.0
 margin_bottom = 177.0
 focus_mode = 0
+mouse_filter = 1
 button_mask = 3
 enabled_focus_mode = 0
 

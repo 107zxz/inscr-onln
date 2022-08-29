@@ -32,6 +32,12 @@ func _ready():
 	if CardInfo.background_texture:
 		$CustomBackground.texture = CardInfo.background_texture
 	
+	# Android
+	if OS.get_name() == "Android":
+		$LobbyHost/Rows/HostType/Type.select(1)
+		$LobbyHost/Rows/HostType/Type.set_item_disabled(0, true)
+		$Menu/VBoxContainer/LogFolder.visible = false
+	
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	for option in OS.get_cmdline_args():
@@ -498,3 +504,14 @@ remote func _start_match(go_first: int):
 
 func _on_Pic_item_selected(index):
 	$InLobby/Rows/ProfilePic/Preview.texture = load("res://gfx/portraits/" + $InLobby/Rows/ProfilePic/Pic.get_item_text(index) + ".png")
+
+# Android, move all windows up when virtual keyboard appears
+func _LineEdit_focused():
+	if OS.get_name() == "Android":
+		$LobbyHost.rect_position.y -= 130
+		$LobbyJoin.rect_position.y -= 130
+
+func _LineEdit_unfocused():
+	if OS.get_name() == "Android":
+		$LobbyHost.rect_position.y += 130
+		$LobbyJoin.rect_position.y += 130

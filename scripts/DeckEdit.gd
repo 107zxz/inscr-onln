@@ -67,6 +67,11 @@ func _ready():
 	get_node("/root/Main/TitleScreen").populate_deck_list()
 	
 	load_deck()
+	
+	# Android
+	if OS.get_name() == "Android":
+		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton.visible = false
+		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
 
 func init_search_ui():
 	var id = 2
