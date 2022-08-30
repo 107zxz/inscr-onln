@@ -70,3 +70,9 @@ remote func remote_attack(slot: int):
 	animPlayer.play("enemyMoonSlap")
 	
 	# TODO: Queue attacks or resolve entirely client-side
+
+func has_sigil(_sName):
+	return false
+
+func is_alive():
+	return true

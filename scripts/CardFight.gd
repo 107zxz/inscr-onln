@@ -705,29 +705,31 @@ func inflict_damage(dmg):
 # Resource visualisation and management
 func add_bones(bone_no):
 	bones += bone_no
-	$LeftSideUI/BonesLabel.text = "Bones: " + str(bones)
+	$PlayerInfo/MyInfo/Bones/BoneCount.text = str(bones)
+	$PlayerInfo/MyInfo/Bones/BoneCount2.text = str(bones)
 
 func add_opponent_bones(bone_no):
 	opponent_bones += bone_no
-	$LeftSideUI/OpponentBonesLabel.text = "Opponent Bones: " + str(opponent_bones)
+	$PlayerInfo/TheirInfo/Bones/BoneCount.text = str(bones)
+	$PlayerInfo/TheirInfo/Bones/BoneCount2.text = str(bones)
 
 func set_energy(ener_no):
 	energy = ener_no
-	$PlayerInfo/MyInfo/AvailableEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/MyInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
 	
 func set_opponent_energy(ener_no):
 	opponent_energy = ener_no
-	$PlayerInfo/TheirInfo/AvailableEnergy.rect_size.x = 10 * ener_no
-	$PlayerInfo/TheirInfo/AvailableEnergy.rect_position.x = 20 - 20 * ener_no
+	$PlayerInfo/TheirInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/TheirInfo/Energy/AvailableEnergy.rect_position.x = 20 - 20 * ener_no
 
 func set_max_energy(ener_no):
 	max_energy = ener_no
-	$PlayerInfo/MyInfo/MaxEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/MyInfo/Energy/MaxEnergy.rect_size.x = 10 * ener_no
 	
 func set_opponent_max_energy(ener_no):
 	opponent_max_energy = ener_no
-	$PlayerInfo/TheirInfo/MaxEnergy.rect_size.x = 10 * ener_no
-	$PlayerInfo/TheirInfo/MaxEnergy.rect_position.x = 20 - 20 * ener_no
+	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_position.x = 20 - 20 * ener_no
 
 
 func reload_hand():
