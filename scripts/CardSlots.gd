@@ -528,7 +528,13 @@ func handle_attack(from_slot, to_slot):
 					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
 					break
 	else:
-		eCard.take_damage(pCard);	
+		eCard.take_damage(pCard)
+
+		# On kill
+		if eCard.health <= 0:
+			if pCard.has_sigil("Blood Lust"):
+				pCard.card_data.attack += 1
+				pCard.draw_stats()
 	
 	print("ATTACK RPC: ", to_slot)
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
@@ -762,6 +768,12 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		fightManager.inflict_damage(-eCard.attack)
 	else:
 		pCard.take_damage(eCard)
+
+		# On kill
+		if pCard.health <= 0:
+			if eCard.has_sigil("Blood Lust"):
+				eCard.card_data.attack += 1
+				eCard.draw_stats()
 					
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
