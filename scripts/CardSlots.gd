@@ -400,32 +400,34 @@ func initiate_combat():
 				# Reset attack effect
 				if slot_index < 3:
 					playerSlots[slot_index + 1].show_behind_parent = false
-
+				
 				if not is_slot_empty(playerSlots[slot_index]):
 					pCard.rect_position.x = 0
 					rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
 					
 			else:
-				# Regular attack
-				
-				# Don't attack repulsive cards!
-				if not is_slot_empty(enemySlots[slot_index]) and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
-					if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
-						continue
-				
-				cardAnim.play("Attack")
-				rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
-				yield(cardAnim, "animation_finished")
+
+				# Wierd double strike condition
+				for _i in range(2 if pCard.has_sigil("Double Strike") else 1):
+
+					# Don't attack repulsive cards!
+					if not is_slot_empty(enemySlots[slot_index]) and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
+						if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
+							continue
+					
+					cardAnim.play("Attack")
+					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
+					yield(cardAnim, "animation_finished")
 		
-			# Did the card get boned?
-			if is_slot_empty(playerSlots[slot_index]):
-				continue
-			
-			# Any form of attack went through
-			# Brittle: Die after attacking
-			if pCard.has_sigil("Brittle"):
-				cardAnim.play("Perish")
-				rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
+					# Did the card get boned?
+					if is_slot_empty(playerSlots[slot_index]):
+						continue
+					
+					# Any form of attack went through
+					# Brittle: Die after attacking
+					if pCard.has_sigil("Brittle"):
+						cardAnim.play("Perish")
+						rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
 
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("complete_combat")
