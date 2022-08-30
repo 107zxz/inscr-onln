@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://music/moon.mp3" type="AudioStream" id=8]
 [ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gfx/cardextras/cost_energy.png" type="Texture" id=10]
+[ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 0.5 )
@@ -669,20 +670,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 212, 27.5 ), Vector2( 212, 0 ), Vector2( 212, 55 ), Vector2( 212, 27.5 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("../CardSlots")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0, 0 ],
-"method": "handle_enemy_attack"
-} ]
-}
 
 [sub_resource type="Animation" id=4]
 resource_name = "friendlyMoon"
@@ -902,6 +889,23 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Marksman.otf"
+
+[sub_resource type="DynamicFont" id=12]
+outline_size = 2
+outline_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=13]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 11 )
+region = Rect2( 6, 2, 13, 13 )
+
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.235294 )
 
@@ -933,8 +937,8 @@ mouse_filter = 2
 
 [node name="EnemyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
 visible = false
-margin_top = 55.0
-margin_bottom = 305.001
+margin_top = 27.5
+margin_bottom = 277.501
 
 [node name="FriendlyMoon" parent="MoonFight/BothMoons" instance=ExtResource( 9 )]
 visible = false
@@ -975,26 +979,58 @@ margin_right = 194.0
 margin_bottom = -67.0
 text = "Ant Enthusiast"
 
-[node name="MaxEnergy" type="TextureRect" parent="PlayerInfo/MyInfo"]
-modulate = Color( 0.5, 0.5, 0.5, 1 )
+[node name="Energy" type="Control" parent="PlayerInfo/MyInfo"]
 margin_left = 10.0
 margin_top = -115.0
-margin_right = 30.0
-margin_bottom = -100.0
+margin_right = 50.0
+margin_bottom = -75.0
+
+[node name="MaxEnergy" type="TextureRect" parent="PlayerInfo/MyInfo/Energy"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
+margin_right = 20.0
+margin_bottom = 15.0
 rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 2
 
-[node name="AvailableEnergy" type="TextureRect" parent="PlayerInfo/MyInfo"]
-margin_left = 10.0
-margin_top = -115.0
-margin_right = 20.0
-margin_bottom = -100.0
+[node name="AvailableEnergy" type="TextureRect" parent="PlayerInfo/MyInfo/Energy"]
+margin_right = 10.0
+margin_bottom = 15.0
 rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 2
+
+[node name="Bones" type="Control" parent="PlayerInfo/MyInfo"]
+margin_left = 10.0
+margin_top = -150.0
+margin_right = 50.0
+margin_bottom = -110.0
+
+[node name="BoneCount2" type="Label" parent="PlayerInfo/MyInfo/Bones"]
+margin_left = 28.0
+margin_right = 68.0
+margin_bottom = 13.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "51"
+
+[node name="BoneCount" type="Label" parent="PlayerInfo/MyInfo/Bones"]
+margin_left = 28.0
+margin_right = 68.0
+margin_bottom = 13.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "51"
+
+[node name="BoneSymbol" type="TextureRect" parent="PlayerInfo/MyInfo/Bones"]
+margin_right = 13.0
+margin_bottom = 13.0
+rect_scale = Vector2( 2, 2 )
+texture = SubResource( 11 )
 
 [node name="TheirInfo" type="Control" parent="PlayerInfo"]
 anchor_left = 1.0
@@ -1023,24 +1059,57 @@ margin_bottom = 3.0
 text = "Pack Rat Enjoyer"
 align = 2
 
-[node name="MaxEnergy" type="TextureRect" parent="PlayerInfo/TheirInfo"]
-modulate = Color( 0.5, 0.5, 0.5, 1 )
+[node name="Energy" type="Control" parent="PlayerInfo/TheirInfo"]
 margin_top = 120.0
+margin_right = 40.0
+margin_bottom = 160.0
+
+[node name="MaxEnergy" type="TextureRect" parent="PlayerInfo/TheirInfo/Energy"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
 margin_right = 10.0
-margin_bottom = 135.0
+margin_bottom = 15.0
 rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 2
 
-[node name="AvailableEnergy" type="TextureRect" parent="PlayerInfo/TheirInfo"]
-margin_top = 120.0
+[node name="AvailableEnergy" type="TextureRect" parent="PlayerInfo/TheirInfo/Energy"]
 margin_right = 10.0
-margin_bottom = 135.0
+margin_bottom = 15.0
 rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 2
+
+[node name="Bones" type="Control" parent="PlayerInfo/TheirInfo"]
+margin_left = -30.0
+margin_top = 160.0
+margin_right = 10.0
+margin_bottom = 200.0
+
+[node name="BoneCount2" type="Label" parent="PlayerInfo/TheirInfo/Bones"]
+margin_left = 28.0
+margin_right = 68.0
+margin_bottom = 13.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "51"
+
+[node name="BoneCount" type="Label" parent="PlayerInfo/TheirInfo/Bones"]
+margin_left = 28.0
+margin_right = 68.0
+margin_bottom = 13.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 13 )
+text = "51"
+
+[node name="BoneSymbol" type="TextureRect" parent="PlayerInfo/TheirInfo/Bones"]
+margin_right = 13.0
+margin_bottom = 13.0
+rect_scale = Vector2( 2, 2 )
+texture = SubResource( 11 )
 
 [node name="DrawPiles" type="Control" parent="."]
 margin_right = 40.0
@@ -1289,57 +1358,33 @@ __meta__ = {
 }
 
 [node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 206.0
+margin_top = 227.0
 margin_right = 140.0
-margin_bottom = 219.0
+margin_bottom = 240.0
 text = "Advantage: 0"
 
 [node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 219.0
+margin_top = 240.0
 margin_right = 140.0
-margin_bottom = 232.0
+margin_bottom = 253.0
 text = "Lives: 2"
 
 [node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 232.0
+margin_top = 253.0
 margin_right = 140.0
-margin_bottom = 245.0
+margin_bottom = 266.0
 text = "Opponent Lives: 2"
 
 [node name="Spacer" type="Control" parent="LeftSideUI"]
-margin_top = 245.0
+margin_top = 266.0
 margin_right = 140.0
-margin_bottom = 261.0
-rect_min_size = Vector2( 0, 16 )
-
-[node name="BonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 261.0
-margin_right = 140.0
-margin_bottom = 274.0
-text = "Bones: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OpponentBonesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 274.0
-margin_right = 140.0
-margin_bottom = 287.0
-text = "Opponent Bones: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Spacer3" type="Control" parent="LeftSideUI"]
-margin_top = 287.0
-margin_right = 140.0
-margin_bottom = 303.0
+margin_bottom = 282.0
 rect_min_size = Vector2( 0, 16 )
 
 [node name="HammerButton" type="Button" parent="LeftSideUI"]
-margin_top = 303.0
+margin_top = 282.0
 margin_right = 140.0
-margin_bottom = 337.0
+margin_bottom = 316.0
 rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 toggle_mode = true
@@ -1347,15 +1392,15 @@ enabled_focus_mode = 0
 text = "Hammer"
 
 [node name="Spacer4" type="Control" parent="LeftSideUI"]
-margin_top = 337.0
+margin_top = 316.0
 margin_right = 140.0
-margin_bottom = 359.347
+margin_bottom = 338.347
 rect_min_size = Vector2( 0, 22.347 )
 
 [node name="PassButton" type="Button" parent="LeftSideUI"]
-margin_top = 359.0
+margin_top = 338.0
 margin_right = 140.0
-margin_bottom = 393.0
+margin_bottom = 372.0
 rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 enabled_focus_mode = 0

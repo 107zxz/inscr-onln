@@ -170,8 +170,7 @@ func post_turn_sigils():
 				
 				var curSlot = card.get_parent().get_position_in_parent()
 				
-				var oSprintOffset = -1 if sprintSigil.flip_h else 1
-				var sprintOffset = oSprintOffset
+				var sprintOffset = -1 if sprintSigil.flip_h else 1
 				var moveFailed = false
 				var cantMove = false
 				var ogFlipped = sprintSigil.flip_h
@@ -340,23 +339,10 @@ func initiate_combat():
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", 4)
 			
 			yield(moonAnim, "animation_finished")
-			
-		elif len(all_enemy_cards()) == 0 or all_enemy_cards() == get_enemy_cards_sigil("Repulsive") + get_enemy_cards_sigil("Waterborne"):
-			
-			moonAnim.play("friendlyMoonSlap")
-			print("Moon attacking dieectly")
-			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", -1)
-
-			yield(moonAnim, "animation_finished")
 		
 		else:
-			
-			for eCard in all_enemy_cards():
-				
-				if eCard.has_sigil("Repulsive") or eCard.has_sigil("Waterborne"):
-					continue
-				
-				moon.target = eCard.slot_idx()
+			for slot in range(4):
+				moon.target = slot
 				moonAnim.play("friendlyMoonSlap")
 				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", moon.target)
 
@@ -449,6 +435,8 @@ func initiate_combat():
 func handle_attack(from_slot, to_slot):
 	
 	print("Handling attack")
+	
+	var pCard = playerSlots[from_slot].get_child(0)
 
 	# Special moon logic
 	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
@@ -458,12 +446,15 @@ func handle_attack(from_slot, to_slot):
 		
 		if moon.target == 4:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(moon.attack)
+			return
 		elif moon.target >= 0:
-			enemySlots[moon.target].get_child(0).take_damage(null, moon.attack)
+#			enemySlots[moon.target].get_child(0).take_damage(null, moon.attack)
+			to_slot = moon.target
+			pCard = moon
 		else:
 			fightManager.inflict_damage(moon.attack)
+			return
 		
-		return
 	
 	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 		# This means you're attacking the moon
@@ -472,13 +463,13 @@ func handle_attack(from_slot, to_slot):
 			playerSlots[from_slot].get_child(0).attack
 		)
 		
+		print("ATTACK RPC ANTIMOON: ", to_slot)
 		rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 		
 		return
 	
 	var direct_attack = false
 	
-	var pCard = playerSlots[from_slot].get_child(0)
 	var eCard = null
 	
 	if is_slot_empty(enemySlots[to_slot]):
@@ -537,6 +528,7 @@ func handle_attack(from_slot, to_slot):
 	else:
 		eCard.take_damage(pCard);	
 	
+	print("ATTACK RPC: ", to_slot)
 	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
 # Sigil handling
@@ -707,6 +699,10 @@ remote func remote_card_data(card_slot, new_data):
 	card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
 
 remote func handle_enemy_attack(from_slot, to_slot):
+
+	print("Attack RPC recieved: ", to_slot)
+	
+	var eCard = get_enemy_card(from_slot)
 	
 	# Special moon logic
 	if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
@@ -717,9 +713,12 @@ remote func handle_enemy_attack(from_slot, to_slot):
 		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(moon.attack)
 		elif moon.target >= 0:
-			playerSlots[moon.target].get_child(0).take_damage(null, moon.attack)
+#			playerSlots[moon.target].get_child(0).take_damage(null, moon.attack)
+			to_slot = moon.target
+			eCard = moon
 		else:
 			fightManager.inflict_damage(-moon.attack)
+			return
 	
 	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 		# This means they're attacking your moon
@@ -731,7 +730,6 @@ remote func handle_enemy_attack(from_slot, to_slot):
 	
 	var direct_attack = false
 	
-	var eCard = get_enemy_card(from_slot)
 	var pCard = null
 	
 	if is_slot_empty(playerSlots[to_slot]):
