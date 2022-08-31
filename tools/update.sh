@@ -30,9 +30,18 @@ else
     $gex --export-debug "Linux/X11" $bdir/linux-$vno.x86_64
 fi
 
+if false && [ -f "$bdir/android-$vno.apk" ]; then
+    echo "$bdir/android-$vno.apk already exists! skipping..."
+else
+    echo Building $bdir/android-$vno.apk
+    $gex --export-debug "Android" $bdir/android-$vno.apk
+fi
+
 echo "Pushing windows..."
 butler push $bdir/win-$vno.exe 107zxz/inscryption-multiplayer-godot:win --userversion $vno
 echo "Pushing osx..."
 butler push $bdir/osx-$vno.zip 107zxz/inscryption-multiplayer-godot:osx --userversion $vno
 echo "Pushing linux..."
 butler push $bdir/linux-$vno.x86_64 107zxz/inscryption-multiplayer-godot:linux --userversion $vno
+echo "Pushing android..."
+butler push $bdir/android-$vno.apk 107zxz/inscryption-multiplayer-godot:android --userversion $vno
