@@ -708,6 +708,8 @@ remote func remote_card_data(card_slot, new_data):
 
 remote func handle_enemy_attack(from_slot, to_slot):
 
+	fightManager.replay.record_action({"type": "enemy_attack", "from_slot": from_slot, "to_slot": to_slot})
+
 	print("Attack RPC recieved: ", to_slot)
 	
 	var eCard = get_enemy_card(from_slot)

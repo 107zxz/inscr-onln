@@ -394,6 +394,9 @@ func play_card(slot):
 		
 		# Only allow playing cards in the NORMAL or FORCEPLAY states
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
+
+			replay.record_action({"type": "summoned_card", "card": playedCard.card_data, "slot": slot.get_position_in_parent()})
+
 			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
 			
 			# Bone cost
@@ -519,6 +522,9 @@ func card_summoned(playedCard):
 
 # Hammer Time
 func hammer_mode():
+
+	replay.record_action({"action": "hammer_mode"})
+
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
 	
@@ -582,7 +588,7 @@ remote func _opponent_drew_card(source_path):
 remote func _opponent_played_card(card, slot):
 	
 	# Replay
-	replay.record_action({"type": "opponent_summoned_card", "card": card})
+	replay.record_action({"type": "opponent_summoned_card", "card": card, "slot": slot})
 	
 	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
 	

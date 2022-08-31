@@ -42,6 +42,9 @@ func draw_stats():
 
 # When card is clicked
 func _on_Button_pressed():
+
+	fightManager.replay.record_action({"type": "card_clicked", "slot": slot_idx()})
+
 	# Only allow raising while in hand
 	if in_hand:
 
