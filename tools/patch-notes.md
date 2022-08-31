@@ -63,8 +63,10 @@ This update makes some more important bug fixes and balance changes, as well as 
         * The moon will now strike all opposing spaces regardless of if they have a card in them.
 * New Features
     * The Battle UI has been reworked (see screenshot)
+    * Almost all buttons have been made bigger for android players
 * Bug Fixes
     * Sacrifice markers can no longer be created when not summoning a card
     * Replays will no longer attempt to use invalid characters in their filenames (and will now save on windows)
     * The moon will now correctly interact with burrower when attacking
     * Reconstitute can now track multiple cards at once
+    * Fixed several touch screen issues
