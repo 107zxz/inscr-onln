@@ -81,8 +81,7 @@ var side_deck = []
 
 # Persistent card state
 var turns_starving = 0
-var gold_sarcophagus = null
-var sarcophagus_counter = 0
+var gold_sarcophagus = {}
 
 # Network match state
 var want_rematch = false
@@ -140,8 +139,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	damage_stun = false
 	turns_starving = 0
 
-	gold_sarcophagus = null
-	sarcophagus_counter = 0
+	gold_sarcophagus = {}
 
 	# Hammers
 	$LeftSideUI/HammerButton.visible = true
@@ -828,13 +826,12 @@ remote func start_turn():
 	replay.start_turn()
 	
 	# Gold sarcophagus
-	if gold_sarcophagus:
-		if sarcophagus_counter <= 0:
-			draw_card(gold_sarcophagus)
-			gold_sarcophagus = null
-			sarcophagus_counter = 0
+	for pharoah in gold_sarcophagus:
+		if gold_sarcophagus[pharoah] <= 0:
+			draw_card(pharoah)
+			gold_sarcophagus.erase(pharoah)
 		else:
-			sarcophagus_counter -= 1
+			gold_sarcophagus[pharoah] -= 1
 	
 	# Hammers
 	if "hammers_per_turn" in CardInfo.all_data:
