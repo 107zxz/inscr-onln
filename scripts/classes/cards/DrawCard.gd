@@ -72,8 +72,6 @@ func draw_special():
 
 		$AtkIcon.texture = $AtkIcon.texture.duplicate()
 		
-		print(typeof(card_data.atkspecial))
-
 		match card_data.atkspecial:
 			0.0:
 				$AtkIcon.texture.region = Rect2(0, 0, 16, 8)
