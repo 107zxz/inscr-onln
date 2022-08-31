@@ -1,6 +1,6 @@
-v0.1.6 is out!
+v0.1.7 is out!
 
-This update makes some important bug fixes and shakes up the meta for the tournament
+This update makes some more important bug fixes and balance changes, as well as reworking the battle UI!
 
 * New Cards (added in arg)
     * Long Elk

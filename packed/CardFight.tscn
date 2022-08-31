@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -11,6 +11,22 @@
 [ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gfx/cardextras/cost_energy.png" type="Texture" id=10]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=11]
+[ext_resource path="res://scripts/UI/CandleVis.gd" type="Script" id=12]
+[ext_resource path="res://gfx/extra/candles.png" type="Texture" id=13]
+[ext_resource path="res://gfx/extra/candlestick.png" type="Texture" id=14]
+[ext_resource path="res://gfx/extra/advantage.png" type="Texture" id=15]
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 7, 156, 10 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 7, 7 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 17, 156, 10 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 0.5 )
@@ -889,6 +905,14 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 13 )
+region = Rect2( 1, 0, 5, 21 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 13 )
+region = Rect2( 8, 0, 5, 21 )
+
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://fonts/Marksman.otf"
 
@@ -918,6 +942,50 @@ script = ExtResource( 3 )
 [node name="CustomBg" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+expand = true
+
+[node name="Advantage" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="AdvRight" type="TextureRect" parent="Advantage"]
+margin_left = 250.0
+margin_top = -93.0
+margin_right = 475.0
+margin_bottom = -77.0
+rect_rotation = 90.0
+texture = SubResource( 18 )
+expand = true
+
+[node name="PickRight" type="TextureRect" parent="Advantage/AdvRight"]
+margin_left = 104.0
+margin_top = -15.0
+margin_right = 120.0
+margin_bottom = 1.0
+texture = SubResource( 17 )
+expand = true
+
+[node name="AdvLeft" type="TextureRect" parent="Advantage"]
+margin_left = -210.0
+margin_top = 132.0
+margin_right = 15.0
+margin_bottom = 148.0
+rect_rotation = -90.0
+texture = SubResource( 16 )
+expand = true
+
+[node name="PickLeft" type="TextureRect" parent="Advantage/AdvLeft"]
+margin_left = 104.0
+margin_top = -15.0
+margin_right = 120.0
+margin_bottom = 1.0
+texture = SubResource( 17 )
 expand = true
 
 [node name="MoonFight" type="PanelContainer" parent="."]
@@ -963,6 +1031,36 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -40.0
 margin_right = 40.0
+
+[node name="Candle" type="Control" parent="PlayerInfo/MyInfo"]
+margin_left = 140.0
+margin_top = 10.0
+margin_right = 220.0
+margin_bottom = 90.0
+script = ExtResource( 12 )
+
+[node name="Base" type="TextureRect" parent="PlayerInfo/MyInfo/Candle"]
+margin_top = -25.0
+margin_right = 50.0
+margin_bottom = 25.0
+texture = ExtResource( 14 )
+expand = true
+
+[node name="Candle1" type="TextureRect" parent="PlayerInfo/MyInfo/Candle"]
+margin_left = 2.49
+margin_top = -84.0
+margin_right = 16.99
+margin_bottom = -25.0
+texture = SubResource( 14 )
+expand = true
+
+[node name="Candle2" type="TextureRect" parent="PlayerInfo/MyInfo/Candle"]
+margin_left = 33.0
+margin_top = -84.0
+margin_right = 47.5
+margin_bottom = -25.0
+texture = SubResource( 15 )
+expand = true
 
 [node name="Pfp" type="TextureRect" parent="PlayerInfo/MyInfo"]
 material = ExtResource( 7 )
@@ -1037,6 +1135,36 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -40.0
 margin_bottom = 40.0
+
+[node name="Candle" type="Control" parent="PlayerInfo/TheirInfo"]
+margin_left = -150.0
+margin_top = 95.0
+margin_right = -70.0
+margin_bottom = 175.0
+script = ExtResource( 12 )
+
+[node name="Base" type="TextureRect" parent="PlayerInfo/TheirInfo/Candle"]
+margin_top = -25.0
+margin_right = 50.0
+margin_bottom = 25.0
+texture = ExtResource( 14 )
+expand = true
+
+[node name="Candle1" type="TextureRect" parent="PlayerInfo/TheirInfo/Candle"]
+margin_left = 2.49
+margin_top = -84.0
+margin_right = 16.99
+margin_bottom = -25.0
+texture = SubResource( 14 )
+expand = true
+
+[node name="Candle2" type="TextureRect" parent="PlayerInfo/TheirInfo/Candle"]
+margin_left = 33.0
+margin_top = -84.0
+margin_right = 47.5
+margin_bottom = -25.0
+texture = SubResource( 15 )
+expand = true
 
 [node name="Pfp" type="TextureRect" parent="PlayerInfo/TheirInfo"]
 material = ExtResource( 7 )
@@ -1357,34 +1485,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AdvantageLabel" type="Label" parent="LeftSideUI"]
-margin_top = 227.0
-margin_right = 140.0
-margin_bottom = 240.0
-text = "Advantage: 0"
-
-[node name="LivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 240.0
-margin_right = 140.0
-margin_bottom = 253.0
-text = "Lives: 2"
-
-[node name="OpponentLivesLabel" type="Label" parent="LeftSideUI"]
-margin_top = 253.0
-margin_right = 140.0
-margin_bottom = 266.0
-text = "Opponent Lives: 2"
-
-[node name="Spacer" type="Control" parent="LeftSideUI"]
-margin_top = 266.0
-margin_right = 140.0
-margin_bottom = 282.0
-rect_min_size = Vector2( 0, 16 )
-
 [node name="HammerButton" type="Button" parent="LeftSideUI"]
-margin_top = 282.0
+margin_top = 255.0
 margin_right = 140.0
-margin_bottom = 316.0
+margin_bottom = 289.0
 rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 toggle_mode = true
@@ -1392,15 +1496,15 @@ enabled_focus_mode = 0
 text = "Hammer"
 
 [node name="Spacer4" type="Control" parent="LeftSideUI"]
-margin_top = 316.0
+margin_top = 289.0
 margin_right = 140.0
-margin_bottom = 338.347
+margin_bottom = 311.347
 rect_min_size = Vector2( 0, 22.347 )
 
 [node name="PassButton" type="Button" parent="LeftSideUI"]
-margin_top = 338.0
+margin_top = 311.0
 margin_right = 140.0
-margin_bottom = 372.0
+margin_bottom = 345.0
 rect_min_size = Vector2( 0, 34 )
 focus_mode = 0
 enabled_focus_mode = 0
