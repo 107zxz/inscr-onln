@@ -67,3 +67,4 @@ This update makes some more important bug fixes and balance changes, as well as 
     * Sacrifice markers can no longer be created when not summoning a card
     * Replays will no longer attempt to use invalid characters in their filenames (and will now save on windows)
     * The moon will now correctly interact with burrower when attacking
+    * Reconstitute can now track multiple cards at once
