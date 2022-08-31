@@ -290,23 +290,16 @@ func begin_perish(doubleDeath = false):
 
 		# Unkillable
 		if has_sigil("Unkillable"):
+			fightManager.draw_card(card_data)
+		
+		# Reconstitute
+		if has_sigil("Reconstitute"):
 
 			if card_data["name"] == "Ouroboros":
 				card_data["attack"] += 1
 				card_data["health"] += 1
-
-				# Update cards in hand
-				fightManager.reload_hand()
-
-			if card_data["name"] == "Ghost Squirrel" and doubleDeath:
-				pass
-			else:
-				fightManager.draw_card(card_data)
-		
-		# Reconstitute
-		if has_sigil("Reconstitute"):
-			fightManager.gold_sarcophagus = card_data
-			fightManager.sarcophagus_counter = 1
+			
+			fightManager.gold_sarcophagus[card_data] = 1
 		
 		# Gem dependent (not this card)
 		if "sigils" in card_data:
