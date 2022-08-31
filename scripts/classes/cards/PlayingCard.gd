@@ -62,6 +62,14 @@ func _on_Button_pressed():
 			lower()
 			get_parent().get_parent().raisedCard = null
 			fightManager.state = fightManager.GameStates.NORMAL
+			
+			# Clear sacrifices
+			for card in slotManager.sacVictims:
+				card.get_node("CardBody/SacOlay").visible = false
+				slotManager.rpc_id(fightManager.opponent, "set_sac_olay_vis", card.slot_idx(), $CardBody/SacOlay.visible)
+			
+			slotManager.sacVictims = []
+
 		elif in_hand:
 			
 			# Only raise if all costs are met
@@ -156,7 +164,7 @@ func _on_Button_pressed():
 				# Attempt a sacrifice
 				slotManager.attempt_sacrifice()
 				
-			slotManager.rpc_id(fightManager.opponent, "set_sac_olay_vis", get_parent().get_position_in_parent(), $CardBody/SacOlay.visible)
+			slotManager.rpc_id(fightManager.opponent, "set_sac_olay_vis", slot_idx(), $CardBody/SacOlay.visible)
 
 # Animation
 func raise():
