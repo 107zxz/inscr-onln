@@ -159,9 +159,8 @@ func init_match(opp_id: int, do_go_first: bool):
 	# Remove and reset moon
 	$MoonFight/AnimationPlayer.play("RESET")
 
-	$LeftSideUI/AdvantageLabel.text = "Advantage: 0"
-	$LeftSideUI/LivesLabel.text = "Lives: 2"
-	$LeftSideUI/OpponentLivesLabel.text = "Opponent Lives: 2"
+	$PlayerInfo/MyInfo/Candle.set_lives(2)
+	$PlayerInfo/TheirInfo/Candle.set_lives(2)
 	
 	bones = 0
 	opponent_bones = 0
@@ -682,9 +681,11 @@ func inflict_damage(dmg):
 		advantage = 0
 		damage_stun = true
 		
-	$LeftSideUI/OpponentLivesLabel.text = "Opponent Lives: " + str(opponent_lives)
-	$LeftSideUI/LivesLabel.text = "Lives: " + str(lives)
-	$LeftSideUI/AdvantageLabel.text = "Advantage: " + str(advantage)
+	$Advantage/AdvLeft/PickLeft.rect_position.x = 104 + advantage * 20
+	$Advantage/AdvRight/PickRight.rect_position.x = 104 + advantage * 20
+	
+	$PlayerInfo/MyInfo/Candle.set_lives(lives)
+	$PlayerInfo/TheirInfo/Candle.set_lives(opponent_lives)
 	
 	# Win condition
 	if lives == 0:
