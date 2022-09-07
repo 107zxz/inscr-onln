@@ -1,7 +1,7 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
-[ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=2]
+[ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
 [ext_resource path="res://packed/CardFight.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/NewLobby.gd" type="Script" id=4]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=5]
@@ -11,6 +11,8 @@
 [ext_resource path="res://gfx/extra/stinkbug_character_sheet.png" type="Texture" id=9]
 [ext_resource path="res://scripts/PullInfo.gd" type="Script" id=10]
 [ext_resource path="res://gfx/portraits/Amoeba.png" type="Texture" id=11]
+[ext_resource path="res://scripts/UI/OptionsMenu.gd" type="Script" id=12]
+[ext_resource path="res://gfx/extra/On.png" type="Texture" id=13]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 8 )
@@ -277,13 +279,23 @@ enabled_focus_mode = 0
 text = "Select Ruleset"
 
 [node name="ThemeEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+visible = false
+margin_top = 315.0
+margin_right = 450.0
+margin_bottom = 345.0
+rect_min_size = Vector2( 0, 30 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Theme Editor"
+
+[node name="OptionsBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
 margin_top = 348.0
 margin_right = 450.0
 margin_bottom = 378.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Theme Editor"
+text = "Options"
 
 [node name="LogFolder" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
 margin_top = 413.0
@@ -709,7 +721,7 @@ rect_min_size = Vector2( 260, 0 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 258.0
-margin_bottom = 276.0
+margin_bottom = 294.0
 custom_constants/separation = 10
 alignment = 1
 
@@ -730,19 +742,19 @@ align = 1
 margin_left = 112.0
 margin_top = 46.0
 margin_right = 143.0
-margin_bottom = 63.0
+margin_bottom = 69.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Copy"
 
 [node name="PlayerList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
-margin_top = 73.0
+margin_top = 79.0
 margin_right = 256.0
 margin_bottom = 124.0
-rect_min_size = Vector2( 0, 51 )
+rect_min_size = Vector2( 0, 45 )
 size_flags_vertical = 5
-items = [ "Item 0", ExtResource( 2 ), false, "Item 1", ExtResource( 2 ), false ]
+items = [ "Item 0", ExtResource( 2 ), false, "Item 1", ExtResource( 13 ), false ]
 
 [node name="Spectators" type="Label" parent="TitleScreen/InLobby/Rows"]
 margin_top = 134.0
@@ -754,34 +766,34 @@ align = 1
 [node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
 margin_top = 157.0
 margin_right = 256.0
-margin_bottom = 174.0
+margin_bottom = 180.0
 alignment = 1
 
 [node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
 margin_left = 66.0
 margin_right = 190.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Kick Selected Player"
 
 [node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 184.0
+margin_top = 190.0
 margin_right = 256.0
-margin_bottom = 201.0
+margin_bottom = 213.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
 margin_left = 59.0
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 95.0
-margin_bottom = 15.0
+margin_bottom = 18.0
 text = "Deck: "
 
 [node name="Deck" type="OptionButton" parent="TitleScreen/InLobby/Rows/DeckOptions"]
 margin_left = 95.0
 margin_right = 157.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "default"
@@ -791,15 +803,15 @@ selected = 0
 [node name="OpenDE" type="Button" parent="TitleScreen/InLobby/Rows/DeckOptions"]
 margin_left = 157.0
 margin_right = 196.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Editor"
 
 [node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 211.0
+margin_top = 223.0
 margin_right = 256.0
-margin_bottom = 247.0
+margin_bottom = 259.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
@@ -834,16 +846,16 @@ texture = ExtResource( 11 )
 expand = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 257.0
+margin_top = 269.0
 margin_right = 256.0
-margin_bottom = 274.0
+margin_bottom = 292.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="LobbyReady" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
 margin_left = 86.0
 margin_right = 126.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ready"
@@ -851,7 +863,7 @@ text = "Ready"
 [node name="LobbyQuit" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
 margin_left = 142.0
 margin_right = 169.0
-margin_bottom = 17.0
+margin_bottom = 23.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
@@ -929,10 +941,111 @@ text = "Ok"
 [node name="DeckEdit" parent="." instance=ExtResource( 7 )]
 visible = false
 
+[node name="Options" type="PanelContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -275.0
+margin_top = -215.0
+margin_right = 275.0
+margin_bottom = 215.0
+theme = ExtResource( 1 )
+script = ExtResource( 12 )
+
+[node name="TabContainer" type="TabContainer" parent="Options"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 548.0
+margin_bottom = 428.0
+mouse_filter = 1
+
+[node name="Visual" type="VBoxContainer" parent="Options/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 25.0
+margin_right = -2.0
+margin_bottom = -2.0
+
+[node name="enable_accessibility_icons" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_right = 542.0
+margin_bottom = 27.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Card property icons"
+
+[node name="show_card_tooltips" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 27.0
+margin_right = 542.0
+margin_bottom = 54.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Card tooltips"
+
+[node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 54.0
+margin_right = 542.0
+margin_bottom = 81.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Right scale shows opponent's advantage"
+
+[node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
+margin_top = 81.0
+margin_right = 542.0
+margin_bottom = 104.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Open Theme Editor"
+
+[node name="Audio" type="VBoxContainer" parent="Options/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 35.0
+margin_right = -12.0
+margin_bottom = -12.0
+
+[node name="enable_moon_music" type="CheckButton" parent="Options/TabContainer/Audio"]
+margin_right = 524.0
+margin_bottom = 27.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Moon music"
+
+[node name="Experimental" type="VBoxContainer" parent="Options/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 35.0
+margin_right = -12.0
+margin_bottom = -12.0
+
+[node name="save_replays" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_right = 524.0
+margin_bottom = 27.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Replays (experimental)"
+
+[node name="CloseBtn" type="Button" parent="Options"]
+margin_left = 528.0
+margin_top = 2.0
+margin_right = 548.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 20, 0 )
+focus_mode = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+enabled_focus_mode = 0
+text = "X"
+
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
 visible = false
-margin_top = -205.5
-margin_bottom = 205.5
 
 [node name="CardFight" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -957,6 +1070,7 @@ align = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/SelectVersionBtn" to="TitleScreen" method="_on_SelectVersionBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/OptionsBtn" to="Options" method="show"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
@@ -979,3 +1093,5 @@ align = 2
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyReady" to="TitleScreen" method="_on_LobbyReady_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
 [connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorOk" to="TitleScreen" method="_on_ErrorOk_pressed"]
+[connection signal="pressed" from="Options/TabContainer/Visual/ThemeEditor" to="ThemeEditor" method="show"]
+[connection signal="pressed" from="Options/CloseBtn" to="Options" method="hide"]

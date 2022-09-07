@@ -680,7 +680,7 @@ func inflict_damage(dmg):
 		damage_stun = true
 		
 	$Advantage/AdvLeft/PickLeft.rect_position.x = 104 + advantage * 20
-	$Advantage/AdvRight/PickRight.rect_position.x = 104 + advantage * 20
+	$Advantage/AdvRight/PickRight.rect_position.x = 104 + advantage * (20 if GameOptions.options.show_enemy_advantage else -20)
 	
 	$PlayerInfo/MyInfo/Candle.set_lives(lives)
 	$PlayerInfo/TheirInfo/Candle.set_lives(opponent_lives)
@@ -750,7 +750,7 @@ func moon_cutscene(friendly: bool):
 	else:
 		$MoonFight/AnimationPlayer.play("enemyMoon")
 
-	if GameOptions.enable_moon_music:
+	if GameOptions.options.enable_moon_music:
 		$MoonFight/AudioStreamPlayer.play()
 
 # Network interactions
