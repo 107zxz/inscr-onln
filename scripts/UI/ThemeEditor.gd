@@ -45,11 +45,7 @@ const default_theme_data = {
 			"border": "#000000",
 			"background": "#99936d"
 		}
-	},
-	"show_accessibility_icons": false,
-	"show_card_tooltips": true,
-	"enable_moon_music": true,
-	"save_replays": false
+	}
 }
 
 var theme_data = default_theme_data
@@ -115,14 +111,7 @@ func apply_theme():
 	# Sigil Colours
 	sigilMat.set_shader_param("u_replacement_color", Color(theme_data.pixart_colour))
 	
-	# Accessibility icons
-	GameOptions.enable_accessibility_icons = theme_data.show_accessibility_icons
-	GameOptions.show_card_tooltips = theme_data.show_card_tooltips
-	GameOptions.enable_moon_music = theme_data.enable_moon_music
-	GameOptions.save_replays = theme_data.save_replays
 	
-	# Reload deck editor
-	get_node("/root/Main/DeckEdit").search()
 	
 	save_theme()
 
@@ -149,11 +138,6 @@ func apply_controls():
 	theme_data.buttons.hover.border = $"Options/Button Border Hover/LineEdit".text
 	theme_data.buttons.pressed.background = $"Options/Button Background Pressed/LineEdit".text
 	theme_data.buttons.pressed.border = $"Options/Button Border Pressed/LineEdit".text
-
-	theme_data.show_accessibility_icons = $"Options/Accessibility icons/CheckBox".pressed
-	theme_data.show_card_tooltips = $"Options/Card Tooltips/CheckBox".pressed
-	theme_data.enable_moon_music = $"Options/Moon Music/CheckBox".pressed
-	theme_data.save_replays = $"Options/Save Replays/CheckBox".pressed
 
 func save_theme():
 	
@@ -187,23 +171,6 @@ func update_controls():
 	$"Options/Button Background Pressed/LineEdit".text = theme_data.buttons.pressed.background
 	$"Options/Button Border Pressed/LineEdit".text = theme_data.buttons.pressed.border
 	
-	if not "show_accessibility_icons" in theme_data:
-		theme_data["show_accessibility_icons"] = false
-	
-	if not "show_card_tooltips" in theme_data:
-		theme_data.show_card_tooltips = true
-	
-	if not "enable_moon_music" in theme_data:
-		theme_data.enable_moon_music = true
-	
-	if not "save_replays" in theme_data:
-		theme_data.save_replays = false
-	
-	$"Options/Accessibility icons/CheckBox".pressed = theme_data.show_accessibility_icons
-	$"Options/Card Tooltips/CheckBox".pressed = theme_data.show_card_tooltips
-	$"Options/Moon Music/CheckBox".pressed = theme_data.enable_moon_music
-	$"Options/Save Replays/CheckBox".pressed = theme_data.save_replays
-
 func attempt_load_theme():
 	
 	var tFile = File.new()

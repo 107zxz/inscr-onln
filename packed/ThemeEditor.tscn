@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://themes/backuptheme.tres" type="Theme" id=1]
-[ext_resource path="res://scripts/ThemeEditor.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/ThemeEditor.gd" type="Script" id=2]
 
 [node name="ThemeEditor" type="PanelContainer"]
 anchor_left = 0.5
@@ -9,9 +9,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -170.5
-margin_top = -235.5
+margin_top = -195.5
 margin_right = 170.5
-margin_bottom = 235.5
+margin_bottom = 195.5
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
@@ -19,7 +19,7 @@ script = ExtResource( 2 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 339.0
-margin_bottom = 469.0
+margin_bottom = 389.0
 
 [node name="Description" type="Label" parent="Options"]
 margin_right = 337.0
@@ -384,90 +384,10 @@ margin_right = 337.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 
-[node name="Accessibility icons" type="HBoxContainer" parent="Options"]
+[node name="Buttons" type="HBoxContainer" parent="Options"]
 margin_top = 370.0
 margin_right = 337.0
-margin_bottom = 390.0
-
-[node name="Label" type="Label" parent="Options/Accessibility icons"]
-margin_top = 3.0
-margin_right = 317.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "Accessibility icons:"
-
-[node name="CheckBox" type="CheckBox" parent="Options/Accessibility icons"]
-margin_left = 317.0
-margin_right = 337.0
-margin_bottom = 20.0
-focus_mode = 0
-size_flags_horizontal = 0
-enabled_focus_mode = 0
-
-[node name="Card Tooltips" type="HBoxContainer" parent="Options"]
-margin_top = 390.0
-margin_right = 337.0
-margin_bottom = 410.0
-
-[node name="Label" type="Label" parent="Options/Card Tooltips"]
-margin_top = 3.0
-margin_right = 317.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "Card Tooltips:"
-
-[node name="CheckBox" type="CheckBox" parent="Options/Card Tooltips"]
-margin_left = 317.0
-margin_right = 337.0
-margin_bottom = 20.0
-focus_mode = 0
-size_flags_horizontal = 0
-enabled_focus_mode = 0
-
-[node name="Moon Music" type="HBoxContainer" parent="Options"]
-margin_top = 410.0
-margin_right = 337.0
-margin_bottom = 430.0
-
-[node name="Label" type="Label" parent="Options/Moon Music"]
-margin_top = 3.0
-margin_right = 317.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "Moon Music:"
-
-[node name="CheckBox" type="CheckBox" parent="Options/Moon Music"]
-margin_left = 317.0
-margin_right = 337.0
-margin_bottom = 20.0
-focus_mode = 0
-size_flags_horizontal = 0
-enabled_focus_mode = 0
-
-[node name="Save Replays" type="HBoxContainer" parent="Options"]
-margin_top = 430.0
-margin_right = 337.0
-margin_bottom = 450.0
-
-[node name="Label" type="Label" parent="Options/Save Replays"]
-margin_top = 3.0
-margin_right = 317.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
-text = "Save Replays (experimental):"
-
-[node name="CheckBox" type="CheckBox" parent="Options/Save Replays"]
-margin_left = 317.0
-margin_right = 337.0
-margin_bottom = 20.0
-focus_mode = 0
-size_flags_horizontal = 0
-enabled_focus_mode = 0
-
-[node name="Buttons" type="HBoxContainer" parent="Options"]
-margin_top = 450.0
-margin_right = 337.0
-margin_bottom = 467.0
+margin_bottom = 387.0
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="Options/Buttons"]

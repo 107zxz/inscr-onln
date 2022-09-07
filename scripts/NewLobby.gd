@@ -8,8 +8,8 @@ onready var hostUnameBox = $LobbyHost/Rows/Nickname/LineEdit
 onready var joinUnameBox = $LobbyJoin/Rows/Nickname/LineEdit
 onready var lobbyList: ItemList = $InLobby/Rows/PlayerList
 
-var unreadyIcon = preload("res://gfx/sigils/Orange Mox.png")
-var readyIcon = preload("res://gfx/sigils/Green Mox.png")
+var unreadyIcon = preload("res://gfx/extra/Off.png")
+var readyIcon = preload("res://gfx/extra/On.png")
 
 var lobby_data = {"players": {}, "spectators": []}
 

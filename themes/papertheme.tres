@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=20 format=2]
+[gd_resource type="Theme" load_steps=22 format=2]
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
+[ext_resource path="res://gfx/extra/On.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxFlat" id=9]
 content_margin_top = 5.0
@@ -195,7 +197,7 @@ border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=4]
-content_margin_left = 20.0
+content_margin_left = 10.0
 bg_color = Color( 0.501961, 0.482353, 0.356863, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -226,6 +228,9 @@ Card/styles/rare_hover = SubResource( 15 )
 Card/styles/rare_normal = SubResource( 16 )
 Card/styles/rns_hover = SubResource( 17 )
 Card/styles/rns_normal = SubResource( 18 )
+CheckButton/icons/off = ExtResource( 3 )
+CheckButton/icons/off_disabled = null
+CheckButton/icons/on = ExtResource( 2 )
 GridContainer/constants/hseparation = 0
 GridContainer/constants/vseparation = 0
 HBoxContainer/constants/separation = 0
@@ -238,6 +243,13 @@ Panel/styles/pressed = SubResource( 6 )
 PanelContainer/styles/panel = SubResource( 6 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 ScrollContainer/styles/bg = SubResource( 6 )
+TabContainer/colors/font_color_bg = Color( 0, 0, 0, 1 )
+TabContainer/colors/font_color_disabled = Color( 0, 0, 0, 0.4 )
+TabContainer/colors/font_color_fg = Color( 0, 0, 0, 1 )
+TabContainer/styles/panel = SubResource( 6 )
+TabContainer/styles/tab_bg = SubResource( 9 )
+TabContainer/styles/tab_disabled = SubResource( 9 )
+TabContainer/styles/tab_fg = SubResource( 8 )
 TspBg/styles/bg = SubResource( 23 )
 TspBg/styles/panel = SubResource( 23 )
 VBoxContainer/constants/separation = 0

@@ -89,7 +89,7 @@ func draw_special():
 	# Tooltip
 	$Button.hint_tooltip = ""
 	
-	if GameOptions.show_card_tooltips:
+	if GameOptions.options.show_card_tooltips:
 		if "rare" in card_data:
 			$Button.hint_tooltip += "Rare: You may only use one copy of this card in your deck.\n"
 			
@@ -204,7 +204,7 @@ func draw_cost():
 #	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.duplicate()
 #
 #	if false:
-	if GameOptions.enable_accessibility_icons:
+	if GameOptions.options.enable_accessibility_icons:
 		draw_symbols()
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
