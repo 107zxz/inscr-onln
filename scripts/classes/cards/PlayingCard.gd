@@ -274,7 +274,14 @@ func begin_perish(doubleDeath = false):
 			fightManager.add_bones(4)
 		elif not has_sigil("Boneless"):
 			fightManager.add_bones(1)
-
+			
+		# Temp
+		if "necro_boned" in CardInfo.all_data and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
+			if has_sigil("Bone King"):
+				fightManager.add_bones(4)
+			elif not has_sigil("Boneless"):
+				fightManager.add_bones(1)
+				
 		## SIGILS
 		# Ruby Heart
 		if has_sigil("Ruby Heart"):
@@ -375,7 +382,7 @@ func begin_perish(doubleDeath = false):
 			eCard.calculate_buffs()
 
 		# Play the special animation if necro is in play
-		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
+		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
 			# Don't do it if I spawn a card on death
 			if canRespawn:
 				$AnimationPlayer.play("DoublePerish")
@@ -386,6 +393,13 @@ func begin_perish(doubleDeath = false):
 			fightManager.add_opponent_bones(4)
 		elif not has_sigil("Boneless"):
 			fightManager.add_opponent_bones(1)
+		
+		# Temp
+		if "necro_boned" in CardInfo.all_data and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self:
+			if has_sigil("Bone King"):
+				fightManager.add_opponent_bones(4)
+			elif not has_sigil("Boneless"):
+				fightManager.add_opponent_bones(1)
 		
 		# Explosive motherfucker
 		if has_sigil("Detonator"):
@@ -424,7 +438,7 @@ func begin_perish(doubleDeath = false):
 			eCard.calculate_buffs()
 
 		# Play the special animation if necro is in play
-		if not doubleDeath and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self:
+		if not doubleDeath and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
 			$AnimationPlayer.play("DoublePerish")
 			return
 
