@@ -90,6 +90,8 @@ func draw_special():
 	$Button.hint_tooltip = ""
 	
 	if GameOptions.options.show_card_tooltips:
+		$Button.hint_tooltip = card_data.name + "\nPower: " + str(card_data.attack) + "\nHealth: " + str(card_data.health) + "\n"
+		
 		if "rare" in card_data:
 			$Button.hint_tooltip += "Rare: You may only use one copy of this card in your deck.\n"
 			
