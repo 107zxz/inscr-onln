@@ -338,6 +338,9 @@ func initiate_combat():
 			print("Moon attacking another moon!")
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", 4)
 			
+			yield(get_tree().create_timer(0.2), "timeout")
+			rpc("handle_enemy_attack", 0, 0)
+			
 			yield(moonAnim, "animation_finished")
 		
 		else:
