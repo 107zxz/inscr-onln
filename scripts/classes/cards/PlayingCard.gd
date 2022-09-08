@@ -299,7 +299,12 @@ func begin_perish(doubleDeath = false):
 				card_data["attack"] += 1
 				card_data["health"] += 1
 			
-			fightManager.gold_sarcophagus[card_data] = 1
+			fightManager.gold_sarcophagus.append(
+				{
+					"card": card_data,
+					"turnsleft": 1
+				}
+			)
 		
 		# Gem dependent (not this card)
 		if "sigils" in card_data:

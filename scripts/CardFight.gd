@@ -81,7 +81,7 @@ var side_deck = []
 
 # Persistent card state
 var turns_starving = 0
-var gold_sarcophagus = {}
+var gold_sarcophagus = []
 
 # Network match state
 var want_rematch = false
@@ -139,7 +139,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	damage_stun = false
 	turns_starving = 0
 
-	gold_sarcophagus = {}
+	gold_sarcophagus = []
 
 	# Hammers
 	$LeftSideUI/HammerButton.visible = true
@@ -357,7 +357,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 		if not card.is_queued_for_deletion():
 			nC += 1
 	
-	pHand.add_constant_override("separation", - nC * 4)
+	pHand.add_constant_override("separation", - min(nC, 12) * 4)
 	
 	# Animate the card
 	nCard.move_to_parent(pHand)
@@ -658,7 +658,7 @@ remote func force_draw_starv(strength):
 	var starv_data = CardInfo.all_cards[0]
 	starv_data["attack"] = strength
 	if strength >= 5:
-		starv_data["sigils"].append("Mighty Leap")
+		starv_data["sigils"] = ["Repulsive", "Mighty Leap"]
 	
 	starv_card.from_data(starv_data)
 
@@ -829,11 +829,11 @@ remote func start_turn():
 	
 	# Gold sarcophagus
 	for pharoah in gold_sarcophagus:
-		if gold_sarcophagus[pharoah] <= 0:
-			draw_card(pharoah)
+		if pharoah.turnsleft <= 0:
+			draw_card(pharoah.card)
 			gold_sarcophagus.erase(pharoah)
 		else:
-			gold_sarcophagus[pharoah] -= 1
+			pharoah.turnsleft -= 1
 	
 	# Hammers
 	if "hammers_per_turn" in CardInfo.all_data:
