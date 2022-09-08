@@ -709,14 +709,16 @@ func inflict_damage(dmg):
 
 # Resource visualisation and management
 func add_bones(bone_no):
+	print("Adding bones ", bones, " => ", bones + bone_no)
 	bones += bone_no
 	$PlayerInfo/MyInfo/Bones/BoneCount.text = str(bones)
 	$PlayerInfo/MyInfo/Bones/BoneCount2.text = str(bones)
 
 func add_opponent_bones(bone_no):
+	print("Adding enemy bones ", opponent_bones, " => ", opponent_bones + bone_no)
 	opponent_bones += bone_no
-	$PlayerInfo/TheirInfo/Bones/BoneCount.text = str(bones)
-	$PlayerInfo/TheirInfo/Bones/BoneCount2.text = str(bones)
+	$PlayerInfo/TheirInfo/Bones/BoneCount.text = str(opponent_bones)
+	$PlayerInfo/TheirInfo/Bones/BoneCount2.text = str(opponent_bones)
 
 func set_energy(ener_no):
 	energy = ener_no
