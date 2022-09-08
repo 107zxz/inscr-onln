@@ -286,7 +286,7 @@ func draw_sidedeck():
 		
 		starve_check()
 		
-func search_deck():
+func search_deck(count = 1):
 	if deck.size() == 0:
 		return
 	
@@ -298,9 +298,12 @@ func search_deck():
 	for card in deck:
 		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(card)
 
+	$DeckSearch/Panel/VBoxContainer/OptionButton.disconnect("item_selected", self, "search_callback")
+	$DeckSearch/Panel/VBoxContainer/OptionButton.connect("item_selected", self, "search_callback", [count])
+
 	$DeckSearch.visible = true
 
-func search_callback(index):
+func search_callback(index, count = 1):
 
 	var targetCard = deck.pop_at(index - 1)
 
@@ -317,6 +320,10 @@ func search_callback(index):
 	deck.shuffle()
 
 	$DeckSearch.visible = false
+	
+	if count > 1:
+		count -= 1
+		search_deck()
 
 func starve_check():
 	if deck.size() == 0 and side_deck.size() == 0:
@@ -471,7 +478,10 @@ func card_summoned(playedCard):
 	
 	# Hoarder
 	if playedCard.has_sigil("Hoarder"):
-		search_deck()
+		if slotManager.get_friendly_cards_sigil("Double Death") and not "necro_boned" in CardInfo.all_data:
+			search_deck(2)
+		else:
+			search_deck()
 	
 	# Mrs Bomb (wacky one)
 	if playedCard.has_sigil("Bomb Spewer"):
