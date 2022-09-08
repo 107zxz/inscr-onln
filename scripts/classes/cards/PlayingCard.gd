@@ -583,9 +583,9 @@ func calculate_buffs():
 					if slotManager.get_friendly_card(sIdx):
 						attack = slotManager.get_friendly_card(sIdx).attack
 			2.0:
-				attack = 0
+				attack = card_data.attack
 				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if "Ant" in ant.card_data["name"]:
+					if "Ant" in ant.card_data["name"] and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
 						attack += 1
 		
 	# Bell Tentacle
