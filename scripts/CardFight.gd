@@ -601,7 +601,7 @@ remote func _opponent_played_card(card, slot):
 
 	# Visual hand update
 	var eHand = handManager.get_node("EnemyHand")
-	eHand.add_constant_override("separation", - eHand.get_child_count() * 4)
+	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
 	
 	# Costs
 	if "bone_cost" in card_dt:
