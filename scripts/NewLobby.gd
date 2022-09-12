@@ -53,7 +53,7 @@ func debug_host():
 	$Blocker.visible = true
 
 	_on_Host_pressed()
-	_on_LobbyReady_pressed()
+#	_on_LobbyReady_pressed()
 
 func debug_join():
 
@@ -64,8 +64,8 @@ func debug_join():
 	$LobbyJoin/Rows/HostType/LType.selected = 1
 
 	_on_Join_pressed()
-	yield(get_tree().create_timer(0.2), "timeout")
-	_on_LobbyReady_pressed()
+#	yield(get_tree().create_timer(0.2), "timeout")
+#	_on_LobbyReady_pressed()
 
 func errorBox(message):
 	$ErrorBox/Contents/Label.text = message
