@@ -17,6 +17,9 @@ var in_hand = true
 var health = -1
 var attack = -1
 
+# New sigils
+var sigils = []
+
 # Sigil-specific information (must be stored per-card)
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
 var sprint_left = false # Used for sprinter
@@ -34,7 +37,33 @@ func from_data(cdat):
 	
 	# Enable interaction with the card
 	$CardBody/Button.disabled = false
+	
+func create_sigils(fm, friendly):
+	if not "sigils" in card_data:
+		return
+		
+	var d = Directory.new()
+	
+	
+	for sig in card_data.sigils:
+		var sigPath = "res://scripts/classes/sigils/" + sig + ".gd"
+		
+		if not d.file_exists(sigPath):
+			print("Missing sigil " + sig)
+			continue
+		
+		print("Adding sigil " + sig)
+		
+		var ns = load(sigPath).new()
+		ns.fightManager = fightManager
+		ns.slotManager = slotManager
+		ns.card = self
+		ns.isFriendly = friendly
+		sigils.append(ns)
 
+func handle_sigil_event(event, params):
+	for sig in sigils:
+		sig.handle_event(event, params)
 
 func draw_stats():
 	$CardBody/HBoxContainer/AtkScore.text = str(attack)

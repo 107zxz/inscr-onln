@@ -5,12 +5,6 @@ func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
 	if event == "card_summoned" and params[0] == card and isFriendly:
-		
-		print("Fecundity triggered!")
-		
-		var old_data = card.card_data.duplicate()
 
-		old_data.sigils.erase("Fecundity")
-
-		# Draw the modified card copy
-		fightManager.draw_card(old_data)
+		# Draw the rabbit
+		fightManager.draw_card(CardInfo.from_name("Rabbit"))

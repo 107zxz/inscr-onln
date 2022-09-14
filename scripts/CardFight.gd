@@ -27,8 +27,6 @@ const side_deck_names = [
 	"Moon Shards"
 ]
 
-
-
 # Carryovers from lobby
 var opponent = -100
 var initial_deck = []
@@ -41,6 +39,9 @@ onready var playerSlots = $CardSlots/PlayerSlots
 onready var enemySlots = $CardSlots/EnemySlots
 onready var slotManager = $CardSlots
 var cardPrefab = preload("res://packed/playingCard.tscn")
+
+# Signals
+signal sigil_event(event, params)
 
 # Replay
 var replay = null
@@ -345,6 +346,12 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	else:
 		nCard.from_data(CardInfo.all_cards[card])
 	
+	# New sigil stuff
+	nCard.fightManager = self
+	nCard.slotManager = slotManager
+	nCard.create_sigils(self, true)
+	connect("sigil_event", nCard, "handle_sigil_event")
+	
 	source.add_child(nCard)
 	
 	nCard.rect_position = Vector2.ZERO
@@ -419,68 +426,71 @@ func card_summoned(playedCard):
 	# Enable active
 	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
 	
+	# Sigil event (for testing)
+	emit_signal("sigil_event", "card_summoned", [playedCard])
+	
 	# SIGILS
-	if playedCard.has_sigil("Fecundity"):
-		var old_data = playedCard.card_data.duplicate()
+#	if playedCard.has_sigil("Fecundity"):
+#		var old_data = playedCard.card_data.duplicate()
+#
+#		old_data.erase("sigils")
+#
+#		draw_card(old_data)
 
-		old_data.erase("sigils")
-
-		draw_card(old_data)
-
-	if playedCard.has_sigil("Rabbit Hole"):
-		draw_card(CardInfo.from_name("Rabbit"))
-	if playedCard.has_sigil("Ant Spawner"):
-		draw_card(CardInfo.from_name("Worker Ant"))
-	if playedCard.has_sigil("Battery Bearer"):
-		if max_energy < 6:
-			set_max_energy(max_energy + 1)
-		set_energy(min(max_energy + max_energy_buff, energy + 1))
-	if playedCard.has_sigil("Handy"):
-		var cIdx = 0
-		for card in handManager.get_node("PlayerHand").get_children():
-			if card == playedCard:
-				continue
-			card.get_node("AnimationPlayer").play("Discard")
-			rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
-			cIdx += 1
-		
-		for _i in range(3):
-			if deck.size() == 0:
-				break
-			
-			draw_card(deck.pop_front())
-			
-			# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-			if deck.size() == 0:
-				$DrawPiles/YourDecks/Deck.visible = false
-				break
-			
-		draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
-	if playedCard.has_sigil("Mental Gemnastics"):
-		for card in slotManager.all_friendly_cards():
-			if "Mox" in card.card_data["name"]:
-				if deck.size() == 0:
-					break
-					
-				draw_card(deck.pop_front())
-		
-				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-				if deck.size() == 0:
-					$DrawPiles/YourDecks/Deck.visible = false
-					break
+#	if playedCard.has_sigil("Rabbit Hole"):
+#		draw_card(CardInfo.from_name("Rabbit"))
+#	if playedCard.has_sigil("Ant Spawner"):
+#		draw_card(CardInfo.from_name("Worker Ant"))
+#	if playedCard.has_sigil("Battery Bearer"):
+#		if max_energy < 6:
+#			set_max_energy(max_energy + 1)
+#		set_energy(min(max_energy + max_energy_buff, energy + 1))
+#	if playedCard.has_sigil("Handy"):
+#		var cIdx = 0
+#		for card in handManager.get_node("PlayerHand").get_children():
+#			if card == playedCard:
+#				continue
+#			card.get_node("AnimationPlayer").play("Discard")
+#			rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
+#			cIdx += 1
+#
+#		for _i in range(3):
+#			if deck.size() == 0:
+#				break
+#
+#			draw_card(deck.pop_front())
+#
+#			# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+#			if deck.size() == 0:
+#				$DrawPiles/YourDecks/Deck.visible = false
+#				break
+#
+#		draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
+#	if playedCard.has_sigil("Mental Gemnastics"):
+#		for card in slotManager.all_friendly_cards():
+#			if "Mox" in card.card_data["name"]:
+#				if deck.size() == 0:
+#					break
+#
+#				draw_card(deck.pop_front())
+#
+#				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+#				if deck.size() == 0:
+#					$DrawPiles/YourDecks/Deck.visible = false
+#					break
 	
 	# Hoarder
-	if playedCard.has_sigil("Hoarder"):
-		search_deck()
+#	if playedCard.has_sigil("Hoarder"):
+#		search_deck()
 	
 	# Mrs Bomb (wacky one)
-	if playedCard.has_sigil("Bomb Spewer"):
-		for cSlot in range(4):
-			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]) or slotManager.playerSlots[cSlot] == playedCard.get_parent():
-				continue
-
-			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
-			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
+#	if playedCard.has_sigil("Bomb Spewer"):
+#		for cSlot in range(4):
+#			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]) or slotManager.playerSlots[cSlot] == playedCard.get_parent():
+#				continue
+#
+#			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
+#			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
 
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
@@ -596,9 +606,17 @@ remote func _opponent_played_card(card, slot):
 		if turns_starving >= 9:
 			inflict_damage(-turns_starving + 8)
 	
-	handManager.opponentRaisedCard.from_data(card_dt)
-	handManager.opponentRaisedCard.move_to_parent(enemySlots.get_child(slot))
-
+	var nCard = handManager.opponentRaisedCard
+	nCard.from_data(card_dt)
+	nCard.move_to_parent(enemySlots.get_child(slot))
+	nCard.fightManager = self
+	nCard.slotManager = slotManager
+	nCard.create_sigils(self, false)
+	connect("sigil_event", nCard, "handle_sigil_event")
+	
+	# Process summon
+	emit_signal("sigil_event", "card_summoned", [nCard])
+	
 	# Visual hand update
 	var eHand = handManager.get_node("EnemyHand")
 	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
@@ -632,14 +650,14 @@ remote func _opponent_played_card(card, slot):
 		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
 
 	# Mrs Bomb (wacky one)
-	if "Bomb Spewer" in card_dt["sigils"]:
-		for cSlot in range(4):
-			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]):
-				continue
-
-			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
-			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
-	
+#	if "Bomb Spewer" in card_dt["sigils"]:
+#		for cSlot in range(4):
+#			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]):
+#				continue
+#
+#			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
+#			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
+#
 	if "Armored" in card_dt.sigils:
 		slotManager.enemySlots[slot].get_child(0).get_node("CardBody/HighlightHolder").visible = true
 
