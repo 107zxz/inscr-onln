@@ -139,7 +139,7 @@ func pre_turn_sigils():
 				card.from_data(nTent)
 				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
 			
-				# Calculate buffs
+				# Calculate
 				for fCard in all_friendly_cards():
 					fCard.calculate_buffs()
 				for eCard in all_enemy_cards():

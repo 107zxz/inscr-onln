@@ -349,7 +349,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	# New sigil stuff
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
-	nCard.create_sigils(self, true)
+	nCard.create_sigils( true)
 	connect("sigil_event", nCard, "handle_sigil_event")
 	
 	source.add_child(nCard)
@@ -426,72 +426,9 @@ func card_summoned(playedCard):
 	# Enable active
 	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
 	
-	# Sigil event (for testing)
+	# Sigil event
 	emit_signal("sigil_event", "card_summoned", [playedCard])
 	
-	# SIGILS
-#	if playedCard.has_sigil("Fecundity"):
-#		var old_data = playedCard.card_data.duplicate()
-#
-#		old_data.erase("sigils")
-#
-#		draw_card(old_data)
-
-#	if playedCard.has_sigil("Rabbit Hole"):
-#		draw_card(CardInfo.from_name("Rabbit"))
-#	if playedCard.has_sigil("Ant Spawner"):
-#		draw_card(CardInfo.from_name("Worker Ant"))
-#	if playedCard.has_sigil("Battery Bearer"):
-#		if max_energy < 6:
-#			set_max_energy(max_energy + 1)
-#		set_energy(min(max_energy + max_energy_buff, energy + 1))
-#	if playedCard.has_sigil("Handy"):
-#		var cIdx = 0
-#		for card in handManager.get_node("PlayerHand").get_children():
-#			if card == playedCard:
-#				continue
-#			card.get_node("AnimationPlayer").play("Discard")
-#			rpc_id(opponent, "_opponent_hand_animation", cIdx, "Discard")
-#			cIdx += 1
-#
-#		for _i in range(3):
-#			if deck.size() == 0:
-#				break
-#
-#			draw_card(deck.pop_front())
-#
-#			# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-#			if deck.size() == 0:
-#				$DrawPiles/YourDecks/Deck.visible = false
-#				break
-#
-#		draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck)
-#	if playedCard.has_sigil("Mental Gemnastics"):
-#		for card in slotManager.all_friendly_cards():
-#			if "Mox" in card.card_data["name"]:
-#				if deck.size() == 0:
-#					break
-#
-#				draw_card(deck.pop_front())
-#
-#				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-#				if deck.size() == 0:
-#					$DrawPiles/YourDecks/Deck.visible = false
-#					break
-	
-	# Hoarder
-#	if playedCard.has_sigil("Hoarder"):
-#		search_deck()
-	
-	# Mrs Bomb (wacky one)
-#	if playedCard.has_sigil("Bomb Spewer"):
-#		for cSlot in range(4):
-#			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]) or slotManager.playerSlots[cSlot] == playedCard.get_parent():
-#				continue
-#
-#			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
-#			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
-
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
 		card.calculate_buffs()
@@ -503,29 +440,10 @@ func card_summoned(playedCard):
 		# Ramp damage over time so the game actually ends
 		inflict_damage(playedCard.attack - 8)
 	
-	# Die if gem dependant
-	if playedCard.has_sigil("Gem Dependant") and not "Perish" in playedCard.get_node("AnimationPlayer").current_animation:
-
-		var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
-
-		for moxcol in ["Green", "Blue", "Orange"]:
-			for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
-				if foundMox != self:
-					kill = false;
-					break
-		
-		if kill:
-			print("Gem dependant card should die!")
-			playedCard.get_node("AnimationPlayer").play("Perish")
-			slotManager.rpc_id(opponent, "remote_card_anim", playedCard.get_parent().get_position_in_parent(), "Perish")
-	
 	# Stoat easter egg
 	if playedCard.card_data["name"] == "Stoat":
 		playedCard.card_data["name"] = "Total Misplay"
 		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
-	
-	if playedCard.has_sigil("Armored"):
-		playedCard.get_node("CardBody/HighlightHolder").visible = true
 
 # Hammer Time
 func hammer_mode():
@@ -606,17 +524,6 @@ remote func _opponent_played_card(card, slot):
 		if turns_starving >= 9:
 			inflict_damage(-turns_starving + 8)
 	
-	var nCard = handManager.opponentRaisedCard
-	nCard.from_data(card_dt)
-	nCard.move_to_parent(enemySlots.get_child(slot))
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-	nCard.create_sigils(self, false)
-	connect("sigil_event", nCard, "handle_sigil_event")
-	
-	# Process summon
-	emit_signal("sigil_event", "card_summoned", [nCard])
-	
 	# Visual hand update
 	var eHand = handManager.get_node("EnemyHand")
 	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
@@ -627,41 +534,21 @@ remote func _opponent_played_card(card, slot):
 	if "energy_cost" in card_dt:
 		set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
-	# Guardian
-	if slotManager.is_slot_empty(slotManager.playerSlots[slot]):
-		var guardians = slotManager.get_friendly_cards_sigil("Guardian")
-		if guardians:
-			slotManager.rpc_id(opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot, false)
-			guardians[0].move_to_parent(slotManager.playerSlots[slot])
+	# Sigil effects:
+	var nCard = handManager.opponentRaisedCard
+	nCard.from_data(card_dt)
+	nCard.move_to_parent(enemySlots.get_child(slot))
+	nCard.fightManager = self
+	nCard.slotManager = slotManager
+	nCard.create_sigils(false)
+	connect("sigil_event", nCard, "handle_sigil_event")
+	emit_signal("sigil_event", "card_summoned", [nCard])
 	
 	# Buff handling
 	for card in slotManager.all_friendly_cards():
 		card.calculate_buffs()
 	for eCard in slotManager.all_enemy_cards():
 		eCard.calculate_buffs()
-
-	if not "sigils" in card_dt:
-		return
-
-	# Energy Cell Sigil
-	if "Battery Bearer" in card_dt["sigils"]:
-		if opponent_max_energy < 6:
-			set_opponent_max_energy(opponent_max_energy + 1)
-		set_opponent_energy(min(opponent_energy + 1, opponent_max_energy))
-
-	# Mrs Bomb (wacky one)
-#	if "Bomb Spewer" in card_dt["sigils"]:
-#		for cSlot in range(4):
-#			if not slotManager.is_slot_empty(slotManager.playerSlots[cSlot]):
-#				continue
-#
-#			slotManager.summon_card(CardInfo.from_name("Explode Bot"), cSlot)
-#			slotManager.rpc_id(opponent, "remote_card_summon", CardInfo.from_name("Explode Bot"), cSlot)
-#
-	if "Armored" in card_dt.sigils:
-		slotManager.enemySlots[slot].get_child(0).get_node("CardBody/HighlightHolder").visible = true
-
-	
 	
 ## SPECIAL CARD STUFF
 remote func force_draw_starv(strength):
@@ -887,4 +774,3 @@ remote func start_turn():
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
 	add_opponent_bones(bone_no)
-
