@@ -38,7 +38,7 @@ func from_data(cdat):
 	# Enable interaction with the card
 	$CardBody/Button.disabled = false
 	
-func create_sigils(fm, friendly):
+func create_sigils(friendly):
 	if not "sigils" in card_data:
 		return
 		
