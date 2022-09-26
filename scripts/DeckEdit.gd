@@ -71,7 +71,7 @@ func _ready():
 	# Android
 	if OS.get_name() == "Android":
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton.visible = false
-		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
+#		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
 
 func init_search_ui():
 	var id = 2
@@ -415,7 +415,7 @@ func _on_ShuffleButton_pressed():
 		dSize += 1
 
 func _on_ViewFolder_pressed():
-	OS.shell_open("file://" + CardInfo.deck_path)
+	print("Open folder: " + str(OS.shell_open("file://" + CardInfo.deck_path)))
 
 
 func _on_TestButton_pressed():

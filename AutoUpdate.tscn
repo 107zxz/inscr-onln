@@ -95,9 +95,9 @@ margin_bottom = 50.0
 
 [node name="Label" type="Label" parent="LoadingBox"]
 margin_left = 2.0
-margin_top = 43.0
+margin_top = 38.0
 margin_right = 298.0
-margin_bottom = 56.0
+margin_bottom = 62.0
 text = "Updating ruleset..."
 align = 1
 percent_visible = 0.888889
@@ -112,21 +112,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -127.0
-margin_top = -40.5
-margin_right = 127.0
-margin_bottom = 40.5
+margin_left = -200.0
+margin_top = -107.0
+margin_right = 200.0
+margin_bottom = 107.0
 
 [node name="Rows" type="VBoxContainer" parent="SelectionBox"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 252.0
-margin_bottom = 123.0
+margin_right = 398.0
+margin_bottom = 212.0
 custom_constants/separation = 5
 
 [node name="Label" type="Label" parent="SelectionBox/Rows"]
-margin_right = 250.0
-margin_bottom = 77.0
+margin_right = 396.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 250, 0 )
 text = "Select Ruleset:
 
@@ -135,9 +135,9 @@ align = 1
 autowrap = true
 
 [node name="OptionButton" type="OptionButton" parent="SelectionBox/Rows"]
-margin_top = 82.0
-margin_right = 250.0
-margin_bottom = 99.0
+margin_top = 137.0
+margin_right = 396.0
+margin_bottom = 171.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Latest IMF Competitive"
@@ -154,9 +154,9 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Continue" type="Button" parent="SelectionBox/Rows"]
-margin_top = 104.0
-margin_right = 250.0
-margin_bottom = 121.0
+margin_top = 176.0
+margin_right = 396.0
+margin_bottom = 210.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Continue"
@@ -175,7 +175,7 @@ align = 1
 [node name="VersionLabel" type="Label" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -13.0
+margin_top = -24.0
 margin_right = 40.0
 
 [connection signal="item_selected" from="SelectionBox/Rows/OptionButton" to="." method="_on_OptionButton_item_selected"]

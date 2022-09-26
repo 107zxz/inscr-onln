@@ -10,7 +10,7 @@ var working_sigils = []
 
 var custom_portraits = {}
 
-var data_path = OS.get_user_data_dir()
+var data_path = OS.get_user_data_dir() if OS.get_name() != "Android" else OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS) + "/IMF/"
 
 var deck_path = data_path + "/decks/"
 var deck_backup_path = data_path + "/decks/undef/"
@@ -28,6 +28,12 @@ var replay_path = data_path + "/replays/"
 var background_texture = null
 
 func _enter_tree():
+	
+	if OS.get_name() == "Android":
+		var d = Directory.new()
+		if not d.dir_exists(data_path):
+			d.make_dir(data_path)
+	
 	read_game_info()
 	
 	# Custom background
@@ -66,8 +72,9 @@ func read_game_info():
 		print(rules_path)
 	else:
 		print("Downloaded rules not found! Prompting for download")
-		file.open("res://data/gameInfo.json", File.READ)
+#		file.open("res://data/gameInfo.json", File.READ)
 		get_tree().change_scene("res://AutoUpdate.tscn")
+		return
 		
 	var file_content = file.get_as_text()
 	var content_as_object = parse_json(file_content)
