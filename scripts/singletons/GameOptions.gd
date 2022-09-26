@@ -5,7 +5,8 @@ var options = {
 	"show_card_tooltips": true,
 	"enable_moon_music": true,
 	"save_replays": false,
-	"show_enemy_advantage": false
+	"show_enemy_advantage": false,
+	"stretch_to_fill": false
 }
 
 func read_options():
@@ -32,6 +33,11 @@ func _ready():
 	
 	if d.file_exists(CardInfo.options_path):
 		read_options()
+	
+	# Graphical options
+	if options["stretch_to_fill"] == true:
+#		get_viewport().size = OS.window_size
+		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(1920, 1080))
 
 func _exit_tree():
 	# Save to file

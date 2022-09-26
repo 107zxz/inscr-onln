@@ -121,7 +121,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Vector2( 13.533, 51.993 ), Vector2( 11.662, 52.065 ) ]
+"values": [ Vector2( -64.3394, 52.7418 ), Vector2( -64.3394, 52.7418 ) ]
 }
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -227,50 +227,50 @@ expand = true
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -227.0
-margin_right = 227.0
+margin_left = -407.0
+margin_right = 407.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen/Menu"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 452.0
-margin_bottom = 598.0
-rect_min_size = Vector2( 450, 0 )
+margin_right = 812.0
+margin_bottom = 1078.0
+rect_min_size = Vector2( 810, 0 )
 custom_constants/separation = 35
 alignment = 1
 
 [node name="HostBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 88.0
-margin_right = 450.0
-margin_bottom = 118.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 240.0
+margin_right = 810.0
+margin_bottom = 295.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host Game"
 
 [node name="JoinBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 153.0
-margin_right = 450.0
-margin_bottom = 183.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 330.0
+margin_right = 810.0
+margin_bottom = 385.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join Game"
 
 [node name="DeckEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 218.0
-margin_right = 450.0
-margin_bottom = 248.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 420.0
+margin_right = 810.0
+margin_bottom = 475.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Deck Editor"
 
 [node name="SelectVersionBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 283.0
-margin_right = 450.0
-margin_bottom = 313.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 510.0
+margin_right = 810.0
+margin_bottom = 565.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Select Ruleset"
@@ -280,46 +280,43 @@ visible = false
 margin_top = 315.0
 margin_right = 450.0
 margin_bottom = 345.0
-rect_min_size = Vector2( 0, 30 )
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Theme Editor"
 
 [node name="OptionsBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 348.0
-margin_right = 450.0
-margin_bottom = 378.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 600.0
+margin_right = 810.0
+margin_bottom = 655.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Options"
 
 [node name="LogFolder" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 413.0
-margin_right = 450.0
-margin_bottom = 443.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 690.0
+margin_right = 810.0
+margin_bottom = 745.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Game Directory"
 
 [node name="DiscordBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 478.0
-margin_right = 450.0
-margin_bottom = 508.0
-rect_min_size = Vector2( 0, 30 )
+margin_top = 780.0
+margin_right = 810.0
+margin_bottom = 835.0
+rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Inscryption Multiplayer Discord"
 
 [node name="Credit" type="Label" parent="TitleScreen"]
-anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -512.0
-margin_top = -61.0
-margin_right = 512.0
+margin_top = -105.0
 text = "Thanks to the Daniel Mullins Games Discord,
 The Inscryption Multiplayer Discord,
 and everyone else who made this project possible
@@ -336,36 +333,41 @@ Inscryption Multiplayer"
 align = 1
 
 [node name="PullInfo" type="Control" parent="TitleScreen"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 10 )
 
 [node name="PatchStoats" type="Control" parent="TitleScreen/PullInfo"]
-visible = false
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = 227.0
+margin_top = -48.0
 margin_right = 80.0
-margin_bottom = 323.0
+margin_bottom = 48.0
 
 [node name="Stoatbg" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
-margin_right = 80.0
-margin_bottom = 96.0
+margin_right = 144.0
+margin_bottom = 172.8
 texture = SubResource( 7 )
+expand = true
 
 [node name="StoatEyes" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
-margin_left = 14.4892
-margin_top = 29.7835
-margin_right = 78.4892
-margin_bottom = 45.7835
+margin_left = 20.9499
+margin_top = 49.5573
+margin_right = 136.15
+margin_bottom = 78.3573
 texture = SubResource( 8 )
+expand = true
+stretch_mode = 5
 
 [node name="StoatMouth" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
-margin_left = 19.2333
-margin_top = 39.0083
-margin_right = 83.2333
-margin_bottom = 79.0083
+margin_left = 24.7121
+margin_top = 65.6373
+margin_right = 139.912
+margin_bottom = 137.637
 texture = SubResource( 10 )
+expand = true
+stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/PullInfo/PatchStoats"]
 autoplay = "Talk"
@@ -378,7 +380,8 @@ margin_right = 260.0
 margin_bottom = -9.0
 grow_vertical = 0
 custom_styles/normal = SubResource( 12 )
-text = "Stoat News Here"
+text = "Stoat News Here
+So many Staots"
 autowrap = true
 
 [node name="Button" type="Button" parent="TitleScreen/PullInfo/PatchStoats/Notes"]
@@ -389,36 +392,45 @@ enabled_focus_mode = 0
 flat = true
 
 [node name="Grimorger" type="Control" parent="TitleScreen/PullInfo"]
-visible = false
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 877.0
-margin_top = 232.0
-margin_right = 984.0
-margin_bottom = 328.0
+margin_left = -107.0
+margin_top = -48.0
+margin_bottom = 48.0
 
 [node name="BugBg" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
-margin_right = 80.0
-margin_bottom = 96.0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -192.6
+margin_top = -86.4
+margin_bottom = 86.4
 texture = SubResource( 13 )
+expand = true
+stretch_mode = 5
 flip_h = true
 
 [node name="BugEyes" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
-margin_left = 14.2258
-margin_top = 19.6061
-margin_right = 89.2258
-margin_bottom = 40.6061
+margin_left = -62.1491
+margin_top = -2.10838
+margin_right = 72.8509
+margin_bottom = 35.6916
 texture = SubResource( 14 )
+expand = true
+stretch_mode = 5
 flip_h = true
 
 [node name="BugMouth" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
 margin_left = 23.8864
 margin_top = 52.0646
-margin_right = 94.8864
-margin_bottom = 92.0646
+margin_right = 151.686
+margin_bottom = 124.065
 texture = SubResource( 15 )
+expand = true
+stretch_mode = 5
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/PullInfo/Grimorger"]
@@ -428,9 +440,9 @@ anims/Talk = SubResource( 18 )
 
 [node name="Notes" type="Label" parent="TitleScreen/PullInfo/Grimorger"]
 margin_left = -155.0
-margin_top = -40.0
+margin_top = -83.4288
 margin_right = 80.0
-margin_bottom = -9.0
+margin_bottom = -52.4288
 grow_vertical = 0
 custom_styles/normal = SubResource( 12 )
 text = "Grimorger News Here"
@@ -450,43 +462,44 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -75.0
-margin_right = 150.0
-margin_bottom = 75.0
+margin_left = -250.0
+margin_top = -125.0
+margin_right = 250.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 500, 250 )
 
 [node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyHost"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 298.0
-margin_bottom = 148.0
+margin_right = 498.0
+margin_bottom = 248.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 11.0
-margin_right = 296.0
-margin_bottom = 24.0
+margin_top = 26.0
+margin_right = 496.0
+margin_bottom = 50.0
 text = "Host"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 34.0
-margin_right = 296.0
-margin_bottom = 51.0
+margin_top = 60.0
+margin_right = 496.0
+margin_bottom = 94.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/HostType"]
-margin_left = 24.0
-margin_top = 2.0
-margin_right = 98.0
-margin_bottom = 15.0
+margin_left = 26.0
+margin_top = 5.0
+margin_right = 163.0
+margin_bottom = 29.0
 text = "Lobby Type: "
 
 [node name="Type" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/HostType"]
-margin_left = 98.0
-margin_right = 271.0
-margin_bottom = 17.0
+margin_left = 163.0
+margin_right = 470.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Room Code (recommended)"
@@ -494,67 +507,67 @@ items = [ "Room Code (recommended)", null, false, 0, null, "IP Address (for LAN)
 selected = 0
 
 [node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 61.0
-margin_right = 296.0
-margin_bottom = 78.0
+margin_top = 104.0
+margin_right = 496.0
+margin_bottom = 132.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Nickname"]
-margin_left = 32.0
+margin_left = 70.0
 margin_top = 2.0
-margin_right = 163.0
-margin_bottom = 15.0
+margin_right = 314.0
+margin_bottom = 26.0
 text = "Your Name (required): "
 
 [node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Nickname"]
-margin_left = 163.0
-margin_right = 263.0
-margin_bottom = 17.0
+margin_left = 314.0
+margin_right = 426.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 100, 23 )
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectating" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 88.0
-margin_right = 296.0
-margin_bottom = 108.0
+margin_top = 142.0
+margin_right = 496.0
+margin_bottom = 176.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Spectating"]
-margin_left = 55.0
-margin_top = 3.0
-margin_right = 221.0
-margin_bottom = 16.0
+margin_left = 83.0
+margin_top = 5.0
+margin_right = 393.0
+margin_bottom = 29.0
 text = "Spectate (don't join lobby): "
 
 [node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyHost/Rows/Spectating"]
-margin_left = 221.0
-margin_right = 241.0
-margin_bottom = 20.0
+margin_left = 393.0
+margin_right = 413.0
+margin_bottom = 34.0
 focus_mode = 0
 disabled = true
 enabled_focus_mode = 0
 flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 118.0
-margin_right = 296.0
-margin_bottom = 135.0
+margin_top = 186.0
+margin_right = 496.0
+margin_bottom = 220.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="Host" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
-margin_left = 104.0
-margin_right = 134.0
-margin_bottom = 17.0
+margin_left = 176.0
+margin_right = 228.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host"
 
 [node name="CancelHost" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
-margin_left = 150.0
-margin_right = 192.0
-margin_bottom = 17.0
+margin_left = 244.0
+margin_right = 319.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Cancel"
@@ -565,42 +578,44 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -87.5
-margin_right = 150.0
-margin_bottom = 87.5
+margin_left = -250.0
+margin_top = -137.5
+margin_right = 250.0
+margin_bottom = 137.5
+rect_min_size = Vector2( 500, 275 )
 
 [node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyJoin"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 298.0
-margin_bottom = 183.0
+margin_right = 498.0
+margin_bottom = 273.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyJoin/Rows"]
-margin_right = 296.0
-margin_bottom = 13.0
+margin_top = 16.0
+margin_right = 496.0
+margin_bottom = 40.0
 text = "Join"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 23.0
-margin_right = 296.0
-margin_bottom = 46.0
+margin_top = 50.0
+margin_right = 496.0
+margin_bottom = 84.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/HostType"]
-margin_left = 70.0
+margin_left = 111.0
 margin_top = 5.0
-margin_right = 144.0
-margin_bottom = 18.0
+margin_right = 248.0
+margin_bottom = 29.0
 text = "Lobby Type: "
 
 [node name="LType" type="OptionButton" parent="TitleScreen/LobbyJoin/Rows/HostType"]
-margin_left = 144.0
-margin_right = 226.0
-margin_bottom = 23.0
+margin_left = 248.0
+margin_right = 385.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Room Code"
@@ -608,96 +623,96 @@ items = [ "Room Code", null, false, 0, null, "IP Address", null, false, 1, null 
 selected = 0
 
 [node name="Address" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 56.0
-margin_right = 296.0
-margin_bottom = 79.0
+margin_top = 94.0
+margin_right = 496.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Address"]
-margin_left = 15.0
+margin_left = 40.0
 margin_top = 5.0
-margin_right = 141.0
-margin_bottom = 18.0
+margin_right = 274.0
+margin_bottom = 29.0
 text = "IP / Code (required): "
 
 [node name="IPInput" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Address"]
-margin_left = 141.0
-margin_right = 241.0
-margin_bottom = 23.0
+margin_left = 274.0
+margin_right = 386.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 100, 0 )
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="PasteButton" type="Button" parent="TitleScreen/LobbyJoin/Rows/Address"]
-margin_left = 241.0
-margin_right = 280.0
-margin_bottom = 23.0
+margin_left = 386.0
+margin_right = 455.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Paste"
 
 [node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 89.0
-margin_right = 296.0
-margin_bottom = 112.0
+margin_top = 138.0
+margin_right = 496.0
+margin_bottom = 166.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
-margin_left = 32.0
-margin_top = 5.0
-margin_right = 163.0
-margin_bottom = 18.0
+margin_left = 70.0
+margin_top = 2.0
+margin_right = 314.0
+margin_bottom = 26.0
 text = "Your Name (required): "
 
 [node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
-margin_left = 163.0
-margin_right = 263.0
-margin_bottom = 23.0
+margin_left = 314.0
+margin_right = 426.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 100, 23 )
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectate" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 122.0
-margin_right = 296.0
-margin_bottom = 148.0
+margin_top = 176.0
+margin_right = 496.0
+margin_bottom = 210.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
-margin_left = 55.0
-margin_top = 6.0
-margin_right = 221.0
-margin_bottom = 19.0
+margin_left = 83.0
+margin_top = 5.0
+margin_right = 393.0
+margin_bottom = 29.0
 text = "Spectate (don't join lobby): "
 
 [node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
-margin_left = 221.0
-margin_right = 241.0
-margin_bottom = 26.0
+margin_left = 393.0
+margin_right = 413.0
+margin_bottom = 34.0
 focus_mode = 0
 disabled = true
 enabled_focus_mode = 0
 flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 158.0
-margin_right = 296.0
-margin_bottom = 181.0
+margin_top = 220.0
+margin_right = 496.0
+margin_bottom = 254.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="Join" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
-margin_left = 105.0
-margin_right = 133.0
-margin_bottom = 23.0
+margin_left = 178.0
+margin_right = 227.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Join"
 
 [node name="CancelJoin" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
-margin_left = 149.0
-margin_right = 191.0
-margin_bottom = 23.0
+margin_left = 243.0
+margin_right = 318.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Cancel"
@@ -708,89 +723,90 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -130.0
-margin_top = -139.0
-margin_right = 130.0
-margin_bottom = 139.0
-rect_min_size = Vector2( 260, 0 )
+margin_left = -225.0
+margin_top = -212.5
+margin_right = 225.0
+margin_bottom = 212.5
+rect_min_size = Vector2( 450, 425 )
 
 [node name="Rows" type="VBoxContainer" parent="TitleScreen/InLobby"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 258.0
-margin_bottom = 294.0
+margin_right = 448.0
+margin_bottom = 423.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_right = 256.0
-margin_bottom = 13.0
+margin_top = 16.0
+margin_right = 446.0
+margin_bottom = 40.0
 text = "In Lobby"
 align = 1
 
 [node name="LCode" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_top = 23.0
-margin_right = 256.0
-margin_bottom = 36.0
+margin_top = 50.0
+margin_right = 446.0
+margin_bottom = 74.0
 text = "Lobby Code: N/A"
 align = 1
 
 [node name="CopyCode" type="Button" parent="TitleScreen/InLobby/Rows"]
-margin_left = 112.0
-margin_top = 46.0
-margin_right = 143.0
-margin_bottom = 69.0
+margin_left = 196.0
+margin_top = 84.0
+margin_right = 250.0
+margin_bottom = 118.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Copy"
 
 [node name="PlayerList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
-margin_top = 79.0
-margin_right = 256.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 0, 45 )
+margin_top = 128.0
+margin_right = 446.0
+margin_bottom = 193.0
+rect_min_size = Vector2( 0, 65 )
 size_flags_vertical = 5
 items = [ "Item 0", ExtResource( 2 ), false, "Item 1", ExtResource( 13 ), false ]
 
 [node name="Spectators" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_top = 134.0
-margin_right = 256.0
-margin_bottom = 147.0
+margin_top = 203.0
+margin_right = 446.0
+margin_bottom = 227.0
 text = "0 Spectators"
 align = 1
 
 [node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 157.0
-margin_right = 256.0
-margin_bottom = 180.0
+margin_top = 237.0
+margin_right = 446.0
+margin_bottom = 271.0
 alignment = 1
 
 [node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
-margin_left = 66.0
-margin_right = 190.0
-margin_bottom = 23.0
+margin_left = 109.0
+margin_right = 336.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Kick Selected Player"
 
 [node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 190.0
-margin_right = 256.0
-margin_bottom = 213.0
+margin_top = 281.0
+margin_right = 446.0
+margin_bottom = 315.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
-margin_left = 59.0
+margin_left = 105.0
 margin_top = 5.0
-margin_right = 95.0
-margin_bottom = 18.0
+margin_right = 172.0
+margin_bottom = 29.0
 text = "Deck: "
 
 [node name="Deck" type="OptionButton" parent="TitleScreen/InLobby/Rows/DeckOptions"]
-margin_left = 95.0
-margin_right = 157.0
-margin_bottom = 23.0
+margin_left = 172.0
+margin_right = 272.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "default"
@@ -798,29 +814,29 @@ items = [ "default", null, false, 0, null ]
 selected = 0
 
 [node name="OpenDE" type="Button" parent="TitleScreen/InLobby/Rows/DeckOptions"]
-margin_left = 157.0
-margin_right = 196.0
-margin_bottom = 23.0
+margin_left = 272.0
+margin_right = 341.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Editor"
 
 [node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 223.0
-margin_right = 256.0
-margin_bottom = 259.0
+margin_top = 325.0
+margin_right = 446.0
+margin_bottom = 361.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
-margin_left = 25.0
-margin_top = 11.0
-margin_right = 119.0
-margin_bottom = 24.0
+margin_left = 60.0
+margin_top = 6.0
+margin_right = 235.0
+margin_bottom = 30.0
 text = "Profile Picture: "
 
 [node name="Pic" type="OptionButton" parent="TitleScreen/InLobby/Rows/ProfilePic"]
-margin_left = 119.0
-margin_right = 182.0
+margin_left = 235.0
+margin_right = 337.0
 margin_bottom = 36.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -829,38 +845,38 @@ items = [ "Amoeba", null, false, 0, null, "Cat", null, false, 1, null, "Geck", n
 selected = 0
 
 [node name="Spacer" type="Control" parent="TitleScreen/InLobby/Rows/ProfilePic"]
-margin_left = 182.0
-margin_right = 187.0
+margin_left = 337.0
+margin_right = 342.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="Preview" type="TextureRect" parent="TitleScreen/InLobby/Rows/ProfilePic"]
-margin_left = 187.0
-margin_right = 230.0
+margin_left = 342.0
+margin_right = 385.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 43, 36 )
 texture = ExtResource( 11 )
 expand = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 269.0
-margin_right = 256.0
-margin_bottom = 292.0
+margin_top = 371.0
+margin_right = 446.0
+margin_bottom = 405.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="LobbyReady" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
-margin_left = 86.0
-margin_right = 126.0
-margin_bottom = 23.0
+margin_left = 156.0
+margin_right = 227.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Ready"
 
 [node name="LobbyQuit" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
-margin_left = 142.0
-margin_right = 169.0
-margin_bottom = 23.0
+margin_left = 243.0
+margin_right = 290.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
@@ -871,16 +887,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -50.0
-margin_right = 150.0
-margin_bottom = 50.0
+margin_left = -250.0
+margin_top = -75.0
+margin_right = 250.0
+margin_bottom = 75.0
 
 [node name="Label" type="Label" parent="TitleScreen/LoadingScreen"]
 margin_left = 2.0
-margin_top = 43.0
-margin_right = 298.0
-margin_bottom = 56.0
+margin_top = 63.0
+margin_right = 498.0
+margin_bottom = 87.0
 text = "Connecting to game..."
 align = 1
 percent_visible = 0.842105
@@ -902,33 +918,33 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -50.0
-margin_right = 150.0
-margin_bottom = 50.0
+margin_left = -250.0
+margin_top = -75.0
+margin_right = 250.0
+margin_bottom = 75.0
 custom_styles/panel = SubResource( 5 )
 
 [node name="Contents" type="VBoxContainer" parent="TitleScreen/ErrorBox"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 298.0
-margin_bottom = 98.0
+margin_right = 498.0
+margin_bottom = 148.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/ErrorBox/Contents"]
-margin_top = 23.0
-margin_right = 296.0
-margin_bottom = 36.0
+margin_top = 34.0
+margin_right = 496.0
+margin_bottom = 58.0
 text = "An Error Occurred"
 align = 1
 autowrap = true
 
 [node name="ErrorOk" type="Button" parent="TitleScreen/ErrorBox/Contents"]
-margin_left = 127.0
-margin_top = 56.0
-margin_right = 169.0
-margin_bottom = 73.0
+margin_left = 227.0
+margin_top = 78.0
+margin_right = 269.0
+margin_bottom = 112.0
 rect_min_size = Vector2( 42, 0 )
 focus_mode = 0
 size_flags_horizontal = 4
@@ -944,55 +960,62 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -275.0
-margin_top = -215.0
-margin_right = 275.0
-margin_bottom = 215.0
+margin_left = -425.0
+margin_top = -300.0
+margin_right = 425.0
+margin_bottom = 300.0
 theme = ExtResource( 1 )
 script = ExtResource( 12 )
 
 [node name="TabContainer" type="TabContainer" parent="Options"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 548.0
-margin_bottom = 428.0
+margin_right = 848.0
+margin_bottom = 598.0
 mouse_filter = 1
 
 [node name="Visual" type="VBoxContainer" parent="Options/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
-margin_top = 25.0
+margin_top = 36.0
 margin_right = -2.0
 margin_bottom = -2.0
 
+[node name="stretch_to_fill" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_right = 842.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Stretch to fill window"
+
 [node name="enable_accessibility_icons" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_right = 542.0
-margin_bottom = 27.0
+margin_right = 842.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Card property icons"
 
 [node name="show_card_tooltips" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_top = 27.0
-margin_right = 542.0
-margin_bottom = 54.0
+margin_top = 34.0
+margin_right = 842.0
+margin_bottom = 68.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Card tooltips"
 
 [node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_top = 54.0
-margin_right = 542.0
-margin_bottom = 81.0
+margin_top = 68.0
+margin_right = 842.0
+margin_bottom = 102.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Right scale shows opponent's advantage"
 
 [node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
-margin_top = 81.0
-margin_right = 542.0
-margin_bottom = 104.0
+margin_top = 102.0
+margin_right = 842.0
+margin_bottom = 136.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Theme Editor"
@@ -1030,10 +1053,10 @@ enabled_focus_mode = 0
 text = "Replays (experimental)"
 
 [node name="CloseBtn" type="Button" parent="Options"]
-margin_left = 528.0
+margin_left = 828.0
 margin_top = 2.0
-margin_right = 548.0
-margin_bottom = 25.0
+margin_right = 848.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 20, 0 )
 focus_mode = 0
 size_flags_horizontal = 8
@@ -1043,21 +1066,26 @@ text = "X"
 
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
 visible = false
+margin_left = -311.0
+margin_top = -322.0
+margin_right = 311.0
+margin_bottom = 322.0
 
 [node name="CardFight" parent="." instance=ExtResource( 3 )]
 visible = false
 
 [node name="VersionLabel" type="Label" parent="."]
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -13.0
+margin_top = -24.0
 text = "version"
 
 [node name="RulesetLabel" type="Label" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -13.0
+margin_top = -24.0
 grow_vertical = 0
 text = "Ruleset: "
 align = 2
