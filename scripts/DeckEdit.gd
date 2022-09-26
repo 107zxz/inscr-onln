@@ -122,7 +122,7 @@ func search(_arg = null):
 			continue
 		if attack_so_op.selected == 1 and not card.attack <= int(attack_so_num.text):
 			continue
-		if attack_so_op.selected == 2 and not card.attack >= int(attack_so_num.text):
+		if attack_so_op.selected == 2 and not card.attack >= int(attack_so_num.text) and not (card.attack < 0 and int(attack_so_num.text) == 0):
 			continue
 		
 		if health_so_op.selected == 0 and not card.health == int(health_so_num.text):
