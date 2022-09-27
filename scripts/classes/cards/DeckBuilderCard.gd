@@ -87,9 +87,10 @@ func _on_Card_mouse_entered():
 
 
 		# Steal texture from card
-		sd.get_child(1).texture = $VBoxContainer/HBoxContainer.get_child(sigIdx * 2).texture
-		
-
+		if "active" in card_data:
+			sd.get_child(1).texture = $VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture
+		else:
+			sd.get_child(1).texture = $VBoxContainer/HBoxContainer.get_child(sigIdx * 2).texture
 
 		sd.get_child(2).text = sigdat + ":\n" + CardInfo.all_sigils[sigdat]
 

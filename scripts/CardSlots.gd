@@ -623,7 +623,7 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		var pCard = playerSlots[card_slot].get_child(0)
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		
-		pCard.take_damage(null, 1)
+		pCard.take_damage(get_enemy_card(card_slot), 1)
 
 	if sName == "Power Dice":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 2)

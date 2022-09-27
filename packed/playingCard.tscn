@@ -639,6 +639,8 @@ script = ExtResource( 2 )
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 128.0
+margin_bottom = 185.0
 rect_min_size = Vector2( 128, 185 )
 mouse_filter = 2
 theme = ExtResource( 1 )
@@ -647,8 +649,8 @@ script = ExtResource( 11 )
 [node name="Button" type="Button" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
+margin_right = 254.0
+margin_bottom = 368.0
 focus_mode = 0
 disabled = true
 button_mask = 3
@@ -657,12 +659,12 @@ enabled_focus_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
+margin_right = 254.0
+margin_bottom = 368.0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="CardBody/VBoxContainer"]
-margin_right = 124.0
+margin_right = 252.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 align = 1
@@ -672,9 +674,9 @@ clip_text = true
 [node name="Portrait" type="TextureRect" parent="CardBody/VBoxContainer"]
 material = ExtResource( 10 )
 margin_top = 24.0
-margin_right = 124.0
-margin_bottom = 107.0
-rect_min_size = Vector2( 81, 56 )
+margin_right = 252.0
+margin_bottom = 206.0
+rect_min_size = Vector2( 124, 86 )
 rect_clip_content = true
 mouse_filter = 2
 size_flags_vertical = 3
@@ -689,17 +691,17 @@ mouse_filter = 2
 alignment = 2
 
 [node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 83.0
+margin_right = 126.0
+margin_bottom = 182.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 83.0
+margin_left = 126.0
+margin_right = 252.0
+margin_bottom = 182.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -783,9 +785,9 @@ stretch_mode = 5
 [node name="ConduitIcon" type="TextureRect" parent="CardBody/VBoxContainer"]
 visible = false
 material = ExtResource( 10 )
-margin_top = 69.0
-margin_right = 81.0
-margin_bottom = 84.0
+margin_top = 110.0
+margin_right = 124.0
+margin_bottom = 131.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.26
@@ -794,17 +796,17 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer"]
-margin_top = 107.0
-margin_right = 124.0
-margin_bottom = 181.0
+margin_top = 206.0
+margin_right = 252.0
+margin_bottom = 366.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 74.0
+margin_right = 126.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -837,8 +839,8 @@ stretch_mode = 6
 [node name="Sigil" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
 visible = false
 material = ExtResource( 10 )
-margin_left = 13.0
-margin_right = 40.0
+margin_left = 31.0
+margin_right = 93.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
@@ -876,9 +878,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 74.0
+margin_left = 126.0
+margin_right = 252.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -890,22 +892,22 @@ stretch_mode = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
+margin_right = 254.0
+margin_bottom = 368.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AtkScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 181.0
+margin_right = 126.0
+margin_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 valign = 2
 
 [node name="HpScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 181.0
+margin_left = 126.0
+margin_right = 252.0
+margin_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 2

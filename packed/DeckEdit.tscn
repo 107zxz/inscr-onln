@@ -59,10 +59,9 @@ custom_constants/separation = 10
 [node name="CardDescription" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer"]
 margin_left = 50.0
 margin_right = 387.5
-margin_bottom = 78.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 337.5, 0 )
 size_flags_horizontal = 4
-text = "The venomous Adder, any card it attacks will perish in one hit."
 align = 1
 autowrap = true
 

@@ -535,7 +535,7 @@ func _on_ActiveSigil_pressed():
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
 		else:
-			eCard.take_damage(null, 1)
+			eCard.take_damage(self, 1)
 
 	if sName == "Power Dice":
 		if fightManager.energy < 2:
