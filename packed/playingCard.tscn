@@ -888,7 +888,6 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
-visible = false
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 126.0
@@ -955,15 +954,15 @@ stretch_mode = 3
 visible = false
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 83.0
-margin_bottom = 121.0
+margin_right = 126.0
+margin_bottom = 183.0
 mouse_filter = 2
 
 [node name="Highlight" type="ColorRect" parent="CardBody/HighlightHolder"]
 margin_left = -6.0
 margin_top = -6.0
-margin_right = 87.0
-margin_bottom = 125.0
+margin_right = 131.0
+margin_bottom = 188.0
 mouse_filter = 2
 color = Color( 0, 0.882353, 1, 0.470588 )
 

@@ -67,7 +67,7 @@ func draw_from_data(cdat):
 
 func draw_special():
 	if "sigils" in card_data and "Tentacle" in card_data["sigils"] and has_node("DiveOlay"):
-		$DiveOlay.texture = load("res://gfx/sigils/Tentacle.png")
+		$DiveOlay.texture = load("res://gfx/cardextras/pixel_card_subicon_tent.png")
 	if "atkspecial" in card_data:
 
 		$AtkIcon.texture = $AtkIcon.texture.duplicate()

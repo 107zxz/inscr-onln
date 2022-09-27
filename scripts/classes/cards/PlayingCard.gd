@@ -376,26 +376,34 @@ func begin_perish(doubleDeath = false):
 				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.health -= 5
-					if eCard.health <= 0:
-						eCard.get_node("AnimationPlayer").play("Perish")
-						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
-					else:
-						eCard.draw_stats()
-						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
+					eCard.take_damage(self, 5)
+#					eCard.health -= 5
+#					if eCard.health <= 0:
+#						eCard.get_node("AnimationPlayer").play("Perish")
+#						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
+#					else:
+#						eCard.draw_stats()
+#						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
 
 			if slotIdx < 3 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx + 1]):
 				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.health -= 5
-					if eCard.health <= 0:
-						eCard.get_node("AnimationPlayer").play("Perish")
-						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
-					else:
-						eCard.draw_stats()
-						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx + 1, eCard.attack, eCard.health)
-		
+					eCard.take_damage(self, 5)
+#					eCard.health -= 5
+#					if eCard.health <= 0:
+#						eCard.get_node("AnimationPlayer").play("Perish")
+#						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
+#					else:
+#						eCard.draw_stats()
+#						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx + 1, eCard.attack, eCard.health)
+
+			if not slotManager.is_slot_empty(slotManager.enemySlots[slotIdx]):
+				var eCard = slotManager.get_enemy_card(slotIdx)
+				
+				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
+					eCard.take_damage(self, 5)
+
 		# Remove Energy Conduit Buff
 		if has_sigil("Energy Conduit"):
 			print("Removing buff")
@@ -444,14 +452,15 @@ func begin_perish(doubleDeath = false):
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
 				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.health -= 5
-					if eCard.health <= 0:
-						eCard.get_node("AnimationPlayer").play("Perish")
-						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
-					else:
-						eCard.draw_stats()
-						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx, eCard.attack, eCard.health)
-		
+					eCard.take_damage(self, 5)
+#					eCard.health -= 5
+#					if eCard.health <= 0:
+#						eCard.get_node("AnimationPlayer").play("Perish")
+#						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
+#					else:
+#						eCard.draw_stats()
+#						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx, eCard.attack, eCard.health)
+#
 		# Energy conduit buff
 		if has_sigil("Energy Conduit"):
 			print("Removing enemy buff")
