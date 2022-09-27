@@ -589,7 +589,8 @@ func _on_ActiveSigil_pressed():
 		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
 	
 	# Play anim and activate remotely
-	$AnimationPlayer.play("ProcGeneric")
+	if not "Perish" in $AnimationPlayer.current_animation:
+		$AnimationPlayer.play("ProcGeneric")
 	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
 
 

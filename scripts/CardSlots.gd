@@ -661,7 +661,9 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 	if sName == "Disentomb":
 		fightManager.add_opponent_bones(-1)
 	
-	eCard.get_node("AnimationPlayer").play("ProcGeneric")
+#	Only animate if not dying
+	if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
+		eCard.get_node("AnimationPlayer").play("ProcGeneric")
 
 
 remote func remote_card_move(from_slot, to_slot, flip_sigil):
