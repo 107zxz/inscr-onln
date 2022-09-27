@@ -336,7 +336,7 @@ func _on_Kick_pressed():
 
 # Network callbacks
 func _on_tunnel_output(line):
-	if "tunneled with tls termination" in line:
+	if "tunneled with tls termination," in line:
 		TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
 		
 		var code = line.split(".")[0]
@@ -354,7 +354,7 @@ func _on_tunnel_output(line):
 		
 func _on_host_timeout():
 	$LoadingScreen.visible = false
-	errorBox("Failed to connect to localhost.run.\nAre you connected to the internet?")
+	errorBox("Tunnel Error: Please try again or check lhrlog.txt in the Game Directory for the error message")
 	
 	TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
 	TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
