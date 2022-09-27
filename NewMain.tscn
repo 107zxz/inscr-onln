@@ -88,7 +88,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 23.8864, 52.0646 ) ]
+"values": [ Vector2( -64.3394, 52.7418 ) ]
 }
 
 [sub_resource type="AtlasTexture" id=17]
@@ -376,8 +376,8 @@ anims/Talk = SubResource( 11 )
 
 [node name="Notes" type="Label" parent="TitleScreen/PullInfo/PatchStoats"]
 margin_left = 25.0
-margin_top = -40.0
-margin_right = 260.0
+margin_top = -62.0
+margin_right = 425.0
 margin_bottom = -9.0
 grow_vertical = 0
 custom_styles/normal = SubResource( 12 )
@@ -426,10 +426,10 @@ stretch_mode = 5
 flip_h = true
 
 [node name="BugMouth" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
-margin_left = 23.8864
-margin_top = 52.0646
-margin_right = 151.686
-margin_bottom = 124.065
+margin_left = -64.3394
+margin_top = 52.7418
+margin_right = 63.4602
+margin_bottom = 124.742
 texture = SubResource( 15 )
 expand = true
 stretch_mode = 5
@@ -441,10 +441,10 @@ anims/RESET = SubResource( 16 )
 anims/Talk = SubResource( 18 )
 
 [node name="Notes" type="Label" parent="TitleScreen/PullInfo/Grimorger"]
-margin_left = -155.0
-margin_top = -83.4288
-margin_right = 80.0
-margin_bottom = -52.4288
+margin_left = -355.0
+margin_top = -83.429
+margin_right = 45.0
+margin_bottom = -52.429
 grow_vertical = 0
 custom_styles/normal = SubResource( 12 )
 text = "Grimorger News Here"

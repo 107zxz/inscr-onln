@@ -166,6 +166,8 @@ func init_match(opp_id: int, do_go_first: bool):
 	add_bones(0)
 	add_opponent_bones(0)
 	
+	inflict_damage(0)
+	
 	if "starting_bones" in CardInfo.all_data:
 		add_bones(CardInfo.all_data.starting_bones)
 		add_opponent_bones(CardInfo.all_data.starting_bones)
@@ -584,8 +586,8 @@ func inflict_damage(dmg):
 		advantage = 0
 		damage_stun = true
 		
-	$Advantage/AdvLeft/PickLeft.rect_position.x = 104 + advantage * 20
-	$Advantage/AdvRight/PickRight.rect_position.x = 104 + advantage * (20 if GameOptions.options.show_enemy_advantage else -20)
+	$Advantage/AdvLeft/PickLeft.rect_position.x = 187 + advantage * 37
+	$Advantage/AdvRight/PickRight.rect_position.x = 186 + advantage * (37 if GameOptions.options.show_enemy_advantage else -37)
 	
 	$PlayerInfo/MyInfo/Candle.set_lives(lives)
 	$PlayerInfo/TheirInfo/Candle.set_lives(opponent_lives)

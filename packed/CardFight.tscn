@@ -937,6 +937,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 539.978, 1052.51 ]
+}
 
 [node name="CustomBg" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -963,9 +966,9 @@ texture = SubResource( 18 )
 expand = true
 
 [node name="PickRight" type="TextureRect" parent="Advantage/AdvRight"]
-margin_left = 104.0
+margin_left = 186.0
 margin_top = -32.0
-margin_right = 136.0
+margin_right = 218.0
 texture = SubResource( 17 )
 expand = true
 
@@ -979,10 +982,9 @@ texture = SubResource( 16 )
 expand = true
 
 [node name="PickLeft" type="TextureRect" parent="Advantage/AdvLeft"]
-margin_left = 104.0
-margin_top = -15.0
-margin_right = 120.0
-margin_bottom = 1.0
+margin_left = 187.0
+margin_top = -32.0
+margin_right = 219.0
 texture = SubResource( 17 )
 expand = true
 
@@ -1335,11 +1337,10 @@ enabled_focus_mode = 0
 text = "Deck"
 
 [node name="Notify" type="Label" parent="DrawPiles"]
-visible = false
-margin_left = 885.0
-margin_top = 430.0
-margin_right = 963.0
-margin_bottom = 444.0
+margin_left = 1685.0
+margin_top = 830.0
+margin_right = 1826.0
+margin_bottom = 854.0
 text = "Draw a card!"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1444,16 +1445,13 @@ enabled_focus_mode = 0
 [node name="HandsContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 16.0
-margin_bottom = -16.0
+margin_top = 26.0
+margin_bottom = -26.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Hands" type="VBoxContainer" parent="HandsContainer"]
 margin_right = 1920.0
-margin_bottom = 1048.0
+margin_bottom = 1028.0
 mouse_filter = 2
 script = ExtResource( 5 )
 __meta__ = {
@@ -1468,9 +1466,9 @@ size_flags_horizontal = 4
 
 [node name="PlayerHand" type="HBoxContainer" parent="HandsContainer/Hands"]
 margin_left = 960.0
-margin_top = 1048.0
+margin_top = 1028.0
 margin_right = 960.0
-margin_bottom = 1048.0
+margin_bottom = 1028.0
 mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
@@ -1608,15 +1606,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -100.0
-margin_top = -37.5
-margin_right = 100.0
-margin_bottom = 37.5
+margin_left = -162.5
+margin_top = -50.0
+margin_right = 162.5
+margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WinScreen/Panel"]
 anchor_left = 0.5
@@ -1634,9 +1629,9 @@ __meta__ = {
 }
 
 [node name="WinLabel" type="Label" parent="WinScreen/Panel/VBoxContainer"]
-margin_top = 276.0
+margin_top = 262.0
 margin_right = 1024.0
-margin_bottom = 289.0
+margin_bottom = 286.0
 text = "You Lose via Lunacide!"
 align = 1
 valign = 1
@@ -1645,9 +1640,9 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WinScreen/Panel/VBoxContainer"]
-margin_top = 307.0
+margin_top = 304.0
 margin_right = 1024.0
-margin_bottom = 324.0
+margin_bottom = 338.0
 custom_constants/separation = 40
 alignment = 1
 __meta__ = {
@@ -1655,17 +1650,17 @@ __meta__ = {
 }
 
 [node name="RematchBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
-margin_left = 435.0
-margin_right = 521.0
-margin_bottom = 17.0
+margin_left = 390.0
+margin_right = 547.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Rematch (0/2)"
 
 [node name="QuitBtn" type="Button" parent="WinScreen/Panel/VBoxContainer/HBoxContainer"]
-margin_left = 561.0
-margin_right = 588.0
-margin_bottom = 17.0
+margin_left = 587.0
+margin_right = 634.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
