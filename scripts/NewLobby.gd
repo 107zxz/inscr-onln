@@ -380,7 +380,7 @@ func _joined_game():
 				"ready": false,
 				"pfp": "Grizzly",
 				"wins": 0,
-				"ruleset": CardInfo.ruleset,
+				"ruleset": CardInfo.all_data.hash(),
 				"version": CardInfo.VERSION
 #				"version": "0.0.69"
 			}
@@ -420,8 +420,9 @@ remote func _register_player(player_data: Dictionary):
 		return
 	
 	
-	if player_data["ruleset"] != CardInfo.ruleset:
-		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different ruleset to you (\"" + CardInfo.ruleset + "\")")
+	if player_data["ruleset"] != CardInfo.all_data.hash():
+#		print(CardInfo.all_data.hash(), " : ", player_data["ruleset"])
+		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different ruleset to you (\"" + CardInfo.ruleset + "\").\nPlease note that changing the name of your ruleset is not a valid solution.")
 		return
 	
 	

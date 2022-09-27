@@ -105,7 +105,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 20, 25 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 32, 46 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -157,7 +157,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 20, 25 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 32, 46 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -211,7 +211,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 10, 15 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -288,7 +288,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.09, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 20, 25 ), Vector2( 0, 0 ), Vector2( 20, 25 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 32, 46 ), Vector2( 0, 0 ), Vector2( 32, 46 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -415,7 +415,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 20, 25 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 32, 46 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -472,7 +472,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 10, 15 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -526,6 +526,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("CardBody:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=18]
 length = 0.1
@@ -567,7 +579,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 10, 15 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -627,7 +639,7 @@ script = ExtResource( 2 )
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 85, 123 )
+rect_min_size = Vector2( 128, 185 )
 mouse_filter = 2
 theme = ExtResource( 1 )
 script = ExtResource( 11 )
@@ -876,6 +888,7 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
+visible = false
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 126.0
@@ -917,8 +930,8 @@ visible = false
 modulate = Color( 0.87, 0.783, 0.783, 1 )
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 83.0
-margin_bottom = 121.0
+margin_right = 126.0
+margin_bottom = 183.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -929,9 +942,9 @@ stretch_mode = 4
 [node name="AtkIcon" type="TextureRect" parent="CardBody"]
 visible = false
 margin_left = 2.0
-margin_top = 111.0
-margin_right = 83.0
-margin_bottom = 121.0
+margin_top = 173.0
+margin_right = 126.0
+margin_bottom = 183.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_vertical = 8
 texture = SubResource( 19 )
