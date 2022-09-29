@@ -22,12 +22,12 @@ func start_tunnel():
 	if OS.get_name() == "Windows":
 		print("Executing windows commands")
 #		OS.execute ("cmd.exe", ["/c", "TYPE NUL > '" + CardInfo.tunnellog_path + "'"], true)
-		pid = OS.execute ("cmd.exe", ["/c", "ssh -R 80:localhost:10567 nokey@localhost.run > \"" + CardInfo.tunnellog_path.replace("/", "\\") + "\"  2>&1"], false)
+		pid = OS.execute ("cmd.exe", ["/c", "ssh srv.us -R 1:localhost:10567 > \"" + CardInfo.tunnellog_path.replace("/", "\\") + "\""], false)
 	# These commands for OSX / Linux systems
 	else:
 		print("Executing Linux / OSX commands")
 #		OS.execute ("bash", ["-c", "echo \"\" > '" + CardInfo.tunnellog_path + "'"], true)
-		pid = OS.execute ("bash", ["-c", "ssh -R 80:localhost:10567 nokey@localhost.run > '" + CardInfo.tunnellog_path + "' 2>&1"], false)
+		pid = OS.execute ("bash", ["-c", "ssh srv.us -R 1:localhost:10567 > '" + CardInfo.tunnellog_path + "'"], false)
 	
 	var fiel = File.new()
 	

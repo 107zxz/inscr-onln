@@ -424,8 +424,10 @@ func _on_TestButton_pressed():
 	# Set deck in lobby thing
 	get_node("/root/Main/TitleScreen/InLobby/Rows/DeckOptions/Deck").select($HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel.selected)
 	
+	# Exit to menu and host
+	visible = false
 	get_node("/root/Main/TitleScreen").debug_host()
-	OS.execute(OS.get_executable_path(), ["join", "autoquit"], false)
+	OS.execute(OS.get_executable_path(), ["join"], false)
 
 
 func _exit_tree():
