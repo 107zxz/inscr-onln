@@ -266,7 +266,7 @@ func _on_Join_pressed():
 		return
 
 	if $LobbyJoin/Rows/HostType/LType.selected == 0:
-		url = "ws://" + url + ".lhrtunnel.link"	
+		url = "wss://" + url + ".srv.us"
 	else:
 		url = "ws://" + url + ":10567"
 
@@ -336,10 +336,10 @@ func _on_Kick_pressed():
 
 # Network callbacks
 func _on_tunnel_output(line):
-	if "tunneled with tls termination," in line:
+	if "1:" in line:
 		TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
 		
-		var code = line.split(".")[0]
+		var code = line.split(".")[0].split("1: https://")[1]
 		
 		$LoadingScreen.visible = false
 		$InLobby.visible = true
@@ -393,7 +393,7 @@ func _connected_fail():
 	var url = $LobbyJoin/Rows/Address/IPInput.text
 	
 	if $LobbyJoin/Rows/HostType/LType.selected == 0:
-		url = "ws://" + url + ".lhrtunnel.link"	
+		url = "wss://" + url + ".lhrtunnel.link"	
 	else:
 		url = "ws://" + url + ":10567"
 	
