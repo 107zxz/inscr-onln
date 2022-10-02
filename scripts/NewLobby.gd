@@ -217,9 +217,9 @@ func _on_Host_pressed():
 		$LoadingScreen.visible = true		
 		$LoadingScreen/AnimationPlayer.play("progress")
 		# Open a tunnel
-		TunnelHandler.start_tunnel()
-		TunnelHandler.connect("recieved_output", self, "_on_tunnel_output")
-		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
+		TunnelHandler.start_tunnel(hostUnameBox.text)
+		TunnelHandler.connect("received_output", self, "_on_tunnel_output")
+#		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
 	else:
 		$InLobby.visible = true
 
@@ -266,7 +266,7 @@ func _on_Join_pressed():
 		return
 
 	if $LobbyJoin/Rows/HostType/LType.selected == 0:
-		url = "wss://" + url + ".srv.us"
+		url = "wss://" + url + ".loca.lt"
 	else:
 		url = "ws://" + url + ":10567"
 
@@ -335,23 +335,20 @@ func _on_Kick_pressed():
 	rpc_id(lobby_data.players.keys()[lobbyList.get_selected_items()[0]], "_rejected", "Kicked by lobby host")
 
 # Network callbacks
-func _on_tunnel_output(line):
-	if "1:" in line:
-		TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
-		
-		var code = line.split(".")[0].split("1: https://")[1]
-		
-		$LoadingScreen.visible = false
-		$InLobby.visible = true
+func _on_tunnel_output(code):
+	TunnelHandler.disconnect("received_output", self, "_on_tunnel_output")
+	
+	$LoadingScreen.visible = false
+	$InLobby.visible = true
 #		$InLobby/Rows/LCode.text = "Lobby Code: " + code
-		
-		lobby_data.code = code
-		lobby_data.is_ip = false
-		
-		update_lobby()
+	
+	lobby_data.code = code
+	lobby_data.is_ip = false
+	
+	update_lobby()
 
-		TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
-		
+#	TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
+	
 func _on_host_timeout():
 	$LoadingScreen.visible = false
 	errorBox("Tunnel Error: Please try again or check lhrlog.txt in the Game Directory for the error message")
@@ -393,7 +390,7 @@ func _connected_fail():
 	var url = $LobbyJoin/Rows/Address/IPInput.text
 	
 	if $LobbyJoin/Rows/HostType/LType.selected == 0:
-		url = "wss://" + url + ".lhrtunnel.link"	
+		url = "wss://" + url + ".loca.lt"
 	else:
 		url = "ws://" + url + ":10567"
 	
