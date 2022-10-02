@@ -2,4 +2,6 @@
 
 [resource]
 entry/OSX.64 = "res://native/libimf_tunnel.dylib"
+entry/Windows.64 = "res://native/imf_tunnel.dll"
 dependency/OSX.64 = [  ]
+dependency/Windows.64 = [  ]
