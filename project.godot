@@ -48,6 +48,7 @@ CardInfo="*res://scripts/singletons/CardInfo.gd"
 TunnelHandler="*res://scripts/singletons/TunnelHandler.gd"
 GameOptions="*res://scripts/singletons/GameOptions.gd"
 NetworkManager="*res://scripts/singletons/NetworkManager.gd"
+AsyncExecutorDriver="*res://native/AsyncExecutorDriver.gdns"
 
 [debug]
 

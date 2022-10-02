@@ -42,13 +42,10 @@ func create_sigils(friendly):
 	if not "sigils" in card_data:
 		return
 		
-	var d = Directory.new()
-	
-	
 	for sig in card_data.sigils:
 		var sigPath = "res://scripts/classes/sigils/" + sig + ".gd"
 		
-		if not d.file_exists(sigPath):
+		if not ResourceLoader.exists(sigPath):
 			print("Missing sigil " + sig)
 			continue
 		
