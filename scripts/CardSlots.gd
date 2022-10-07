@@ -107,8 +107,11 @@ func attempt_sacrifice():
 # Break flow to handle sigils
 signal resolve_sigils()
 
-func pre_turn_sigils():
-	for slot in playerSlots:
+func pre_turn_sigils(friendly: bool):
+	
+	var affectedSlots = playerSlots if friendly else enemySlots
+	
+	for slot in affectedSlots:
 		if is_slot_empty(slot):
 			continue
 		
@@ -125,19 +128,19 @@ func pre_turn_sigils():
 		
 		# Evolution
 		if card.has_sigil("Fledgling"):
-			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
+#			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
 			cardAnim.play("Evolve")
 			yield (cardAnim, "animation_finished")
 			
 		# Dive
 		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
-			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
+#			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
 			cardAnim.play("UnDive")
 
 			if card.has_sigil("Tentacle"):
-				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][randi() % 3])
+				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
 				card.from_data(nTent)
-				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
+#				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
 			
 				# Calculate
 				for fCard in all_friendly_cards():
@@ -152,8 +155,10 @@ func pre_turn_sigils():
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
 
-func post_turn_sigils():
-	var cardsToMove = all_friendly_cards()
+func post_turn_sigils(friendly: bool):
+	var cardsToMove = all_friendly_cards() if friendly else all_enemy_cards()
+	
+	var affectedSlots = playerSlots if friendly else enemySlots
 	
 	# Sprinting
 	for card in cardsToMove:
@@ -191,39 +196,39 @@ func post_turn_sigils():
 						moveFailed = true
 						
 					# Occupied slots
-					elif not is_slot_empty(playerSlots[curSlot + sprintOffset]) and not playerSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
+					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]) and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
 
 						if movSigil == "Hefty":
 
 							var pushed = false
 
 							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
-								if is_slot_empty(playerSlots[curSlot + sprintOffset * 2]) or playerSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
-									playerSlots[curSlot + sprintOffset].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 2])
-									rpc_id(
-									fightManager.opponent, "remote_card_move", 
-									curSlot + sprintOffset,
-									curSlot + sprintOffset * 2,
-									false
-									)
+								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]) or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
+									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
+#									rpc_id(
+#									fightManager.opponent, "remote_card_move", 
+#									curSlot + sprintOffset,
+#									curSlot + sprintOffset * 2,
+#									false
+#									)
 									pushed = true
 							
 								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
-									if is_slot_empty(playerSlots[curSlot + sprintOffset * 3]) or playerSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
-										playerSlots[curSlot + sprintOffset].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 2])
-										rpc_id(
-										fightManager.opponent, "remote_card_move", 
-										curSlot + sprintOffset,
-										curSlot + sprintOffset * 2,
-										false
-										)
-										playerSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(playerSlots[curSlot + sprintOffset * 3])
-										rpc_id(
-										fightManager.opponent, "remote_card_move", 
-										curSlot + sprintOffset * 2,
-										curSlot + sprintOffset * 3,
-										false
-										)
+									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]) or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
+										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
+#										rpc_id(
+#										fightManager.opponent, "remote_card_move", 
+#										curSlot + sprintOffset,
+#										curSlot + sprintOffset * 2,
+#										false
+#										)
+										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
+#										rpc_id(
+#										fightManager.opponent, "remote_card_move", 
+#										curSlot + sprintOffset * 2,
+#										curSlot + sprintOffset * 3,
+#										false
+#										)
 										pushed = true
 							
 							if pushed:
@@ -252,22 +257,22 @@ func post_turn_sigils():
 				else:
 					# Spawn a card if thats the one
 					if movSigil == "Squirrel Shedder":
-						summon_card(CardInfo.from_name("Squirrel"), curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Squirrel"), curSlot)
+						summon_card(CardInfo.from_name("Squirrel"), curSlot, friendly)
+#						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Squirrel"), curSlot)
 					if movSigil == "Skeleton Crew":
-						summon_card(CardInfo.from_name("Skeleton"), curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
+						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
+#						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
 					if card.card_data.name == "Long Elk":
-						summon_card(CardInfo.from_name("Vertebrae"), curSlot)
-						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Vertebrae"), curSlot)
+						summon_card(CardInfo.from_name("Vertebrae"), curSlot, friendly)
+#						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Vertebrae"), curSlot)
 						
-				card.move_to_parent(playerSlots[curSlot + sprintOffset])
-				rpc_id(
-					fightManager.opponent, "remote_card_move", 
-					curSlot,
-					curSlot + sprintOffset,
-					sprintSigil.flip_h != ogFlipped
-					)
+				card.move_to_parent(affectedSlots[curSlot + sprintOffset])
+#				rpc_id(
+#					fightManager.opponent, "remote_card_move", 
+#					curSlot,
+#					curSlot + sprintOffset,
+#					sprintSigil.flip_h != ogFlipped
+#					)
 				
 				# A push has happened, recalculate stats
 				for fCard in all_friendly_cards():
@@ -279,20 +284,20 @@ func post_turn_sigils():
 				yield (cardTween, "tween_completed")
 	
 	# Other end-of-turn sigils
-	for card in all_friendly_cards():
+	for card in all_friendly_cards() if friendly else all_enemy_cards():
 		if "Perish" in card.get_node("AnimationPlayer").current_animation:
 			continue
 		
 		if card.has_sigil("Bone Digger"):
-			fightManager.add_bones(1)
-			fightManager.rpc_id(fightManager.opponent, "add_remote_bones", 1)
-			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "ProcGeneric")
+			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
+#			fightManager.rpc_id(fightManager.opponent, "add_remote_bones", 1)
+#			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "ProcGeneric")
 			card.get_node("AnimationPlayer").play("ProcGeneric")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 		
 		# Diving
 		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
-			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
+#			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
 			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 	
@@ -301,7 +306,7 @@ func post_turn_sigils():
 			for sn in ["Squirrel", "Skeleton", "Geck", "Vessel", "Ruby", "Sapphire", "Emerald", "Cairn"]:
 				if sn in card.card_data.name:
 					card.get_node("AnimationPlayer").play("Perish")
-					rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Perish")
+#					rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Perish")
 					yield(card.get_node("AnimationPlayer"), "animation_finished")
 				
 			
@@ -309,9 +314,9 @@ func post_turn_sigils():
 	# Spawn conduit
 	if get_friendly_cards_sigil("Spawn Conduit"):
 		for sIdx in range(4):
-			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
-				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
-				summon_card(CardInfo.from_name("L33pB0t"), sIdx)
+			if is_slot_empty(affectedSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
+#				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
+				summon_card(CardInfo.from_name("L33pB0t"), sIdx, friendly)
 			
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
@@ -321,35 +326,41 @@ func post_turn_sigils():
 # Combat
 signal complete_combat()
 
-func initiate_combat():
-	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
+func initiate_combat(friendly: bool):
+	
+	var attackingCards = all_friendly_cards() if friendly else all_enemy_cards()
+	var attackingMoon = fightManager.get_node("MoonFight/BothMoons/FriendlyMoon") if friendly else fightManager.get_node("MoonFight/BothMoons/EnemyMoon")
+	var defendingMoon = fightManager.get_node("MoonFight/BothMoons/EnemyMoon") if friendly else fightManager.get_node("MoonFight/BothMoons/FriendlyMoon")
+	
+	var attackingSlots = playerSlots if friendly else enemySlots
+	var defendingSlots = playerSlots if not friendly else enemySlots
+	
+	if attackingMoon.visible:
 		# Moon fight logic
-		
-		var moon = fightManager.get_node("MoonFight/BothMoons/FriendlyMoon")
 		var moonAnim = fightManager.get_node("MoonFight/AnimationPlayer")
 		
 		# Attack face by default
-		moon.target = -1
+		attackingMoon.target = -1
 		
-		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+		if defendingMoon.visible:
 			
-			moon.target = 4
-			moonAnim.play("friendlyMoonSlap")
+			attackingMoon.target = 4
+			moonAnim.play("friendlyMoonSlap" if friendly else "enemyMoonSlap")
 			print("Moon attacking another moon!")
-			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", 4)
+#			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", 4)
 			
 			yield(get_tree().create_timer(0.2), "timeout")
-			rpc("handle_enemy_attack", 0, 0)
+#			rpc("handle_enemy_attack", 0, 0)
 			
 			yield(moonAnim, "animation_finished")
 		
 		else:
 			for slot in range(4):
-				moon.target = slot
-				moonAnim.play("friendlyMoonSlap")
-				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", moon.target)
+				attackingMoon.target = slot
+				moonAnim.play("friendlyMoonSlap" if friendly else "enemyMoonSlap")
+#				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", moon.target)
 
-				print("Moon attacking slot: %s" % moon.target)
+				print("Moon attacking slot: %s" % attackingMoon.target)
 
 				yield(moonAnim, "animation_finished")
 			
@@ -358,24 +369,24 @@ func initiate_combat():
 		
 		return
 	
-	for card in all_friendly_cards():
-		if card.attack > 0 and not "Perish" in card.get_node("AnimationPlayer").current_animation:
-			
-			var pCard = card
-			var cardAnim = pCard.get_node("AnimationPlayer")
-			var slot_index = card.slot_idx()
+	for pCard in ( all_friendly_cards() if friendly else all_enemy_cards() ):
+		
+		var cardAnim = pCard.get_node("AnimationPlayer")
+		var slot_index = pCard.slot_idx()
+		
+		if pCard.attack > 0 and not "Perish" in cardAnim.current_animation:
 			
 			if pCard.has_sigil("Trifurcated Strike") or pCard.has_sigil("Bifurcated Strike"):
 				# Lower slot to right for attack anim (JANK AF)
 				if slot_index < 3:
-					playerSlots[slot_index + 1].show_behind_parent = true
+					attackingSlots[slot_index + 1].show_behind_parent = true
 				
 				# Tri strike attack
 				for s_offset in range(-1, 2):
 					yield(get_tree().create_timer(0.01), "timeout")
 					
 					# Break if attacker died from sharp quills
-					if is_slot_empty(playerSlots[slot_index]):
+					if is_slot_empty(attackingSlots[slot_index]):
 						break
 
 					# Skip middle if bi-strike
@@ -388,25 +399,25 @@ func initiate_combat():
 						continue
 					
 					# Don't attack repulsive cards!
-					if not is_slot_empty(enemySlots[slot_index + s_offset]) and enemySlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
+					if not is_slot_empty(defendingSlots[slot_index + s_offset]) and defendingSlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
 						continue
 					
 					# Visually represent the card's attack offset (hacky)
 					pCard.rect_position.x = s_offset * 50
-					rpc_id(fightManager.opponent, "set_card_offset", slot_index, s_offset * 50)
+#					rpc_id(fightManager.opponent, "set_card_offset", slot_index, s_offset * 50)
 					
 					pCard.strike_offset = s_offset
-					cardAnim.play("Attack")
-					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
+					cardAnim.play("Attack" if friendly else "AttackRemote")
+#					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
 					yield(cardAnim, "animation_finished")
 				
 				# Reset attack effect
 				if slot_index < 3:
-					playerSlots[slot_index + 1].show_behind_parent = false
+					attackingSlots[slot_index + 1].show_behind_parent = false
 				
-				if not is_slot_empty(playerSlots[slot_index]):
+				if not is_slot_empty(attackingSlots[slot_index]):
 					pCard.rect_position.x = 0
-					rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
+#					rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
 					
 			else:
 
@@ -418,19 +429,19 @@ func initiate_combat():
 						if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
 							continue
 					
-					cardAnim.play("Attack")
-					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
+					cardAnim.play("Attack" if friendly else "AttackRemote")
+#					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
 					yield(cardAnim, "animation_finished")
 		
 					# Did the card get boned?
-					if is_slot_empty(playerSlots[slot_index]):
+					if is_slot_empty(attackingSlots[slot_index]):
 						continue
 					
 					# Any form of attack went through
 					# Brittle: Die after attacking
 					if pCard.has_sigil("Brittle"):
 						cardAnim.play("Perish")
-						rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
+#						rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
 
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("complete_combat")
@@ -469,7 +480,7 @@ func handle_attack(from_slot, to_slot):
 		)
 		
 		print("ATTACK RPC ANTIMOON: ", to_slot)
-		rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
+#		rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 		
 		return
 	
@@ -540,7 +551,7 @@ func handle_attack(from_slot, to_slot):
 				pCard.draw_stats()
 	
 	print("ATTACK RPC: ", to_slot)
-	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
+#	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
 # Sigil handling
 func get_friendly_cards_sigil(sigil):
@@ -562,13 +573,21 @@ func get_enemy_cards_sigil(sigil):
 	return found
 
 # Summon a card, used by Squirrel Ball
-func summon_card(cDat, slot_idx):
+func summon_card(cDat, slot_idx, friendly: bool):
 	var nCard = fightManager.cardPrefab.instance()
 	nCard.from_data(cDat)
 	nCard.in_hand = false
-	playerSlots[slot_idx].add_child(nCard)
+	
+	(playerSlots[slot_idx] if friendly else enemySlots[slot_idx]).add_child(nCard)
 	
 	fightManager.card_summoned(nCard)
+	
+	# Guardian (potentially client-side this)
+	if is_slot_empty(enemySlots[slot_idx]):
+		var guardians = get_enemy_cards_sigil("Guardian")
+		if guardians:
+#			rpc_id(fightManager.opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot_idx, false)
+			guardians[0].move_to_parent(enemySlots[slot_idx])
 
 # Remote
 remote func set_sac_olay_vis(slot, vis):
@@ -588,17 +607,17 @@ remote func remote_card_anim(slot, anim_name):
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
 
-remote func remote_card_summon(cDat, slot_idx):
+func remote_card_summon(cDat, slot_idx):
 	var nCard = fightManager.cardPrefab.instance()
 	nCard.from_data(cDat)
 	nCard.in_hand = false
 	enemySlots[slot_idx].add_child(nCard)
 
-	# Guardian
+	# Guardian (potentially client-side this)
 	if is_slot_empty(playerSlots[slot_idx]):
 		var guardians = get_friendly_cards_sigil("Guardian")
 		if guardians:
-			rpc_id(fightManager.opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot_idx, false)
+#			rpc_id(fightManager.opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot_idx, false)
 			guardians[0].move_to_parent(playerSlots[slot_idx])
 	
 
@@ -711,7 +730,7 @@ remote func remote_card_data(card_slot, new_data):
 	card.get_node("CardBody/AtkIcon").visible = false
 	card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
 
-remote func handle_enemy_attack(from_slot, to_slot):
+func handle_enemy_attack(from_slot, to_slot):
 
 	fightManager.replay.record_action({"type": "enemy_attack", "from_slot": from_slot, "to_slot": to_slot})
 
