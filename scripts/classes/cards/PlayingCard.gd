@@ -284,7 +284,10 @@ func move_to_parent(new_parent):
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
 func attack_hit():
-	slotManager.handle_attack(get_parent().get_position_in_parent(), get_parent().get_position_in_parent() + strike_offset)
+	if get_parent().get_parent().name == "PlayerSlots":
+		slotManager.handle_attack(slot_idx(), slot_idx() + strike_offset)
+	else:
+		slotManager.handle_enemy_attack(slot_idx(), slot_idx() + strike_offset)
 
 # Called when the card starts dying. Add bones and stuff
 func begin_perish(doubleDeath = false):

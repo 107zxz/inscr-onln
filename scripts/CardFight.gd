@@ -237,14 +237,18 @@ func end_turn():
 	# Initiate combat first
 	state = GameStates.BATTLE
 	
-	slotManager.initiate_combat()
+	slotManager.initiate_combat(true)
 	yield(slotManager, "complete_combat")
+	
+	# Opponent should handle post-turn sigils and energy
+	# At the start of their turn
+	rpc_id(opponent, "start_turn")
 	
 	$WaitingBlocker.visible = true
 	damage_stun = false
 	
 	# Handle sigils
-	slotManager.post_turn_sigils()
+	slotManager.post_turn_sigils(true)
 	yield(slotManager, "resolve_sigils")
 		
 	# Bump opponent's energy
@@ -252,7 +256,8 @@ func end_turn():
 		set_opponent_max_energy(opponent_max_energy + 1)
 	set_opponent_energy(opponent_max_energy)
 	
-	rpc_id(opponent, "start_turn")
+	# Pre turn sigils
+	slotManager.pre_turn_sigils(false)
 
 func draw_maindeck():
 	if state == GameStates.DRAWPILE:
@@ -727,7 +732,15 @@ remote func _rematch_requested():
 remote func _rematch_occurs():
 	init_match(opponent, not go_first)
 
+
 remote func start_turn():
+	
+	slotManager.initiate_combat(false)
+	yield(slotManager, "complete_combat")
+	
+	slotManager.post_turn_sigils(false)
+	yield(slotManager, "resolve_sigils")
+	
 	damage_stun = false
 	$WaitingBlocker.visible = false
 	
@@ -750,7 +763,7 @@ remote func start_turn():
 	$LeftSideUI/HammerButton.disabled = false
 
 	# Resolve start-of-turn effects
-	slotManager.pre_turn_sigils()
+	slotManager.pre_turn_sigils(true)
 	yield (slotManager, "resolve_sigils")
 	
 	# Increment energy
