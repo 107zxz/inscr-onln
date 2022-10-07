@@ -465,30 +465,29 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -250.0
-margin_top = -125.0
+margin_top = -148.5
 margin_right = 250.0
-margin_bottom = 125.0
+margin_bottom = 148.5
 rect_min_size = Vector2( 500, 250 )
 
 [node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyHost"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 498.0
-margin_bottom = 248.0
+margin_bottom = 295.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 26.0
 margin_right = 496.0
-margin_bottom = 50.0
+margin_bottom = 24.0
 text = "Host"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 60.0
+margin_top = 34.0
 margin_right = 496.0
-margin_bottom = 94.0
+margin_bottom = 68.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/HostType"]
@@ -508,10 +507,39 @@ text = "Room Code (recommended)"
 items = [ "Room Code (recommended)", null, false, 0, null, "IP Address (for LAN)", null, false, 1, null ]
 selected = 0
 
-[node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 104.0
+[node name="Host2" type="Label" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 78.0
 margin_right = 496.0
-margin_bottom = 132.0
+margin_bottom = 129.0
+text = "A room name must be at least 5 chars long,
+and not contain any symbols"
+align = 1
+
+[node name="Roomname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 139.0
+margin_right = 496.0
+margin_bottom = 167.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Roomname"]
+margin_left = 65.0
+margin_top = 2.0
+margin_right = 319.0
+margin_bottom = 26.0
+text = "Room Name (required): "
+
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Roomname"]
+margin_left = 319.0
+margin_right = 431.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 100, 23 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 177.0
+margin_right = 496.0
+margin_bottom = 205.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Nickname"]
@@ -530,9 +558,9 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectating" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 142.0
+margin_top = 215.0
 margin_right = 496.0
-margin_bottom = 176.0
+margin_bottom = 249.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Spectating"]
@@ -552,9 +580,9 @@ enabled_focus_mode = 0
 flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 186.0
+margin_top = 259.0
 margin_right = 496.0
-margin_bottom = 220.0
+margin_bottom = 293.0
 custom_constants/separation = 16
 alignment = 1
 
@@ -1102,6 +1130,8 @@ align = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
 [connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
+[connection signal="focus_entered" from="TitleScreen/LobbyHost/Rows/Roomname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyHost/Rows/Roomname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
 [connection signal="focus_entered" from="TitleScreen/LobbyHost/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
 [connection signal="focus_exited" from="TitleScreen/LobbyHost/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
 [connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/Host" to="TitleScreen" method="_on_Host_pressed"]

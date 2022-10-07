@@ -5,6 +5,7 @@ onready var themeEditor = get_node("../ThemeEditor")
 onready var deckEditor = get_node("../DeckEdit")
 onready var cardFight = get_node("../CardFight")
 onready var hostUnameBox = $LobbyHost/Rows/Nickname/LineEdit
+onready var hostLnameBox = $LobbyHost/Rows/Roomname/LineEdit
 onready var joinUnameBox = $LobbyJoin/Rows/Nickname/LineEdit
 onready var lobbyList: ItemList = $InLobby/Rows/PlayerList
 
@@ -193,6 +194,8 @@ func _on_Host_pressed():
 
 	if hostUnameBox.text.length() == 0:
 		return
+	if hostLnameBox.text.length() == 0:
+		return
 	
 	$LobbyHost.visible = false
 	lobbyList.clear()
@@ -217,7 +220,7 @@ func _on_Host_pressed():
 		$LoadingScreen.visible = true		
 		$LoadingScreen/AnimationPlayer.play("progress")
 		# Open a tunnel
-		TunnelHandler.start_tunnel(hostUnameBox.text)
+		TunnelHandler.start_tunnel(hostLnameBox.text)
 		TunnelHandler.connect("received_output", self, "_on_tunnel_output")
 #		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
 	else:
