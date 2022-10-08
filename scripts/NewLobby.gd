@@ -194,7 +194,7 @@ func _on_Host_pressed():
 
 	if hostUnameBox.text.length() == 0:
 		return
-	if hostLnameBox.text.length() == 0:
+	if hostLnameBox.text.length() == 0 and $LobbyHost/Rows/HostType/Type.selected == 0:
 		return
 	
 	$LobbyHost.visible = false
