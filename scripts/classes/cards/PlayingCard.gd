@@ -451,16 +451,18 @@ func begin_perish(doubleDeath = false):
 			elif not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
 				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
 
-				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
+				if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
 					eCard.take_damage(self, 5)
-#					eCard.health -= 5
-#					if eCard.health <= 0:
-#						eCard.get_node("AnimationPlayer").play("Perish")
-#						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx, "Perish")
-#					else:
-#						eCard.draw_stats()
-#						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx, eCard.attack, eCard.health)
-#
+#				
+			# Kill adjacents
+			for offset in [-1, 1]:
+				
+				var eCard = slotManager.get_enemy_card(slotIdx + offset)
+				
+				if eCard and not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
+					eCard.take_damage(self, 5)
+					
+
 		# Energy conduit buff
 		if has_sigil("Energy Conduit"):
 			print("Removing enemy buff")

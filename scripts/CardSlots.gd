@@ -896,6 +896,10 @@ func get_friendly_card(slot_idx):
 	return false
 
 func get_enemy_card(slot_idx):
+	
+	if slot_idx > 3 or slot_idx < 0:
+		return false
+	
 	for card in enemySlots[slot_idx].get_children():
 		if not "Perish" in card.get_node("AnimationPlayer").current_animation:
 			return card
