@@ -673,6 +673,7 @@ tracks/9/keys = {
 [sub_resource type="Animation" id=7]
 resource_name = "enemyMoonSlap"
 length = 0.3
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("BothMoons/EnemyMoon:rect_position")
 tracks/0/interp = 1
@@ -683,7 +684,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 212, 27.5 ), Vector2( 212, 0 ), Vector2( 212, 55 ), Vector2( 212, 27.5 ) ]
+"values": [ Vector2( 660, 280 ), Vector2( 660, 252.5 ), Vector2( 660, 307.5 ), Vector2( 660, 280 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -887,7 +888,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 212, 322 ), Vector2( 212, 349 ), Vector2( 212, 295 ), Vector2( 212, 322 ) ]
+"values": [ Vector2( 650, 550 ), Vector2( 650, 577.5 ), Vector2( 650, 522.5 ), Vector2( 650, 550 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("../CardSlots")
@@ -1536,9 +1537,8 @@ custom_constants/separation = 18
 alignment = 1
 
 [node name="Label" type="Label" parent="DeckSearch/Panel/VBoxContainer"]
-margin_top = 13.0
 margin_right = 200.0
-margin_bottom = 26.0
+margin_bottom = 24.0
 text = "Deck Search"
 align = 1
 valign = 1
@@ -1548,9 +1548,9 @@ __meta__ = {
 
 [node name="OptionButton" type="OptionButton" parent="DeckSearch/Panel/VBoxContainer"]
 margin_left = 12.0
-margin_top = 44.0
+margin_top = 42.0
 margin_right = 187.0
-margin_bottom = 61.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 175, 0 )
 focus_mode = 0
 size_flags_horizontal = 4

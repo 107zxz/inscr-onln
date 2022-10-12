@@ -38,6 +38,11 @@ func _ready():
 		$LobbyHost/Rows/HostType/Type.select(1)
 		$LobbyHost/Rows/HostType/Type.set_item_disabled(0, true)
 #		$Menu/VBoxContainer/LogFolder.visible = false
+
+	# Select default deck by default
+	for dIdx in range($InLobby/Rows/DeckOptions/Deck.get_item_count()):
+		if $InLobby/Rows/DeckOptions/Deck.get_item_text(dIdx) == "default":
+			$InLobby/Rows/DeckOptions/Deck.select(dIdx)
 	
 	yield(get_tree().create_timer(0.1), "timeout")
 	
@@ -73,6 +78,9 @@ func errorBox(message):
 	$ErrorBox.visible = true
 	
 func populate_deck_list():
+	
+	print("Populating lobby deck list")
+	
 	var selector_de = $InLobby/Rows/DeckOptions/Deck
 
 	selector_de.clear()
@@ -84,6 +92,7 @@ func populate_deck_list():
 	while fName != "":
 		if not dTest.current_is_dir() and fName.ends_with(".deck"):
 			selector_de.add_item(fName.split(".deck")[0])
+			
 		fName = dTest.get_next()
 
 func select_deck(idx):
@@ -171,6 +180,7 @@ func _on_DeckEditorBtn_pressed():
 	deckEditor.populate_deck_list()
 	deckEditor.get_node("HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel").select($InLobby/Rows/DeckOptions/Deck.selected)
 	deckEditor.load_deck()
+
 func _on_HostBtn_pressed():
 	$LobbyHost.visible = true
 	$Blocker.visible = true
@@ -247,6 +257,9 @@ func _on_LobbyQuit_pressed():
 	NetworkManager.kill()
 
 func _on_LogFolder_pressed():
+	if OS.get_name() == "Android":
+		errorBox("Your game directory is: " + CardInfo.data_path)
+		return
 	OS.shell_open("file://" + OS.get_user_data_dir())
 
 func _on_ErrorOk_pressed():
