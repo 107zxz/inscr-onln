@@ -291,6 +291,9 @@ func attack_hit():
 
 # Called when the card starts dying. Add bones and stuff
 func begin_perish(doubleDeath = false):
+
+	# New, special death signal
+	fightManager.emit_signal("sigil_event", "card_perished", [self])
 	
 	# For necro
 	var canRespawn = true
@@ -343,66 +346,27 @@ func begin_perish(doubleDeath = false):
 			)
 		
 		# Gem dependent (not this card)
-		if "sigils" in card_data:
-			for sigil in card_data["sigils"]:
-				if "Mox" in sigil:
+		# if "sigils" in card_data:
+		# 	for sigil in card_data["sigils"]:
+		# 		if "Mox" in sigil:
 
-					# Any Mox dying tests gem dependant
-					var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
+		# 			# Any Mox dying tests gem dependant
+		# 			var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
 
-					for moxcol in ["Green", "Blue", "Orange"]:
-						for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
-							if foundMox != self:
-								kill = false;
-								break
+		# 			for moxcol in ["Green", "Blue", "Orange"]:
+		# 				for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
+		# 					if foundMox != self:
+		# 						kill = false;
+		# 						break
 					
-					if kill:
-						for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
-							gDep.get_node("AnimationPlayer").play("Perish")
-							slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
-				break
+		# 			if kill:
+		# 				for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
+		# 					gDep.get_node("AnimationPlayer").play("Perish")
+		# 					slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
+		# 		break
 			
 		# Explosive motherfucker
-		if has_sigil("Detonator"):
-
-			var slotIdx = get_parent().get_position_in_parent()
-
-			# Attack the moon
-			if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
-
-				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(5)
-
-			elif slotIdx > 0 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx - 1]):
-				var eCard = slotManager.playerSlots[slotIdx - 1].get_child(0)
-
-				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.take_damage(self, 5)
-#					eCard.health -= 5
-#					if eCard.health <= 0:
-#						eCard.get_node("AnimationPlayer").play("Perish")
-#						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx - 1, "Perish")
-#					else:
-#						eCard.draw_stats()
-#						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx - 1, eCard.attack, eCard.health)
-
-			if slotIdx < 3 and not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx + 1]):
-				var eCard = slotManager.playerSlots[slotIdx + 1].get_child(0)
-
-				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.take_damage(self, 5)
-#					eCard.health -= 5
-#					if eCard.health <= 0:
-#						eCard.get_node("AnimationPlayer").play("Perish")
-#						slotManager.rpc_id(fightManager.opponent, "remote_card_anim", slotIdx + 1, "Perish")
-#					else:
-#						eCard.draw_stats()
-#						slotManager.rpc_id(fightManager.opponent, "remote_card_stats", slotIdx + 1, eCard.attack, eCard.health)
-
-			if not slotManager.is_slot_empty(slotManager.enemySlots[slotIdx]):
-				var eCard = slotManager.get_enemy_card(slotIdx)
-				
-				if eCard.get_node("AnimationPlayer").current_animation != "Perish":
-					eCard.take_damage(self, 5)
+		
 
 		# Remove Energy Conduit Buff
 		if has_sigil("Energy Conduit"):
@@ -438,31 +402,6 @@ func begin_perish(doubleDeath = false):
 			elif not has_sigil("Boneless"):
 				fightManager.add_opponent_bones(1)
 		
-		# Explosive motherfucker
-		if has_sigil("Detonator"):
-
-			var slotIdx = get_parent().get_position_in_parent()
-
-			# Attack the moon
-			if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
-
-				fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(5)
-
-			elif not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
-				var eCard = slotManager.playerSlots[slotIdx].get_child(0)
-
-				if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-					eCard.take_damage(self, 5)
-#				
-			# Kill adjacents
-			for offset in [-1, 1]:
-				
-				var eCard = slotManager.get_enemy_card(slotIdx + offset)
-				
-				if eCard and not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-					eCard.take_damage(self, 5)
-					
-
 		# Energy conduit buff
 		if has_sigil("Energy Conduit"):
 			print("Removing enemy buff")

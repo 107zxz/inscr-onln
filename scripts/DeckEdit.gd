@@ -68,6 +68,8 @@ func _ready():
 	
 	load_deck()
 	
+	
+	
 	# Android
 	if OS.get_name() == "Android":
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton.visible = false
@@ -242,6 +244,8 @@ func ensure_default_deck():
 		defDeck.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 
 func load_deck(_arg = null):
+	
+	print("Loading deck ", selector_de.text, "...")
 
 	var dFile = File.new()
 	dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.READ)
@@ -343,7 +347,10 @@ func load_deck(_arg = null):
 	update_deck_count()
 
 func populate_deck_list():
-	var prevSelected = ""
+	
+	print("Populating deck list...")
+	
+	var prevSelected = "default"
 	
 	if selector_de.selected >= 0:
 		prevSelected = selector_de.get_item_text(selector_de.selected)
