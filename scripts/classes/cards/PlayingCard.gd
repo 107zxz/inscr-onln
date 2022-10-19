@@ -291,7 +291,7 @@ func attack_hit():
 
 # Called when the card starts dying. Add bones and stuff
 func begin_perish(doubleDeath = false):
-
+	
 	# New, special death signal
 	fightManager.emit_signal("sigil_event", "card_perished", [self])
 	
@@ -316,16 +316,16 @@ func begin_perish(doubleDeath = false):
 				
 		## SIGILS
 		# Ruby Heart
-		if has_sigil("Ruby Heart"):
-			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
-			slotManager.summon_card(CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
-			canRespawn = false
+#		if has_sigil("Ruby Heart"):
+#			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
+#			slotManager.summon_card(CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
+#			canRespawn = false
 
 		# Frozen Away
-		if has_sigil("Frozen Away"):
-			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent())
-			slotManager.summon_card(CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent())
-			canRespawn = false
+#		if has_sigil("Frozen Away"):
+#			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent())
+#			slotManager.summon_card(CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent(), true)
+#			canRespawn = false
 
 		# Unkillable
 		if has_sigil("Unkillable"):
