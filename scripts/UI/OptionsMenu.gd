@@ -21,7 +21,6 @@ func update_options():
 					else:
 						get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(1920, 1080))
 
-				
 func update_controls():
 	for cat in $TabContainer.get_children():
 		for opt in cat.get_children():

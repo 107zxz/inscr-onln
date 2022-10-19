@@ -1665,6 +1665,97 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
 
+[node name="MusInfo" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="MusInfo"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -312.5
+margin_top = -100.0
+margin_right = 312.5
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MusInfo/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 18
+alignment = 1
+
+[node name="WinLabel" type="Label" parent="MusInfo/Panel/VBoxContainer"]
+margin_top = 88.0
+margin_right = 625.0
+margin_bottom = 112.0
+text = "Downloading music..."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusPicker" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="MusPicker"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -100.0
+margin_right = 200.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MusPicker/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 18
+alignment = 1
+
+[node name="PickerLabel" type="Label" parent="MusPicker/Panel/VBoxContainer"]
+margin_top = 39.0
+margin_right = 400.0
+margin_bottom = 63.0
+text = "Insert Music Url:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SongUrl" type="LineEdit" parent="MusPicker/Panel/VBoxContainer"]
+margin_top = 81.0
+margin_right = 400.0
+margin_bottom = 109.0
+
+[node name="DlBtn" type="Button" parent="MusPicker/Panel/VBoxContainer"]
+margin_left = 174.0
+margin_top = 127.0
+margin_right = 225.0
+margin_bottom = 161.0
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Play"
+
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
 [connection signal="button_down" from="LeftSideUI/HammerButton" to="." method="hammer_mode"]

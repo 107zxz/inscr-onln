@@ -405,6 +405,13 @@ func play_card(slot):
 		
 		# Only allow playing cards in the NORMAL or FORCEPLAY states
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
+			
+			# Dirty override for jukebot
+			if playedCard.card_data.name == "Jukebot":
+				$MusPicker.visible = true
+				yield($MusPicker/Panel/VBoxContainer/DlBtn, "pressed")
+				$MusPicker.visible = false
+				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
 
 			replay.record_action({"type": "summoned_card", "card": playedCard.card_data, "slot": slot.get_position_in_parent()})
 
