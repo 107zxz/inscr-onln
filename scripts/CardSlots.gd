@@ -369,8 +369,18 @@ func initiate_combat(friendly: bool):
 		
 		return
 	
-	for pCard in ( all_friendly_cards() if friendly else all_enemy_cards() ):
+	for pCard in attackingCards:
 		
+		# TODO: FIX THIS
+		if not pCard:
+			continue
+
+		if not is_instance_valid(pCard):
+			continue
+			
+		if pCard.is_queued_for_deletion():
+			continue
+
 		var cardAnim = pCard.get_node("AnimationPlayer")
 		var slot_index = pCard.slot_idx()
 		
@@ -581,13 +591,9 @@ func summon_card(cDat, slot_idx, friendly: bool):
 	(playerSlots[slot_idx] if friendly else enemySlots[slot_idx]).add_child(nCard)
 	
 	fightManager.card_summoned(nCard)
-	
-	# Guardian (potentially client-side this)
-	# if is_slot_empty(enemySlots[slot_idx]):
-		# var guardians = get_enemy_cards_sigil("Guardian")
-		# if guardians:
-#			rpc_id(fightManager.opponent, "remote_card_move", guardians[0].get_parent().get_position_in_parent(), slot_idx, false)
-			# guardians[0].move_to_parent(enemySlots[slot_idx])
+
+	nCard.create_sigils(friendly)
+	fightManager.connect("sigil_event", nCard, "handle_sigil_event")
 
 # Remote
 remote func set_sac_olay_vis(slot, vis):
@@ -890,6 +896,10 @@ func get_conduitfx_friendly(slot_idx):
 
 # New Helper functions
 func get_friendly_card(slot_idx):
+	
+	if slot_idx > 3 or slot_idx < 0:
+		return false
+	
 	for card in playerSlots[slot_idx].get_children():
 		if not "Perish" in card.get_node("AnimationPlayer").current_animation:
 			return card
