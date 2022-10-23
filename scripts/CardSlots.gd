@@ -152,6 +152,15 @@ func pre_turn_sigils(friendly: bool):
 				card.get_node("CardBody/AtkIcon").visible = false
 				card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
 
+	# Enemy spawn conduit
+	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
+		print("Spawn Conduit ENEMY")
+		print(friendly)
+		for sIdx in range(4):
+			if is_slot_empty(enemySlots[sIdx]) and "Spawn Conduit" in get_conduitfx_enemy(sIdx):
+				summon_card(CardInfo.from_name("L33pB0t"), sIdx, false)
+
+
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
 
@@ -312,12 +321,16 @@ func post_turn_sigils(friendly: bool):
 			
 	
 	# Spawn conduit
-	if get_friendly_cards_sigil("Spawn Conduit"):
+	if get_friendly_cards_sigil("Spawn Conduit") and friendly:
+		print("Spawn Conduit FRIENDLY")
+		print(friendly)
 		for sIdx in range(4):
-			if is_slot_empty(affectedSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
+			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
 #				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
-				summon_card(CardInfo.from_name("L33pB0t"), sIdx, friendly)
-			
+				summon_card(CardInfo.from_name("L33pB0t"), sIdx, true)
+	
+
+
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
 	
@@ -862,6 +875,42 @@ func get_conduitfx(card):
 func get_conduitfx_friendly(slot_idx):
 
 	var slots = playerSlots
+	
+	var conduitfx = []
+
+	var lconduit = false
+	var rconduit = false
+
+	# Check slots left of slot_idx
+	for sIdx in range(slot_idx - 1, -1, -1):
+		if not is_slot_empty(slots[sIdx]):
+			if "conduit" in slots[sIdx].get_child(0).card_data:
+				lconduit = slots[sIdx].get_child(0)
+				if "sigils" in lconduit.card_data:
+					conduitfx.append_array(lconduit.card_data["sigils"])
+
+
+	# Check slots right of slot_idx
+	for sIdx in range(slot_idx + 1, 4):
+		if not is_slot_empty(slots[sIdx]):
+			if "conduit" in slots[sIdx].get_child(0).card_data:
+				rconduit = slots[sIdx].get_child(0)
+				if "sigils" in rconduit.card_data:
+					conduitfx.append_array(rconduit.card_data["sigils"])
+	
+	if not (lconduit and rconduit):
+		return []
+	
+	if conduitfx == []:
+		conduitfx = ["Basic"]
+	
+	print("Card at slot ", slot_idx, " has conduit fx: ", conduitfx)
+	
+	return conduitfx
+
+func get_conduitfx_enemy(slot_idx):
+
+	var slots = enemySlots
 	
 	var conduitfx = []
 
