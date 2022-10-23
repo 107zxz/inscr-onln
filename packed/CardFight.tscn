@@ -389,7 +389,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 212, 27.5 ), Vector2( 362, 90 ) ]
+"values": [ Vector2( 660, 280 ), Vector2( 810, 342 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("BothMoons/EnemyMoon:modulate")
@@ -479,7 +479,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 212, 322 ), Vector2( 362, 384 ) ]
+"values": [ Vector2( 660, 550 ), Vector2( 810, 615 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("BothMoons/FriendlyMoon:modulate")
@@ -686,6 +686,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 660, 280 ), Vector2( 660, 252.5 ), Vector2( 660, 307.5 ), Vector2( 660, 280 ) ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath("../CardSlots")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 4, 4 ],
+"method": "handle_enemy_attack"
+} ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "friendlyMoon"
@@ -888,7 +902,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 650, 550 ), Vector2( 650, 577.5 ), Vector2( 650, 522.5 ), Vector2( 650, 550 ) ]
+"values": [ Vector2( 660, 550 ), Vector2( 660, 577.5 ), Vector2( 660, 522.5 ), Vector2( 660, 550 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("../CardSlots")
