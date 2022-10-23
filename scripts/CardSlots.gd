@@ -486,7 +486,7 @@ func handle_attack(from_slot, to_slot):
 		# This means you're attacking the moon
 		
 		fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(
-			playerSlots[from_slot].get_child(0).attack
+			pCard.attack
 		)
 		
 		print("ATTACK RPC ANTIMOON: ", to_slot)
@@ -752,6 +752,7 @@ func handle_enemy_attack(from_slot, to_slot):
 		
 		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(moon.attack)
+			return
 		elif moon.target >= 0:
 #			playerSlots[moon.target].get_child(0).take_damage(null, moon.attack)
 			to_slot = moon.target

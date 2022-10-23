@@ -10,7 +10,7 @@ var working_sigils = []
 
 var custom_portraits = {}
 
-var data_path = OS.get_user_data_dir() if OS.get_name() != "Android" else "/sdcard/IMF/"
+var data_path = OS.get_user_data_dir() # if OS.get_name() != "Android" else "/sdcard/IMF/"
 
 var deck_path = data_path + "/decks/"
 var deck_backup_path = data_path + "/decks/undef/"
