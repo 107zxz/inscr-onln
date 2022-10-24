@@ -34,10 +34,10 @@ func _ready():
 		$CustomBackground.texture = CardInfo.background_texture
 	
 	# Android
-	if OS.get_name() == "Android":
+	if OS.get_name() in ["Android", "HTML5"]:
 		$LobbyHost/Rows/HostType/Type.select(1)
 		$LobbyHost/Rows/HostType/Type.set_item_disabled(0, true)
-#		$Menu/VBoxContainer/LogFolder.visible = false
+		$Menu/VBoxContainer/LogFolder.visible = false
 
 	# Select default deck by default
 	for dIdx in range($InLobby/Rows/DeckOptions/Deck.get_item_count()):
@@ -257,7 +257,7 @@ func _on_LobbyQuit_pressed():
 	NetworkManager.kill()
 
 func _on_LogFolder_pressed():
-	if OS.get_name() == "Android":
+	if OS.get_name() in ["Android", "HTML5"]:
 		errorBox("Your game directory is: " + CardInfo.data_path)
 		return
 	OS.shell_open("file://" + OS.get_user_data_dir())

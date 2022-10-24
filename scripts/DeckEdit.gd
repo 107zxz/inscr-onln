@@ -71,9 +71,9 @@ func _ready():
 	
 	
 	# Android
-	if OS.get_name() == "Android":
+	if OS.get_name() in ["Android", "HTML5"]:
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton.visible = false
-#		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
+		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
 
 func init_search_ui():
 	var id = 2
