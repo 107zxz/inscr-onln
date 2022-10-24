@@ -14,6 +14,7 @@ if false && [ -f "$bdir/win-$vno.exe" ]; then
 else
     echo "Building $bdir/win-$vno.exe"
     $gex --export-debug "Windows Desktop" $bdir/win-$vno.exe
+    7zz a $bdir/win-$vno.zip $bdir/win-$vno.exe $bdir/imf_tunnel.dll
 fi
 
 if false && [ -f "$bdir/osx-$vno.zip" ]; then
@@ -28,6 +29,7 @@ if false && [ -f "$bdir/linux-$vno.x86_64" ]; then
 else
     echo Building $bdir/linux-$vno.x86_64
     $gex --export-debug "Linux/X11" $bdir/linux-$vno.x86_64
+    7zz a $bdir/linux-$vno.zip $bdir/linux-$vno.x86_64 $bdir/imf_tunnel.so
 fi
 
 if false && [ -f "$bdir/android-$vno.apk" ]; then
@@ -37,11 +39,17 @@ else
     $gex --export-debug "Android" $bdir/android-$vno.apk
 fi
 
+
+echo Building $bdir/HTML5.zip
+mkdir $bdir/HTML5
+$gex --export-debug "HTML5" $bdir/HTML5/index.html
+7zz a $bdir/HTML5.zip $bdir/HTML5
+
 echo "Pushing windows..."
-butler push $bdir/win-$vno.exe 107zxz/inscryption-multiplayer-godot:win --userversion $vno
+butler push $bdir/win-$vno.zip 107zxz/inscryption-multiplayer-godot:win --userversion $vno
 echo "Pushing osx..."
 butler push $bdir/osx-$vno.zip 107zxz/inscryption-multiplayer-godot:osx --userversion $vno
 echo "Pushing linux..."
-butler push $bdir/linux-$vno.x86_64 107zxz/inscryption-multiplayer-godot:linux --userversion $vno
+butler push $bdir/linux-$vno.zip 107zxz/inscryption-multiplayer-godot:linux --userversion $vno
 echo "Pushing android..."
 butler push $bdir/android-$vno.apk 107zxz/inscryption-multiplayer-godot:android --userversion $vno
