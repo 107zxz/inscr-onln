@@ -625,7 +625,7 @@ func calculate_buffs():
 		elif fightManager.opponent_max_energy_buff == 0:
 			for eCard in slotManager.all_enemy_cards():
 				if eCard != self and "conduit" in eCard.card_data:
-					fightManager.opponent_max_energy_buff = 2
+					fightManager.opponent_max_energy_buff = 3
 					fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
 					fightManager.set_opponent_energy(fightManager.opponent_energy + fightManager.opponent_max_energy_buff)
 					break
