@@ -38,6 +38,10 @@ func _ready():
 		$LobbyHost/Rows/HostType/Type.select(1)
 		$LobbyHost/Rows/HostType/Type.set_item_disabled(0, true)
 		$Menu/VBoxContainer/LogFolder.visible = false
+		
+		$LobbyHost/Rows/RoomnameInfo.visible = false
+		$LobbyHost/Rows/Roomname.visible = false
+		
 
 	# Select default deck by default
 	for dIdx in range($InLobby/Rows/DeckOptions/Deck.get_item_count()):
@@ -54,7 +58,7 @@ func _ready():
 
 # Methods
 func debug_host():
-	$LobbyHost/Rows/HostType/Type.selected = 1
+	$LobbyHost/Rows/HostType/Type.select(1)
 	$LobbyHost/Rows/Nickname/LineEdit.text = "DEBUG_HOST"
 	$Blocker.visible = true
 
@@ -67,7 +71,7 @@ func debug_join():
 
 	$LobbyJoin/Rows/Address/IPInput.text = "127.0.0.1"
 	$LobbyJoin/Rows/Nickname/LineEdit.text = "DEBUG_CLIENT"
-	$LobbyJoin/Rows/HostType/LType.selected = 1
+	$LobbyJoin/Rows/HostType/LType.select(1)
 
 	_on_Join_pressed()
 #	yield(get_tree().create_timer(0.2), "timeout")
@@ -219,7 +223,6 @@ func _on_Host_pressed():
 			return
 			
 	print("Regex valid")
-	return # TODO: DELETE
 	
 	$LobbyHost.visible = false
 	lobbyList.clear()
@@ -546,5 +549,5 @@ func _LineEdit_unfocused():
 
 
 func _on_HostType_selected(index):
-		$LobbyHost/Rows/RoomnameInfo.visible = index == 0
-		$LobbyHost/Rows/Roomname.visible = index == 0
+	$LobbyHost/Rows/RoomnameInfo.visible = index == 0
+	$LobbyHost/Rows/Roomname.visible = index == 0
