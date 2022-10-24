@@ -204,8 +204,22 @@ func _on_Host_pressed():
 
 	if hostUnameBox.text.length() == 0:
 		return
-	if hostLnameBox.text.length() == 0 and $LobbyHost/Rows/HostType/Type.selected == 0:
-		return
+		
+	# Check lobby name
+	
+	if $LobbyHost/Rows/HostType/Type.selected == 0:
+
+		var regex = RegEx.new()
+#		regex.compile("[ !$%^&*()_+|~=`{}\[\]:";'<>?,.\/]")
+		regex.compile("[^A-Za-z0-9]")
+
+		var lobbyName = hostLnameBox.text
+		if regex.search(lobbyName) or len(lobbyName) < 5:
+			print("Invalid lobby name")
+			return
+			
+	print("Regex valid")
+	return # TODO: DELETE
 	
 	$LobbyHost.visible = false
 	lobbyList.clear()
@@ -529,3 +543,8 @@ func _LineEdit_unfocused():
 	if OS.get_name() == "Android":
 		$LobbyHost.rect_position.y += 130
 		$LobbyJoin.rect_position.y += 130
+
+
+func _on_HostType_selected(index):
+		$LobbyHost/Rows/RoomnameInfo.visible = index == 0
+		$LobbyHost/Rows/Roomname.visible = index == 0
