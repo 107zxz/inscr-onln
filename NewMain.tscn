@@ -459,6 +459,7 @@ anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="LobbyHost" type="PanelContainer" parent="TitleScreen"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
