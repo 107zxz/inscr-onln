@@ -650,12 +650,12 @@ func set_opponent_energy(ener_no):
 
 func set_max_energy(ener_no):
 	max_energy = ener_no
-	$PlayerInfo/MyInfo/Energy/MaxEnergy.rect_size.x = 10 * ener_no
+	$PlayerInfo/MyInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+max_energy_buff)
 	
 func set_opponent_max_energy(ener_no):
 	opponent_max_energy = ener_no
-	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_size.x = 10 * ener_no
-	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_position.x = 20 - 20 * ener_no
+	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+opponent_max_energy_buff)
+	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_position.x = 20 - 20 * (ener_no+opponent_max_energy_buff)
 
 
 func reload_hand():
