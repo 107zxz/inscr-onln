@@ -41,6 +41,10 @@ func _ready():
 		
 		$LobbyHost/Rows/RoomnameInfo.visible = false
 		$LobbyHost/Rows/Roomname.visible = false
+	
+	if OS.get_name() == "HTML5":
+		$Menu/VBoxContainer/HostBtn.disabled = true
+		$Menu/VBoxContainer/HostBtn.text = "Host Game (unavailable on web version)"
 		
 
 	# Select default deck by default
