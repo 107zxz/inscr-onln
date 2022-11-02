@@ -5,4 +5,4 @@ Available at https://107zxz.itch.io/inscryption-multiplayer-godot
 
 Source code is available under the GPL license for anyone to use.
 
-Source was formerly available under MIT license, but this led to forks being distributed over discord as executables without visible source code, and I really don't want this project to be yet another discord virus factory.
+Source was formerly available under MIT license, but this led to forks being distributed over discord as executables without visible source code, and I really don't want this project to be yet another discord virus factory. I also want this game's code to be a resource for people who want to make their own fangames (even though it is super spaghetti).
