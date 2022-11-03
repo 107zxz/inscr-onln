@@ -6,6 +6,7 @@ var resume = null
 var tunnelFunc = null
 
 signal received_output(code)
+signal received_error(code)
 
 func _ready():
 	scpt = NativeScript.new()
@@ -36,6 +37,10 @@ func tunnel_callback(url):
 	emit_signal("received_output", rcode)
 	
 	print("Parsed room code: ", rcode)
+	
+func tunnel_error(err):
+	print("Got error from tunnel: ", err)
+	emit_signal("received_error", err)
 
 func _exit_tree():
 	if tunnelFunc:
