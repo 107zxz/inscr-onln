@@ -29,7 +29,7 @@ if false && [ -f "$bdir/linux-$vno.x86_64" ]; then
 else
     echo Building $bdir/linux-$vno.x86_64
     $gex --export-debug "Linux/X11" $bdir/linux-$vno.x86_64
-    7zz a $bdir/linux-$vno.zip $bdir/linux-$vno.x86_64 $bdir/imf_tunnel.so
+    7zz a $bdir/linux-$vno.zip $bdir/linux-$vno.x86_64 $bdir/libimf_tunnel.so
 fi
 
 if false && [ -f "$bdir/android-$vno.apk" ]; then
@@ -53,3 +53,5 @@ echo "Pushing linux..."
 butler push $bdir/linux-$vno.zip 107zxz/inscryption-multiplayer-godot:linux --userversion $vno
 echo "Pushing android..."
 butler push $bdir/android-$vno.apk 107zxz/inscryption-multiplayer-godot:android --userversion $vno
+echo "Pushing HTML5"
+butler push $bdir/HTML5.zip 107zxz/inscryption-multiplayer-godot:web --userversion $vno
