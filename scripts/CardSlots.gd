@@ -448,8 +448,8 @@ func initiate_combat(friendly: bool):
 				for _i in range(2 if pCard.has_sigil("Double Strike") else 1):
 
 					# Don't attack repulsive cards!
-					if not is_slot_empty(enemySlots[slot_index]) and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
-						if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
+					if not is_slot_empty(defendingSlots[slot_index]) and defendingSlots[slot_index].get_child(0).has_sigil("Repulsive"):
+						if not pCard.has_sigil("Airborne") or defendingSlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
 							continue
 					
 					cardAnim.play("Attack" if friendly else "AttackRemote")
@@ -753,8 +753,6 @@ func handle_enemy_attack(from_slot, to_slot):
 
 	fightManager.replay.record_action({"type": "enemy_attack", "from_slot": from_slot, "to_slot": to_slot})
 
-	print("Attack RPC recieved: ", to_slot)
-	
 	var eCard = get_enemy_card(from_slot)
 	
 	# Special moon logic

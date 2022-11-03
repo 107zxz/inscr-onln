@@ -195,7 +195,9 @@ func init_match(opp_id: int, do_go_first: bool):
 	
 	var next_card = side_deck.pop_front()
 	
-	draw_card(next_card, $DrawPiles/YourDecks/SideDeck)
+	# Draw client-side
+	draw_card(next_card, $DrawPiles/YourDecks/SideDeck, false)
+	_opponent_drew_card("SideDeck")
 	
 	replay.record_action({"type": "draw_side", "card": next_card})
 	
@@ -206,7 +208,9 @@ func init_match(opp_id: int, do_go_first: bool):
 
 		next_card = deck.pop_front()
 
-		draw_card(next_card)
+		# Draw client-side
+		draw_card(next_card, $DrawPiles/YourDecks/Deck, false)
+		_opponent_drew_card("Deck")
 
 		replay.record_action({"type": "draw_main", "card": next_card})
 		
@@ -341,7 +345,7 @@ func starve_check():
 		return true
 	return false
 
-func draw_card(card, source = $DrawPiles/YourDecks/Deck):
+func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	
 	print("Local player drew card ", card)
 	
@@ -376,7 +380,8 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck):
 	# Animate the card
 	nCard.move_to_parent(pHand)
 	
-	rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
+	if do_rpc:
+		rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
 	
 	# Update deck size
 	var dst = "err"
