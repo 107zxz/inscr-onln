@@ -224,7 +224,7 @@ func _on_Host_pressed():
 		var lobbyName = hostLnameBox.text
 		if regex.search(lobbyName) or len(lobbyName) < 5:
 			print("Invalid lobby name")
-			return
+#			return
 			
 	print("Regex valid")
 	
@@ -253,6 +253,7 @@ func _on_Host_pressed():
 		# Open a tunnel
 		TunnelHandler.start_tunnel(hostLnameBox.text)
 		TunnelHandler.connect("received_output", self, "_on_tunnel_output")
+		TunnelHandler.connect("received_error", self, "_on_tunnel_error")
 #		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
 	else:
 		$InLobby.visible = true
@@ -374,6 +375,7 @@ func _on_Kick_pressed():
 # Network callbacks
 func _on_tunnel_output(code):
 	TunnelHandler.disconnect("received_output", self, "_on_tunnel_output")
+	TunnelHandler.disconnect("received_error", self, "_on_tunnel_error")
 	
 	$LoadingScreen.visible = false
 	$InLobby.visible = true
@@ -383,17 +385,12 @@ func _on_tunnel_output(code):
 	lobby_data.is_ip = false
 	
 	update_lobby()
-
-#	TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
 	
-func _on_host_timeout():
+func _on_tunnel_error(err):
+	errorBox(err)
 	$LoadingScreen.visible = false
-	errorBox("Tunnel Error: Please try again or check lhrlog.txt in the Game Directory for the error message")
-	
-	TunnelHandler.disconnect("recieved_output", self, "_on_tunnel_output")
-	TunnelHandler.disconnect("process_ended", self, "_on_host_timeout")
-
-	NetworkManager.kill()
+	TunnelHandler.disconnect("received_output", self, "_on_tunnel_output")
+	TunnelHandler.disconnect("received_error", self, "_on_tunnel_error")
 
 func _joined_game():
 	$LoadingScreen.visible = false
