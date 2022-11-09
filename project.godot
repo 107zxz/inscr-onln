@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://scripts/classes/Replay.gd"
 }, {
 "base": "Reference",
+"class": "Ruleset",
+"language": "GDScript",
+"path": "res://scripts/classes/Ruleset.gd"
+}, {
+"base": "Reference",
 "class": "SigilEffect",
 "language": "GDScript",
 "path": "res://scripts/classes/sigils/SigilEffect.gd"
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "BuffEffect": "",
 "GitAPI": "",
 "Replay": "",
+"Ruleset": "",
 "SigilEffect": ""
 }
 
