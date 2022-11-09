@@ -187,7 +187,7 @@ func post_turn_sigils(friendly: bool):
 				var sprintOffset = -1 if sprintSigil.flip_h else 1
 				var moveFailed = false
 				var cantMove = false
-				var ogFlipped = sprintSigil.flip_h
+#				var ogFlipped = sprintSigil.flip_h
 				
 				for _i in range(2):
 					# Edges of screen
