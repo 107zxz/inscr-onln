@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/UI/RulesetEditor.gd" type="Script" id=2]
+[ext_resource path="res://gfx/pixport/Adder.png" type="Texture" id=3]
+[ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=4]
+[ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=5]
+[ext_resource path="res://gfx/sigils/Green Mox.png" type="Texture" id=6]
 
 [node name="REdit" type="Control"]
 anchor_right = 1.0
@@ -61,6 +65,8 @@ margin_bottom = 1042.0
 size_flags_horizontal = 3
 
 [node name="Options" type="VBoxContainer" parent="Cards/Panel"]
+unique_name_in_owner = true
+visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -101,9 +107,215 @@ text = "One"
 items = [ "One", null, false, 0, null, "Two", null, false, 1, null ]
 selected = 0
 
+[node name="CardDat" type="Control" parent="Cards/Panel"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Port" type="TextureRect" parent="Cards/Panel/CardDat"]
+margin_left = 68.0
+margin_top = 72.0
+margin_right = 888.0
+margin_bottom = 632.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Atk" type="SpinBox" parent="Cards/Panel/CardDat"]
+margin_left = 68.0
+margin_top = 632.0
+margin_right = 196.0
+margin_bottom = 660.0
+align = 1
+
+[node name="Hp" type="SpinBox" parent="Cards/Panel/CardDat"]
+margin_left = 759.0
+margin_top = 632.0
+margin_right = 887.0
+margin_bottom = 660.0
+min_value = 1.0
+value = 1.0
+align = 1
+
+[node name="Name" type="LineEdit" parent="Cards/Panel/CardDat"]
+margin_left = 360.0
+margin_top = 43.0
+margin_right = 610.0
+margin_bottom = 71.0
+align = 1
+
+[node name="SigilA" type="OptionButton" parent="Cards/Panel/CardDat"]
+margin_left = 360.0
+margin_top = 650.0
+margin_right = 610.0
+margin_bottom = 684.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "None"
+align = 1
+items = [ "None", null, false, 0, null ]
+selected = 0
+
+[node name="SigilB" type="OptionButton" parent="Cards/Panel/CardDat"]
+margin_left = 360.0
+margin_top = 688.0
+margin_right = 610.0
+margin_bottom = 722.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "None"
+align = 1
+items = [ "None", null, false, 0, null ]
+selected = 0
+
+[node name="BloodCost" type="SpinBox" parent="Cards/Panel/CardDat"]
+margin_left = 380.0
+margin_top = 792.0
+margin_right = 508.0
+margin_bottom = 820.0
+max_value = 4.0
+align = 1
+
+[node name="BLabel" type="Label" parent="Cards/Panel/CardDat"]
+margin_left = 512.0
+margin_top = 792.0
+margin_right = 590.0
+margin_bottom = 826.0
+text = "Blood"
+
+[node name="BoneCost" type="SpinBox" parent="Cards/Panel/CardDat"]
+margin_left = 380.0
+margin_top = 826.0
+margin_right = 508.0
+margin_bottom = 854.0
+max_value = 4.0
+align = 1
+
+[node name="BLabel2" type="Label" parent="Cards/Panel/CardDat"]
+margin_left = 512.0
+margin_top = 826.0
+margin_right = 590.0
+margin_bottom = 860.0
+text = "Bones"
+
+[node name="EnergyCost" type="SpinBox" parent="Cards/Panel/CardDat"]
+margin_left = 380.0
+margin_top = 860.0
+margin_right = 508.0
+margin_bottom = 888.0
+max_value = 4.0
+align = 1
+
+[node name="ELabel" type="Label" parent="Cards/Panel/CardDat"]
+margin_left = 512.0
+margin_top = 860.0
+margin_right = 590.0
+margin_bottom = 894.0
+text = "Energy"
+
+[node name="RMox" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 421.0
+margin_top = 901.0
+margin_right = 458.0
+margin_bottom = 935.0
+focus_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 4 )
+
+[node name="GMox" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 461.0
+margin_top = 901.0
+margin_right = 498.0
+margin_bottom = 935.0
+focus_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 6 )
+
+[node name="BMox" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 502.0
+margin_top = 901.0
+margin_right = 539.0
+margin_bottom = 935.0
+focus_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 5 )
+
+[node name="Banned" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 68.0
+margin_top = 792.0
+margin_right = 172.0
+margin_bottom = 826.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Banned"
+
+[node name="Rare" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 68.0
+margin_top = 826.0
+margin_right = 172.0
+margin_bottom = 860.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Rare"
+
+[node name="NoSac" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 695.0
+margin_top = 792.0
+margin_right = 883.0
+margin_bottom = 826.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Unsacrificeable"
+
+[node name="NoHammer" type="CheckBox" parent="Cards/Panel/CardDat"]
+margin_left = 705.0
+margin_top = 826.0
+margin_right = 884.0
+margin_bottom = 860.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Unhammerable"
+
+[node name="IsConduit" type="CheckBox" parent="Cards/Panel/CardDat"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = 339.0
+margin_right = -74.0
+margin_bottom = 373.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Conduit"
+
+[node name="EvolLabel" type="Label" parent="Cards/Panel/CardDat"]
+margin_left = 229.0
+margin_top = 946.0
+margin_right = 488.0
+margin_bottom = 970.0
+text = "Evolves / Defrosts into:"
+
+[node name="Evol" type="LineEdit" parent="Cards/Panel/CardDat"]
+margin_left = 491.0
+margin_top = 943.0
+margin_right = 741.0
+margin_bottom = 971.0
+align = 1
+
+[node name="OptionButton" type="OptionButton" parent="Cards/Panel/CardDat"]
+margin_left = 71.0
+margin_top = 660.0
+margin_right = 89.0
+margin_bottom = 694.0
+text = "Normal"
+items = [ "Normal", null, false, 0, null, "Mox", null, false, 1, null, "Mirror", null, false, 2, null, "Ant", null, false, 3, null ]
+selected = 0
+
 [node name="Button" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -34.0
 margin_bottom = 34.0
 text = "X"
+
+[connection signal="item_selected" from="Cards/VBoxContainer/RulesetTree" to="." method="_on_RulesetTree_item_selected"]
