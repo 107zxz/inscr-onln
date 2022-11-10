@@ -4,430 +4,460 @@
 [ext_resource path="res://scripts/UI/ThemeEditor.gd" type="Script" id=2]
 
 [node name="ThemeEditor" type="PanelContainer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -170.5
-margin_top = -195.5
-margin_right = 170.5
-margin_bottom = 195.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -644.0
+margin_right = 514.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Options" type="VBoxContainer" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 339.0
-margin_bottom = 389.0
+margin_right = 512.0
+margin_bottom = 642.0
 
 [node name="Description" type="Label" parent="Options"]
-margin_right = 337.0
-margin_bottom = 13.0
+margin_right = 510.0
+margin_bottom = 24.0
 text = "Theme Editor:"
 align = 1
 
-[node name="Borders" type="HBoxContainer" parent="Options"]
-margin_top = 13.0
-margin_right = 337.0
-margin_bottom = 30.0
+[node name="border_colour" type="HBoxContainer" parent="Options"]
+margin_top = 24.0
+margin_right = 510.0
+margin_bottom = 52.0
 
-[node name="Label" type="Label" parent="Options/Borders"]
+[node name="Label" type="Label" parent="Options/border_colour"]
 margin_top = 2.0
-margin_right = 53.0
-margin_bottom = 15.0
+margin_right = 98.0
+margin_bottom = 26.0
 text = "Borders: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Borders"]
-margin_left = 53.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/border_colour"]
+margin_left = 98.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Background" type="HBoxContainer" parent="Options"]
-margin_top = 30.0
-margin_right = 337.0
-margin_bottom = 47.0
+[node name="background_colour" type="HBoxContainer" parent="Options"]
+margin_top = 52.0
+margin_right = 510.0
+margin_bottom = 80.0
 
-[node name="Label" type="Label" parent="Options/Background"]
+[node name="Label" type="Label" parent="Options/background_colour"]
 margin_top = 2.0
-margin_right = 77.0
-margin_bottom = 15.0
+margin_right = 143.0
+margin_bottom = 26.0
 text = "Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Background"]
-margin_left = 77.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/background_colour"]
+margin_left = 143.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Editbox Background" type="HBoxContainer" parent="Options"]
-margin_top = 47.0
-margin_right = 337.0
-margin_bottom = 64.0
+[node name="edit_background" type="HBoxContainer" parent="Options"]
+margin_top = 80.0
+margin_right = 510.0
+margin_bottom = 108.0
 
-[node name="Label" type="Label" parent="Options/Editbox Background"]
+[node name="Label" type="Label" parent="Options/edit_background"]
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 15.0
+margin_right = 234.0
+margin_bottom = 26.0
 text = "Editbox Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Editbox Background"]
-margin_left = 126.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/edit_background"]
+margin_left = 234.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Text" type="HBoxContainer" parent="Options"]
-margin_top = 64.0
-margin_right = 337.0
-margin_bottom = 81.0
+[node name="text_colour" type="HBoxContainer" parent="Options"]
+margin_top = 108.0
+margin_right = 510.0
+margin_bottom = 136.0
 
-[node name="Label" type="Label" parent="Options/Text"]
+[node name="Label" type="Label" parent="Options/text_colour"]
 margin_top = 2.0
-margin_right = 35.0
-margin_bottom = 15.0
+margin_right = 65.0
+margin_bottom = 26.0
 text = "Text: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Text"]
-margin_left = 35.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/text_colour"]
+margin_left = 65.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Pixel Art" type="HBoxContainer" parent="Options"]
-margin_top = 81.0
-margin_right = 337.0
-margin_bottom = 98.0
+[node name="pixart_colour" type="HBoxContainer" parent="Options"]
+margin_top = 136.0
+margin_right = 510.0
+margin_bottom = 164.0
 
-[node name="Label" type="Label" parent="Options/Pixel Art"]
+[node name="Label" type="Label" parent="Options/pixart_colour"]
 margin_top = 2.0
-margin_right = 59.0
-margin_bottom = 15.0
+margin_right = 110.0
+margin_bottom = 26.0
 text = "Pixel Art: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Pixel Art"]
-margin_left = 59.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/pixart_colour"]
+margin_left = 110.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Common Card Background" type="HBoxContainer" parent="Options"]
-margin_top = 98.0
-margin_right = 337.0
-margin_bottom = 115.0
+[node name="cards-common-normal" type="HBoxContainer" parent="Options"]
+margin_top = 164.0
+margin_right = 510.0
+margin_bottom = 192.0
 
-[node name="Label" type="Label" parent="Options/Common Card Background"]
+[node name="Label" type="Label" parent="Options/cards-common-normal"]
 margin_top = 2.0
-margin_right = 160.0
-margin_bottom = 15.0
+margin_right = 297.0
+margin_bottom = 26.0
 text = "Common Card Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Common Card Background"]
-margin_left = 160.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-common-normal"]
+margin_left = 297.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Common Card Background Hover" type="HBoxContainer" parent="Options"]
-margin_top = 115.0
-margin_right = 337.0
-margin_bottom = 132.0
+[node name="cards-common-hover" type="HBoxContainer" parent="Options"]
+margin_top = 192.0
+margin_right = 510.0
+margin_bottom = 220.0
 
-[node name="Label" type="Label" parent="Options/Common Card Background Hover"]
+[node name="Label" type="Label" parent="Options/cards-common-hover"]
 margin_top = 2.0
-margin_right = 197.0
-margin_bottom = 15.0
+margin_right = 365.0
+margin_bottom = 26.0
 text = "Common Card Background Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Common Card Background Hover"]
-margin_left = 197.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-common-hover"]
+margin_left = 365.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Rare Card Background" type="HBoxContainer" parent="Options"]
-margin_top = 132.0
-margin_right = 337.0
-margin_bottom = 149.0
+[node name="cards-rare-normal" type="HBoxContainer" parent="Options"]
+margin_top = 220.0
+margin_right = 510.0
+margin_bottom = 248.0
 
-[node name="Label" type="Label" parent="Options/Rare Card Background"]
+[node name="Label" type="Label" parent="Options/cards-rare-normal"]
 margin_top = 2.0
-margin_right = 142.0
-margin_bottom = 15.0
+margin_right = 263.0
+margin_bottom = 26.0
 text = "Rare Card Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Rare Card Background"]
-margin_left = 142.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rare-normal"]
+margin_left = 263.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Rare Card Background Hover" type="HBoxContainer" parent="Options"]
-margin_top = 149.0
-margin_right = 337.0
-margin_bottom = 166.0
+[node name="cards-rare-hover" type="HBoxContainer" parent="Options"]
+margin_top = 248.0
+margin_right = 510.0
+margin_bottom = 276.0
 
-[node name="Label" type="Label" parent="Options/Rare Card Background Hover"]
+[node name="Label" type="Label" parent="Options/cards-rare-hover"]
 margin_top = 2.0
-margin_right = 179.0
-margin_bottom = 15.0
+margin_right = 331.0
+margin_bottom = 26.0
 text = "Rare Card Background Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Rare Card Background Hover"]
-margin_left = 179.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rare-hover"]
+margin_left = 331.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Unsacrificeable Card Background" type="HBoxContainer" parent="Options"]
-margin_top = 166.0
-margin_right = 337.0
-margin_bottom = 183.0
+[node name="cards-nosac-normal" type="HBoxContainer" parent="Options"]
+margin_top = 276.0
+margin_right = 510.0
+margin_bottom = 304.0
 
-[node name="Label" type="Label" parent="Options/Unsacrificeable Card Background"]
+[node name="Label" type="Label" parent="Options/cards-nosac-normal"]
 margin_top = 2.0
-margin_right = 203.0
-margin_bottom = 15.0
+margin_right = 377.0
+margin_bottom = 26.0
 text = "Unsacrificeable Card Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Unsacrificeable Card Background"]
-margin_left = 203.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nosac-normal"]
+margin_left = 377.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Unsacrificeable Card Background Hover" type="HBoxContainer" parent="Options"]
-margin_top = 183.0
-margin_right = 337.0
-margin_bottom = 200.0
+[node name="cards-nosac-hover" type="HBoxContainer" parent="Options"]
+margin_top = 304.0
+margin_right = 510.0
+margin_bottom = 332.0
 
-[node name="Label" type="Label" parent="Options/Unsacrificeable Card Background Hover"]
+[node name="Label" type="Label" parent="Options/cards-nosac-hover"]
 margin_top = 2.0
-margin_right = 240.0
-margin_bottom = 15.0
+margin_right = 445.0
+margin_bottom = 26.0
 text = "Unsacrificeable Card Background Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Unsacrificeable Card Background Hover"]
-margin_left = 240.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nosac-hover"]
+margin_left = 445.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Rare Unsacrificeable Card Background" type="HBoxContainer" parent="Options"]
-margin_top = 200.0
-margin_right = 337.0
-margin_bottom = 217.0
+[node name="cards-rns-normal" type="HBoxContainer" parent="Options"]
+margin_top = 332.0
+margin_right = 510.0
+margin_bottom = 360.0
 
-[node name="Label" type="Label" parent="Options/Rare Unsacrificeable Card Background"]
+[node name="Label" type="Label" parent="Options/cards-rns-normal"]
 margin_top = 2.0
-margin_right = 236.0
-margin_bottom = 15.0
+margin_right = 438.0
+margin_bottom = 26.0
 text = "Rare Unsacrificeable Card Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Rare Unsacrificeable Card Background"]
-margin_left = 236.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rns-normal"]
+margin_left = 438.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Rare Unsacrificeable Card Background Hover" type="HBoxContainer" parent="Options"]
-margin_top = 217.0
-margin_right = 337.0
-margin_bottom = 234.0
+[node name="cards-rns-hover" type="HBoxContainer" parent="Options"]
+margin_top = 360.0
+margin_right = 510.0
+margin_bottom = 388.0
 
-[node name="Label" type="Label" parent="Options/Rare Unsacrificeable Card Background Hover"]
+[node name="Label" type="Label" parent="Options/cards-rns-hover"]
 margin_top = 2.0
-margin_right = 273.0
-margin_bottom = 15.0
+margin_right = 506.0
+margin_bottom = 26.0
 text = "Rare Unsacrificeable Card Background Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Rare Unsacrificeable Card Background Hover"]
-margin_left = 273.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rns-hover"]
+margin_left = 506.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Unhammerable Card Background" type="HBoxContainer" parent="Options"]
-margin_top = 234.0
-margin_right = 337.0
-margin_bottom = 251.0
+[node name="cards-nohammer-normal" type="HBoxContainer" parent="Options"]
+margin_top = 388.0
+margin_right = 510.0
+margin_bottom = 416.0
 
-[node name="Label" type="Label" parent="Options/Unhammerable Card Background"]
+[node name="Label" type="Label" parent="Options/cards-nohammer-normal"]
 margin_top = 2.0
-margin_right = 198.0
-margin_bottom = 15.0
+margin_right = 368.0
+margin_bottom = 26.0
 text = "Unhammerable Card Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Unhammerable Card Background"]
-margin_left = 198.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nohammer-normal"]
+margin_left = 368.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
-[node name="Unhammerable Card Background Hover" type="HBoxContainer" parent="Options"]
-margin_top = 251.0
-margin_right = 337.0
-margin_bottom = 268.0
+[node name="cards-nohammer-hover" type="HBoxContainer" parent="Options"]
+margin_top = 416.0
+margin_right = 510.0
+margin_bottom = 444.0
 
-[node name="Label" type="Label" parent="Options/Unhammerable Card Background Hover"]
+[node name="Label" type="Label" parent="Options/cards-nohammer-hover"]
 margin_top = 2.0
-margin_right = 235.0
-margin_bottom = 15.0
+margin_right = 436.0
+margin_bottom = 26.0
 text = "Unhammerable Card Background Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Unhammerable Card Background Hover"]
-margin_left = 235.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nohammer-hover"]
+margin_left = 436.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Button Background" type="HBoxContainer" parent="Options"]
-margin_top = 268.0
-margin_right = 337.0
-margin_bottom = 285.0
+margin_top = 444.0
+margin_right = 510.0
+margin_bottom = 472.0
 
 [node name="Label" type="Label" parent="Options/Button Background"]
 margin_top = 2.0
-margin_right = 123.0
-margin_bottom = 15.0
+margin_right = 228.0
+margin_bottom = 26.0
 text = "Button Background: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Button Background"]
-margin_left = 123.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Background"]
+margin_left = 228.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Button Border" type="HBoxContainer" parent="Options"]
-margin_top = 285.0
-margin_right = 337.0
-margin_bottom = 302.0
+margin_top = 472.0
+margin_right = 510.0
+margin_bottom = 500.0
 
 [node name="Label" type="Label" parent="Options/Button Border"]
 margin_top = 2.0
-margin_right = 93.0
-margin_bottom = 15.0
+margin_right = 172.0
+margin_bottom = 26.0
 text = "Button Border: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Button Border"]
-margin_left = 93.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Border"]
+margin_left = 172.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Button Background Pressed" type="HBoxContainer" parent="Options"]
-margin_top = 302.0
-margin_right = 337.0
-margin_bottom = 319.0
+margin_top = 500.0
+margin_right = 510.0
+margin_bottom = 528.0
 
 [node name="Label" type="Label" parent="Options/Button Background Pressed"]
 margin_top = 2.0
-margin_right = 174.0
-margin_bottom = 15.0
+margin_right = 322.0
+margin_bottom = 26.0
 text = "Button Background Pressed: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Button Background Pressed"]
-margin_left = 174.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Background Pressed"]
+margin_left = 322.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Button Border Pressed" type="HBoxContainer" parent="Options"]
-margin_top = 319.0
-margin_right = 337.0
-margin_bottom = 336.0
+margin_top = 528.0
+margin_right = 510.0
+margin_bottom = 556.0
 
 [node name="Label" type="Label" parent="Options/Button Border Pressed"]
 margin_top = 2.0
-margin_right = 144.0
-margin_bottom = 15.0
+margin_right = 266.0
+margin_bottom = 26.0
 text = "Button Border Pressed: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Button Border Pressed"]
-margin_left = 144.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Border Pressed"]
+margin_left = 266.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Button Background Hover" type="HBoxContainer" parent="Options"]
-margin_top = 336.0
-margin_right = 337.0
-margin_bottom = 353.0
+margin_top = 556.0
+margin_right = 510.0
+margin_bottom = 584.0
 
 [node name="Label" type="Label" parent="Options/Button Background Hover"]
 margin_top = 2.0
-margin_right = 160.0
-margin_bottom = 15.0
+margin_right = 296.0
+margin_bottom = 26.0
 text = "Button Background Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Button Background Hover"]
-margin_left = 160.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Background Hover"]
+margin_left = 296.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Button Border Hover" type="HBoxContainer" parent="Options"]
-margin_top = 353.0
-margin_right = 337.0
-margin_bottom = 370.0
+margin_top = 584.0
+margin_right = 510.0
+margin_bottom = 612.0
 
 [node name="Label" type="Label" parent="Options/Button Border Hover"]
 margin_top = 2.0
-margin_right = 130.0
-margin_bottom = 15.0
+margin_right = 240.0
+margin_bottom = 26.0
 text = "Button Border Hover: "
 
-[node name="LineEdit" type="LineEdit" parent="Options/Button Border Hover"]
-margin_left = 130.0
-margin_right = 337.0
-margin_bottom = 17.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Border Hover"]
+margin_left = 240.0
+margin_right = 510.0
+margin_bottom = 28.0
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Buttons" type="HBoxContainer" parent="Options"]
-margin_top = 370.0
-margin_right = 337.0
-margin_bottom = 387.0
+margin_top = 612.0
+margin_right = 510.0
+margin_bottom = 640.0
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="Options/Buttons"]
-margin_left = 41.0
-margin_right = 73.0
-margin_bottom = 17.0
+margin_left = 59.0
+margin_right = 115.0
+margin_bottom = 28.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Save"
 
 [node name="Spacer" type="Control" parent="Options/Buttons"]
-margin_left = 73.0
-margin_right = 114.568
-margin_bottom = 17.0
+margin_left = 115.0
+margin_right = 156.568
+margin_bottom = 28.0
 rect_min_size = Vector2( 41.568, 0 )
 
 [node name="DefaultsButton" type="Button" parent="Options/Buttons"]
-margin_left = 114.0
-margin_right = 220.0
-margin_bottom = 17.0
+margin_left = 156.0
+margin_right = 349.0
+margin_bottom = 28.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Reset to Default"
 
 [node name="Spacer2" type="Control" parent="Options/Buttons"]
-margin_left = 220.0
-margin_right = 261.568
-margin_bottom = 17.0
+margin_left = 349.0
+margin_right = 390.568
+margin_bottom = 28.0
 rect_min_size = Vector2( 41.568, 0 )
 
 [node name="CloseButton" type="Button" parent="Options/Buttons"]
-margin_left = 261.0
-margin_right = 295.0
-margin_bottom = 17.0
+margin_left = 390.0
+margin_right = 450.0
+margin_bottom = 28.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Close"
+
+[node name="Control" type="Control" parent="."]
+visible = false
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 620.0
+margin_bottom = 642.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Control"]
+margin_left = -714.241
+margin_top = 53.5372
+margin_right = -96.2413
+margin_bottom = 693.537
 
 [connection signal="pressed" from="Options/Buttons/SaveButton" to="." method="save"]
 [connection signal="pressed" from="Options/Buttons/DefaultsButton" to="." method="defaults"]

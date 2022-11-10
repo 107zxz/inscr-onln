@@ -41,22 +41,34 @@ custom_constants/separation = 16
 alignment = 1
 
 [node name="Add" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 345.0
-margin_right = 388.0
+margin_left = 225.0
+margin_right = 268.0
 margin_bottom = 34.0
 text = "Add"
 
 [node name="Remove" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 404.0
-margin_right = 490.0
+margin_left = 284.0
+margin_right = 370.0
 margin_bottom = 34.0
 text = "Remove"
 
 [node name="Duplicate" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 506.0
-margin_right = 613.0
+margin_left = 386.0
+margin_right = 493.0
 margin_bottom = 34.0
 text = "Duplicate"
+
+[node name="MoveUp" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
+margin_left = 509.0
+margin_right = 598.0
+margin_bottom = 34.0
+text = "Move Up"
+
+[node name="MoveDown" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
+margin_left = 614.0
+margin_right = 733.0
+margin_bottom = 34.0
+text = "Move Down"
 
 [node name="Panel" type="Panel" parent="Cards"]
 margin_left = 958.0
@@ -66,7 +78,6 @@ size_flags_horizontal = 3
 
 [node name="Options" type="VBoxContainer" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -101,14 +112,17 @@ text = "Number of Candles: "
 
 [node name="OptionButton" type="OptionButton" parent="Cards/Panel/Options/Candles"]
 margin_left = 219.0
-margin_right = 276.0
+margin_right = 278.0
 margin_bottom = 34.0
-text = "One"
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Two"
 items = [ "One", null, false, 0, null, "Two", null, false, 1, null ]
-selected = 0
+selected = 1
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -239,14 +253,14 @@ focus_mode = 0
 enabled_focus_mode = 0
 icon = ExtResource( 5 )
 
-[node name="Banned" type="CheckBox" parent="Cards/Panel/CardDat"]
+[node name="NotBanned" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 68.0
 margin_top = 792.0
 margin_right = 172.0
 margin_bottom = 826.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Banned"
+text = "Draftable"
 
 [node name="Rare" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 68.0
@@ -302,7 +316,7 @@ margin_right = 741.0
 margin_bottom = 971.0
 align = 1
 
-[node name="OptionButton" type="OptionButton" parent="Cards/Panel/CardDat"]
+[node name="SpecAttk" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 71.0
 margin_top = 660.0
 margin_right = 89.0
@@ -316,6 +330,9 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -34.0
 margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "X"
 
 [connection signal="item_selected" from="Cards/VBoxContainer/RulesetTree" to="." method="_on_RulesetTree_item_selected"]
+[connection signal="pressed" from="Button" to="." method="hide"]
