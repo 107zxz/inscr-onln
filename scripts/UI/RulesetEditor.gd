@@ -5,6 +5,7 @@ var cardRoot = null
 var sigilRoot = null
 
 onready var cardDats = get_node("%CardDat").get_children()
+onready var rulesetDats = get_node("%Options").get_children()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +18,7 @@ func _ready():
 	
 	var root = tree.create_item()
 	
-	root.set_text(0, "Ruleset")
+	root.set_text(0, CardInfo.ruleset)
 	
 	cardRoot = tree.create_item(root)
 	sigilRoot = tree.create_item(root)
@@ -43,11 +44,17 @@ func populate_sigils():
 
 func _on_RulesetTree_item_selected():
 	
-	if not tree.get_selected().get_parent() or tree.get_selected().get_parent().get_text(0) != "Cards":
-		return
+	if tree.get_selected().get_parent():
+		if tree.get_selected().get_parent().get_text(0) == "Cards":
+			draw_card()
 	
-	draw_card()
+	if tree.get_selected() == tree.get_root():
+		draw_ruleset()
 	
+
+func draw_ruleset():
+	get_node("%Options").visible = true
+	get_node("%CardDat").visible = false
 
 func draw_card():
 	get_node("%CardDat").visible = true
@@ -83,3 +90,13 @@ func draw_card():
 		cardDats[12].pressed = false
 		cardDats[13].pressed = false
 		cardDats[14].pressed = false
+	
+	cardDats[15].pressed = not "banned" in cDat
+	cardDats[16].pressed = "rare" in cDat
+	cardDats[17].pressed = "nosac" in cDat
+	cardDats[18].pressed = "nohammer" in cDat
+	cardDats[19].pressed = "conduit" in cDat
+	
+	cardDats[21].text = cDat.evolution if "evolution" in cDat else ""
+	
+	cardDats[22].select(cDat.atkspecial + 1 if "atkspecial" in cDat else 0)

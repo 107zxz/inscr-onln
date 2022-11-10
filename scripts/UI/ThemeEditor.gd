@@ -116,6 +116,25 @@ func apply_theme():
 	save_theme()
 
 func apply_controls():
+	
+	for ctrl in $Options.get_children():
+		
+		if ctrl.name.begins_with("cards-"):
+			var sName = ctrl.name.split("-") 
+#			theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split(" -")[2]) = ctrl.get_node("ColorPickerButton").color
+			theme_data.cards.get(ctrl.name.split("-")[1])[ctrl.name.split("-")[2]] = ctrl.get_node("ColorPickerButton").color
+
+#			print(theme_data["cards"][sName[0]])
+#			theme_data["cards"]
+
+#			theme_data["cards"][sName[0]][sName[1]][sName[2]] = ctrl.get_node("ColorPickerButton").color
+			
+			
+		if ctrl.name in theme_data:
+			theme_data[ctrl.name] = ctrl.get_node("ColorPickerButton").color.to_html()
+	
+	
+	return
 	theme_data.border_colour = $Options/Borders/LineEdit.text
 	theme_data.background_colour = $Options/Background/LineEdit.text
 	theme_data.edit_background_colour = $"Options/Editbox Background/LineEdit".text
@@ -148,6 +167,16 @@ func save_theme():
 	sFile.close()
 
 func update_controls():
+	
+	for ctrl in $Options.get_children():
+		
+		if ctrl.name.begins_with("cards-"):
+			ctrl.get_node("ColorPickerButton").color = Color(theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split("-")[2]))
+		
+		if ctrl.name in theme_data:
+			ctrl.get_node("ColorPickerButton").color = Color(theme_data.get(ctrl.name))
+	
+	return
 	$Options/Borders/LineEdit.text = theme_data.border_colour
 	$Options/Background/LineEdit.text = theme_data.background_colour
 	$"Options/Editbox Background/LineEdit".text = theme_data.edit_background_colour
