@@ -293,108 +293,108 @@ margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Button Background" type="HBoxContainer" parent="Options"]
+[node name="buttons-normal-background" type="HBoxContainer" parent="Options"]
 margin_top = 444.0
 margin_right = 510.0
 margin_bottom = 472.0
 
-[node name="Label" type="Label" parent="Options/Button Background"]
+[node name="Label" type="Label" parent="Options/buttons-normal-background"]
 margin_top = 2.0
 margin_right = 228.0
 margin_bottom = 26.0
 text = "Button Background: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Background"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-normal-background"]
 margin_left = 228.0
 margin_right = 510.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Button Border" type="HBoxContainer" parent="Options"]
+[node name="buttons-normal-border" type="HBoxContainer" parent="Options"]
 margin_top = 472.0
 margin_right = 510.0
 margin_bottom = 500.0
 
-[node name="Label" type="Label" parent="Options/Button Border"]
+[node name="Label" type="Label" parent="Options/buttons-normal-border"]
 margin_top = 2.0
 margin_right = 172.0
 margin_bottom = 26.0
 text = "Button Border: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Border"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-normal-border"]
 margin_left = 172.0
 margin_right = 510.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Button Background Pressed" type="HBoxContainer" parent="Options"]
+[node name="buttons-pressed-background" type="HBoxContainer" parent="Options"]
 margin_top = 500.0
 margin_right = 510.0
 margin_bottom = 528.0
 
-[node name="Label" type="Label" parent="Options/Button Background Pressed"]
+[node name="Label" type="Label" parent="Options/buttons-pressed-background"]
 margin_top = 2.0
 margin_right = 322.0
 margin_bottom = 26.0
 text = "Button Background Pressed: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Background Pressed"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-pressed-background"]
 margin_left = 322.0
 margin_right = 510.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Button Border Pressed" type="HBoxContainer" parent="Options"]
+[node name="buttons-pressed-border" type="HBoxContainer" parent="Options"]
 margin_top = 528.0
 margin_right = 510.0
 margin_bottom = 556.0
 
-[node name="Label" type="Label" parent="Options/Button Border Pressed"]
+[node name="Label" type="Label" parent="Options/buttons-pressed-border"]
 margin_top = 2.0
 margin_right = 266.0
 margin_bottom = 26.0
 text = "Button Border Pressed: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Border Pressed"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-pressed-border"]
 margin_left = 266.0
 margin_right = 510.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Button Background Hover" type="HBoxContainer" parent="Options"]
+[node name="buttons-hover-background" type="HBoxContainer" parent="Options"]
 margin_top = 556.0
 margin_right = 510.0
 margin_bottom = 584.0
 
-[node name="Label" type="Label" parent="Options/Button Background Hover"]
+[node name="Label" type="Label" parent="Options/buttons-hover-background"]
 margin_top = 2.0
 margin_right = 296.0
 margin_bottom = 26.0
 text = "Button Background Hover: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Background Hover"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-hover-background"]
 margin_left = 296.0
 margin_right = 510.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Button Border Hover" type="HBoxContainer" parent="Options"]
+[node name="buttons-hover-border" type="HBoxContainer" parent="Options"]
 margin_top = 584.0
 margin_right = 510.0
 margin_bottom = 612.0
 
-[node name="Label" type="Label" parent="Options/Button Border Hover"]
+[node name="Label" type="Label" parent="Options/buttons-hover-border"]
 margin_top = 2.0
 margin_right = 240.0
 margin_bottom = 26.0
 text = "Button Border Hover: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/Button Border Hover"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-hover-border"]
 margin_left = 240.0
 margin_right = 510.0
 margin_bottom = 28.0
@@ -454,10 +454,10 @@ margin_right = 620.0
 margin_bottom = 642.0
 
 [node name="ColorPicker" type="ColorPicker" parent="Control"]
-margin_left = -714.241
-margin_top = 53.5372
-margin_right = -96.2413
-margin_bottom = 693.537
+margin_left = -706.241
+margin_top = 61.5372
+margin_right = -88.2413
+margin_bottom = 701.537
 
 [connection signal="pressed" from="Options/Buttons/SaveButton" to="." method="save"]
 [connection signal="pressed" from="Options/Buttons/DefaultsButton" to="." method="defaults"]

@@ -124,6 +124,12 @@ func apply_controls():
 #			theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split(" -")[2]) = ctrl.get_node("ColorPickerButton").color
 			theme_data.cards.get(ctrl.name.split("-")[1])[ctrl.name.split("-")[2]] = ctrl.get_node("ColorPickerButton").color
 
+
+		if ctrl.name.begins_with("buttons-"):
+			var sName = ctrl.name.split("-") 
+#			theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split(" -")[2]) = ctrl.get_node("ColorPickerButton").color
+			theme_data.buttons.get(ctrl.name.split("-")[1])[ctrl.name.split("-")[2]] = ctrl.get_node("ColorPickerButton").color
+
 #			print(theme_data["cards"][sName[0]])
 #			theme_data["cards"]
 
@@ -172,6 +178,9 @@ func update_controls():
 		
 		if ctrl.name.begins_with("cards-"):
 			ctrl.get_node("ColorPickerButton").color = Color(theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split("-")[2]))
+		
+		if ctrl.name.begins_with("buttons-"):
+			ctrl.get_node("ColorPickerButton").color = Color(theme_data.buttons.get(ctrl.name.split("-")[1]).get(ctrl.name.split("-")[2]))
 		
 		if ctrl.name in theme_data:
 			ctrl.get_node("ColorPickerButton").color = Color(theme_data.get(ctrl.name))
