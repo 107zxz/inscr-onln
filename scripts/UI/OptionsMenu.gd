@@ -20,6 +20,9 @@ func update_options():
 						get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(1920, 1080))
 					else:
 						get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, Vector2(1920, 1080))
+					
+				if old_val == opt.pressed and opt.name == "fullscreen":
+					OS.window_fullscreen = GameOptions.options.fullscreen
 
 func update_controls():
 	for cat in $TabContainer.get_children():

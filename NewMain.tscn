@@ -1021,6 +1021,13 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Stretch to fill window"
 
+[node name="fullscreen" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_right = 842.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Fullscreen"
+
 [node name="enable_accessibility_icons" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_right = 842.0
 margin_bottom = 34.0
