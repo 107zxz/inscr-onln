@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
+[ext_resource path="res://gfx/extra/sampleRuleset.png" type="Texture" id=2]
+
+[node name="RulesetCard" type="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1636.0
+margin_bottom = -700.0
+rect_min_size = Vector2( 284, 0 )
+theme = ExtResource( 1 )
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 24.0
+grow_horizontal = 2
+text = "Sample Ruleset v0.01"
+align = 1

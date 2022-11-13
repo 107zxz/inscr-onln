@@ -279,9 +279,9 @@ text = "Select Ruleset"
 
 [node name="ThemeEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
 visible = false
-margin_top = 315.0
-margin_right = 450.0
-margin_bottom = 345.0
+margin_top = 555.0
+margin_right = 810.0
+margin_bottom = 610.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
