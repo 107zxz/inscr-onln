@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://packed/SpecialCards/RulesetCard.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gfx/extra/rulesetslot.png" type="Texture" id=2]
+[ext_resource path="res://gfx/extra/rulesetbin.png" type="Texture" id=3]
+[ext_resource path="res://gfx/extra/rulesetadd.png" type="Texture" id=4]
+
+[node name="RulesetPicker" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="RulesetSlot" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -292.0
+margin_top = 83.91
+margin_right = -8.0
+margin_bottom = 463.91
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="RulesetBin" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 8.0
+margin_top = 83.91
+margin_right = 292.0
+margin_bottom = 463.91
+texture_normal = ExtResource( 3 )
+expand = true
+
+[node name="RulesetAdd" type="TextureButton" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 659.31
+margin_top = 645.0
+margin_right = 943.31
+margin_bottom = 1025.0
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="Rulesets" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 72.0
+margin_top = 645.0
+margin_right = -356.0
+margin_bottom = -55.0
+custom_constants/separation = 320
+
+[node name="RulesetCard" parent="Rulesets" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 284.0
+margin_bottom = 380.0
+
+[node name="RulesetCard2" parent="Rulesets" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 604.0
+margin_right = 888.0
+margin_bottom = 380.0
+
+[node name="RulesetCard3" parent="Rulesets" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1208.0
+margin_right = 1492.0
+margin_bottom = 380.0

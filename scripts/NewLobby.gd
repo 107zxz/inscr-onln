@@ -306,7 +306,10 @@ func _on_Join_pressed():
 	if $LobbyJoin/Rows/HostType/LType.selected == 0:
 		url = "wss://" + url + ".loca.lt"
 	else:
-		url = "ws://" + url + ":10567"
+		if ":" in url:
+			url = "ws://" + url
+		else:
+			url = "ws://" + url + ":10567"
 
 	NetworkManager.join_lobby(url)
 
