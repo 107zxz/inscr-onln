@@ -653,8 +653,6 @@ script = ExtResource( 2 )
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 128.0
-margin_bottom = 185.0
 rect_min_size = Vector2( 128, 185 )
 mouse_filter = 2
 theme = ExtResource( 1 )
@@ -983,6 +981,7 @@ mouse_filter = 2
 color = Color( 0, 0.882353, 1, 0.470588 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
 anims/Attack = SubResource( 8 )
 anims/AttackRemote = SubResource( 9 )
 anims/CatSac = SubResource( 11 )
