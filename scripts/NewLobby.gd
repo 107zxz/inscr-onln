@@ -219,12 +219,12 @@ func _on_Host_pressed():
 
 		var regex = RegEx.new()
 #		regex.compile("[ !$%^&*()_+|~=`{}\[\]:";'<>?,.\/]")
-		regex.compile("[^A-Za-z0-9]")
+		regex.compile("[^a-z0-9\\-]")
 
 		var lobbyName = hostLnameBox.text
-		if regex.search(lobbyName) or len(lobbyName) < 5:
+		if regex.search(lobbyName) != null or len(lobbyName) < 5:
 			print("Invalid lobby name")
-#			return
+			return
 			
 	print("Regex valid")
 	
