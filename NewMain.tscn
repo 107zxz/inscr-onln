@@ -466,42 +466,42 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -250.0
+margin_left = -270.5
 margin_top = -148.5
-margin_right = 250.0
+margin_right = 270.5
 margin_bottom = 148.5
 rect_min_size = Vector2( 500, 250 )
 
 [node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyHost"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 498.0
+margin_right = 539.0
 margin_bottom = 295.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyHost/Rows"]
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 24.0
 text = "Host"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 34.0
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 68.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/HostType"]
-margin_left = 26.0
+margin_left = 46.0
 margin_top = 5.0
-margin_right = 163.0
+margin_right = 183.0
 margin_bottom = 29.0
 text = "Lobby Type: "
 
 [node name="Type" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/HostType"]
-margin_left = 163.0
-margin_right = 470.0
+margin_left = 183.0
+margin_right = 490.0
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -511,70 +511,70 @@ selected = 0
 
 [node name="RoomnameInfo" type="Label" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 78.0
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 129.0
 text = "A room name must be at least 5 chars long,
-and not contain any symbols or spaces"
+and only contain lowercase letters, numbers or -"
 align = 1
 
 [node name="Roomname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 139.0
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 167.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Roomname"]
-margin_left = 65.0
 margin_top = 2.0
-margin_right = 319.0
+margin_right = 254.0
 margin_bottom = 26.0
 text = "Room Name (required): "
 
 [node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Roomname"]
-margin_left = 319.0
-margin_right = 431.0
+margin_left = 254.0
+margin_right = 537.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 100, 23 )
+size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 177.0
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 205.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Nickname"]
-margin_left = 70.0
 margin_top = 2.0
-margin_right = 314.0
+margin_right = 244.0
 margin_bottom = 26.0
 text = "Your Name (required): "
 
 [node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Nickname"]
-margin_left = 314.0
-margin_right = 426.0
+margin_left = 244.0
+margin_right = 537.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 100, 23 )
+size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectating" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 215.0
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 249.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Spectating"]
-margin_left = 83.0
+margin_left = 103.0
 margin_top = 5.0
-margin_right = 393.0
+margin_right = 413.0
 margin_bottom = 29.0
 text = "Spectate (don't join lobby): "
 
 [node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyHost/Rows/Spectating"]
-margin_left = 393.0
-margin_right = 413.0
+margin_left = 413.0
+margin_right = 433.0
 margin_bottom = 34.0
 focus_mode = 0
 disabled = true
@@ -583,22 +583,22 @@ flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
 margin_top = 259.0
-margin_right = 496.0
+margin_right = 537.0
 margin_bottom = 293.0
 custom_constants/separation = 16
 alignment = 1
 
 [node name="Host" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
-margin_left = 176.0
-margin_right = 228.0
+margin_left = 197.0
+margin_right = 249.0
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host"
 
 [node name="CancelHost" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
-margin_left = 244.0
-margin_right = 319.0
+margin_left = 265.0
+margin_right = 340.0
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
