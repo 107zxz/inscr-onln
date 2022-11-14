@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://gfx/portraits/Amoeba.png" type="Texture" id=11]
 [ext_resource path="res://scripts/UI/OptionsMenu.gd" type="Script" id=12]
 [ext_resource path="res://gfx/extra/On.png" type="Texture" id=13]
+[ext_resource path="res://themes/scanlinemat.tres" type="Material" id=14]
+[ext_resource path="res://scripts/UI/ShaderPropEdit.gd" type="Script" id=15]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 8 )
@@ -987,7 +989,6 @@ text = "Ok"
 visible = false
 
 [node name="Options" type="PanelContainer" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1022,39 +1023,93 @@ enabled_focus_mode = 0
 text = "Stretch to fill window"
 
 [node name="fullscreen" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_right = 842.0
-margin_bottom = 34.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Fullscreen"
-
-[node name="enable_accessibility_icons" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_right = 842.0
-margin_bottom = 34.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Card property icons"
-
-[node name="show_card_tooltips" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_top = 34.0
 margin_right = 842.0
 margin_bottom = 68.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Card tooltips"
+text = "Fullscreen"
 
-[node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
+[node name="enable_accessibility_icons" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_top = 68.0
 margin_right = 842.0
 margin_bottom = 102.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Right scale shows opponent's advantage"
+text = "Card property icons"
 
-[node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
+[node name="show_card_tooltips" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_top = 102.0
 margin_right = 842.0
 margin_bottom = 136.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Card tooltips"
+
+[node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 136.0
+margin_right = 842.0
+margin_bottom = 170.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Right scale shows opponent's advantage"
+
+[node name="crt_filter" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 170.0
+margin_right = 842.0
+margin_bottom = 204.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "CRT Filter"
+
+[node name="Scanlines" type="HBoxContainer" parent="Options/TabContainer/Visual"]
+visible = false
+margin_top = 170.0
+margin_right = 842.0
+margin_bottom = 198.0
+script = ExtResource( 15 )
+shaderMat = ExtResource( 14 )
+optionPrefix = "scanlines_"
+
+[node name="_label" type="Label" parent="Options/TabContainer/Visual/Scanlines"]
+margin_top = 2.0
+margin_right = 116.0
+margin_bottom = 26.0
+text = "Scanlines: "
+
+[node name="LINE_COUNT" type="SpinBox" parent="Options/TabContainer/Visual/Scanlines"]
+margin_left = 116.0
+margin_right = 358.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+allow_greater = true
+suffix = "scanlines"
+
+[node name="OPACITY" type="SpinBox" parent="Options/TabContainer/Visual/Scanlines"]
+margin_left = 358.0
+margin_right = 600.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+prefix = "opacity"
+
+[node name="SPEED" type="SpinBox" parent="Options/TabContainer/Visual/Scanlines"]
+margin_left = 600.0
+margin_right = 842.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+min_value = -50.0
+max_value = 50.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+prefix = "speed"
+
+[node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
+margin_top = 204.0
+margin_right = 842.0
+margin_bottom = 238.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Theme Editor"
@@ -1126,6 +1181,13 @@ grow_vertical = 0
 text = "Ruleset: "
 align = 2
 
+[node name="Scanlines" type="Panel" parent="."]
+visible = false
+material = ExtResource( 14 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/HostBtn" to="TitleScreen" method="_on_HostBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/JoinBtn" to="TitleScreen" method="_on_JoinBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
@@ -1157,5 +1219,8 @@ align = 2
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyReady" to="TitleScreen" method="_on_LobbyReady_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
 [connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorOk" to="TitleScreen" method="_on_ErrorOk_pressed"]
+[connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/LINE_COUNT" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
+[connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/OPACITY" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
+[connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/SPEED" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
 [connection signal="pressed" from="Options/TabContainer/Visual/ThemeEditor" to="ThemeEditor" method="show"]
 [connection signal="pressed" from="Options/CloseBtn" to="Options" method="hide"]

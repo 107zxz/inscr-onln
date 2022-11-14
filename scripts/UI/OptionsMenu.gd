@@ -1,5 +1,6 @@
 extends PanelContainer
 
+
 func update_options():
 	for cat in $TabContainer.get_children():
 		for opt in cat.get_children():
@@ -23,6 +24,9 @@ func update_options():
 					
 				if old_val == opt.pressed and opt.name == "fullscreen":
 					OS.window_fullscreen = GameOptions.options.fullscreen
+				
+				if old_val == opt.pressed and opt.name == "crt_filter":
+					get_node("/root/Main/Scanlines").visible = GameOptions.options.crt_filter
 
 func update_controls():
 	for cat in $TabContainer.get_children():
