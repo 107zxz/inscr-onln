@@ -1,6 +1,12 @@
-v0.2.1 is out!
+v0.2.2 is out!
 
-Very small update that fixes a couple bugs, including one long-standing bug.
+Theme editor improvements, tunnel error messages, and a feature you didn't ask for, but deserve
 
-* The repulsive sigil no longer causes the game to desync
-* Your opponent will no longer seem to start the game with additional cards
+* Theme editor now features colour pickers, and appears in the corner now
+    * This means you can open the deck editor with the theme editor open to see all the cards!
+
+
+* Error messages will now appear when the tunnel fails to connect, rather than hanging forever
+
+
+* You can now specify a port for IP connections (you can use this to connect to localhost.run games (syntax: xxxxx.lhrtunnel.life:80)

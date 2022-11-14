@@ -7,7 +7,8 @@ var options = {
 	"save_replays": false,
 	"show_enemy_advantage": false,
 	"stretch_to_fill": false,
-	"fullscreen": false
+	"fullscreen": false,
+	"crt_filter": false
 }
 
 func read_options():

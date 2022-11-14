@@ -35,6 +35,11 @@ func _enter_tree():
 		var d = Directory.new()
 		if not d.dir_exists(data_path):
 			d.make_dir(data_path)
+	elif OS.get_name() != "OSX":
+#	else:
+		# Fix window size
+		OS.window_size = OS.window_size / 2
+		OS.window_position += OS.window_size / 2
 	
 	read_game_info()
 	
