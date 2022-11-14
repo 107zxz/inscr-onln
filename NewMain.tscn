@@ -989,6 +989,7 @@ text = "Ok"
 visible = false
 
 [node name="Options" type="PanelContainer" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
