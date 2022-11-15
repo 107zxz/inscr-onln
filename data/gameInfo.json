@@ -1,7 +1,8 @@
 {
-    "ruleset": "IMF Competitive Ruleset v0.15",
+    "ruleset": "IMF Competitive Ruleset v0.17",
     "hammers_per_turn": 1,
     "ant_limit": 2,
+    "gmage_buff": true,
     "cards": [
         {
             "name": "Starvation",
@@ -120,7 +121,7 @@
         {
             "name": "Field Mice",
             "sigils": [
-                "Fecundity"
+                "Fecundity (Kaycee)"
             ],
             "attack": 2,
             "health": 2,
@@ -129,8 +130,8 @@
         {
             "name": "Spore Mice",
             "sigils": [
-                "Fecundity",
-                "Fecundity"
+                "Fecundity (Kaycee)",
+                "Fecundity (Kaycee)"
             ],
             "attack": 2,
             "health": 2,
@@ -467,7 +468,7 @@
             "attack": 0,
             "health": 3,
             "blood_cost": 1,
-            "atkspecial": 1,
+            "atkspecial": "mirror",
             "banned": true
         },
         {
@@ -539,14 +540,14 @@
             "name": "Worker Ant",
             "attack": -1,
             "health": 2,
-            "atkspecial": 2,
+            "atkspecial": "ant",
             "blood_cost": 1
         },
         {
             "name": "Ant Queen",
             "attack": -1,
             "health": 3,
-            "atkspecial": 2,
+            "atkspecial": "ant",
             "blood_cost": 2,
             "sigils": [
                 "Ant Spawner"
@@ -556,7 +557,7 @@
             "name": "Flying Ant",
             "attack": -1,
             "health": 1,
-            "atkspecial": 2,
+            "atkspecial": "ant",
             "blood_cost": 1,
             "sigils": [
                 "Airborne"
@@ -566,7 +567,7 @@
             "name": "Bullet Ant",
             "attack": -1,
             "health": 3,
-            "atkspecial": 2,
+            "atkspecial": "ant",
             "blood_cost": 3,
             "sigils": [
                 "Double Strike"
@@ -639,7 +640,7 @@
         {
             "name": "Energy Conduit",
             "sigils": [
-                "Energy Conduit"
+                "Energy Conduit (+3)"
             ],
             "attack": 1,
             "health": 2,
@@ -651,7 +652,7 @@
         {
             "name": "Explode Bot",
             "sigils": [
-                "Detonator"
+                "Detonator (5)"
             ],
             "attack": 1,
             "health": 1,
@@ -670,7 +671,7 @@
         {
             "name": "Gamblobot",
             "sigils": [
-                "Power Dice"
+                "Power Dice (2)"
             ],
             "attack": 0,
             "health": 1,
@@ -735,12 +736,12 @@
         {
             "name": "Steel Mice",
             "sigils": [
-                "Fecundity"
+                "Fecundity (Kaycee)"
             ],
             "attack": 1,
             "health": 1,
             "energy_cost": 4,
-            "description": "Note: Fecundity is nerfed as per Kaycee's Mod"
+            "description": "Note: Fecundity (Kaycee) is nerfed as per Kaycee's Mod"
         },
         {
             "name": "Sentry Drone",
@@ -812,7 +813,7 @@
         {
             "name": "Mirror Bot",
             "energy_cost": 2,
-            "atkspecial": 1,
+            "atkspecial": "mirror",
             "attack": 0,
             "health": 1
         },
@@ -822,6 +823,17 @@
             "health": 4,
             "energy_cost": 5,
             "description": "Note: This card's health was increased to make it worth 5 energy."
+        },
+        {
+            "name": "Jukebot",
+            "attack": 0,
+            "health": 3,
+            "energy_cost": 4,
+            "rare": true,
+            "sigils": [
+                "Music Player"
+            ],
+            "description": "Art and sigils by syntaxevasion"
         },
         {
             "name": "Draugr",
@@ -854,7 +866,7 @@
         {
             "name": "Bone Lord's Horn",
             "sigils": [
-                "Bonehorn"
+                "Bonehorn (1)"
             ],
             "attack": 1,
             "health": 1,
@@ -1040,7 +1052,7 @@
         {
             "name": "Tomb Robber",
             "sigils": [
-                "Disentomb"
+                "Disentomb (Corpses)"
             ],
             "attack": 0,
             "health": 2,
@@ -1121,7 +1133,8 @@
             "health": 1,
             "mox_cost": [
                 "Blue"
-            ]
+            ],
+            "rare": true
         },
         {
             "name": "Blue Sporemage",
@@ -1177,7 +1190,7 @@
             "mox_cost": [
                 "Green"
             ],
-            "atkspecial": 0,
+            "atkspecial": "green_mox",
             "description": "This card's attack is equal to the number of \"Mox\" cards you possess."
         },
         {
@@ -1234,7 +1247,7 @@
                 "Airborne",
                 "Looter"
             ],
-            "attack": 2,
+            "attack": 1,
             "health": 3,
             "mox_cost": [
                 "Orange",
@@ -1373,7 +1386,7 @@
         {
             "name": "Stim Mage",
             "sigils": [
-                "Stimulate"
+                "Stimulate (4)"
             ],
             "attack": 0,
             "health": 2,
@@ -1517,7 +1530,7 @@
                 "Green",
                 "Blue"
             ],
-            "attack": 2,
+            "attack": 1,
             "health": 2,
             "sigils": [
                 "Sharp Quills",
@@ -1682,10 +1695,6 @@
             "banned": true
         }
     ],
-    "sigil_urls": {
-        "Blood Lust": "https://ingoh.net/inscryption/textures/src/pixelability_gainattackonkill.png",
-        "Reconstitute": "https://cdn.discordapp.com/attachments/1008891695087239220/1017238971631276193/Reconstitute.png"
-    },
     "sigils": {
         "Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
         "Ant Spawner": "When a card bearing this sigil is played, an ant is created in your hand.",
@@ -1698,18 +1707,23 @@
         "Bomb Spewer": "When a card bearing this sigil is played, fill all empty spaces with explode bots.",
         "Bone Digger": "At the end of the owner's turn, a card bearing this sigil will generate 1 bone.",
         "Bone King": "When a card bearing this sigil dies, 4 bones are awarded instead of 1.",
-        "Bonehorn": "Pay 1 energy to gain 1 bone.",
+        "Bonehorn": "Pay 1 energy to gain 3 bones.",
+        "Bonehorn (1)": "Pay 1 energy to gain 1 bone.",
         "Boneless": "When a card bearing this sigil dies, no bones are awarded.",
         "Brittle": "After attacking, a card bearing this sigil perishes.",
         "Burrower": "When an empty space would be struck, a card bearing this sigil will move to that space to receive the strike instead.",
         "Detonator": "When a card bearing this sigil dies, the creature opposing it, as well as adjacent friendly creatures, are dealt 10 damage.",
-        "Disentomb": "Pay 1 bone to create a withered corpse in your hand.",
+        "Detonator (5)": "When a card bearing this sigil dies, the creature opposing it, as well as adjacent friendly creatures, are dealt 5 damage.",
+        "Disentomb": "Pay 1 bone to create a skeleton in your hand.",
+        "Disentomb (Corpses)": "Pay 1 bone to create a withered corpse in your hand.",
         "Double Death": "When another creature you own dies, it is returned to life and dies again immediately.",
         "Double Strike": "A card bearing this Sigil will strike the opposing space an extra time when attacking.",
-        "Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 2.",
+        "Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
+        "Energy Conduit (+3)": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 3.",
         "Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
         "Enlarge": "Pay 2 bones to increase the power and health of a card bearing this sigil by 1.",
         "Fecundity": "When a card bearing this sigil is played, a copy of it is created in your hand.",
+        "Fecundity (Kaycee)": "When a card bearing this sigil is played, a copy of it is created in your hand without this sigil.",
         "Fledgling": "A card bearing this sigil will grow into a more powerful form after 1 turn on the board.",
         "Frozen Away": "When a card bearing this sigil perishes, the creature inside is released in its place.",
         "Gem Animator": "Mox cards on the owner's side of the board gain 1 power.",
@@ -1727,8 +1741,10 @@
         "Marrow Sucker": "Pay 2 bones to heal a card bearing this sigil.",
         "Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
         "Mighty Leap": "A card bearing this sigil will block an opposing creature bearing the airborne sigil.",
+        "Music Player": "A card bearing this sigil plays a song of your choice when played",
         "Orange Mox": "While a card bearing this sigil is on the board, it provides an orange gem to its owner.",
-        "Power Dice": "Pay 2 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
+        "Power Dice": "Pay 1 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
+        "Power Dice (2)": "Pay 2 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
         "Rabbit Hole": "When a card bearing this sigil is played, a Rabbit is created in your hand.",
         "Reconstitute": "A card bearing this sigil returns to your hand 2 turns after it persihes.",
         "Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
@@ -1743,7 +1759,8 @@
         "Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
         "Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",
         "Stinky": "The creature opposing a card bearing this sigil loses 1 Power.",
-        "Stimulate": "Pay 4 energy to increase the power and health of a card bearing this sigil by 1.",
+        "Stimulate": "Pay 3 energy to increase the power and health of a card bearing this sigil by 1.",
+        "Stimulate (4)": "Pay 4 energy to increase the power and health of a card bearing this sigil by 1.",
         "Tentacle": "Includes effect of Waterborne. In addition, a card bearing this sigil will transform into a random tentacle at the start of each turn.",
         "Touch of Death": "When a card bearing this sigil damages another creature, that creature perishes.",
         "Trifurcated Strike": "A card bearing this sigil will strike each opposing space to the left, right, and center of it.",
@@ -1755,6 +1772,7 @@
     "working_sigils": [
         "Airborne",
         "Mighty Leap",
+        "Fecundity (Kaycee)",
         "Fecundity",
         "Unkillable",
         "Blue Mox",
@@ -1791,19 +1809,25 @@
         "Burrower",
         "Hoarder",
         "Detonator",
+        "Detonator (5)",
         "Bomb Spewer",
         "Double Death",
         "Enlarge",
         "Disentomb",
+        "Disentomb (Corpses)",
         "Power Dice",
+        "Power Dice (2)",
         "Stimulate",
+        "Stimulate (4)",
         "Energy Gun",
         "True Scholar",
         "Bonehorn",
+        "Bonehorn (1)",
         "Boneless",
         "Attack Conduit",
         "Spawn Conduit",
         "Energy Conduit",
+        "Energy Conduit (+3)",
         "Tentacle",
         "Stinky",
         "Reconstitute",
@@ -1814,12 +1838,15 @@
         "Leader",
         "Ant Spawner",
         "Double Strike",
-        "Blood Lust"
+        "Blood Lust",
+        "Music Player"
     ],
     "side_decks": [
         
     ]
 }
+
+
 
 
 
