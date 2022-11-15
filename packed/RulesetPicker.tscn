@@ -1,13 +1,261 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://packed/SpecialCards/RulesetCard.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gfx/rulesets/act2.png" type="Texture" id=1]
 [ext_resource path="res://gfx/extra/rulesetslot.png" type="Texture" id=2]
 [ext_resource path="res://gfx/extra/rulesetbin.png" type="Texture" id=3]
 [ext_resource path="res://gfx/extra/rulesetadd.png" type="Texture" id=4]
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=5]
+[ext_resource path="res://scripts/UI/RulesetPicker.gd" type="Script" id=6]
+[ext_resource path="res://scripts/classes/cards/RulesetCard.gd" type="Script" id=7]
+[ext_resource path="res://gfx/rulesets/act1.png" type="Texture" id=8]
+[ext_resource path="res://gfx/rulesets/act3.png" type="Texture" id=9]
+[ext_resource path="res://gfx/rulesets/km.png" type="Texture" id=10]
+[ext_resource path="res://gfx/rulesets/compleg.png" type="Texture" id=11]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 284, 380 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "lower"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "raise"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -50 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 284, 380 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "lower"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "raise"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -50 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 284, 380 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "lower"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "raise"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -50 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 284, 380 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "lower"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "raise"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -50 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 0.3 )
 
 [node name="RulesetPicker" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="RulesetSlot" type="TextureButton" parent="."]
 anchor_left = 0.5
@@ -46,24 +294,161 @@ margin_left = 72.0
 margin_top = 645.0
 margin_right = -356.0
 margin_bottom = -55.0
-custom_constants/separation = 320
+custom_constants/separation = 16
 
-[node name="RulesetCard" parent="Rulesets" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Act1" type="Control" parent="Rulesets"]
 margin_right = 284.0
 margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+theme = ExtResource( 5 )
+script = ExtResource( 7 )
 
-[node name="RulesetCard2" parent="Rulesets" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 604.0
-margin_right = 888.0
+[node name="TextureButton" type="TextureButton" parent="Rulesets/Act1"]
+margin_right = 284.0
 margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+texture_normal = ExtResource( 8 )
+expand = true
 
-[node name="RulesetCard3" parent="Rulesets" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 1208.0
-margin_right = 1492.0
+[node name="Label" type="Label" parent="Rulesets/Act1/TextureButton"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 24.0
+grow_horizontal = 2
+text = "Vanilla ACT I"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rulesets/Act1"]
+root_node = NodePath("../TextureButton")
+anims/RESET = SubResource( 2 )
+anims/lower = SubResource( 3 )
+anims/raise = SubResource( 1 )
+
+[node name="Act2" type="Control" parent="Rulesets"]
+margin_left = 300.0
+margin_right = 584.0
 margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+theme = ExtResource( 5 )
+script = ExtResource( 7 )
+
+[node name="TextureButton" type="TextureButton" parent="Rulesets/Act2"]
+margin_right = 284.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+texture_normal = ExtResource( 1 )
+expand = true
+
+[node name="Label" type="Label" parent="Rulesets/Act2/TextureButton"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 24.0
+grow_horizontal = 2
+text = "Vanilla ACT II"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rulesets/Act2"]
+root_node = NodePath("../TextureButton")
+anims/RESET = SubResource( 2 )
+anims/lower = SubResource( 3 )
+anims/raise = SubResource( 1 )
+
+[node name="Act3" type="Control" parent="Rulesets"]
+margin_left = 600.0
+margin_right = 884.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+theme = ExtResource( 5 )
+script = ExtResource( 7 )
+
+[node name="TextureButton" type="TextureButton" parent="Rulesets/Act3"]
+margin_right = 284.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="Label" type="Label" parent="Rulesets/Act3/TextureButton"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 24.0
+grow_horizontal = 2
+text = "Vanilla ACT III"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rulesets/Act3"]
+root_node = NodePath("../TextureButton")
+anims/RESET = SubResource( 5 )
+anims/lower = SubResource( 6 )
+anims/raise = SubResource( 7 )
+
+[node name="KC" type="Control" parent="Rulesets"]
+margin_left = 900.0
+margin_right = 1184.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+theme = ExtResource( 5 )
+script = ExtResource( 7 )
+
+[node name="TextureButton" type="TextureButton" parent="Rulesets/KC"]
+margin_right = 284.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+texture_normal = ExtResource( 10 )
+expand = true
+
+[node name="Label" type="Label" parent="Rulesets/KC/TextureButton"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 24.0
+grow_horizontal = 2
+text = "Vanilla Kaycee's Mod"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rulesets/KC"]
+root_node = NodePath("../TextureButton")
+anims/RESET = SubResource( 8 )
+anims/lower = SubResource( 9 )
+anims/raise = SubResource( 10 )
+
+[node name="Comp" type="Control" parent="Rulesets"]
+margin_left = 1200.0
+margin_right = 1484.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+theme = ExtResource( 5 )
+script = ExtResource( 7 )
+
+[node name="TextureButton" type="TextureButton" parent="Rulesets/Comp"]
+margin_right = 284.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 284, 0 )
+texture_normal = ExtResource( 11 )
+expand = true
+
+[node name="Label" type="Label" parent="Rulesets/Comp/TextureButton"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 24.0
+grow_horizontal = 2
+text = "IMF Competitive"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rulesets/Comp"]
+root_node = NodePath("../TextureButton")
+anims/RESET = SubResource( 11 )
+anims/lower = SubResource( 12 )
+anims/raise = SubResource( 13 )
+
+[node name="PickerBlocker" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 4 )
+
+[connection signal="pressed" from="RulesetSlot" to="." method="_select_slot_clicked"]

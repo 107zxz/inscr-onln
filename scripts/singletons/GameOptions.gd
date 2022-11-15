@@ -43,7 +43,8 @@ func _ready():
 
 	OS.window_fullscreen = options["fullscreen"]
 	
-	get_node("/root/Main/Scanlines").visible = options.crt_filter
+	if has_node("/root/Main"):
+		get_node("/root/Main/Scanlines").visible = options.crt_filter
 
 func _exit_tree():
 	# Save to file
