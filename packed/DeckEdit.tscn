@@ -444,23 +444,32 @@ margin_bottom = 102.0
 alignment = 1
 
 [node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
-margin_left = 405.0
+margin_left = 391.0
 margin_top = 5.0
-margin_right = 526.0
+margin_right = 512.0
 margin_bottom = 29.0
 text = "Side Deck: "
 align = 1
 
-[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
-margin_left = 526.0
-margin_right = 637.0
+[node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 512.0
+margin_right = 632.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
-text = "Squirrels"
-items = [ "Squirrels", null, false, 0, null, "Skeletons", null, false, 1, null, "Empty Vessels", null, false, 2, null, "Mox", null, false, 3, null, "WIP BELOW", null, true, 4, null, "3 Gecks", null, false, 4, null, "1 Acid Squirrel", null, false, 5, null, "Shambling Cairns", null, false, 6, null, "Moon Shards", null, false, 8, null ]
+text = "10 Bloody"
+items = [ "10 Bloody", null, false, 0, null ]
 selected = 0
+
+[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer"]
+margin_left = 632.0
+margin_right = 650.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
 
 [node name="MoxContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer"]
 visible = false
@@ -585,4 +594,5 @@ columns = 4
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA/OptionButton" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="." method="search"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit" to="." method="search"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/PrefixType" to="." method="_on_PrefixType_item_selected"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/SDSel" to="." method="_on_SDSel_item_selected"]
