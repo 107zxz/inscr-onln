@@ -344,37 +344,16 @@ func begin_perish(doubleDeath = false):
 					"turnsleft": 1
 				}
 			)
-		
-		# Gem dependent (not this card)
-		# if "sigils" in card_data:
-		# 	for sigil in card_data["sigils"]:
-		# 		if "Mox" in sigil:
-
-		# 			# Any Mox dying tests gem dependant
-		# 			var kill = not (slotManager.get_friendly_cards_sigil("Great Mox"))
-
-		# 			for moxcol in ["Green", "Blue", "Orange"]:
-		# 				for foundMox in slotManager.get_friendly_cards_sigil(moxcol + " Mox"):
-		# 					if foundMox != self:
-		# 						kill = false;
-		# 						break
-					
-		# 			if kill:
-		# 				for gDep in slotManager.get_friendly_cards_sigil("Gem Dependant"):
-		# 					gDep.get_node("AnimationPlayer").play("Perish")
-		# 					slotManager.rpc_id(fightManager.opponent, "remote_card_anim", gDep.get_parent().get_position_in_parent(), "Perish")
-		# 		break
-			
-		# Explosive motherfucker
-		
 
 		# Remove Energy Conduit Buff
-		if has_sigil("Energy Conduit"):
+		if has_sigil("Energy Conduit +3"):
 			print("Removing buff")
 			fightManager.max_energy_buff = 0
 			fightManager.set_max_energy(fightManager.max_energy)
 			fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
-			
+		if has_sigil("Energy Conduit"):
+			fightManager.no_energy_deplete = false
+		
 		# Get everyone to recalculate buffs (a card died)
 		for card in slotManager.all_friendly_cards():
 			card.calculate_buffs()
@@ -403,11 +382,13 @@ func begin_perish(doubleDeath = false):
 				fightManager.add_opponent_bones(1)
 		
 		# Energy conduit buff
-		if has_sigil("Energy Conduit"):
+		if has_sigil("Energy Conduit +3"):
 			print("Removing enemy buff")
 			fightManager.opponent_max_energy_buff = 0
 			fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
 			fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
+		if has_sigil("Energy Conduit"):
+			fightManager.enemy_no_energy_deplete = false
 		
 		# Get everyone to recalculate buffs (a card died)
 		for card in slotManager.all_friendly_cards():
@@ -641,7 +622,7 @@ func calculate_buffs():
 	attack += cfx.count("Attack Conduit")
 	
 	# Energy Conduit
-	if has_sigil("Energy Conduit"):
+	if has_sigil("Energy Conduit (+3)"):
 		if friendly:
 			if fightManager.max_energy_buff == 0:
 				for pCard in slotManager.all_friendly_cards():
@@ -677,7 +658,13 @@ func calculate_buffs():
 					fightManager.opponent_max_energy_buff = 0
 					fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
 					fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
-
+	
+	if has_sigil("Energy Conduit"):
+		if friendly:
+			fightManager.no_energy_deplete = true
+		else:
+			fightManager.enemy_no_energy_deplete = true
+	
 	# Stinky
 	if friendly:
 		if slotManager.get_enemy_card(sIdx):

@@ -83,6 +83,8 @@ var side_deck = []
 # Persistent card state
 var turns_starving = 0
 var gold_sarcophagus = []
+var no_energy_deplete = false
+var enemy_no_energy_deplete = false
 
 # Network match state
 var want_rematch = false
@@ -141,6 +143,8 @@ func init_match(opp_id: int, do_go_first: bool):
 	turns_starving = 0
 
 	gold_sarcophagus = []
+	no_energy_deplete = false
+	enemy_no_energy_deplete = false
 
 	# Hammers
 	$LeftSideUI/HammerButton.visible = true
@@ -550,7 +554,7 @@ remote func _opponent_played_card(card, slot):
 	# Costs
 	if "bone_cost" in card_dt:
 		add_opponent_bones(-card_dt["bone_cost"])
-	if "energy_cost" in card_dt:
+	if "energy_cost" in card_dt and not no_energy_deplete:
 		set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Sigil effects:

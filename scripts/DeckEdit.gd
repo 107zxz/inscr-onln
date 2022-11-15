@@ -68,7 +68,9 @@ func _ready():
 	
 	load_deck()
 	
-	
+	# Hide side deck options if disabled
+	if CardInfo.all_data.side_decks == {}:
+		$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.visible = false
 	
 	# Android
 	if OS.get_name() in ["Android", "HTML5"]:
