@@ -179,6 +179,9 @@ func get_deck_object():
 		"side_deck": sd_key
 	}
 	
+	if side_deck.type == "single_cat":
+		deck_object.side_deck_cat = side_deck.cards.keys()[sidedeck_prefix.selected]
+	
 	# More side deck
 #	if typeof(side_deck) == TYPE_INT and side_deck == 2:
 #		deck_object["vessel_type"] = sidedeck_single.card_data.name
@@ -318,6 +321,13 @@ func load_deck(_arg = null):
 	# Simulate a selection because I'm lazy
 	_on_SDSel_item_selected(sidedeck_de.selected)
 	
+	# Select correct category
+	if CardInfo.side_decks[dj["side_deck"]].type == "single_cat":
+		sidedeck_prefix.select(CardInfo.side_decks[dj["side_deck"]].cards.keys().find(dj["side_deck_cat"]))
+	
+	# Redraw
+	draw_sidedeck(dj["side_deck"])
+	
 	update_deck_count()
 
 func populate_deck_list():
@@ -358,6 +368,7 @@ func _on_SDSel_item_selected(index):
 
 		for prefix in side_deck.cards:
 			sidedeck_prefix.add_item(prefix)
+		
 
 	
 	draw_sidedeck(key)

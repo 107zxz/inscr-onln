@@ -1310,6 +1310,7 @@ focus_mode = 0
 button_mask = 3
 enabled_focus_mode = 0
 text = "Side"
+clip_text = true
 
 [node name="SizeLabel" type="Label" parent="DrawPiles/YourDecks/SideDeck"]
 anchor_left = 0.5
