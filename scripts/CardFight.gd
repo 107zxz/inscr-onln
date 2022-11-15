@@ -137,7 +137,11 @@ func init_match(opp_id: int, do_go_first: bool):
 	# TODO: Clean up. This is spaghetti city
 
 	# Side deck new
-	if typeof(side_deck_key) == TYPE_STRING: # Single
+	if not side_deck_key:
+		$DrawPiles/YourDecks/SideDeck.visible = false
+		$DrawPiles/EnemyDecks/SideDeck.visible = false
+	
+	elif typeof(side_deck_key) == TYPE_STRING: # Single
 		$DrawPiles/YourDecks/SideDeck.text = side_deck_key
 		side_deck = []
 		for _i in range(CardInfo.side_decks[side_deck_key].count):
@@ -215,8 +219,9 @@ func init_match(opp_id: int, do_go_first: bool):
 	var next_card = side_deck.pop_front()
 	
 	# Draw client-side
-	draw_card(next_card, $DrawPiles/YourDecks/SideDeck, false)
-	_opponent_drew_card("SideDeck")
+	if side_deck_key != null:
+		draw_card(next_card, $DrawPiles/YourDecks/SideDeck, false)
+		_opponent_drew_card("SideDeck")
 	
 	replay.record_action({"type": "draw_side", "card": next_card})
 	

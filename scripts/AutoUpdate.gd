@@ -2,7 +2,7 @@ extends Control
 
 const rulesetURLs = [
 	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/competitive.json",
-	null,
+	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/vanilla.json",
 	null,
 	null,
 	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/sandbox.json"
