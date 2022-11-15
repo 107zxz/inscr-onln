@@ -29,7 +29,13 @@ func lunacide():
 
 func _ready():
 	
+#	if not "The Moon" in CardInfo.all_cards:
+#		return
+	
 	var mn = CardInfo.from_name("The Moon")
+	
+	if not mn:
+		return
 	
 	attack = mn.attack
 	health = mn.health
@@ -59,6 +65,9 @@ func take_damage(dmg: int):
 
 func reset():
 	var mn = CardInfo.from_name("The Moon")
+	
+	if not mn:
+		return
 	
 	attack = mn.attack
 	health = mn.health
