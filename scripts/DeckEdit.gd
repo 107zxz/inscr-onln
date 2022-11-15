@@ -27,6 +27,7 @@ onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/D
 onready var sidedeck_de = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/SDSel
 onready var sidedeck_container = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer
 onready var sidedeck_single = get_node("%SDCardSingle")
+onready var sidedeck_prefix = get_node("%PrefixType")
 
 
 # const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
@@ -60,6 +61,7 @@ func _ready():
 		apply_custom_background()
 	
 	init_search_ui()
+	init_sidedeck_ui()
 	search()
 	
 	ensure_default_deck()
@@ -76,6 +78,10 @@ func _ready():
 	if OS.get_name() in ["Android", "HTML5"]:
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton.visible = false
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
+
+func init_sidedeck_ui():
+	for sd in CardInfo.side_decks:
+		sidedeck_de.add_item(sd)
 
 func init_search_ui():
 	var id = 2
@@ -158,23 +164,24 @@ func _on_ClearButton_pressed():
 # Deck Saving and Loading
 func get_deck_object():
 	
-	var side_deck = sidedeck_de.selected
+	var sd_key = CardInfo.side_decks.keys()[sidedeck_de.selected]
+	var side_deck = CardInfo.side_decks[sd_key]
 	
 	# Side deck
-	if side_deck == 3:
-		side_deck = []
-		for card in sidedeck_container.get_children():
-			if not card.is_queued_for_deletion():
-				side_deck.append(card.card_data.name)
+#	if side_deck == 3:
+#		side_deck = []
+#		for card in sidedeck_container.get_children():
+#			if not card.is_queued_for_deletion():
+#				side_deck.append(card.card_data.name)
 	
 	var deck_object = {
 		"cards": [],
-		"side_deck": side_deck
+		"side_deck": sd_key
 	}
 	
 	# More side deck
-	if typeof(side_deck) == TYPE_INT and side_deck == 2:
-		deck_object["vessel_type"] = sidedeck_single.card_data.name
+#	if typeof(side_deck) == TYPE_INT and side_deck == 2:
+#		deck_object["vessel_type"] = sidedeck_single.card_data.name
 	
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
@@ -302,49 +309,14 @@ func load_deck(_arg = null):
 		deckDisplay.add_child(nCard)
 		dSize += 1
 	
-	# Mox
-	for child in sidedeck_container.get_children():
-		child.queue_free()
+	# Draw sd
 	
-	if typeof(dj["side_deck"]) == TYPE_ARRAY:
-		sidedeck_de.select(3)
-		
-		sidedeck_single.visible = false
-		get_node("%CustomizeLabel").visible = true
-		sidedeck_container.visible = true
-		for i in range(10):
-			var nCard = cardPrefab.instance()
-			nCard.from_data(CardInfo.from_name(dj["side_deck"][i]))
-			sidedeck_container.add_child(nCard)
-	else:
-		sidedeck_single.visible = true
-		sidedeck_container.visible = false
-		
-		# Banned
-		if sidedeck_de.is_item_disabled(dj["side_deck"]):
-			sidedeck_de.select(0)
-		else:
-			sidedeck_de.select(dj["side_deck"])
-		
-		# More mox
-
-		var bMox = CardInfo.from_name("Sapphire Mox")
-		var oMox = CardInfo.from_name("Ruby Mox")
-		var gMox = CardInfo.from_name("Emerald Mox")
-
-		for mId in [gMox, gMox, gMox, oMox, oMox, oMox, bMox, bMox, bMox, bMox]:
-			var nCard = cardPrefab.instance()
-			nCard.from_data(mId)
-			sidedeck_container.add_child(nCard)
-		
-		# Also setup the other card
-		sidedeck_single.from_data(CardInfo.from_name( sdCards[ dj["side_deck"]] ))
-		
-		if "vessel_type" in dj:
-			sidedeck_single.from_data(CardInfo.from_name(dj["vessel_type"]))
-			get_node("%CustomizeLabel").visible = true
-		else:
-			get_node("%CustomizeLabel").visible = false
+	if not dj.side_deck in CardInfo.side_decks:
+		dj.side_deck = CardInfo.side_decks.keys()[0]
+	
+	sidedeck_de.select(CardInfo.side_decks.keys().find(dj["side_deck"]))
+	# Simulate a selection because I'm lazy
+	_on_SDSel_item_selected(sidedeck_de.selected)
 	
 	update_deck_count()
 
@@ -375,23 +347,43 @@ func populate_deck_list():
 
 
 func _on_SDSel_item_selected(index):
-	if index == 3:
-		sidedeck_container.visible = true
-		sidedeck_single.visible = false
-		
-		get_node("%CustomizeLabel").visible = true
-	else:
-		sidedeck_container.visible = false
-		sidedeck_single.visible = true
-		
-		sidedeck_single.from_data(CardInfo.from_name( sdCards[ sidedeck_de.selected ] ))
-		
-		if index == 2:
-			get_node("%CustomizeLabel").visible = true
-		else:
-			get_node("%CustomizeLabel").visible = false	
-			
+	
+	var key = CardInfo.side_decks.keys()[index]
+	var side_deck = CardInfo.side_decks[key]
+	
+	# Just switched to a new category, we can update prefixes
+	if CardInfo.side_decks[key].type == "single_cat":
 
+		sidedeck_prefix.clear()
+
+		for prefix in side_deck.cards:
+			sidedeck_prefix.add_item(prefix)
+
+	
+	draw_sidedeck(key)
+
+
+func _on_PrefixType_item_selected(_index):
+	var key = CardInfo.side_decks.keys()[sidedeck_de.selected]
+	draw_sidedeck(key)
+	
+func draw_sidedeck(key):
+	var side_deck = CardInfo.side_decks[key]
+	
+	sidedeck_single.visible = false
+	sidedeck_container.visible = false
+	sidedeck_prefix.visible = false
+	
+	match side_deck.type:
+		"single":
+			sidedeck_single.visible = true
+			sidedeck_single.from_data(CardInfo.from_name( CardInfo.side_decks[key].card ))
+		"single_cat":
+			side_deck = side_deck.cards[side_deck.cards.keys()[sidedeck_prefix.selected]]
+			sidedeck_single.visible = true
+			sidedeck_prefix.visible = true
+			sidedeck_single.from_data(CardInfo.from_name(side_deck.card))
+			
 
 func _on_SortButton_pressed():
 	var cardList = get_deck_object()["cards"]
@@ -441,3 +433,5 @@ func _on_TestButton_pressed():
 
 func _exit_tree():
 	save_deck()
+
+

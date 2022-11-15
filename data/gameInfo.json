@@ -2,7 +2,6 @@
     "ruleset": "IMF Competitive Ruleset v0.17",
     "hammers_per_turn": 1,
     "ant_limit": 2,
-    "gmage_buff": true,
     "cards": [
         {
             "name": "Starvation",
@@ -1841,12 +1840,37 @@
         "Blood Lust",
         "Music Player"
     ],
-    "side_decks": [
-        
-    ]
+    "side_decks": {
+        "10 Squirrels": {
+            "type": "single",
+            "card": "Squirrel",
+            "count": 10
+        },
+        "10 Skeletons": {
+            "type": "single",
+            "card": "Skeleton",
+            "count": 10
+        },
+        "3 Gecks": {
+            "type": "single",
+            "card": "Geck",
+            "count": 3
+        },
+        "The Acid Squirrel": {
+            "type": "single",
+            "card": "Acid Squirrel",
+            "count": 1
+        },
+        "10 Shambling Cairns": {
+            "type": "single",
+            "card": "Shambling Cairn",
+            "count": 10
+        },
+        "10 Moon Shards": {
+            "type": "single",
+            "card": "Moon Shard",
+            "count": 10
+        }
+    }
 }
-
-
-
-
 
