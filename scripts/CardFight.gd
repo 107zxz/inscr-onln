@@ -3,34 +3,34 @@ extends Control
 # Vanguard
 
 # Side decks
-onready var side_decks = [
-	["Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel"],
-	["Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"],
-	[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-	[],
-	[],
-	["Geck", "Geck", "Geck"],
-	["Acid Squirrel"],
-	["Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn"],
-	["Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard"]
-]
-
-const side_deck_names = [
-	"Squirrels",
-	"Skeletons",
-	"Vessels",
-	"Fuck",
-	"Fuck",
-	"Gecks",
-	"GSquirrel",
-	"Cairns",
-	"Moon Shards"
-]
+#onready var side_decks = [
+#	["Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel"],
+#	["Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"],
+#	[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+#	[],
+#	[],
+#	["Geck", "Geck", "Geck"],
+#	["Acid Squirrel"],
+#	["Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn"],
+#	["Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard"]
+#]
+#
+#const side_deck_names = [
+#	"Squirrels",
+#	"Skeletons",
+#	"Vessels",
+#	"Fuck",
+#	"Fuck",
+#	"Gecks",
+#	"GSquirrel",
+#	"Cairns",
+#	"Moon Shards"
+#]
 
 # Carryovers from lobby
 var opponent = -100
 var initial_deck = []
-var side_deck_index = null
+var side_deck_key = null
 var go_first = null
 
 # Game components
@@ -120,20 +120,35 @@ func init_match(opp_id: int, do_go_first: bool):
 	$DrawPiles/Notify.visible = false
 	
 	# Side deck
-	if typeof(side_deck_index) == TYPE_ARRAY:
-		side_deck = side_deck_index.duplicate()
-		$DrawPiles/YourDecks/SideDeck.text = "Mox"
-	else:
-		# Vessels
-		if side_deck_index == 2:
-			while side_deck.size() < 10:
-				side_deck.append(side_deck[0])
-		else:
-			# Non-vessels
-			side_deck = side_decks[side_deck_index].duplicate()
+	#if typeof(side_deck_index) == TYPE_ARRAY:
+	#	side_deck = side_deck_index.duplicate()
+	#	$DrawPiles/YourDecks/SideDeck.text = "Mox"
+	#else:
+	#	# Vessels
+	#	if side_deck_index == 2:
+	#		while side_deck.size() < 10:
+	#			side_deck.append(side_deck[0])
+	#	else:
+	#		# Non-vessels
+	#		side_deck = side_decks[side_deck_index].duplicate()
 
-		$DrawPiles/YourDecks/SideDeck.text = side_deck_names[side_deck_index]
-	side_deck.shuffle()
+	#side_deck.shuffle()
+	
+	# TODO: Clean up. This is spaghetti city
+
+	# Side deck new
+	if typeof(side_deck_key) == TYPE_STRING: # Single
+		$DrawPiles/YourDecks/SideDeck.text = side_deck_key
+		side_deck = []
+		for _i in range(CardInfo.side_decks[side_deck_key].count):
+			side_deck.append(CardInfo.side_decks[side_deck_key].card)
+	
+	else: # Single category
+		$DrawPiles/YourDecks/SideDeck.text = " ".join([side_deck_key[1], side_deck_key[0]])
+		side_deck = []
+		for _i in range(CardInfo.side_decks[side_deck_key[0]].cards[side_deck_key[1]].count):
+			side_deck.append(CardInfo.side_decks[side_deck_key[0]].cards[side_deck_key[1]].card)
+
 	
 	# Reset game state
 	advantage = 0
@@ -392,11 +407,11 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	if source.name == "Deck":
 		dst = str(len(deck)) + "/" + str(len(initial_deck))
 	else:
-		if typeof(side_deck_index) == TYPE_ARRAY:
-			dst = str(len(side_deck)) + "/10"
+		if typeof(side_deck_key) == TYPE_STRING:
+			dst = str(len(side_deck)) + "/" + str(CardInfo.side_decks[side_deck_key].count)
 		else:
-			dst = str(len(side_deck)) + "/" + str(len(side_decks[side_deck_index]))
-	
+			dst = str(len(side_deck)) + "/" + str(CardInfo.side_decks[side_deck_key[0]].cards[side_deck_key[1]].count)
+		
 	source.get_node("SizeLabel").text = dst
 
 	# Hand tenta

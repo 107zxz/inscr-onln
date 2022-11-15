@@ -40,23 +40,6 @@ func _on_Button_pressed():
 		from_data(CardInfo.all_cards[nextIdx])
 		_on_Card_mouse_entered()
 
-	# Am I the editable empty vessel?
-	if name == "SDCardSingle":
-
-		var startIdx = CardInfo.all_cards.find(CardInfo.from_name("Empty Vessel"))
-		var endIdx = CardInfo.all_cards.find(CardInfo.from_name("Contaminated Vessel"))
-
-		var currIdx = CardInfo.all_cards.find(card_data)
-
-		print("Startidx: ", startIdx, " Endidx: ", endIdx, " Curridx: ", currIdx)
-
-		if currIdx > startIdx - 1 and currIdx < endIdx + 1:
-			var nextIdx = (currIdx - startIdx + 1) % (endIdx - startIdx + 1) + startIdx
-			from_data(CardInfo.all_cards[nextIdx])
-			previewCont.get_child(0).from_data(card_data)
-			_on_Card_mouse_entered()
-
-
 
 func _on_Card_mouse_entered():
 	if not card_data:

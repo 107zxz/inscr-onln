@@ -161,9 +161,12 @@ func init_fight(go_first: int):
 		var ddata = deckEditor.get_deck_object()
 
 		cardFight.initial_deck = ddata.cards
-		cardFight.side_deck_index = ddata.side_deck
-		if "vessel_type" in ddata:
-			cardFight.side_deck = [ddata.vessel_type]
+		
+		match CardInfo.side_decks[ddata.side_deck].type:
+			"single":
+				cardFight.side_deck_key = ddata.side_deck
+			"single_cat":
+				cardFight.side_deck_key = [ddata.side_deck, ddata.side_deck_cat]
 	
 	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name + " (" + str(lobby_data.players[myId].wins) + " wins)"
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name + " (" + str(lobby_data.players[oppId].wins) + " wins)"
