@@ -664,6 +664,17 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		pCard.take_damage(get_enemy_card(card_slot), 1)
 
 	if sName == "Power Dice":
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		
+		var diff = eCard.attack - eCard.card_data["attack"]
+		
+		eCard.card_data["attack"] = arg
+		
+		eCard.attack = arg + diff
+
+		eCard.draw_stats()
+	
+	if sName == "Power Dice (2)":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 2)
 		
 		var diff = eCard.attack - eCard.card_data["attack"]
@@ -684,6 +695,15 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 	
 	if sName == "Stimulate":
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
+		eCard.health += 1
+
+		eCard.card_data["attack"] += 1 # save attack to avoid bug
+		eCard.attack += 1
+
+		eCard.draw_stats()
+	
+	if sName == "Stimulate (4)":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 4)
 		eCard.health += 1
 
@@ -693,6 +713,9 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 	
 	if sName == "Bonehorn":
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		fightManager.add_opponent_bones(3)
+	if sName == "Bonehorn (1)":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		fightManager.add_opponent_bones(1)
 	

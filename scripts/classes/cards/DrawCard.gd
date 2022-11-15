@@ -73,11 +73,11 @@ func draw_special():
 		$AtkIcon.texture = $AtkIcon.texture.duplicate()
 		
 		match card_data.atkspecial:
-			0.0:
+			"mox", "green_mox":
 				$AtkIcon.texture.region = Rect2(0, 0, 16, 8)
-			1.0:
+			"mirror":
 				$AtkIcon.texture.region = Rect2(0, 27, 16, 8)
-			2.0:
+			"ant":
 				$AtkIcon.texture.region = Rect2(0, 9, 16, 8)
 
 		$AtkIcon.visible = true

@@ -4,5 +4,5 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 	
 	if event == "card_perished" and params[0] == card:
-		slotManager.summon_card(CardInfo.from_name("Skeleton"), card.slot_idx(), isFriendly)
+		slotManager.summon_card(CardInfo.from_name(card.card_data["evolution"]), card.slot_idx(), isFriendly)
 

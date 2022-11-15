@@ -479,6 +479,16 @@ func _on_ActiveSigil_pressed():
 			eCard.take_damage(self, 1)
 
 	if sName == "Power Dice":
+		if fightManager.energy < 1:
+			return
+		
+		fightManager.set_energy(fightManager.energy - 1)
+		
+		attack = randi() % 6 + 1
+		card_data["attack"] = attack
+		draw_stats()
+	
+	if sName == "Power Dice (2)":
 		if fightManager.energy < 2:
 			return
 		
@@ -500,6 +510,17 @@ func _on_ActiveSigil_pressed():
 		draw_stats()
 	
 	if sName == "Stimulate":
+		if fightManager.energy < 3:
+			return
+	
+		fightManager.set_energy(fightManager.energy - 3)
+		health += 1
+		card_data.attack += 1 # Save attack to avoid deletion later
+		attack += 1
+		
+		draw_stats()
+	
+	if sName == "Stimulate (4)":
 		if fightManager.energy < 4:
 			return
 	
@@ -515,9 +536,21 @@ func _on_ActiveSigil_pressed():
 			return
 	
 		fightManager.set_energy(fightManager.energy - 1)
+		fightManager.add_bones(3)
+	if sName == "Bonehorn (1)":
+		if fightManager.energy < 1:
+			return
+	
+		fightManager.set_energy(fightManager.energy - 1)
 		fightManager.add_bones(1)
 	
 	if sName == "Disentomb":
+		if fightManager.bones < 1:
+			return
+
+		fightManager.add_bones(-1)
+		fightManager.draw_card(CardInfo.from_name("Skeleton"))
+	if sName == "Disentomb (Corpses)":
 		if fightManager.bones < 1:
 			return
 
@@ -569,19 +602,24 @@ func calculate_buffs():
 	# Green Mage
 	if "atkspecial" in card_data:
 		match card_data.atkspecial:
-			0.0:
+			"green_mox":
+				attack = 0
+				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+					if "sigils" in mx.card_data and "Green Mox" in mx.card_data["sigils"]:
+						attack += 1
+			"mox":
 				attack = 0
 				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
 					if "Mox" in mx.card_data["name"]:
 						attack += 1
-			1.0:
+			"mirror":
 				if friendly:
 					if slotManager.get_enemy_card(sIdx):
 						attack = slotManager.get_enemy_card(sIdx).attack
 				else:
 					if slotManager.get_friendly_card(sIdx):
 						attack = slotManager.get_friendly_card(sIdx).attack
-			2.0:
+			"ant":
 				attack = card_data.attack
 				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
 					if "Ant" in ant.card_data["name"] and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
