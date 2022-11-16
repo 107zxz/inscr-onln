@@ -89,11 +89,6 @@ func attempt_sacrifice():
 				if victim.card_data["name"] == "Cat" and victim.sacrifice_count == 9:
 					victim.from_data(CardInfo.from_name("Undead Cat"))
 					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), CardInfo.from_name("Undead Cat"))
-				# Pets to cat
-				if victim.card_data["name"] == "Pharaoh's Pets" and handManager.raisedCard.card_data["blood_cost"] > sacValue - 2:
-					victim.from_data(CardInfo.from_name("Cat"))
-					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), CardInfo.from_name("Cat"))
-
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
 				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "Perish")
