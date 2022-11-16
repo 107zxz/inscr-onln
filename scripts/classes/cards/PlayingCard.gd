@@ -329,12 +329,17 @@ func begin_perish(doubleDeath = false):
 
 		# Unkillable
 		if has_sigil("Unkillable"):
+			
+			if "Ouro" in card_data["name"]:
+				card_data["attack"] += 1
+				card_data["health"] += 1
+			
 			fightManager.draw_card(card_data)
 		
 		# Reconstitute
 		if has_sigil("Reconstitute"):
 
-			if card_data["name"] == "Ouroboros":
+			if "Ouro" in card_data["name"]:
 				card_data["attack"] += 1
 				card_data["health"] += 1
 			
