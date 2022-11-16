@@ -285,6 +285,9 @@ func load_deck(_arg = null):
 		
 		var cdat = CardInfo.from_name(card)
 		
+		if not cdat:
+			continue
+		
 		if "banned" in cdat:
 			continue
 		

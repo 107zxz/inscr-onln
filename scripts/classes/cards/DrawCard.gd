@@ -123,7 +123,7 @@ func draw_special():
 					$Button.hint_tooltip += "\n"
 		
 		if "evolution" in card_data:
-			$Button.hint_tooltip += "This card evolves into: %s\n\n" % card_data.evolution
+			$Button.hint_tooltip += "This card evolves/defrosts into: %s\n\n" % card_data.evolution
 		
 		
 func draw_cost():
