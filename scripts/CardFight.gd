@@ -79,6 +79,7 @@ var hammers_left = -1
 # Decks
 var deck = []
 var side_deck = []
+var side_deck_cards = []
 
 # Persistent card state
 var turns_starving = 0
@@ -140,6 +141,10 @@ func init_match(opp_id: int, do_go_first: bool):
 	if not side_deck_key:
 		$DrawPiles/YourDecks/SideDeck.visible = false
 		$DrawPiles/EnemyDecks/SideDeck.visible = false
+	
+	elif side_deck_cards != []:
+		side_deck = side_deck_cards
+		$DrawPiles/YourDecks/SideDeck.text = side_deck_key
 	
 	elif typeof(side_deck_key) == TYPE_STRING: # Single
 		$DrawPiles/YourDecks/SideDeck.text = side_deck_key
