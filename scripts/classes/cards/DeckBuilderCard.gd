@@ -1,10 +1,12 @@
 extends "res://scripts/classes/cards/DrawCard.gd"
 
 onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer")
+onready var sideDeckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Draft/SideDeckContainer")
 onready var previewCont = get_node("/root/Main/DeckEdit/HBoxContainer/CardPreview/PreviewContainer/")
 
 onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 
+onready var deckEditor = get_node("/root/Main/DeckEdit")
 
 func from_data(cdat):
 	draw_from_data(cdat)
@@ -12,34 +14,46 @@ func from_data(cdat):
 func _on_Button_pressed():
 	# Am I in the search window? If so, add me to the deck if space provides
 	if get_parent().name == "SearchContainer":
-		if "rare" in card_data:
-			if get_node("/root/Main/DeckEdit").get_card_count(card_data) != 0:
+		
+		if deckEditor.tab_cont.current_tab == 1:
+			if "rare" in card_data:
+				if deckEditor.get_sd_card_count(card_data) != 0:
+					return
+			if sideDeckContainer.get_child_count() >= CardInfo.side_decks[CardInfo.side_decks.keys()[deckEditor.sidedeck_de.selected]].count:
 				return
+			var newCard = self.duplicate(7)
+			newCard.from_data(card_data)
+			sideDeckContainer.add_child(newCard)
+#			deckEditor.update_deck_count(1)
 		else:
-			if get_node("/root/Main/DeckEdit").get_card_count(card_data) >= 4:
-				return
-		var newCard = self.duplicate(7)
-		newCard.from_data(card_data)
-		deckContainer.add_child(newCard)
-		get_node("/root/Main/DeckEdit").update_deck_count(1)
+			if "rare" in card_data:
+				if deckEditor.get_card_count(card_data) != 0:
+					return
+			else:
+				if deckEditor.get_card_count(card_data) >= 4:
+					return
+			var newCard = self.duplicate(7)
+			newCard.from_data(card_data)
+			deckContainer.add_child(newCard)
+			deckEditor.update_deck_count(1)
 
 
 	# Am I in the deck window? If so, delete me
-	if get_parent().name == "DeckContainer":
-		get_node("/root/Main/DeckEdit").update_deck_count(-1)
+	if "DeckContainer" in get_parent().name:
+		deckEditor.update_deck_count(-1)
 
 		queue_free()
 
 	# Am I in the mox container? If so, cycle me
-	if get_parent().name == "MoxContainer":
-
-		var startIdx = CardInfo.all_cards.find(CardInfo.from_name("Emerald Mox"))
-
-		var currIdx = CardInfo.all_cards.find(card_data)
-		var nextIdx = (currIdx - startIdx + 1) % 3 + startIdx
-		from_data(CardInfo.all_cards[nextIdx])
-		_on_Card_mouse_entered()
-
+#	if get_parent().name == "MoxContainer":
+#
+#		var startIdx = CardInfo.all_cards.find(CardInfo.from_name("Emerald Mox"))
+#
+#		var currIdx = CardInfo.all_cards.find(card_data)
+#		var nextIdx = (currIdx - startIdx + 1) % 3 + startIdx
+#		from_data(CardInfo.all_cards[nextIdx])
+#		_on_Card_mouse_entered()
+	
 
 func _on_Card_mouse_entered():
 	if not card_data:

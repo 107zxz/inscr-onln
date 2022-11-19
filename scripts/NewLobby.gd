@@ -168,6 +168,9 @@ func init_fight(go_first: int):
 					cardFight.side_deck_key = ddata.side_deck
 				"single_cat":
 					cardFight.side_deck_key = [ddata.side_deck, ddata.side_deck_cat]
+				"draft":
+					cardFight.side_deck_key = ddata.side_deck
+					cardFight.side_deck_cards = ddata.side_deck_cards
 		else:
 			cardFight.side_deck_key = null
 			

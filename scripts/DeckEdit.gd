@@ -4,6 +4,7 @@ var dSize = 0
 
 onready var searchResults = get_node("%SearchContainer")
 onready var deckDisplay = get_node("%DeckContainer")
+onready var sideDeckDisplay = get_node("%SideDeckContainer")
 onready var cardPreview = get_node("%PreviewContainer")
 
 # Search option units
@@ -24,14 +25,13 @@ onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer
 onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/LineEdit
 
 # Extended options
-onready var sidedeck_de = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/HBoxContainer/SDSel
-onready var sidedeck_container = $HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/VBoxContainer/MoxContainer
+onready var sidedeck_de = $"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/SDSel"
+onready var sidedeck_container = get_node("%SideDeckContainer")
 onready var sidedeck_single = get_node("%SDCardSingle")
 onready var sidedeck_prefix = get_node("%PrefixType")
 
+onready var tab_cont = get_node("%TabContainer")
 
-# const sdCards = [30, 82, 112, -1, -1, 120, 121, 122]
-const sdCards = ["Squirrel", "Skeleton", "Empty Vessel", "", "", "Geck", "Acid Squirrel", "Shambling Cairn", "Moon Shard"]
 
 # Card result prefab
 var cardPrefab = preload("res://packed/dbCard.tscn")
@@ -100,9 +100,19 @@ func search(_arg = null):
 		
 	var resultCount = 0
 	
-	for card in CardInfo.all_cards:
+	var search_cards = CardInfo.all_cards
+	
+	if tab_cont.current_tab == 1:
+		search_cards = CardInfo.side_decks[CardInfo.side_decks.keys()[sidedeck_de.selected]].cards.duplicate()
+		
+		for i in range(len(search_cards)):
+			search_cards[i] = CardInfo.from_name(search_cards[i])
+		
+		
+	
+	for card in search_cards:
 		# Don't show banned cards
-		if "banned" in card:
+		if "banned" in card and tab_cont.current_tab == 0:
 			continue
 
 		# Search conditions
@@ -185,10 +195,12 @@ func get_deck_object():
 		if side_deck.type == "single_cat":
 			deck_object.side_deck_cat = side_deck.cards.keys()[sidedeck_prefix.selected]
 		
-	# More side deck
-#	if typeof(side_deck) == TYPE_INT and side_deck == 2:
-#		deck_object["vessel_type"] = sidedeck_single.card_data.name
-	
+		if side_deck.type == "draft":
+			deck_object.side_deck_cards = []
+			for card in sidedeck_container.get_children():
+				if not card.is_queued_for_deletion():
+					deck_object.side_deck_cards.append(card.card_data["name"])
+
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
 			deck_object["cards"].append(card.card_data["name"])
@@ -199,6 +211,15 @@ func get_card_count(cDat):
 	var res = 0
 
 	for card in deckDisplay.get_children():
+		if card.card_data == cDat:
+			res += 1
+	
+	return res
+
+func get_sd_card_count(cDat):
+	var res = 0
+
+	for card in sideDeckDisplay.get_children():
 		if card.card_data == cDat:
 			res += 1
 	
@@ -329,9 +350,18 @@ func load_deck(_arg = null):
 		_on_SDSel_item_selected(sidedeck_de.selected)
 		
 		# Select correct category
-		if CardInfo.side_decks[dj["side_deck"]].type == "single_cat":
-			sidedeck_prefix.select(CardInfo.side_decks[dj["side_deck"]].cards.keys().find(dj["side_deck_cat"]))
-		
+		match CardInfo.side_decks[dj["side_deck"]].type:
+			"single_cat":
+				sidedeck_prefix.select(CardInfo.side_decks[dj["side_deck"]].cards.keys().find(dj["side_deck_cat"]))
+			"draft":
+				for card in sidedeck_container.get_children():
+					card.queue_free()
+				
+				for card in dj["side_deck_cards"]:
+					var nCard = cardPrefab.instance()
+					nCard.from_data(CardInfo.from_name(card))
+					sidedeck_container.add_child(nCard)
+				
 		# Redraw
 		draw_sidedeck(dj["side_deck"])
 	
@@ -389,8 +419,8 @@ func draw_sidedeck(key):
 	var side_deck = CardInfo.side_decks[key]
 	
 	sidedeck_single.visible = false
-	sidedeck_container.visible = false
 	sidedeck_prefix.visible = false
+	tab_cont.tabs_visible = false
 	
 	match side_deck.type:
 		"single":
@@ -401,6 +431,10 @@ func draw_sidedeck(key):
 			sidedeck_single.visible = true
 			sidedeck_prefix.visible = true
 			sidedeck_single.from_data(CardInfo.from_name(side_deck.card))
+		"draft":
+			tab_cont.tabs_visible = true
+#			for child in sidedeck_container.get_children():
+#				child.queue_free()
 			
 
 func _on_SortButton_pressed():
@@ -453,3 +487,7 @@ func _exit_tree():
 	save_deck()
 
 
+
+
+func _on_TabContainer_tab_changed(tab):
+	search()
