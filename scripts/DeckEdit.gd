@@ -489,5 +489,5 @@ func _exit_tree():
 
 
 
-func _on_TabContainer_tab_changed(tab):
+func _on_TabContainer_tab_changed(_tab):
 	search()

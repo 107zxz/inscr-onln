@@ -40,8 +40,8 @@ func _on_Button_pressed():
 
 	# Am I in the deck window? If so, delete me
 	if "DeckContainer" in get_parent().name:
-		deckEditor.update_deck_count(-1)
-
+		if not "Side" in get_parent().name:
+			deckEditor.update_deck_count(-1)
 		queue_free()
 
 	# Am I in the mox container? If so, cycle me
