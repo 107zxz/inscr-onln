@@ -1,12 +1,29 @@
-v0.2.2 is out!
+v0.2.3 is out!
 
-Theme editor improvements, tunnel error messages, and a feature you didn't ask for, but deserve
+Inscryption act 2 vanilla ruleset, custom side deck support in rulesets, sidedecking improvements, and more!
 
-* Theme editor now features colour pickers, and appears in the corner now
-    * This means you can open the deck editor with the theme editor open to see all the cards!
+* Card Changes
+    * Pharoah's Pets
+        * Worthy Sacrifice
+        * Frozen Away
+        * Defrosts into Cat
 
+        Pharoah's Pets was nerfed a while ago to turn into a cat after a sacrifice is made using it. This is now reflected in its sigils.
 
-* Error messages will now appear when the tunnel fails to connect, rather than hanging forever
+    * Bloody Vessels
+        * Energy cost 4 -> 3
 
+        This is a tentative change, and may be reverted if it's too broken
 
-* You can now specify a port for IP connections (you can use this to connect to localhost.run games (syntax: xxxxx.lhrtunnel.life:80)
+    * All Vessels (except Empty)
+        * New card portraits by syntaxevasion. Thanks!
+
+* Bug Fixes
+    * Ouroboros now triggers correctly in the vanilla ruleset (Thanks, Slug!)
+
+* New Features
+    * CRT Filter (available in the options menu)
+    * Custom side decks now supported in rulesets
+
+* Other changes
+    * Side deck selection improvements
