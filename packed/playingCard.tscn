@@ -56,9 +56,12 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [ "attack" ],
+"method": "play_sfx"
+}, {
 "args": [  ],
 "method": "attack_hit"
 } ]
@@ -86,9 +89,12 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [ "attack" ],
+"method": "play_sfx"
+}, {
 "args": [  ],
 "method": "attack_hit"
 } ]
@@ -144,6 +150,20 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "sac" ],
+"method": "play_sfx"
+} ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -333,6 +353,23 @@ tracks/3/keys = {
 "method": "queue_free"
 } ]
 }
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "perish" ],
+"method": "play_sfx"
+}, {
+"args": [ "perish" ],
+"method": "play_sfx"
+} ]
+}
 
 [sub_resource type="Animation" id=13]
 resource_name = "Evolve"
@@ -458,6 +495,20 @@ tracks/3/keys = {
 }, {
 "args": [  ],
 "method": "queue_free"
+} ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "perish" ],
+"method": "play_sfx"
 } ]
 }
 
@@ -653,6 +704,8 @@ script = ExtResource( 2 )
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 128.0
+margin_bottom = 185.0
 rect_min_size = Vector2( 128, 185 )
 mouse_filter = 2
 theme = ExtResource( 1 )
