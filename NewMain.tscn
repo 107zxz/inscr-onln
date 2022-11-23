@@ -1131,6 +1131,13 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Moon music"
 
+[node name="enable_music" type="CheckButton" parent="Options/TabContainer/Audio"]
+margin_right = 524.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Enable Music"
+
 [node name="Experimental" type="VBoxContainer" parent="Options/TabContainer"]
 visible = false
 anchor_right = 1.0
@@ -1146,6 +1153,13 @@ margin_bottom = 27.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Replays (experimental)"
+
+[node name="enable_sfx" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_right = 524.0
+margin_bottom = 27.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Enable SFX (Experimental)"
 
 [node name="CloseBtn" type="Button" parent="Options"]
 margin_left = 828.0

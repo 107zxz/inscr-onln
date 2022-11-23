@@ -8,7 +8,9 @@ var options = {
 	"show_enemy_advantage": false,
 	"stretch_to_fill": false,
 	"fullscreen": false,
-	"crt_filter": false
+	"crt_filter": false,
+	"enable_music": true,
+	"enable_sfx": false
 }
 
 func read_options():
@@ -42,9 +44,6 @@ func _ready():
 		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(1920, 1080))
 
 	OS.window_fullscreen = options["fullscreen"]
-	
-	if has_node("/root/Main"):
-		get_node("/root/Main/Scanlines").visible = options.crt_filter
 
 func _exit_tree():
 	# Save to file
