@@ -7,7 +7,19 @@ onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var slotManager = get_node("/root/Main/CardFight/CardSlots")
 
+onready var cardAudio = fightManager.get_node("CardSFX")
+
 var paperTheme = preload("res://themes/papertheme.tres")
+
+# You asked for it
+const sfx = {
+	"blood": preload("res://sfx/pixel_card_attack_nature.wav"),
+	"energy": preload("res://sfx/pixel_card_attack_tech.wav"),
+	"bone": preload("res://sfx/pixel_card_attack_undead.wav"),
+	"mox": preload("res://sfx/pixel_card_attack_wizard.wav"),
+	"death": preload("res://sfx/pixel_card_death.wav"),
+	"sac": preload("res://sfx/pixel_card_sacrifice.wav"),
+}
 
 # State
 var card_data = {}
@@ -723,3 +735,20 @@ func take_damage(enemyCard, dmg_amt = -1):
 
 func is_alive():
 	return not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion()
+
+
+func play_sfx(name):
+	# TODO: Make this play on a global sfx thing (also on a different bus (same with music))
+	match name:
+		"attack":
+			for cost in ["energy", "bone", "mox"]:
+				if cost +"_cost" in card_data:
+					cardAudio.stream = sfx[cost]
+					break
+			cardAudio.stream = sfx["blood"]
+		"perish":
+			cardAudio.stream = sfx["death"]
+		"sac":
+			cardAudio.stream = sfx["sac"]
+			
+	cardAudio.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://scripts/CardSlots.gd" type="Script" id=4]
 [ext_resource path="res://scripts/HandManager.gd" type="Script" id=5]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=7]
-[ext_resource path="res://music/moon.mp3" type="AudioStream" id=8]
 [ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gfx/cardextras/cost_energy.png" type="Texture" id=10]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=11]
@@ -177,8 +176,8 @@ tracks/11/keys = {
 "update": 1,
 "values": [ false ]
 }
-tracks/12/type = "method"
-tracks/12/path = NodePath("AudioStreamPlayer")
+tracks/12/type = "value"
+tracks/12/path = NodePath("../DrawPiles/EnemyDecks:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -186,13 +185,11 @@ tracks/12/enabled = true
 tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "stop"
-} ]
+"update": 1,
+"values": [ true ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("../DrawPiles/EnemyDecks:visible")
+tracks/13/path = NodePath("../DrawPiles/EnemyDecks:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -200,11 +197,11 @@ tracks/13/enabled = true
 tracks/13/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("../DrawPiles/EnemyDecks:modulate")
+tracks/14/path = NodePath("../HandsContainer/Hands/EnemyHand:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -212,11 +209,11 @@ tracks/14/enabled = true
 tracks/14/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"update": 1,
+"values": [ true ]
 }
 tracks/15/type = "value"
-tracks/15/path = NodePath("../HandsContainer/Hands/EnemyHand:visible")
+tracks/15/path = NodePath("../HandsContainer/Hands/EnemyHand:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
@@ -224,11 +221,11 @@ tracks/15/enabled = true
 tracks/15/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/16/type = "value"
-tracks/16/path = NodePath("../HandsContainer/Hands/EnemyHand:modulate")
+tracks/16/path = NodePath("../CardSlots/EnemySlots:visible")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/imported = false
@@ -236,11 +233,11 @@ tracks/16/enabled = true
 tracks/16/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"update": 1,
+"values": [ true ]
 }
 tracks/17/type = "value"
-tracks/17/path = NodePath("../CardSlots/EnemySlots:visible")
+tracks/17/path = NodePath("../CardSlots/EnemySlots:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/imported = false
@@ -248,11 +245,11 @@ tracks/17/enabled = true
 tracks/17/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/18/type = "value"
-tracks/18/path = NodePath("../CardSlots/EnemySlots:modulate")
+tracks/18/path = NodePath("BothMoons/EnemyMoon:visible")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/imported = false
@@ -260,11 +257,11 @@ tracks/18/enabled = true
 tracks/18/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"update": 1,
+"values": [ false ]
 }
 tracks/19/type = "value"
-tracks/19/path = NodePath("BothMoons/EnemyMoon:visible")
+tracks/19/path = NodePath("../LeftSideUI/PassButton:modulate")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/imported = false
@@ -272,11 +269,11 @@ tracks/19/enabled = true
 tracks/19/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
-tracks/20/type = "value"
-tracks/20/path = NodePath("../LeftSideUI/PassButton:modulate")
+tracks/20/type = "method"
+tracks/20/path = NodePath("BothMoons/EnemyMoon")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/imported = false
@@ -284,11 +281,13 @@ tracks/20/enabled = true
 tracks/20/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ {
+"args": [  ],
+"method": "reset"
+} ]
 }
 tracks/21/type = "method"
-tracks/21/path = NodePath("BothMoons/EnemyMoon")
+tracks/21/path = NodePath("BothMoons/FriendlyMoon")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/imported = false
@@ -301,8 +300,8 @@ tracks/21/keys = {
 "method": "reset"
 } ]
 }
-tracks/22/type = "method"
-tracks/22/path = NodePath("BothMoons/FriendlyMoon")
+tracks/22/type = "value"
+tracks/22/path = NodePath("BothMoons/EnemyMoon:modulate")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/imported = false
@@ -310,13 +309,11 @@ tracks/22/enabled = true
 tracks/22/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "reset"
-} ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/23/type = "value"
-tracks/23/path = NodePath("BothMoons/EnemyMoon:modulate")
+tracks/23/path = NodePath("BothMoons/FriendlyMoon:modulate")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/imported = false
@@ -328,7 +325,7 @@ tracks/23/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/24/type = "value"
-tracks/24/path = NodePath("BothMoons/FriendlyMoon:modulate")
+tracks/24/path = NodePath("BothMoons/EnemyMoon:rect_scale")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/imported = false
@@ -337,27 +334,15 @@ tracks/24/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/25/type = "value"
-tracks/25/path = NodePath("BothMoons/EnemyMoon:rect_scale")
+tracks/25/path = NodePath("BothMoons/FriendlyMoon:rect_scale")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/imported = false
 tracks/25/enabled = true
 tracks/25/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/26/type = "value"
-tracks/26/path = NodePath("BothMoons/FriendlyMoon:rect_scale")
-tracks/26/interp = 1
-tracks/26/loop_wrap = true
-tracks/26/imported = false
-tracks/26/enabled = true
-tracks/26/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -583,34 +568,32 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 660, 80 ), Vector2( 660, 280 ) ]
 }
-tracks/3/type = "audio"
-tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 8 )
-} ],
-"times": PoolRealArray( 0 )
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath(".:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0, 6.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("BothMoons/EnemyMoon:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 tracks/5/type = "value"
-tracks/5/path = NodePath("BothMoons/EnemyMoon:visible")
+tracks/5/path = NodePath("../HandsContainer/Hands/EnemyHand:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -618,11 +601,11 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("../HandsContainer/Hands/EnemyHand:modulate")
+tracks/6/path = NodePath("../DrawPiles/EnemyDecks:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -630,11 +613,11 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"update": 1,
+"values": [ true, false ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../DrawPiles/EnemyDecks:visible")
+tracks/7/path = NodePath("../CardSlots/EnemySlots:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -646,24 +629,12 @@ tracks/7/keys = {
 "values": [ true, false ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("../CardSlots/EnemySlots:visible")
+tracks/8/path = NodePath("../HandsContainer/Hands/EnemyHand:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("../HandsContainer/Hands/EnemyHand:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
@@ -740,34 +711,32 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 660, 750 ), Vector2( 660, 550 ) ]
 }
-tracks/3/type = "audio"
-tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
-tracks/3/enabled = false
+tracks/3/enabled = true
 tracks/3/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 8 )
-} ],
-"times": PoolRealArray( 0 )
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath(".:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0, 6.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("BothMoons/FriendlyMoon:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 tracks/5/type = "value"
-tracks/5/path = NodePath("BothMoons/FriendlyMoon:visible")
+tracks/5/path = NodePath("../HandsContainer/Hands/PlayerHand:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -775,11 +744,11 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("../HandsContainer/Hands/PlayerHand:modulate")
+tracks/6/path = NodePath("../DrawPiles/YourDecks:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -787,11 +756,11 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"update": 1,
+"values": [ true, false ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../DrawPiles/YourDecks:visible")
+tracks/7/path = NodePath("../CardSlots/PlayerSlots:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -803,7 +772,7 @@ tracks/7/keys = {
 "values": [ true, false ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("../CardSlots/PlayerSlots:visible")
+tracks/8/path = NodePath("../HandsContainer/Hands/PlayerHand:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -815,60 +784,48 @@ tracks/8/keys = {
 "values": [ true, false ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("../HandsContainer/Hands/PlayerHand:visible")
+tracks/9/path = NodePath("../LeftSideUI/PassButton:disabled")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ true ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("../LeftSideUI/PassButton:disabled")
+tracks/10/path = NodePath("../LeftSideUI/HammerButton:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("../LeftSideUI/HammerButton:modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("../LeftSideUI/HammerButton:disabled")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/path = NodePath("../LeftSideUI/HammerButton:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
 }
-tracks/13/type = "method"
-tracks/13/path = NodePath("..")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
+tracks/12/type = "method"
+tracks/12/path = NodePath("..")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
 "times": PoolRealArray( 6.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -876,13 +833,13 @@ tracks/13/keys = {
 "method": "end_turn"
 } ]
 }
-tracks/14/type = "value"
-tracks/14/path = NodePath("../LeftSideUI/PassButton:modulate")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/path = NodePath("../LeftSideUI/PassButton:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
@@ -1009,9 +966,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 3 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MoonFight"]
-stream = ExtResource( 8 )
 
 [node name="BothMoons" type="Control" parent="MoonFight"]
 margin_right = 1920.0
@@ -1771,6 +1725,12 @@ focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Play"
+
+[node name="MusPlayer" type="AudioStreamPlayer" parent="."]
+bus = "Music"
+
+[node name="CardSFX" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
 
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
