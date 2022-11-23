@@ -28,6 +28,11 @@ func update_options():
 				if old_val == opt.pressed and opt.name == "crt_filter":
 					get_node("/root/Main/Scanlines").visible = GameOptions.options.crt_filter
 
+				if old_val == opt.pressed and opt.name == "enable_sfx":
+					AudioServer.set_bus_mute(2, not GameOptions.options.enable_sfx)
+				if old_val == opt.pressed and opt.name == "enable_music":
+					AudioServer.set_bus_mute(1, not GameOptions.options.enable_music)
+
 func update_controls():
 	for cat in $TabContainer.get_children():
 		for opt in cat.get_children():
@@ -41,6 +46,12 @@ func connect_signals():
 				opt.connect("pressed", self, "update_options")
 
 func _ready():
-	
 	update_controls()
 	connect_signals()
+	
+	# Apply options
+	get_node("/root/Main/Scanlines").visible = GameOptions.options.crt_filter
+	AudioServer.set_bus_mute(1, not GameOptions.options.enable_music)
+	AudioServer.set_bus_mute(2, not GameOptions.options.enable_sfx)
+	
+	
