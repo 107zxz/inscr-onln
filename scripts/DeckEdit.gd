@@ -332,7 +332,7 @@ func load_deck(_arg = null):
 				
 				if child.card_data.name == cdat.name:
 					found += 1
-			if found >= 4:
+			if found >= CardInfo.all_data.max_commons_main:
 				continue
 		
 		nCard.from_data(cdat)
@@ -356,8 +356,22 @@ func load_deck(_arg = null):
 			"draft":
 				for card in sidedeck_container.get_children():
 					card.queue_free()
+
+				var added = {}
 				
 				for card in dj["side_deck_cards"]:
+
+					if not card.name in added:
+						added[card.name] = 1
+					else:
+						added[card.name] += 1
+
+					if added[card.name] > CardInfo.all_data.max_commons_side:
+						continue
+
+					if "rare" in card and added[card.name] > 1:
+						continue
+
 					var nCard = cardPrefab.instance()
 					nCard.from_data(CardInfo.from_name(card))
 					sidedeck_container.add_child(nCard)
