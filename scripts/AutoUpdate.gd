@@ -2,6 +2,7 @@ extends Control
 
 const rulesetURLs = [
 	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/competitive.json",
+	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/eternal.json",
 	"https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/vanilla.json",
 	null,
 	null,
@@ -25,10 +26,10 @@ func _on_Continue_pressed():
 	
 	var rulesetUrl = $SelectionBox/Rows/Url.text
 	
-	if $SelectionBox/Rows/OptionButton.selected < 5:
+	if $SelectionBox/Rows/OptionButton.selected < 6:
 		rulesetUrl = rulesetURLs[$SelectionBox/Rows/OptionButton.selected]
 	
-	if $SelectionBox/Rows/OptionButton.selected == 6:
+	if $SelectionBox/Rows/OptionButton.selected == 7:
 		CardInfo.read_game_info()
 		
 		print("Using cached ruleset")
