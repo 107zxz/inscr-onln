@@ -533,7 +533,8 @@ func handle_attack(from_slot, to_slot):
 	
 	if direct_attack:
 		
-		fightManager.inflict_damage(pCard.attack)
+		# Variable attack override
+		fightManager.inflict_damage(pCard.attack if not CardInfo.all_data.variable_attack_nerf else 1)
 
 		# Looter
 		if pCard.has_sigil("Looter"):
@@ -602,7 +603,7 @@ func summon_card(cDat, slot_idx, friendly: bool):
 
 	nCard.create_sigils(friendly)
 	fightManager.connect("sigil_event", nCard, "handle_sigil_event")
-
+	
 # Remote
 remote func set_sac_olay_vis(slot, vis):
 	#Replay
