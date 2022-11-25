@@ -304,63 +304,16 @@ func attack_hit():
 # Called when the card starts dying. Add bones and stuff
 func begin_perish(doubleDeath = false):
 	
-	# New, special death signal
-	fightManager.emit_signal("sigil_event", "card_perished", [self])
-	
 	# For necro
 	var canRespawn = true
+	fightManager.emit_signal("sigil_event", "card_perished", [self])
 	
 	if get_parent().get_parent().name == "PlayerSlots":
 		if doubleDeath:
 			fightManager.card_summoned(self)
 
-		if has_sigil("Bone King"):
-			fightManager.add_bones(4)
-		elif not has_sigil("Boneless"):
-			fightManager.add_bones(1)
-			
-		# Temp
-		if "necro_boned" in CardInfo.all_data and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self:
-			if has_sigil("Bone King"):
-				fightManager.add_bones(4)
-			elif not has_sigil("Boneless"):
-				fightManager.add_bones(1)
-				
-		## SIGILS
-		# Ruby Heart
-#		if has_sigil("Ruby Heart"):
-#			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
-#			slotManager.summon_card(CardInfo.from_name("Ruby Mox"), get_parent().get_position_in_parent())
-#			canRespawn = false
-
-		# Frozen Away
-#		if has_sigil("Frozen Away"):
-#			slotManager.rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent())
-#			slotManager.summon_card(CardInfo.from_name("Skeleton"), get_parent().get_position_in_parent(), true)
-#			canRespawn = false
-
-		# Unkillable
-		if has_sigil("Unkillable"):
-			
-			if "Ouro" in card_data["name"]:
-				card_data["attack"] += 1
-				card_data["health"] += 1
-			
-			fightManager.draw_card(card_data)
-		
-		# Reconstitute
-		if has_sigil("Reconstitute"):
-
-			if "Ouro" in card_data["name"]:
-				card_data["attack"] += 1
-				card_data["health"] += 1
-			
-			fightManager.gold_sarcophagus.append(
-				{
-					"card": card_data,
-					"turnsleft": 1
-				}
-			)
+		# Bones
+		fightManager.add_bones(1)
 
 		# Remove Energy Conduit Buff
 		if has_sigil("Energy Conduit +3"):
@@ -380,23 +333,16 @@ func begin_perish(doubleDeath = false):
 
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
+			
 			# Don't do it if I spawn a card on death
 			if canRespawn:
 				$AnimationPlayer.play("DoublePerish")
 			return
 
 	else:
-		if has_sigil("Bone King"):
-			fightManager.add_opponent_bones(4)
-		elif not has_sigil("Boneless"):
-			fightManager.add_opponent_bones(1)
 		
-		# Temp
-		if "necro_boned" in CardInfo.all_data and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self:
-			if has_sigil("Bone King"):
-				fightManager.add_opponent_bones(4)
-			elif not has_sigil("Boneless"):
-				fightManager.add_opponent_bones(1)
+		# Bones
+		fightManager.add_opponent_bones(1)
 		
 		# Energy conduit buff
 		if has_sigil("Energy Conduit +3"):
