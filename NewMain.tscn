@@ -1047,6 +1047,14 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Card tooltips"
 
+[node name="show_banned" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 102.0
+margin_right = 842.0
+margin_bottom = 136.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Show banned cards in editor"
+
 [node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_top = 136.0
 margin_right = 842.0
