@@ -163,6 +163,9 @@ func init_fight(go_first: int):
 		cardFight.initial_deck = ddata.cards
 		
 		if CardInfo.side_decks:
+
+			cardFight.side_deck_cards = []
+
 			match CardInfo.side_decks[ddata.side_deck].type:
 				"single":
 					cardFight.side_deck_key = ddata.side_deck

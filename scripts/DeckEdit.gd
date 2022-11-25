@@ -365,15 +365,15 @@ func load_deck(_arg = null):
 				
 				for card in dj["side_deck_cards"]:
 
-					if not card.name in added:
-						added[card.name] = 1
+					if not card in added:
+						added[card] = 1
 					else:
-						added[card.name] += 1
+						added[card] += 1
 
-					if added[card.name] > CardInfo.all_data.max_commons_side:
+					if added[card] > CardInfo.all_data.max_commons_side:
 						continue
 
-					if "rare" in card and added[card.name] > 1:
+					if "rare" in CardInfo.from_name(card) and added[card] > 1:
 						continue
 
 					var nCard = cardPrefab.instance()
