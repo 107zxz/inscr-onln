@@ -11,7 +11,7 @@ func handle_event(event: String, params: Array):
 		var old_data = card.card_data.duplicate()
 		old_data.sigils = old_data.sigils.duplicate()
 
-		old_data.sigils.erase("Fecundity")
+		old_data.sigils.erase("Fecundity (Kaycee)")
 
 		# Draw the modified card copy
 		fightManager.draw_card(old_data)
