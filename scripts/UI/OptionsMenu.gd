@@ -11,7 +11,7 @@ func update_options():
 				GameOptions.options[opt.name] = not opt.pressed
 				
 				# Reload deck editor
-				if old_val == opt.pressed and opt.name in ["enable_accessibility_icons", "show_card_tooltips"]:
+				if old_val == opt.pressed and opt.name in ["enable_accessibility_icons", "show_card_tooltips", "show_banned"]:
 					get_node("/root/Main/DeckEdit").search()
 				
 				# Stretch screen
@@ -32,7 +32,7 @@ func update_options():
 					AudioServer.set_bus_mute(2, not GameOptions.options.enable_sfx)
 				if old_val == opt.pressed and opt.name == "enable_music":
 					AudioServer.set_bus_mute(1, not GameOptions.options.enable_music)
-
+				
 func update_controls():
 	for cat in $TabContainer.get_children():
 		for opt in cat.get_children():

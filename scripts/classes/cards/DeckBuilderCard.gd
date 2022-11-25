@@ -12,6 +12,11 @@ func from_data(cdat):
 	draw_from_data(cdat)
 
 func _on_Button_pressed():
+	
+	# Don't allow interaction i banned
+	if "banned" in card_data:
+		return
+	
 	# Am I in the search window? If so, add me to the deck if space provides
 	if get_parent().name == "SearchContainer":
 		

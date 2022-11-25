@@ -112,7 +112,7 @@ func search(_arg = null):
 	
 	for card in search_cards:
 		# Don't show banned cards
-		if "banned" in card and tab_cont.current_tab == 0:
+		if "banned" in card and tab_cont.current_tab == 0 and not GameOptions.options.show_banned:
 			continue
 
 		# Search conditions
@@ -158,6 +158,9 @@ func search(_arg = null):
 		cObject.from_data(card)
 		
 		searchResults.add_child(cObject)
+		
+		if "banned" in card and tab_cont.current_tab == 0:
+			cObject.get_node("BannedOverlay").visible = true
 		
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/PanelContainer/ResultsCount.text = str(resultCount) + "/" + str(len(CardInfo.all_cards))
 
@@ -311,6 +314,7 @@ func load_deck(_arg = null):
 		
 		if "banned" in cdat:
 			continue
+#			nCard.get_node("BannedOverlay").visible = true
 		
 		if "rare" in cdat:
 			var found = false
