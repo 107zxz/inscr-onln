@@ -97,6 +97,9 @@ func _ready():
 	
 	$CustomBg.texture = CardInfo.background_texture
 	
+	# 3 candels
+	
+	
 func init_match(opp_id: int, do_go_first: bool):
 	print("Starting match...")
 	
@@ -161,8 +164,9 @@ func init_match(opp_id: int, do_go_first: bool):
 	
 	# Reset game state
 	advantage = 0
-	lives = 2
-	opponent_lives = 2
+	lives = CardInfo.all_data.num_candles
+	opponent_lives = CardInfo.all_data.num_candles
+
 	damage_stun = false
 	turns_starving = 0
 
@@ -186,8 +190,8 @@ func init_match(opp_id: int, do_go_first: bool):
 	# Remove and reset moon
 	$MoonFight/AnimationPlayer.play("RESET")
 
-	$PlayerInfo/MyInfo/Candle.set_lives(2)
-	$PlayerInfo/TheirInfo/Candle.set_lives(2)
+	$PlayerInfo/MyInfo/Candle.set_lives(lives)
+	$PlayerInfo/TheirInfo/Candle.set_lives(opponent_lives)
 	
 	bones = 0
 	opponent_bones = 0

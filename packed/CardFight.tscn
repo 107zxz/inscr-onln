@@ -1021,6 +1021,15 @@ margin_bottom = 25.0
 texture = ExtResource( 14 )
 expand = true
 
+[node name="Base2" type="TextureRect" parent="PlayerInfo/MyInfo/Candle"]
+visible = false
+margin_left = 30.5914
+margin_top = -25.0
+margin_right = 80.5914
+margin_bottom = 25.0
+texture = ExtResource( 14 )
+expand = true
+
 [node name="Candle1" type="TextureRect" parent="PlayerInfo/MyInfo/Candle"]
 margin_left = 2.49
 margin_top = -84.0
@@ -1033,6 +1042,15 @@ expand = true
 margin_left = 33.0
 margin_top = -84.0
 margin_right = 47.5
+margin_bottom = -25.0
+texture = SubResource( 15 )
+expand = true
+
+[node name="Candle3" type="TextureRect" parent="PlayerInfo/MyInfo/Candle"]
+visible = false
+margin_left = 63.994
+margin_top = -84.0
+margin_right = 78.494
 margin_bottom = -25.0
 texture = SubResource( 15 )
 expand = true
@@ -1119,10 +1137,20 @@ margin_top = 95.0
 margin_right = -70.0
 margin_bottom = 175.0
 script = ExtResource( 12 )
+three_bump = -30
 
 [node name="Base" type="TextureRect" parent="PlayerInfo/TheirInfo/Candle"]
 margin_top = -25.0
 margin_right = 50.0
+margin_bottom = 25.0
+texture = ExtResource( 14 )
+expand = true
+
+[node name="Base2" type="TextureRect" parent="PlayerInfo/TheirInfo/Candle"]
+visible = false
+margin_left = 30.1211
+margin_top = -25.0
+margin_right = 80.1211
 margin_bottom = 25.0
 texture = ExtResource( 14 )
 expand = true
@@ -1139,6 +1167,15 @@ expand = true
 margin_left = 33.0
 margin_top = -84.0
 margin_right = 47.5
+margin_bottom = -25.0
+texture = SubResource( 15 )
+expand = true
+
+[node name="Candle3" type="TextureRect" parent="PlayerInfo/TheirInfo/Candle"]
+visible = false
+margin_left = 62.9091
+margin_top = -84.0
+margin_right = 77.4091
 margin_bottom = -25.0
 texture = SubResource( 15 )
 expand = true

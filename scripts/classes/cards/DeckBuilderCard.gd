@@ -14,7 +14,7 @@ func from_data(cdat):
 func _on_Button_pressed():
 	
 	# Don't allow interaction i banned
-	if "banned" in card_data:
+	if $BannedOverlay.visible:
 		return
 	
 	# Am I in the search window? If so, add me to the deck if space provides
@@ -24,6 +24,11 @@ func _on_Button_pressed():
 			if "rare" in card_data:
 				if deckEditor.get_sd_card_count(card_data) != 0:
 					return
+
+			else:
+				if deckEditor.get_sd_card_count(card_data) >= CardInfo.all_data.max_commons_side:
+					return
+
 			if sideDeckContainer.get_child_count() >= CardInfo.side_decks[CardInfo.side_decks.keys()[deckEditor.sidedeck_de.selected]].count:
 				return
 			var newCard = self.duplicate(7)
