@@ -505,7 +505,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.draw_card(CardInfo.from_name("Withered Corpse"))
 	
 	# Disable button until start of next turn
-	if false and fightManager.gameSettings.optActives:
+	if CardInfo.all_data.opt_actives:
 		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
 		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
 	
