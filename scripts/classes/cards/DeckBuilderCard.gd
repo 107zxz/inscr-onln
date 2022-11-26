@@ -40,7 +40,7 @@ func _on_Button_pressed():
 				if deckEditor.get_card_count(card_data) != 0:
 					return
 			else:
-				if deckEditor.get_card_count(card_data) >= CardInfo.all_data.max_commons_side:
+				if deckEditor.get_card_count(card_data) >= CardInfo.all_data.max_commons_main:
 					return
 			var newCard = self.duplicate(7)
 			newCard.from_data(card_data)
