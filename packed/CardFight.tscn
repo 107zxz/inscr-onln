@@ -1764,10 +1764,8 @@ enabled_focus_mode = 0
 text = "Play"
 
 [node name="MusPlayer" type="AudioStreamPlayer" parent="."]
-bus = "Music"
 
 [node name="CardSFX" type="AudioStreamPlayer" parent="."]
-bus = "SFX"
 
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]

@@ -212,7 +212,14 @@ func raise():
 	$AnimationPlayer.play("Raise")
 	
 	# Show the opponent the card was raised
-	get_parent().get_parent().rpc_id(fightManager.opponent, "raise_opponent_card", get_position_in_parent())
+	fightManager.send_move(
+		{
+			"type": "raise_card",
+			"index": get_position_in_parent()
+		}
+	)
+
+	# get_parent().get_parent().rpc_id(fightManager.opponent, "raise_opponent_card", get_position_in_parent())
 	
 func lower():
 	if self == get_parent().get_parent().raisedCard:

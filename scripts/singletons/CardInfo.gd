@@ -50,7 +50,7 @@ func _enter_tree():
 	
 func load_background_texture():
 	var d = Directory.new()
-	d.change_dir(OS.get_data_dir())
+	d.change_dir(data_path)
 	for ext in ["png", "jpg"]:
 		var path = "%s/background.%s" % [CardInfo.data_path, ext]
 		if d.file_exists(path):
