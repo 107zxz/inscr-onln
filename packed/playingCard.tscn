@@ -56,12 +56,9 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ "attack" ],
-"method": "play_sfx"
-}, {
 "args": [  ],
 "method": "attack_hit"
 } ]
@@ -89,12 +86,9 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ "attack" ],
-"method": "play_sfx"
-}, {
 "args": [  ],
 "method": "attack_hit"
 } ]
@@ -150,20 +144,6 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
-}
-tracks/4/type = "method"
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "sac" ],
-"method": "play_sfx"
-} ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -353,23 +333,6 @@ tracks/3/keys = {
 "method": "queue_free"
 } ]
 }
-tracks/4/type = "method"
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "perish" ],
-"method": "play_sfx"
-}, {
-"args": [ "perish" ],
-"method": "play_sfx"
-} ]
-}
 
 [sub_resource type="Animation" id=13]
 resource_name = "Evolve"
@@ -495,20 +458,6 @@ tracks/3/keys = {
 }, {
 "args": [  ],
 "method": "queue_free"
-} ]
-}
-tracks/4/type = "method"
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "perish" ],
-"method": "play_sfx"
 } ]
 }
 
@@ -714,8 +663,8 @@ script = ExtResource( 11 )
 [node name="Button" type="Button" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
+margin_right = 254.0
+margin_bottom = 368.0
 focus_mode = 0
 disabled = true
 button_mask = 3
@@ -724,12 +673,12 @@ enabled_focus_mode = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
+margin_right = 254.0
+margin_bottom = 368.0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="CardBody/VBoxContainer"]
-margin_right = 124.0
+margin_right = 252.0
 margin_bottom = 24.0
 size_flags_vertical = 1
 align = 1
@@ -739,8 +688,8 @@ clip_text = true
 [node name="Portrait" type="TextureRect" parent="CardBody/VBoxContainer"]
 material = ExtResource( 10 )
 margin_top = 24.0
-margin_right = 124.0
-margin_bottom = 110.0
+margin_right = 252.0
+margin_bottom = 206.0
 rect_min_size = Vector2( 124, 86 )
 rect_clip_content = true
 mouse_filter = 2
@@ -756,17 +705,17 @@ mouse_filter = 2
 alignment = 2
 
 [node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 86.0
+margin_right = 126.0
+margin_bottom = 182.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 86.0
+margin_left = 126.0
+margin_right = 252.0
+margin_bottom = 182.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -861,17 +810,17 @@ expand = true
 stretch_mode = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer"]
-margin_top = 110.0
-margin_right = 124.0
-margin_bottom = 181.0
+margin_top = 206.0
+margin_right = 252.0
+margin_bottom = 366.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 alignment = 1
 
 [node name="Spacer" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 71.0
+margin_right = 126.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -943,9 +892,9 @@ expand = true
 stretch_mode = 6
 
 [node name="Spacer2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 71.0
+margin_left = 126.0
+margin_right = 252.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -957,22 +906,22 @@ stretch_mode = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
+margin_right = 254.0
+margin_bottom = 368.0
 mouse_filter = 2
 alignment = 1
 
 [node name="AtkScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 181.0
+margin_right = 126.0
+margin_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 valign = 2
 
 [node name="HpScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 181.0
+margin_left = 126.0
+margin_right = 252.0
+margin_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 align = 2

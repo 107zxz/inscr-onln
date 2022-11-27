@@ -1,32 +1,5 @@
 extends Control
 
-# Vanguard
-
-# Side decks
-#onready var side_decks = [
-#	["Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel", "Squirrel"],
-#	["Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton", "Skeleton"],
-#	[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-#	[],
-#	[],
-#	["Geck", "Geck", "Geck"],
-#	["Acid Squirrel"],
-#	["Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn", "Shambling Cairn"],
-#	["Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard", "Moon Shard"]
-#]
-#
-#const side_deck_names = [
-#	"Squirrels",
-#	"Skeletons",
-#	"Vessels",
-#	"Fuck",
-#	"Fuck",
-#	"Gecks",
-#	"GSquirrel",
-#	"Cairns",
-#	"Moon Shards"
-#]
-
 # Carryovers from lobby
 var opponent = -100
 var initial_deck = []
@@ -45,6 +18,19 @@ signal sigil_event(event, params)
 
 # Replay
 var replay = null
+
+
+# Move format:
+
+# X: {
+#	id: X <- Redundant but it helps. I should have done this for cards
+#	move: play_card
+#   [arbitrary params below]
+#	card_data: {}
+#	slot: 3
+# }
+
+var moves = {}
 
 # Game state
 enum GameStates {
@@ -96,9 +82,6 @@ func _ready():
 		slot.connect("pressed", self, "play_card", [slot])
 	
 	$CustomBg.texture = CardInfo.background_texture
-	
-	# 3 candels
-	
 	
 func init_match(opp_id: int, do_go_first: bool):
 	print("Starting match...")
@@ -173,6 +156,8 @@ func init_match(opp_id: int, do_go_first: bool):
 	gold_sarcophagus = []
 	no_energy_deplete = false
 	enemy_no_energy_deplete = false
+
+	moves = {}
 
 	# Hammers
 	$LeftSideUI/HammerButton.visible = true
@@ -525,7 +510,30 @@ func count_win():
 func count_loss():
 	get_node("/root/Main/TitleScreen").count_loss(opponent)
 
+
+# New unified
+func send_move(move):
+	rpc("_player_did_move", move)
+
+
 ## REMOTE
+
+# New unified
+remote func _player_did_move(move):
+	moves[move.id] = move
+
+
+func parse_move(move):
+	match move.type:
+		"raise_card":
+			print("Opponent ", get_tree().get_rpc_sender_id(), " raised card ", move.index)
+			handManager.raise_opponent_card(move.index)
+
+		_:
+			print("Opponent ", get_tree().get_rpc_sender_id(), " did unhandled move:")
+			print(move)
+
+
 remote func _opponent_hand_animation(index, animation):
 	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
 
