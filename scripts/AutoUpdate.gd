@@ -32,15 +32,11 @@ func _on_Continue_pressed():
 	if $SelectionBox/Rows/OptionButton.selected == 7:
 		CardInfo.read_game_info()
 		
-		print("Using cached ruleset")
-		
 		# Special, download portraits (maybe remove this later)
 		download_card_portraits()
 		
 #		get_tree().change_scene("res://NewMain.tscn")
 		return
-	
-	print("Downloading ruleset from url: " + rulesetUrl)
 	
 	# Should I update?
 	if $RulesetRequest.request(rulesetUrl) != 0:
@@ -55,7 +51,6 @@ func _on_Continue_pressed():
 func _on_RulesetRequest_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
 		var parse = JSON.parse(body.get_string_from_utf8())
-		print(parse.result.ruleset)
 		if parse.error != 0:
 			$SelectionBox.visible = true
 			$LoadingBox.visible = false
@@ -79,13 +74,11 @@ func _on_RulesetRequest_request_completed(_result, response_code, _headers, body
 		
 		CardInfo.read_game_info()
 		
-		print("Ruleset updated successfully")
 		
 		download_card_portraits()
 		
 		
 	else:
-		print("ERROR UPDATING RULESET")
 		$SelectionBox.visible = true
 		$LoadingBox.visible = false
 		
@@ -114,12 +107,10 @@ func download_card_portraits():
 			var fp = CardInfo.custom_portrait_path + card.name + ".png"
 			
 			if d.file_exists(fp):
-				print("File %s already exists! Skipping download" % fp)
 				continue
 			
 			$ImageRequest.download_file = fp
 			$ImageRequest.request(card.pixport_url)
-			print("Requesting image %s..." % card.pixport_url)
 			
 			yield($ImageRequest, "request_completed")
 	
@@ -144,12 +135,10 @@ func download_sigil_icons():
 				var fp = CardInfo.custom_icon_path + sigil + ".png"
 				
 				if d.file_exists(fp):
-					print("File %s already exists! Skipping download" % fp)
 					continue
 				
 				$ImageRequest.download_file = fp
 				$ImageRequest.request(CardInfo.all_data.sigil_urls[sigil])
-				print("Requesting sigil image %s..." % CardInfo.all_data.sigil_urls[sigil])
 				
 				yield($ImageRequest, "request_completed")
 

@@ -206,18 +206,19 @@ func _on_Button_pressed():
 
 # Animation
 func raise():
-	get_parent().get_parent().lower_all_cards()
-	get_parent().get_parent().raisedCard = self
-	
-	$AnimationPlayer.play("Raise")
-	
-	# Show the opponent the card was raised
-	fightManager.send_move(
-		{
-			"type": "raise_card",
-			"index": get_position_in_parent()
-		}
-	)
+	if self != get_parent().get_parent().raisedCard:
+		get_parent().get_parent().lower_all_cards()
+		get_parent().get_parent().raisedCard = self
+		
+		$AnimationPlayer.play("Raise")
+		
+		# Show the opponent the card was raised
+		fightManager.send_move(
+			{
+				"type": "raise_card",
+				"index": get_position_in_parent()
+			}
+		)
 
 	# get_parent().get_parent().rpc_id(fightManager.opponent, "raise_opponent_card", get_position_in_parent())
 	
@@ -225,7 +226,15 @@ func lower():
 	if self == get_parent().get_parent().raisedCard:
 		$AnimationPlayer.play("Lower")
 		
-		get_parent().get_parent().rpc_id(fightManager.opponent, "lower_opponent_card", get_position_in_parent())	
+		# Show the opponent the card was lowered
+		fightManager.send_move(
+			{
+				"type": "lower_card",
+				"index": get_position_in_parent()
+			}
+		)
+		
+#		get_parent().get_parent().rpc_id(fightManager.opponent, "lower_opponent_card", get_position_in_parent())	
 
 # Move to origin of new parent
 func move_to_parent(new_parent):

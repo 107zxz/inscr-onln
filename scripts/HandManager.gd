@@ -19,13 +19,21 @@ func clear_hands():
 			bcard.queue_free()
 			
 # Remote functions
-remote func raise_opponent_card(index):
+func raise_opponent_card(index):
 	opponentRaisedCard = $EnemyHand.get_child(index)
 	opponentRaisedCard.get_node("AnimationPlayer").play("Raise")
+	yield(opponentRaisedCard.get_node("AnimationPlayer"), "animation_finished")
+	get_node("/root/Main/CardFight").move_done()
 	
-remote func lower_opponent_card(index):
+func lower_opponent_card(index):
 	# This will be called if the enemy just played a card, in this case, consider the card lowered but don't play an animation
 	if $EnemyHand.get_child_count() > index and $EnemyHand.get_child(index) == opponentRaisedCard:
 		opponentRaisedCard.get_node("AnimationPlayer").play("Lower")
+	
+		yield(opponentRaisedCard.get_node("AnimationPlayer"), "animation_finished")
+		get_node("/root/Main/CardFight").move_done()
+		return
+		
 	opponentRaisedCard = null
+	get_node("/root/Main/CardFight").move_done()
 
