@@ -578,7 +578,6 @@ margin_left = 413.0
 margin_right = 433.0
 margin_bottom = 34.0
 focus_mode = 0
-disabled = true
 enabled_focus_mode = 0
 flat = true
 
@@ -723,7 +722,6 @@ margin_left = 393.0
 margin_right = 413.0
 margin_bottom = 34.0
 focus_mode = 0
-disabled = true
 enabled_focus_mode = 0
 flat = true
 

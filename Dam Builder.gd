@@ -6,8 +6,6 @@ func handle_event(event: String, params: Array):
 	# attached_card_summoned represents the card bearing the sigil being summoned
 	if event == "card_summoned" and params[0] == card:
 		
-		print("Dam Builder triggered!")
-		
 		var dam_data = CardInfo.from_name("Dam")
 
 		for sid in [card.slot_idx() - 1, card.slot_idx() + 1]:

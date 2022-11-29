@@ -24,13 +24,16 @@ var replay = null
 
 # X: {
 #	id: X <- Redundant but it helps. I should have done this for cards
+#	pid: 0 <- Owner of move
 #	move: play_card
 #   [arbitrary params below]
 #	card_data: {}
-#	slot: 3
+#	slot: 3,
 # }
 
 var moves = {}
+var current_move = 0
+var acting = false
 
 # Game state
 enum GameStates {
@@ -82,9 +85,15 @@ func _ready():
 		slot.connect("pressed", self, "play_card", [slot])
 	
 	$CustomBg.texture = CardInfo.background_texture
-	
+
+
+#func _process(delta):
+#	if current_move in moves and not acting:
+#		acting = true
+#		parse_move(moves[current_move])
+
+
 func init_match(opp_id: int, do_go_first: bool):
-	print("Starting match...")
 	
 	
 	opponent = opp_id
@@ -365,7 +374,6 @@ func starve_check():
 
 func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	
-	print("Local player drew card ", card)
 	
 	var nCard = cardPrefab.instance()
 	if typeof(card) == TYPE_DICTIONARY:
@@ -513,6 +521,13 @@ func count_loss():
 
 # New unified
 func send_move(move):
+	move.id = current_move
+	move.pid = get_tree().get_rpc_sender_id()
+	
+	# Save a copy for replay completeness
+	moves[current_move] = move
+	
+	current_move += 1
 	rpc("_player_did_move", move)
 
 
@@ -521,26 +536,38 @@ func send_move(move):
 # New unified
 remote func _player_did_move(move):
 	moves[move.id] = move
+	
+	if not acting:
+		acting = true
+		parse_next_move()
 
 
-func parse_move(move):
+func move_done():
+	if current_move in moves:
+		parse_next_move()
+	else:
+		acting = false
+
+func parse_next_move():
+	
+	var move = moves[current_move]
+	current_move += 1
+	
 	match move.type:
 		"raise_card":
-			print("Opponent ", get_tree().get_rpc_sender_id(), " raised card ", move.index)
+			print("Opponent ", move.pid, " raised card ", move.index)
 			handManager.raise_opponent_card(move.index)
+		"lower_card":
+			print("Opponent ", move.pid, " lowered card ", move.index)
+			handManager.lower_opponent_card(move.index)
 
 		_:
-			print("Opponent ", get_tree().get_rpc_sender_id(), " did unhandled move:")
+			print("Opponent ", move.pid, " did unhandled move:")
 			print(move)
 
 
 remote func _opponent_hand_animation(index, animation):
 	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
-
-	if animation == "Raise":
-		replay.record_action({"type": "opponent_raised_card", "index": index})
-	else:
-		replay.record_action({"type": "opponent_lowered_card", "index": index})
 
 remote func _opponent_drew_card(source_path):
 	
