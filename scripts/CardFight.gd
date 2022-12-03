@@ -163,6 +163,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	enemy_no_energy_deplete = false
 
 	moves = {}
+	current_move = 0
 
 	# Hammers
 	$LeftSideUI/HammerButton.visible = true
@@ -230,8 +231,9 @@ func init_match(opp_id: int, do_go_first: bool):
 
 		# Some interaction here if your deck has less than 3 cards. Punish by giving opponent starvation
 		if deck.size() == 0:
+			
 			$DrawPiles/YourDecks/Deck.visible = false
-			starve_check()
+			starve_check(false)
 			break
 		
 	$WaitingBlocker.visible = not go_first
@@ -335,17 +337,22 @@ func search_callback(index):
 
 	$DeckSearch.visible = false
 
-func starve_check():
+func starve_check(soft_rpc = true):
 	if deck.size() == 0 and side_deck.size() == 0:
 		turns_starving += 1
 		
 		# Give opponent a starvation
-#		rpc_id(opponent, "force_draw_starv", turns_starving)
-		send_move({
-			"type": "hey_im_a_hungry",
-			"for": turns_starving
-		})
-
+		if soft_rpc:
+			send_move({
+				"type": "hey_im_a_hungry",
+				"for": turns_starving
+			})
+		else:
+			rpc_id(opponent, "force_draw_starv", turns_starving)
+		
+		# This doesn't trigger a callback RPC from the opponent, so make them draw
+		_opponent_drew_card("Deck")
+		
 		# Special: Increase strength of opponent's moon
 		if $MoonFight/BothMoons/EnemyMoon.visible:
 			$MoonFight/BothMoons/EnemyMoon.attack += 1
@@ -534,14 +541,26 @@ remote func _player_did_move(move):
 
 func move_done():
 	
-	print("Move", current_move - 1, "complete!")
+	print("Move ", current_move - 1, " complete!")
+	
+	$DesyncWatcher.stop()
 	
 	if current_move in moves:
 		parse_next_move()
 	else:
 		acting = false
 
+func _on_DesyncWatcher_timeout():
+	print("Desync Detected!!!")
+	
+	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Desync Detected!"
+	$WinScreen.visible = true
+	
+	rpc_id(opponent, "_opponent_detected_desync")
+	
 func parse_next_move():
+	
+	$DesyncWatcher.start()
 	
 	var move = moves[current_move]
 	current_move += 1
@@ -571,7 +590,7 @@ func parse_next_move():
 			print("Opponent card ", move.index, " did animation ", move.anim)
 			slotManager.remote_card_anim(move.index, move.anim)
 		"activate_sigil":
-			print("Opponent card ", move.index, " activated sigil with arg ", move.arg)
+			print("Opponent card ", move.slot, " activated sigil with arg ", move.arg)
 			slotManager.remote_activate_sigil(move.slot, move.arg)
 		"change_card":
 			print("Opponent card ", move.index, " changed to ", move.data)
@@ -652,14 +671,14 @@ func _opponent_played_card(card, slot):
 		eCard.calculate_buffs()
 	
 ## SPECIAL CARD STUFF
-func force_draw_starv(strength):
+remote func force_draw_starv(strength):
 
 	# Moon
 	if $MoonFight/BothMoons/FriendlyMoon.visible:
 		$MoonFight/BothMoons/FriendlyMoon.attack += 1
 		$MoonFight/BothMoons/FriendlyMoon.update_stats()
 
-	var starv_card = draw_card(0)
+	var starv_card = draw_card(0, $DrawPiles/YourDecks/Deck, false)
 	
 	var starv_data = CardInfo.all_cards[0]
 	starv_data["attack"] = strength
@@ -820,6 +839,11 @@ remote func _opponent_surrendered():
 	# Document Result
 	get_node("/root/Main/TitleScreen").count_victory()
 
+remote func _opponent_detected_desync():
+	# Force the game to end
+	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Desync detected!"
+	$WinScreen.visible = true
+
 func debug_cleanup():
 	# Quit if I'm a debug instance
 	if "autoquit" in OS.get_cmdline_args():
@@ -896,3 +920,5 @@ func start_turn():
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
 	add_opponent_bones(bone_no)
+
+
