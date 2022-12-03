@@ -519,7 +519,7 @@ func count_loss():
 # New unified
 func send_move(move):
 	move.id = current_move
-	move.pid = get_tree().get_rpc_sender_id()
+	move.pid = get_tree().get_network_unique_id()
 	
 	# Save a copy for replay completeness
 	moves[current_move] = move
