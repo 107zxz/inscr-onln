@@ -6,6 +6,8 @@ var initial_deck = []
 var side_deck_key = null
 var go_first = null
 
+var spectating = false
+
 # Game components
 onready var handManager = $HandsContainer/Hands
 onready var playerSlots = $CardSlots/PlayerSlots

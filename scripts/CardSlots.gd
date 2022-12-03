@@ -108,7 +108,7 @@ func attempt_sacrifice():
 				fightManager.send_move({
 					"type": "card_anim",
 					"index": victim.slot_idx(),
-					"anim": "CatSac"
+					"anim": "Perish"
 				})
 				
 			
