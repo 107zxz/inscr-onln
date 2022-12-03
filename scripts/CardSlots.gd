@@ -540,7 +540,9 @@ func handle_attack(from_slot, to_slot):
 	if direct_attack:
 		
 		# Variable attack override
-		fightManager.inflict_damage(pCard.attack if not CardInfo.all_data.variable_attack_nerf else 1)
+		
+#		fightManager.inflict_damage(pCard.attack if not CardInfo.all_data.variable_attack_nerf or  else 1)
+		fightManager.inflict_damage(1 if "atkspecial" in pCard and CardInfo.all_data.variable_attack_nerf else pCard.attack)
 
 		# Looter
 		if pCard.has_sigil("Looter"):
@@ -645,6 +647,7 @@ func remote_activate_sigil(card_slot, arg = 0):
 	
 	if sName == "True Scholar":
 		eCard.get_node("AnimationPlayer").play("Perish")
+		yield(eCard.get_node("AnimationPlayer"), "animation_finished")
 		fightManager.move_done()
 		return
 	
@@ -801,7 +804,9 @@ func handle_enemy_attack(from_slot, to_slot):
 			direct_attack = true
 	
 	if direct_attack:
-		fightManager.inflict_damage(-eCard.attack)
+#		fightManager.inflict_damage(-eCard.attack)
+		fightManager.inflict_damage(-1 if "atkspecial" in eCard and CardInfo.all_data.variable_attack_nerf else -eCard.attack)
+		
 	else:
 		pCard.take_damage(eCard)
 

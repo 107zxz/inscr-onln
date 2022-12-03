@@ -1767,6 +1767,10 @@ text = "Play"
 
 [node name="CardSFX" type="AudioStreamPlayer" parent="."]
 
+[node name="DesyncWatcher" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
 [connection signal="button_down" from="LeftSideUI/HammerButton" to="." method="hammer_mode"]
@@ -1775,3 +1779,4 @@ text = "Play"
 [connection signal="pressed" from="RightSideUI/ForfeitButton" to="." method="surrender"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn" to="." method="request_rematch"]
 [connection signal="pressed" from="WinScreen/Panel/VBoxContainer/HBoxContainer/QuitBtn" to="." method="quit_match"]
+[connection signal="timeout" from="DesyncWatcher" to="." method="_on_DesyncWatcher_timeout"]
