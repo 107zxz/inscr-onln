@@ -24,5 +24,4 @@ func handle_event(event: String, params: Array):
 			if kill:
 				print("Gem dependant card should die!")
 				card.get_node("AnimationPlayer").play("Perish")
-#				slotManager.rpc_id(fightManager.opponent, "remote_card_anim", card.slot_idx(), "Perish")
 		

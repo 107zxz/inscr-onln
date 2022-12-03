@@ -16,18 +16,14 @@ var cardPrefab = preload("res://packed/playingCard.tscn")
 # Signals
 signal sigil_event(event, params)
 
-# Replay
-var replay = null
-
-
 # Move format:
 
 # X: {
 #	id: X <- Redundant but it helps. I should have done this for cards
 #	pid: 0 <- Owner of move
-#	move: play_card
+#	type: "play_card"
 #   [arbitrary params below]
-#	card_data: {}
+#	card: {} <- card_data
 #	slot: 3,
 # }
 
@@ -210,11 +206,6 @@ func init_match(opp_id: int, do_go_first: bool):
 	set_energy(max_energy)
 	set_opponent_energy(opponent_max_energy)
 	
-	# Start replay
-	# TODO: Change names
-	replay = Replay.new()
-	replay.start($PlayerInfo/MyInfo/Username.text, $PlayerInfo/TheirInfo/Username.text)
-	
 	state = GameStates.NORMAL
 	
 	# Draw starting hands (sidedeck first for starve check)
@@ -225,8 +216,6 @@ func init_match(opp_id: int, do_go_first: bool):
 	if side_deck_key != null:
 		draw_card(next_card, $DrawPiles/YourDecks/SideDeck, false)
 		_opponent_drew_card("SideDeck")
-	
-	replay.record_action({"type": "draw_side", "card": next_card})
 	
 	if side_deck.size() == 0:
 		$DrawPiles/YourDecks/SideDeck.visible = false
@@ -239,8 +228,6 @@ func init_match(opp_id: int, do_go_first: bool):
 		draw_card(next_card, $DrawPiles/YourDecks/Deck, false)
 		_opponent_drew_card("Deck")
 
-		replay.record_action({"type": "draw_main", "card": next_card})
-		
 		# Some interaction here if your deck has less than 3 cards. Punish by giving opponent starvation
 		if deck.size() == 0:
 			$DrawPiles/YourDecks/Deck.visible = false
@@ -256,9 +243,6 @@ func end_turn():
 	if not state in [GameStates.NORMAL, GameStates.SACRIFICE]:
 		return
 		
-	# End turn in replay
-	replay.end_turn()
-	
 	# Lower all cards
 	handManager.lower_all_cards()
 	
@@ -273,7 +257,10 @@ func end_turn():
 	
 	# Opponent should handle post-turn sigils and energy
 	# At the start of their turn
-	rpc_id(opponent, "start_turn")
+#	rpc_id(opponent, "start_turn")
+	send_move({
+		"type": "end_turn"
+	})
 	
 	$WaitingBlocker.visible = true
 	damage_stun = false
@@ -295,9 +282,6 @@ func draw_maindeck():
 		
 		var next_card = deck.pop_front()
 
-		# Replay
-		replay.record_action({"type": "draw_main", "card": next_card})
-
 		draw_card(next_card)
 		
 		state = GameStates.NORMAL
@@ -313,9 +297,6 @@ func draw_sidedeck():
 		var next_card = side_deck.pop_front()
 
 		draw_card(next_card, $DrawPiles/YourDecks/SideDeck)
-
-		# Replay
-		replay.record_action({"type": "draw_side", "card": next_card})
 
 		state = GameStates.NORMAL
 		$DrawPiles/Notify.visible = false
@@ -343,9 +324,6 @@ func search_callback(index):
 
 	var targetCard = deck.pop_at(index - 1)
 
-	# Replay
-	replay.record_action({"type": "search_deck", "card": targetCard})
-
 	draw_card(targetCard)
 
 	if deck.size() == 0:
@@ -362,7 +340,11 @@ func starve_check():
 		turns_starving += 1
 		
 		# Give opponent a starvation
-		rpc_id(opponent, "force_draw_starv", turns_starving)
+#		rpc_id(opponent, "force_draw_starv", turns_starving)
+		send_move({
+			"type": "hey_im_a_hungry",
+			"for": turns_starving
+		})
 
 		# Special: Increase strength of opponent's moon
 		if $MoonFight/BothMoons/EnemyMoon.visible:
@@ -407,7 +389,11 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	nCard.move_to_parent(pHand)
 	
 	if do_rpc:
-		rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
+#		rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
+		send_move({
+			"type": "draw_card",
+			"deck": str(source.get_path()).split("YourDecks")[1]
+		})
 	
 	# Update deck size
 	var dst = "err"
@@ -444,9 +430,13 @@ func play_card(slot):
 				$MusPicker.visible = false
 				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
 
-			replay.record_action({"type": "summoned_card", "card": playedCard.card_data, "slot": slot.get_position_in_parent()})
-
-			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
+#			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
+			
+			send_move({
+				"type": "play_card",
+				"card": playedCard.card_data,
+				"slot": slot.get_position_in_parent()
+			})
 			
 			# Bone cost
 			if "bone_cost" in playedCard.card_data:
@@ -464,6 +454,8 @@ func play_card(slot):
 			pHand.add_constant_override("separation", - pHand.get_child_count() * 4)
 
 			state = GameStates.NORMAL
+			
+			yield(playedCard.get_node("Tween"), "tween_completed")
 			
 			card_summoned(playedCard)
 
@@ -492,8 +484,6 @@ func card_summoned(playedCard):
 
 # Hammer Time
 func hammer_mode():
-
-	replay.record_action({"action": "hammer_mode"})
 
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
@@ -543,6 +533,9 @@ remote func _player_did_move(move):
 
 
 func move_done():
+	
+	print("Move", current_move - 1, "complete!")
+	
 	if current_move in moves:
 		parse_next_move()
 	else:
@@ -560,21 +553,39 @@ func parse_next_move():
 		"lower_card":
 			print("Opponent ", move.pid, " lowered card ", move.index)
 			handManager.lower_opponent_card(move.index)
-
+		"draw_card":
+			print("Opponent ", move.pid, " drew card")
+			_opponent_drew_card(move.deck)
+		"play_card":
+			print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
+			_opponent_played_card(move.card, move.slot)
+		"hey_im_a_hungry":
+			print("Opponent is like ", move.for, " hungry.")
+			force_draw_starv(move.for)
+		"save_replay":
+			save_replay()
+		"end_turn":
+			print("Opponent ended turn")
+			start_turn()
+		"card_anim":
+			print("Opponent card ", move.index, " did animation ", move.anim)
+			slotManager.remote_card_anim(move.index, move.anim)
+		"activate_sigil":
+			print("Opponent card ", move.index, " activated sigil with arg ", move.arg)
+			slotManager.remote_activate_sigil(move.slot, move.arg)
+		"change_card":
+			print("Opponent card ", move.index, " changed to ", move.data)
+			slotManager.remote_card_data(move.index, move.data)
 		_:
 			print("Opponent ", move.pid, " did unhandled move:")
 			print(move)
 
+func save_replay():
+	print("Saving replay: ", moves)
 
-remote func _opponent_hand_animation(index, animation):
-	handManager.get_node("EnemyHand").get_child(index).get_node("AnimationPlayer").play(animation)
-
-remote func _opponent_drew_card(source_path):
+func _opponent_drew_card(source_path):
 	
 	print("Opponent drew card!")
-	
-	# Replay doesn't need to know why opponent drew
-	replay.record_action({"type": "opponent_drew_card"})
 	
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
@@ -595,12 +606,11 @@ remote func _opponent_drew_card(source_path):
 			nC += 1
 	
 	eHand.add_constant_override("separation", - nC * 4)
-
-
-remote func _opponent_played_card(card, slot):
 	
-	# Replay
-	replay.record_action({"type": "opponent_summoned_card", "card": card, "slot": slot})
+	move_done()
+
+
+func _opponent_played_card(card, slot):
 	
 	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
 	
@@ -629,6 +639,10 @@ remote func _opponent_played_card(card, slot):
 	nCard.slotManager = slotManager
 	nCard.create_sigils(false)
 	connect("sigil_event", nCard, "handle_sigil_event")
+	
+	yield(nCard.get_node("Tween"), "tween_completed")
+	move_done()
+	
 	emit_signal("sigil_event", "card_summoned", [nCard])
 	
 	# Buff handling
@@ -638,7 +652,7 @@ remote func _opponent_played_card(card, slot):
 		eCard.calculate_buffs()
 	
 ## SPECIAL CARD STUFF
-remote func force_draw_starv(strength):
+func force_draw_starv(strength):
 
 	# Moon
 	if $MoonFight/BothMoons/FriendlyMoon.visible:
@@ -653,6 +667,8 @@ remote func force_draw_starv(strength):
 		starv_data["sigils"] = ["Repulsive", "Mighty Leap"]
 	
 	starv_card.from_data(starv_data)
+	
+	move_done()
 
 # Called during attack animation
 func inflict_damage(dmg):
@@ -756,6 +772,9 @@ func request_rematch():
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (1/2)"
 
 func surrender():
+	
+	save_replay()
+	
 	$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Surrendered!"
 	$WinScreen.visible = true
 	
@@ -765,6 +784,9 @@ func surrender():
 	get_node("/root/Main/TitleScreen").count_loss(opponent)
 
 func quit_match():
+	
+	save_replay()
+	
 	# Tell opponent I surrendered
 	rpc_id(opponent, "_opponent_quit")
 	
@@ -776,6 +798,9 @@ func quit_match():
 
 ## REMOTE
 remote func _opponent_quit():
+	
+	save_replay()
+	
 	# Quit network
 	visible = false
 	$MoonFight/AnimationPlayer.play("RESET")
@@ -785,6 +810,9 @@ remote func _opponent_quit():
 	
 
 remote func _opponent_surrendered():
+	
+	save_replay()
+	
 	# Force the game to end
 	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Your opponent Surrendered!"
 	$WinScreen.visible = true
@@ -814,7 +842,7 @@ remote func _rematch_occurs():
 	init_match(opponent, not go_first)
 
 
-remote func start_turn():
+func start_turn():
 	
 	slotManager.initiate_combat(false)
 	yield(slotManager, "complete_combat")
@@ -824,9 +852,6 @@ remote func start_turn():
 	
 	damage_stun = false
 	$WaitingBlocker.visible = false
-	
-	# Update Replay
-	replay.start_turn()
 	
 	# Gold sarcophagus
 	for pharoah in gold_sarcophagus:
@@ -847,6 +872,8 @@ remote func start_turn():
 	slotManager.pre_turn_sigils(true)
 	yield (slotManager, "resolve_sigils")
 	
+	move_done()
+	
 	# Increment energy
 	if max_energy < 6:
 		set_max_energy(max_energy + 1)
@@ -856,7 +883,6 @@ remote func start_turn():
 		# Special moon logic
 		state = GameStates.NORMAL
 		end_turn()
-		pass
 	else:
 		# Draw yer cards, if you have any (move this to after effect resolution)
 		if starve_check():

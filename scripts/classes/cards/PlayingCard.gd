@@ -81,8 +81,6 @@ func draw_stats():
 # When card is clicked
 func _on_Button_pressed():
 
-	fightManager.replay.record_action({"type": "card_clicked", "slot": slot_idx()})
-
 	# Only allow raising while in hand
 	if in_hand:
 
@@ -151,7 +149,12 @@ func _on_Button_pressed():
 		# Is it hammer time? Am I on the player's side?
 		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name == "PlayerSlots" and not "nohammer" in card_data:
 			$AnimationPlayer.play("Perish")
-			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
+#			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
+			fightManager.send_move({
+				"type": "card_anim",
+				"index": slot_idx(),
+				"anim": "Perish"
+			})
 			
 			# Always turn off hammer after hammering something (requested)
 			fightManager.hammer_mode()
@@ -307,7 +310,6 @@ func move_to_parent(new_parent):
 		if "atkspecial" in card_data:
 			$CardBody/AtkIcon.visible = false
 			$CardBody/HBoxContainer/AtkScore.visible = true
-	
 
 
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
@@ -423,7 +425,14 @@ func _on_ActiveSigil_pressed():
 		$AnimationPlayer.play("Perish")
 		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.disabled = true
 		$CardBody/VBoxContainer/HBoxContainer/ActiveSigil.mouse_filter = MOUSE_FILTER_IGNORE
-		slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
+#		slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
+
+		fightManager.send_move({
+			"type": "activate_sigil",
+			"slot": slot_idx(),
+			"arg": attack
+		})
+
 		return
 
 	if sName == "Energy Gun":
@@ -528,8 +537,12 @@ func _on_ActiveSigil_pressed():
 	# Play anim and activate remotely
 	if not "Perish" in $AnimationPlayer.current_animation:
 		$AnimationPlayer.play("ProcGeneric")
-	slotManager.rpc_id(fightManager.opponent, "remote_activate_sigil", get_parent().get_position_in_parent(), attack)
 
+	fightManager.send_move({
+		"type": "activate_sigil",
+		"slot": slot_idx(),
+		"arg": attack
+	})
 
 # Should work for both friendly and unfriendly cards
 func calculate_buffs():

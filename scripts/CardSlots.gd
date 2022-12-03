@@ -82,16 +82,34 @@ func attempt_sacrifice():
 		for victim in sacVictims:
 			if victim.has_sigil("Many Lives"):
 				victim.get_node("AnimationPlayer").play("CatSac")
-				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "CatSac")
+#				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "CatSac")
+				fightManager.send_move({
+					"type": "card_anim",
+					"index": victim.slot_idx(),
+					"anim": "CatSac"
+				})
+				
 				victim.sacrifice_count += 1
 				
 				# Undeadd cat
 				if victim.card_data["name"] == "Cat" and victim.sacrifice_count == 9:
 					victim.from_data(CardInfo.from_name("Undead Cat"))
-					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), CardInfo.from_name("Undead Cat"))
+#					rpc_id(fightManager.opponent, "remote_card_data", victim.slot_idx(), CardInfo.from_name("Undead Cat"))
+
+					fightManager.send_move({
+						"type": "change_card",
+						"index": victim.slot_idx,
+						"data": CardInfo.from_name("Undead Cat")
+					})
+
 			else:
 				victim.get_node("AnimationPlayer").play("Perish")
-				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "Perish")
+#				rpc_id(fightManager.opponent, "remote_card_anim", victim.slot_idx(), "Perish")
+				fightManager.send_move({
+					"type": "card_anim",
+					"index": victim.slot_idx(),
+					"anim": "CatSac"
+				})
 				
 			
 		sacVictims.clear()
@@ -123,19 +141,16 @@ func pre_turn_sigils(friendly: bool):
 		
 		# Evolution
 		if card.has_sigil("Fledgling"):
-#			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "Evolve")
 			cardAnim.play("Evolve")
 			yield (cardAnim, "animation_finished")
 			
 		# Dive
 		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
-#			rpc_id(fightManager.opponent, "remote_card_anim", slot.get_position_in_parent(), "UnDive")
 			cardAnim.play("UnDive")
 
 			if card.has_sigil("Tentacle"):
 				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
 				card.from_data(nTent)
-#				rpc_id(fightManager.opponent, "remote_card_data", slot.get_position_in_parent(), nTent)
 			
 				# Calculate
 				for fCard in all_friendly_cards():
@@ -294,14 +309,11 @@ func post_turn_sigils(friendly: bool):
 		
 		if card.has_sigil("Bone Digger"):
 			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
-#			fightManager.rpc_id(fightManager.opponent, "add_remote_bones", 1)
-#			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "ProcGeneric")
 			card.get_node("AnimationPlayer").play("ProcGeneric")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 		
 		# Diving
 		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
-#			rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Dive")
 			card.get_node("AnimationPlayer").play("Dive")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
 	
@@ -310,7 +322,6 @@ func post_turn_sigils(friendly: bool):
 			for sn in ["Squirrel", "Skeleton", "Geck", "Vessel", "Ruby", "Sapphire", "Emerald", "Cairn"]:
 				if sn in card.card_data.name:
 					card.get_node("AnimationPlayer").play("Perish")
-#					rpc_id(fightManager.opponent, "remote_card_anim", card.get_parent().get_position_in_parent(), "Perish")
 					yield(card.get_node("AnimationPlayer"), "animation_finished")
 				
 			
@@ -422,11 +433,9 @@ func initiate_combat(friendly: bool):
 					
 					# Visually represent the card's attack offset (hacky)
 					pCard.rect_position.x = s_offset * 50
-#					rpc_id(fightManager.opponent, "set_card_offset", slot_index, s_offset * 50)
 					
 					pCard.strike_offset = s_offset
 					cardAnim.play("Attack" if friendly else "AttackRemote")
-#					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
 					yield(cardAnim, "animation_finished")
 				
 				# Reset attack effect
@@ -435,7 +444,6 @@ func initiate_combat(friendly: bool):
 				
 				if not is_slot_empty(attackingSlots[slot_index]):
 					pCard.rect_position.x = 0
-#					rpc_id(fightManager.opponent, "set_card_offset", slot_index, 0)
 					
 			else:
 
@@ -448,7 +456,6 @@ func initiate_combat(friendly: bool):
 							continue
 					
 					cardAnim.play("Attack" if friendly else "AttackRemote")
-#					rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "AttackRemote")
 					yield(cardAnim, "animation_finished")
 		
 					# Did the card get boned?
@@ -459,7 +466,6 @@ func initiate_combat(friendly: bool):
 					# Brittle: Die after attacking
 					if pCard.has_sigil("Brittle"):
 						cardAnim.play("Perish")
-#						rpc_id(fightManager.opponent, "remote_card_anim", slot_index, "Perish")
 
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("complete_combat")
@@ -606,21 +612,17 @@ func summon_card(cDat, slot_idx, friendly: bool):
 	
 # Remote
 remote func set_sac_olay_vis(slot, vis):
-	#Replay
-	fightManager.replay.record_action({"type": "opponent_sac_olay", "slot": slot, "visible": vis})
-
 	enemySlots[slot].get_child(0).get_node("CardBody/SacOlay").visible = vis
 
-remote func remote_card_anim(slot, anim_name):
-
-	# Replay
-	fightManager.replay.record_action({"type": "opponent_card_anim", "slot": slot, "anim": anim_name})
+func remote_card_anim(slot, anim_name):
 
 	if is_slot_empty(enemySlots[slot]):
 		return
 	
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").stop()
 	enemySlots[slot].get_child(0).get_node("AnimationPlayer").play(anim_name)
+	fightManager.move_done()
+
 
 func remote_card_summon(cDat, slot_idx):
 	var nCard = fightManager.cardPrefab.instance()
@@ -636,22 +638,21 @@ func remote_card_summon(cDat, slot_idx):
 			# guardians[0].move_to_parent(playerSlots[slot_idx])
 	
 
-remote func remote_activate_sigil(card_slot, arg = 0):
-
-	# Replay
-	fightManager.replay.record_action({"type": "opponent_activated_sigil", "slot": card_slot})
+func remote_activate_sigil(card_slot, arg = 0):
 
 	var eCard = enemySlots[card_slot].get_child(0)
 	var sName = eCard.card_data["sigils"][0]
 	
 	if sName == "True Scholar":
 		eCard.get_node("AnimationPlayer").play("Perish")
+		fightManager.move_done()
 		return
 	
 	if sName == "Energy Gun":
 
 		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(1)
+			fightManager.move_done()
 			return
 		
 		var pCard = playerSlots[card_slot].get_child(0)
@@ -721,40 +722,12 @@ remote func remote_activate_sigil(card_slot, arg = 0):
 #	Only animate if not dying
 	if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
 		eCard.get_node("AnimationPlayer").play("ProcGeneric")
-
-
-remote func remote_card_move(from_slot, to_slot, flip_sigil):
-
-	# Replay
-	fightManager.replay.record_action({"type": "opponent_card_moved", "from_slot": from_slot, "to_slot": to_slot})
-
-	var eCard = enemySlots[from_slot].get_child(0)
-	
-	if from_slot != to_slot:
-		eCard.move_to_parent(enemySlots[to_slot])
+		yield(eCard.get_node("AnimationPlayer"), "animation_finished")
 		
-	if flip_sigil:
-		for sigil in eCard.card_data["sigils"]:
-			if sigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Hefty"]:
-				var sig = eCard.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
-					2 if eCard.card_data["sigils"].find(sigil) == 0 else 4
-				)
-				
-				sig.flip_h = not sig.flip_h
-		
-	# A push has happened, recalculate stats
-	for fCard in all_friendly_cards():
-		fCard.calculate_buffs()
-	for eCard2 in all_enemy_cards():
-		eCard2.calculate_buffs()
+	fightManager.move_done()
 
-remote func remote_card_stats(card_slot, new_attack, new_health):
-	var card = get_enemy_card(card_slot)
-	card.attack = new_attack if new_attack != null else card.attack
-	card.health = new_health if new_health != null else card.health
-	card.draw_stats()
 
-remote func remote_card_data(card_slot, new_data):
+func remote_card_data(card_slot, new_data):
 	var card = get_enemy_card(card_slot)
 	card.from_data(new_data)
 
@@ -768,9 +741,9 @@ remote func remote_card_data(card_slot, new_data):
 	card.get_node("CardBody/AtkIcon").visible = false
 	card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
 
-func handle_enemy_attack(from_slot, to_slot):
+	fightManager.move_done()
 
-	fightManager.replay.record_action({"type": "enemy_attack", "from_slot": from_slot, "to_slot": to_slot})
+func handle_enemy_attack(from_slot, to_slot):
 
 	var eCard = get_enemy_card(from_slot)
 	
