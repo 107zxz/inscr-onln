@@ -119,12 +119,10 @@ func update_lobby():
 func count_victory():
 	lobby_data.players[get_tree().get_network_unique_id()].wins += 1
 	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[get_tree().get_network_unique_id()].name + " (" + str(lobby_data.players[get_tree().get_network_unique_id()].wins) + " wins)"
-	cardFight.replay.save()
 
 func count_loss(opponent):
 	lobby_data.players[opponent].wins += 1
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[opponent].name + " (" + str(lobby_data.players[opponent].wins) + " wins)"
-	cardFight.replay.save()
 
 func init_fight(go_first: int):
 	print("Morbin time")

@@ -4,15 +4,17 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_summoned" and params[0] == card and isFriendly:
+	if event == "card_summoned" and params[0] == card:
 		
-		var cIdx = 0
-		for hCard in fightManager.handManager.get_node("PlayerHand").get_children():
+		# var cIdx = 0
+		for hCard in fightManager.handManager.get_node("PlayerHand" if isFriendly else "EnemyHand").get_children():
 			if hCard == card:
 				continue
 			hCard.get_node("AnimationPlayer").play("Discard")
-			fightManager.rpc_id(fightManager.opponent, "_opponent_hand_animation", cIdx, "Discard")
-			cIdx += 1
+
+		# Thing
+		if not isFriendly:
+			return
 		
 		for _i in range(3):
 			if fightManager.deck.size() == 0:
