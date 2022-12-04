@@ -1,29 +1,21 @@
-v0.2.3 is out!
+v0.2.5 is out!
 
-Inscryption act 2 vanilla ruleset, custom side deck support in rulesets, sidedecking improvements, and more!
+Act III cards at last! Also desync fixes and 1/t active sigils! (but not their new effects yet). This is a small update, but a lot changed behind the scenes.
 
-* Card Changes
-    * Pharoah's Pets
-        * Worthy Sacrifice
-        * Frozen Away
-        * Defrosts into Cat
-
-        Pharoah's Pets was nerfed a while ago to turn into a cat after a sacrifice is made using it. This is now reflected in its sigils.
-
-    * Bloody Vessels
-        * Energy cost 4 -> 3
-
-        This is a tentative change, and may be reverted if it's too broken
-
-    * All Vessels (except Empty)
-        * New card portraits by syntaxevasion. Thanks!
+* New Cards (IMF Eternal)
+    * Beehive
+        * 0/3
+    * Bee
+        * Only available in the side deck
+        * Rare
+    * Busted 3D Printer
+        * Now draws cards from the side deck (wait it did that already)
+    * SON1A
+    * GR1ZZ
+        * Now costs 4 Energy
 
 * Bug Fixes
-    * Ouroboros now triggers correctly in the vanilla ruleset (Thanks, Slug!)
+    * Fixed a LOT of ways the game could desync. It should also be more stable on poor connections
 
 * New Features
-    * CRT Filter (available in the options menu)
-    * Custom side decks now supported in rulesets
-
-* Other changes
-    * Side deck selection improvements
+    * Once per turn active sigils are now an option in rulesets
