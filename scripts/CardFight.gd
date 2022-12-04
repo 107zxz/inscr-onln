@@ -377,7 +377,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	# New sigil stuff
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
-	nCard.create_sigils( true)
+	nCard.create_sigils(true)
 	connect("sigil_event", nCard, "handle_sigil_event")
 	
 	source.add_child(nCard)
