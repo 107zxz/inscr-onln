@@ -14,7 +14,7 @@ if false && [ -f "$bdir/win-$vno.exe" ]; then
 else
     echo "Building $bdir/win-$vno.exe"
     $gex --export-debug "Windows Desktop" $bdir/win-$vno.exe
-    7zz a $bdir/win-$vno.zip $bdir/win-$vno.exe $bdir/imf_tunnel.dll
+    7zz a $bdir/win-$vno.zip $bdir/win-$vno.exe $bdir/imf_tunnel.dll $bdir/win-$vno.pck
 fi
 
 if false && [ -f "$bdir/osx-$vno.zip" ]; then
@@ -29,7 +29,7 @@ if false && [ -f "$bdir/linux-$vno.x86_64" ]; then
 else
     echo Building $bdir/linux-$vno.x86_64
     $gex --export-debug "Linux/X11" $bdir/linux-$vno.x86_64
-    7zz a $bdir/linux-$vno.zip $bdir/linux-$vno.x86_64 $bdir/libimf_tunnel.so
+    7zz a $bdir/linux-$vno.zip $bdir/linux-$vno.x86_64 $bdir/libimf_tunnel.so $bdir/linux-$vno.pck
 fi
 
 if false && [ -f "$bdir/android-$vno.apk" ]; then

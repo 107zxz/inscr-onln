@@ -126,7 +126,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	#		# Non-vessels
 	#		side_deck = side_decks[side_deck_index].duplicate()
 
-	#side_deck.shuffle()
+	side_deck.shuffle()
 	
 	# TODO: Clean up. This is spaghetti city
 
