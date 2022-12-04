@@ -122,19 +122,15 @@ signal resolve_sigils()
 
 func pre_turn_sigils(friendly: bool):
 	
-	var affectedSlots = playerSlots if friendly else enemySlots
+	var cardsToMove = all_friendly_cards() if friendly else all_enemy_cards()
 	
-	for slot in affectedSlots:
-		if is_slot_empty(slot):
-			continue
-		
-		var card = slot.get_child(0)
+	for card in cardsToMove:
 		var cardAnim = card.get_node("AnimationPlayer")
 		
 		if cardAnim.is_playing():
 			continue
 		
-		if false and "active" in card.card_data:
+		if CardInfo.all_data.opt_actives and "active" in card.card_data:
 			var cd = card.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil")
 			cd.disabled = false
 			cd.mouse_filter = MOUSE_FILTER_STOP
