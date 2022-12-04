@@ -707,9 +707,11 @@ func take_damage(enemyCard, dmg_amt = -1):
 	if health <= 0 or (enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 	
-	# Sharp quills
-	if enemyCard and enemyCard.is_alive() and has_sigil("Sharp Quills"):
-		enemyCard.take_damage(self, 1)
+	# Sigils that do the do
+	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
+	
+#	if enemyCard and enemyCard.is_alive() and has_sigil("Sharp Quills"):
+#		enemyCard.take_damage(self, 1)
 
 func is_alive():
 	return not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion()
