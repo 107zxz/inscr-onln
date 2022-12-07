@@ -83,8 +83,7 @@ func read_game_info():
 		print(rules_path)
 	else:
 		print("Downloaded rules not found! Prompting for download")
-#		file.open("res://data/gameInfo.json", File.READ)
-		get_tree().change_scene("res://AutoUpdate.tscn")
+		get_tree().change_scene("res://packed/AutoUpdate.tscn")
 		return
 		
 	var file_content = file.get_as_text()
