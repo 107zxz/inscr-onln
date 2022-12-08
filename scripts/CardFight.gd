@@ -10,8 +10,6 @@ var spectating = false
 
 # Game components
 onready var handManager = $HandsContainer/Hands
-onready var playerSlots = $CardSlots/PlayerSlots
-onready var enemySlots = $CardSlots/EnemySlots
 onready var slotManager = $CardSlots
 var cardPrefab = preload("res://packed/playingCard.tscn")
 
@@ -79,7 +77,7 @@ var want_rematch = false
 
 # Connect in-game signals
 func _ready():
-	for slot in playerSlots.get_children():
+	for slot in slotManager.playerSlots:
 		slot.connect("pressed", self, "play_card", [slot])
 	
 	$CustomBg.texture = CardInfo.background_texture
@@ -91,7 +89,7 @@ func _ready():
 #		parse_move(moves[current_move])
 
 
-func init_match(opp_id: int, do_go_first: bool):
+func init_match(opp_id: int, do_go_first: bool, spectating: bool = false):
 	
 	
 	opponent = opp_id
@@ -558,7 +556,7 @@ func _on_DesyncWatcher_timeout():
 	$WinScreen/Panel/VBoxContainer/WinLabel.text = "Desync Detected!"
 	$WinScreen.visible = true
 	
-	rpc_id(opponent, "_opponent_detected_desync")
+	rpc( "_opponent_detected_desync")
 	
 func parse_next_move():
 	
@@ -567,39 +565,80 @@ func parse_next_move():
 	var move = moves[current_move]
 	current_move += 1
 	
-	match move.type:
-		"raise_card":
-			print("Opponent ", move.pid, " raised card ", move.index)
-			handManager.raise_opponent_card(move.index)
-		"lower_card":
-			print("Opponent ", move.pid, " lowered card ", move.index)
-			handManager.lower_opponent_card(move.index)
-		"draw_card":
-			print("Opponent ", move.pid, " drew card")
-			_opponent_drew_card(move.deck)
-		"play_card":
-			print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
-			_opponent_played_card(move.card, move.slot)
-		"hey_im_a_hungry":
-			print("Opponent is like ", move.for, " hungry.")
-			force_draw_starv(move.for)
-		"save_replay":
-			save_replay()
-		"end_turn":
-			print("Opponent ended turn")
-			start_turn()
-		"card_anim":
-			print("Opponent card ", move.index, " did animation ", move.anim)
-			slotManager.remote_card_anim(move.index, move.anim)
-		"activate_sigil":
-			print("Opponent card ", move.slot, " activated sigil with arg ", move.arg)
-			slotManager.remote_activate_sigil(move.slot, move.arg)
-		"change_card":
-			print("Opponent card ", move.index, " changed to ", move.data)
-			slotManager.remote_card_data(move.index, move.data)
-		_:
-			print("Opponent ", move.pid, " did unhandled move:")
-			print(move)
+	if move.pid == opponent:
+		match move.type:
+			"raise_card":
+				print("Opponent ", move.pid, " raised card ", move.index)
+				handManager.raise_opponent_card(move.index)
+			"lower_card":
+				print("Opponent ", move.pid, " lowered card ", move.index)
+				handManager.lower_opponent_card(move.index)
+			"draw_card":
+				print("Opponent ", move.pid, " drew card")
+				_opponent_drew_card(move.deck)
+			"play_card":
+				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
+				_opponent_played_card(move.card, move.slot)
+			"hey_im_a_hungry":
+				print("Opponent is like ", move.for, " hungry.")
+				force_draw_starv(move.for)
+			"save_replay":
+				save_replay()
+			"end_turn":
+				print("Opponent ended turn")
+				start_turn()
+			"card_anim":
+				print("Opponent card ", move.index, " did animation ", move.anim)
+				slotManager.remote_card_anim(move.index, move.anim)
+			"activate_sigil":
+				print("Opponent card ", move.slot, " activated sigil with arg ", move.arg)
+				slotManager.remote_activate_sigil(move.slot, move.arg)
+			"change_card":
+				print("Opponent card ", move.index, " changed to ", move.data)
+				slotManager.remote_card_data(move.index, move.data)
+			_:
+				print("Opponent ", move.pid, " did unhandled move:")
+				print(move)
+	else:
+		# Parsing my own moves
+		match move.type:
+			"raise_card":
+				print("You ", move.pid, " raised card ", move.index)
+				$HandsContainer/Hands/PlayerHand.get_child(move.index).raise()
+				yield($HandsContainer/Hands/PlayerHand.get_child(move.index).get_node("AnimationPlayer"), "animation_finished")
+				move_done()
+			"lower_card":
+				print("You ", move.pid, " lowered card ", move.index)
+				$HandsContainer/Hands/PlayerHand.get_child(move.index).lower()
+				yield($HandsContainer/Hands/PlayerHand.get_child(move.index).get_node("AnimationPlayer"), "animation_finished")
+				move_done()
+			"draw_card":
+				print("You ", move.pid, " drew card")
+				_opponent_drew_card(move.deck)
+			"play_card":
+				print("You ", move.pid, " played card ", move.card, " in slot ", move.slot)
+				var pCard = handManager.raisedCard
+				play_card(move.slot)
+				yield(pCard.get_node("Tween"), "tween_completed")
+				move_done()
+			"hey_im_a_hungry":
+				print("You're like ", move.for, " hungry.")
+				force_draw_starv(move.for)
+			"end_turn":
+				print("Ended turn")
+				start_turn()
+			"card_anim":
+				print("Friendly card ", move.index, " did animation ", move.anim)
+				slotManager.remote_card_anim(move.index, move.anim)
+			"activate_sigil":
+				print("Friendly card ", move.slot, " activated sigil with arg ", move.arg)
+				slotManager.remote_activate_sigil(move.slot, move.arg)
+			"change_card":
+				print("Friendly card ", move.index, " changed to ", move.data)
+				slotManager.remote_card_data(move.index, move.data)
+			_:
+				print("You did unhandled move:")
+				print(move)
 
 func save_replay():
 	print("Saving replay: ", moves)
@@ -655,7 +694,7 @@ func _opponent_played_card(card, slot):
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
 	nCard.from_data(card_dt)
-	nCard.move_to_parent(enemySlots.get_child(slot))
+	nCard.move_to_parent(slotManager.enemySlots[slot])
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
 	nCard.create_sigils(false)

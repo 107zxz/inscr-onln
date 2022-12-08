@@ -1,7 +1,9 @@
 extends Control
 
 onready var playerSlots = $PlayerSlots.get_children()
+onready var playerSlotsBack = $PlayerSlotsBack.get_children()
 onready var enemySlots = $EnemySlots.get_children()
+onready var enemySlotsBack = $EnemySlotsBack.get_children()
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var handManager = fightManager.get_node("HandsContainer/Hands")
 
