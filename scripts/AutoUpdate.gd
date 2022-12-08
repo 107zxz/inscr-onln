@@ -10,11 +10,6 @@ const rulesetURLs = [
 ]
 
 func _ready():
-	for option in OS.get_cmdline_args():
-		if option == "noupdate":
-			# get_tree().change_scene("res://NewMain.tscn")
-			return
-	
 	get_node("VersionLabel").text = CardInfo.VERSION
 
 func _on_Continue_pressed():

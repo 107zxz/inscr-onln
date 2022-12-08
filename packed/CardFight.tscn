@@ -1405,6 +1405,56 @@ focus_mode = 0
 button_mask = 3
 enabled_focus_mode = 0
 
+[node name="EnemySlotsBack" type="HBoxContainer" parent="CardSlots"]
+visible = false
+margin_top = 145.0
+margin_right = 1920.0
+margin_bottom = 330.0
+mouse_filter = 2
+size_flags_vertical = 10
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Slot0" type="Button" parent="CardSlots/EnemySlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 680.0
+margin_right = 808.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot1" type="Button" parent="CardSlots/EnemySlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 824.0
+margin_right = 952.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot2" type="Button" parent="CardSlots/EnemySlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 968.0
+margin_right = 1096.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot3" type="Button" parent="CardSlots/EnemySlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 1112.0
+margin_right = 1240.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
 [node name="PlayerSlots" type="HBoxContainer" parent="CardSlots"]
 margin_top = 550.0
 margin_right = 1920.0
@@ -1442,6 +1492,56 @@ button_mask = 3
 enabled_focus_mode = 0
 
 [node name="Slot3" type="Button" parent="CardSlots/PlayerSlots"]
+margin_left = 1112.0
+margin_right = 1240.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="PlayerSlotsBack" type="HBoxContainer" parent="CardSlots"]
+visible = false
+margin_top = 750.0
+margin_right = 1920.0
+margin_bottom = 935.0
+mouse_filter = 2
+size_flags_vertical = 2
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Slot0" type="Button" parent="CardSlots/PlayerSlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 680.0
+margin_right = 808.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot1" type="Button" parent="CardSlots/PlayerSlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 824.0
+margin_right = 952.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot2" type="Button" parent="CardSlots/PlayerSlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
+margin_left = 968.0
+margin_right = 1096.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 128, 185 )
+focus_mode = 0
+button_mask = 3
+enabled_focus_mode = 0
+
+[node name="Slot3" type="Button" parent="CardSlots/PlayerSlotsBack"]
+self_modulate = Color( 0.894118, 0.894118, 0.894118, 1 )
 margin_left = 1112.0
 margin_right = 1240.0
 margin_bottom = 185.0
