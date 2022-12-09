@@ -660,6 +660,24 @@ func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		
 		pCard.take_damage(get_enemy_card(card_slot), 1)
+	
+	#TODO: BACK
+	if sName == "Energy Gun (Eternal)":
+		
+		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
+			
+			var dmg = min(fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").health, fightManager.opponent_energy)
+			
+			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(dmg)
+			fightManager.set_opponent_energy(fightManager.opponent_energy - dmg)
+			fightManager.move_done()
+			return
+		
+		var pCard = playerSlots[card_slot].get_child(0)
+		var dmg = min(fightManager.opponent_energy, pCard.health)
+		fightManager.set_opponent_energy(fightManager.opponent_energy - dmg)
+		
+		pCard.take_damage(get_enemy_card(card_slot), dmg)
 
 	if sName == "Power Dice":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)

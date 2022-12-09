@@ -449,6 +449,24 @@ func _on_ActiveSigil_pressed():
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
 		else:
 			eCard.take_damage(self, 1)
+		
+	if sName == "Energy Gun (Eternal)":
+		if fightManager.energy < 1:
+			return
+		
+		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]) and not fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+			return
+		
+		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
+		
+		var dmg = min(fightManager.energy, eCard.health)
+		
+		fightManager.set_energy(fightManager.energy - dmg)
+		
+		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(dmg)
+		else:
+			eCard.take_damage(self, dmg)
 
 	if sName == "Power Dice":
 		if fightManager.energy < 1:
