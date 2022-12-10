@@ -1,0 +1,313 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://gfx/portraits/Stoat.png" type="Texture" id=1]
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/UI/RulesetPickerProto.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[node name="RulesetPicker" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="FeaturedRulesets" type="PanelContainer" parent="."]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 900.0
+margin_bottom = 980.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FeaturedRulesets"]
+margin_right = 800.0
+margin_bottom = 880.0
+
+[node name="Label" type="Label" parent="FeaturedRulesets/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 24.0
+text = "Featured Rulesets"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FeaturedRulesets/VBoxContainer"]
+margin_top = 24.0
+margin_right = 800.0
+margin_bottom = 880.0
+size_flags_vertical = 3
+
+[node name="FeatRsCont" type="VBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 798.0
+margin_bottom = 502.0
+size_flags_horizontal = 3
+
+[node name="RulesetLine5" type="PanelContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont"]
+margin_right = 796.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine5"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 794.0
+margin_bottom = 98.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RSName" type="Label" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine5/HBoxContainer"]
+margin_left = 162.0
+margin_top = 36.0
+margin_right = 255.0
+margin_bottom = 60.0
+text = "Custom: "
+
+[node name="RSFU" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine5/HBoxContainer"]
+margin_left = 271.0
+margin_top = 31.0
+margin_right = 377.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "From URL"
+
+[node name="RSFJ" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine5/HBoxContainer"]
+margin_left = 393.0
+margin_top = 31.0
+margin_right = 510.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "From JSON"
+
+[node name="RSFF" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine5/HBoxContainer"]
+margin_left = 526.0
+margin_top = 31.0
+margin_right = 629.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "From File"
+
+[node name="RulesetLine" type="PanelContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont"]
+margin_top = 100.0
+margin_right = 796.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 794.0
+margin_bottom = 98.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RSPort" type="TextureRect" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine/HBoxContainer"]
+margin_left = 154.0
+margin_right = 268.0
+margin_bottom = 96.0
+texture = ExtResource( 1 )
+
+[node name="RSName" type="Label" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine/HBoxContainer"]
+margin_left = 284.0
+margin_top = 36.0
+margin_right = 514.0
+margin_bottom = 60.0
+text = "IMF Competitive v0.20"
+
+[node name="RSDL" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine/HBoxContainer"]
+margin_left = 530.0
+margin_top = 31.0
+margin_right = 637.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+text = "Download"
+
+[node name="RulesetLine2" type="PanelContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont"]
+margin_top = 200.0
+margin_right = 796.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine2"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 794.0
+margin_bottom = 98.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RSPort" type="TextureRect" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine2/HBoxContainer"]
+margin_left = 183.0
+margin_right = 297.0
+margin_bottom = 96.0
+texture = ExtResource( 1 )
+
+[node name="RSName" type="Label" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine2/HBoxContainer"]
+margin_left = 313.0
+margin_top = 36.0
+margin_right = 485.0
+margin_bottom = 60.0
+text = "IMF Eternal v0.5"
+
+[node name="RSDL" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine2/HBoxContainer"]
+margin_left = 501.0
+margin_top = 31.0
+margin_right = 608.0
+margin_bottom = 65.0
+size_flags_vertical = 4
+text = "Download"
+
+[node name="RulesetLine3" type="PanelContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont"]
+margin_top = 300.0
+margin_right = 796.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine3"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 794.0
+margin_bottom = 98.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RSPort" type="TextureRect" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine3/HBoxContainer"]
+margin_left = 186.0
+margin_right = 300.0
+margin_bottom = 96.0
+texture = ExtResource( 1 )
+
+[node name="RSName" type="Label" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine3/HBoxContainer"]
+margin_left = 316.0
+margin_top = 36.0
+margin_right = 482.0
+margin_bottom = 60.0
+text = "IMF Vanilla v0.3"
+
+[node name="RSDL" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine3/HBoxContainer"]
+margin_left = 498.0
+margin_top = 31.0
+margin_right = 605.0
+margin_bottom = 65.0
+size_flags_vertical = 4
+text = "Download"
+
+[node name="RulesetLine4" type="PanelContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont"]
+margin_top = 400.0
+margin_right = 796.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine4"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 794.0
+margin_bottom = 98.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RSPort" type="TextureRect" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine4/HBoxContainer"]
+margin_left = 222.0
+margin_right = 336.0
+margin_bottom = 96.0
+texture = ExtResource( 1 )
+
+[node name="RSName" type="Label" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine4/HBoxContainer"]
+margin_left = 352.0
+margin_top = 36.0
+margin_right = 447.0
+margin_bottom = 60.0
+text = "SANDBOX"
+
+[node name="RSDL" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/RulesetLine4/HBoxContainer"]
+margin_left = 463.0
+margin_top = 31.0
+margin_right = 570.0
+margin_bottom = 65.0
+size_flags_vertical = 4
+text = "Download"
+
+[node name="SavedRulesets" type="PanelContainer" parent="."]
+margin_left = 1020.0
+margin_top = 100.0
+margin_right = 1820.0
+margin_bottom = 980.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SavedRulesets"]
+margin_right = 800.0
+margin_bottom = 880.0
+
+[node name="Label" type="Label" parent="SavedRulesets/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 24.0
+text = "Saved Rulesets"
+align = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SavedRulesets/VBoxContainer"]
+margin_top = 24.0
+margin_right = 800.0
+margin_bottom = 880.0
+size_flags_vertical = 3
+
+[node name="SavedRsCont" type="VBoxContainer" parent="SavedRulesets/VBoxContainer/ScrollContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 798.0
+margin_bottom = 854.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RulesetLine" type="PanelContainer" parent="SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont"]
+margin_right = 796.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont/RulesetLine"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 794.0
+margin_bottom = 98.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RSPort" type="TextureRect" parent="SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont/RulesetLine/HBoxContainer"]
+margin_left = 137.0
+margin_right = 251.0
+margin_bottom = 96.0
+texture = ExtResource( 1 )
+
+[node name="RSName" type="Label" parent="SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont/RulesetLine/HBoxContainer"]
+margin_left = 267.0
+margin_top = 36.0
+margin_right = 497.0
+margin_bottom = 60.0
+text = "IMF Competitive v0.19"
+
+[node name="RSPL" type="Button" parent="SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont/RulesetLine/HBoxContainer"]
+margin_left = 513.0
+margin_top = 31.0
+margin_right = 564.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "Play"
+
+[node name="RSDLT" type="Button" parent="SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont/RulesetLine/HBoxContainer"]
+margin_left = 580.0
+margin_top = 31.0
+margin_right = 655.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "Delete"

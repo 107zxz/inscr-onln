@@ -162,17 +162,17 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.501961, 0.482353, 0.356863, 1 )
+[sub_resource type="StyleBoxFlat" id=6]
+resource_name = "DefaultPanel"
+bg_color = Color( 0.6, 0.576471, 0.427451, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
-resource_name = "DefaultPanel"
-bg_color = Color( 0.6, 0.576471, 0.427451, 1 )
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.501961, 0.482353, 0.356863, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -234,6 +234,8 @@ CheckButton/icons/on = ExtResource( 2 )
 GridContainer/constants/hseparation = 0
 GridContainer/constants/vseparation = 0
 HBoxContainer/constants/separation = 0
+ItemList/colors/font_color = Color( 0, 0, 0, 1 )
+ItemList/styles/bg = SubResource( 6 )
 Label/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color = Color( 0, 0, 0, 1 )
 LineEdit/styles/focus = SubResource( 11 )
