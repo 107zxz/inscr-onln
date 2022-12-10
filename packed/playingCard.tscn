@@ -359,7 +359,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 10, 15 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 10, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:modulate")
@@ -649,12 +649,14 @@ margin_right = 85.0
 margin_bottom = 123.0
 rect_min_size = Vector2( 128, 185 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 183.836, 92.1646 ],
+"_edit_vertical_guides_": [ 128.229 ]
+}
 
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 128.0
-margin_bottom = 185.0
 rect_min_size = Vector2( 128, 185 )
 mouse_filter = 2
 theme = ExtResource( 1 )
