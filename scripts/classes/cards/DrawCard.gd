@@ -20,7 +20,7 @@ func draw_from_data(cdat):
 		$VBoxContainer/Portrait.texture = tx
 	elif "pixport_url" in card_data:
 		var i = Image.new()
-		i.load(CardInfo.custom_portrait_path + card_data.name + ".png")
+		i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
 		var tx = ImageTexture.new()
 		tx.create_from_image(i)
 		tx.flags -= tx.FLAG_FILTER

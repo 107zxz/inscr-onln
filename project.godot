@@ -39,7 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Inscry_Mult_GD"
-run/main_scene="res://NewMain.tscn"
+run/main_scene="res://packed/RulesetPickerProto.tscn"
 config/icon="res://newicon.png"
 
 [autoload]
