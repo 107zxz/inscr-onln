@@ -84,7 +84,12 @@ func _on_FeaturedFetcher_request_completed(_result, response_code, _headers, bod
 	
 	$Status.hide()
 	
-	for rs_dat in featured:
+	# Jake
+	$Jake.show()
+	$Jakebubble.show()
+	$Jakebubble/Jakemsg.text = featured.jake
+	
+	for rs_dat in featured.rulesets:
 		add_featured_ruleset_from_dat(rs_dat)
 
 # Add rulesets
