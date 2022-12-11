@@ -346,7 +346,7 @@ func load_deck(_arg = null):
 	# Draw sd
 	
 	if CardInfo.side_decks:
-		if not dj.side_deck in CardInfo.side_decks:
+		if not "side_deck" in dj or not dj.side_deck in CardInfo.side_decks:
 			dj.side_deck = CardInfo.side_decks.keys()[0]
 		
 		sidedeck_de.select(CardInfo.side_decks.keys().find(dj["side_deck"]))

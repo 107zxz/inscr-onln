@@ -100,7 +100,7 @@ func attempt_sacrifice():
 
 					fightManager.send_move({
 						"type": "change_card",
-						"index": victim.slot_idx,
+						"index": victim.slot_idx(),
 						"data": CardInfo.from_name("Undead Cat")
 					})
 

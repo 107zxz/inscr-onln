@@ -256,9 +256,9 @@ func draw_sigils():
 				sig1 = ImageTexture.new()
 				sig1.create_from_image(i)
 				sig1.flags -= sig1.FLAG_FILTER
-			elif d.file_exists(CardInfo.custom_icon_path + card_data.sigils[0] + ".png"):
+			elif d.file_exists(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[0] + ".png"):
 				var i = Image.new()
-				i.load(CardInfo.custom_icon_path + card_data.sigils[0] + ".png")
+				i.load(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[0] + ".png")
 				sig1 = ImageTexture.new()
 				sig1.create_from_image(i)
 				sig1.flags -= sig1.FLAG_FILTER
@@ -272,9 +272,9 @@ func draw_sigils():
 					sig2 = ImageTexture.new()
 					sig2.create_from_image(i)
 					sig2.flags -= sig1.FLAG_FILTER
-				elif d.file_exists(CardInfo.custom_icon_path + card_data.sigils[1] + ".png"):
+				elif d.file_exists(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[1] + ".png"):
 					var i = Image.new()
-					i.load(CardInfo.custom_icon_path + card_data.sigils[1] + ".png")
+					i.load(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[1] + ".png")
 					sig2 = ImageTexture.new()
 					sig2.create_from_image(i)
 					sig2.flags -= sig1.FLAG_FILTER
