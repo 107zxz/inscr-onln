@@ -68,7 +68,7 @@ func from_game_info_json(content_as_object):
 	all_cards = all_data["cards"]
 	working_sigils = all_data["working_sigils"]
 	
-	side_decks = all_data["side_decks"]
+	side_decks = all_data["side_decks"] if "side_decks" in all_data else []
 	
 	if "ruleset" in all_data:
 		ruleset = all_data.ruleset
