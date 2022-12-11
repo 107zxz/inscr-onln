@@ -97,7 +97,10 @@ func add_featured_ruleset_from_dat(dat: Dictionary):
 	
 	var nl = line_prefab.instance()
 	$FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont.add_child(nl)
-	nl.get_node("HBoxContainer/RSName").text = dat.name
+	nl.get_node("HBoxContainer/RSName").text = dat.name + ("\n\n" + dat.description if "description" in dat else "")
+	
+	if "portrait" in dat:
+		nl.get_node("HBoxContainer/RSPort").texture = load("res://gfx/" + dat.portrait + ".png")
 	
 	# Thing
 	var rsdl = nl.get_node("HBoxContainer/RSDL")
@@ -152,7 +155,10 @@ func add_saved_ruleset_entry_dat(dat):
 	
 	var nl = line_prefab.instance()
 	$SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont.add_child(nl)
-	nl.get_node("HBoxContainer/RSName").text = dat.ruleset
+	nl.get_node("HBoxContainer/RSName").text = dat.ruleset + ("\n\n" + dat.description if "description" in dat else "")
+	
+	if "portrait" in dat:
+		nl.get_node("HBoxContainer/RSPort").texture = load("res://gfx/" + dat.portrait + ".png")
 	
 	# Thing
 	var ub = nl.get_node("HBoxContainer/RSUse")
