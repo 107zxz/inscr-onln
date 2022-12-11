@@ -74,7 +74,7 @@ func fetch_saved_rulesets():
 func fetch_featured_rulesets():
 	$FeaturedFetcher.request("https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/featured.json")
 
-func _on_FeaturedFetcher_request_completed(result, response_code, headers, body):
+func _on_FeaturedFetcher_request_completed(_result, response_code, _headers, body):
 	
 	if response_code != 200:
 		errorBox("Failed fetching featured\nResponse code " + str(response_code))
@@ -87,7 +87,7 @@ func _on_FeaturedFetcher_request_completed(result, response_code, headers, body)
 	for rs_dat in featured:
 		add_featured_ruleset_from_dat(rs_dat)
 
-func _on_RSFetcher_request_completed(result, response_code, headers, body: PoolByteArray):
+func _on_RSFetcher_request_completed(_result, response_code, _headers, body: PoolByteArray):
 	if response_code != 200:
 		errorBox("Failed fetching ruleset\nResponse code " + str(response_code))
 		return
@@ -112,7 +112,7 @@ func add_ruleset_from_url(url: String):
 	$Status/PanelContainer/HBoxContainer/Label.text = "Downloading Ruleset..."
 	$RSDownloader.request(url)
 
-func _on_RSDownloader_request_completed(result, response_code, headers, body):
+func _on_RSDownloader_request_completed(_result, response_code, _headers, body):
 	if response_code != 200:
 		errorBox("Failed downloading ruleset\nResponse code " + str(response_code))
 		return

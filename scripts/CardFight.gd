@@ -89,7 +89,7 @@ func _ready():
 #		parse_move(moves[current_move])
 
 
-func init_match(opp_id: int, do_go_first: bool, spectating: bool = false):
+func init_match(opp_id: int, do_go_first: bool):
 	
 	
 	opponent = opp_id
