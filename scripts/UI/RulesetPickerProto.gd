@@ -87,13 +87,6 @@ func _on_FeaturedFetcher_request_completed(_result, response_code, _headers, bod
 	for rs_dat in featured:
 		add_featured_ruleset_from_dat(rs_dat)
 
-func _on_RSFetcher_request_completed(_result, response_code, _headers, body: PoolByteArray):
-	if response_code != 200:
-		errorBox("Failed fetching ruleset\nResponse code " + str(response_code))
-		return
-	
-	add_ruleset_from_json(body.get_string_from_utf8())
-
 # Add rulesets
 func add_featured_ruleset_from_dat(dat: Dictionary):
 	

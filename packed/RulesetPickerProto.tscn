@@ -380,8 +380,6 @@ margin_top = -32.0
 margin_right = 40.0
 text = "v0.1.9"
 
-[node name="RSFetcher" type="HTTPRequest" parent="."]
-
 [node name="RSDownloader" type="HTTPRequest" parent="."]
 
 [node name="FeaturedFetcher" type="HTTPRequest" parent="."]
@@ -397,6 +395,5 @@ text = "v0.1.9"
 [connection signal="pressed" from="FromJSON/PanelContainer/VBoxContainer/HBoxContainer/JSONLoadBtn" to="." method="_on_JSONLoadBtn_pressed"]
 [connection signal="pressed" from="FromJSON/PanelContainer/VBoxContainer/HBoxContainer/Button2" to="FromJSON" method="hide"]
 [connection signal="pressed" from="Error/PanelContainer/VBoxContainer/Button" to="Error" method="hide"]
-[connection signal="request_completed" from="RSFetcher" to="." method="_on_RSFetcher_request_completed"]
 [connection signal="request_completed" from="RSDownloader" to="." method="_on_RSDownloader_request_completed"]
 [connection signal="request_completed" from="FeaturedFetcher" to="." method="_on_FeaturedFetcher_request_completed"]
