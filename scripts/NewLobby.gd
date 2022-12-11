@@ -380,7 +380,7 @@ func _on_LobbyReady_pressed():
 	init_fight(go_first)
 
 func _on_SelectVersionBtn_pressed():
-	get_tree().change_scene("res://packed/AutoUpdate.tscn")
+	get_tree().change_scene("res://packed/RulesetPickerProto.tscn")
 
 func _on_Kick_pressed():
 	rpc_id(lobby_data.players.keys()[lobbyList.get_selected_items()[0]], "_rejected", "Kicked by lobby host")

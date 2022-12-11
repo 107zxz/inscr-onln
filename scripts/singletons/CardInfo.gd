@@ -18,6 +18,7 @@ var data_path = "user:/"
 
 var deck_path = data_path + "/decks/"
 var deck_backup_path = data_path + "/decks/undef/"
+# V Update this! V
 var rules_path = data_path + "/gameInfo.json"
 var theme_path = data_path + "/theme.json"
 var options_path = data_path + "/options.json"
@@ -27,6 +28,7 @@ var custom_icon_path = data_path + "/custom_sigil_icons/"
 var portrait_override_path = data_path + "/portrait_overrides/"
 var icon_override_path = data_path + "/sigil_icon_overrides/"
 var replay_path = data_path + "/replays/"
+var rulesets_path = data_path + "/rulesets/"
 
 # CB
 var background_texture = null
@@ -43,7 +45,7 @@ func _enter_tree():
 		OS.window_size = OS.window_size / 2
 		OS.window_position += OS.window_size / 2
 	
-	read_game_info()
+#	read_game_info()
 	
 	# Custom background
 	load_background_texture()

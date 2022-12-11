@@ -363,6 +363,11 @@ func load_deck(_arg = null):
 
 				var added = {}
 				
+				if not "side_deck_cards" in dj:
+					draw_sidedeck(dj["side_deck"])
+					update_deck_count()
+					return
+				
 				for card in dj["side_deck_cards"]:
 
 					if not card in added:
