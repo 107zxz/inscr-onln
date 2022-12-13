@@ -1,21 +1,32 @@
-v0.2.5 is out!
+v0.2.6 is out!
 
-Act III cards at last! Also desync fixes and 1/t active sigils! (but not their new effects yet). This is a small update, but a lot changed behind the scenes.
-
-* New Cards (IMF Eternal)
-    * Beehive
-        * 0/3
-    * Bee
-        * Only available in the side deck
-        * Rare
-    * Busted 3D Printer
-        * Now draws cards from the side deck (wait it did that already)
-    * SON1A
-    * GR1ZZ
-        * Now costs 4 Energy
-
-* Bug Fixes
-    * Fixed a LOT of ways the game could desync. It should also be more stable on poor connections
+Big new update featuring 4 new cards (as will be normal for weekly patches), a few bug fixes and of course the new ruleset selector. This should make sharing rulesets easier.
 
 * New Features
-    * Once per turn active sigils are now an option in rulesets
+    * New ruleset selector!
+        * Allows you to have multiple rulesets downloaded at once
+        * Makes using other peoples' rulesets easier
+        * Contains a new friend!
+            * DM me his name for the next lobby pic
+
+    * New lobby profile picture: Ouroboros
+
+* New Cards
+    * QU177
+    * Beaver
+    * Dire Wolf
+    * Dire Wolf Pup
+
+    * These cards and the cards added to Eternal in the previous update have been added to the competitive ruleset as well
+
+* New Sigils
+    * Dam Builder
+    * Eternal format versions of:
+        * Bomb Spewer
+        * Energy Gun
+
+* Bug Fixes
+    * Fixed side decks not being shuffled
+    * Fixed decks getting messed up more than they should when switching rulesets
+    * Fixed the game not prompting you to download a ruleset the first time you play
+    * Cat will no longer softlock the game when sacrificing it for the 9th time
