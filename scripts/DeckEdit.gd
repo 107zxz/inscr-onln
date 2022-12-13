@@ -491,7 +491,7 @@ func _on_ShuffleButton_pressed():
 		dSize += 1
 
 func _on_ViewFolder_pressed():
-	print("Open folder: " + str(OS.shell_open("file://" + CardInfo.deck_path)))
+	OS.shell_open("file://" + OS.get_user_data_dir() + "/decks")
 
 
 func _on_TestButton_pressed():
