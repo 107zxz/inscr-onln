@@ -120,13 +120,13 @@ func apply_controls():
 	for ctrl in $Options.get_children():
 		
 		if ctrl.name.begins_with("cards-"):
-			var sName = ctrl.name.split("-") 
+			var sName = ctrl.name.split("-")
 #			theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split(" -")[2]) = ctrl.get_node("ColorPickerButton").color
 			theme_data.cards.get(sName[1])[sName[2]] = ctrl.get_node("ColorPickerButton").color.to_html(false)
 
 
 		if ctrl.name.begins_with("buttons-"):
-			var sName = ctrl.name.split("-") 
+			var sName = ctrl.name.split("-")
 #			theme_data.cards.get(ctrl.name.split("-")[1]).get(ctrl.name.split(" -")[2]) = ctrl.get_node("ColorPickerButton").color
 			theme_data.buttons.get(sName[1])[sName[2]] = ctrl.get_node("ColorPickerButton").color.to_html(false)
 
@@ -178,3 +178,22 @@ func defaults():
 	update_controls()
 	apply_theme()
 	
+
+
+func _on_FileDialog_file_selected(path: String):
+	var d = Directory.new()
+	
+	var split = path.split(".")
+	var ext = split[len(split) - 1]
+	
+	d.remove(CardInfo.data_path + "/background.png")
+	d.remove(CardInfo.data_path + "/background.jpg")
+	
+	d.copy(path, CardInfo.data_path + "/background." + ext)
+	
+	CardInfo.load_background_texture()
+	
+	get_node("/root/Main/TitleScreen/CustomBackground").texture = CardInfo.background_texture
+	get_node("/root/Main/DeckEdit").apply_custom_background()
+	
+#	get_tree().reload_current_scene()

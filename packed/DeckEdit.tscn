@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -11,6 +11,11 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_top = 2
 border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
@@ -437,36 +442,34 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 1044.0
 margin_bottom = 331.0
+custom_styles/panel = SubResource( 3 )
 tab_align = 0
 
 [node name="Side Deck Select" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
 margin_top = 36.0
-margin_right = -2.0
-margin_bottom = -2.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
-margin_top = 128.0
-margin_right = 1038.0
-margin_bottom = 162.0
+margin_top = 129.0
+margin_right = 1042.0
+margin_bottom = 163.0
 alignment = 1
 
 [node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
-margin_left = 389.0
+margin_left = 391.0
 margin_top = 5.0
-margin_right = 510.0
+margin_right = 512.0
 margin_bottom = 29.0
 text = "Side Deck: "
 align = 1
 
 [node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 510.0
-margin_right = 630.0
+margin_left = 512.0
+margin_right = 632.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -476,8 +479,8 @@ items = [ "10 Bloody", null, false, 0, null ]
 selected = 0
 
 [node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
-margin_left = 630.0
-margin_right = 648.0
+margin_left = 632.0
+margin_right = 650.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -538,6 +541,7 @@ rect_min_size = Vector2( 428, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
+scroll_deadzone = 5
 
 [node name="SearchContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
@@ -547,6 +551,31 @@ margin_right = 426.0
 margin_bottom = 2.0
 size_flags_horizontal = 3
 columns = 4
+
+[node name="LRButtonsContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+margin_top = 915.0
+margin_right = 428.0
+margin_bottom = 962.0
+rect_min_size = Vector2( 0, 47 )
+
+[node name="LeftButton" type="Button" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer"]
+margin_right = 214.0
+margin_bottom = 47.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = "<"
+
+[node name="RightButton" type="Button" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer"]
+margin_left = 214.0
+margin_right = 428.0
+margin_bottom = 47.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = ">"
 
 [connection signal="button_down" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="save_deck"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="load_deck"]

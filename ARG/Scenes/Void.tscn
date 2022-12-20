@@ -1,0 +1,263 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://themes/voidtheme.tres" type="Theme" id=1]
+[ext_resource path="res://ARG/scripts/ChatOption.gd" type="Script" id=2]
+[ext_resource path="res://gfx/extra/stoat_character_sheet.png" type="Texture" id=3]
+[ext_resource path="res://ARG/music/Hacknet OST： Cinematrix - Revolve (R Mix) [YGyqtCgUvCY].mp3" type="AudioStream" id=4]
+[ext_resource path="res://ARG/sprites/codebg.png" type="Texture" id=5]
+[ext_resource path="res://ARG/scripts/ARG.gd" type="Script" id=6]
+[ext_resource path="res://ARG/sprites/dialogconfirm.png" type="Texture" id=7]
+
+[sub_resource type="VisualShader" id=2]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Output:0
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -214.549, 261 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "bump"
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform vec4 new_colour: hint_color;
+
+void fragment() {
+	
+	vec4 original_color = texture(TEXTURE, UV);
+	
+	float original_alpha = original_color.a;
+	
+	COLOR = vec4(original_alpha * new_colour);
+	
+//	if (original_color.a > 0.2) {
+//		COLOR = vec4(1.0);
+//	}
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/new_colour = Color( 0.219608, 0.588235, 0.698039, 1 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 17, 4, 78, 88 )
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("StoatBody:material:shader_param/new_colour")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.219608, 0.588235, 0.698039, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("StoatBody:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StoatBody:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 804, 364 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Tease"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("StoatBody:material:shader_param/new_colour")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0.721569, 0.870588, 0.913725, 1 ), Color( 0.294118, 0.698039, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("StoatBody:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.75, 1.5 ), Vector2( 1.5, 0.75 ), Vector2( 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("StoatBody:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 804, 364 ), Vector2( 837, 276 ), Vector2( 719, 409 ), Vector2( 804, 364 ) ]
+}
+
+[node name="Void" type="Panel"]
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 6 )
+
+[node name="Codebg" type="TextureRect" parent="."]
+modulate = Color( 0.129412, 0.129412, 0.129412, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_editor_description_": "Animate this later"
+}
+
+[node name="Dialogue" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 40.0
+margin_bottom = 130.0
+theme_type_variation = "P03Text"
+text = "Hello"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Dialogue"]
+anims/bump = SubResource( 1 )
+
+[node name="Arrow" type="TextureRect" parent="Dialogue"]
+visible = false
+modulate = Color( 0.219608, 0.588235, 0.698039, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -32.0
+margin_top = -30.0
+margin_right = 32.0
+margin_bottom = 10.0
+texture = ExtResource( 7 )
+
+[node name="Tween" type="Tween" parent="Dialogue"]
+
+[node name="StoatBody" type="TextureRect" parent="."]
+material = SubResource( 5 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 804.0
+margin_top = 364.0
+margin_right = 1120.0
+margin_bottom = 719.0
+texture = SubResource( 6 )
+stretch_mode = 5
+
+[node name="StoatAnim" type="AnimationPlayer" parent="StoatBody"]
+root_node = NodePath("../..")
+autoplay = "Tease"
+anims/RESET = SubResource( 7 )
+anims/Tease = SubResource( 8 )
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="RoomLabel" type="Label" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -154.0
+margin_right = 433.0
+text = "Room: "
+
+[node name="OptionA" type="Label" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -284.0
+margin_bottom = -130.0
+mouse_filter = 0
+theme_type_variation = "P03Text"
+text = "1. One"
+align = 1
+script = ExtResource( 2 )
+
+[node name="OptionB" type="Label" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -154.0
+mouse_filter = 0
+theme_type_variation = "P03Text"
+text = "2. Two"
+align = 1
+script = ExtResource( 2 )
+
+[node name="LetterTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="DelayTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="LineInput" type="LineEdit" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -140.0
+margin_right = 250.0
+margin_bottom = -65.0
+align = 1
+
+[connection signal="timeout" from="LetterTimer" to="." method="tick_letter"]
+[connection signal="text_entered" from="LineInput" to="." method="_on_LineInput_text_entered"]

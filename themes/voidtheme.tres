@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://fonts/DAGGERSQUARE.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.294118, 0.698039, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+border_color = Color( 1, 1, 1, 1 )
+
+[resource]
+LineEdit/colors/font_color = Color( 0.294118, 0.698039, 1, 1 )
+LineEdit/fonts/font = ExtResource( 2 )
+LineEdit/styles/normal = SubResource( 2 )
+P03Text/colors/font_color = Color( 0.219608, 0.588235, 0.698039, 1 )
+P03Text/fonts/font = ExtResource( 1 )
+Panel/styles/panel = SubResource( 1 )
+PanelContainer/styles/panel = SubResource( 1 )
