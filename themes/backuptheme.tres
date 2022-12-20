@@ -241,3 +241,4 @@ VScrollBar/styles/grabber_highlight = SubResource( 12 )
 VScrollBar/styles/grabber_pressed = SubResource( 12 )
 VScrollBar/styles/scroll = SubResource( 4 )
 VScrollBar/styles/scroll_focus = null
+WindowDialog/styles/panel = SubResource( 6 )

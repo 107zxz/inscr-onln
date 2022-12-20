@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Hacknet OST： Cinematrix - Revolve (R Mix) [YGyqtCgUvCY].mp3-ade30b259f60f548e88bdc5d783b310e.mp3str"
+
+[deps]
+
+source_file="res://ARG/music/Hacknet OST： Cinematrix - Revolve (R Mix) [YGyqtCgUvCY].mp3"
+dest_files=[ "res://.import/Hacknet OST： Cinematrix - Revolve (R Mix) [YGyqtCgUvCY].mp3-ade30b259f60f548e88bdc5d783b310e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

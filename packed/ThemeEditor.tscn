@@ -6,7 +6,7 @@
 [node name="ThemeEditor" type="PanelContainer"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -644.0
+margin_top = -672.0
 margin_right = 514.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
@@ -15,7 +15,7 @@ script = ExtResource( 2 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 512.0
-margin_bottom = 642.0
+margin_bottom = 670.0
 
 [node name="Description" type="Label" parent="Options"]
 margin_right = 510.0
@@ -401,10 +401,31 @@ margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="Buttons" type="HBoxContainer" parent="Options"]
+[node name="BGImg" type="Button" parent="Options"]
 margin_top = 612.0
 margin_right = 510.0
 margin_bottom = 640.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Set Background Image"
+
+[node name="FileDialog" type="FileDialog" parent="Options/BGImg"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -480.0
+margin_right = 640.0
+rect_min_size = Vector2( 400, 140 )
+theme = ExtResource( 1 )
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png", "*.jpg" )
+
+[node name="Buttons" type="HBoxContainer" parent="Options"]
+margin_top = 640.0
+margin_right = 510.0
+margin_bottom = 668.0
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="Options/Buttons"]
@@ -454,11 +475,13 @@ margin_right = 620.0
 margin_bottom = 642.0
 
 [node name="ColorPicker" type="ColorPicker" parent="Control"]
-margin_left = -706.241
-margin_top = 61.5372
-margin_right = -88.2413
-margin_bottom = 701.537
+margin_left = -698.241
+margin_top = 69.5372
+margin_right = -80.2413
+margin_bottom = 709.537
 
+[connection signal="pressed" from="Options/BGImg" to="Options/BGImg/FileDialog" method="popup_centered"]
+[connection signal="file_selected" from="Options/BGImg/FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="pressed" from="Options/Buttons/SaveButton" to="." method="save"]
 [connection signal="pressed" from="Options/Buttons/DefaultsButton" to="." method="defaults"]
 [connection signal="pressed" from="Options/Buttons/CloseButton" to="." method="close_window"]

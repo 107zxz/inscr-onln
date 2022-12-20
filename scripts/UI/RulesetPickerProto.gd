@@ -8,7 +8,22 @@ var visible_rulesets = []
 func _on_RSFF_pressed():
 	$FromFile.popup_centered()
 
+func ARGIT():
+	randomize()
+	
+#	if randi() % 10 == 0 and GameOptions.options.misplays < 2 and not GameOptions.mega_misplay: # TODO: Change this when adding more
+	if GameOptions.options.misplays < 3 and not GameOptions.mega_misplay:
+		
+		var p = randi() % 10
+		
+		if p == 03:
+			get_tree().change_scene("res://ARG/Scenes/Void.tscn")
+
 func _ready():
+	
+	ARGIT()
+	
+	
 	$VersionLabel.text = CardInfo.VERSION
 	
 	var d = Directory.new()
@@ -37,6 +52,8 @@ func _on_JSONLoadBtn_pressed():
 func use_ruleset(dat: Dictionary):
 	CardInfo.rules_path = CardInfo.rulesets_path + dat.ruleset + ".json"
 	CardInfo.read_game_info()
+	
+	GameOptions.mega_misplay = true
 	
 	get_tree().change_scene("res://NewMain.tscn")
 

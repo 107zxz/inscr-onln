@@ -54,6 +54,7 @@ func apply_custom_background():
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults.theme_type_variation = "TspBg"
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer.theme_type_variation = "TspBg"
 	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.theme_type_variation = "TspBg"
+#	$"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer".theme_type_variation = "TspBg"
 	
 func _ready():
 	

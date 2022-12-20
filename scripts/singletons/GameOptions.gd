@@ -1,5 +1,8 @@
 extends Node
 
+# misplay tracking
+var mega_misplay = false
+
 var options = {
 	"enable_accessibility_icons": false,
 	"show_card_tooltips": true,
@@ -11,7 +14,8 @@ var options = {
 	"crt_filter": false,
 	"enable_music": true,
 	"enable_sfx": false,
-	"show_banned": false
+	"show_banned": false,
+	"misplays": 0
 }
 
 func read_options():
