@@ -985,8 +985,7 @@ text = "Ok"
 [node name="DeckEdit" parent="." instance=ExtResource( 7 )]
 visible = false
 
-[node name="Options" type="PanelContainer" parent="."]
-visible = false
+[node name="Options" type="WindowDialog" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -996,6 +995,7 @@ margin_top = -300.0
 margin_right = 425.0
 margin_bottom = 300.0
 theme = ExtResource( 1 )
+window_title = "Options"
 script = ExtResource( 12 )
 
 [node name="TabContainer" type="TabContainer" parent="Options"]
@@ -1045,25 +1045,25 @@ enabled_focus_mode = 0
 text = "Card tooltips"
 
 [node name="show_banned" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_top = 102.0
-margin_right = 842.0
-margin_bottom = 136.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Show banned cards in editor"
-
-[node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_top = 136.0
 margin_right = 842.0
 margin_bottom = 170.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Right scale shows opponent's advantage"
+text = "Show banned cards in editor"
 
-[node name="crt_filter" type="CheckButton" parent="Options/TabContainer/Visual"]
+[node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
 margin_top = 170.0
 margin_right = 842.0
 margin_bottom = 204.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Right scale shows opponent's advantage"
+
+[node name="crt_filter" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 204.0
+margin_right = 842.0
+margin_bottom = 238.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "CRT Filter"
@@ -1110,9 +1110,9 @@ allow_lesser = true
 prefix = "speed"
 
 [node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
-margin_top = 204.0
+margin_top = 238.0
 margin_right = 842.0
-margin_bottom = 238.0
+margin_bottom = 272.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Theme Editor"
@@ -1163,21 +1163,11 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Enable SFX (Experimental)"
 
-[node name="CloseBtn" type="Button" parent="Options"]
-margin_left = 828.0
-margin_top = 2.0
-margin_right = 848.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 20, 0 )
-focus_mode = 0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-enabled_focus_mode = 0
-text = "X"
-
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
-visible = false
-margin_right = 622.0
+margin_left = 56.0
+margin_top = -762.0
+margin_right = 656.0
+margin_bottom = -50.0
 
 [node name="CardFight" parent="." instance=ExtResource( 3 )]
 visible = false
@@ -1240,4 +1230,3 @@ mouse_filter = 2
 [connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/OPACITY" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
 [connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/SPEED" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
 [connection signal="pressed" from="Options/TabContainer/Visual/ThemeEditor" to="ThemeEditor" method="show"]
-[connection signal="pressed" from="Options/CloseBtn" to="Options" method="hide"]
