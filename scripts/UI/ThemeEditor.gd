@@ -1,5 +1,4 @@
-
-extends PanelContainer
+extends WindowDialog
 
 var paperTheme = preload("res://themes/papertheme.tres")
 var sigilMat = preload("res://themes/sigilMat.tres")
@@ -179,6 +178,21 @@ func defaults():
 	apply_theme()
 	
 
+func clear_bg():
+	var d = Directory.new()
+	d.remove(CardInfo.data_path + "/background.png")
+	d.remove(CardInfo.data_path + "/background.jpg")
+	
+
+func full_clear_bg():
+	clear_bg()
+	
+#	CardInfo.load_background_texture()
+	CardInfo.background_texture = null
+	
+	get_node("/root/Main/TitleScreen/CustomBackground").texture = CardInfo.background_texture
+	get_node("/root/Main/DeckEdit").apply_custom_background()
+
 
 func _on_FileDialog_file_selected(path: String):
 	var d = Directory.new()
@@ -186,8 +200,7 @@ func _on_FileDialog_file_selected(path: String):
 	var split = path.split(".")
 	var ext = split[len(split) - 1]
 	
-	d.remove(CardInfo.data_path + "/background.png")
-	d.remove(CardInfo.data_path + "/background.jpg")
+	clear_bg()
 	
 	d.copy(path, CardInfo.data_path + "/background." + ext)
 	

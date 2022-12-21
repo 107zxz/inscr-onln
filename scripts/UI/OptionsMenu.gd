@@ -1,4 +1,4 @@
-extends PanelContainer
+extends WindowDialog
 
 
 func update_options():

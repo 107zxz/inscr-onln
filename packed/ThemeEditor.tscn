@@ -3,30 +3,25 @@
 [ext_resource path="res://themes/backuptheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/UI/ThemeEditor.gd" type="Script" id=2]
 
-[node name="ThemeEditor" type="PanelContainer"]
+[node name="ThemeEditor" type="WindowDialog"]
+visible = true
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -672.0
-margin_right = 514.0
+margin_top = -715.0
+margin_right = 600.0
+margin_bottom = -3.0
 theme = ExtResource( 1 )
+window_title = "Theme Editor"
 script = ExtResource( 2 )
 
 [node name="Options" type="VBoxContainer" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 512.0
-margin_bottom = 670.0
-
-[node name="Description" type="Label" parent="Options"]
-margin_right = 510.0
-margin_bottom = 24.0
-text = "Theme Editor:"
-align = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 3
 
 [node name="border_colour" type="HBoxContainer" parent="Options"]
-margin_top = 24.0
-margin_right = 510.0
-margin_bottom = 52.0
+margin_right = 600.0
+margin_bottom = 28.0
 
 [node name="Label" type="Label" parent="Options/border_colour"]
 margin_top = 2.0
@@ -36,15 +31,15 @@ text = "Borders: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/border_colour"]
 margin_left = 98.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="background_colour" type="HBoxContainer" parent="Options"]
-margin_top = 52.0
-margin_right = 510.0
-margin_bottom = 80.0
+margin_top = 31.0
+margin_right = 600.0
+margin_bottom = 59.0
 
 [node name="Label" type="Label" parent="Options/background_colour"]
 margin_top = 2.0
@@ -54,15 +49,15 @@ text = "Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/background_colour"]
 margin_left = 143.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="edit_background" type="HBoxContainer" parent="Options"]
-margin_top = 80.0
-margin_right = 510.0
-margin_bottom = 108.0
+margin_top = 62.0
+margin_right = 600.0
+margin_bottom = 90.0
 
 [node name="Label" type="Label" parent="Options/edit_background"]
 margin_top = 2.0
@@ -72,15 +67,15 @@ text = "Editbox Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/edit_background"]
 margin_left = 234.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="text_colour" type="HBoxContainer" parent="Options"]
-margin_top = 108.0
-margin_right = 510.0
-margin_bottom = 136.0
+margin_top = 93.0
+margin_right = 600.0
+margin_bottom = 121.0
 
 [node name="Label" type="Label" parent="Options/text_colour"]
 margin_top = 2.0
@@ -90,15 +85,15 @@ text = "Text: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/text_colour"]
 margin_left = 65.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="pixart_colour" type="HBoxContainer" parent="Options"]
-margin_top = 136.0
-margin_right = 510.0
-margin_bottom = 164.0
+margin_top = 124.0
+margin_right = 600.0
+margin_bottom = 152.0
 
 [node name="Label" type="Label" parent="Options/pixart_colour"]
 margin_top = 2.0
@@ -108,15 +103,15 @@ text = "Pixel Art: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/pixart_colour"]
 margin_left = 110.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-common-normal" type="HBoxContainer" parent="Options"]
-margin_top = 164.0
-margin_right = 510.0
-margin_bottom = 192.0
+margin_top = 155.0
+margin_right = 600.0
+margin_bottom = 183.0
 
 [node name="Label" type="Label" parent="Options/cards-common-normal"]
 margin_top = 2.0
@@ -126,15 +121,15 @@ text = "Common Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-common-normal"]
 margin_left = 297.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-common-hover" type="HBoxContainer" parent="Options"]
-margin_top = 192.0
-margin_right = 510.0
-margin_bottom = 220.0
+margin_top = 186.0
+margin_right = 600.0
+margin_bottom = 214.0
 
 [node name="Label" type="Label" parent="Options/cards-common-hover"]
 margin_top = 2.0
@@ -144,15 +139,15 @@ text = "Common Card Background Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-common-hover"]
 margin_left = 365.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rare-normal" type="HBoxContainer" parent="Options"]
-margin_top = 220.0
-margin_right = 510.0
-margin_bottom = 248.0
+margin_top = 217.0
+margin_right = 600.0
+margin_bottom = 245.0
 
 [node name="Label" type="Label" parent="Options/cards-rare-normal"]
 margin_top = 2.0
@@ -162,14 +157,14 @@ text = "Rare Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rare-normal"]
 margin_left = 263.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rare-hover" type="HBoxContainer" parent="Options"]
 margin_top = 248.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 276.0
 
 [node name="Label" type="Label" parent="Options/cards-rare-hover"]
@@ -180,15 +175,15 @@ text = "Rare Card Background Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rare-hover"]
 margin_left = 331.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nosac-normal" type="HBoxContainer" parent="Options"]
-margin_top = 276.0
-margin_right = 510.0
-margin_bottom = 304.0
+margin_top = 279.0
+margin_right = 600.0
+margin_bottom = 307.0
 
 [node name="Label" type="Label" parent="Options/cards-nosac-normal"]
 margin_top = 2.0
@@ -198,15 +193,15 @@ text = "Unsacrificeable Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nosac-normal"]
 margin_left = 377.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nosac-hover" type="HBoxContainer" parent="Options"]
-margin_top = 304.0
-margin_right = 510.0
-margin_bottom = 332.0
+margin_top = 310.0
+margin_right = 600.0
+margin_bottom = 338.0
 
 [node name="Label" type="Label" parent="Options/cards-nosac-hover"]
 margin_top = 2.0
@@ -216,15 +211,15 @@ text = "Unsacrificeable Card Background Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nosac-hover"]
 margin_left = 445.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rns-normal" type="HBoxContainer" parent="Options"]
-margin_top = 332.0
-margin_right = 510.0
-margin_bottom = 360.0
+margin_top = 341.0
+margin_right = 600.0
+margin_bottom = 369.0
 
 [node name="Label" type="Label" parent="Options/cards-rns-normal"]
 margin_top = 2.0
@@ -234,15 +229,15 @@ text = "Rare Unsacrificeable Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rns-normal"]
 margin_left = 438.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rns-hover" type="HBoxContainer" parent="Options"]
-margin_top = 360.0
-margin_right = 510.0
-margin_bottom = 388.0
+margin_top = 372.0
+margin_right = 600.0
+margin_bottom = 400.0
 
 [node name="Label" type="Label" parent="Options/cards-rns-hover"]
 margin_top = 2.0
@@ -252,15 +247,15 @@ text = "Rare Unsacrificeable Card Background Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rns-hover"]
 margin_left = 506.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nohammer-normal" type="HBoxContainer" parent="Options"]
-margin_top = 388.0
-margin_right = 510.0
-margin_bottom = 416.0
+margin_top = 403.0
+margin_right = 600.0
+margin_bottom = 431.0
 
 [node name="Label" type="Label" parent="Options/cards-nohammer-normal"]
 margin_top = 2.0
@@ -270,15 +265,15 @@ text = "Unhammerable Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nohammer-normal"]
 margin_left = 368.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nohammer-hover" type="HBoxContainer" parent="Options"]
-margin_top = 416.0
-margin_right = 510.0
-margin_bottom = 444.0
+margin_top = 434.0
+margin_right = 600.0
+margin_bottom = 462.0
 
 [node name="Label" type="Label" parent="Options/cards-nohammer-hover"]
 margin_top = 2.0
@@ -288,15 +283,15 @@ text = "Unhammerable Card Background Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nohammer-hover"]
 margin_left = 436.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-normal-background" type="HBoxContainer" parent="Options"]
-margin_top = 444.0
-margin_right = 510.0
-margin_bottom = 472.0
+margin_top = 465.0
+margin_right = 600.0
+margin_bottom = 493.0
 
 [node name="Label" type="Label" parent="Options/buttons-normal-background"]
 margin_top = 2.0
@@ -306,15 +301,15 @@ text = "Button Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-normal-background"]
 margin_left = 228.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-normal-border" type="HBoxContainer" parent="Options"]
-margin_top = 472.0
-margin_right = 510.0
-margin_bottom = 500.0
+margin_top = 496.0
+margin_right = 600.0
+margin_bottom = 524.0
 
 [node name="Label" type="Label" parent="Options/buttons-normal-border"]
 margin_top = 2.0
@@ -324,15 +319,15 @@ text = "Button Border: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-normal-border"]
 margin_left = 172.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-pressed-background" type="HBoxContainer" parent="Options"]
-margin_top = 500.0
-margin_right = 510.0
-margin_bottom = 528.0
+margin_top = 527.0
+margin_right = 600.0
+margin_bottom = 555.0
 
 [node name="Label" type="Label" parent="Options/buttons-pressed-background"]
 margin_top = 2.0
@@ -342,15 +337,15 @@ text = "Button Background Pressed: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-pressed-background"]
 margin_left = 322.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-pressed-border" type="HBoxContainer" parent="Options"]
-margin_top = 528.0
-margin_right = 510.0
-margin_bottom = 556.0
+margin_top = 558.0
+margin_right = 600.0
+margin_bottom = 586.0
 
 [node name="Label" type="Label" parent="Options/buttons-pressed-border"]
 margin_top = 2.0
@@ -360,15 +355,15 @@ text = "Button Border Pressed: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-pressed-border"]
 margin_left = 266.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-hover-background" type="HBoxContainer" parent="Options"]
-margin_top = 556.0
-margin_right = 510.0
-margin_bottom = 584.0
+margin_top = 589.0
+margin_right = 600.0
+margin_bottom = 617.0
 
 [node name="Label" type="Label" parent="Options/buttons-hover-background"]
 margin_top = 2.0
@@ -378,15 +373,15 @@ text = "Button Background Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-hover-background"]
 margin_left = 296.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-hover-border" type="HBoxContainer" parent="Options"]
-margin_top = 584.0
-margin_right = 510.0
-margin_bottom = 612.0
+margin_top = 620.0
+margin_right = 600.0
+margin_bottom = 648.0
 
 [node name="Label" type="Label" parent="Options/buttons-hover-border"]
 margin_top = 2.0
@@ -396,20 +391,27 @@ text = "Button Border Hover: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/buttons-hover-border"]
 margin_left = 240.0
-margin_right = 510.0
+margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="BGImg" type="Button" parent="Options"]
-margin_top = 612.0
-margin_right = 510.0
-margin_bottom = 640.0
+[node name="BackgroundSettings" type="HBoxContainer" parent="Options"]
+margin_top = 651.0
+margin_right = 600.0
+margin_bottom = 679.0
+custom_constants/separation = 35
+alignment = 1
+
+[node name="SetBGImg" type="Button" parent="Options/BackgroundSettings"]
+margin_left = 117.0
+margin_right = 273.0
+margin_bottom = 28.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Set Background Image"
+text = "Set BG Image"
 
-[node name="FileDialog" type="FileDialog" parent="Options/BGImg"]
+[node name="FileDialog" type="FileDialog" parent="Options/BackgroundSettings/SetBGImg"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -480.0
@@ -422,66 +424,71 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.png", "*.jpg" )
 
+[node name="ClearBgImg" type="Button" parent="Options/BackgroundSettings"]
+margin_left = 308.0
+margin_right = 483.0
+margin_bottom = 28.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Clear BG Image"
+
 [node name="Buttons" type="HBoxContainer" parent="Options"]
-margin_top = 640.0
-margin_right = 510.0
-margin_bottom = 668.0
+margin_top = 682.0
+margin_right = 600.0
+margin_bottom = 710.0
+custom_constants/separation = 25
 alignment = 1
 
 [node name="SaveButton" type="Button" parent="Options/Buttons"]
-margin_left = 59.0
-margin_right = 115.0
+margin_left = 19.0
+margin_right = 108.0
 margin_bottom = 28.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
-text = "Save"
+text = "Save As"
 
-[node name="Spacer" type="Control" parent="Options/Buttons"]
-margin_left = 115.0
-margin_right = 156.568
+[node name="OpenButton" type="Button" parent="Options/Buttons"]
+margin_left = 133.0
+margin_right = 189.0
 margin_bottom = 28.0
-rect_min_size = Vector2( 41.568, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Open"
+
+[node name="CopyButton" type="Button" parent="Options/Buttons"]
+margin_left = 214.0
+margin_right = 268.0
+margin_bottom = 28.0
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Copy"
+
+[node name="PasteButton" type="Button" parent="Options/Buttons"]
+margin_left = 293.0
+margin_right = 362.0
+margin_bottom = 28.0
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Paste"
 
 [node name="DefaultsButton" type="Button" parent="Options/Buttons"]
-margin_left = 156.0
-margin_right = 349.0
+margin_left = 387.0
+margin_right = 580.0
 margin_bottom = 28.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Reset to Default"
 
-[node name="Spacer2" type="Control" parent="Options/Buttons"]
-margin_left = 349.0
-margin_right = 390.568
-margin_bottom = 28.0
-rect_min_size = Vector2( 41.568, 0 )
-
-[node name="CloseButton" type="Button" parent="Options/Buttons"]
-margin_left = 390.0
-margin_right = 450.0
-margin_bottom = 28.0
-focus_mode = 0
-size_flags_horizontal = 4
-enabled_focus_mode = 0
-text = "Close"
-
-[node name="Control" type="Control" parent="."]
-visible = false
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 620.0
-margin_bottom = 642.0
-
-[node name="ColorPicker" type="ColorPicker" parent="Control"]
-margin_left = -698.241
-margin_top = 69.5372
-margin_right = -80.2413
-margin_bottom = 709.537
-
-[connection signal="pressed" from="Options/BGImg" to="Options/BGImg/FileDialog" method="popup_centered"]
-[connection signal="file_selected" from="Options/BGImg/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="pressed" from="Options/BackgroundSettings/SetBGImg" to="Options/BackgroundSettings/SetBGImg/FileDialog" method="popup_centered"]
+[connection signal="file_selected" from="Options/BackgroundSettings/SetBGImg/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="pressed" from="Options/BackgroundSettings/ClearBgImg" to="." method="full_clear_bg"]
 [connection signal="pressed" from="Options/Buttons/SaveButton" to="." method="save"]
+[connection signal="pressed" from="Options/Buttons/OpenButton" to="." method="save"]
+[connection signal="pressed" from="Options/Buttons/CopyButton" to="." method="save"]
+[connection signal="pressed" from="Options/Buttons/PasteButton" to="." method="save"]
 [connection signal="pressed" from="Options/Buttons/DefaultsButton" to="." method="defaults"]
-[connection signal="pressed" from="Options/Buttons/CloseButton" to="." method="close_window"]
