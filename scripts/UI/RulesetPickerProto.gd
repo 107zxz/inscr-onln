@@ -68,6 +68,18 @@ func delete_ruleset(lineObject: Control, rsName: String):
 		
 	lineObject.queue_free()
 
+func default_ruleset(toggled: bool, lineObject: Control, rsName: String):
+	
+	print("I can I can't")
+	
+	if toggled:
+		pass
+	else:
+		GameOptions.options.default_ruleset = ""
+		for rs in $SavedRulesets.get_children():
+			if rs != lineObject:
+				rs.get_node("HBoxContainer/Default").pressed = false
+
 func fetch_saved_rulesets():
 	var d = Directory.new()
 	
@@ -180,11 +192,14 @@ func add_saved_ruleset_entry_dat(dat):
 	# Thing
 	var ub = nl.get_node("HBoxContainer/RSUse")
 	var db = nl.get_node("HBoxContainer/RSDelete")
+	var defb = nl.get_node("HBoxContainer/Default")
 	
 	ub.show()
 	ub.connect("pressed", self, "use_ruleset", [dat])
 	db.show()
 	db.connect("pressed", self, "delete_ruleset", [nl, dat.ruleset])
+	defb.show()
+	db.connect("toggled", self, "default_ruleset", [nl, dat.ruleset])
 
 
 func download_card_portraits(dat):

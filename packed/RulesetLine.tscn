@@ -72,3 +72,14 @@ focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
 text = "Delete"
+
+[node name="Default" type="CheckBox" parent="HBoxContainer"]
+visible = false
+margin_left = 651.0
+margin_top = 89.0
+margin_right = 757.0
+margin_bottom = 123.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "Default"
