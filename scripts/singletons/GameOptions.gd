@@ -1,7 +1,7 @@
 extends Node
 
-# misplay tracking
-var mega_misplay = false
+# Have we done initialisation?
+var past_first = false
 
 var options = {
 	"enable_accessibility_icons": false,
@@ -16,7 +16,8 @@ var options = {
 	"enable_sfx": false,
 	"show_banned": false,
 	"misplays": 0,
-	"live_theme_update": false
+	"live_theme_update": false,
+	"default_ruleset": ""
 }
 
 func read_options():

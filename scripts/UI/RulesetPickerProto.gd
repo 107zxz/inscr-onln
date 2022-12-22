@@ -23,6 +23,18 @@ func _ready():
 	
 	ARGIT()
 	
+	if GameOptions.options.default_ruleset and not GameOptions.past_first:
+		
+		var filename = CardInfo.rulesets_path + GameOptions.options.default_ruleset + ".json"
+		
+		var file = File.new()
+		file.open(filename, File.READ)
+		var cnt = file.get_as_text()
+		file.close()
+		
+		use_ruleset(parse_json(cnt))
+		
+		return
 	
 	$VersionLabel.text = CardInfo.VERSION
 	
@@ -53,7 +65,7 @@ func use_ruleset(dat: Dictionary):
 	CardInfo.rules_path = CardInfo.rulesets_path + dat.ruleset + ".json"
 	CardInfo.read_game_info()
 	
-	GameOptions.mega_misplay = true
+	GameOptions.past_first = true
 	
 	get_tree().change_scene("res://NewMain.tscn")
 
@@ -70,16 +82,19 @@ func delete_ruleset(lineObject: Control, rsName: String):
 
 func default_ruleset(toggled: bool, lineObject: Control, rsName: String):
 	
-	print("I can I can't")
-	
 	if toggled:
-		pass
-	else:
-		GameOptions.options.default_ruleset = ""
-		for rs in $SavedRulesets.get_children():
+		
+		GameOptions.options.default_ruleset = rsName
+		
+		for rs in $SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont.get_children():
 			if rs != lineObject:
 				rs.get_node("HBoxContainer/Default").pressed = false
 
+	else:
+		GameOptions.options.default_ruleset = ""
+		
+	GameOptions.save_options()
+		
 func fetch_saved_rulesets():
 	var d = Directory.new()
 	
@@ -199,7 +214,11 @@ func add_saved_ruleset_entry_dat(dat):
 	db.show()
 	db.connect("pressed", self, "delete_ruleset", [nl, dat.ruleset])
 	defb.show()
-	db.connect("toggled", self, "default_ruleset", [nl, dat.ruleset])
+	defb.connect("toggled", self, "default_ruleset", [nl, dat.ruleset])
+
+	# Default
+	if GameOptions.options.default_ruleset == dat.ruleset:
+		defb.pressed = true
 
 
 func download_card_portraits(dat):
