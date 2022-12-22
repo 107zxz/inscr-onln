@@ -15,7 +15,8 @@ var options = {
 	"enable_music": true,
 	"enable_sfx": false,
 	"show_banned": false,
-	"misplays": 0
+	"misplays": 0,
+	"live_theme_update": false
 }
 
 func read_options():

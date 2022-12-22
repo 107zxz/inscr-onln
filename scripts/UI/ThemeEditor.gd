@@ -50,9 +50,20 @@ const default_theme_data = {
 var theme_data = default_theme_data
 
 func _ready():
+	connect_controls()
 	attempt_load_theme()
 	apply_theme()
 	update_controls()
+
+func connect_controls():
+	for ctrl in $Options.get_children():
+		if ctrl.has_node("ColorPickerButton"):
+			ctrl.get_node("ColorPickerButton").connect("color_changed", self, "control_tick")
+			ctrl.get_node("ColorPickerButton").connect("popup_closed", self, "save")
+			
+func control_tick(_x):
+	if GameOptions.options.live_theme_update:
+		save()
 
 func save():
 	print("Saving")

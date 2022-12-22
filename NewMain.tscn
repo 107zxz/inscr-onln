@@ -986,6 +986,7 @@ text = "Ok"
 visible = false
 
 [node name="Options" type="WindowDialog" parent="."]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1150,20 +1151,30 @@ margin_right = -12.0
 margin_bottom = -12.0
 
 [node name="save_replays" type="CheckButton" parent="Options/TabContainer/Experimental"]
-margin_right = 524.0
-margin_bottom = 27.0
+margin_right = 824.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Replays (experimental)"
 
 [node name="enable_sfx" type="CheckButton" parent="Options/TabContainer/Experimental"]
-margin_right = 524.0
-margin_bottom = 27.0
+margin_top = 34.0
+margin_right = 824.0
+margin_bottom = 68.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Enable SFX (Experimental)"
 
+[node name="live_theme_update" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_top = 34.0
+margin_right = 824.0
+margin_bottom = 68.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Live theme update"
+
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
+visible = false
 margin_left = 56.0
 margin_top = -762.0
 margin_right = 656.0
