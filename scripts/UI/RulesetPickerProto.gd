@@ -69,6 +69,15 @@ func use_ruleset(dat: Dictionary):
 	
 	get_tree().change_scene("res://NewMain.tscn")
 
+
+func edit_ruleset(dat: Dictionary):
+	CardInfo.rules_path = CardInfo.rulesets_path + dat.ruleset + ".json"
+	CardInfo.read_game_info()
+	
+	GameOptions.past_first = true
+	
+	get_tree().change_scene("res://packed/RulesetEditor.tscn")
+
 func delete_ruleset(lineObject: Control, rsName: String):
 	
 	# Delete ruleset file
@@ -88,7 +97,7 @@ func default_ruleset(toggled: bool, lineObject: Control, rsName: String):
 		
 		for rs in $SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont.get_children():
 			if rs != lineObject:
-				rs.get_node("HBoxContainer/Default").pressed = false
+				rs.get_node("HBoxContainer/RSButtons2/Default").pressed = false
 
 	else:
 		GameOptions.options.default_ruleset = ""
@@ -205,12 +214,15 @@ func add_saved_ruleset_entry_dat(dat):
 		nl.get_node("HBoxContainer/RSPort").texture = load("res://gfx/" + dat.portrait + ".png")
 	
 	# Thing
-	var ub = nl.get_node("HBoxContainer/RSUse")
-	var db = nl.get_node("HBoxContainer/RSDelete")
-	var defb = nl.get_node("HBoxContainer/Default")
+	var ub = nl.get_node("HBoxContainer/RSButtons/RSUse")
+	var eb = nl.get_node("HBoxContainer/RSButtons/RSEdit")
+	var db = nl.get_node("HBoxContainer/RSButtons2/RSDelete")
+	var defb = nl.get_node("HBoxContainer/RSButtons2/Default")
 	
 	ub.show()
 	ub.connect("pressed", self, "use_ruleset", [dat])
+	eb.show()
+	eb.connect("pressed", self, "edit_ruleset", [dat])
 	db.show()
 	db.connect("pressed", self, "delete_ruleset", [nl, dat.ruleset])
 	defb.show()

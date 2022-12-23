@@ -100,3 +100,6 @@ func draw_card():
 	cardDats[21].text = cDat.evolution if "evolution" in cDat else ""
 	
 	cardDats[22].select(cDat.atkspecial + 1 if "atkspecial" in cDat else 0)
+
+func exit_editor():
+	get_tree().change_scene("res://packed/RulesetPickerProto.tscn")
