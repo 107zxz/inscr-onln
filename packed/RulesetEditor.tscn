@@ -325,7 +325,7 @@ text = "Normal"
 items = [ "Normal", null, false, 0, null, "Mox", null, false, 1, null, "Mirror", null, false, 2, null, "Ant", null, false, 3, null ]
 selected = 0
 
-[node name="Button" type="Button" parent="."]
+[node name="ExitBtn" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -34.0
@@ -334,5 +334,12 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "X"
 
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+margin_bottom = 35.0
+text = "THIS EDITOR IS WIP, AND CAN'T ACTUALLY EDIT RULESETS YET"
+align = 1
+valign = 1
+
 [connection signal="item_selected" from="Cards/VBoxContainer/RulesetTree" to="." method="_on_RulesetTree_item_selected"]
-[connection signal="pressed" from="Button" to="." method="hide"]
+[connection signal="pressed" from="ExitBtn" to="." method="exit_editor"]
