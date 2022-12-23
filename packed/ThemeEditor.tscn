@@ -4,6 +4,7 @@
 [ext_resource path="res://scripts/UI/ThemeEditor.gd" type="Script" id=2]
 
 [node name="ThemeEditor" type="WindowDialog"]
+visible = true
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -715.0
@@ -447,6 +448,21 @@ size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Save As"
 
+[node name="SaveTDialog" type="FileDialog" parent="Options/Buttons/SaveButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -208.0
+margin_top = -96.0
+margin_right = 432.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 400, 140 )
+theme = ExtResource( 1 )
+window_title = "Save Theme"
+access = 2
+filters = PoolStringArray( "*.json" )
+
 [node name="OpenButton" type="Button" parent="Options/Buttons"]
 margin_left = 133.0
 margin_right = 189.0
@@ -455,6 +471,22 @@ focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Open"
+
+[node name="OpenTDialog" type="FileDialog" parent="Options/Buttons/OpenButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -305.5
+margin_top = -96.0
+margin_right = 334.5
+margin_bottom = 384.0
+rect_min_size = Vector2( 400, 140 )
+theme = ExtResource( 1 )
+window_title = "Load Theme"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.json" )
 
 [node name="CopyButton" type="Button" parent="Options/Buttons"]
 margin_left = 214.0
@@ -486,8 +518,10 @@ text = "Reset to Default"
 [connection signal="pressed" from="Options/BackgroundSettings/SetBGImg" to="Options/BackgroundSettings/SetBGImg/FileDialog" method="popup_centered"]
 [connection signal="file_selected" from="Options/BackgroundSettings/SetBGImg/FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="pressed" from="Options/BackgroundSettings/ClearBgImg" to="." method="full_clear_bg"]
-[connection signal="pressed" from="Options/Buttons/SaveButton" to="." method="save"]
-[connection signal="pressed" from="Options/Buttons/OpenButton" to="." method="save"]
-[connection signal="pressed" from="Options/Buttons/CopyButton" to="." method="save"]
-[connection signal="pressed" from="Options/Buttons/PasteButton" to="." method="save"]
+[connection signal="pressed" from="Options/Buttons/SaveButton" to="Options/Buttons/SaveButton/SaveTDialog" method="popup_centered"]
+[connection signal="file_selected" from="Options/Buttons/SaveButton/SaveTDialog" to="." method="_on_SaveTDialog_file_selected"]
+[connection signal="pressed" from="Options/Buttons/OpenButton" to="Options/Buttons/OpenButton/OpenTDialog" method="popup_centered"]
+[connection signal="file_selected" from="Options/Buttons/OpenButton/OpenTDialog" to="." method="_on_OpenTDialog_file_selected"]
+[connection signal="pressed" from="Options/Buttons/CopyButton" to="." method="copy_theme"]
+[connection signal="pressed" from="Options/Buttons/PasteButton" to="." method="paste_theme"]
 [connection signal="pressed" from="Options/Buttons/DefaultsButton" to="." method="defaults"]
