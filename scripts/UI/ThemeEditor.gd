@@ -220,4 +220,35 @@ func _on_FileDialog_file_selected(path: String):
 	get_node("/root/Main/TitleScreen/CustomBackground").texture = CardInfo.background_texture
 	get_node("/root/Main/DeckEdit").apply_custom_background()
 	
-#	get_tree().reload_current_scene()
+
+
+func _on_SaveTDialog_file_selected(path):
+	var sFile = File.new()
+	sFile.open(path, File.WRITE)
+	sFile.store_line(to_json(theme_data))
+	sFile.close()
+
+
+func _on_OpenTDialog_file_selected(path):
+	var tFile = File.new()
+	if tFile.file_exists(path):
+		tFile.open(path, File.READ)
+		if parse_json(tFile.get_as_text()):
+			theme_data = parse_json(tFile.get_as_text())
+	
+	update_controls()
+	apply_theme()
+
+func copy_theme():
+	apply_controls()
+	
+	OS.clipboard = to_json(theme_data)
+
+func paste_theme():
+	
+	theme_data = parse_json(OS.clipboard)
+	
+	update_controls()
+	apply_theme()
+	
+	# Todo: Use theme stuff here
