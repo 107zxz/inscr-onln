@@ -346,10 +346,19 @@ func _on_LobbyReady_pressed():
 	
 	for key in lobby_data.players:
 		if key == get_tree().get_network_unique_id():
-			if not lobby_data.players[key].ready and len(deckEditor.get_deck_object()["cards"]) < CardInfo.all_data.deck_size_min:
-				$SpecialBlocker.visible = true
-				errorBox("The currently selected deck is too small!\nMust be at least " + str(CardInfo.all_data.deck_size_min) + " cards!")
-				return
+			if not lobby_data.players[key].ready:
+				
+				var do = deckEditor.get_deck_object()
+				
+				if len(do["cards"]) < CardInfo.all_data.deck_size_min:
+					$SpecialBlocker.visible = true
+					errorBox("The currently selected deck is too small!\nMust be at least " + str(CardInfo.all_data.deck_size_min) + " cards!")
+					return
+				
+				if "side_deck_cards" in do and len(do.side_deck_cards) == 0:
+					$SpecialBlocker.visible = true
+					errorBox("Your side deck is empty!")
+					return
 			
 			lobby_data.players[key].ready = not lobby_data.players[key].ready
 			lobby_data.players[key].pfp = $InLobby/Rows/ProfilePic/Pic.text

@@ -19,16 +19,16 @@ custom_constants/separation = 16
 alignment = 1
 
 [node name="RSPort" type="TextureRect" parent="HBoxContainer"]
-margin_left = 56.0
+margin_left = 80.0
 margin_top = 59.0
-margin_right = 170.0
+margin_right = 194.0
 margin_bottom = 153.0
 size_flags_vertical = 4
 texture = ExtResource( 1 )
 
 [node name="RSName" type="Label" parent="HBoxContainer"]
-margin_left = 186.0
-margin_right = 656.0
+margin_left = 210.0
+margin_right = 680.0
 margin_bottom = 213.0
 text = "IMF Competitive v0.20
 
@@ -52,8 +52,8 @@ enabled_focus_mode = 0
 text = "Download"
 
 [node name="RSButtons" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 672.0
-margin_right = 719.0
+margin_left = 696.0
+margin_right = 696.0
 margin_bottom = 213.0
 alignment = 1
 
@@ -67,6 +67,7 @@ enabled_focus_mode = 0
 text = "Use"
 
 [node name="RSEdit" type="Button" parent="HBoxContainer/RSButtons"]
+visible = false
 margin_top = 89.0
 margin_right = 47.0
 margin_bottom = 123.0
@@ -76,8 +77,8 @@ enabled_focus_mode = 0
 text = "Edit"
 
 [node name="RSButtons2" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 735.0
-margin_right = 735.0
+margin_left = 712.0
+margin_right = 712.0
 margin_bottom = 213.0
 alignment = 1
 
