@@ -19,7 +19,7 @@ var data_path = "user:/"
 var deck_path = data_path + "/decks/"
 var deck_backup_path = data_path + "/decks/undef/"
 # V Update this! V
-var rules_path = data_path + "/gameInfo.json"
+var rules_path = ""
 var theme_path = data_path + "/theme.json"
 var options_path = data_path + "/options.json"
 var tunnellog_path = data_path + "/lhrlog.txt"

@@ -127,16 +127,16 @@ custom_constants/separation = 16
 alignment = 1
 
 [node name="RSName" type="Label" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer"]
-margin_left = 162.0
+margin_left = 88.0
 margin_top = 36.0
-margin_right = 255.0
+margin_right = 181.0
 margin_bottom = 60.0
 text = "Custom: "
 
 [node name="RSFU" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer"]
-margin_left = 271.0
+margin_left = 197.0
 margin_top = 31.0
-margin_right = 377.0
+margin_right = 303.0
 margin_bottom = 65.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -144,9 +144,9 @@ enabled_focus_mode = 0
 text = "From URL"
 
 [node name="RSFJ" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer"]
-margin_left = 393.0
+margin_left = 319.0
 margin_top = 31.0
-margin_right = 510.0
+margin_right = 436.0
 margin_bottom = 65.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -154,14 +154,24 @@ enabled_focus_mode = 0
 text = "From JSON"
 
 [node name="RSFF" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer"]
-margin_left = 526.0
+margin_left = 452.0
 margin_top = 31.0
-margin_right = 629.0
+margin_right = 555.0
 margin_bottom = 65.0
 focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
 text = "From File"
+
+[node name="RSOF" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer"]
+margin_left = 571.0
+margin_top = 31.0
+margin_right = 703.0
+margin_bottom = 65.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+text = "Open Folder"
 
 [node name="RulesetLine" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont" instance=ExtResource( 4 )]
 visible = false
@@ -462,6 +472,7 @@ align = 1
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFU" to="FromURL" method="show"]
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFJ" to="FromJSON" method="show"]
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFF" to="FromFile" method="popup_centered"]
+[connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSOF" to="." method="open_rsdir"]
 [connection signal="file_selected" from="FromFile" to="." method="_on_FromFile_file_selected"]
 [connection signal="pressed" from="FromURL/PanelContainer/VBoxContainer/HBoxContainer/URLDownloadBtn" to="." method="_on_URLDownloadBtn_pressed"]
 [connection signal="pressed" from="FromURL/PanelContainer/VBoxContainer/HBoxContainer/Button2" to="FromURL" method="hide"]
