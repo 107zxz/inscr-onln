@@ -276,3 +276,8 @@ func download_sigil_icons(dat):
 			$ImageRequest.request(dat.sigil_urls[sigil])
 			
 			yield($ImageRequest, "request_completed")
+
+
+func open_rsdir():
+	print("Opening rulesets dir?")
+	OS.shell_open("file://" + OS.get_user_data_dir() + "/rulesets/")
