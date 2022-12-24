@@ -111,20 +111,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	$DrawPiles/YourDecks/SideDeck.visible = true
 	$DrawPiles/Notify.visible = false
 	
-	# Side deck
-	#if typeof(side_deck_index) == TYPE_ARRAY:
-	#	side_deck = side_deck_index.duplicate()
-	#	$DrawPiles/YourDecks/SideDeck.text = "Mox"
-	#else:
-	#	# Vessels
-	#	if side_deck_index == 2:
-	#		while side_deck.size() < 10:
-	#			side_deck.append(side_deck[0])
-	#	else:
-	#		# Non-vessels
-	#		side_deck = side_decks[side_deck_index].duplicate()
-
-	side_deck.shuffle()
+	
 	
 	# TODO: Clean up. This is spaghetti city
 
@@ -149,6 +136,8 @@ func init_match(opp_id: int, do_go_first: bool):
 		for _i in range(CardInfo.side_decks[side_deck_key[0]].cards[side_deck_key[1]].count):
 			side_deck.append(CardInfo.side_decks[side_deck_key[0]].cards[side_deck_key[1]].card)
 
+	# Shuffle side deck after adding cards
+	side_deck.shuffle()
 	
 	# Reset game state
 	advantage = 0
