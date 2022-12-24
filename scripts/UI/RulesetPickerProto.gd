@@ -12,7 +12,7 @@ func ARGIT():
 	randomize()
 	
 #	if randi() % 10 == 0 and GameOptions.options.misplays < 2 and not GameOptions.mega_misplay: # TODO: Change this when adding more
-	if GameOptions.options.misplays < 3 and not GameOptions.mega_misplay:
+	if GameOptions.options.misplays < 3 and not GameOptions.past_first:
 		
 		var p = randi() % 10
 		
@@ -21,7 +21,8 @@ func ARGIT():
 
 func _ready():
 	
-	ARGIT()
+	# Disable ARG check for now
+	# ARGIT()
 	
 	if GameOptions.options.default_ruleset and not GameOptions.past_first:
 		
