@@ -317,7 +317,7 @@ func begin_perish(doubleDeath = false):
 		fightManager.add_bones(1)
 
 		# Remove Energy Conduit Buff
-		if has_sigil("Energy Conduit +3"):
+		if has_sigil("Energy Conduit (+3)"):
 			print("Removing buff")
 			fightManager.max_energy_buff = 0
 			fightManager.set_max_energy(fightManager.max_energy)
@@ -346,7 +346,7 @@ func begin_perish(doubleDeath = false):
 		fightManager.add_opponent_bones(1)
 		
 		# Energy conduit buff
-		if has_sigil("Energy Conduit +3"):
+		if has_sigil("Energy Conduit (+3)"):
 			print("Removing enemy buff")
 			fightManager.opponent_max_energy_buff = 0
 			fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
