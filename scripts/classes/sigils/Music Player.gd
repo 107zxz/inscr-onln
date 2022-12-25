@@ -3,18 +3,8 @@ extends SigilEffect
 # This is called whenever something happens that might trigger a sigil, with 'event' representing what happened
 func handle_event(event: String, params: Array):
 
-#	if not isFriendly:
-#		return
-
 	# attached_card_summoned represents the card bearing the sigil being summoned
 	if event == "card_summoned" and params[0] == card:
-		
-		
-#		download_callback(null, null, null, null)
-		
-		
-#		Disable downloads for now
-#		return
 		var songUrl = card.card_data.song
 		
 		var rq = HTTPRequest.new()

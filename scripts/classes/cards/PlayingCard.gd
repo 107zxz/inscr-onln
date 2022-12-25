@@ -255,12 +255,8 @@ func move_to_parent(new_parent):
 	if get_parent().name in [ "PlayerHand", "EnemyHand" ]:
 		get_parent().get_parent().lower_all_cards()
 		from_hand = true
-		fightManager.emit_signal("sigil_event", "card_summoned", [self])
-		
-	elif get_parent().get_parent().name in ["PlayerSlots", "EnemySlots"]:
-		# Card moved from a slot on board
-		fightManager.emit_signal("sigil_event", "card_moved", [self, get_parent().get_position_in_parent(), new_parent.get_position_in_parent()])
-	
+#		fightManager.emit_signal("sigil_event", "card_summoned", [self])
+
 	# Reset position, as expected to be raised when this happens
 	$AnimationPlayer.play("RESET")
 	
@@ -284,7 +280,7 @@ func move_to_parent(new_parent):
 		$CardBody/AtkIcon.visible = false
 		$CardBody/HBoxContainer/AtkScore.visible = true
 		
-	# Signals
+	yield($Tween, "tween_completed")
 	
 	# Must be summoned
 	if new_parent.get_parent().name in ["PlayerSlots", "EnemySlots"]:

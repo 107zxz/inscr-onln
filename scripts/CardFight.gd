@@ -683,16 +683,18 @@ func _opponent_played_card(card, slot):
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
 	nCard.from_data(card_dt)
+	nCard.create_sigils(false)
 	nCard.move_to_parent(slotManager.enemySlots[slot])
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
-	nCard.create_sigils(false)
 	connect("sigil_event", nCard, "handle_sigil_event")
 	
 	yield(nCard.get_node("Tween"), "tween_completed")
 	move_done()
 	
 #	emit_signal("sigil_event", "card_summoned", [nCard])
+
+	# Special case, card unlikely to have handled event yet
 	
 	# Buff handling
 	for card in slotManager.all_friendly_cards():
@@ -843,6 +845,8 @@ func quit_match():
 	$MoonFight/AnimationPlayer.play("RESET")
 	get_node("/root/Main/TitleScreen").update_lobby()
 	
+	$MusPlayer.stop()
+	
 	debug_cleanup()
 
 ## REMOTE
@@ -854,6 +858,8 @@ remote func _opponent_quit():
 	visible = false
 	$MoonFight/AnimationPlayer.play("RESET")
 	get_node("/root/Main/TitleScreen").update_lobby()
+	
+	$MusPlayer.stop()
 	
 	debug_cleanup()
 	
