@@ -434,6 +434,7 @@ func initiate_combat(friendly: bool):
 					
 					pCard.strike_offset = s_offset
 					cardAnim.play("Attack" if friendly else "AttackRemote")
+					pCard.play_sfx("attack")
 					yield(cardAnim, "animation_finished")
 				
 				# Reset attack effect
@@ -454,6 +455,7 @@ func initiate_combat(friendly: bool):
 							continue
 					
 					cardAnim.play("Attack" if friendly else "AttackRemote")
+					pCard.play_sfx("attack")
 					yield(cardAnim, "animation_finished")
 		
 					# Did the card get boned?
