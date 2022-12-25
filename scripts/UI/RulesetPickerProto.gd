@@ -24,23 +24,25 @@ func _ready():
 	# Disable ARG check for now
 	# ARGIT()
 	
+	var d = Directory.new()
+	d.make_dir(CardInfo.rulesets_path)
+	
 	if GameOptions.options.default_ruleset and not GameOptions.past_first:
 		
 		var filename = CardInfo.rulesets_path + GameOptions.options.default_ruleset + ".json"
 		
-		var file = File.new()
-		file.open(filename, File.READ)
-		var cnt = file.get_as_text()
-		file.close()
+		if d.file_exists(filename):
 		
-		use_ruleset(parse_json(cnt))
-		
-		return
+			var file = File.new()
+			file.open(filename, File.READ)
+			var cnt = file.get_as_text()
+			file.close()
+			
+			use_ruleset(parse_json(cnt))
+			
+			return
 	
 	$VersionLabel.text = CardInfo.VERSION
-	
-	var d = Directory.new()
-	d.make_dir(CardInfo.rulesets_path)
 	
 	$Status.show()
 	fetch_featured_rulesets()
