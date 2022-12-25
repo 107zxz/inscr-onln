@@ -460,7 +460,7 @@ func card_summoned(playedCard):
 	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
 	
 	# Sigil event
-	emit_signal("sigil_event", "card_summoned", [playedCard])
+#	emit_signal("sigil_event", "card_summoned", [playedCard])
 	
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
@@ -692,7 +692,7 @@ func _opponent_played_card(card, slot):
 	yield(nCard.get_node("Tween"), "tween_completed")
 	move_done()
 	
-	emit_signal("sigil_event", "card_summoned", [nCard])
+#	emit_signal("sigil_event", "card_summoned", [nCard])
 	
 	# Buff handling
 	for card in slotManager.all_friendly_cards():

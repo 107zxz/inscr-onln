@@ -255,6 +255,11 @@ func move_to_parent(new_parent):
 	if get_parent().name in [ "PlayerHand", "EnemyHand" ]:
 		get_parent().get_parent().lower_all_cards()
 		from_hand = true
+		fightManager.emit_signal("sigil_event", "card_summoned", [self])
+		
+	elif get_parent().get_parent().name in ["PlayerSlots", "EnemySlots"]:
+		# Card moved from a slot on board
+		fightManager.emit_signal("sigil_event", "card_moved", [self, get_parent().get_position_in_parent(), new_parent.get_position_in_parent()])
 	
 	# Reset position, as expected to be raised when this happens
 	$AnimationPlayer.play("RESET")
@@ -273,45 +278,23 @@ func move_to_parent(new_parent):
 	
 	$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.1, Tween.TRANS_LINEAR)
 	$Tween.start()
-
-	# Sentry stuff
-	if new_parent.get_parent().name == "PlayerSlots":
-		var eCard = null
-		if not slotManager.is_slot_empty(slotManager.enemySlots[new_parent.get_position_in_parent()]):
-			eCard = slotManager.enemySlots[new_parent.get_position_in_parent()].get_child(0)
-			if eCard.has_sigil("Sentry"):
-				take_damage(eCard, 1)
+	
+	# Special atk stats
+	if "atkspecial" in card_data:
+		$CardBody/AtkIcon.visible = false
+		$CardBody/HBoxContainer/AtkScore.visible = true
 		
-		# I am the sentry
-		# Activate when moved
-		if has_sigil("Sentry") and not from_hand:
-			if eCard:
-				eCard.take_damage(self, 1)
+	# Signals
+	
+	# Must be summoned
+	if new_parent.get_parent().name in ["PlayerSlots", "EnemySlots"]:
+		if from_hand:
+			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+			
+		else:
+			fightManager.emit_signal("sigil_event", "card_moved", [self, get_parent().get_position_in_parent(), new_parent.get_position_in_parent()])
 		
-		# Special atk stats
-		if "atkspecial" in card_data:
-			$CardBody/AtkIcon.visible = false
-			$CardBody/HBoxContainer/AtkScore.visible = true
-
-	if new_parent.get_parent().name == "EnemySlots":
-		var pCard = null
-		if not slotManager.is_slot_empty(slotManager.playerSlots[new_parent.get_position_in_parent()]):
-			pCard = slotManager.playerSlots[new_parent.get_position_in_parent()].get_child(0)
-			if pCard.has_sigil("Sentry"):
-				take_damage(pCard, 1)
-
-		# I am the sentry
-		# Activate when moved
-		if has_sigil("Sentry") and not from_hand:
-			if pCard:
-				pCard.take_damage(self, 1)
 		
-		# Green Mage
-		if "atkspecial" in card_data:
-			$CardBody/AtkIcon.visible = false
-			$CardBody/HBoxContainer/AtkScore.visible = true
-
-
 # This is called when the attack animation would "hit". tell the slot manager to make it happen
 func attack_hit():
 	if get_parent().get_parent().name == "PlayerSlots":
