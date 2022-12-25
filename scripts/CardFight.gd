@@ -567,7 +567,7 @@ func parse_next_move():
 				_opponent_drew_card(move.deck)
 			"play_card":
 				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
-				_opponent_played_card(move.card, move.slot)
+				_opponent_played_card(move.card, move.slot, move.ignore_cost  if "ignore_cost" in move else false)
 			"hey_im_a_hungry":
 				print("Opponent is like ", move.for, " hungry.")
 				force_draw_starv(move.for)
@@ -659,7 +659,7 @@ func _opponent_drew_card(source_path):
 	move_done()
 
 
-func _opponent_played_card(card, slot):
+func _opponent_played_card(card, slot, ignore_cost = false):
 	
 	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
 	
@@ -675,10 +675,11 @@ func _opponent_played_card(card, slot):
 	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
 	
 	# Costs
-	if "bone_cost" in card_dt:
-		add_opponent_bones(-card_dt["bone_cost"])
-	if "energy_cost" in card_dt and not no_energy_deplete:
-		set_opponent_energy(opponent_energy -card_dt["energy_cost"])
+	if not ignore_cost:
+		if "bone_cost" in card_dt:
+			add_opponent_bones(-card_dt["bone_cost"])
+		if "energy_cost" in card_dt and not no_energy_deplete:
+			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
