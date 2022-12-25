@@ -275,10 +275,7 @@ func move_to_parent(new_parent):
 	$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.1, Tween.TRANS_LINEAR)
 	$Tween.start()
 	
-	# Special atk stats
-	if "atkspecial" in card_data:
-		$CardBody/AtkIcon.visible = false
-		$CardBody/HBoxContainer/AtkScore.visible = true
+	
 		
 	yield($Tween, "tween_completed")
 	
@@ -286,6 +283,11 @@ func move_to_parent(new_parent):
 	if new_parent.get_parent().name in ["PlayerSlots", "EnemySlots"]:
 		if from_hand:
 			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+			
+			# Special atk stats
+			if "atkspecial" in card_data:
+				$CardBody/AtkIcon.visible = false
+				$CardBody/HBoxContainer/AtkScore.visible = true
 			
 		else:
 			fightManager.emit_signal("sigil_event", "card_moved", [self, get_parent().get_position_in_parent(), new_parent.get_position_in_parent()])
