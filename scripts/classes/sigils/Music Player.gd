@@ -16,9 +16,14 @@ func handle_event(event: String, params: Array):
 		
 		fightManager.get_node("MusInfo").visible = true
 
+	if event == "card_perished" and params[0] == card:
+		fightManager.get_node("MusPlayer").stop()
+
+		
+
 func download_callback(_result, response_code, _headers, body):
 	
-	var player = AudioStreamPlayer.new()
+	var player = fightManager.get_node("MusPlayer")
 	card.add_child(player)
 	
 	var f = File.new()
