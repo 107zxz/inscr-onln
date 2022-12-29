@@ -4,11 +4,15 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_perished" and isFriendly and params[0].get_parent().get_parent().name == "PlayerSlots" and card.get_parent().name == "PlayerHand":
+	if event == "card_perished" and isFriendly and params[0].get_parent().get_parent().name == "PlayerSlots" and card.get_parent().name == "PlayerHand" and fightManager.state == fightManager.GameStates.BATTLE:
 		
 		print("Corpse Eater triggered!")
 		
 		var slot = params[0].get_parent()
+		
+		# TODO: Put an effective check here to make sure ONLY ONE cm is being deployed
+			
+		card.move_to_parent(slot)
 		
 		fightManager.send_move({
 				"type": "raise_card",
@@ -22,6 +26,5 @@ func handle_event(event: String, params: Array):
 				"ignore_cost": true
 			})
 		
-		card.move_to_parent(slot)
 		
 		

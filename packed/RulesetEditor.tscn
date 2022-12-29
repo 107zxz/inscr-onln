@@ -309,12 +309,15 @@ margin_right = 488.0
 margin_bottom = 970.0
 text = "Evolves / Defrosts into:"
 
-[node name="Evol" type="LineEdit" parent="Cards/Panel/CardDat"]
+[node name="Evol" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 491.0
 margin_top = 943.0
 margin_right = 741.0
 margin_bottom = 971.0
+text = "None"
 align = 1
+items = [ "None", null, false, 0, null ]
+selected = 0
 
 [node name="SpecAttk" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 71.0

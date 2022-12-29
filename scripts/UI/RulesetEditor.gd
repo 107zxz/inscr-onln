@@ -35,6 +35,7 @@ func _ready():
 func populate_cards():
 	for card in CardInfo.all_cards:
 		tree.create_item(cardRoot).set_text(0, card.name)
+		cardDats[21].add_item(card.name)
 
 func populate_sigils():
 	for sigil in CardInfo.all_sigils:
@@ -97,7 +98,7 @@ func draw_card():
 	cardDats[18].pressed = "nohammer" in cDat
 	cardDats[19].pressed = "conduit" in cDat
 	
-	cardDats[21].text = cDat.evolution if "evolution" in cDat else ""
+#	cardDats[21].text = cDat.evolution if "evolution" in cDat else ""
 	
 #	cardDats[22].select(cDat.atkspecial + 1 if "atkspecial" in cDat else 0)
 #	TODO: Make this use the string
