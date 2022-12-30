@@ -7,6 +7,15 @@ var sigilRoot = null
 onready var cardDats = get_node("%CardDat").get_children()
 onready var rulesetDats = get_node("%Options").get_children()
 
+
+var cardNames = []
+var specialAttacks = [
+	"ant",
+	"mox",
+	"green_mox",
+	"mirror"
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -36,6 +45,7 @@ func populate_cards():
 	for card in CardInfo.all_cards:
 		tree.create_item(cardRoot).set_text(0, card.name)
 		cardDats[21].add_item(card.name)
+		cardNames.append(card.name)
 
 func populate_sigils():
 	for sigil in CardInfo.all_sigils:
@@ -99,9 +109,21 @@ func draw_card():
 	cardDats[19].pressed = "conduit" in cDat
 	
 #	cardDats[21].text = cDat.evolution if "evolution" in cDat else ""
+	if "evolution" in cDat:
+		cardDats[21].select(cardNames.find(cDat.evolution) + 1)
+	else:
+		cardDats[21].select(0)
+	
+	if "atkspecial" in cDat:
+		cardDats[22].select(specialAttacks.find(cDat.atkspecial) + 1)
 	
 #	cardDats[22].select(cDat.atkspecial + 1 if "atkspecial" in cDat else 0)
 #	TODO: Make this use the string
 
 func exit_editor():
 	get_tree().change_scene("res://packed/RulesetPickerProto.tscn")
+
+
+func _on_PortURL_focus_exited():
+	print("Downloading pixport")
+	$Status.show()

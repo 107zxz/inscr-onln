@@ -33,6 +33,9 @@ var rulesets_path = data_path + "/rulesets/"
 # CB
 var background_texture = null
 
+# Ruleset data to apply: Used when downloading another player's ruleset
+var rs_to_apply = null
+
 func _enter_tree():
 	
 	if OS.get_name() == "Android":

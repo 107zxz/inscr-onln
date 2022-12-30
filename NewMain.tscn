@@ -971,6 +971,18 @@ text = "An Error Occurred"
 align = 1
 autowrap = true
 
+[node name="ErrorDL" type="Button" parent="TitleScreen/ErrorBox/Contents"]
+visible = false
+margin_left = 149.0
+margin_top = 51.0
+margin_right = 347.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 42, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Download Ruleset"
+
 [node name="ErrorOk" type="Button" parent="TitleScreen/ErrorBox/Contents"]
 margin_left = 227.0
 margin_top = 78.0
@@ -1173,7 +1185,6 @@ enabled_focus_mode = 0
 text = "Live theme update"
 
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
-visible = false
 margin_left = 56.0
 margin_top = -762.0
 margin_right = 656.0
@@ -1235,6 +1246,7 @@ mouse_filter = 2
 [connection signal="item_selected" from="TitleScreen/InLobby/Rows/ProfilePic/Pic" to="TitleScreen" method="_on_Pic_item_selected"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyReady" to="TitleScreen" method="_on_LobbyReady_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
+[connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorDL" to="TitleScreen" method="_on_ErrorDL_pressed"]
 [connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorOk" to="TitleScreen" method="_on_ErrorOk_pressed"]
 [connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/LINE_COUNT" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
 [connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/OPACITY" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
