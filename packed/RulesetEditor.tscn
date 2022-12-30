@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/UI/RulesetEditor.gd" type="Script" id=2]
@@ -6,6 +6,26 @@
 [ext_resource path="res://gfx/sigils/Orange Mox.png" type="Texture" id=4]
 [ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=5]
 [ext_resource path="res://gfx/sigils/Green Mox.png" type="Texture" id=6]
+[ext_resource path="res://gfx/portraits/Ouroboros.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.25 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "spin"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0 ]
+}
 
 [node name="REdit" type="Control"]
 anchor_right = 1.0
@@ -78,6 +98,7 @@ size_flags_horizontal = 3
 
 [node name="Options" type="VBoxContainer" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -122,7 +143,6 @@ selected = 1
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -152,9 +172,9 @@ align = 1
 
 [node name="Name" type="LineEdit" parent="Cards/Panel/CardDat"]
 margin_left = 360.0
-margin_top = 43.0
+margin_top = 10.0
 margin_right = 610.0
-margin_bottom = 71.0
+margin_bottom = 38.0
 align = 1
 
 [node name="SigilA" type="OptionButton" parent="Cards/Panel/CardDat"]
@@ -325,8 +345,16 @@ margin_top = 660.0
 margin_right = 89.0
 margin_bottom = 694.0
 text = "Normal"
-items = [ "Normal", null, false, 0, null, "Mox", null, false, 1, null, "Mirror", null, false, 2, null, "Ant", null, false, 3, null ]
+items = [ "Normal", null, false, 0, null, "Ant", null, false, 1, null, "Mox", null, false, 2, null, "Green Mox", null, false, 3, null, "Mirror", null, false, 4, null ]
 selected = 0
+
+[node name="PortURL" type="LineEdit" parent="Cards/Panel/CardDat"]
+margin_left = 235.0
+margin_top = 43.0
+margin_right = 735.0
+margin_bottom = 71.0
+align = 1
+placeholder_text = "PORTRAIT URL (Use if no image below)"
 
 [node name="ExitBtn" type="Button" parent="."]
 anchor_left = 1.0
@@ -344,5 +372,50 @@ text = "THIS EDITOR IS WIP, AND CAN'T ACTUALLY EDIT RULESETS YET"
 align = 1
 valign = 1
 
+[node name="Status" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Status"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -100.0
+margin_right = 250.0
+margin_bottom = 100.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Status/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 498.0
+margin_bottom = 198.0
+custom_constants/separation = 43
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Status/PanelContainer/HBoxContainer"]
+margin_left = 16.0
+margin_right = 130.0
+margin_bottom = 196.0
+rect_pivot_offset = Vector2( 57, 98 )
+texture = ExtResource( 7 )
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Status/PanelContainer/HBoxContainer/TextureRect"]
+autoplay = "spin"
+anims/spin = SubResource( 5 )
+
+[node name="Label" type="Label" parent="Status/PanelContainer/HBoxContainer"]
+margin_left = 173.0
+margin_top = 86.0
+margin_right = 479.0
+margin_bottom = 110.0
+text = "Downloading card portrait..."
+
 [connection signal="item_selected" from="Cards/VBoxContainer/RulesetTree" to="." method="_on_RulesetTree_item_selected"]
+[connection signal="focus_exited" from="Cards/Panel/CardDat/PortURL" to="." method="_on_PortURL_focus_exited"]
+[connection signal="text_entered" from="Cards/Panel/CardDat/PortURL" to="." method="_on_PortURL_focus_exited"]
 [connection signal="pressed" from="ExitBtn" to="." method="exit_editor"]

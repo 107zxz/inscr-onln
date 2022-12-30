@@ -47,6 +47,11 @@ func _ready():
 	$Status.show()
 	fetch_featured_rulesets()
 	fetch_saved_rulesets()
+	
+	if CardInfo.rs_to_apply != null:
+		add_saved_ruleset_entry_dat(CardInfo.rs_to_apply)
+		CardInfo.rs_to_apply = null
+		use_ruleset(CardInfo.rs_to_apply)
 
 func errorBox(message: String):
 	$Error/PanelContainer/VBoxContainer/Label.text = message
@@ -196,18 +201,20 @@ func add_ruleset_from_json(json: String):
 	
 	var ruleset = parse_json(json)
 	
-	if not ruleset.ruleset in visible_rulesets:
-		add_saved_ruleset_entry_dat(ruleset)
-		visible_rulesets.append(ruleset.ruleset)
-	
 	var fd = File.new()
 	fd.open(CardInfo.rulesets_path + ruleset.ruleset + ".json", File.WRITE)
 	fd.store_string(json)
 	fd.close()
 	
-#	fetch_saved_rulesets()
+	add_saved_ruleset_entry_dat(ruleset)
 
 func add_saved_ruleset_entry_dat(dat):
+	
+	# Don't allow dupes
+	if dat.ruleset in visible_rulesets:
+		return
+	
+	visible_rulesets.append(dat.ruleset)
 	
 	var nl = line_prefab.instance()
 	$SavedRulesets/VBoxContainer/ScrollContainer/SavedRsCont.add_child(nl)

@@ -14,6 +14,8 @@ var readyIcon = preload("res://gfx/extra/On.png")
 
 var lobby_data = {"players": {}, "spectators": []}
 
+var rsCache: Dictionary = {}
+
 # Godot Handlers
 func _ready():
 
@@ -81,9 +83,10 @@ func debug_join():
 #	yield(get_tree().create_timer(0.2), "timeout")
 #	_on_LobbyReady_pressed()
 
-func errorBox(message):
+func errorBox(message, show_dlbtn: bool = false):
 	$ErrorBox/Contents/Label.text = message
 	$ErrorBox.visible = true
+	$ErrorBox/Contents/ErrorDL.visible = show_dlbtn
 	
 func populate_deck_list():
 	
@@ -469,13 +472,14 @@ remote func _register_player(player_data: Dictionary):
 	
 	# Reject if running a different game version or ruleset
 	if player_data["version"] != CardInfo.VERSION:
-		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different game version to you (\"" + CardInfo.VERSION + "\")")
+		rpc_id(get_tree().get_rpc_sender_id(), "_ruleset_rejected", CardInfo.all_data)
 		return
 	
 	
 	if player_data["ruleset"] != CardInfo.all_data.hash():
 #		print(CardInfo.all_data.hash(), " : ", player_data["ruleset"])
-		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different ruleset to you (\"" + CardInfo.ruleset + "\").\nPlease note that changing the name of your ruleset is not a valid solution.")
+		rpc_id(get_tree().get_rpc_sender_id(), "_ruleset_rejected", CardInfo.all_data)
+#		rpc_id(get_tree().get_rpc_sender_id(), "_rejected", "Your opponent is running a different ruleset to you (\"" + CardInfo.ruleset + "\").\nPlease note that changing the name of your ruleset is not a valid solution.")
 		return
 	
 	
@@ -507,6 +511,20 @@ remote func _rejected(reason: String):
 
 	NetworkManager.kill()
 
+remote func _ruleset_rejected(rs_dat: Dictionary):
+	$LoadingScreen.visible = false
+	$LobbyJoin.visible = false
+	$InLobby.visible = false
+	errorBox("Your opponent is running ruleset \"" + rs_dat.ruleset + "\", download it?", true)
+	
+	rsCache = rs_dat
+	
+	NetworkManager.kill()
+
+func _on_ErrorDL_pressed():
+	print("DOWNLOADING RULESET: \n", rsCache)
+	CardInfo.rs_to_apply = rsCache
+	get_tree().change_scene("res://packed/RulesetPickerProto.tscn")
 
 remote func _erase_player(player_id):
 
@@ -520,11 +538,11 @@ remote func _erase_player(player_id):
 
 	update_lobby()
 	
-	if get_tree().get_network_unique_id() in lobby_data.players and lobby_data.players[get_tree().get_network_unique_id()].name == "DEBUG_HOST":
-		# Fun fact: removing this line makes the game crash
-		yield(get_tree().create_timer(0.1), "timeout")
-		
-		_on_LobbyQuit_pressed()
+#	if get_tree().get_network_unique_id() in lobby_data.players and lobby_data.players[get_tree().get_network_unique_id()].name == "DEBUG_HOST":
+#		# Fun fact: removing this line makes the game crash
+#		yield(get_tree().create_timer(0.1), "timeout")
+#
+#		_on_LobbyQuit_pressed()
 
 remote func _recieve_lobby_info(new_ld: Dictionary):
 
@@ -574,3 +592,4 @@ func _LineEdit_unfocused():
 func _on_HostType_selected(index):
 	$LobbyHost/Rows/RoomnameInfo.visible = index == 0
 	$LobbyHost/Rows/Roomname.visible = index == 0
+
