@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 0.25 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.560784, 0.2, 0.2, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[node name="Error" type="Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -140.0
+margin_right = 320.0
+margin_bottom = 140.0
+custom_styles/panel = SubResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 638.0
+margin_bottom = 278.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_top = 105.0
+margin_right = 636.0
+margin_bottom = 119.0
+align = 1
+autowrap = true
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+margin_left = 280.0
+margin_top = 151.0
+margin_right = 355.0
+margin_bottom = 171.0
+rect_min_size = Vector2( 75, 0 )
+size_flags_horizontal = 4
+text = "Ok"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button" to="." method="hide"]

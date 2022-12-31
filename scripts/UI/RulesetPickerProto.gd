@@ -1,6 +1,6 @@
 extends Panel
 
-var line_prefab = preload("res://packed/RulesetLine.tscn")
+var line_prefab = preload("res://packed/UI/RulesetLine.tscn")
 
 var visible_rulesets = []
 

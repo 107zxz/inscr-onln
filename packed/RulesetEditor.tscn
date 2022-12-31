@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/UI/RulesetEditor.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://gfx/sigils/Blue Mox.png" type="Texture" id=5]
 [ext_resource path="res://gfx/sigils/Green Mox.png" type="Texture" id=6]
 [ext_resource path="res://gfx/portraits/Ouroboros.png" type="Texture" id=7]
+[ext_resource path="res://packed/UI/Error.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 0.25 )
@@ -61,34 +62,35 @@ custom_constants/separation = 16
 alignment = 1
 
 [node name="Add" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
+visible = false
 margin_left = 225.0
 margin_right = 268.0
 margin_bottom = 34.0
 text = "Add"
 
-[node name="Remove" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 284.0
-margin_right = 370.0
-margin_bottom = 34.0
-text = "Remove"
-
 [node name="Duplicate" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 386.0
-margin_right = 493.0
+margin_left = 254.0
+margin_right = 361.0
 margin_bottom = 34.0
 text = "Duplicate"
 
 [node name="MoveUp" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 509.0
-margin_right = 598.0
+margin_left = 377.0
+margin_right = 466.0
 margin_bottom = 34.0
 text = "Move Up"
 
 [node name="MoveDown" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
-margin_left = 614.0
-margin_right = 733.0
+margin_left = 482.0
+margin_right = 601.0
 margin_bottom = 34.0
 text = "Move Down"
+
+[node name="Remove" type="Button" parent="Cards/VBoxContainer/HBoxContainer"]
+margin_left = 617.0
+margin_right = 703.0
+margin_bottom = 34.0
+text = "Remove"
 
 [node name="Panel" type="Panel" parent="Cards"]
 margin_left = 958.0
@@ -98,32 +100,14 @@ size_flags_horizontal = 3
 
 [node name="Options" type="VBoxContainer" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
 margin_bottom = 1032.0
 
-[node name="RulesetName" type="HBoxContainer" parent="Cards/Panel/Options"]
-margin_right = 938.0
-margin_bottom = 28.0
-
-[node name="Label" type="Label" parent="Cards/Panel/Options/RulesetName"]
-margin_top = 2.0
-margin_right = 354.0
-margin_bottom = 26.0
-text = "Ruleset Name (Include Version): "
-
-[node name="LineEdit" type="LineEdit" parent="Cards/Panel/Options/RulesetName"]
-margin_left = 354.0
-margin_right = 938.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-
 [node name="Candles" type="HBoxContainer" parent="Cards/Panel/Options"]
-margin_top = 28.0
 margin_right = 938.0
-margin_bottom = 62.0
+margin_bottom = 34.0
 
 [node name="Label" type="Label" parent="Cards/Panel/Options/Candles"]
 margin_top = 5.0
@@ -138,11 +122,12 @@ margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Two"
-items = [ "One", null, false, 0, null, "Two", null, false, 1, null ]
+items = [ "One", null, false, 1, null, "Two", null, false, 2, null, "Three", null, false, 3, null ]
 selected = 1
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -159,6 +144,7 @@ margin_left = 68.0
 margin_top = 632.0
 margin_right = 196.0
 margin_bottom = 660.0
+focus_mode = 2
 align = 1
 
 [node name="Hp" type="SpinBox" parent="Cards/Panel/CardDat"]
@@ -166,6 +152,7 @@ margin_left = 759.0
 margin_top = 632.0
 margin_right = 887.0
 margin_bottom = 660.0
+focus_mode = 2
 min_value = 1.0
 value = 1.0
 align = 1
@@ -182,8 +169,6 @@ margin_left = 360.0
 margin_top = 650.0
 margin_right = 610.0
 margin_bottom = 684.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "None"
 align = 1
 items = [ "None", null, false, 0, null ]
@@ -194,8 +179,6 @@ margin_left = 360.0
 margin_top = 688.0
 margin_right = 610.0
 margin_bottom = 722.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "None"
 align = 1
 items = [ "None", null, false, 0, null ]
@@ -206,6 +189,7 @@ margin_left = 380.0
 margin_top = 792.0
 margin_right = 508.0
 margin_bottom = 820.0
+focus_mode = 2
 max_value = 4.0
 align = 1
 
@@ -221,6 +205,7 @@ margin_left = 380.0
 margin_top = 826.0
 margin_right = 508.0
 margin_bottom = 854.0
+focus_mode = 2
 max_value = 4.0
 align = 1
 
@@ -236,6 +221,7 @@ margin_left = 380.0
 margin_top = 860.0
 margin_right = 508.0
 margin_bottom = 888.0
+focus_mode = 2
 max_value = 4.0
 align = 1
 
@@ -251,8 +237,6 @@ margin_left = 421.0
 margin_top = 901.0
 margin_right = 458.0
 margin_bottom = 935.0
-focus_mode = 0
-enabled_focus_mode = 0
 icon = ExtResource( 4 )
 
 [node name="GMox" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -260,8 +244,6 @@ margin_left = 461.0
 margin_top = 901.0
 margin_right = 498.0
 margin_bottom = 935.0
-focus_mode = 0
-enabled_focus_mode = 0
 icon = ExtResource( 6 )
 
 [node name="BMox" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -269,8 +251,6 @@ margin_left = 502.0
 margin_top = 901.0
 margin_right = 539.0
 margin_bottom = 935.0
-focus_mode = 0
-enabled_focus_mode = 0
 icon = ExtResource( 5 )
 
 [node name="NotBanned" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -278,8 +258,6 @@ margin_left = 68.0
 margin_top = 792.0
 margin_right = 172.0
 margin_bottom = 826.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Draftable"
 
 [node name="Rare" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -287,8 +265,6 @@ margin_left = 68.0
 margin_top = 826.0
 margin_right = 172.0
 margin_bottom = 860.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Rare"
 
 [node name="NoSac" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -296,8 +272,6 @@ margin_left = 695.0
 margin_top = 792.0
 margin_right = 883.0
 margin_bottom = 826.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Unsacrificeable"
 
 [node name="NoHammer" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -305,8 +279,6 @@ margin_left = 705.0
 margin_top = 826.0
 margin_right = 884.0
 margin_bottom = 860.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Unhammerable"
 
 [node name="IsConduit" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -318,8 +290,6 @@ margin_left = -180.0
 margin_top = 339.0
 margin_right = -74.0
 margin_bottom = 373.0
-focus_mode = 0
-enabled_focus_mode = 0
 text = "Conduit"
 
 [node name="EvolLabel" type="Label" parent="Cards/Panel/CardDat"]
@@ -356,14 +326,24 @@ margin_bottom = 71.0
 align = 1
 placeholder_text = "PORTRAIT URL (Use if no image below)"
 
-[node name="ExitBtn" type="Button" parent="."]
+[node name="SaveBtn" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -34.0
+margin_left = -110.0
+margin_right = -54.0
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "X"
+text = "Save"
+
+[node name="ExitBtn" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -47.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Exit"
 
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
@@ -415,7 +395,35 @@ margin_right = 479.0
 margin_bottom = 110.0
 text = "Downloading card portrait..."
 
+[node name="Error" parent="." instance=ExtResource( 8 )]
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -240.0
+margin_right = 320.0
+margin_bottom = 240.0
+window_title = "Save Ruleset"
+access = 1
+filters = PoolStringArray( "*.json" )
+
+[node name="QuitConfirm" type="ConfirmationDialog" parent="."]
+margin_right = 230.0
+margin_bottom = 82.0
+dialog_text = "Exit without saving?"
+
+[connection signal="focus_entered" from="Cards/VBoxContainer/RulesetTree" to="." method="save_card_changes"]
 [connection signal="item_selected" from="Cards/VBoxContainer/RulesetTree" to="." method="_on_RulesetTree_item_selected"]
-[connection signal="focus_exited" from="Cards/Panel/CardDat/PortURL" to="." method="_on_PortURL_focus_exited"]
-[connection signal="text_entered" from="Cards/Panel/CardDat/PortURL" to="." method="_on_PortURL_focus_exited"]
-[connection signal="pressed" from="ExitBtn" to="." method="exit_editor"]
+[connection signal="pressed" from="Cards/VBoxContainer/HBoxContainer/Duplicate" to="." method="_on_Duplicate_pressed"]
+[connection signal="pressed" from="Cards/VBoxContainer/HBoxContainer/MoveUp" to="." method="_on_MoveUp_pressed"]
+[connection signal="pressed" from="Cards/VBoxContainer/HBoxContainer/MoveDown" to="." method="_on_MoveDown_pressed"]
+[connection signal="pressed" from="Cards/VBoxContainer/HBoxContainer/Remove" to="." method="_on_Remove_pressed"]
+[connection signal="focus_exited" from="Cards/Panel/CardDat/Name" to="." method="save_card_changes"]
+[connection signal="text_entered" from="Cards/Panel/CardDat/Name" to="." method="save_card_changes"]
+[connection signal="pressed" from="SaveBtn" to="SaveDialog" method="popup_centered"]
+[connection signal="pressed" from="ExitBtn" to="QuitConfirm" method="popup_centered"]
+[connection signal="file_selected" from="SaveDialog" to="." method="_on_SaveDialog_file_selected"]
+[connection signal="confirmed" from="QuitConfirm" to="." method="exit_editor"]
