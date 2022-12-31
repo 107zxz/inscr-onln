@@ -43,10 +43,12 @@ func _enter_tree():
 		if not d.dir_exists(data_path):
 			d.make_dir(data_path)
 	elif OS.get_name() != "OSX":
-#	else:
-		# Fix window size
-		OS.window_size = OS.window_size / 2
-		OS.window_position += OS.window_size / 2
+		
+		var ws = Vector2(1920/2, 1080/2)
+		
+		OS.window_size = ws
+#		OS.window_position += ws
+#		OS.window_maximized = false
 	
 #	read_game_info()
 	
