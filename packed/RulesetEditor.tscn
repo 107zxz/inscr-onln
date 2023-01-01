@@ -98,26 +98,22 @@ margin_right = 1916.0
 margin_bottom = 1042.0
 size_flags_horizontal = 3
 
-[node name="Options" type="VBoxContainer" parent="Cards/Panel"]
+[node name="Options" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
 margin_bottom = 1032.0
 
-[node name="Candles" type="HBoxContainer" parent="Cards/Panel/Options"]
-margin_right = 938.0
-margin_bottom = 34.0
-
-[node name="Label" type="Label" parent="Cards/Panel/Options/Candles"]
+[node name="CandleLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 5.0
 margin_right = 219.0
 margin_bottom = 29.0
 text = "Number of Candles: "
 
-[node name="OptionButton" type="OptionButton" parent="Cards/Panel/Options/Candles"]
-margin_left = 219.0
-margin_right = 278.0
+[node name="CandlePicker" type="OptionButton" parent="Cards/Panel/Options"]
+margin_left = 222.482
+margin_right = 281.482
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -346,6 +342,7 @@ enabled_focus_mode = 0
 text = "Exit"
 
 [node name="Label" type="Label" parent="."]
+visible = false
 anchor_right = 1.0
 margin_bottom = 35.0
 text = "THIS EDITOR IS WIP, AND CAN'T ACTUALLY EDIT RULESETS YET"
