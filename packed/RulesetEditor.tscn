@@ -406,6 +406,7 @@ margin_left = -320.0
 margin_top = -240.0
 margin_right = 320.0
 margin_bottom = 240.0
+rect_min_size = Vector2( 400, 140 )
 window_title = "Save Ruleset"
 access = 1
 filters = PoolStringArray( "*.json" )
@@ -413,7 +414,10 @@ filters = PoolStringArray( "*.json" )
 [node name="QuitConfirm" type="ConfirmationDialog" parent="."]
 margin_right = 230.0
 margin_bottom = 82.0
+rect_min_size = Vector2( 400, 140 )
 dialog_text = "Exit without saving?"
+
+[node name="PixportRequest" type="HTTPRequest" parent="."]
 
 [connection signal="focus_entered" from="Cards/VBoxContainer/RulesetTree" to="." method="save_card_changes"]
 [connection signal="item_selected" from="Cards/VBoxContainer/RulesetTree" to="." method="_on_RulesetTree_item_selected"]
@@ -423,6 +427,8 @@ dialog_text = "Exit without saving?"
 [connection signal="pressed" from="Cards/VBoxContainer/HBoxContainer/Remove" to="." method="_on_Remove_pressed"]
 [connection signal="focus_exited" from="Cards/Panel/CardDat/Name" to="." method="save_card_changes"]
 [connection signal="text_entered" from="Cards/Panel/CardDat/Name" to="." method="save_card_changes"]
+[connection signal="focus_exited" from="Cards/Panel/CardDat/PortURL" to="." method="_on_PortURL_focus_exited"]
+[connection signal="text_entered" from="Cards/Panel/CardDat/PortURL" to="." method="_on_PortURL_text_entered"]
 [connection signal="pressed" from="SaveBtn" to="SaveDialog" method="popup_centered"]
 [connection signal="pressed" from="ExitBtn" to="QuitConfirm" method="popup_centered"]
 [connection signal="file_selected" from="SaveDialog" to="." method="_on_SaveDialog_file_selected"]

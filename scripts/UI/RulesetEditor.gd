@@ -77,7 +77,8 @@ func draw_card():
 	current_card = CardInfo.from_name(tree.get_selected().get_text(0))
 	
 	# TODO
-	cardDats[0].texture = load("res://gfx/pixport/" + current_card.name + ".png")
+#	cardDats[0].texture = load("res://gfx/pixport/" + current_card.name + ".png")
+	load_pixport()
 	cardDats[1].value = current_card.attack
 	cardDats[2].value = current_card.health
 	cardDats[3].text = current_card.name
@@ -130,7 +131,7 @@ func draw_card():
 #	cardDats[22].select(cDat.atkspecial + 1 if "atkspecial" in cDat else 0)
 #	TODO: Make this use the string
 
-func save_card_changes():
+func save_card_changes(_xtra = null):
 	
 	if not tree.get_selected():
 		return
@@ -222,7 +223,8 @@ func save_card_changes():
 	else:
 		current_card.erase("sigils")
 	
-	cardDats[0].texture = load("res://gfx/pixport/" + current_card.name + ".png")
+#	cardDats[0].texture = load("res://gfx/pixport/" + current_card.name + ".png")
+	load_pixport()
 	
 #	$Error/PanelContainer/VBoxContainer/Label.text = JSON.print(current_card)
 #	$Error.show()
@@ -233,7 +235,7 @@ func exit_editor():
 
 func _on_SaveDialog_file_selected(path):
 	
-	print("\"", path, "\"")
+	save_card_changes()
 	
 	var ss = path.split("/")
 	
@@ -244,6 +246,22 @@ func _on_SaveDialog_file_selected(path):
 	f.open(path, File.WRITE)
 	f.store_string(JSON.print(CardInfo.all_data))
 	f.close()
+	
+	update_portrait_names()
+
+func update_portrait_names():
+	var d = Directory.new()
+	d.open(CardInfo.custom_portrait_path)
+	d.list_dir_begin()
+	var fn = d.get_next()
+	while fn != "":
+		
+		if not d.current_is_dir() and fn.begins_with("RSTMP_"):
+			var new_name = CardInfo.all_data.ruleset + fn.substr(5)
+			d.rename(fn, new_name)
+		 
+		
+		fn = d.get_next()
 
 func _on_MoveUp_pressed():
 	var current = tree.get_selected()
@@ -285,20 +303,80 @@ func _on_Duplicate_pressed():
 	cardDats[21].clear()
 	cardDats[21].add_item("None")
 	
+	var cIdx = 1
+	var selNxt = false
+	
 	for card in CardInfo.all_cards:
-		tree.create_item(cardRoot).set_text(0, card.name)
+		var ni = tree.create_item(cardRoot)
+		ni.set_text(0, card.name)
 		cardDats[21].add_item(card.name)
+		
+		if selNxt:
+			ni.select(0)
 		
 		if card.name == cc:
 			
 			# IMPORTANT: Add card to ruleset at position and with different name
 			
-			var ni = tree.create_item(cardRoot)
-			ni.set_text(0, card.name + " 2")
-			ni.select(0)
-			cardDats[21].add_item(card.name + " 2")
+			CardInfo.all_cards.insert(cIdx, card.duplicate())
+			CardInfo.all_cards[cIdx].name += " 2"
+			
+			selNxt = true
+			
+#			var ni = tree.create_item(cardRoot)
+#			ni.set_text(0, card.name + " 2")
+#			ni.select(0)
+#			cardDats[21].add_item(card.name + " 2")
+			
+			
+		
+		cIdx += 1
 	
 func _on_Remove_pressed():
 	var nxt = tree.get_selected().get_next()
 	cardRoot.remove_child(tree.get_selected())
 	nxt.select(0)
+
+
+func _on_PortURL_focus_exited():
+	_on_PortURL_text_entered($Cards/Panel/CardDat/PortURL.text)
+
+
+func _on_PortURL_text_entered(new_text):
+	var d = Directory.new()
+#	var fp = CardInfo.custom_portrait_path + CardInfo.all_data.ruleset + "_" + $Cards/Panel/CardDat/Name.text + ".png"
+	var fp = CardInfo.custom_portrait_path + "RSTMP_" + $Cards/Panel/CardDat/Name.text + ".png"
+	
+	if d.file_exists(fp):
+		d.remove(fp)
+	
+	if new_text == "":
+		load_pixport()
+		return
+	
+	$Status.show()
+	
+	$PixportRequest.download_file = fp
+	
+	if $PixportRequest.request(new_text) == OK:
+		yield($PixportRequest, "request_completed")
+		load_pixport()
+	
+	$Status.hide()
+
+func load_pixport():
+	var d = Directory.new()
+	
+#	if d.file_exists(CardInfo.custom_portrait_path + CardInfo.all_data.ruleset + "_" + current_card.name + ".png"):
+	if d.file_exists(CardInfo.custom_portrait_path + "RSTMP_" + current_card.name + ".png"):
+		var i = Image.new()
+#		i.load(CardInfo.custom_portrait_path + CardInfo.all_data.ruleset + "_" + current_card.name + ".png")
+		i.load(CardInfo.custom_portrait_path + "RSTMP_" + current_card.name + ".png")
+		var tx = ImageTexture.new()
+		tx.create_from_image(i)
+		tx.flags -= tx.FLAG_FILTER
+		cardDats[0].texture = tx
+	elif d.file_exists("res://gfx/pixport/" + current_card.name + ".png"):
+		cardDats[0].texture = load("res://gfx/pixport/" + current_card.name + ".png")
+	else:
+		cardDats[0].texture = null
