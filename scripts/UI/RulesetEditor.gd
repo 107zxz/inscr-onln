@@ -5,7 +5,7 @@ var cardRoot = null
 var sigilRoot = null
 
 onready var cardDats = get_node("%CardDat").get_children()
-onready var rulesetDats = get_node("%Options").get_children()
+onready var flagDats = get_node("%Options").get_children()
 
 var cardNames = []
 var specialAttacks = [
@@ -40,9 +40,12 @@ func _ready():
 #	cardRoot.collapsed = true
 	sigilRoot.collapsed = true
 #	root.collapsed = true
+
+	root.select(0)
 	
 	populate_cards()
 	populate_sigils()
+	populate_flags()
 	
 func populate_cards():
 	for card in CardInfo.all_cards:
@@ -134,6 +137,9 @@ func draw_card():
 func save_card_changes(_xtra = null):
 	
 	if not tree.get_selected():
+		return
+		
+	if not tree.get_selected().get_parent() or tree.get_selected().get_parent().get_text(0) != "Cards":
 		return
 	
 	tree.get_selected().set_text(0, cardDats[3].text)
@@ -380,3 +386,10 @@ func load_pixport():
 		cardDats[0].texture = load("res://gfx/pixport/" + current_card.name + ".png")
 	else:
 		cardDats[0].texture = null
+
+# Smaller function to update flags
+func update_flags():
+	CardInfo.all_data.num_candles = flagDats[1].selected + 1
+
+func populate_flags():
+	flagDats[1].select(CardInfo.all_data.num_candles - 1)
