@@ -886,7 +886,7 @@ func debug_cleanup():
 	if "autoquit" in OS.get_cmdline_args():
 		get_tree().quit()
 	
-	if "DEBUG_HOST" in get_node("PlayerInfo/MyInfo/Username").text:
+	if "DEBUG_HOST" in get_node("PlayerInfo/MyInfo/Username").text and false:
 		get_node("/root/Main/TitleScreen")._on_LobbyQuit_pressed()
 	else:
 		print("\"%s\"" % get_node("PlayerInfo/MyInfo/Username").text)

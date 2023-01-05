@@ -1867,6 +1867,7 @@ text = "Play"
 [node name="MusPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="CardSFX" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
 
 [node name="DesyncWatcher" type="Timer" parent="."]
 wait_time = 10.0
