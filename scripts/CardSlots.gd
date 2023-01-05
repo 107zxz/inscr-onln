@@ -737,7 +737,7 @@ func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		fightManager.add_opponent_bones(1)
 	
-	if sName == "Disentomb":
+	if sName == "Disentomb" or sName == "Disentomb (Corpses)":
 		fightManager.add_opponent_bones(-1)
 	
 #	Only animate if not dying
