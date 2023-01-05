@@ -111,7 +111,7 @@ margin_right = 219.0
 margin_bottom = 29.0
 text = "Number of Candles: "
 
-[node name="CandlePicker" type="OptionButton" parent="Cards/Panel/Options"]
+[node name="num_candles" type="OptionButton" parent="Cards/Panel/Options"]
 margin_left = 222.482
 margin_right = 281.482
 margin_bottom = 34.0
@@ -120,6 +120,18 @@ enabled_focus_mode = 0
 text = "Two"
 items = [ "One", null, false, 1, null, "Two", null, false, 2, null, "Three", null, false, 3, null ]
 selected = 1
+
+[node name="HPTLabel" type="Label" parent="Cards/Panel/Options"]
+margin_top = 45.0
+margin_right = 360.0
+margin_bottom = 69.0
+text = "Hammers / Turn (-1 for infinity): "
+
+[node name="hammers_per_turn" type="SpinBox" parent="Cards/Panel/Options"]
+margin_left = 358.0
+margin_top = 45.0
+margin_right = 486.0
+margin_bottom = 73.0
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true

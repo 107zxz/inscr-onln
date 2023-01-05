@@ -210,7 +210,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	if side_deck.size() == 0:
 		$DrawPiles/YourDecks/SideDeck.visible = false
 
-	for _i in range(3):
+	for _i in range(3 if side_deck_key != null else 4):
 
 		next_card = deck.pop_front()
 
