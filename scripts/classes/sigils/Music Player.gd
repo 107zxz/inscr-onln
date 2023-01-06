@@ -24,7 +24,7 @@ func handle_event(event: String, params: Array):
 func download_callback(_result, response_code, _headers, body):
 	
 	var player = fightManager.get_node("MusPlayer")
-	card.add_child(player)
+#	card.add_child(player)
 	
 	var f = File.new()
 	f.open(CardInfo.data_path + "/juke.mp3", File.READ)
