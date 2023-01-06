@@ -24,6 +24,9 @@ func _ready():
 	# Disable ARG check for now
 	# ARGIT()
 	
+	# Apply theme
+	
+	
 	var d = Directory.new()
 	d.make_dir(CardInfo.rulesets_path)
 	

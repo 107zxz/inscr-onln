@@ -53,18 +53,18 @@ margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="edit_background" type="HBoxContainer" parent="Options"]
+[node name="edit_background_colour" type="HBoxContainer" parent="Options"]
 margin_top = 62.0
 margin_right = 600.0
 margin_bottom = 90.0
 
-[node name="Label" type="Label" parent="Options/edit_background"]
+[node name="Label" type="Label" parent="Options/edit_background_colour"]
 margin_top = 2.0
 margin_right = 234.0
 margin_bottom = 26.0
 text = "Editbox Background: "
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/edit_background"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/edit_background_colour"]
 margin_left = 234.0
 margin_right = 600.0
 margin_bottom = 28.0
@@ -482,7 +482,7 @@ margin_right = 334.5
 margin_bottom = 384.0
 rect_min_size = Vector2( 400, 140 )
 theme = ExtResource( 1 )
-window_title = "Load Theme"
+window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.json" )
