@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://packed/UI/JakeLoading.tscn" type="PackedScene" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://packed/UI/RulesetLine.tscn" type="PackedScene" id=4]
 [ext_resource path="res://gfx/portraits/Ouroboros.png" type="Texture" id=5]
 [ext_resource path="res://packed/UI/Error.tscn" type="PackedScene" id=6]
+[ext_resource path="res://packed/ThemeEditor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://themes/sigilMat.tres" type="Material" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -45,6 +47,7 @@ tracks/1/keys = {
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
+draw_center = false
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -338,6 +341,7 @@ text = "v0.1.9"
 
 [node name="Jake" type="TextureRect" parent="."]
 visible = false
+material = ExtResource( 8 )
 margin_left = 160.0
 margin_top = 874.902
 margin_right = 274.0
@@ -353,6 +357,7 @@ anims/Jake = SubResource( 6 )
 
 [node name="Jakebubble" type="PanelContainer" parent="."]
 visible = false
+material = ExtResource( 8 )
 margin_left = 350.0
 margin_top = 845.0
 margin_right = 850.0
@@ -367,6 +372,8 @@ margin_bottom = 105.0
 text = "Hi, I'm Jake!
 Welcome to the new ruleset picker"
 align = 1
+
+[node name="ThemeEditor" parent="." instance=ExtResource( 7 )]
 
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFU" to="FromURL" method="show"]
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFJ" to="FromJSON" method="show"]
