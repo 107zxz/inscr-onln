@@ -103,6 +103,9 @@ func init_match(opp_id: int, do_go_first: bool):
 	# Clean up hands and field
 	handManager.clear_hands()
 	slotManager.clear_slots()
+	
+	# Stop any ongoing music
+	$MusPlayer.stop()
 
 	# Reset deck
 	deck = initial_deck.duplicate()
