@@ -997,7 +997,9 @@ func all_enemy_cards():
 	return cards
 
 func is_slot_empty(slot):
-	if slot.get_child_count() and slot.get_child(0).is_alive():
-		return false
+	if slot.get_child_count():
+		for ch in slot.get_children():
+			if ch.is_alive():
+				return false
 
 	return true
