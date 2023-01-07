@@ -967,6 +967,7 @@ stretch_mode = 4
 
 [node name="AtkIcon" type="TextureRect" parent="CardBody"]
 visible = false
+material = ExtResource( 10 )
 margin_left = 2.0
 margin_top = 348.0
 margin_right = 254.0

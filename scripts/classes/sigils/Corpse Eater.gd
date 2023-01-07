@@ -10,9 +10,13 @@ func handle_event(event: String, params: Array):
 		
 		var slot = params[0].get_parent()
 		
-		# TODO: Put an effective check here to make sure ONLY ONE cm is being deployed
+		
+		if not slotManager.is_slot_empty(slot):
+			return
+		
 			
 		card.move_to_parent(slot)
+		
 		
 		fightManager.send_move({
 				"type": "raise_card",
