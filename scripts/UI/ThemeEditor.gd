@@ -80,6 +80,9 @@ func apply_theme():
 	
 	paperTheme.get_stylebox("normal", "LineEdit").bg_color = theme_data.edit_background_colour
 
+	paperTheme.get_stylebox("normal", "SpeechBubble").border_color = theme_data.pixart_colour
+	paperTheme.get_stylebox("panel", "SpeechBubble").border_color = theme_data.pixart_colour
+
 	# Card colours
 	paperTheme.get_stylebox("normal", "Card").bg_color = theme_data.cards.common.normal
 	paperTheme.get_stylebox("rare_normal", "Card").bg_color = theme_data.cards.rare.normal

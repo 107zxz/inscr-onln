@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=2]
+[gd_resource type="Theme" load_steps=23 format=2]
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
@@ -179,6 +179,23 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
 [sub_resource type="StyleBoxFlat" id=23]
 draw_center = false
 border_width_left = 2
@@ -247,6 +264,8 @@ PopupDialog/styles/panel = SubResource( 6 )
 PopupPanel/styles/panel = SubResource( 6 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 ScrollContainer/styles/bg = SubResource( 6 )
+SpeechBubble/styles/normal = SubResource( 24 )
+SpeechBubble/styles/panel = SubResource( 24 )
 TabContainer/colors/font_color_bg = Color( 0, 0, 0, 1 )
 TabContainer/colors/font_color_disabled = Color( 0, 0, 0, 0.4 )
 TabContainer/colors/font_color_fg = Color( 0, 0, 0, 1 )
