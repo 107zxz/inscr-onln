@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
@@ -48,23 +48,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ SubResource( 10 ), SubResource( 9 ) ]
 }
-
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0, 0, 0, 1 )
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0, 0, 0, 1 )
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 9 )
@@ -337,13 +320,13 @@ Inscryption Multiplayer"
 align = 1
 
 [node name="PullInfo" type="Control" parent="TitleScreen"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 10 )
 
 [node name="PatchStoats" type="Control" parent="TitleScreen/PullInfo"]
+visible = false
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_top = -48.0
@@ -382,13 +365,12 @@ autoplay = "Talk"
 anims/Talk = SubResource( 11 )
 
 [node name="Notes" type="Label" parent="TitleScreen/PullInfo/PatchStoats"]
-material = ExtResource( 15 )
 margin_left = 25.0
 margin_top = -62.0
 margin_right = 425.0
 margin_bottom = -9.0
 grow_vertical = 0
-custom_styles/normal = SubResource( 12 )
+theme_type_variation = "SpeechBubble"
 text = "Stoat News Here
 So many Staots"
 autowrap = true
@@ -401,6 +383,7 @@ enabled_focus_mode = 0
 flat = true
 
 [node name="Grimorger" type="Control" parent="TitleScreen/PullInfo"]
+visible = false
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -451,13 +434,12 @@ anims/RESET = SubResource( 16 )
 anims/Talk = SubResource( 18 )
 
 [node name="Notes" type="Label" parent="TitleScreen/PullInfo/Grimorger"]
-material = ExtResource( 15 )
 margin_left = -355.0
 margin_top = -83.429
 margin_right = 45.0
 margin_bottom = -52.429
 grow_vertical = 0
-custom_styles/normal = SubResource( 12 )
+theme_type_variation = "SpeechBubble"
 text = "Grimorger News Here"
 autowrap = true
 
