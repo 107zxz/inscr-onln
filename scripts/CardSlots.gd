@@ -222,30 +222,12 @@ func post_turn_sigils(friendly: bool):
 							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
 								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]) or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
 									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-#									rpc_id(
-#									fightManager.opponent, "remote_card_move", 
-#									curSlot + sprintOffset,
-#									curSlot + sprintOffset * 2,
-#									false
-#									)
 									pushed = true
 							
 								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
 									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]) or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
 										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-#										rpc_id(
-#										fightManager.opponent, "remote_card_move", 
-#										curSlot + sprintOffset,
-#										curSlot + sprintOffset * 2,
-#										false
-#										)
 										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
-#										rpc_id(
-#										fightManager.opponent, "remote_card_move", 
-#										curSlot + sprintOffset * 2,
-#										curSlot + sprintOffset * 3,
-#										false
-#										)
 										pushed = true
 							
 							if pushed:
@@ -402,8 +384,42 @@ func initiate_combat(friendly: bool):
 		var slot_index = pCard.slot_idx()
 		
 		if pCard.attack > 0 and not "Perish" in cardAnim.current_animation:
-			
-			if pCard.has_sigil("Trifurcated Strike") or pCard.has_sigil("Bifurcated Strike"):
+
+
+			if pCard.has_sigil("Omni Strike") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
+				for eCard in all_enemy_cards() if friendly else all_friendly_cards():
+					
+					# Break if we died from quills / boom
+					if is_slot_empty(attackingSlots[slot_index]):
+						break
+
+					var s_offset = eCard.slot_idx() - slot_index
+				
+					# Don't attack repulsive cards!
+					if not is_slot_empty(defendingSlots[slot_index + s_offset]) and defendingSlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
+						continue
+
+
+					# Lower next slot
+					if s_offset > 0:
+						attackingSlots[slot_index + s_offset].show_behind_parent = true
+					
+					# Visually represent the card's attack offset (hacky)
+					pCard.rect_position.x = s_offset * 128
+
+					pCard.strike_offset = s_offset
+					cardAnim.play("Attack" if friendly else "AttackRemote")
+					pCard.play_sfx("attack")
+					yield(cardAnim, "animation_finished")
+
+				if not is_slot_empty(attackingSlots[slot_index]):
+					pCard.rect_position.x = 0
+
+				for slt in attackingSlots:
+					slt.show_behind_parent = false
+
+				
+			elif pCard.has_sigil("Trifurcated Strike") or pCard.has_sigil("Bifurcated Strike"):
 				# Lower slot to right for attack anim (JANK AF)
 				if slot_index < 3:
 					attackingSlots[slot_index + 1].show_behind_parent = true
