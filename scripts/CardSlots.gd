@@ -183,7 +183,7 @@ func post_turn_sigils(friendly: bool):
 		var cardTween = card.get_node("Tween")
 		
 		# Spront
-		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Hefty"]:
+		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Skeleton Crew (Yarr)", "Hefty"]:
 			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
 				
 				var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
