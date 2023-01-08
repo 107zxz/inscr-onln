@@ -1,37 +1,66 @@
-v0.2.7 is out!
+v0.3.0 is out!
 
-Fixed a lot of bugs and desyncs, lots of quality of life features, and of course new cards and sigils from acts 1 and 3!
-
-* New Features
-    * Rulesets can now be set as 'default', skipping the select screen next time the game is booted
-    * Rulesets can now be opened in the prototype version of the ruleset editor. ATM you can't edit rulesets with it, but feel free to suggest changes to layout etc
-    * Theme editor can now:
-        * Copy and paste themes as JSON
-        * Save / load themes to / from files
-        * Set a background image for the game
-        * Update colours as they are set
-        * 'Live update' colours as an experimental (and laggy) option
-    * Theme editor and options menu can now be dragged around and brought into the deck editor / a player match
-    * You can now open the ruleset folder from the ruleset editor
+This will be the last update for a while, since I'm taking a break from the project after this patch. All known bugs have been fixed (again), and some long overdue custom cards have been added, as well as the Daus.
 
 * New Cards
-    * Corpse Maggots
-    * Rat King
-    * Gem Guardian
-    * Gem Detonator
-
+    * Vanilla
+        * The Daus
+        * Chime
+    * Custom (Thanks, syntaxevasion!)
+        * Junkbot
+            * 2/1
+            * 1 Energy Cost
+            * Brittle
+            * Depleting
+        * Rustbucket
+            * 2/2
+            * 4 Energy Cost
+            * Depleting
+        * Scrap Golem
+            * 1/3
+            * 3 Energy v
+            * Depleting
+            * Sharp Quills
+        * No Moon
+            * 1/2
+            * 6 Energy Cost
+            * Depleting
+            * Omni Strike
 * New Sigils
-    * Corpse Eater
-    * Gem Detonator
-    * Gem Guardian
+    * Bellist
+    * Depleting
+        * Removes 2 of the owner's energy cells when played
+    * Omni Strike
+        * Behaves as it does in vanilla, attacking all enemy cards, and directly if there are none
+
+* Balance Changes (Applies to IMF Competitive)
+    * Increase cost of activating Enlarge 2->3 bones
+    * Increase cost of activating Disentomb 1->2 bones
+    * Increase health of Thick Droid 4->5
+    * Increase health of Junior Sage 2->3
+    * Decrease cost of Ghost Ship 4->2 bones
+    * Ghost Ship spawns Skeleton Crew instead of normal skeletons
+    * Increase attack of The Walkers 1->2
+    * Increase bone cost of The Walkers 4->5
+    * Increase attack of Adder 1->2
+    * Increase health of Banshee 1->3
+    * Increase cost of Banshee 2->3 bones
+    * Explode bot can no longer be sacrificed
+    * Buff conduit buffs the conduits creating a circuit as well as the cards between them
+    * Energized Vessel cost 3->2 Energy
+    * Made of Stone -> Card is immune to damage dealt by sigil effects
+
+* New Features
+    * The ruleset editor can now edit card stats, sigils and flags
+    * Attempting to connect to an opponent with a different ruleset now gives the option to download their ruleset
 
 * Bug Fixes
-    * Fixed Deck Folder button in deck editor not working
-    * Fixed card stats being way too small in battle
-    * Fixed evolution animation being slightly off-center
-    * Fixed side deck not being shuffled at start of match
-    * Fixed being allowed to play with an empty side deck
-    * Fixed experimental SFX option not working
-    * Fixed jukebot being unaffected by music setting
-    * Fixed music peristing after matches
-    * Blocked internal influence (for now)
+    * Fixed Necromancer not doubling 'on-play' effects
+    * Fixed only 3 cards being drawn as a starting hand in IMF Vanilla
+    * Fixed Disentomb desyncing the bone counter
+    * Fixed card attack SFX playing independently of whether it is enabled the options menu
+    * Fixed themes not working in some places (except the ruleset editor I didn't fix that)
+    * Fixed jukebot continuing to play music after quitting match
+    * Fixed Corpse Maggots summoning themselves outside of combat
+    * Fixed multiple Corpse Maggots summoning themselve s into the same slot
+    * Fixed Draugr summoning 2 skeletons into the same slot
