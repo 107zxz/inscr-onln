@@ -480,6 +480,17 @@ func _on_ActiveSigil_pressed():
 			
 		draw_stats()
 	
+	if sName == "Enlarge (3)":
+		if fightManager.bones < 3:
+			return
+	
+		fightManager.add_bones(-3)
+		health += 1
+		card_data.attack += 1 # Save attack to avoid deletion later
+		attack += 1
+			
+		draw_stats()
+	
 	if sName == "Stimulate":
 		if fightManager.energy < 3:
 			return
@@ -522,10 +533,10 @@ func _on_ActiveSigil_pressed():
 		fightManager.add_bones(-1)
 		fightManager.draw_card(CardInfo.from_name("Skeleton"))
 	if sName == "Disentomb (Corpses)":
-		if fightManager.bones < 1:
+		if fightManager.bones < 2:
 			return
 
-		fightManager.add_bones(-1)
+		fightManager.add_bones(-2)
 		fightManager.draw_card(CardInfo.from_name("Withered Corpse"))
 	
 	# Disable button until start of next turn
@@ -615,6 +626,12 @@ func calculate_buffs():
 	# Buff Conduit
 	attack += cfx.count("Attack Conduit")
 	
+	# SPECIAL: Buff conduit buffs all conduits
+#	if "conduit" in card_data:
+#		for crd in (slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards()):
+#			if crd.has_sigil("Attack Conduit"):
+#				attack += 1
+#
 	# Energy Conduit
 	if has_sigil("Energy Conduit (+3)"):
 		if friendly:

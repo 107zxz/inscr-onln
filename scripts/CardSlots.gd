@@ -261,6 +261,9 @@ func post_turn_sigils(friendly: bool):
 					if movSigil == "Skeleton Crew":
 						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
 #						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
+					if movSigil == "Skeleton Crew (Yarr)":
+						summon_card(CardInfo.from_name("Skeleton Crew"), curSlot, friendly)
+
 					if card.card_data.name == "Long Elk":
 						summon_card(CardInfo.from_name("Vertebrae"), curSlot, friendly)
 #						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Vertebrae"), curSlot)
@@ -727,6 +730,15 @@ func remote_activate_sigil(card_slot, arg = 0):
 		eCard.attack += 1
 
 		eCard.draw_stats()
+		
+	if sName == "Enlarge (3)":
+		fightManager.add_opponent_bones(-2)
+		eCard.health += 1
+
+		eCard.card_data["attack"] += 1 # save attack to avoid bug
+		eCard.attack += 1
+
+		eCard.draw_stats()
 	
 	if sName == "Stimulate":
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
@@ -753,8 +765,12 @@ func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		fightManager.add_opponent_bones(1)
 	
-	if sName == "Disentomb" or sName == "Disentomb (Corpses)":
+	if sName == "Disentomb":
 		fightManager.add_opponent_bones(-1)
+	
+	if sName == "Disentomb (Corpses)":
+		fightManager.add_opponent_bones(-2)
+		
 	
 #	Only animate if not dying
 	if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
