@@ -82,12 +82,14 @@ func use_ruleset(dat: Dictionary):
 
 
 func edit_ruleset(dat: Dictionary):
-	CardInfo.rules_path = CardInfo.rulesets_path + dat.ruleset + ".json"
-	CardInfo.read_game_info()
+	OS.shell_open(ProjectSettings.globalize_path(CardInfo.rulesets_path + dat.ruleset + ".json"))
 	
-	GameOptions.past_first = true
+#	CardInfo.rules_path = C
+#	CardInfo.read_game_info()
 	
-	get_tree().change_scene("res://packed/RulesetEditor.tscn")
+#	GameOptions.past_first = true
+	
+#	get_tree().change_scene("res://packed/RulesetEditor.tscn")
 
 func delete_ruleset(lineObject: Control, rsName: String):
 	
