@@ -405,6 +405,9 @@ func update_flags():
 	CardInfo.all_data.ant_limit = flagDats[15].value
 	CardInfo.all_data.description = flagDats[16].text
 	CardInfo.all_data.portrait = flagDats[18].text
+	
+	CardInfo.all_data.starting_bones = flagDats[21].value
+	CardInfo.all_data.starting_energy_max = flagDats[23].value
 
 func populate_flags():
 	flagDats[1].value = CardInfo.all_data.num_candles
@@ -416,6 +419,12 @@ func populate_flags():
 	flagDats[13].pressed = "necro_boned" in CardInfo.all_data
 	flagDats[15].value = CardInfo.all_data.ant_limit
 	flagDats[16].text = CardInfo.all_data.description
+	
+	if "starting_bones" in CardInfo.all_data:
+		flagDats[21].value = CardInfo.all_data.starting_bones
+	
+	if "starting_energy_max" in CardInfo.all_data:
+		flagDats[23].value = CardInfo.all_data.starting_energy_max
 	
 	# Fill out possible icons
 	var d = Directory.new()

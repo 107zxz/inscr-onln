@@ -101,7 +101,6 @@ size_flags_horizontal = 3
 
 [node name="Options" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -230,8 +229,39 @@ margin_top = 455.0
 margin_right = 168.0
 margin_bottom = 489.0
 
+[node name="Cheats" type="Label" parent="Cards/Panel/Options"]
+margin_top = 530.0
+margin_right = 93.0
+margin_bottom = 554.0
+text = "CHEATS: "
+
+[node name="SBLabel" type="Label" parent="Cards/Panel/Options"]
+margin_top = 570.0
+margin_right = 40.0
+margin_bottom = 594.0
+text = "Start with bones: "
+
+[node name="starting_bones" type="SpinBox" parent="Cards/Panel/Options"]
+margin_left = 200.0
+margin_top = 570.0
+margin_right = 328.0
+margin_bottom = 598.0
+
+[node name="SELabel" type="Label" parent="Cards/Panel/Options"]
+margin_top = 610.0
+margin_right = 263.0
+margin_bottom = 634.0
+text = "Start with max energy: "
+
+[node name="starting_energy_max" type="SpinBox" parent="Cards/Panel/Options"]
+margin_left = 262.0
+margin_top = 610.0
+margin_right = 390.0
+margin_bottom = 638.0
+
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -485,6 +515,7 @@ custom_constants/separation = 43
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Status/PanelContainer/HBoxContainer"]
+material = ExtResource( 9 )
 margin_left = 16.0
 margin_right = 130.0
 margin_bottom = 196.0
