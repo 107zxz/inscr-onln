@@ -353,7 +353,7 @@ func _on_LobbyReady_pressed():
 				
 				var do = deckEditor.get_deck_object()
 				
-				if len(do["cards"]) < CardInfo.all_data.deck_size_min:
+				if len(do["cards"]) < CardInfo.all_data.deck_size_min and not "listen" in OS.get_cmdline_args() and not "join" in OS.get_cmdline_args():
 					$SpecialBlocker.visible = true
 					errorBox("The currently selected deck is too small!\nMust be at least " + str(CardInfo.all_data.deck_size_min) + " cards!")
 					return
