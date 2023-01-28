@@ -121,143 +121,155 @@ min_value = 1.0
 max_value = 3.0
 value = 1.0
 
-[node name="HPTLabel" type="Label" parent="Cards/Panel/Options"]
+[node name="SnuffLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 45.0
-margin_right = 360.0
+margin_right = 219.0
 margin_bottom = 69.0
+text = "Allow snuffing candles for Greater Smoke: "
+
+[node name="allow_snuffing_candles" type="CheckBox" parent="Cards/Panel/Options"]
+margin_left = 473.0
+margin_top = 45.0
+margin_right = 493.0
+margin_bottom = 79.0
+
+[node name="HPTLabel" type="Label" parent="Cards/Panel/Options"]
+margin_top = 85.0
+margin_right = 360.0
+margin_bottom = 109.0
 text = "Hammers / Turn (-1 for infinity): "
 
 [node name="hammers_per_turn" type="SpinBox" parent="Cards/Panel/Options"]
 margin_left = 358.0
-margin_top = 45.0
+margin_top = 85.0
 margin_right = 486.0
-margin_bottom = 73.0
+margin_bottom = 113.0
 
 [node name="MDSLabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 85.0
+margin_top = 125.0
 margin_right = 360.0
-margin_bottom = 109.0
+margin_bottom = 149.0
 text = "Minimum deck size: "
 
 [node name="minimum_deck_size" type="SpinBox" parent="Cards/Panel/Options"]
 margin_left = 210.0
-margin_top = 85.0
+margin_top = 125.0
 margin_right = 338.0
-margin_bottom = 113.0
-min_value = 1.0
-value = 1.0
-
-[node name="MCMLabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 125.0
-margin_right = 360.0
-margin_bottom = 149.0
-text = "Maximum copies of each common (main): "
-
-[node name="max_commons_main" type="SpinBox" parent="Cards/Panel/Options"]
-margin_left = 446.0
-margin_top = 125.0
-margin_right = 574.0
 margin_bottom = 153.0
 min_value = 1.0
 value = 1.0
 
-[node name="MCSLabel" type="Label" parent="Cards/Panel/Options"]
+[node name="MCMLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 165.0
-margin_right = 440.0
+margin_right = 448.0
 margin_bottom = 189.0
-text = "Maximum copies of each common (side): "
+text = "Maximum copies of each common (main): "
 
-[node name="max_commons_side" type="SpinBox" parent="Cards/Panel/Options"]
-margin_left = 438.0
+[node name="max_commons_main" type="SpinBox" parent="Cards/Panel/Options"]
+margin_left = 446.0
 margin_top = 165.0
-margin_right = 566.0
+margin_right = 574.0
 margin_bottom = 193.0
 min_value = 1.0
 value = 1.0
 
-[node name="VANLabel" type="Label" parent="Cards/Panel/Options"]
+[node name="MCSLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 205.0
-margin_right = 704.0
+margin_right = 440.0
 margin_bottom = 229.0
+text = "Maximum copies of each common (side): "
+
+[node name="max_commons_side" type="SpinBox" parent="Cards/Panel/Options"]
+margin_left = 438.0
+margin_top = 205.0
+margin_right = 566.0
+margin_bottom = 233.0
+min_value = 1.0
+value = 1.0
+
+[node name="VANLabel" type="Label" parent="Cards/Panel/Options"]
+margin_top = 245.0
+margin_right = 704.0
+margin_bottom = 269.0
 text = "Cards with sigils in place of attack scores do 1 direct damage: "
 
 [node name="variable_attack_nerf" type="CheckBox" parent="Cards/Panel/Options"]
 margin_left = 707.0
-margin_top = 205.0
+margin_top = 245.0
 margin_right = 727.0
-margin_bottom = 239.0
+margin_bottom = 279.0
 
 [node name="NBLabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 245.0
+margin_top = 285.0
 margin_right = 489.0
-margin_bottom = 269.0
+margin_bottom = 309.0
 text = "Necromancer doesn't trigger sigil effects: "
 
 [node name="necro_boned" type="CheckBox" parent="Cards/Panel/Options"]
 margin_left = 472.0
-margin_top = 245.0
+margin_top = 285.0
 margin_right = 492.0
-margin_bottom = 279.0
+margin_bottom = 319.0
 
 [node name="ALLabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 285.0
+margin_top = 325.0
 margin_right = 360.0
-margin_bottom = 309.0
+margin_bottom = 349.0
 text = "Max attack for ant cards:"
 
 [node name="ant_limit" type="SpinBox" parent="Cards/Panel/Options"]
 margin_left = 300.0
-margin_top = 285.0
+margin_top = 325.0
 margin_right = 428.0
-margin_bottom = 313.0
+margin_bottom = 353.0
 
 [node name="description" type="TextEdit" parent="Cards/Panel/Options"]
-margin_top = 325.0
+margin_top = 365.0
 margin_right = 935.0
-margin_bottom = 441.0
+margin_bottom = 481.0
 text = "hello, world"
 
 [node name="RSILabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 455.0
+margin_top = 495.0
 margin_right = 149.0
-margin_bottom = 479.0
+margin_bottom = 519.0
 text = "Ruleset icon: "
 
 [node name="portrait" type="OptionButton" parent="Cards/Panel/Options"]
 margin_left = 150.0
-margin_top = 455.0
+margin_top = 495.0
 margin_right = 168.0
-margin_bottom = 489.0
+margin_bottom = 529.0
 
 [node name="Cheats" type="Label" parent="Cards/Panel/Options"]
-margin_top = 530.0
+margin_top = 570.0
 margin_right = 93.0
-margin_bottom = 554.0
+margin_bottom = 594.0
 text = "CHEATS: "
 
 [node name="SBLabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 570.0
-margin_right = 40.0
-margin_bottom = 594.0
+margin_top = 610.0
+margin_right = 200.0
+margin_bottom = 634.0
 text = "Start with bones: "
 
 [node name="starting_bones" type="SpinBox" parent="Cards/Panel/Options"]
 margin_left = 200.0
-margin_top = 570.0
+margin_top = 610.0
 margin_right = 328.0
-margin_bottom = 598.0
+margin_bottom = 638.0
 
 [node name="SELabel" type="Label" parent="Cards/Panel/Options"]
-margin_top = 610.0
+margin_top = 650.0
 margin_right = 263.0
-margin_bottom = 634.0
+margin_bottom = 674.0
 text = "Start with max energy: "
 
 [node name="starting_energy_max" type="SpinBox" parent="Cards/Panel/Options"]
 margin_left = 262.0
-margin_top = 610.0
+margin_top = 650.0
 margin_right = 390.0
-margin_bottom = 638.0
+margin_bottom = 678.0
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true

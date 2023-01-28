@@ -588,6 +588,9 @@ func parse_next_move():
 			"change_card":
 				print("Opponent card ", move.index, " changed to ", move.data)
 				slotManager.remote_card_data(move.index, move.data)
+			"snuff_candle":
+				inflict_damage(10)
+				move_done()
 			_:
 				print("Opponent ", move.pid, " did unhandled move:")
 				print(move)
@@ -628,6 +631,10 @@ func parse_next_move():
 			"change_card":
 				print("Friendly card ", move.index, " changed to ", move.data)
 				slotManager.remote_card_data(move.index, move.data)
+			"snuff_candle":
+				inflict_damage(-10)
+				draw_card(CardInfo.from_name("Greater Smoke"))
+				move_done()
 			_:
 				print("You did unhandled move:")
 				print(move)
@@ -769,6 +776,9 @@ func inflict_damage(dmg):
 		$WinScreen.visible = true
 		get_node("/root/Main/TitleScreen").count_victory()
 		
+
+
+
 
 # Resource visualisation and management
 func add_bones(bone_no):
