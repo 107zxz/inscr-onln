@@ -161,7 +161,7 @@ func init_match(opp_id: int, do_go_first: bool):
 	$LeftSideUI/HammerButton.visible = true
 	$LeftSideUI/HammerButton.disabled = false
 
-	if "hammers_per_turn" in CardInfo.all_data:
+	if "hammers_per_turn" in CardInfo.all_data and CardInfo.all_data.hammers_per_turn != -1:
 		hammers_left = CardInfo.all_data.hammers_per_turn
 
 		$LeftSideUI/HammerButton.text = "Hammer (%d/%d)" % [hammers_left, CardInfo.all_data.hammers_per_turn]
@@ -937,7 +937,7 @@ func start_turn():
 			pharoah.turnsleft -= 1
 	
 	# Hammers
-	if "hammers_per_turn" in CardInfo.all_data:
+	if "hammers_per_turn" in CardInfo.all_data and CardInfo.all_data.hammers_per_turn != -1:
 		hammers_left = CardInfo.all_data.hammers_per_turn
 		$LeftSideUI/HammerButton.text = "Hammer (%d/%d)" % [hammers_left, CardInfo.all_data.hammers_per_turn]
 	

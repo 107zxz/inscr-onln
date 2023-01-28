@@ -102,7 +102,6 @@ size_flags_horizontal = 3
 
 [node name="Options" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -146,6 +145,7 @@ margin_left = 358.0
 margin_top = 85.0
 margin_right = 486.0
 margin_bottom = 113.0
+min_value = -1.0
 
 [node name="MDSLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 125.0
@@ -275,6 +275,7 @@ margin_bottom = 678.0
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 

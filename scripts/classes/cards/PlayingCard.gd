@@ -161,7 +161,7 @@ func _on_Button_pressed():
 			# Jank workaround
 			fightManager.get_node("LeftSideUI/HammerButton").pressed = false
 
-			if "hammers_per_turn" in CardInfo.all_data:
+			if "hammers_per_turn" in CardInfo.all_data and CardInfo.all_data.hammers_per_turn != -1:
 				fightManager.hammers_left -= 1
 
 				fightManager.get_node("LeftSideUI/HammerButton").text = "Hammer (%d/%d)" % [fightManager.hammers_left, CardInfo.all_data.hammers_per_turn]
