@@ -590,6 +590,7 @@ func parse_next_move():
 				slotManager.remote_card_data(move.index, move.data)
 			"snuff_candle":
 				inflict_damage(10)
+				damage_stun = false
 				move_done()
 			_:
 				print("Opponent ", move.pid, " did unhandled move:")

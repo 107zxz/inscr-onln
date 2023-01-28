@@ -887,6 +887,7 @@ func _on_Snuff_pressed():
 	
 	if fightManager.lives > 1 and CardInfo.all_data.allow_snuffing_candles:
 		fightManager.inflict_damage(-10)
+		fightManager.damage_stun = false
 		fightManager.draw_card(CardInfo.from_name("Greater Smoke"))
 		
 		fightManager.send_move({

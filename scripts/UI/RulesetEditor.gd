@@ -406,7 +406,11 @@ func update_flags():
 	CardInfo.all_data.max_commons_main = flagDats[9].value
 	CardInfo.all_data.max_commons_side = flagDats[11].value
 	CardInfo.all_data.variable_attack_nerf = flagDats[13].pressed
-	CardInfo.all_data.necro_boned = flagDats[15].pressed
+	
+	if flagDats[15].pressed:
+		CardInfo.all_data.necro_boned = true
+	else:
+		CardInfo.all_data.erase("necro_boned")
 	CardInfo.all_data.ant_limit = flagDats[17].value
 	CardInfo.all_data.description = flagDats[18].text
 	CardInfo.all_data.portrait = flagDats[20].text
