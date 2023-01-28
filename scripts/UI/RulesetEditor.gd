@@ -131,8 +131,10 @@ func draw_card():
 	else:
 		cardDats[23].text = ""
 	
-#	cardDats[22].select(cDat.atkspecial + 1 if "atkspecial" in cDat else 0)
-#	TODO: Make this use the string
+	if "description" in current_card:
+		cardDats[24].text = current_card.description
+	else:
+		cardDats[24].text = ""
 
 func save_card_changes(_xtra = null):
 	
@@ -216,6 +218,11 @@ func save_card_changes(_xtra = null):
 		current_card.pixport_url = cardDats[23].text
 	else:
 		current_card.erase("pixport_url")
+		
+	if cardDats[24].text != "":
+		current_card.description = cardDats[24].text
+	else:
+		current_card.erase("description")
 	
 	# Sigils
 	if cardDats[4].selected != 0 or cardDats[5].selected != 0:
@@ -404,8 +411,15 @@ func update_flags():
 	CardInfo.all_data.description = flagDats[18].text
 	CardInfo.all_data.portrait = flagDats[20].text
 	
-	CardInfo.all_data.starting_bones = flagDats[23].value
-	CardInfo.all_data.starting_energy_max = flagDats[25].value
+	if flagDats[23].value != 0:
+		CardInfo.all_data.starting_bones = flagDats[23].value
+	else:
+		CardInfo.all_data.erase("starting_bones")
+		
+	if flagDats[25].value != 0:
+		CardInfo.all_data.starting_energy_max = flagDats[25].value
+	else:
+		CardInfo.all_data.erase("starting_energy_max")
 
 func populate_flags():
 	flagDats[1].value = CardInfo.all_data.num_candles
@@ -419,9 +433,11 @@ func populate_flags():
 	flagDats[17].value = CardInfo.all_data.ant_limit
 	flagDats[18].text = CardInfo.all_data.description
 	
-	flagDats[23].value = CardInfo.all_data.starting_bones
+	if "starting_bones" in CardInfo.all_data:
+		flagDats[23].value = CardInfo.all_data.starting_bones
 	
-	flagDats[25].value = CardInfo.all_data.starting_energy_max
+	if "starting_energy_max" in CardInfo.all_data:
+		flagDats[25].value = CardInfo.all_data.starting_energy_max
 	
 	
 	
