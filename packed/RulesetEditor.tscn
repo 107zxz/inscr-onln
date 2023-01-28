@@ -101,6 +101,7 @@ size_flags_horizontal = 3
 
 [node name="Options" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -273,7 +274,6 @@ margin_bottom = 678.0
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -315,9 +315,9 @@ caret_blink_speed = 0.5
 
 [node name="SigilA" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 360.0
-margin_top = 650.0
+margin_top = 743.0
 margin_right = 610.0
-margin_bottom = 684.0
+margin_bottom = 777.0
 text = "None"
 align = 1
 items = [ "None", null, false, 0, null ]
@@ -325,9 +325,9 @@ selected = 0
 
 [node name="SigilB" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 360.0
-margin_top = 688.0
+margin_top = 781.0
 margin_right = 610.0
-margin_bottom = 722.0
+margin_bottom = 815.0
 text = "None"
 align = 1
 items = [ "None", null, false, 0, null ]
@@ -335,97 +335,97 @@ selected = 0
 
 [node name="BloodCost" type="SpinBox" parent="Cards/Panel/CardDat"]
 margin_left = 380.0
-margin_top = 792.0
+margin_top = 838.0
 margin_right = 508.0
-margin_bottom = 820.0
+margin_bottom = 866.0
 focus_mode = 2
 max_value = 4.0
 align = 1
 
 [node name="BLabel" type="Label" parent="Cards/Panel/CardDat"]
 margin_left = 512.0
-margin_top = 792.0
+margin_top = 838.0
 margin_right = 590.0
-margin_bottom = 826.0
+margin_bottom = 872.0
 text = "Blood"
 
 [node name="BoneCost" type="SpinBox" parent="Cards/Panel/CardDat"]
 margin_left = 380.0
-margin_top = 826.0
+margin_top = 872.0
 margin_right = 508.0
-margin_bottom = 854.0
+margin_bottom = 900.0
 focus_mode = 2
 align = 1
 
 [node name="BLabel2" type="Label" parent="Cards/Panel/CardDat"]
 margin_left = 512.0
-margin_top = 826.0
+margin_top = 872.0
 margin_right = 590.0
-margin_bottom = 860.0
+margin_bottom = 906.0
 text = "Bones"
 
 [node name="EnergyCost" type="SpinBox" parent="Cards/Panel/CardDat"]
 margin_left = 380.0
-margin_top = 860.0
+margin_top = 906.0
 margin_right = 508.0
-margin_bottom = 888.0
+margin_bottom = 934.0
 focus_mode = 2
 align = 1
 
 [node name="ELabel" type="Label" parent="Cards/Panel/CardDat"]
 margin_left = 512.0
-margin_top = 860.0
+margin_top = 906.0
 margin_right = 590.0
-margin_bottom = 894.0
+margin_bottom = 940.0
 text = "Energy"
 
 [node name="RMox" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 421.0
-margin_top = 901.0
+margin_top = 947.0
 margin_right = 458.0
-margin_bottom = 935.0
+margin_bottom = 981.0
 icon = ExtResource( 4 )
 
 [node name="GMox" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 461.0
-margin_top = 901.0
+margin_top = 947.0
 margin_right = 498.0
-margin_bottom = 935.0
+margin_bottom = 981.0
 icon = ExtResource( 6 )
 
 [node name="BMox" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 502.0
-margin_top = 901.0
+margin_top = 947.0
 margin_right = 539.0
-margin_bottom = 935.0
+margin_bottom = 981.0
 icon = ExtResource( 5 )
 
 [node name="NotBanned" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 68.0
-margin_top = 792.0
-margin_right = 172.0
-margin_bottom = 826.0
+margin_top = 838.0
+margin_right = 198.0
+margin_bottom = 872.0
 text = "Draftable"
 
 [node name="Rare" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 68.0
-margin_top = 826.0
+margin_top = 872.0
 margin_right = 172.0
-margin_bottom = 860.0
+margin_bottom = 906.0
 text = "Rare"
 
 [node name="NoSac" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 695.0
-margin_top = 792.0
+margin_top = 838.0
 margin_right = 883.0
-margin_bottom = 826.0
+margin_bottom = 872.0
 text = "Unsacrificeable"
 
 [node name="NoHammer" type="CheckBox" parent="Cards/Panel/CardDat"]
 margin_left = 705.0
-margin_top = 826.0
+margin_top = 872.0
 margin_right = 884.0
-margin_bottom = 860.0
+margin_bottom = 906.0
 text = "Unhammerable"
 
 [node name="IsConduit" type="CheckBox" parent="Cards/Panel/CardDat"]
@@ -434,23 +434,23 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -180.0
-margin_top = 339.0
+margin_top = 385.0
 margin_right = -74.0
-margin_bottom = 373.0
+margin_bottom = 419.0
 text = "Conduit"
 
 [node name="EvolLabel" type="Label" parent="Cards/Panel/CardDat"]
 margin_left = 229.0
-margin_top = 946.0
+margin_top = 992.0
 margin_right = 488.0
-margin_bottom = 970.0
+margin_bottom = 1016.0
 text = "Evolves / Defrosts into:"
 
 [node name="Evol" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 491.0
-margin_top = 943.0
+margin_top = 989.0
 margin_right = 741.0
-margin_bottom = 971.0
+margin_bottom = 1023.0
 text = "None"
 align = 1
 items = [ "None", null, false, 0, null ]
@@ -474,6 +474,15 @@ align = 1
 placeholder_text = "PORTRAIT URL (Use if no image below)"
 caret_blink = true
 caret_blink_speed = 0.5
+
+[node name="Description" type="TextEdit" parent="Cards/Panel/CardDat"]
+margin_left = 225.0
+margin_top = 640.0
+margin_right = 725.0
+margin_bottom = 820.0
+text = "sdfsfs
+"
+wrap_enabled = true
 
 [node name="SaveBtn" type="Button" parent="."]
 anchor_left = 1.0
