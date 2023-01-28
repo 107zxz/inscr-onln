@@ -243,6 +243,9 @@ func _on_SaveDialog_file_selected(path):
 	
 	save_card_changes()
 	
+	# Apply flags before saving
+	update_flags()
+	
 	var ss = path.split("/")
 	
 	CardInfo.all_data.ruleset = ss[len(ss)-1].split(".json")[0]
@@ -250,7 +253,7 @@ func _on_SaveDialog_file_selected(path):
 	var f = File.new()
 	
 	f.open(path, File.WRITE)
-	f.store_string(JSON.print(CardInfo.all_data))
+	f.store_string(JSON.print(CardInfo.all_data, "\t"))
 	f.close()
 	
 	update_portrait_names()
@@ -389,7 +392,50 @@ func load_pixport():
 
 # Smaller function to update flags
 func update_flags():
-	CardInfo.all_data.num_candles = flagDats[1].selected + 1
+	CardInfo.all_data.num_candles = flagDats[1].value
+	CardInfo.all_data.hammers_per_turn = flagDats[3].value
+	CardInfo.all_data.deck_size_min = flagDats[5].value
+	CardInfo.all_data.max_commons_main = flagDats[7].value
+	CardInfo.all_data.max_commons_side = flagDats[9].value
+	CardInfo.all_data.variable_attack_nerf = flagDats[11].pressed
+	if flagDats[13].pressed:
+		CardInfo.all_data.necro_boned = true
+	else:
+		CardInfo.all_data.erase("necro_boned")
+	CardInfo.all_data.ant_limit = flagDats[15].value
+	CardInfo.all_data.description = flagDats[16].text
+	CardInfo.all_data.portrait = flagDats[18].text
 
 func populate_flags():
-	flagDats[1].select(CardInfo.all_data.num_candles - 1)
+	flagDats[1].value = CardInfo.all_data.num_candles
+	flagDats[3].value = CardInfo.all_data.hammers_per_turn
+	flagDats[5].value = CardInfo.all_data.deck_size_min
+	flagDats[7].value = CardInfo.all_data.max_commons_main
+	flagDats[9].value = CardInfo.all_data.max_commons_side
+	flagDats[11].pressed = CardInfo.all_data.variable_attack_nerf
+	flagDats[13].pressed = "necro_boned" in CardInfo.all_data
+	flagDats[15].value = CardInfo.all_data.ant_limit
+	flagDats[16].text = CardInfo.all_data.description
+	
+	# Fill out possible icons
+	var d = Directory.new()
+	d.open("res://gfx/portraits")
+	d.list_dir_begin()
+	var file_name = d.get_next()
+	
+	var idx = 0
+	
+	while file_name != "":
+		
+		if file_name.ends_with(".png"):
+			flagDats[18].add_item("portraits/" + file_name.split(".png")[0])
+			
+			if flagDats[18].get_item_text(idx) == CardInfo.all_data.portrait:
+				flagDats[18].select(idx)
+			
+			idx += 1
+			
+		file_name = d.get_next()
+	d.list_dir_end()
+	
+#	flagDats[18].text = CardInfo.all_data.portrait

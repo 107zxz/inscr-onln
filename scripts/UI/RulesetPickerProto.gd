@@ -82,14 +82,14 @@ func use_ruleset(dat: Dictionary):
 
 
 func edit_ruleset(dat: Dictionary):
-	OS.shell_open(ProjectSettings.globalize_path(CardInfo.rulesets_path + dat.ruleset + ".json"))
+#	OS.shell_open(ProjectSettings.globalize_path(CardInfo.rulesets_path + dat.ruleset + ".json"))
 	
-#	CardInfo.rules_path = C
-#	CardInfo.read_game_info()
-	
-#	GameOptions.past_first = true
-	
-#	get_tree().change_scene("res://packed/RulesetEditor.tscn")
+	CardInfo.rules_path = CardInfo.rulesets_path + dat.ruleset + ".json"
+	CardInfo.read_game_info()
+
+	GameOptions.past_first = true
+
+	get_tree().change_scene("res://packed/RulesetEditor.tscn")
 
 func delete_ruleset(lineObject: Control, rsName: String):
 	
@@ -144,6 +144,7 @@ func _on_FeaturedFetcher_request_completed(_result, response_code, _headers, bod
 	
 	if response_code != 200:
 		errorBox("Failed fetching featured\nResponse code " + str(response_code))
+		$Status.hide()
 		return
 	
 	var featured = parse_json(body.get_string_from_utf8())
