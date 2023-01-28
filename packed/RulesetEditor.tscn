@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/UI/RulesetEditor.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://gfx/sigils/Green Mox.png" type="Texture" id=6]
 [ext_resource path="res://gfx/portraits/Ouroboros.png" type="Texture" id=7]
 [ext_resource path="res://packed/UI/Error.tscn" type="PackedScene" id=8]
+[ext_resource path="res://themes/sigilMat.tres" type="Material" id=9]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 0.25 )
@@ -28,7 +29,7 @@ tracks/0/keys = {
 "values": [ 0.0, -360.0 ]
 }
 
-[node name="REdit" type="Control"]
+[node name="REdit" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -100,6 +101,7 @@ size_flags_horizontal = 3
 
 [node name="Options" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
+visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 948.0
@@ -230,11 +232,11 @@ margin_bottom = 489.0
 
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Port" type="TextureRect" parent="Cards/Panel/CardDat"]
+material = ExtResource( 9 )
 margin_left = 68.0
 margin_top = 72.0
 margin_right = 888.0
@@ -266,6 +268,8 @@ margin_top = 10.0
 margin_right = 610.0
 margin_bottom = 38.0
 align = 1
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="SigilA" type="OptionButton" parent="Cards/Panel/CardDat"]
 margin_left = 360.0
@@ -426,6 +430,8 @@ margin_right = 735.0
 margin_bottom = 71.0
 align = 1
 placeholder_text = "PORTRAIT URL (Use if no image below)"
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="SaveBtn" type="Button" parent="."]
 anchor_left = 1.0
