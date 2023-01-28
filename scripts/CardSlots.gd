@@ -879,6 +879,21 @@ remote func set_card_offset(card_slot, offset):
 	
 	enemySlots[card_slot].get_child(0).rect_position.x = offset
 
+
+# SPECIAL: Use a candle
+func _on_Snuff_pressed():
+	
+	print("SNUFFY")
+	
+	if fightManager.lives > 1 and CardInfo.all_data.allow_snuffing_candles:
+		fightManager.inflict_damage(-10)
+		fightManager.draw_card(CardInfo.from_name("Greater Smoke"))
+		
+		fightManager.send_move({
+			"type": "snuff_candle"
+		})
+
+
 # Conduit madness
 func get_conduitfx(card):
 	
