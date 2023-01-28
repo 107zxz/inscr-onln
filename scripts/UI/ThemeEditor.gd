@@ -119,6 +119,8 @@ func apply_theme():
 	# Font colours
 	paperTheme.set_color("font_color", "Label", theme_data.text_colour)
 	paperTheme.set_color("font_color", "LineEdit", theme_data.text_colour)
+	paperTheme.set_color("font_color", "TextEdit", theme_data.text_colour)
+	paperTheme.set_color("font_color", "Tree", theme_data.text_colour)
 	paperTheme.set_color("default_color", "RichTextLabel", theme_data.text_colour)
 	paperTheme.set_color("font_color_bg", "TabContainer", theme_data.text_colour)
 	paperTheme.set_color("title_color", "WindowDialog", theme_data.text_colour)
