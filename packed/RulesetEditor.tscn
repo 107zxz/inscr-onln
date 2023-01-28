@@ -479,7 +479,7 @@ caret_blink_speed = 0.5
 margin_left = 225.0
 margin_top = 640.0
 margin_right = 725.0
-margin_bottom = 820.0
+margin_bottom = 724.0
 text = "sdfsfs
 "
 wrap_enabled = true
