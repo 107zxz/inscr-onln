@@ -54,6 +54,7 @@ margin_right = 958.0
 margin_bottom = 1008.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+allow_rmb_select = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Cards/VBoxContainer"]
 margin_top = 1008.0
