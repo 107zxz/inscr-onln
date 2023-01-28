@@ -12,7 +12,10 @@ func handle_event(event: String, params: Array):
 		
 		rq.connect("request_completed", self, "download_callback")
 		rq.download_file = CardInfo.data_path + "/juke.mp3"
-		rq.request(songUrl)
+		
+		
+		if rq.request(songUrl) != 0:
+			return
 		
 		fightManager.get_node("MusInfo").visible = true
 
@@ -22,6 +25,10 @@ func handle_event(event: String, params: Array):
 		
 
 func download_callback(_result, response_code, _headers, body):
+	
+	if response_code != 200:
+		fightManager.get_node("MusInfo").visible = false
+		return
 	
 	var player = fightManager.get_node("MusPlayer")
 #	card.add_child(player)
