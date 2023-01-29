@@ -730,7 +730,7 @@ func take_damage(enemyCard, dmg_amt = -1):
 #		enemyCard.take_damage(self, 1)
 
 func is_alive():
-	return not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion()
+	return not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion() and health > 0
 
 
 func play_sfx(name):
