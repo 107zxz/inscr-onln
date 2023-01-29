@@ -3,5 +3,5 @@
 [ext_resource path="res://fonts/HEAVYWEIGHT.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 128
+size = 90
 font_data = ExtResource( 1 )

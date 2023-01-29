@@ -9,20 +9,17 @@ func _on_RSFF_pressed():
 	$FromFile.popup_centered()
 
 func ARGIT():
-	randomize()
+#	randomize()
 	
 #	if randi() % 10 == 0 and GameOptions.options.misplays < 2 and not GameOptions.mega_misplay: # TODO: Change this when adding more
-	if GameOptions.options.misplays < 3 and not GameOptions.past_first:
-		
-		var p = randi() % 10
-		
-		if p == 03:
-			get_tree().change_scene("res://ARG/Scenes/Void.tscn")
+	if GameOptions.options.misplays < 1 and not GameOptions.past_first:
+		GameOptions.past_first = true
+		get_tree().change_scene("res://ARG/Scenes/DarkRoom.tscn")
 
 func _ready():
 	
 	# Disable ARG check for now
-	# ARGIT()
+	ARGIT()
 	
 	# Apply theme
 	

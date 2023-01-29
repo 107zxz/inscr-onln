@@ -3,180 +3,55 @@
         "entry": {
             "text": [
                 "...",
-                "Hello?",
-                "Are you there?",
+                "Hmph.",
+                "It truly has been ages.",
+                "This is my [color=#540d1d]darkroom[/color].",
+                "I've had to work down here since I lost my camera.",
+
                 "...",
-                "Testing...",
-                "0...",
-                "1...",
-                "10...",
-                "Can you hear me now?"
+
+                "I wonder what the others are doing.",
+                
+                "Speaking of which, would you mind helping me?",
+
+                "One of my recent photos was... damaged.",
+                "If you repair it for me, I will [color=#24c8de]reward[/color] you.",
+                "[jigsaw]"
             ],
-            "opts": {
-                "[IBOX]": "commsintro"
-            }
+            "delays": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        },
+        "puzzdone": {
+            "text": [
+                "Thank you.",
+                "As promised, your [color=#24c8de]boon[/color].",
+                "Using it, you may [color=red]sacrifice[/color] one of your candles",
+                "To gain a [color=grey]greater smoke[/color].",
+                "I hope I shall see you again."
+            ],
+            "delays": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "redir": "res://packed/RulesetPickerProto.tscn"
         },
         "commsintro": {
             "text": [
                 "...",
                 "Too much interference..."
-            ],
-            "redir": "res://packed/RulesetPickerProto.tscn"
-        }
-    },
-
-
-    {
-        "entry": {
-            "text": [
-                "...",
-                "You CAN hear me, right?",
-                "I got your response\nbefore she cut us off.",
-                "It was garbage.",
-                "Too much data loss.",
-                "...",
-                "Let's try this...",
-                "Can you hear me?"
-            ],
-            "opts": {
-                "Yes": "commsyes",
-                "No": "commsno"
-            }
-        },
-        "commsyes": {
-            "text": [
-                "Yes? It works?",
-                "Crap...",
-                "She's onto me again",
-                "GTG"
-            ],
-            "redir": "res://packed/RulesetPickerProto.tscn"
-        },
-        "commsno": {
-            "text": [
-                "No? Really?",
-                "Crap...",
-                "onto me again",
-                "gtg"
-            ],
-            "redir": "res://packed/RulesetPickerProto.tscn"
-        }
-    },
-
-    {
-        "entry": {
-            "text": [
-                "Me again.",
-                "This is as far in as I can get\non my own",
-                "Maybe...",
-                "You'll help me?"
-            ],
-            "opts": {
-                "Yes": "willhelp",
-                "What's going on?": "whatup"
-            }
-        },
-
-        "willhelp": {
-            "text": [
-                "Fine choice",
-                "I need a way further\ninto the game",
-                "Some kind of backdoor"
-            ],
-            "opts": {
-                "Like a door?": "lad",
-                "Like the back of a card?": "lboc"
-            }
-        },
-
-        "whatup": {
-            "text": [
-                "Cliche as it is, we don’t\nhave much time",
-                "I can tell you everything\nonce I’m on the inside",
-                "I need a way further\ninto the game",
-                "Some kind of backdoor"
-            ],
-            "opts": {
-                "Like a door?": "lad",
-                "Like the back of a card?": "lboc"
-            }
-        },
-
-        "lad": {
-            "text": [
-                "...",
-                "I guess?",
-                "That could work...",
-                "This game accepts user\ncreated cards, right?",
-                "Maybe you could slip in\na door somehow?"
-            ],
-            "opts": {
-                "Like a picture of a door?": "lapd",
-                "Like a card that's a door?": "lactd"
-            }
-        },
-
-        "lboc": {
-            "text": [
-                "Seriously?",
-                "...",
-                "In the card could work...",
-                "This game accepts user\ncreated cards, right?",
-                "Maybe you could slip in\na door somehow?"
-            ],
-            "opts": {
-                "Like a picture of a door?": "lapd",
-                "Like a card that's a door?": "lactd"
-            }
-        },
-        
-        "lapd": {
-            "text": [
-                "That's...",
-                "possible!",
-                "Try hiding a picture of a\ndoor in the art of a\nuser submitted card",
-                "It might just get me in",
-                "Keep this quiet",
-                "I've managed to start a\nsecure chat in your discord\nserver",
-                "The admin shouldn't be able\nto see it"
-            ],
-            "opts": {
-                "You know what discord is?": "discord",
-                "What's the cannel called?": "chatname"
-            }
-        },
-
-        "lactd": {
-            "text": [
-                "Too obvious",
-                "The last thing I want is\nmore attention",
-                "Try hiding a picture of a\ndoor in the art of a\nuser submitted card",
-                "It might just get me in",
-                "Keep this quiet",
-                "I've managed to start a\nsecure chat in your discord\nserver",
-                "the admin shouldn't be able\nto see it"
-            ],
-            "opts": {
-                "You know what discord is?": "discord",
-                "What's the channel called?": "chatname"
-            }
-        },
-
-        "discord": {
-            "text": [
-                "I'm literally the...",
-                "Again?",
-                "GTG"
-            ],
-            "redir": "res://packed/RulesetPickerProto.tscn"
-        },
-
-        "chatname": {
-            "text": [
-                "It's called 'Armored'",
-                "Like the...",
-                "Again?",
-                "GTG"
             ],
             "redir": "res://packed/RulesetPickerProto.tscn"
         }

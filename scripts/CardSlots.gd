@@ -467,6 +467,10 @@ func initiate_combat(friendly: bool):
 
 				# Wierd double strike condition
 				for _i in range(2 if pCard.has_sigil("Double Strike") else 1):
+					
+					# Double check card isn't dead
+					if is_slot_empty(attackingSlots[slot_index]):
+						continue
 
 					# Don't attack repulsive cards!
 					if not is_slot_empty(defendingSlots[slot_index]) and defendingSlots[slot_index].get_child(0).has_sigil("Repulsive"):
