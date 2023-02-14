@@ -449,6 +449,9 @@ func play_card(slot):
 			if "bone_cost" in playedCard.card_data:
 				add_bones(-playedCard.card_data["bone_cost"])
 			
+			if "heat_cost" in playedCard.card_data:
+				add_bones(-playedCard.card_data["heat_cost"])
+			
 			# Energy cost
 			if "energy_cost" in playedCard.card_data:
 				set_energy(energy -playedCard.card_data["energy_cost"])

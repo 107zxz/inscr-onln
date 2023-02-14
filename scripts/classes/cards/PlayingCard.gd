@@ -84,11 +84,9 @@ func _on_Button_pressed():
 	# Only allow raising while in hand
 	if in_hand:
 
-		# Turn off hammer if it's on
 		if fightManager.state == fightManager.GameStates.HAMMER:
-			fightManager.hammer_mode()
-			# Jank workaround
-			fightManager.get_node("LeftSideUI/HammerButton").pressed = false
+			#  discard card
+			pass
 
 		# Disable hand interactions while in a non-interactable phase
 		if not fightManager.state in [fightManager.GameStates.NORMAL, fightManager.GameStates.SACRIFICE]:
@@ -752,3 +750,11 @@ func play_sfx(name):
 			cardAudio.stream = sfx["sac"]
 			
 	cardAudio.play()
+
+func discard():
+	if in_hand:
+		get_node("AnimationPlayer").play("Discard")
+		if get_parent().get_parent().name != "PlayerHand":
+			fightManager.add_heat(1)
+		else:
+			fightManager.add_opponent_heat(1)
