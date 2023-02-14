@@ -755,6 +755,12 @@ func discard():
 	if in_hand:
 		get_node("AnimationPlayer").play("Discard")
 		if get_parent().get_parent().name != "PlayerHand":
-			fightManager.add_heat(1)
+			if "Kindling" in sigils:
+				fightManager.add_heat(2)
+			else:
+				fightManager.add_heat(1)
 		else:
-			fightManager.add_opponent_heat(1)
+			if "Kindling" in sigils:
+				fightManager.add_opponent_heat(2)
+			else:
+				fightManager.add_opponent_heat(1)
