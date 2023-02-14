@@ -86,6 +86,11 @@ func _on_Button_pressed():
 
 		if fightManager.state == fightManager.GameStates.HAMMER:
 			#  discard card
+			discard()
+			fightManager.send_move({
+				"type": "burn_card",
+				"idx": 0
+			})
 			pass
 
 		# Disable hand interactions while in a non-interactable phase

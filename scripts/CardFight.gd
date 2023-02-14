@@ -579,6 +579,9 @@ func parse_next_move():
 			"draw_card":
 				print("Opponent ", move.pid, " drew card")
 				_opponent_drew_card(move.deck)
+			"burn_card":
+				print("Opponent", move.pid, " burned card")
+				_opponent_burned_card(move.index)
 			"play_card":
 				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				_opponent_played_card(move.card, move.slot, move.ignore_cost  if "ignore_cost" in move else false)
@@ -653,6 +656,10 @@ func parse_next_move():
 
 func save_replay():
 	print("Saving replay: ", moves)
+
+func _opponent_burned_card(idx):
+	$HandsContainer/Hands/EnemyHand.get_child(idx).discard()
+	pass
 
 func _opponent_drew_card(source_path):
 	
