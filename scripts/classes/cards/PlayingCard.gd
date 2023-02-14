@@ -112,6 +112,10 @@ func _on_Button_pressed():
 			if "bone_cost" in card_data and fightManager.bones < card_data["bone_cost"]:
 				print("You need more bones!")
 				return
+			
+			if "heat_cost" in card_data and fightManager.heat < card_data["heat_cost"]:
+				print("you need more heat!")
+				return
 				
 			if "energy_cost" in card_data and fightManager.energy < card_data["energy_cost"]:
 				print("You need more energy!")

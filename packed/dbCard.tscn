@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/sigils/Sprinter.png" type="Texture" id=2]
@@ -27,6 +27,10 @@ region = Rect2( 28, 1, 26, 15 )
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 6 )
 region = Rect2( 1, 65, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 109, 1, 26, 14 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 11 )
@@ -128,12 +132,27 @@ __meta__ = {
 [node name="BoneCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
 margin_right = 50.0
-margin_bottom = 69.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeatCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_right = 50.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 7 )
 expand = true
 stretch_mode = 5
 __meta__ = {
@@ -173,9 +192,8 @@ __meta__ = {
 
 [node name="Special" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_top = 46.0
-margin_right = 76.0
-margin_bottom = 93.0
+margin_right = 50.0
+margin_bottom = 69.0
 rect_min_size = Vector2( 13, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -187,9 +205,9 @@ stretch_mode = 5
 [node name="ConduitIcon" type="TextureRect" parent="VBoxContainer"]
 visible = false
 material = ExtResource( 9 )
-margin_top = 50.0
-margin_right = 53.0
-margin_bottom = 60.0
+margin_top = 95.0
+margin_right = 99.0
+margin_bottom = 113.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6

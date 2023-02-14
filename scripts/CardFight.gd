@@ -52,6 +52,9 @@ var damage_stun = false
 var bones = 0
 var opponent_bones = 0
 
+var heat = 0
+var opponent_heat = 0
+
 var energy = 0
 var max_energy = 0
 var max_energy_buff = 0
@@ -180,6 +183,11 @@ func init_match(opp_id: int, do_go_first: bool):
 	opponent_bones = 0
 	add_bones(0)
 	add_opponent_bones(0)
+	
+	heat = 0
+	opponent_heat = 0
+	add_heat(0)
+	add_opponent_heat(0)
 	
 	inflict_damage(0)
 	
@@ -487,7 +495,7 @@ func hammer_mode():
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
 	
-	if slotManager.get_hammerable_cards() == 0 and state == GameStates.NORMAL:
+	if state == GameStates.NORMAL:
 		$LeftSideUI/HammerButton.pressed = true
 		return
 	
@@ -793,6 +801,18 @@ func add_opponent_bones(bone_no):
 	opponent_bones += bone_no
 	$PlayerInfo/TheirInfo/Bones/BoneCount.text = str(opponent_bones)
 	$PlayerInfo/TheirInfo/Bones/BoneCount2.text = str(opponent_bones)
+
+func add_heat(heat_no):
+	print("Adding heat", heat, "=>", heat + heat_no)
+	heat += heat_no
+	$PlayerInfo/MyInfo/Heat/HeatCount.text = str(heat)
+	$PlayerInfo/MyInfo/Heat/HeatCount2.text = str(heat)
+
+func add_opponent_heat(heat_no):
+	print("Adding heat", heat, "=>", opponent_heat + heat_no)
+	opponent_heat += heat_no
+	$PlayerInfo/TheirInfo/Heat/HeatCount.text = str(opponent_heat)
+	$PlayerInfo/TheirInfo/Heat/HeatCount2.text = str(opponent_heat)
 
 func set_energy(ener_no):
 	energy = ener_no

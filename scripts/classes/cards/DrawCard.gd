@@ -128,9 +128,10 @@ func draw_special():
 		
 func draw_cost():
 	if "blood_cost" in card_data:
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = true
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.duplicate()
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.region = Rect2(
+		var cost := $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost
+		cost.visible = true
+		cost.texture = cost.texture.duplicate()
+		cost.texture.region = Rect2(
 			28,
 			16 * (card_data["blood_cost"] - 1) + 1,
 			26,
@@ -139,26 +140,32 @@ func draw_cost():
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = false
 	
+	if "heat_cost" in card_data:
+		var cost :TextureRect = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/HeatCost
+		cost.visible = true
+		cost.texture = cost.texture.duplicate()
+		cost.texture.region = Rect2(
+			109, 
+			16 * (card_data["heat_cost"] - 1) + 1, 
+			26, 
+			15
+		)
+	else:
+		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/HeatCost.visible = false
+	
 	if "bone_cost" in card_data:
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = true
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.duplicate()
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
+		var cost := $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost
+		cost.visible = true
+		cost.texture = cost.texture.duplicate()
+		cost.texture.region = Rect2(
 			1,
 			16 * (card_data["bone_cost"] - 1) + 1,
 			26,
 			15
 		)
-		# Special case: horseman
-		if card_data["bone_cost"] == 13:
-			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
-				28,
-				145,
-				26,
-				15
-			)
 		# Special case: shambling cairn
 		if card_data["bone_cost"] == -1:
-			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
+			cost.texture.region = Rect2(
 				28,
 				97,
 				26,
@@ -168,9 +175,11 @@ func draw_cost():
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
 	if "energy_cost" in card_data:
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = true
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.duplicate()
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.region = Rect2(
+		var cost := $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost
+		
+		cost.visible = true
+		cost.texture = cost.texture.duplicate()
+		cost.texture.region = Rect2(
 			82,
 			16 * (card_data["energy_cost"] - 1) + 1,
 			26,
@@ -189,10 +198,11 @@ func draw_cost():
 		var bmox = "Blue" in card_data["mox_cost"]
 		
 		true_mox = moxIdx(gmox, omox, bmox)
+		var cost := $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost
 		
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.visible = true
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.texture.duplicate()
-		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/MoxCost.texture.region = Rect2(
+		cost.visible = true
+		cost.texture = cost.texture.duplicate()
+		cost.texture.region = Rect2(
 			55,
 			16 * true_mox + 1,
 			26,
@@ -317,6 +327,7 @@ func draw_sigils():
 	
 # Garb
 func moxIdx(gmox, omox, bmox) -> int:
+	# this is very silly
 	if gmox and omox and bmox:
 		return 6
 	if gmox and omox:
