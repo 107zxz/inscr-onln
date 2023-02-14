@@ -497,10 +497,11 @@ func hammer_mode():
 
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
-	
-	if state == GameStates.NORMAL:
-		$LeftSideUI/HammerButton.pressed = true
-		return
+#
+#	if state == GameStates.NORMAL:
+#		$LeftSideUI/HammerButton.pressed = true
+#		state = GameStates.HAMMER
+#		return
 	
 	if state == GameStates.NORMAL:
 		state = GameStates.HAMMER
