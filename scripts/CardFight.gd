@@ -626,6 +626,9 @@ func parse_next_move():
 			"draw_card":
 				print("You ", move.pid, " drew card")
 				_opponent_drew_card(move.deck)
+			"burn_card":
+				print("You ", move.pid, " burned card")
+				$HandsContainer/Hands/PlayerHand.get_child(move.index).discard()
 			"play_card":
 				print("You ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				var pCard = handManager.raisedCard
@@ -660,6 +663,7 @@ func save_replay():
 
 func _opponent_burned_card(idx):
 	$HandsContainer/Hands/EnemyHand.get_child(idx).discard()
+	move_done()
 	pass
 
 func _opponent_drew_card(source_path):

@@ -86,11 +86,12 @@ func _on_Button_pressed():
 
 		if fightManager.state == fightManager.GameStates.HAMMER:
 			#  discard card
-			discard()
 			fightManager.send_move({
 				"type": "burn_card",
 				"index": get_position_in_parent()
 			})
+			discard()
+			
 			pass
 
 		# Disable hand interactions while in a non-interactable phase
@@ -757,15 +758,14 @@ func play_sfx(name):
 	cardAudio.play()
 
 func discard():
-	if in_hand:
-		get_node("AnimationPlayer").play("Discard")
-		if get_parent().get_parent().name != "PlayerHand":
-			if "Kindling" in sigils:
-				fightManager.add_heat(2)
-			else:
-				fightManager.add_heat(1)
+	get_node("AnimationPlayer").play("Discard")
+	if get_parent().name == "PlayerHand":
+		if "Kindling" in sigils:
+			fightManager.add_heat(2)
 		else:
-			if "Kindling" in sigils:
-				fightManager.add_opponent_heat(2)
-			else:
-				fightManager.add_opponent_heat(1)
+			fightManager.add_heat(1)
+	else:
+		if "Kindling" in sigils:
+			fightManager.add_opponent_heat(2)
+		else:
+			fightManager.add_opponent_heat(1)
