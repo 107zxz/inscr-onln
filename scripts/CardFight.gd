@@ -450,7 +450,7 @@ func play_card(slot):
 				add_bones(-playedCard.card_data["bone_cost"])
 			
 			if "heat_cost" in playedCard.card_data:
-				add_bones(-playedCard.card_data["heat_cost"])
+				add_heat(-playedCard.card_data["heat_cost"])
 			
 			# Energy cost
 			if "energy_cost" in playedCard.card_data:
@@ -714,6 +714,8 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 			add_opponent_bones(-card_dt["bone_cost"])
 		if "energy_cost" in card_dt and not no_energy_deplete:
 			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
+		if "heat_cost" in card_dt:
+				add_heat(-card_dt["heat_cost"])
 	
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
