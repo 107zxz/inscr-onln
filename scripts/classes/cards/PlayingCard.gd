@@ -89,7 +89,7 @@ func _on_Button_pressed():
 			discard()
 			fightManager.send_move({
 				"type": "burn_card",
-				"idx": 0
+				"index": get_position_in_parent()
 			})
 			pass
 
