@@ -86,13 +86,19 @@ func _on_Button_pressed():
 
 		if fightManager.state == fightManager.GameStates.HAMMER:
 			#  discard card
-			fightManager.send_move({
-				"type": "burn_card",
-				"index": get_position_in_parent()
-			})
-			discard()
+			if "hammer_discard" in CardInfo.all_data and CardInfo.all_data.hammer_discard == true:
+				fightManager.send_move({
+					"type": "burn_card",
+					"index": get_position_in_parent()
+				})
+				discard()
+				# disable the hammer
+				fightManager.hammer_mode()
+				# return so the card isn't raised, interrupting the discard anim
+				return
 			
-			pass
+			fightManager.hammer_mode()
+			
 
 		# Disable hand interactions while in a non-interactable phase
 		if not fightManager.state in [fightManager.GameStates.NORMAL, fightManager.GameStates.SACRIFICE]:
