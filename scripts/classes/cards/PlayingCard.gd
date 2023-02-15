@@ -719,6 +719,7 @@ func has_sigil(sigName):
 	else:
 		if sigName in card_data["sigils"]:
 			return true
+	return false
 
 # Take damage and die if needed
 func take_damage(enemyCard, dmg_amt = -1):
