@@ -263,7 +263,7 @@ focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = "Any"
-items = [ "Any", null, false, 0, null, "Blood", null, false, 1, null, "Bone", null, false, 2, null, "Energy", null, false, 3, null, "Mox", null, false, 4, null ]
+items = [ "Any", null, false, 0, null, "Blood", null, false, 1, null, "Bone", null, false, 2, null, "Energy", null, false, 3, null, "Mox", null, false, 4, null, "Heat", null, false, 5, null ]
 selected = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]

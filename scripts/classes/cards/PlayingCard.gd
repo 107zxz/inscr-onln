@@ -89,15 +89,14 @@ func _on_Button_pressed():
 			if "hammer_discard" in CardInfo.all_data and CardInfo.all_data.hammer_discard == true:
 				fightManager.send_move({
 					"type": "burn_card",
-					"index": get_position_in_parent()
+					"index": get_position_in_parent(),
+					# otherwise the heat value would desync
+					"is_kindling":has_sigil("Kindling")
 				})
-				discard()
-				# disable the hammer
-				fightManager.hammer_mode()
+				discard(has_sigil("Kindling"))
+				
 				# return so the card isn't raised, interrupting the discard anim
 				return
-			
-			fightManager.hammer_mode()
 			
 
 		# Disable hand interactions while in a non-interactable phase
@@ -763,15 +762,15 @@ func play_sfx(name):
 			
 	cardAudio.play()
 
-func discard():
+func discard(has_kindling:bool = false):
 	get_node("AnimationPlayer").play("Discard")
 	if get_parent().name == "PlayerHand":
-		if "Kindling" in sigils:
+		if has_kindling:
 			fightManager.add_heat(2)
 		else:
 			fightManager.add_heat(1)
 	else:
-		if "Kindling" in sigils:
+		if has_kindling:
 			fightManager.add_opponent_heat(2)
 		else:
 			fightManager.add_opponent_heat(1)

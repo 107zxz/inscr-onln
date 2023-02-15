@@ -607,7 +607,7 @@ func parse_next_move():
 				_opponent_drew_card(move.deck)
 			"burn_card":
 				print("Opponent", move.pid, " burned card")
-				_opponent_burned_card(move.index)
+				_opponent_burned_card(move.index, move.is_kindling)
 			"play_card":
 				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				_opponent_played_card(move.card, move.slot, move.ignore_cost  if "ignore_cost" in move else false)
@@ -653,7 +653,7 @@ func parse_next_move():
 				_opponent_drew_card(move.deck)
 			"burn_card":
 				print("You ", move.pid, " burned card")
-				$HandsContainer/Hands/PlayerHand.get_child(move.index).discard()
+				$HandsContainer/Hands/PlayerHand.get_child(move.index).discard(move.is_kindling)
 			"play_card":
 				print("You ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				var pCard = handManager.raisedCard
@@ -686,8 +686,8 @@ func parse_next_move():
 func save_replay():
 	print("Saving replay: ", moves)
 
-func _opponent_burned_card(idx):
-	$HandsContainer/Hands/EnemyHand.get_child(idx).discard()
+func _opponent_burned_card(idx, is_kindling:bool = false):
+	$HandsContainer/Hands/EnemyHand.get_child(idx).discard(is_kindling)
 	move_done()
 	pass
 

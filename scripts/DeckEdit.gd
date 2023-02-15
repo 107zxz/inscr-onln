@@ -137,6 +137,8 @@ func search(_arg = null):
 			continue
 		if cost_type_so.selected == 4 and not "mox_cost" in card:
 			continue
+		if cost_type_so.selected == 5 and not "heat_cost" in card:
+			continue
 		
 		# Attack, hp
 		if attack_so_op.selected == 0 and not card.attack == int(attack_so_num.text):
