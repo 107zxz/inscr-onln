@@ -13,7 +13,7 @@ func from_data(cdat):
 
 func _on_Button_pressed():
 	
-	# Don't allow interaction i banned
+	# Don't allow interaction if banned
 	if $BannedOverlay.visible:
 		return
 	

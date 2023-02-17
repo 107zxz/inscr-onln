@@ -78,6 +78,7 @@ var enemy_no_energy_deplete = false
 var make_bones:bool = true
 var make_heat:bool = true
 var make_energy:bool = true
+var candle_hp:int = 5
 
 # Network match state
 var want_rematch = false
@@ -88,6 +89,9 @@ func _ready():
 		slot.connect("pressed", self, "play_card", [slot])
 	
 	$CustomBg.texture = CardInfo.background_texture
+	
+	if "candle_hp" in CardInfo.all_data:
+		candle_hp = CardInfo.all_data.candle_hp
 	
 	# disable banned costs
 	if "banned_costs" in CardInfo.all_data:
@@ -790,18 +794,18 @@ func inflict_damage(dmg):
 	
 	advantage += dmg
 	
-	if advantage >= 5:
+	if advantage >= candle_hp:
 		opponent_lives -= 1
 		advantage = 0
 		damage_stun = true
 	
-	if advantage <= -5:
+	if advantage <= -candle_hp:
 		lives -= 1
 		advantage = 0
 		damage_stun = true
 		
-	$Advantage/AdvLeft/PickLeft.rect_position.x = 187 + advantage * 37
-	$Advantage/AdvRight/PickRight.rect_position.x = 186 + advantage * (37 if GameOptions.options.show_enemy_advantage else -37)
+	$Advantage/AdvLeft/PickLeft.rect_position.x = 187 + advantage * 185 / candle_hp
+	$Advantage/AdvRight/PickRight.rect_position.x = 186 + advantage * (185 / candle_hp if GameOptions.options.show_enemy_advantage else -(185 / candle_hp))
 	
 	$PlayerInfo/MyInfo/Candle.set_lives(lives)
 	$PlayerInfo/TheirInfo/Candle.set_lives(opponent_lives)
