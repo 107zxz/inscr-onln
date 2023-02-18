@@ -893,6 +893,7 @@ func _on_Snuff_pressed():
 		fightManager.inflict_damage(-10)
 		fightManager.damage_stun = false
 		fightManager.draw_card(CardInfo.from_name("Greater Smoke"))
+		$"../Smokescreen/AnimationPlayer".play("FreindlySmoke")
 		
 		fightManager.send_move({
 			"type": "snuff_candle"

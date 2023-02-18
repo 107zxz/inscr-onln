@@ -264,8 +264,9 @@ func init_match(opp_id: int, do_go_first: bool):
 			starve_check(false)
 			break
 		
-	$FriendlySmoke.visible = false
-	$EnemSmoke.visible = false
+	# reset smoke effect
+	$Smokescreen/AnimationPlayer.play("RESET")
+	
 	$WaitingBlocker.visible = not go_first
 
 
@@ -562,14 +563,6 @@ func send_move(move):
 	current_move += 1
 	rpc("_player_did_move", move)
 
-func fade_in_smoke(element:TextureRect):
-	var tween := create_tween()
-	
-	element.visible = true
-	element.modulate = Color(1.0, 1.0, 1.0, 0.0)
-	tween.tween_property(element, "modulate", Color(1.0, 1.0, 1.0, 0.5), 1.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SIN)
-
-
 ## REMOTE
 
 # New unified
@@ -645,10 +638,10 @@ func parse_next_move():
 				inflict_damage(candle_hp * 2)
 				damage_stun = false
 				
-				# fade in opponent smoke fx
-				fade_in_smoke($EnemSmoke)
-				
 				move_done()
+				
+				# fade in opponent smoke fx
+				$Smokescreen/AnimationPlayer.play("EnemySmoke")
 			_:
 				print("Opponent ", move.pid, " did unhandled move:")
 				print(move)
@@ -696,10 +689,10 @@ func parse_next_move():
 				inflict_damage(-candle_hp * 2)
 				draw_card(CardInfo.from_name("Greater Smoke"))
 				
-				# fade in freindly smoke fx
-				fade_in_smoke($FriendlySmoke)
-				
 				move_done()
+				
+				# fade in freindly smoke fx
+				$Smokescreen/AnimationPlayer.play("FreindlySmoke")
 			_:
 				print("You did unhandled move:")
 				print(move)
