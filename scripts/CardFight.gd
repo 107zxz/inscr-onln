@@ -68,6 +68,7 @@ var hammers_left = -1
 var deck = []
 var side_deck = []
 var side_deck_cards = []
+var snuff_card
 
 # Persistent card state
 var turns_starving = 0
@@ -687,7 +688,7 @@ func parse_next_move():
 				slotManager.remote_card_data(move.index, move.data)
 			"snuff_candle":
 				inflict_damage(-candle_hp * 2)
-				draw_card(CardInfo.from_name("Greater Smoke"))
+				draw_card(CardInfo.from_name(snuff_card))
 				
 				move_done()
 				

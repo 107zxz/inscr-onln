@@ -452,13 +452,13 @@ margin_top = 36.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
-margin_top = 129.0
+[node name="SideDeck" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
+margin_top = 102.0
 margin_right = 1042.0
-margin_bottom = 163.0
+margin_bottom = 136.0
 alignment = 1
 
-[node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
+[node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck"]
 margin_left = 391.0
 margin_top = 5.0
 margin_right = 512.0
@@ -466,7 +466,7 @@ margin_bottom = 29.0
 text = "Side Deck: "
 align = 1
 
-[node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
+[node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck"]
 unique_name_in_owner = true
 margin_left = 512.0
 margin_right = 632.0
@@ -478,7 +478,7 @@ text = "10 Bloody"
 items = [ "10 Bloody", null, false, 0, null ]
 selected = 0
 
-[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
+[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck"]
 margin_left = 632.0
 margin_right = 650.0
 margin_bottom = 34.0
@@ -486,13 +486,46 @@ focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
 
-[node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select" instance=ExtResource( 4 )]
+[node name="Snuff" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
+margin_top = 146.0
+margin_right = 1042.0
+margin_bottom = 180.0
+alignment = 1
+
+[node name="SCLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff"]
+margin_left = 444.0
+margin_top = 5.0
+margin_right = 579.0
+margin_bottom = 29.0
+text = "Snuff Card: "
+align = 1
+
+[node name="SCSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff"]
+margin_left = 579.0
+margin_right = 597.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+
+[node name="CardVis" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
+margin_top = 190.0
+margin_right = 1042.0
+margin_bottom = 190.0
+alignment = 1
+
+[node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/CardVis" instance=ExtResource( 4 )]
 unique_name_in_owner = true
 visible = false
-margin_left = 467.0
-margin_top = 93.0
-margin_right = 570.0
-margin_bottom = 241.0
+margin_left = 418.0
+margin_right = 521.0
+size_flags_horizontal = 4
+
+[node name="SCCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/CardVis" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+visible = false
+margin_left = 469.0
+margin_right = 572.0
 size_flags_horizontal = 4
 
 [node name="Side Deck Draft" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
@@ -596,5 +629,6 @@ text = ">"
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="." method="search"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit" to="." method="search"]
 [connection signal="tab_changed" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer" to="." method="_on_TabContainer_tab_changed"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/PrefixType" to="." method="_on_PrefixType_item_selected"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/SDSel" to="." method="_on_SDSel_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck/PrefixType" to="." method="_on_PrefixType_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck/SDSel" to="." method="_on_SDSel_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff/SCSel" to="." method="_on_SCSel_item_selected"]
