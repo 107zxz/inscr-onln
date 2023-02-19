@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Greater Smoke.png-bd7ab09925f8fe48f1346261d6faf06b.stex"
+path="res://.import/Cerberus.png-c1107ce404741ee62bf74326a93cfa27.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/pixport/Greater Smoke.png"
-dest_files=[ "res://.import/Greater Smoke.png-bd7ab09925f8fe48f1346261d6faf06b.stex" ]
+source_file="res://gfx/pixport/Cerberus.png"
+dest_files=[ "res://.import/Cerberus.png-c1107ce404741ee62bf74326a93cfa27.stex" ]
 
 [params]
 

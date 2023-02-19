@@ -52,6 +52,9 @@ var damage_stun = false
 var bones = 0
 var opponent_bones = 0
 
+var heat = 0
+var opponent_heat = 0
+
 var energy = 0
 var max_energy = 0
 var max_energy_buff = 0
@@ -65,12 +68,18 @@ var hammers_left = -1
 var deck = []
 var side_deck = []
 var side_deck_cards = []
+var snuff_card
 
 # Persistent card state
 var turns_starving = 0
 var gold_sarcophagus = []
 var no_energy_deplete = false
 var enemy_no_energy_deplete = false
+
+var make_bones:bool = true
+var make_heat:bool = true
+var make_energy:bool = true
+var candle_hp:int = 5
 
 # Network match state
 var want_rematch = false
@@ -81,7 +90,31 @@ func _ready():
 		slot.connect("pressed", self, "play_card", [slot])
 	
 	$CustomBg.texture = CardInfo.background_texture
-
+	
+	if "candle_hp" in CardInfo.all_data:
+		candle_hp = CardInfo.all_data.candle_hp
+	
+	# disable banned costs
+	if "banned_costs" in CardInfo.all_data:
+		if "Heat" in CardInfo.all_data.banned_costs:
+			$PlayerInfo/MyInfo/Heat.queue_free()
+			$PlayerInfo/TheirInfo/Heat.queue_free()
+			
+			# for easier refrencing later
+			make_heat = false
+		if "Bones" in CardInfo.all_data.banned_costs:
+			$PlayerInfo/MyInfo/Bones.queue_free()
+			$PlayerInfo/TheirInfo/Bones.queue_free()
+			
+			make_bones = false
+		if "Energy" in CardInfo.all_data.banned_costs:
+			$PlayerInfo/MyInfo/Energy.queue_free()
+			$PlayerInfo/TheirInfo/Energy.queue_free()
+			
+			make_energy = false
+		
+		# we don't need to ban blood because of how it functions.
+		# as long as cards with blood cost don't exist, there's no UI for it
 
 #func _process(delta):
 #	if current_move in moves and not acting:
@@ -113,7 +146,6 @@ func init_match(opp_id: int, do_go_first: bool):
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
 	$DrawPiles/Notify.visible = false
-	
 	
 	
 	# TODO: Clean up. This is spaghetti city
@@ -181,6 +213,11 @@ func init_match(opp_id: int, do_go_first: bool):
 	add_bones(0)
 	add_opponent_bones(0)
 	
+	heat = 0
+	opponent_heat = 0
+	add_heat(0)
+	add_opponent_heat(0)
+	
 	inflict_damage(0)
 	
 	if "starting_bones" in CardInfo.all_data:
@@ -228,6 +265,9 @@ func init_match(opp_id: int, do_go_first: bool):
 			starve_check(false)
 			break
 		
+	# reset smoke effect
+	$Smokescreen/AnimationPlayer.play("RESET")
+	
 	$WaitingBlocker.visible = not go_first
 
 
@@ -441,6 +481,10 @@ func play_card(slot):
 			if "bone_cost" in playedCard.card_data:
 				add_bones(-playedCard.card_data["bone_cost"])
 			
+			# Heat cost
+			if "heat_cost" in playedCard.card_data:
+				add_heat(-playedCard.card_data["heat_cost"])
+			
 			# Energy cost
 			if "energy_cost" in playedCard.card_data:
 				set_energy(energy -playedCard.card_data["energy_cost"])
@@ -486,10 +530,11 @@ func hammer_mode():
 
 	# Use inverted values for button value, as this happens before its state is toggled
 	# Janky hack m8
-	
-	if slotManager.get_hammerable_cards() == 0 and state == GameStates.NORMAL:
-		$LeftSideUI/HammerButton.pressed = true
-		return
+#
+#	if state == GameStates.NORMAL:
+#		$LeftSideUI/HammerButton.pressed = true
+#		state = GameStates.HAMMER
+#		return
 	
 	if state == GameStates.NORMAL:
 		state = GameStates.HAMMER
@@ -518,7 +563,6 @@ func send_move(move):
 	
 	current_move += 1
 	rpc("_player_did_move", move)
-
 
 ## REMOTE
 
@@ -568,6 +612,9 @@ func parse_next_move():
 			"draw_card":
 				print("Opponent ", move.pid, " drew card")
 				_opponent_drew_card(move.deck)
+			"burn_card":
+				print("Opponent", move.pid, " burned card")
+				_opponent_burned_card(move.index, move.is_kindling)
 			"play_card":
 				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				_opponent_played_card(move.card, move.slot, move.ignore_cost  if "ignore_cost" in move else false)
@@ -589,9 +636,13 @@ func parse_next_move():
 				print("Opponent card ", move.index, " changed to ", move.data)
 				slotManager.remote_card_data(move.index, move.data)
 			"snuff_candle":
-				inflict_damage(10)
+				inflict_damage(candle_hp * 2)
 				damage_stun = false
+				
 				move_done()
+				
+				# fade in opponent smoke fx
+				$Smokescreen/AnimationPlayer.play("EnemySmoke")
 			_:
 				print("Opponent ", move.pid, " did unhandled move:")
 				print(move)
@@ -611,6 +662,9 @@ func parse_next_move():
 			"draw_card":
 				print("You ", move.pid, " drew card")
 				_opponent_drew_card(move.deck)
+			"burn_card":
+				print("You ", move.pid, " burned card")
+				$HandsContainer/Hands/PlayerHand.get_child(move.index).discard(move.is_kindling)
 			"play_card":
 				print("You ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				var pCard = handManager.raisedCard
@@ -633,15 +687,24 @@ func parse_next_move():
 				print("Friendly card ", move.index, " changed to ", move.data)
 				slotManager.remote_card_data(move.index, move.data)
 			"snuff_candle":
-				inflict_damage(-10)
-				draw_card(CardInfo.from_name("Greater Smoke"))
+				inflict_damage(-candle_hp * 2)
+				draw_card(CardInfo.from_name(snuff_card))
+				
 				move_done()
+				
+				# fade in freindly smoke fx
+				$Smokescreen/AnimationPlayer.play("FreindlySmoke")
 			_:
 				print("You did unhandled move:")
 				print(move)
 
 func save_replay():
 	print("Saving replay: ", moves)
+
+func _opponent_burned_card(idx, is_kindling:bool = false):
+	$HandsContainer/Hands/EnemyHand.get_child(idx).discard(is_kindling)
+	move_done()
+	pass
 
 func _opponent_drew_card(source_path):
 	
@@ -691,6 +754,8 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 			add_opponent_bones(-card_dt["bone_cost"])
 		if "energy_cost" in card_dt and not no_energy_deplete:
 			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
+		if "heat_cost" in card_dt:
+			add_opponent_heat(-card_dt["heat_cost"])
 	
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
@@ -740,18 +805,18 @@ func inflict_damage(dmg):
 	
 	advantage += dmg
 	
-	if advantage >= 5:
+	if advantage >= candle_hp:
 		opponent_lives -= 1
 		advantage = 0
 		damage_stun = true
 	
-	if advantage <= -5:
+	if advantage <= -candle_hp:
 		lives -= 1
 		advantage = 0
 		damage_stun = true
 		
-	$Advantage/AdvLeft/PickLeft.rect_position.x = 187 + advantage * 37
-	$Advantage/AdvRight/PickRight.rect_position.x = 186 + advantage * (37 if GameOptions.options.show_enemy_advantage else -37)
+	$Advantage/AdvLeft/PickLeft.rect_position.x = 187 + advantage * 185 / candle_hp
+	$Advantage/AdvRight/PickRight.rect_position.x = 186 + advantage * (185 / candle_hp if GameOptions.options.show_enemy_advantage else -(185 / candle_hp))
 	
 	$PlayerInfo/MyInfo/Candle.set_lives(lives)
 	$PlayerInfo/TheirInfo/Candle.set_lives(opponent_lives)
@@ -783,34 +848,54 @@ func inflict_damage(dmg):
 
 # Resource visualisation and management
 func add_bones(bone_no):
-	print("Adding bones ", bones, " => ", bones + bone_no)
-	bones += bone_no
-	$PlayerInfo/MyInfo/Bones/BoneCount.text = str(bones)
-	$PlayerInfo/MyInfo/Bones/BoneCount2.text = str(bones)
+	if make_bones:
+		print("Adding bones ", bones, " => ", bones + bone_no)
+		bones += bone_no
+		$PlayerInfo/MyInfo/Bones/BoneCount.text = str(bones)
+		$PlayerInfo/MyInfo/Bones/BoneCount2.text = str(bones)
 
 func add_opponent_bones(bone_no):
-	print("Adding enemy bones ", opponent_bones, " => ", opponent_bones + bone_no)
-	opponent_bones += bone_no
-	$PlayerInfo/TheirInfo/Bones/BoneCount.text = str(opponent_bones)
-	$PlayerInfo/TheirInfo/Bones/BoneCount2.text = str(opponent_bones)
+	if make_bones:
+		print("Adding enemy bones ", opponent_bones, " => ", opponent_bones + bone_no)
+		opponent_bones += bone_no
+		$PlayerInfo/TheirInfo/Bones/BoneCount.text = str(opponent_bones)
+		$PlayerInfo/TheirInfo/Bones/BoneCount2.text = str(opponent_bones)
+
+func add_heat(heat_no):
+	if make_heat:
+		print("Adding heat ", heat, " => ", heat + heat_no)
+		heat += heat_no
+		$PlayerInfo/MyInfo/Heat/HeatCount.text = str(heat)
+		$PlayerInfo/MyInfo/Heat/HeatCount2.text = str(heat)
+
+func add_opponent_heat(heat_no):
+	if make_heat:
+		print("Adding enemy heat ", heat, " => ", opponent_heat + heat_no)
+		opponent_heat += heat_no
+		$PlayerInfo/TheirInfo/Heat/HeatCount.text = str(opponent_heat)
+		$PlayerInfo/TheirInfo/Heat/HeatCount2.text = str(opponent_heat)
 
 func set_energy(ener_no):
-	energy = ener_no
-	$PlayerInfo/MyInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
+	if make_energy:
+		energy = ener_no
+		$PlayerInfo/MyInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
 	
 func set_opponent_energy(ener_no):
-	opponent_energy = ener_no
-	$PlayerInfo/TheirInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
-	$PlayerInfo/TheirInfo/Energy/AvailableEnergy.rect_position.x = 20 - 20 * ener_no
+	if make_energy:
+		opponent_energy = ener_no
+		$PlayerInfo/TheirInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
+		$PlayerInfo/TheirInfo/Energy/AvailableEnergy.rect_position.x = 20 - 20 * ener_no
 
 func set_max_energy(ener_no):
-	max_energy = ener_no
-	$PlayerInfo/MyInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+max_energy_buff)
+	if make_energy:
+		max_energy = ener_no
+		$PlayerInfo/MyInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+max_energy_buff)
 	
 func set_opponent_max_energy(ener_no):
-	opponent_max_energy = ener_no
-	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+opponent_max_energy_buff)
-	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_position.x = 20 - 20 * (ener_no+opponent_max_energy_buff)
+	if make_energy:
+		opponent_max_energy = ener_no
+		$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+opponent_max_energy_buff)
+		$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_position.x = 20 - 20 * (ener_no+opponent_max_energy_buff)
 
 
 func reload_hand():
@@ -970,6 +1055,7 @@ func start_turn():
 
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
-	add_opponent_bones(bone_no)
+	if make_bones:
+		add_opponent_bones(bone_no)
 
 

@@ -177,7 +177,10 @@ func init_fight(go_first: int):
 					cardFight.side_deck_cards = ddata.side_deck_cards
 		else:
 			cardFight.side_deck_key = null
-			
+		
+		if CardInfo.snuff_cards:
+			cardFight.snuff_card = ddata.snuff_card
+		
 	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name + " (" + str(lobby_data.players[myId].wins) + " wins)"
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name + " (" + str(lobby_data.players[oppId].wins) + " wins)"
 	cardFight.get_node("PlayerInfo/MyInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[myId].pfp + ".png")

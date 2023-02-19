@@ -25,10 +25,12 @@ onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer
 onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/LineEdit
 
 # Extended options
-onready var sidedeck_de = $"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/SDSel"
+onready var sidedeck_de = $"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck/SDSel"
 onready var sidedeck_container = get_node("%SideDeckContainer")
 onready var sidedeck_single = get_node("%SDCardSingle")
 onready var sidedeck_prefix = get_node("%PrefixType")
+
+onready var snuffcard_de = $"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff/SCSel"
 
 onready var tab_cont = get_node("%TabContainer")
 
@@ -83,6 +85,8 @@ func _ready():
 func init_sidedeck_ui():
 	for sd in CardInfo.side_decks:
 		sidedeck_de.add_item(sd)
+	for sc in CardInfo.snuff_cards:
+		snuffcard_de.add_item(sc)
 
 func init_search_ui():
 	var id = 2
@@ -136,6 +140,8 @@ func search(_arg = null):
 		if cost_type_so.selected == 3 and not "energy_cost" in card:
 			continue
 		if cost_type_so.selected == 4 and not "mox_cost" in card:
+			continue
+		if cost_type_so.selected == 5 and not "heat_cost" in card:
 			continue
 		
 		# Attack, hp
@@ -204,10 +210,17 @@ func get_deck_object():
 			for card in sidedeck_container.get_children():
 				if not card.is_queued_for_deletion():
 					deck_object.side_deck_cards.append(card.card_data["name"])
+	
+	if CardInfo.snuff_cards:
+		var sc_key = CardInfo.snuff_cards.keys()[snuffcard_de.selected]
+		var snuff_card = CardInfo.snuff_cards[sc_key]
+		
+		deck_object["snuff_card"] = sc_key
 
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
 			deck_object["cards"].append(card.card_data["name"])
+	
 	
 	return deck_object
 
@@ -389,6 +402,14 @@ func load_deck(_arg = null):
 		# Redraw
 		draw_sidedeck(dj["side_deck"])
 	
+	# snuff card
+	if CardInfo.snuff_cards:
+		if not "snuff_card" in dj or not dj.snuff_card in CardInfo.snuff_cards:
+			dj.snuff_card = CardInfo.snuff_cards.keys()[0]
+		snuffcard_de.select(CardInfo.snuff_cards.keys().find(dj["snuff_card"]))
+		# Simulate a selection because I'm lazy
+		_on_SCSel_item_selected(snuffcard_de.selected)
+	
 	update_deck_count()
 
 func populate_deck_list():
@@ -434,6 +455,14 @@ func _on_SDSel_item_selected(index):
 	
 	draw_sidedeck(key)
 
+func _on_SCSel_item_selected(index):
+	var key = CardInfo.snuff_cards.keys()[index]
+	var snuff_card = CardInfo.snuff_cards[key]
+	
+	var snuffcard_single = $"%SCCardSingle"
+	snuffcard_single.visible = true
+	snuffcard_single.from_data(CardInfo.from_name(key))
+	pass
 
 func _on_PrefixType_item_selected(_index):
 	var key = CardInfo.side_decks.keys()[sidedeck_de.selected]

@@ -84,11 +84,20 @@ func _on_Button_pressed():
 	# Only allow raising while in hand
 	if in_hand:
 
-		# Turn off hammer if it's on
 		if fightManager.state == fightManager.GameStates.HAMMER:
-			fightManager.hammer_mode()
-			# Jank workaround
-			fightManager.get_node("LeftSideUI/HammerButton").pressed = false
+			#  discard card
+			if "hammer_discard" in CardInfo.all_data and CardInfo.all_data.hammer_discard == true:
+				fightManager.send_move({
+					"type": "burn_card",
+					"index": get_position_in_parent(),
+					# otherwise the heat value would desync
+					"is_kindling":has_sigil("Kindling")
+				})
+				discard(has_sigil("Kindling"))
+				
+				# return so the card isn't raised, interrupting the discard anim
+				return
+			
 
 		# Disable hand interactions while in a non-interactable phase
 		if not fightManager.state in [fightManager.GameStates.NORMAL, fightManager.GameStates.SACRIFICE]:
@@ -111,6 +120,10 @@ func _on_Button_pressed():
 			# Only raise if all costs are met
 			if "bone_cost" in card_data and fightManager.bones < card_data["bone_cost"]:
 				print("You need more bones!")
+				return
+			
+			if "heat_cost" in card_data and fightManager.heat < card_data["heat_cost"]:
+				print("you need more heat!")
 				return
 				
 			if "energy_cost" in card_data and fightManager.energy < card_data["energy_cost"]:
@@ -706,6 +719,7 @@ func has_sigil(sigName):
 	else:
 		if sigName in card_data["sigils"]:
 			return true
+	return false
 
 # Take damage and die if needed
 func take_damage(enemyCard, dmg_amt = -1):
@@ -748,3 +762,16 @@ func play_sfx(name):
 			cardAudio.stream = sfx["sac"]
 			
 	cardAudio.play()
+
+func discard(has_kindling:bool = false):
+	get_node("AnimationPlayer").play("Discard")
+	if get_parent().name == "PlayerHand":
+		if has_kindling:
+			fightManager.add_heat(2)
+		else:
+			fightManager.add_heat(1)
+	else:
+		if has_kindling:
+			fightManager.add_opponent_heat(2)
+		else:
+			fightManager.add_opponent_heat(1)

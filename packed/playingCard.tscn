@@ -658,6 +658,8 @@ __meta__ = {
 [node name="CardBody" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 128.0
+margin_bottom = 185.0
 rect_min_size = Vector2( 128, 185 )
 mouse_filter = 2
 theme = ExtResource( 1 )
@@ -740,9 +742,23 @@ __meta__ = {
 
 [node name="BoneCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_top = 18.0
-margin_right = 41.0
-margin_bottom = 37.0
+margin_right = 62.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 26, 15 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeatCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+visible = false
+margin_right = 62.0
+margin_bottom = 43.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -772,9 +788,8 @@ __meta__ = {
 
 [node name="MoxCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
 visible = false
-margin_top = 45.0
-margin_right = 41.0
-margin_bottom = 60.0
+margin_right = 62.0
+margin_bottom = 86.0
 rect_min_size = Vector2( 26, 15 )
 mouse_filter = 2
 size_flags_horizontal = 3

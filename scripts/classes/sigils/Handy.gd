@@ -8,7 +8,7 @@ func handle_event(event: String, params: Array):
 		
 		# Discard hand
 		for hCard in fightManager.handManager.get_node("PlayerHand" if isFriendly else "EnemyHand").get_children():
-			hCard.get_node("AnimationPlayer").play("Discard")
+			hCard.discard()
 
 		if isFriendly:
 			for _i in range(3):
