@@ -212,7 +212,7 @@ func get_deck_object():
 					deck_object.side_deck_cards.append(card.card_data["name"])
 	
 	if CardInfo.snuff_cards:
-		var sc_key = CardInfo.side_decks.keys()[snuffcard_de.selected]
+		var sc_key = CardInfo.snuff_cards.keys()[snuffcard_de.selected]
 		var snuff_card = CardInfo.snuff_cards[sc_key]
 		
 		deck_object["snuff_card"] = sc_key
