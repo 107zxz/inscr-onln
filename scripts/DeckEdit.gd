@@ -85,6 +85,8 @@ func _ready():
 func init_sidedeck_ui():
 	for sd in CardInfo.side_decks:
 		sidedeck_de.add_item(sd)
+	for sc in CardInfo.snuff_cards:
+		snuffcard_de.add_item(sc)
 
 func init_search_ui():
 	var id = 2
@@ -458,7 +460,7 @@ func _on_SCSel_item_selected(index):
 	
 	var snuffcard_single = $"%SCCardSingle"
 	snuffcard_single.visible = true
-	snuffcard_single.from_data(CardInfo.from_name(snuff_card))
+	snuffcard_single.from_data(CardInfo.from_name(key))
 	pass
 
 func _on_PrefixType_item_selected(_index):

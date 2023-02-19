@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Greater Smoke.png-bd7ab09925f8fe48f1346261d6faf06b.stex"
+path="res://.import/Demon.png-e0c3741e20483295d4089ec1cda8cf2c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/pixport/Greater Smoke.png"
-dest_files=[ "res://.import/Greater Smoke.png-bd7ab09925f8fe48f1346261d6faf06b.stex" ]
+source_file="res://gfx/pixport/Demon.png"
+dest_files=[ "res://.import/Demon.png-e0c3741e20483295d4089ec1cda8cf2c.stex" ]
 
 [params]
 

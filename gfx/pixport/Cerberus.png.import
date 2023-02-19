@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/deco-crab.png-43c2ff667bd1761b137ac3511676f4c1.stex"
+path="res://.import/Cerberus.png-c1107ce404741ee62bf74326a93cfa27.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/pixport/deco-crab.png"
-dest_files=[ "res://.import/deco-crab.png-43c2ff667bd1761b137ac3511676f4c1.stex" ]
+source_file="res://gfx/pixport/Cerberus.png"
+dest_files=[ "res://.import/Cerberus.png-c1107ce404741ee62bf74326a93cfa27.stex" ]
 
 [params]
 
