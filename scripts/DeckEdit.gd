@@ -221,6 +221,7 @@ func get_deck_object():
 		if not card.is_queued_for_deletion():
 			deck_object["cards"].append(card.card_data["name"])
 	
+	
 	return deck_object
 
 func get_card_count(cDat):
@@ -405,9 +406,9 @@ func load_deck(_arg = null):
 	if CardInfo.snuff_cards:
 		if not "snuff_card" in dj or not dj.snuff_card in CardInfo.snuff_cards:
 			dj.snuff_card = CardInfo.snuff_cards.keys()[0]
-		sidedeck_de.select(CardInfo.snuff_cards.keys().find(dj["snuff_card"]))
+		snuffcard_de.select(CardInfo.snuff_cards.keys().find(dj["snuff_card"]))
 		# Simulate a selection because I'm lazy
-		_on_SCSel_item_selected(sidedeck_de.selected)
+		_on_SCSel_item_selected(snuffcard_de.selected)
 	
 	update_deck_count()
 
