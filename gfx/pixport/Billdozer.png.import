@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Gem Detonator (5).png-f40d8a67bb25321dcdde071e34f2f2be.stex"
+path="res://.import/Billdozer.png-0aa75d5ca8ed7c33ff1e2eda8776c5cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/sigils/Gem Detonator (5).png"
-dest_files=[ "res://.import/Gem Detonator (5).png-f40d8a67bb25321dcdde071e34f2f2be.stex" ]
+source_file="res://gfx/pixport/Billdozer.png"
+dest_files=[ "res://.import/Billdozer.png-0aa75d5ca8ed7c33ff1e2eda8776c5cc.stex" ]
 
 [params]
 

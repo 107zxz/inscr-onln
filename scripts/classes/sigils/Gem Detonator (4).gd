@@ -12,7 +12,7 @@ func handle_event(event: String, params: Array):
 	if params[0] == card:
 		return
 	
-	if not "Mox" in params[0].card_data.name:
+	if not params[0].has_tribe("Mox"):
 		return
 		
 	var slotIdx = params[0].slot_idx()
@@ -28,7 +28,7 @@ func handle_event(event: String, params: Array):
 			var eCard = slotManager.get_enemy_card(slotIdx)
 
 			if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-				eCard.take_damage(params[0], 5)
+				eCard.take_damage(params[0], 4)
 #				
 		# Kill adjacents
 		for offset in [-1, 1]:
@@ -36,7 +36,7 @@ func handle_event(event: String, params: Array):
 			var eCard = slotManager.get_friendly_card(slotIdx + offset)
 			
 			if eCard and not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-				eCard.take_damage(params[0], 5)
+				eCard.take_damage(params[0], 4)
 	else:
 		# Attack the moon
 		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
@@ -47,7 +47,7 @@ func handle_event(event: String, params: Array):
 			var eCard = slotManager.get_friendly_card(slotIdx)
 
 			if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-				eCard.take_damage(params[0], 5)
+				eCard.take_damage(params[0], 4)
 #				
 		# Kill adjacents
 		for offset in [-1, 1]:
@@ -55,5 +55,5 @@ func handle_event(event: String, params: Array):
 			var eCard = slotManager.get_enemy_card(slotIdx + offset)
 			
 			if eCard and not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-				eCard.take_damage(params[0], 5)
+				eCard.take_damage(params[0], 4)
 

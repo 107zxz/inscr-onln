@@ -609,7 +609,7 @@ func calculate_buffs():
 			"mox":
 				attack = 0
 				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if "Mox" in mx.card_data["name"]:
+					if mx.has_tribe("Mox"):
 						attack += 1
 			"mirror":
 				if friendly:
@@ -621,7 +621,7 @@ func calculate_buffs():
 			"ant":
 				attack = card_data.attack
 				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if "Ant" in ant.card_data["name"] and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
+					if ant.has_tribe("Ant") and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
 						attack += 1
 		
 	# Bell Tentacle
