@@ -297,6 +297,7 @@ func move_to_parent(new_parent):
 		if from_hand:
 			fightManager.emit_signal("sigil_event", "card_summoned", [self])
 			
+			
 			# Special atk stats
 			if "atkspecial" in card_data:
 				$CardBody/AtkIcon.visible = false
@@ -714,19 +715,29 @@ func slot_idx():
 	return get_parent().get_position_in_parent()
 
 func has_sigil(sigName:String):
-	if not "sigils" in card_data:
-		return false
-	else:
-		if sigName in card_data["sigils"]:
-			return true
+	if card_data.has("sigils") and sigName in card_data["sigils"]:
+		return true
+	
+	if card_data.has("tribes"):
+		var tribeSigils:Dictionary
+		
+		# This doesn't work correctly with in-hand sigils. Too bad!
+		if get_parent().get_parent().name == "PlayerSlots":
+			tribeSigils = slotManager.friendlyTribeSigils
+		else:
+			tribeSigils = slotManager.enemyTribeSigils
+		
+		for tribe in card_data.tribes:
+			if tribeSigils.has(tribe):
+				for sig in tribeSigils[tribe]:
+					if sigName == sig:
+						return true
 	return false
 
 func has_tribe(tribName:String):
-	if not "tribes" in card_data:
-		return false
-	else:
-		if tribName in card_data["tribes"]:
-			return true
+	if card_data.has("tribes") and "tribes" in card_data:
+		return true
+	
 	return false
 
 # Take damage and die if needed
@@ -742,6 +753,11 @@ func take_damage(enemyCard, dmg_amt = -1):
 	health -= dmg_amt
 	draw_stats()
 
+	# invincible cards can't go below 1 hp.
+	if health <= 0 and has_sigil("Invincible"):
+		print("I haz invincibility!")
+		health = 1
+	
 	if health <= 0 or (enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 	

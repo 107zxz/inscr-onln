@@ -7,6 +7,13 @@ onready var enemySlotsBack = $EnemySlotsBack.get_children()
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var handManager = fightManager.get_node("HandsContainer/Hands")
 
+var enemyTribeSigils = {
+	#"Royal": {"Invincible":1}
+}
+var friendlyTribeSigils = {
+	
+}
+
 # Cards selected for sacrifice
 var sacVictims = []
 
