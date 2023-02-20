@@ -13,15 +13,9 @@ func handle_event(event: String, params: Array):
 		# Die if no gems
 		if not "Perish" in card.get_node("AnimationPlayer").current_animation:
 
-			var kill = not (slotManager.get_friendly_cards_sigil("Great Mox") if isFriendly else slotManager.get_enemy_cards_sigil("Great Mox"))
-
-			for moxcol in ["Green", "Blue", "Orange"]:
-				for foundMox in (slotManager.get_friendly_cards_sigil(moxcol + " Mox") if isFriendly else slotManager.get_enemy_cards_sigil(moxcol + " Mox")):
-					if foundMox != self:
-						kill = false;
-						break
 			
-			if kill:
-				print("Gem dependant card should die!")
-				card.get_node("AnimationPlayer").play("Perish")
+			for card in slotManager.all_friendly_cards():
+				if card.has_tribe("Mox"):
+					return
+			card.get_node("AnimationPlayer").play("Perish")
 		

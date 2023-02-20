@@ -78,12 +78,22 @@ func _on_Card_mouse_entered():
 
 	for sigdisp in previewCont.get_child(1).get_children():
 		sigdisp.visible = false
-
+	
+	var cDesc = previewCont.get_child(1).get_child(0)
+	
+	cDesc.text = ""
+	
 	# Display description
 	if "description" in card_data:
-		var cDesc = previewCont.get_child(1).get_child(0)
 		cDesc.visible = true
 		cDesc.text = card_data["description"]
+	
+	if "tribes" in card_data:
+		cDesc.visible = true
+		cDesc.text += "\n-"
+		for tribe in card_data.tribes:
+			cDesc.text += " " + tribe
+		cDesc.text += " -\n"
 
 	if not "sigils" in card_data:
 		return

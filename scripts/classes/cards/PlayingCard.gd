@@ -713,11 +713,19 @@ func calculate_buffs():
 func slot_idx():
 	return get_parent().get_position_in_parent()
 
-func has_sigil(sigName):
+func has_sigil(sigName:String):
 	if not "sigils" in card_data:
 		return false
 	else:
 		if sigName in card_data["sigils"]:
+			return true
+	return false
+
+func has_tribe(tribName:String):
+	if not "tribes" in card_data:
+		return false
+	else:
+		if tribName in card_data["tribes"]:
 			return true
 	return false
 
