@@ -7,7 +7,7 @@ func handle_event(event: String, params: Array):
 	if event == "card_summoned" and params[0] == card and isFriendly:
 		
 		for fCard in slotManager.all_friendly_cards():
-			if "Mox" in fCard.card_data["name"]:
+			if fCard.has_tribe("Mox"):
 				if fightManager.deck.size() == 0:
 					break
 					

@@ -14,8 +14,8 @@ func handle_event(event: String, params: Array):
 		if not "Perish" in card.get_node("AnimationPlayer").current_animation:
 
 			
-			for card in slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards():
-				if card.has_tribe("Mox"):
+			for subject in slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards():
+				if subject.has_tribe("Mox") and subject != card:
 					return
 			card.get_node("AnimationPlayer").play("Perish")
 		
