@@ -273,6 +273,42 @@ margin_top = 650.0
 margin_right = 390.0
 margin_bottom = 678.0
 
+[node name="Advanced" type="Label" parent="Cards/Panel/Options"]
+margin_left = -1.0
+margin_top = 707.0
+margin_right = 300.0
+margin_bottom = 731.0
+text = "ADVANCED:"
+
+[node name="HDLabel" type="Label" parent="Cards/Panel/Options"]
+margin_left = -1.0
+margin_top = 754.0
+margin_right = 300.0
+margin_bottom = 778.0
+text = "Allow hammer to discard cards in hand:"
+
+[node name="hammer_discard" type="CheckBox" parent="Cards/Panel/Options"]
+margin_left = 440.0
+margin_top = 752.0
+margin_right = 460.0
+margin_bottom = 786.0
+
+[node name="SHP" type="Label" parent="Cards/Panel/Options"]
+margin_left = -1.0
+margin_top = 812.0
+margin_right = 171.0
+margin_bottom = 836.0
+text = "Scale Hitpoints:"
+
+[node name="candle_hp" type="SpinBox" parent="Cards/Panel/Options"]
+margin_left = 178.0
+margin_top = 813.0
+margin_right = 306.0
+margin_bottom = 841.0
+min_value = 1.0
+max_value = 99.0
+value = 5.0
+
 [node name="CardDat" type="Control" parent="Cards/Panel"]
 unique_name_in_owner = true
 visible = false

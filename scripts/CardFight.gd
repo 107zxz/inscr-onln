@@ -95,19 +95,19 @@ func _ready():
 		candle_hp = CardInfo.all_data.candle_hp
 	
 	# disable banned costs
-	if "banned_costs" in CardInfo.all_data:
-		if "Heat" in CardInfo.all_data.banned_costs:
+	if "allowed_costs" in CardInfo.all_data:
+		if not "Heat" in CardInfo.all_data.allowed_costs:
 			$PlayerInfo/MyInfo/Heat.queue_free()
 			$PlayerInfo/TheirInfo/Heat.queue_free()
 			
 			# for easier refrencing later
 			make_heat = false
-		if "Bones" in CardInfo.all_data.banned_costs:
+		if not "Bones" in CardInfo.all_data.allowed_costs:
 			$PlayerInfo/MyInfo/Bones.queue_free()
 			$PlayerInfo/TheirInfo/Bones.queue_free()
 			
 			make_bones = false
-		if "Energy" in CardInfo.all_data.banned_costs:
+		if not "Energy" in CardInfo.all_data.allowed_costs:
 			$PlayerInfo/MyInfo/Energy.queue_free()
 			$PlayerInfo/TheirInfo/Energy.queue_free()
 			

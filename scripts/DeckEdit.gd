@@ -85,6 +85,9 @@ func _ready():
 func init_sidedeck_ui():
 	for sd in CardInfo.side_decks:
 		sidedeck_de.add_item(sd)
+	if not CardInfo.has("snuff_cards") or len(CardInfo.snuff_cards) < 1:
+		$"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff".queue_free()
+		return
 	for sc in CardInfo.snuff_cards:
 		snuffcard_de.add_item(sc)
 

@@ -415,6 +415,9 @@ func update_flags():
 	CardInfo.all_data.description = flagDats[18].text
 	CardInfo.all_data.portrait = flagDats[20].text
 	
+	CardInfo.all_data.hammer_discard = flagDats[28].pressed
+	CardInfo.all_data.candle_hp = flagDats[30].pressed
+	
 	if flagDats[23].value != 0:
 		CardInfo.all_data.starting_bones = flagDats[23].value
 	else:
@@ -443,7 +446,11 @@ func populate_flags():
 	if "starting_energy_max" in CardInfo.all_data:
 		flagDats[25].value = CardInfo.all_data.starting_energy_max
 	
+	if "hammer_discard" in CardInfo.all_data:
+		flagDats[28].pressed = CardInfo.all_data.hammer_discard
 	
+	if "candle_hp" in CardInfo.all_data:
+		flagDats[30].value = CardInfo.all_data.candle_hp
 	
 	# Fill out possible icons
 	var d = Directory.new()
