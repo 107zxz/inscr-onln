@@ -178,16 +178,17 @@ func init_fight(go_first: int):
 		else:
 			cardFight.side_deck_key = null
 		
-		if "snuff_cards" in CardInfo and CardInfo.snuff_cards:
-			cardFight.snuff_card = ddata.snuff_card
+		if "characters" in CardInfo and CardInfo.characters:
+			cardFight.chardata = CardInfo.characters[ddata.character]
+			cardFight.get_node("PlayerInfo/MyInfo/pfp").draw(ddata["character"])
 		else:
-			# default to regular Greater Smoke
-			cardFight.snuff_card = "Greater Smoke"
+			# panic
+			assert(false)
 		
 	cardFight.get_node("PlayerInfo/MyInfo/Username").text = lobby_data.players[myId].name + " (" + str(lobby_data.players[myId].wins) + " wins)"
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name + " (" + str(lobby_data.players[oppId].wins) + " wins)"
-	cardFight.get_node("PlayerInfo/MyInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[myId].pfp + ".png")
-	cardFight.get_node("PlayerInfo/TheirInfo/Pfp").texture = load("res://gfx/portraits/" + lobby_data.players[oppId].pfp + ".png")
+	
+	cardFight.get_node("PlayerInfo/TheirInfo/pfp").draw(lobby_data.players[oppId].character)
 
 	cardFight.visible = true
 	cardFight.init_match(oppId, go_first == myId)
@@ -355,9 +356,10 @@ func _on_LobbyReady_pressed():
 	
 	for key in lobby_data.players:
 		if key == get_tree().get_network_unique_id():
+			
+			var do = deckEditor.get_deck_object()
+			
 			if not lobby_data.players[key].ready:
-				
-				var do = deckEditor.get_deck_object()
 				
 				if len(do["cards"]) < CardInfo.all_data.deck_size_min and not "listen" in OS.get_cmdline_args() and not "join" in OS.get_cmdline_args():
 					$SpecialBlocker.visible = true
@@ -370,7 +372,7 @@ func _on_LobbyReady_pressed():
 					return
 			
 			lobby_data.players[key].ready = not lobby_data.players[key].ready
-			lobby_data.players[key].pfp = $InLobby/Rows/ProfilePic/Pic.text
+			lobby_data.players[key].character = do.character
 			lobbyList.set_item_icon(index, readyIcon if lobby_data.players[key].ready else unreadyIcon)
 			rpc("_player_status", lobby_data.players[key])
 			break
@@ -579,9 +581,6 @@ remote func _player_status(status: Dictionary):
 	
 remote func _start_match(go_first: int):
 	init_fight(go_first)
-
-func _on_Pic_item_selected(index):
-	$InLobby/Rows/ProfilePic/Preview.texture = load("res://gfx/portraits/" + $InLobby/Rows/ProfilePic/Pic.get_item_text(index) + ".png")
 
 # Android, move all windows up when virtual keyboard appears
 func _LineEdit_focused():

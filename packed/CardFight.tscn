@@ -1,12 +1,12 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=49 format=2]
 
-[ext_resource path="res://gfx/portraits/Pack Rat.png" type="Texture" id=1]
+[ext_resource path="res://packed/CharacterPortrait.tscn" type="PackedScene" id=1]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
 [ext_resource path="res://scripts/CardFight.gd" type="Script" id=3]
 [ext_resource path="res://scripts/CardSlots.gd" type="Script" id=4]
 [ext_resource path="res://scripts/HandManager.gd" type="Script" id=5]
 [ext_resource path="res://gfx/shaders/smoke_shader.tres" type="Shader" id=6]
-[ext_resource path="res://themes/sigilMat.tres" type="Material" id=7]
+[ext_resource path="res://gfx/char_active_icons/kaycee_clover.png" type="Texture" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gfx/cardextras/cost_energy.png" type="Texture" id=10]
@@ -18,6 +18,7 @@
 [ext_resource path="res://fonts/Marksman.otf" type="DynamicFontData" id=16]
 [ext_resource path="res://scripts/MessageBox.gd" type="Script" id=17]
 [ext_resource path="res://gfx/icons/Unkillable.png" type="Texture" id=18]
+[ext_resource path="res://gfx/char_active_icons/kaycee_clover_outline.png" type="Texture" id=19]
 
 [sub_resource type="ShaderMaterial" id=21]
 shader = ExtResource( 6 )
@@ -1019,6 +1020,106 @@ region = Rect2( 6, 2, 13, 13 )
 atlas = ExtResource( 11 )
 region = Rect2( 113, 1, 14, 14 )
 
+[sub_resource type="Animation" id=27]
+resource_name = "CloverPopup"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Clover:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1110, -0.25, 0, 0.25, 0, 919.999, -0.5, -119.164, 0.1, 67.3705, 920, -0.2, -6.55322, 0.2, -1.16577 ),
+"times": PoolRealArray( 0, 0.7, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Clover:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 270, -0.25, 0, 0.4, -64.085, 0, -0.5, 0.252209, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "CloverUse"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Clover:rect_scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0.998623, -0.25, 0, 0.4525, 0.0897288, 0.8, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0.08, 0.49, 1.03 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Clover:rect_scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1.00032, -0.25, 0, 0.453, 0.09, 0.8, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.41, 0.95 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Clover:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.3125, -174.002, 720, -0.48, -1106.59, 0.0699999, 109.524, 810, -0.26, -2.87128, 0.25, 0 ),
+"times": PoolRealArray( 0.35, 1.5725, 1.9925 )
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "RESET"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Clover:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1110, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Clover:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Clover:rect_scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Clover:rect_scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.235294 )
 
@@ -1214,14 +1315,6 @@ custom_styles/pressed = SubResource( 19 )
 custom_styles/normal = SubResource( 19 )
 enabled_focus_mode = 0
 
-[node name="Pfp" type="TextureRect" parent="PlayerInfo/MyInfo"]
-material = ExtResource( 7 )
-margin_left = 5.0
-margin_top = -70.0
-margin_right = 119.0
-margin_bottom = 24.0
-texture = ExtResource( 1 )
-
 [node name="Username" type="Label" parent="PlayerInfo/MyInfo"]
 margin_left = 5.0
 margin_top = -90.0
@@ -1284,9 +1377,9 @@ texture = SubResource( 11 )
 
 [node name="Heat" type="Control" parent="PlayerInfo/MyInfo"]
 margin_left = 10.0
-margin_top = -189.0
+margin_top = -188.0
 margin_right = 50.0
-margin_bottom = -149.0
+margin_bottom = -148.0
 
 [node name="HeatCount2" type="Label" parent="PlayerInfo/MyInfo/Heat"]
 margin_left = 28.0
@@ -1313,6 +1406,13 @@ margin_right = 12.0
 margin_bottom = 12.0
 rect_scale = Vector2( 2, 2 )
 texture = SubResource( 20 )
+
+[node name="pfp" parent="PlayerInfo/MyInfo" instance=ExtResource( 1 )]
+margin_left = -3.0
+margin_top = -61.0
+margin_right = 275.0
+margin_bottom = 198.0
+rect_scale = Vector2( 0.4, 0.4 )
 
 [node name="TheirInfo" type="Control" parent="PlayerInfo"]
 anchor_left = 1.0
@@ -1371,14 +1471,12 @@ margin_bottom = -25.0
 texture = SubResource( 15 )
 expand = true
 
-[node name="Pfp" type="TextureRect" parent="PlayerInfo/TheirInfo"]
-material = ExtResource( 7 )
-margin_left = -80.0
-margin_top = 20.0
-margin_right = 34.0
-margin_bottom = 114.0
-texture = ExtResource( 1 )
-flip_h = true
+[node name="pfp" parent="PlayerInfo/TheirInfo" instance=ExtResource( 1 )]
+margin_left = -75.0
+margin_top = 22.0001
+margin_right = 203.0
+margin_bottom = 281.0
+rect_scale = Vector2( 0.4, 0.4 )
 
 [node name="Username" type="Label" parent="PlayerInfo/TheirInfo"]
 anchor_left = 1.0
@@ -1475,6 +1573,31 @@ margin_right = 12.0
 margin_bottom = 12.0
 rect_scale = Vector2( 2, 2 )
 texture = SubResource( 20 )
+
+[node name="Clover" type="Control" parent="PlayerInfo"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Clover" type="TextureButton" parent="PlayerInfo/Clover"]
+margin_left = 441.0
+margin_top = 1110.0
+margin_right = 579.0
+margin_bottom = 1248.01
+rect_pivot_offset = Vector2( 69, 69 )
+mouse_default_cursor_shape = 6
+texture_normal = ExtResource( 19 )
+expand = true
+
+[node name="Img" type="TextureRect" parent="PlayerInfo/Clover/Clover"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="CloverAnim" type="AnimationPlayer" parent="PlayerInfo/Clover"]
+anims/CloverPopup = SubResource( 27 )
+anims/CloverUse = SubResource( 29 )
+anims/RESET = SubResource( 28 )
 
 [node name="DrawPiles" type="Control" parent="."]
 anchor_right = 1.0
@@ -1808,7 +1931,9 @@ size_flags_vertical = 10
 [node name="LeftSideUI" type="VBoxContainer" parent="."]
 anchor_bottom = 1.0
 margin_left = 35.0
-margin_right = 145.0
+margin_top = -2.0
+margin_right = 235.0
+margin_bottom = -2.0
 mouse_filter = 2
 alignment = 1
 
@@ -1904,6 +2029,7 @@ anchor_bottom = 1.0
 text = "Waiting For Opponent..."
 
 [node name="RightSideUI" type="VBoxContainer" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

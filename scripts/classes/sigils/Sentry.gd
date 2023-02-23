@@ -11,5 +11,5 @@ func handle_event(event: String, params: Array):
 			if params[0].get_node("AnimationPlayer").current_animation == "DoublePerish":
 				return
 			
-			params[0].take_damage(card, 1)
+			params[0].take_damage(card, 2)
 	

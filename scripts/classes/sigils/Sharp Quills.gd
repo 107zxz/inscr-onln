@@ -11,4 +11,4 @@ func handle_event(event: String, params: Array):
 		
 		if params[1].is_alive():
 			print("Sharp Quills triggered!")
-			params[1].take_damage(params[0], 1)
+			params[1].take_damage(params[0], 2)

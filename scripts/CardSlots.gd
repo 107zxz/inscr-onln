@@ -899,7 +899,7 @@ func _on_Snuff_pressed():
 	if fightManager.lives > 1 and CardInfo.all_data.allow_snuffing_candles:
 		fightManager.inflict_damage(-10)
 		fightManager.damage_stun = false
-		fightManager.draw_card(CardInfo.from_name(fightManager.snuff_card))
+		fightManager.draw_card(CardInfo.from_name(fightManager.chardata["snuff_card"]))
 		$"../Smokescreen/AnimationPlayer".play("FreindlySmoke")
 		
 		fightManager.send_move({

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Gem Detonator (4).png-e19e0be966530a6eafeadb33c62b2d28.stex"
+path="res://.import/Trader.png-5a63d0f12f3e2b930a208b91c6986b52.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/sigils/Gem Detonator (4).png"
-dest_files=[ "res://.import/Gem Detonator (4).png-e19e0be966530a6eafeadb33c62b2d28.stex" ]
+source_file="res://gfx/char_portraits/Trader.png"
+dest_files=[ "res://.import/Trader.png-5a63d0f12f3e2b930a208b91c6986b52.stex" ]
 
 [params]
 

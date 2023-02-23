@@ -7,6 +7,7 @@ onready var deckDisplay = get_node("%DeckContainer")
 onready var sideDeckDisplay = get_node("%SideDeckContainer")
 onready var cardPreview = get_node("%PreviewContainer")
 
+
 # Search option units
 onready var searchOptions = get_node("%SearchOptions")
 
@@ -25,12 +26,13 @@ onready var selector_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer
 onready var rename_de = $HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/LineEdit
 
 # Extended options
-onready var sidedeck_de = $"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck/SDSel"
+onready var sidedeck_de = $"%SDSel"
 onready var sidedeck_container = get_node("%SideDeckContainer")
 onready var sidedeck_single = get_node("%SDCardSingle")
 onready var sidedeck_prefix = get_node("%PrefixType")
 
-onready var snuffcard_de = $"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff/SCSel"
+onready var char_de = $"%CharSel"
+onready var char_vis = $"%CharVis"
 
 onready var tab_cont = get_node("%TabContainer")
 
@@ -85,11 +87,11 @@ func _ready():
 func init_sidedeck_ui():
 	for sd in CardInfo.side_decks:
 		sidedeck_de.add_item(sd)
-	if not CardInfo.has("snuff_cards") or len(CardInfo.snuff_cards) < 1:
+	if not CardInfo.all_data.has("characters") or len(CardInfo.characters) < 1:
 		$"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff".queue_free()
 		return
-	for sc in CardInfo.snuff_cards:
-		snuffcard_de.add_item(sc)
+	for sc in CardInfo.characters:
+		char_de.add_item(sc)
 
 func init_search_ui():
 	var id = 2
@@ -214,11 +216,11 @@ func get_deck_object():
 				if not card.is_queued_for_deletion():
 					deck_object.side_deck_cards.append(card.card_data["name"])
 	
-	if CardInfo.snuff_cards:
-		var sc_key = CardInfo.snuff_cards.keys()[snuffcard_de.selected]
-		var snuff_card = CardInfo.snuff_cards[sc_key]
+	if CardInfo.characters:
+		var sc_key = CardInfo.characters.keys()[char_de.selected]
+		var character = CardInfo.characters[sc_key]
 		
-		deck_object["snuff_card"] = sc_key
+		deck_object["character"] = sc_key
 
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
@@ -406,12 +408,12 @@ func load_deck(_arg = null):
 		draw_sidedeck(dj["side_deck"])
 	
 	# snuff card
-	if CardInfo.snuff_cards:
-		if not "snuff_card" in dj or not dj.snuff_card in CardInfo.snuff_cards:
-			dj.snuff_card = CardInfo.snuff_cards.keys()[0]
-		snuffcard_de.select(CardInfo.snuff_cards.keys().find(dj["snuff_card"]))
+	if CardInfo.characters:
+		if not "character" in dj or not dj.character in CardInfo.characters:
+			dj.character = CardInfo.characters.keys()[0]
+		char_de.select(CardInfo.characters.keys().find(dj["character"]))
 		# Simulate a selection because I'm lazy
-		_on_SCSel_item_selected(snuffcard_de.selected)
+		_on_CharSel_item_selected(char_de.selected)
 	
 	update_deck_count()
 
@@ -458,13 +460,12 @@ func _on_SDSel_item_selected(index):
 	
 	draw_sidedeck(key)
 
-func _on_SCSel_item_selected(index):
-	var key = CardInfo.snuff_cards.keys()[index]
-	var snuff_card = CardInfo.snuff_cards[key]
+func _on_CharSel_item_selected(index):
+	var key = CardInfo.characters.keys()[index]
+	var character = CardInfo.characters[key]
 	
-	var snuffcard_single = $"%SCCardSingle"
-	snuffcard_single.visible = true
-	snuffcard_single.from_data(CardInfo.from_name(key))
+	char_vis.from_data(character, key)
+#	char_single.from_data(CardInfo.from_name(key))
 	pass
 
 func _on_PrefixType_item_selected(_index):
@@ -545,5 +546,6 @@ func _exit_tree():
 
 
 
-func _on_TabContainer_tab_changed(_tab):
-	search()
+func _on_TabContainer_tab_changed(tab):
+	if tab == 0 or tab == 1:
+		search()

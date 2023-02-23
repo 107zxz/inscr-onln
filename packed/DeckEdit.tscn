@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
 [ext_resource path="res://packed/SigilDescription.tscn" type="PackedScene" id=3]
 [ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/Marksman.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://scripts/CharVis.gd" type="Script" id=6]
+[ext_resource path="res://packed/CharacterPortrait.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.7, 0.7, 0.525, 1 )
@@ -19,6 +22,11 @@ border_width_top = 2
 border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+outline_size = 2
+font_data = ExtResource( 5 )
 
 [node name="DeckEdit" type="Control"]
 anchor_right = 1.0
@@ -445,31 +453,41 @@ margin_bottom = 331.0
 custom_styles/panel = SubResource( 3 )
 tab_align = 0
 
-[node name="Side Deck Select" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
+[node name="Side Deck Select" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 36.0
+margin_top = 34.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="SideDeck" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
-margin_top = 102.0
-margin_right = 1042.0
-margin_bottom = 136.0
+[node name="SDeck" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
+margin_left = 391.0
+margin_right = 650.0
+margin_bottom = 295.0
+
+[node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+margin_left = 78.0
+margin_right = 181.0
+size_flags_horizontal = 4
+
+[node name="SideDeck" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck"]
+margin_top = 148.0
+margin_right = 259.0
+margin_bottom = 182.0
 alignment = 1
 
-[node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck"]
-margin_left = 391.0
+[node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck/SideDeck"]
 margin_top = 5.0
-margin_right = 512.0
+margin_right = 121.0
 margin_bottom = 29.0
 text = "Side Deck: "
 align = 1
 
-[node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck"]
+[node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck/SideDeck"]
 unique_name_in_owner = true
-margin_left = 512.0
-margin_right = 632.0
+margin_left = 121.0
+margin_right = 241.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -478,69 +496,87 @@ text = "10 Bloody"
 items = [ "10 Bloody", null, false, 0, null ]
 selected = 0
 
-[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck"]
-margin_left = 632.0
-margin_right = 650.0
+[node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck/SideDeck"]
+unique_name_in_owner = true
+margin_left = 241.0
+margin_right = 259.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
 enabled_focus_mode = 0
-
-[node name="Snuff" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
-margin_top = 146.0
-margin_right = 1042.0
-margin_bottom = 180.0
-alignment = 1
-
-[node name="SCLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff"]
-margin_left = 444.0
-margin_top = 5.0
-margin_right = 579.0
-margin_bottom = 29.0
-text = "Snuff Card: "
-align = 1
-
-[node name="SCSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff"]
-margin_left = 579.0
-margin_right = 597.0
-margin_bottom = 34.0
-focus_mode = 0
-size_flags_vertical = 4
-enabled_focus_mode = 0
-
-[node name="CardVis" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
-margin_top = 190.0
-margin_right = 1042.0
-margin_bottom = 190.0
-alignment = 1
-
-[node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/CardVis" instance=ExtResource( 4 )]
-unique_name_in_owner = true
-visible = false
-margin_left = 418.0
-margin_right = 521.0
-size_flags_horizontal = 4
-
-[node name="SCCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/CardVis" instance=ExtResource( 4 )]
-unique_name_in_owner = true
-visible = false
-margin_left = 469.0
-margin_right = 572.0
-size_flags_horizontal = 4
 
 [node name="Side Deck Draft" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 36.0
-margin_right = -2.0
-margin_bottom = -2.0
+margin_top = 34.0
 custom_styles/bg = SubResource( 2 )
 
 [node name="SideDeckContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Draft"]
 unique_name_in_owner = true
 columns = 10
+
+[node name="Character Select" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 34.0
+
+[node name="Char" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select"]
+margin_right = 1042.0
+margin_bottom = 34.0
+alignment = 1
+
+[node name="CCLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/Char"]
+margin_left = 454.0
+margin_top = 5.0
+margin_right = 569.0
+margin_bottom = 29.0
+text = "Character:"
+align = 1
+
+[node name="CharSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/Char"]
+unique_name_in_owner = true
+margin_left = 569.0
+margin_right = 587.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_vertical = 4
+enabled_focus_mode = 0
+
+[node name="CharVis" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select"]
+unique_name_in_owner = true
+margin_top = 34.0
+margin_right = 1042.0
+margin_bottom = 293.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 6 )
+
+[node name="PortraitFrame" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/CharVis" instance=ExtResource( 7 )]
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/CharVis"]
+margin_left = 278.0
+margin_right = 1042.0
+margin_bottom = 259.0
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/CharVis/DescriptionContainer"]
+margin_right = 764.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 4 )
+text = "- LESHY -"
+align = 1
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/CharVis/DescriptionContainer"]
+margin_top = 38.0
+margin_right = 764.0
+margin_bottom = 143.0
+text = "Oh my gosh guys, look!
+It's Leshy Inscryption!!1
+Wow... I'm such a big fan of your
+work... ! C-Can I Call you Leshy-sama?"
+autowrap = true
 
 [node name="SearchResults" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
 margin_left = 1046.0
@@ -629,6 +665,6 @@ text = ">"
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB/OptionButton" to="." method="search"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3/LineEdit" to="." method="search"]
 [connection signal="tab_changed" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer" to="." method="_on_TabContainer_tab_changed"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck/PrefixType" to="." method="_on_PrefixType_item_selected"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SideDeck/SDSel" to="." method="_on_SDSel_item_selected"]
-[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/Snuff/SCSel" to="." method="_on_SCSel_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck/SideDeck/PrefixType" to="." method="_on_PrefixType_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/SDeck/SideDeck/SDSel" to="." method="_on_SDSel_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Character Select/Char/CharSel" to="." method="_on_CharSel_item_selected"]

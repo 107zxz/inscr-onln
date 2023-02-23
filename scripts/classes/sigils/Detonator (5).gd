@@ -21,7 +21,7 @@ func handle_event(event: String, params: Array):
 				var eCard = slotManager.get_enemy_card(slotIdx)
 
 				if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-					eCard.take_damage(card, 4)
+					eCard.take_damage(card, 5)
 #				
 			# Kill adjacents
 			for offset in [-1, 1]:

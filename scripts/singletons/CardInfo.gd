@@ -11,7 +11,7 @@ var working_sigils = []
 var custom_portraits = {}
 
 var side_decks = {}
-var snuff_cards = {}
+var characters = {}
 
 #var data_path = OS.get_user_data_dir() # if OS.get_name() != "Android" else "/sdcard/IMF/"
 
@@ -75,7 +75,7 @@ func from_game_info_json(content_as_object):
 	working_sigils = all_data["working_sigils"]
 	
 	side_decks = all_data["side_decks"] if "side_decks" in all_data else []
-	snuff_cards = all_data["snuff_cards"] if "snuff_cards" in all_data else []
+	characters = all_data["characters"] if "characters" in all_data else []
 	
 	if "ruleset" in all_data:
 		ruleset = all_data.ruleset
