@@ -787,15 +787,15 @@ func play_sfx(name):
 			
 	cardAudio.play()
 
-func discard(has_kindling:bool = false):
+func discard(is_kindling:bool = false):
 	get_node("AnimationPlayer").play("Discard")
 	if get_parent().name == "PlayerHand":
-		if has_kindling:
+		if is_kindling:
 			fightManager.add_heat(2)
 		else:
 			fightManager.add_heat(1)
 	else:
-		if has_kindling:
+		if is_kindling:
 			fightManager.add_opponent_heat(2)
 		else:
 			fightManager.add_opponent_heat(1)

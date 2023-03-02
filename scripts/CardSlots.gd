@@ -637,6 +637,9 @@ func summon_card(cDat, slot_idx, friendly: bool):
 	
 	(playerSlots[slot_idx] if friendly else enemySlots[slot_idx]).add_child(nCard)
 	
+	if cDat.has_tribe("Construction"):
+		cDat.hp += (fightManager.chardata if friendly else fightManager.enemy_chardata).get("construction_hp_mod", 0)
+	
 	fightManager.card_summoned(nCard)
 
 	nCard.create_sigils(friendly)

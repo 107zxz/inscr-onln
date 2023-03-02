@@ -189,6 +189,7 @@ func init_fight(go_first: int):
 	cardFight.get_node("PlayerInfo/TheirInfo/Username").text = lobby_data.players[oppId].name + " (" + str(lobby_data.players[oppId].wins) + " wins)"
 	
 	cardFight.get_node("PlayerInfo/TheirInfo/pfp").draw(lobby_data.players[oppId].character)
+	cardFight.enemy_chardata = CardInfo.all_data["characters"][lobby_data.players[oppId].character]
 
 	cardFight.visible = true
 	cardFight.init_match(oppId, go_first == myId)
@@ -252,7 +253,6 @@ func _on_Host_pressed():
 	lobbyList.clear()
 
 	$InLobby/Rows/DeckOptions.visible = true
-	$InLobby/Rows/ProfilePic.visible = true
 	$InLobby/Rows/Buttons/LobbyReady.visible = true
 
 	# Only host can see kick button
@@ -361,7 +361,8 @@ func _on_LobbyReady_pressed():
 			
 			if not lobby_data.players[key].ready:
 				
-				if len(do["cards"]) < CardInfo.all_data.deck_size_min and not "listen" in OS.get_cmdline_args() and not "join" in OS.get_cmdline_args():
+				# if the char has no deck min size override, use ruleset default
+				if len(do["cards"]) < CardInfo.all_data.characters[do.character].get("deck_min_size", CardInfo.all_data.deck_min_size) and not "listen" in OS.get_cmdline_args() and not "join" in OS.get_cmdline_args():
 					$SpecialBlocker.visible = true
 					errorBox("The currently selected deck is too small!\nMust be at least " + str(CardInfo.all_data.deck_size_min) + " cards!")
 					return

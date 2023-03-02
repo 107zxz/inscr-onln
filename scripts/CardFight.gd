@@ -219,6 +219,8 @@ func init_match(opp_id: int, do_go_first: bool):
 	add_heat(0)
 	add_opponent_heat(0)
 	
+	print(enemy_chardata)
+	
 	inflict_damage(0)
 	
 	if "starting_bones" in CardInfo.all_data:
@@ -243,25 +245,35 @@ func init_match(opp_id: int, do_go_first: bool):
 	
 	var next_card = side_deck.pop_front()
 	
+	
 	# Draw client-side
 	if side_deck_key != null:
-		draw_card(next_card, $DrawPiles/YourDecks/SideDeck, false)
-		_opponent_drew_card("SideDeck")
+		
+		for _i in chardata.get("draw_side_deck", 1):
+			draw_card(next_card, $DrawPiles/YourDecks/SideDeck, false)
+			
+			if side_deck.size() == 0:
+				# we are out of side deck cards
+				$DrawPiles/YourDecks/SideDeck.visible = false
+				# the opponent won't draw a starvation when this happens
+				break
+			
+			next_card = deck.pop_front()
+		
+		for _i in enemy_chardata.get("draw_side_deck", 1):
+			_opponent_drew_card("SideDeck")
 	
-	if side_deck.size() == 0:
-		$DrawPiles/YourDecks/SideDeck.visible = false
+	for i in enemy_chardata.get("draw_main_deck", 3):
+		_opponent_drew_card("Deck")
 
-	for _i in range(3 if side_deck_key != null else 4):
-
+	for _i in chardata.get("draw_main_deck", 3):
 		next_card = deck.pop_front()
 
 		# Draw client-side
 		draw_card(next_card, $DrawPiles/YourDecks/Deck, false)
-		_opponent_drew_card("Deck")
-
+		
 		# Some interaction here if your deck has less than 3 cards. Punish by giving opponent starvation
 		if deck.size() == 0:
-			
 			$DrawPiles/YourDecks/Deck.visible = false
 			starve_check(false)
 			break
@@ -271,6 +283,9 @@ func init_match(opp_id: int, do_go_first: bool):
 	
 	$WaitingBlocker.visible = not go_first
 	
+	if "clover" in chardata:
+		pass
+#		$"%CloverAnim".play("CloverPopup")
 	
 #	$MessageBox.do_dialogue(
 #		[
@@ -534,6 +549,7 @@ func card_summoned(playedCard):
 	# Sigil event
 #	emit_signal("sigil_event", "card_summoned", [playedCard])
 	
+	
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
 		card.calculate_buffs()
@@ -576,6 +592,42 @@ func count_win():
 
 func count_loss():
 	get_node("/root/Main/TitleScreen").count_loss(opponent)
+
+func _clover_mulligan():
+	
+	send_move({
+		"type":"clover_mulligan",
+	})
+
+	
+	for hCard in handManager.get_node("PlayerHand").get_children():
+		# for balance, and to make my life easier, kindling doesn't gen 2 heat.
+		hCard.discard(false)
+		
+		# some random junk thet probably draws you a starting hand
+		if side_deck_key != null:
+			draw_card(side_deck.pop_front(), $DrawPiles/YourDecks/SideDeck, false)
+			_opponent_drew_card("SideDeck")
+		if side_deck.size() == 0:
+			$DrawPiles/YourDecks/SideDeck.visible = false
+		for _i in range(3 if side_deck_key != null else 4):
+			var next_card = deck.pop_front()
+			# Draw client-side
+			draw_card(next_card, $DrawPiles/YourDecks/Deck, false)
+			_opponent_drew_card("Deck")
+			# Some interaction here if your deck has less than 3 cards. Punish by giving opponent starvation
+			if deck.size() == 0:
+				
+				$DrawPiles/YourDecks/Deck.visible = false
+				starve_check(false)
+				break
+
+func _remove_clover():
+	var clover_anim = $"%CloverAnim"
+	clover_anim.stop(true)
+	clover_anim.play("CloverPopup", -1, 1.0, true)
+	yield(clover_anim, "animation_finished")
+	$PlayerInfo/Clover.queue_free()
 
 
 # New unified
@@ -834,11 +886,15 @@ func inflict_damage(dmg):
 		opponent_lives -= 1
 		advantage = 0
 		damage_stun = true
+		
+		add_opponent_bones(enemy_chardata.get("lose_life_bones", 0))
 	
 	if advantage <= -candle_hp:
 		lives -= 1
 		advantage = 0
 		damage_stun = true
+		
+		add_bones(chardata.get("lose_life_bones", 0))
 		
 	$Advantage/AdvLeft/PickLeft.rect_position.x = 187 + advantage * 185 / candle_hp
 	$Advantage/AdvRight/PickRight.rect_position.x = 186 + advantage * (185 / candle_hp if GameOptions.options.show_enemy_advantage else -(185 / candle_hp))
@@ -1084,3 +1140,6 @@ remote func add_remote_bones(bone_no):
 		add_opponent_bones(bone_no)
 
 
+
+func _on_Clover_pressed():
+	$"%CloverAnim".play("CloverUse")
