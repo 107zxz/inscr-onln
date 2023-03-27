@@ -79,6 +79,8 @@ var want_rematch = false
 func _ready():
 	for slot in slotManager.playerSlots:
 		slot.connect("pressed", self, "play_card", [slot])
+	for back_slot in slotManager.playerSlotsBack:
+		back_slot.connect("pressed", self, "play_card_back", [back_slot])
 	
 	$CustomBg.texture = CardInfo.background_texture
 
@@ -458,6 +460,52 @@ func play_card(slot):
 			
 			card_summoned(playedCard)
 
+func play_card_back(slot):
+	
+	# Is a card ready to be played?
+	if handManager.raisedCard:
+
+		var playedCard = handManager.raisedCard
+		
+		# Only allow playing cards in the NORMAL or FORCEPLAY states
+		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
+			
+			# Dirty override for jukebot
+			if playedCard.card_data.name == "Jukebot":
+				$MusPicker.visible = true
+				yield($MusPicker/Panel/VBoxContainer/DlBtn, "pressed")
+				$MusPicker.visible = false
+				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
+
+#			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
+			
+			send_move({
+				"type": "play_card_back",
+				"card": playedCard.card_data,
+				"slot": slot.get_position_in_parent()
+			})
+			
+			# Bone cost
+			if "bone_cost" in playedCard.card_data:
+				add_bones(-playedCard.card_data["bone_cost"])
+			
+			# Energy cost
+			if "energy_cost" in playedCard.card_data:
+				set_energy(energy -playedCard.card_data["energy_cost"])
+			
+			playedCard.move_to_parent(slot)
+			handManager.raisedCard = null
+
+			# Visual hand update
+			var pHand = handManager.get_node("PlayerHand")
+			pHand.add_constant_override("separation", - pHand.get_child_count() * 4)
+
+			state = GameStates.NORMAL
+			
+			yield(playedCard.get_node("Tween"), "tween_completed")
+			
+#			card_summoned(playedCard)
+
 func card_summoned(playedCard):
 	# Enable active
 	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
@@ -571,6 +619,9 @@ func parse_next_move():
 			"play_card":
 				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				_opponent_played_card(move.card, move.slot, move.ignore_cost  if "ignore_cost" in move else false)
+			"play_card_back":
+				print("Opponent ", move.pid, " played card ", move.card, " in back slot ", move.slot)
+				_opponent_played_card_back(move.card, move.slot, move.ignore_cost if "ignore_cost" in move else false)
 			"hey_im_a_hungry":
 				print("Opponent is like ", move.for, " hungry.")
 				force_draw_starv(move.for)
@@ -714,6 +765,51 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 	for eCard in slotManager.all_enemy_cards():
 		eCard.calculate_buffs()
 	
+func _opponent_played_card_back(card, slot, ignore_cost = false):
+	
+	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
+	
+	# Special case: Starvation
+#	if card_dt["name"] == "Starvation":
+#
+#		# Inflict starve damage
+#		if turns_starving >= 9:
+#			inflict_damage(-turns_starving + 8)
+	
+	# Visual hand update
+	var eHand = handManager.get_node("EnemyHand")
+	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
+	
+	# Costs
+	if not ignore_cost:
+		if "bone_cost" in card_dt:
+			add_opponent_bones(-card_dt["bone_cost"])
+		if "energy_cost" in card_dt and not no_energy_deplete:
+			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
+	
+	# Sigil effects:
+	var nCard = handManager.opponentRaisedCard
+	nCard.from_data(card_dt)
+	nCard.create_sigils(false)
+	nCard.move_to_parent(slotManager.enemySlotsBack[slot])
+	nCard.fightManager = self
+	nCard.slotManager = slotManager
+	connect("sigil_event", nCard, "handle_sigil_event")
+	
+	yield(nCard.get_node("Tween"), "tween_completed")
+	move_done()
+	
+#	emit_signal("sigil_event", "card_summoned", [nCard])
+
+	# Special case, card unlikely to have handled event yet
+	
+	# Buff handling
+#	for card in slotManager.all_friendly_cards():
+#		card.calculate_buffs()
+#	for eCard in slotManager.all_enemy_cards():
+#		eCard.calculate_buffs()
+	
+
 ## SPECIAL CARD STUFF
 remote func force_draw_starv(strength):
 

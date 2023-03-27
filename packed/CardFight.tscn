@@ -1420,7 +1420,6 @@ button_mask = 3
 enabled_focus_mode = 0
 
 [node name="EnemySlotsBack" type="HBoxContainer" parent="CardSlots"]
-visible = false
 margin_top = 145.0
 margin_right = 1920.0
 margin_bottom = 330.0
@@ -1515,7 +1514,6 @@ button_mask = 3
 enabled_focus_mode = 0
 
 [node name="PlayerSlotsBack" type="HBoxContainer" parent="CardSlots"]
-visible = false
 margin_top = 750.0
 margin_right = 1920.0
 margin_bottom = 935.0
@@ -1567,13 +1565,13 @@ enabled_focus_mode = 0
 [node name="HandsContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 26.0
-margin_bottom = -26.0
+margin_top = -55.0
+margin_bottom = 55.0
 mouse_filter = 2
 
 [node name="Hands" type="VBoxContainer" parent="HandsContainer"]
 margin_right = 1920.0
-margin_bottom = 1028.0
+margin_bottom = 1190.0
 mouse_filter = 2
 script = ExtResource( 5 )
 __meta__ = {
@@ -1588,9 +1586,9 @@ size_flags_horizontal = 4
 
 [node name="PlayerHand" type="HBoxContainer" parent="HandsContainer/Hands"]
 margin_left = 960.0
-margin_top = 1028.0
+margin_top = 1190.0
 margin_right = 960.0
-margin_bottom = 1028.0
+margin_bottom = 1190.0
 mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
