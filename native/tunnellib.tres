@@ -1,9 +1,13 @@
 [gd_resource type="GDNativeLibrary" format=2]
 
 [resource]
+entry/Android.arm64-v8a = "res://native/libimf_tunnel_aarch64_linux_android.so"
+entry/Android.x86_64 = "res://native/libimf_tunnel_x86_64_android.so"
 entry/OSX.64 = "res://native/libimf_tunnel.dylib"
 entry/Windows.64 = "res://native/imf_tunnel.dll"
 entry/X11.64 = "res://native/libimf_tunnel.so"
+dependency/Android.arm64-v8a = [  ]
+dependency/Android.x86_64 = [  ]
 dependency/OSX.64 = [  ]
 dependency/Windows.64 = [  ]
 dependency/X11.64 = [  ]
