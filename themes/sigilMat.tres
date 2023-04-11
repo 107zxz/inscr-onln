@@ -26,4 +26,4 @@ void fragment() {
 [resource]
 shader = SubResource( 19 )
 shader_param/u_replacement_color = Color( 0, 0, 0, 1 )
-shader_param/u_tolerance = 0.075
+shader_param/u_tolerance = 0.087

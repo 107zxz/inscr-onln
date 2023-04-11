@@ -147,7 +147,7 @@ func _on_Button_pressed():
 			return
 		
 		# Is it hammer time? Am I on the player's side?
-		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name == "PlayerSlots" and not "nohammer" in card_data:
+		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name in ["PlayerSlots", "PlayerSlotsBack"] and not "nohammer" in card_data:
 			$AnimationPlayer.play("Perish")
 #			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
 			fightManager.send_move({
@@ -177,7 +177,7 @@ func _on_Button_pressed():
 			else:
 				
 				# How tf did this not get patched 6 months ago
-				if get_parent().get_parent().name != "PlayerSlots":
+				if not get_parent().get_parent().name in ["PlayerSlots", "PlayerSlotsBack"]:
 					print("Nice try dumbass!")
 					return
 				

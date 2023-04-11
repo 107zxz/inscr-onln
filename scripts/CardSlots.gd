@@ -22,7 +22,9 @@ func clear_slots():
 func get_available_blood() -> int:
 	var blood = 0
 	
-	for card in all_friendly_cards():
+	var sacTargets = all_friendly_cards_backrow() if CardInfo.all_data.enable_backrow else all_friendly_cards()
+	
+	for card in sacTargets:
 		if card.has_sigil("Noble Sacrifice"):
 			blood += 1
 		if card.has_sigil("Worthy Sacrifice"):
@@ -123,6 +125,10 @@ func attempt_sacrifice():
 signal resolve_sigils()
 
 func pre_turn_sigils(friendly: bool):
+	
+	# Shift cards first
+	if CardInfo.all_data.enable_backrow:
+		shift_cards_forward(false)
 	
 	var cardsToMove = all_friendly_cards() if friendly else all_enemy_cards()
 	
@@ -1009,6 +1015,15 @@ func get_conduitfx_enemy(slot_idx):
 	
 	return conduitfx
 
+
+# Shifting
+func shift_cards_forward(friendly):
+	for card in all_friendly_cards_backrow() if friendly else all_enemy_cards_backrow():
+		card.move_to_parent(
+			playerSlots[card.slot_idx()] if friendly else enemySlots[card.slot_idx()]
+		)
+
+
 # New Helper functions
 func get_friendly_card(slot_idx):
 	
@@ -1039,10 +1054,28 @@ func all_friendly_cards():
 	
 	return cards
 
+func all_friendly_cards_backrow():
+	var cards = []
+
+	for slot in playerSlotsBack:
+		if not is_slot_empty(slot):
+			cards.append(slot.get_child(0))
+	
+	return cards
+
 func all_enemy_cards():
 	var cards = []
 
 	for slot in enemySlots:
+		if not is_slot_empty(slot):
+			cards.append(slot.get_child(0))
+	
+	return cards
+
+func all_enemy_cards_backrow():
+	var cards = []
+
+	for slot in enemySlotsBack:
 		if not is_slot_empty(slot):
 			cards.append(slot.get_child(0))
 	

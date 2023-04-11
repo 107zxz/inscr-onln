@@ -1,43 +1,96 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=1]
-[ext_resource path="res://gfx/pixport/Draugr.png" type="Texture" id=2]
+[ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=2]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=3]
-[ext_resource path="res://gfx/Gbc_adder.webp" type="Texture" id=4]
+[ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=4]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=5]
 [ext_resource path="res://gfx/sigils/Handy.png" type="Texture" id=6]
-[ext_resource path="res://scripts/classes/cards/A2Card.gd" type="Script" id=7]
+[ext_resource path="res://scripts/classes/cards/A2PlayingCard.gd" type="Script" id=7]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=8]
-[ext_resource path="res://gfx/sigils/Frozen Away.png" type="Texture" id=9]
-[ext_resource path="res://gfx/cardextras/cost_numeric.png" type="Texture" id=10]
+[ext_resource path="res://gfx/pixport/Grizzly.png" type="Texture" id=9]
+[ext_resource path="res://gfx/GourmageAct2.webp" type="Texture" id=10]
+[ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=11]
+[ext_resource path="res://gfx/cardextras/pixel_activated_ability_button.png" type="Texture" id=12]
+[ext_resource path="res://gfx/sigils/Enlarge.png" type="Texture" id=13]
+[ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=14]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 42, 56 )
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Marksman.otf"
+
+[sub_resource type="DynamicFont" id=20]
+outline_size = 2
+outline_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 5 )
-region = Rect2( 28, 17, 26, 15 )
+region = Rect2( 44, 2, 9, 13 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="DynamicFont" id=21]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 5 )
-region = Rect2( 1, 65, 26, 15 )
+region = Rect2( 66, 17, 14, 15 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 11, 15 )
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 5 )
+region = Rect2( 66, 33, 14, 15 )
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 10 )
-region = Rect2( 11, 0, 11, 15 )
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 5 )
+region = Rect2( 66, 1, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 14 )
+region = Rect2( 5, 2, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 14 )
+region = Rect2( 5, 14, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 14 )
+region = Rect2( 5, 27, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 18, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 54, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 36, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 26, 18 )
 
 [node name="Card" type="Control"]
-margin_right = 128.0
-margin_bottom = 185.0
+margin_left = 82.2749
+margin_top = 57.2836
+margin_right = 210.275
+margin_bottom = 242.284
 theme = ExtResource( 3 )
 script = ExtResource( 7 )
 
-[node name="CardBG" type="TextureRect" parent="."]
-modulate = Color( 0.808594, 0.78435, 0.630806, 1 )
+[node name="CardBtn" type="TextureButton" parent="."]
+modulate = Color( 0.87451, 0.94902, 0.709804, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 1 )
+focus_mode = 0
+enabled_focus_mode = 0
+texture_normal = SubResource( 6 )
 expand = true
 
 [node name="CardPort" type="TextureRect" parent="."]
@@ -46,7 +99,8 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = 125.0
 margin_bottom = 96.0
-texture = ExtResource( 2 )
+mouse_filter = 2
+texture = ExtResource( 9 )
 expand = true
 
 [node name="AtkScore" type="Label" parent="."]
@@ -57,7 +111,7 @@ margin_top = -42.9156
 margin_right = 44.8298
 margin_bottom = 0.0844116
 theme_type_variation = "ScoreFont"
-text = "0"
+text = "4"
 valign = 2
 
 [node name="HpScore" type="Label" parent="."]
@@ -70,66 +124,99 @@ margin_top = -42.3272
 margin_right = -2.64651
 margin_bottom = -0.32724
 theme_type_variation = "ScoreFont"
-text = "1"
+text = "6"
 align = 2
 valign = 2
 
 [node name="Costs" type="VBoxContainer" parent="."]
 anchor_right = 1.0
-margin_left = 47.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = 47.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -6.00009
+margin_bottom = 123.0
+mouse_filter = 2
 custom_constants/separation = -6
 
-[node name="Cost1" type="TextureRect" parent="Costs"]
-visible = false
-margin_right = 79.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 0, 45 )
-size_flags_horizontal = 9
-texture = SubResource( 1 )
-stretch_mode = 5
-
-[node name="Cost2" type="TextureRect" parent="Costs"]
-visible = false
-margin_top = 6.0
-margin_right = 79.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 45 )
-size_flags_horizontal = 9
-texture = SubResource( 2 )
-stretch_mode = 5
-
-[node name="NCost1" type="TextureRect" parent="Costs"]
-visible = false
-modulate = Color( 0.792157, 0.0705882, 0.0705882, 1 )
-margin_left = 46.0
-margin_right = 79.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 33, 45 )
+[node name="BloodCost" type="Control" parent="Costs"]
+margin_left = 56.0
+margin_right = 119.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 63, 39 )
 size_flags_horizontal = 8
-texture = SubResource( 5 )
-stretch_mode = 5
 
-[node name="NCost2" type="TextureRect" parent="Costs"]
-margin_left = 46.0
-margin_right = 79.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 33, 45 )
-size_flags_horizontal = 8
-texture = SubResource( 4 )
-stretch_mode = 5
+[node name="BGCost" type="Label" parent="Costs/BloodCost"]
+margin_left = 24.0
+margin_right = 37.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x13"
 
-[node name="REF" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.462745 )
-margin_left = -3.0
-margin_top = -3.0
-margin_right = 131.0
-margin_bottom = 188.0
-texture = ExtResource( 4 )
+[node name="BloodTexture" type="TextureRect" parent="Costs/BloodCost"]
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+texture = SubResource( 22 )
 expand = true
+
+[node name="FGCost" type="Label" parent="Costs/BloodCost"]
+margin_left = 24.0
+margin_right = 37.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x13"
+
+[node name="EnergyCost" type="Control" parent="Costs"]
+margin_top = 33.0
+margin_right = 119.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 0, 46 )
+
+[node name="MoxCost" type="HBoxContainer" parent="Costs"]
+visible = false
+margin_right = 122.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+mouse_filter = 2
+custom_constants/separation = -25
+alignment = 2
+
+[node name="Orange" type="TextureRect" parent="Costs/MoxCost"]
+margin_left = 63.0
+margin_right = 105.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="Blue" type="TextureRect" parent="Costs/MoxCost"]
+margin_left = 80.0
+margin_right = 122.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 19 )
+expand = true
+stretch_mode = 5
+
+[node name="Green" type="TextureRect" parent="Costs/MoxCost"]
+visible = false
+margin_left = 77.0
+margin_right = 122.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 13 )
+expand = true
+stretch_mode = 5
 
 [node name="Sigils" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -138,42 +225,71 @@ margin_left = 4.0
 margin_top = 105.0
 margin_right = -4.0
 margin_bottom = -30.0
+mouse_filter = 2
 alignment = 1
+
+[node name="ConduitIndicator" type="TextureRect" parent="Sigils"]
+visible = false
+margin_right = 120.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 26 )
+mouse_filter = 2
+texture = SubResource( 15 )
+expand = true
+stretch_mode = 5
+
+[node name="LeftHalf" type="TextureRect" parent="Sigils/ConduitIndicator"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 16 )
+expand = true
+
+[node name="RightHalf" type="TextureRect" parent="Sigils/ConduitIndicator"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 17 )
+expand = true
 
 [node name="Row1" type="HBoxContainer" parent="Sigils"]
 margin_right = 120.0
-margin_bottom = 50.0
+margin_bottom = 25.0
+mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Sigils/Row1"]
+[node name="S1" type="TextureRect" parent="Sigils/Row1"]
+visible = false
 material = ExtResource( 8 )
-margin_right = 120.0
+margin_right = 40.0
 margin_bottom = 50.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 9 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureRect2" type="TextureRect" parent="Sigils/Row1"]
+[node name="S2" type="TextureRect" parent="Sigils/Row1"]
 visible = false
 material = ExtResource( 8 )
-margin_left = 40.0
-margin_right = 80.0
+margin_right = 60.0
 margin_bottom = 50.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 6 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureRect3" type="TextureRect" parent="Sigils/Row1"]
+[node name="S3" type="TextureRect" parent="Sigils/Row1"]
 visible = false
 material = ExtResource( 8 )
-margin_left = 60.0
 margin_right = 120.0
 margin_bottom = 50.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -181,41 +297,91 @@ expand = true
 stretch_mode = 6
 
 [node name="Row2" type="HBoxContainer" parent="Sigils"]
-visible = false
 margin_top = 25.0
 margin_right = 120.0
 margin_bottom = 50.0
+mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Sigils/Row2"]
+[node name="S1" type="TextureRect" parent="Sigils/Row2"]
+visible = false
 material = ExtResource( 8 )
 margin_right = 40.0
 margin_bottom = 25.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureRect2" type="TextureRect" parent="Sigils/Row2"]
+[node name="S2" type="TextureRect" parent="Sigils/Row2"]
+visible = false
 material = ExtResource( 8 )
-margin_left = 40.0
-margin_right = 80.0
+margin_right = 60.0
 margin_bottom = 25.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureRect3" type="TextureRect" parent="Sigils/Row2"]
+[node name="S3" type="TextureRect" parent="Sigils/Row2"]
+visible = false
 material = ExtResource( 8 )
-margin_left = 80.0
 margin_right = 120.0
 margin_bottom = 25.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
+
+[node name="Active2" type="TextureButton" parent="."]
+visible = false
+self_modulate = Color( 0.905882, 0.878431, 0.717647, 1 )
+margin_left = 24.0
+margin_top = 103.0
+margin_right = 103.0
+margin_bottom = 162.0
+texture_normal = SubResource( 11 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+expand = true
+
+[node name="ActiveIcon" type="TextureRect" parent="Active2"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 73.0
+margin_bottom = 39.0
+texture = ExtResource( 13 )
+expand = true
+
+[node name="SacOlay" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="REF" type="TextureRect" parent="."]
+visible = false
+margin_left = -3.0
+margin_top = -3.0
+margin_right = 131.0
+margin_bottom = 189.0
+texture = ExtResource( 10 )
+expand = true
+
+[connection signal="button_down" from="CardBtn" to="." method="_on_CardBtn_button_down"]
+[connection signal="button_up" from="CardBtn" to="." method="_on_CardBtn_button_up"]
+[connection signal="mouse_entered" from="CardBtn" to="." method="_on_CardBtn_mouse_entered"]
+[connection signal="mouse_exited" from="CardBtn" to="." method="_on_CardBtn_mouse_exited"]
+[connection signal="button_down" from="Active2" to="." method="_on_Active2_button_down"]
+[connection signal="button_up" from="Active2" to="." method="_on_Active2_button_up"]
+[connection signal="mouse_entered" from="Active2" to="." method="_on_Active2_mouse_entered"]
+[connection signal="mouse_exited" from="Active2" to="." method="_on_Active2_mouse_exited"]

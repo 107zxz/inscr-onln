@@ -77,12 +77,17 @@ var want_rematch = false
 
 # Connect in-game signals
 func _ready():
-	for slot in slotManager.playerSlots:
-		slot.connect("pressed", self, "play_card", [slot])
-	for back_slot in slotManager.playerSlotsBack:
-		back_slot.connect("pressed", self, "play_card_back", [back_slot])
-	
 	$CustomBg.texture = CardInfo.background_texture
+	
+	# Backrow
+	if CardInfo.all_data.enable_backrow:
+		$CardSlots/EnemySlotsBack.show()
+		$CardSlots/PlayerSlotsBack.show()
+		for back_slot in slotManager.playerSlotsBack:
+			back_slot.connect("pressed", self, "play_card_back", [back_slot])
+	else:
+		for slot in slotManager.playerSlots:
+			slot.connect("pressed", self, "play_card", [slot])
 
 
 #func _process(delta):
@@ -264,6 +269,10 @@ func end_turn():
 	# Handle sigils
 	slotManager.post_turn_sigils(true)
 	yield(slotManager, "resolve_sigils")
+	
+	# Shift cards forwards
+	if CardInfo.all_data.enable_backrow:
+		slotManager.shift_cards_forward(true)
 		
 	# Bump opponent's energy
 	if opponent_max_energy < 6:

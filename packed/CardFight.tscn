@@ -1420,6 +1420,7 @@ button_mask = 3
 enabled_focus_mode = 0
 
 [node name="EnemySlotsBack" type="HBoxContainer" parent="CardSlots"]
+visible = false
 margin_top = 145.0
 margin_right = 1920.0
 margin_bottom = 330.0
@@ -1514,6 +1515,7 @@ button_mask = 3
 enabled_focus_mode = 0
 
 [node name="PlayerSlotsBack" type="HBoxContainer" parent="CardSlots"]
+visible = false
 margin_top = 750.0
 margin_right = 1920.0
 margin_bottom = 935.0

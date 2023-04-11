@@ -1,8 +1,9 @@
-[gd_resource type="Theme" load_steps=23 format=2]
+[gd_resource type="Theme" load_steps=24 format=2]
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
 [ext_resource path="res://gfx/extra/On.png" type="Texture" id=3]
+[ext_resource path="res://fonts/ScoreFont.tres" type="DynamicFont" id=4]
 
 [sub_resource type="StyleBoxFlat" id=9]
 content_margin_top = 5.0
@@ -263,6 +264,7 @@ PanelContainer/styles/panel = SubResource( 6 )
 PopupDialog/styles/panel = SubResource( 6 )
 PopupPanel/styles/panel = SubResource( 6 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
+ScoreFont/fonts/font = ExtResource( 4 )
 ScrollContainer/styles/bg = SubResource( 6 )
 SpeechBubble/styles/normal = SubResource( 24 )
 SpeechBubble/styles/panel = SubResource( 24 )
