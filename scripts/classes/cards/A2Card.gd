@@ -20,11 +20,7 @@ var card_data = {
 	"bone_cost": 2,
 	"sigils": [
 		"Airborne",
-		"Mighty Leap",
 		"Burrower",
-		"Omni Strike",
-		"Armored",
-		"Armored",
 	]
 }
 
@@ -41,10 +37,18 @@ func _ready():
 func draw_from_data(cDat: Dictionary) -> void:
 	draw_sigils(cDat["sigils"])
 	draw_costs(cDat)
+	draw_conduit(cDat)
 
 
 func draw_sigils(sigils: Array) -> void:
 	var sCount = len(sigils)
+	
+	# Clear, in case it needs to happen again
+	for sigSlt in SIGIL_SLOTS:
+		get_node(sigSlt).hide()
+	
+	# Fix spacing	
+	$Sigils/Row2.visible = (sCount > 3)
 	
 	for sIdx in range(sCount):
 		var cNode = get_node(SIGIL_SLOTS[sIdx])
@@ -84,6 +88,11 @@ func draw_costs(cDat: Dictionary) -> void:
 				for txt in txtNodes:
 					txt.text = "x" + str(costValue)
 				costNode.get_node("Text").rect_min_size.x = 39 + (18 * floor(log(costValue) / log(10)))
+
+
+func draw_conduit(cDat: Dictionary) -> void:
+	$Sigils/ConduitIndicator.visible = cDat.get("conduit", false)
+
 
 # Hover, click handlers
 func _on_CardBtn_button_down() -> void:
