@@ -410,6 +410,7 @@ mouse_filter = 2
 alignment = 1
 
 [node name="ConduitIndicator" type="TextureRect" parent="Sigils"]
+visible = false
 margin_right = 120.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 0, 26 )
@@ -435,9 +436,8 @@ texture = SubResource( 17 )
 expand = true
 
 [node name="Row1" type="HBoxContainer" parent="Sigils"]
-margin_top = 26.0
 margin_right = 120.0
-margin_bottom = 38.0
+margin_bottom = 25.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
@@ -479,7 +479,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Row2" type="HBoxContainer" parent="Sigils"]
-margin_top = 38.0
+margin_top = 25.0
 margin_right = 120.0
 margin_bottom = 50.0
 mouse_filter = 2
@@ -522,7 +522,7 @@ texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 
-[node name="Active2" type="TextureButton" parent="."]
+[node name="Active" type="TextureButton" parent="."]
 visible = false
 self_modulate = Color( 0.905882, 0.878431, 0.717647, 1 )
 margin_left = 24.0
@@ -535,7 +535,7 @@ texture_hover = SubResource( 9 )
 texture_disabled = SubResource( 10 )
 expand = true
 
-[node name="ActiveIcon" type="TextureRect" parent="Active2"]
+[node name="ActiveIcon" type="TextureRect" parent="Active"]
 margin_left = 6.0
 margin_top = 6.0
 margin_right = 73.0
@@ -563,7 +563,7 @@ expand = true
 [connection signal="button_up" from="CardBtn" to="." method="_on_CardBtn_button_up"]
 [connection signal="mouse_entered" from="CardBtn" to="." method="_on_CardBtn_mouse_entered"]
 [connection signal="mouse_exited" from="CardBtn" to="." method="_on_CardBtn_mouse_exited"]
-[connection signal="button_down" from="Active2" to="." method="_on_Active2_button_down"]
-[connection signal="button_up" from="Active2" to="." method="_on_Active2_button_up"]
-[connection signal="mouse_entered" from="Active2" to="." method="_on_Active2_mouse_entered"]
-[connection signal="mouse_exited" from="Active2" to="." method="_on_Active2_mouse_exited"]
+[connection signal="button_down" from="Active" to="." method="_on_Active2_button_down"]
+[connection signal="button_up" from="Active" to="." method="_on_Active2_button_up"]
+[connection signal="mouse_entered" from="Active" to="." method="_on_Active2_mouse_entered"]
+[connection signal="mouse_exited" from="Active" to="." method="_on_Active2_mouse_exited"]

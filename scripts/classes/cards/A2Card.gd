@@ -19,9 +19,9 @@ const SIGIL_SLOTS = [
 var card_data = {
 	"bone_cost": 2,
 	"sigils": [
-		"Airborne",
-		"Burrower",
-	]
+		"Disentomb"
+	],
+	"active": true
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -35,13 +35,15 @@ func _ready():
 
 
 func draw_from_data(cDat: Dictionary) -> void:
-	draw_sigils(cDat["sigils"])
+	draw_sigils(cDat)
 	draw_costs(cDat)
 	draw_conduit(cDat)
+	draw_active(cDat)
 
 
-func draw_sigils(sigils: Array) -> void:
-	var sCount = len(sigils)
+func draw_sigils(cDat: Dictionary) -> void:
+	
+	var sCount = len(cDat.get("sigils", []))
 	
 	# Clear, in case it needs to happen again
 	for sigSlt in SIGIL_SLOTS:
@@ -50,9 +52,13 @@ func draw_sigils(sigils: Array) -> void:
 	# Fix spacing	
 	$Sigils/Row2.visible = (sCount > 3)
 	
+	# Special case: Don't draw sigils if an active sigil is present
+	if cDat.get("active") or sCount == 0:
+		return
+	
 	for sIdx in range(sCount):
 		var cNode = get_node(SIGIL_SLOTS[sIdx])
-		cNode.texture = load("res://gfx/sigils/%s.png" % sigils[sIdx])
+		cNode.texture = load("res://gfx/sigils/%s.png" % cDat.sigils[sIdx])
 		cNode.show()
 
 
@@ -67,7 +73,7 @@ func draw_costs(cDat: Dictionary) -> void:
 	]:
 		var costNode = get_node("Costs/" + cost)
 		
-		if not cost in cDat:
+		if not cDat.get(cost):
 			costNode.hide()
 		else:
 			var costValue = cDat.get(cost)
@@ -90,9 +96,16 @@ func draw_costs(cDat: Dictionary) -> void:
 				costNode.get_node("Text").rect_min_size.x = 39 + (18 * floor(log(costValue) / log(10)))
 
 
+# Conduit sigil
 func draw_conduit(cDat: Dictionary) -> void:
 	$Sigils/ConduitIndicator.visible = cDat.get("conduit", false)
 
+func draw_active(cDat: Dictionary) -> void:
+	if cDat.get("active") and cDat.get("sigils"):
+		$Active.show()
+		$Active/ActiveIcon.texture = load("res://gfx/sigils/" + cDat.sigils[0] + ".png")
+	else:
+		$Active.hide()
 
 # Hover, click handlers
 func _on_CardBtn_button_down() -> void:
@@ -121,11 +134,11 @@ func _on_Active2_mouse_exited() -> void:
 
 
 func _on_Active2_button_down() -> void:
-	$Active2/ActiveIcon.rect_position = Vector2(6, 16)
+	$Active/ActiveIcon.rect_position = Vector2(6, 16)
 
 
 func _on_Active2_button_up() -> void:
-	$Active2/ActiveIcon.rect_position = Vector2(6, 6)
+	$Active/ActiveIcon.rect_position = Vector2(6, 6)
 
 
 
