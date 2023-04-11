@@ -14,3 +14,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		if event.scancode == KEY_COMMA:
+			card_data["blood_cost"] -= 1
+			draw_costs(card_data)
+		if event.scancode == KEY_PERIOD:
+			card_data["blood_cost"] += 1
+			draw_costs(card_data)
+			
