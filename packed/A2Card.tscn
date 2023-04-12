@@ -164,7 +164,7 @@ margin_bottom = 123.0
 mouse_filter = 2
 custom_constants/separation = 0
 
-[node name="blood_cost" type="HBoxContainer" parent="Costs"]
+[node name="blood" type="HBoxContainer" parent="Costs"]
 visible = false
 margin_left = 20.0
 margin_right = 122.0
@@ -175,7 +175,7 @@ size_flags_horizontal = 8
 custom_constants/separation = 0
 alignment = 2
 
-[node name="1" type="TextureRect" parent="Costs/blood_cost"]
+[node name="1" type="TextureRect" parent="Costs/blood"]
 visible = false
 margin_right = 27.0
 margin_bottom = 39.0
@@ -184,7 +184,7 @@ mouse_filter = 2
 texture = SubResource( 23 )
 expand = true
 
-[node name="2" type="TextureRect" parent="Costs/blood_cost"]
+[node name="2" type="TextureRect" parent="Costs/blood"]
 visible = false
 margin_left = 12.0
 margin_right = 63.0
@@ -194,7 +194,7 @@ mouse_filter = 2
 texture = SubResource( 22 )
 expand = true
 
-[node name="TXIcon" type="TextureRect" parent="Costs/blood_cost"]
+[node name="TXIcon" type="TextureRect" parent="Costs/blood"]
 margin_right = 27.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 27, 0 )
@@ -202,7 +202,7 @@ mouse_filter = 2
 texture = ExtResource( 15 )
 expand = true
 
-[node name="Text" type="Control" parent="Costs/blood_cost"]
+[node name="Text" type="Control" parent="Costs/blood"]
 show_behind_parent = true
 margin_left = 27.0
 margin_right = 102.0
@@ -210,7 +210,7 @@ margin_bottom = 39.0
 rect_min_size = Vector2( 75, 0 )
 mouse_filter = 2
 
-[node name="BGCost" type="Label" parent="Costs/blood_cost/Text"]
+[node name="BGCost" type="Label" parent="Costs/blood/Text"]
 margin_left = -3.0
 margin_right = 22.0
 margin_bottom = 13.0
@@ -219,7 +219,7 @@ custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
 custom_fonts/font = SubResource( 20 )
 text = "x011"
 
-[node name="FGCost" type="Label" parent="Costs/blood_cost/Text"]
+[node name="FGCost" type="Label" parent="Costs/blood/Text"]
 margin_left = -3.0
 margin_right = 22.0
 margin_bottom = 13.0
@@ -228,7 +228,7 @@ custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
 custom_fonts/font = SubResource( 21 )
 text = "x011"
 
-[node name="bone_cost" type="HBoxContainer" parent="Costs"]
+[node name="bone" type="HBoxContainer" parent="Costs"]
 visible = false
 margin_left = 24.0
 margin_right = 122.0
@@ -239,7 +239,7 @@ size_flags_horizontal = 8
 custom_constants/separation = -16
 alignment = 2
 
-[node name="1" type="TextureRect" parent="Costs/bone_cost"]
+[node name="1" type="TextureRect" parent="Costs/bone"]
 visible = false
 margin_left = 24.0
 margin_right = 63.0
@@ -249,7 +249,7 @@ mouse_filter = 2
 texture = SubResource( 27 )
 expand = true
 
-[node name="2" type="TextureRect" parent="Costs/bone_cost"]
+[node name="2" type="TextureRect" parent="Costs/bone"]
 visible = false
 margin_left = 3.0
 margin_right = 63.0
@@ -259,7 +259,7 @@ mouse_filter = 2
 texture = SubResource( 28 )
 expand = true
 
-[node name="TXIcon" type="TextureRect" parent="Costs/bone_cost"]
+[node name="TXIcon" type="TextureRect" parent="Costs/bone"]
 margin_right = 39.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 39, 0 )
@@ -267,7 +267,7 @@ mouse_filter = 2
 texture = SubResource( 29 )
 expand = true
 
-[node name="Text" type="Control" parent="Costs/bone_cost"]
+[node name="Text" type="Control" parent="Costs/bone"]
 show_behind_parent = true
 margin_left = 23.0
 margin_right = 98.0
@@ -275,7 +275,7 @@ margin_bottom = 39.0
 rect_min_size = Vector2( 75, 0 )
 mouse_filter = 2
 
-[node name="BGCost" type="Label" parent="Costs/bone_cost/Text"]
+[node name="BGCost" type="Label" parent="Costs/bone/Text"]
 margin_left = -3.0
 margin_right = 22.0
 margin_bottom = 13.0
@@ -284,7 +284,7 @@ custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
 custom_fonts/font = SubResource( 20 )
 text = "x011"
 
-[node name="FGCost" type="Label" parent="Costs/bone_cost/Text"]
+[node name="FGCost" type="Label" parent="Costs/bone/Text"]
 margin_left = -3.0
 margin_right = 22.0
 margin_bottom = 13.0
@@ -293,7 +293,7 @@ custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
 custom_fonts/font = SubResource( 21 )
 text = "x011"
 
-[node name="energy_cost" type="HBoxContainer" parent="Costs"]
+[node name="energy" type="HBoxContainer" parent="Costs"]
 visible = false
 margin_left = 20.0
 margin_right = 122.0
@@ -304,7 +304,7 @@ size_flags_horizontal = 8
 custom_constants/separation = 0
 alignment = 2
 
-[node name="1" type="TextureRect" parent="Costs/energy_cost"]
+[node name="1" type="TextureRect" parent="Costs/energy"]
 visible = false
 margin_right = 27.0
 margin_bottom = 39.0
@@ -313,7 +313,7 @@ mouse_filter = 2
 texture = SubResource( 25 )
 expand = true
 
-[node name="2" type="TextureRect" parent="Costs/energy_cost"]
+[node name="2" type="TextureRect" parent="Costs/energy"]
 visible = false
 margin_right = 51.0
 margin_bottom = 39.0
@@ -322,7 +322,7 @@ mouse_filter = 2
 texture = SubResource( 26 )
 expand = true
 
-[node name="TXIcon" type="TextureRect" parent="Costs/energy_cost"]
+[node name="TXIcon" type="TextureRect" parent="Costs/energy"]
 margin_right = 27.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 27, 0 )
@@ -330,7 +330,7 @@ mouse_filter = 2
 texture = ExtResource( 16 )
 expand = true
 
-[node name="Text" type="Control" parent="Costs/energy_cost"]
+[node name="Text" type="Control" parent="Costs/energy"]
 show_behind_parent = true
 margin_left = 27.0
 margin_right = 102.0
@@ -338,7 +338,7 @@ margin_bottom = 39.0
 rect_min_size = Vector2( 75, 0 )
 mouse_filter = 2
 
-[node name="BGCost" type="Label" parent="Costs/energy_cost/Text"]
+[node name="BGCost" type="Label" parent="Costs/energy/Text"]
 margin_left = -3.0
 margin_right = 22.0
 margin_bottom = 13.0
@@ -347,7 +347,7 @@ custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
 custom_fonts/font = SubResource( 20 )
 text = "x011"
 
-[node name="FGCost" type="Label" parent="Costs/energy_cost/Text"]
+[node name="FGCost" type="Label" parent="Costs/energy/Text"]
 margin_left = -3.0
 margin_right = 22.0
 margin_bottom = 13.0

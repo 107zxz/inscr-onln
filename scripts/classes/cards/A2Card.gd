@@ -17,11 +17,17 @@ const SIGIL_SLOTS = [
 ]
 
 var card_data = {
-	"bone_cost": 2,
+	"costs": {
+		"bone": 2
+	},
 	"sigils": [
 		"Disentomb"
 	],
-	"active": true
+	"name": "Buff Conduit",
+	"traits": [
+		"active"
+	],
+	"stats": [1, 2]
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -35,11 +41,17 @@ func _ready():
 
 
 func draw_from_data(cDat: Dictionary) -> void:
+	draw_stats(cDat)
 	draw_sigils(cDat)
 	draw_costs(cDat)
 	draw_conduit(cDat)
 	draw_active(cDat)
 
+
+func draw_stats(cDat: Dictionary) -> void:
+	$CardPort.texture = load("res://gfx/pixport/" + cDat.name + ".png")
+	$AtkScore.text = str(cDat.stats[0])
+	$HpScore.text = str(cDat.stats[1])
 
 func draw_sigils(cDat: Dictionary) -> void:
 	
@@ -53,7 +65,7 @@ func draw_sigils(cDat: Dictionary) -> void:
 	$Sigils/Row2.visible = (sCount > 3)
 	
 	# Special case: Don't draw sigils if an active sigil is present
-	if cDat.get("active") or sCount == 0:
+	if "active" in cDat.get("traits", []) or sCount == 0:
 		return
 	
 	for sIdx in range(sCount):
@@ -67,16 +79,17 @@ func draw_sigils(cDat: Dictionary) -> void:
 # when not in use
 func draw_costs(cDat: Dictionary) -> void:
 	for cost in [
-		"blood_cost",
-		"bone_cost",
-		"energy_cost"
+		"blood",
+		"bone",
+		"energy"
 	]:
 		var costNode = get_node("Costs/" + cost)
+		var costs = cDat.get("costs", {})
 		
-		if not cDat.get(cost):
+		if not costs.get(cost):
 			costNode.hide()
 		else:
-			var costValue = cDat.get(cost)
+			var costValue = costs.get(cost)
 			
 			costNode.show()
 			
@@ -98,10 +111,10 @@ func draw_costs(cDat: Dictionary) -> void:
 
 # Conduit sigil
 func draw_conduit(cDat: Dictionary) -> void:
-	$Sigils/ConduitIndicator.visible = cDat.get("conduit", false)
+	$Sigils/ConduitIndicator.visible = "conduit" in cDat.get("traits", [])
 
 func draw_active(cDat: Dictionary) -> void:
-	if cDat.get("active") and cDat.get("sigils"):
+	if "active" in cDat.get("traits", []) and cDat.get("sigils"):
 		$Active.show()
 		$Active/ActiveIcon.texture = load("res://gfx/sigils/" + cDat.sigils[0] + ".png")
 	else:
