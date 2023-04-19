@@ -1,35 +1,8 @@
-<<<<<<< HEAD
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/classes/cards/PlayingCard.gd" type="Script" id=2]
 [ext_resource path="res://packed/A2Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/classes/cards/A2Card_Compat.gd" type="Script" id=16]
-=======
-[gd_scene load_steps=33 format=2]
-
-[ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
-[ext_resource path="res://scripts/classes/cards/PlayingCard.gd" type="Script" id=2]
-[ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=3]
-[ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=4]
-[ext_resource path="res://gfx/sigils/Bomb Spewer.png" type="Texture" id=5]
-[ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
-[ext_resource path="res://gfx/cardextras/pixel_card_subicon.png" type="Texture" id=7]
-[ext_resource path="res://gfx/sigils/Marrow Sucker.png" type="Texture" id=8]
-[ext_resource path="res://gfx/sigils/Great Mox.png" type="Texture" id=9]
-[ext_resource path="res://themes/sigilMat.tres" type="Material" id=10]
-[ext_resource path="res://scripts/classes/cards/DrawCard.gd" type="Script" id=11]
-[ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=12]
-[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=13]
-[ext_resource path="res://fonts/CardFont.tres" type="DynamicFont" id=14]
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 6 )
-region = Rect2( 28, 1, 26, 15 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 6 )
-region = Rect2( 1, 65, 26, 15 )
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 13 )
@@ -107,17 +80,12 @@ tracks/1/keys = {
 resource_name = "CatSac"
 length = 0.2
 tracks/0/type = "value"
-<<<<<<< HEAD
 tracks/0/path = NodePath("CardBody/SacOlay:visible")
-=======
-tracks/0/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-<<<<<<< HEAD
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -125,15 +93,6 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:modulate")
-=======
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CardBody:rect_position")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -142,7 +101,6 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
@@ -151,21 +109,10 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
-=======
-"values": [ Vector2( 0, 0 ), Vector2( 32, 46 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("CardBody:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 0, 0 ), Vector2( 32, 46 ), Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
@@ -179,59 +126,29 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("CardBody/SacOlay:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 
 [sub_resource type="Animation" id=12]
 resource_name = "Discard"
 length = 0.2
 tracks/0/type = "value"
-<<<<<<< HEAD
 tracks/0/path = NodePath("CardBody:modulate")
-=======
-tracks/0/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-<<<<<<< HEAD
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
-=======
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-<<<<<<< HEAD
 tracks/1/enabled = false
-=======
-tracks/1/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -239,28 +156,16 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 32, 46 ) ]
 }
 tracks/2/type = "value"
-<<<<<<< HEAD
 tracks/2/path = NodePath("CardBody:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
-=======
-tracks/2/path = NodePath("CardBody:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath(".")
@@ -281,17 +186,12 @@ tracks/3/keys = {
 resource_name = "Dive"
 length = 0.2
 tracks/0/type = "value"
-<<<<<<< HEAD
 tracks/0/path = NodePath("CardBody/DiveOlay:visible")
-=======
-tracks/0/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-<<<<<<< HEAD
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
@@ -299,15 +199,6 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:modulate")
-=======
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("CardBody:rect_position")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -316,7 +207,6 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
@@ -325,21 +215,10 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
-=======
-"values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("CardBody:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
@@ -353,45 +232,6 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("CardBody/DiveOlay:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("CardBody/VBoxContainer:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("CardBody/HBoxContainer:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 
 [sub_resource type="Animation" id=17]
@@ -399,11 +239,7 @@ resource_name = "DoublePerish"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
-<<<<<<< HEAD
 tracks/0/path = NodePath("CardBody:modulate")
-=======
-tracks/0/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -412,22 +248,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.09, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
-=======
-"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ), Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-<<<<<<< HEAD
 tracks/1/enabled = false
-=======
-tracks/1/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.09, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
@@ -435,28 +263,16 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 32, 46 ), Vector2( 0, 0 ), Vector2( 32, 46 ) ]
 }
 tracks/2/type = "value"
-<<<<<<< HEAD
 tracks/2/path = NodePath("CardBody:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
-=======
-tracks/2/path = NodePath("CardBody:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.09, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ), Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath(".")
@@ -480,11 +296,7 @@ tracks/3/keys = {
 resource_name = "Evolve"
 length = 0.2
 tracks/0/type = "value"
-<<<<<<< HEAD
 tracks/0/path = NodePath("CardBody:modulate")
-=======
-tracks/0/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -493,22 +305,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-=======
-"values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-<<<<<<< HEAD
 tracks/1/enabled = false
-=======
-tracks/1/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
@@ -516,28 +320,16 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 32, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
-<<<<<<< HEAD
 tracks/2/path = NodePath("CardBody:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
-=======
-tracks/2/path = NodePath("CardBody:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/3/type = "method"
 tracks/3/path = NodePath(".")
@@ -631,11 +423,7 @@ tracks/3/keys = {
 resource_name = "ProcGeneric"
 length = 0.2
 tracks/0/type = "value"
-<<<<<<< HEAD
 tracks/0/path = NodePath("CardBody:modulate")
-=======
-tracks/0/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -644,22 +432,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.492188, 0.492188, 0.492188, 1 ), Color( 1, 1, 1, 1 ) ]
-=======
-"values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-<<<<<<< HEAD
 tracks/1/enabled = false
-=======
-tracks/1/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
@@ -667,28 +447,16 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "value"
-<<<<<<< HEAD
 tracks/2/path = NodePath("CardBody:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = false
-=======
-tracks/2/path = NodePath("CardBody:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.698039, 0.698039, 0.698039, 1 ), Color( 1, 1, 1, 1 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 
 [sub_resource type="Animation" id=6]
@@ -716,17 +484,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:rect_size")
-=======
-"values": [ Vector2( 128, 185 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("CardBody:modulate")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -735,17 +496,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 128, 185 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("CardBody:rect_position")
-=======
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("CardBody:rect_scale")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -754,11 +508,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 0, 0 ) ]
-=======
-"values": [ Vector2( 1, 1 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 
 [sub_resource type="Animation" id=18]
@@ -786,17 +536,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-<<<<<<< HEAD
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ true, false ]
-=======
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("CardBody:modulate")
@@ -808,11 +551,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-=======
-"values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CardBody:rect_position")
@@ -824,57 +563,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-<<<<<<< HEAD
 "values": [ Vector2( 0, 0 ), Vector2( 15, 23 ), Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("CardBody:rect_scale")
-=======
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("CardBody/DiveOlay:visible")
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = false
 tracks/3/keys = {
-<<<<<<< HEAD
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.75, 0.75 ), Vector2( 1, 1 ) ]
-=======
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("CardBody/VBoxContainer:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("CardBody/HBoxContainer:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 }
 
 [node name="Card" type="Control"]
@@ -887,310 +588,12 @@ __meta__ = {
 "_edit_vertical_guides_": [ 128.229 ]
 }
 
-<<<<<<< HEAD
 [node name="CardBody" parent="." instance=ExtResource( 15 )]
 margin_left = 0.0
 margin_top = 0.0
 margin_right = 128.0
 margin_bottom = 185.0
 script = ExtResource( 16 )
-=======
-[node name="CardBody" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 128, 185 )
-mouse_filter = 2
-theme = ExtResource( 1 )
-script = ExtResource( 11 )
-
-[node name="Button" type="Button" parent="CardBody"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
-focus_mode = 0
-disabled = true
-button_mask = 3
-enabled_focus_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CardBody"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="CardBody/VBoxContainer"]
-margin_right = 124.0
-margin_bottom = 24.0
-size_flags_vertical = 1
-align = 1
-valign = 1
-clip_text = true
-
-[node name="Portrait" type="TextureRect" parent="CardBody/VBoxContainer"]
-material = ExtResource( 10 )
-margin_top = 24.0
-margin_right = 124.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 124, 86 )
-rect_clip_content = true
-mouse_filter = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.69
-expand = true
-stretch_mode = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer/Portrait"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-alignment = 2
-
-[node name="Control" type="Control" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 86.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CardBody/VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 86.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="BloodCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_right = 41.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 2 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BoneCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_top = 18.0
-margin_right = 41.0
-margin_bottom = 37.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 3 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EnergyCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_top = 28.0
-margin_right = 41.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 3 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MoxCost" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_top = 45.0
-margin_right = 41.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 3 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Special" type="TextureRect" parent="CardBody/VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_top = 28.0
-margin_right = 41.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 20, 0 )
-mouse_filter = 2
-size_flags_horizontal = 11
-size_flags_vertical = 3
-texture = SubResource( 20 )
-expand = true
-stretch_mode = 5
-
-[node name="ConduitIcon" type="TextureRect" parent="CardBody/VBoxContainer"]
-visible = false
-material = ExtResource( 10 )
-margin_top = 110.0
-margin_right = 124.0
-margin_bottom = 131.0
-mouse_filter = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.26
-texture = SubResource( 4 )
-expand = true
-stretch_mode = 6
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CardBody/VBoxContainer"]
-margin_top = 110.0
-margin_right = 124.0
-margin_bottom = 181.0
-mouse_filter = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.6
-alignment = 1
-
-[node name="Spacer" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_right = 62.0
-margin_bottom = 71.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-expand = true
-stretch_mode = 6
-
-[node name="ActiveSigil" type="Button" parent="CardBody/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 73.0
-margin_top = 73.0
-margin_right = 105.0
-margin_bottom = 90.0
-rect_min_size = Vector2( 32, 0 )
-focus_mode = 0
-mouse_filter = 2
-size_flags_vertical = 4
-enabled_focus_mode = 0
-expand_icon = true
-
-[node name="TextureRect" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer/ActiveSigil"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-texture = ExtResource( 8 )
-expand = true
-stretch_mode = 6
-
-[node name="Sigil" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-visible = false
-material = ExtResource( 10 )
-margin_left = 31.0
-margin_right = 93.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 15, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-
-[node name="Spacer3" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 34.0
-margin_right = 46.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 3, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-expand = true
-stretch_mode = 6
-
-[node name="Sigil2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-visible = false
-material = ExtResource( 10 )
-margin_left = 20.0
-margin_right = 60.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 15, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 6
-
-[node name="Spacer2" type="TextureRect" parent="CardBody/VBoxContainer/HBoxContainer"]
-margin_left = 62.0
-margin_right = 124.0
-margin_bottom = 71.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-expand = true
-stretch_mode = 6
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CardBody"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
-mouse_filter = 2
-alignment = 1
-
-[node name="Spacer" type="Control" parent="CardBody/HBoxContainer"]
-margin_right = 2.0
-margin_bottom = 181.0
-rect_min_size = Vector2( 2, 0 )
-
-[node name="AtkScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_left = 2.0
-margin_right = 63.0
-margin_bottom = 181.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/font = ExtResource( 14 )
-valign = 2
-
-[node name="HpScore" type="Label" parent="CardBody/HBoxContainer"]
-margin_left = 63.0
-margin_right = 124.0
-margin_bottom = 181.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/font = ExtResource( 14 )
-align = 2
-valign = 2
-
-[node name="SacOlay" type="TextureRect" parent="CardBody"]
-visible = false
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 83.0
-margin_bottom = 121.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 1
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 [node name="DiveOlay" type="TextureRect" parent="CardBody"]
 visible = false
@@ -1253,9 +656,4 @@ anims/UnDive = SubResource( 16 )
 
 [node name="Tween" type="Tween" parent="."]
 
-<<<<<<< HEAD
 [editable path="CardBody"]
-=======
-[connection signal="button_down" from="CardBody/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="CardBody/VBoxContainer/HBoxContainer/ActiveSigil" to="." method="_on_ActiveSigil_pressed"]
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa

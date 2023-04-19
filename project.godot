@@ -14,14 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/classes/buffs/BuffEffect.gd"
 }, {
-<<<<<<< HEAD
 "base": "Reference",
 "class": "Card",
 "language": "GDScript",
 "path": "res://scripts/classes/cards/CardData.gd"
 }, {
-=======
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 "base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
@@ -39,10 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BuffEffect": "",
-<<<<<<< HEAD
 "Card": "",
-=======
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 "GitAPI": "",
 "Replay": "",
 "SigilEffect": ""

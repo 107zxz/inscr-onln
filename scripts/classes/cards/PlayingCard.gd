@@ -48,11 +48,7 @@ func from_data(cdat):
 	draw_stats()
 	
 	# Enable interaction with the card
-<<<<<<< HEAD
 	$CardBody/CardBtn.disabled = false
-=======
-	$CardBody/Button.disabled = false
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 	
 func create_sigils(friendly):
 	if not "sigils" in card_data:
@@ -79,13 +75,8 @@ func handle_sigil_event(event, params):
 		sig.handle_event(event, params)
 
 func draw_stats():
-<<<<<<< HEAD
 	$CardBody/AtkScore.text = str(attack)
 	$CardBody/HpScore.text = str(health)
-=======
-	$CardBody/HBoxContainer/AtkScore.text = str(attack)
-	$CardBody/HBoxContainer/HpScore.text = str(health)
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 # When card is clicked
 func _on_Button_pressed():
@@ -156,11 +147,7 @@ func _on_Button_pressed():
 			return
 		
 		# Is it hammer time? Am I on the player's side?
-<<<<<<< HEAD
 		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name in ["PlayerSlots", "PlayerSlotsBack"] and not "nohammer" in card_data:
-=======
-		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name == "PlayerSlots" and not "nohammer" in card_data:
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 			$AnimationPlayer.play("Perish")
 #			slotManager.rpc_id(fightManager.opponent, "remote_card_anim", get_parent().get_position_in_parent(), "Perish")
 			fightManager.send_move({
@@ -190,11 +177,7 @@ func _on_Button_pressed():
 			else:
 				
 				# How tf did this not get patched 6 months ago
-<<<<<<< HEAD
 				if not get_parent().get_parent().name in ["PlayerSlots", "PlayerSlotsBack"]:
-=======
-				if get_parent().get_parent().name != "PlayerSlots":
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 					print("Nice try dumbass!")
 					return
 				
@@ -727,13 +710,8 @@ func has_sigil(sigName):
 # Take damage and die if needed
 func take_damage(enemyCard, dmg_amt = -1):
 
-<<<<<<< HEAD
 	if $CardBody/Highlight.visible:
 		$CardBody/Highlight.visible = false
-=======
-	if $CardBody/HighlightHolder.visible:
-		$CardBody/HighlightHolder.visible = false
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 		return
 
 	if enemyCard and dmg_amt == -1:

@@ -36,11 +36,7 @@ func _ready():
 		$CustomBackground.texture = CardInfo.background_texture
 	
 	# Android
-<<<<<<< HEAD
 	if OS.get_name() == "HTML5":
-=======
-	if OS.get_name() in ["Android", "HTML5"]:
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 		$LobbyHost/Rows/HostType/Type.select(1)
 		$LobbyHost/Rows/HostType/Type.set_item_disabled(0, true)
 		$Menu/VBoxContainer/LogFolder.visible = false
@@ -48,10 +44,6 @@ func _ready():
 		$LobbyHost/Rows/RoomnameInfo.visible = false
 		$LobbyHost/Rows/Roomname.visible = false
 	
-<<<<<<< HEAD
-=======
-	if OS.get_name() == "HTML5":
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 		$Menu/VBoxContainer/HostBtn.disabled = true
 		$Menu/VBoxContainer/HostBtn.text = "Host Game (unavailable on web version)"
 		
@@ -299,11 +291,7 @@ func _on_LobbyQuit_pressed():
 	NetworkManager.kill()
 
 func _on_LogFolder_pressed():
-<<<<<<< HEAD
 	if OS.get_name() == "HTML5":
-=======
-	if OS.get_name() in ["Android", "HTML5"]:
->>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 		errorBox("Your game directory is: " + CardInfo.data_path)
 		return
 	OS.shell_open("file://" + OS.get_user_data_dir())
