@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 [gd_resource type="Theme" load_steps=27 format=2]
+=======
+[gd_resource type="Theme" load_steps=23 format=2]
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
 [ext_resource path="res://gfx/extra/On.png" type="Texture" id=3]
+<<<<<<< HEAD
 [ext_resource path="res://fonts/ScoreFont.tres" type="DynamicFont" id=4]
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 [sub_resource type="StyleBoxFlat" id=9]
 content_margin_top = 5.0
@@ -43,14 +50,28 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
+<<<<<<< HEAD
 [sub_resource type="StyleBoxFlat" id=26]
 bg_color = Color( 0, 0, 0, 0.117647 )
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
+=======
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.8, 0.768627, 0.568627, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 border_color = Color( 0, 0, 0, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
 
+<<<<<<< HEAD
 [sub_resource type="StyleBoxFlat" id=27]
 bg_color = Color( 1, 1, 1, 0 )
 border_width_left = 3
@@ -69,6 +90,10 @@ border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0.8, 0.768627, 0.568627, 1 )
+=======
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0.772549, 0.6, 0.415686, 1 )
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -79,6 +104,7 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
+<<<<<<< HEAD
 [sub_resource type="StyleBoxFlat" id=21]
 bg_color = Color( 0.772549, 0.6, 0.415686, 1 )
 border_width_left = 2
@@ -91,6 +117,8 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 [sub_resource type="StyleBoxFlat" id=22]
 bg_color = Color( 0.701961, 0.603922, 0.498039, 1 )
 border_width_left = 2
@@ -103,7 +131,11 @@ expand_margin_right = 3.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
+<<<<<<< HEAD
 [sub_resource type="StyleBoxFlat" id=25]
+=======
+[sub_resource type="StyleBoxFlat" id=20]
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 bg_color = Color( 0.701961, 0.67451, 0.498039, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -260,6 +292,7 @@ Button/styles/focus = null
 Button/styles/hover = SubResource( 8 )
 Button/styles/normal = SubResource( 9 )
 Button/styles/pressed = SubResource( 10 )
+<<<<<<< HEAD
 CSlot/styles/hover = SubResource( 26 )
 CSlot/styles/normal = SubResource( 27 )
 CSlot/styles/pressed = SubResource( 28 )
@@ -267,6 +300,12 @@ Card/styles/hover = SubResource( 19 )
 Card/styles/nohammer_hover = SubResource( 21 )
 Card/styles/nohammer_normal = SubResource( 22 )
 Card/styles/normal = SubResource( 25 )
+=======
+Card/styles/hover = SubResource( 19 )
+Card/styles/nohammer_hover = SubResource( 21 )
+Card/styles/nohammer_normal = SubResource( 22 )
+Card/styles/normal = SubResource( 20 )
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 Card/styles/nosac_hover = SubResource( 13 )
 Card/styles/nosac_normal = SubResource( 14 )
 Card/styles/rare_hover = SubResource( 15 )
@@ -291,7 +330,10 @@ PanelContainer/styles/panel = SubResource( 6 )
 PopupDialog/styles/panel = SubResource( 6 )
 PopupPanel/styles/panel = SubResource( 6 )
 RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
+<<<<<<< HEAD
 ScoreFont/fonts/font = ExtResource( 4 )
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 ScrollContainer/styles/bg = SubResource( 6 )
 SpeechBubble/styles/normal = SubResource( 24 )
 SpeechBubble/styles/panel = SubResource( 24 )

@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://packed/A2Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/UI/NewHand.gd" type="Script" id=2]
+=======
+[gd_scene format=2]
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 [node name="NewHand" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+<<<<<<< HEAD
 
 [node name="PlayerHand" type="Control" parent="."]
 anchor_left = 0.5
@@ -31,3 +36,5 @@ margin_left = 25.03
 margin_top = -363.436
 margin_right = 153.03
 margin_bottom = -178.436
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa

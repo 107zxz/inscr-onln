@@ -77,6 +77,7 @@ var want_rematch = false
 
 # Connect in-game signals
 func _ready():
+<<<<<<< HEAD
 	$CustomBg.texture = CardInfo.background_texture
 	
 	# Backrow
@@ -88,6 +89,12 @@ func _ready():
 	else:
 		for slot in slotManager.playerSlots:
 			slot.connect("pressed", self, "play_card", [slot])
+=======
+	for slot in slotManager.playerSlots:
+		slot.connect("pressed", self, "play_card", [slot])
+	
+	$CustomBg.texture = CardInfo.background_texture
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 
 
 #func _process(delta):
@@ -269,6 +276,7 @@ func end_turn():
 	# Handle sigils
 	slotManager.post_turn_sigils(true)
 	yield(slotManager, "resolve_sigils")
+<<<<<<< HEAD
 	
 	# Shift cards forwards
 	if CardInfo.all_data.enable_backrow:
@@ -279,6 +287,14 @@ func end_turn():
 		set_opponent_max_energy(opponent_max_energy + 1)
 	set_opponent_energy(opponent_max_energy)
 	
+=======
+		
+	# Bump opponent's energy
+	if opponent_max_energy < 6:
+		set_opponent_max_energy(opponent_max_energy + 1)
+	set_opponent_energy(opponent_max_energy)
+	
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 	# Pre turn sigils
 	slotManager.pre_turn_sigils(false)
 
@@ -469,6 +485,7 @@ func play_card(slot):
 			
 			card_summoned(playedCard)
 
+<<<<<<< HEAD
 func play_card_back(slot):
 	
 	# Is a card ready to be played?
@@ -518,6 +535,11 @@ func play_card_back(slot):
 func card_summoned(playedCard):
 	# Enable active
 	playedCard.get_node("CardBody/Active").mouse_filter = MOUSE_FILTER_STOP
+=======
+func card_summoned(playedCard):
+	# Enable active
+	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 	
 	# Sigil event
 #	emit_signal("sigil_event", "card_summoned", [playedCard])
@@ -628,9 +650,12 @@ func parse_next_move():
 			"play_card":
 				print("Opponent ", move.pid, " played card ", move.card, " in slot ", move.slot)
 				_opponent_played_card(move.card, move.slot, move.ignore_cost  if "ignore_cost" in move else false)
+<<<<<<< HEAD
 			"play_card_back":
 				print("Opponent ", move.pid, " played card ", move.card, " in back slot ", move.slot)
 				_opponent_played_card_back(move.card, move.slot, move.ignore_cost if "ignore_cost" in move else false)
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 			"hey_im_a_hungry":
 				print("Opponent is like ", move.for, " hungry.")
 				force_draw_starv(move.for)
@@ -774,6 +799,7 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 	for eCard in slotManager.all_enemy_cards():
 		eCard.calculate_buffs()
 	
+<<<<<<< HEAD
 func _opponent_played_card_back(card, slot, ignore_cost = false):
 	
 	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
@@ -819,6 +845,8 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 #		eCard.calculate_buffs()
 	
 
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 ## SPECIAL CARD STUFF
 remote func force_draw_starv(strength):
 

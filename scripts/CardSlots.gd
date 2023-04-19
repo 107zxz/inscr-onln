@@ -22,9 +22,13 @@ func clear_slots():
 func get_available_blood() -> int:
 	var blood = 0
 	
+<<<<<<< HEAD
 	var sacTargets = all_friendly_cards_backrow() if CardInfo.all_data.enable_backrow else all_friendly_cards()
 	
 	for card in sacTargets:
+=======
+	for card in all_friendly_cards():
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 		if card.has_sigil("Noble Sacrifice"):
 			blood += 1
 		if card.has_sigil("Worthy Sacrifice"):
@@ -126,10 +130,13 @@ signal resolve_sigils()
 
 func pre_turn_sigils(friendly: bool):
 	
+<<<<<<< HEAD
 	# Shift cards first
 	if CardInfo.all_data.enable_backrow:
 		shift_cards_forward(false)
 	
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 	var cardsToMove = all_friendly_cards() if friendly else all_enemy_cards()
 	
 	for card in cardsToMove:
@@ -1015,6 +1022,7 @@ func get_conduitfx_enemy(slot_idx):
 	
 	return conduitfx
 
+<<<<<<< HEAD
 
 # Shifting
 func shift_cards_forward(friendly):
@@ -1024,6 +1032,8 @@ func shift_cards_forward(friendly):
 		)
 
 
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 # New Helper functions
 func get_friendly_card(slot_idx):
 	
@@ -1054,6 +1064,7 @@ func all_friendly_cards():
 	
 	return cards
 
+<<<<<<< HEAD
 func all_friendly_cards_backrow():
 	var cards = []
 
@@ -1063,6 +1074,8 @@ func all_friendly_cards_backrow():
 	
 	return cards
 
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 func all_enemy_cards():
 	var cards = []
 
@@ -1072,6 +1085,7 @@ func all_enemy_cards():
 	
 	return cards
 
+<<<<<<< HEAD
 func all_enemy_cards_backrow():
 	var cards = []
 
@@ -1081,6 +1095,8 @@ func all_enemy_cards_backrow():
 	
 	return cards
 
+=======
+>>>>>>> c662b41e61700bd6a71b4ede78f54e77d08bb8fa
 func is_slot_empty(slot):
 	if slot.get_child_count():
 		for ch in slot.get_children():
