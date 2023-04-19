@@ -517,7 +517,7 @@ func play_card_back(slot):
 
 func card_summoned(playedCard):
 	# Enable active
-	playedCard.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil").mouse_filter = MOUSE_FILTER_STOP
+	playedCard.get_node("CardBody/Active").mouse_filter = MOUSE_FILTER_STOP
 	
 	# Sigil event
 #	emit_signal("sigil_event", "card_summoned", [playedCard])

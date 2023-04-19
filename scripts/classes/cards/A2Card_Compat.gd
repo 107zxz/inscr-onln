@@ -17,30 +17,28 @@ const SIGIL_SLOTS = [
 ]
 
 var card_data = {
-	"name": "Buff Conduit",
-	"stats": [1, 2],
-	"costs": {
-		"bone": 2
-	},
-	"sigils": [
-		"Disentomb"
-	],
-	"traits": [
-		"active"
-	]
-}
+					"name": "Greater Smoke",
+					"sigils": [
+							"Bone King"
+					],
+					"attack": 1,
+					"health": 3,
+					"banned": true,
+					"rare": true,
+					"description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
+				}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	modulate = HVR_COLOURS[0]
-	
-	draw_from_data(
-		card_data
-	)
-
+#	modulate = HVR_COLOURS[0]
+	pass
 
 
 func draw_from_data(cDat: Dictionary) -> void:
+	
+	# Card is now face-up, hide the back
+	$CardBack.hide()
+	
 	draw_stats(cDat)
 	draw_sigils(cDat)
 	draw_costs(cDat)
@@ -50,8 +48,8 @@ func draw_from_data(cDat: Dictionary) -> void:
 
 func draw_stats(cDat: Dictionary) -> void:
 	$CardPort.texture = load("res://gfx/pixport/" + cDat.name + ".png")
-	$AtkScore.text = str(cDat.stats[0])
-	$HpScore.text = str(cDat.stats[1])
+	$AtkScore.text = str(cDat.attack)
+	$HpScore.text = str(cDat.health)
 
 func draw_sigils(cDat: Dictionary) -> void:
 	
@@ -65,7 +63,7 @@ func draw_sigils(cDat: Dictionary) -> void:
 	$Sigils/Row2.visible = (sCount > 3)
 	
 	# Special case: Don't draw sigils if an active sigil is present
-	if "active" in cDat.get("traits", []) or sCount == 0:
+	if "active" in cDat or sCount == 0:
 		return
 	
 	for sIdx in range(sCount):
@@ -86,10 +84,10 @@ func draw_costs(cDat: Dictionary) -> void:
 		var costNode = get_node("Costs/" + cost)
 		var costs = cDat.get("costs", {})
 		
-		if not costs.get(cost):
+		if not cDat.get(cost + "_cost"):
 			costNode.hide()
 		else:
-			var costValue = costs.get(cost)
+			var costValue = cDat.get(cost + "_cost")
 			
 			costNode.show()
 			
@@ -111,10 +109,10 @@ func draw_costs(cDat: Dictionary) -> void:
 
 # Conduit sigil
 func draw_conduit(cDat: Dictionary) -> void:
-	$Sigils/ConduitIndicator.visible = "conduit" in cDat.get("traits", [])
+	$Sigils/ConduitIndicator.visible = "conduit" in cDat
 
 func draw_active(cDat: Dictionary) -> void:
-	if "active" in cDat.get("traits", []) and cDat.get("sigils"):
+	if "active" in cDat and cDat.get("sigils"):
 		$Active.show()
 		$Active/ActiveIcon.texture = load("res://gfx/sigils/" + cDat.sigils[0] + ".png")
 	else:
@@ -127,6 +125,9 @@ func _on_CardBtn_button_down() -> void:
 func _on_CardBtn_button_up() -> void:
 	if modulate == HVR_COLOURS[2]:
 		modulate = HVR_COLOURS[1]
+	
+	# Trigger a press action
+	get_parent()._on_Button_pressed()
 		
 
 func _on_CardBtn_mouse_entered() -> void:

@@ -48,7 +48,7 @@ func from_data(cdat):
 	draw_stats()
 	
 	# Enable interaction with the card
-	$CardBody/Button.disabled = false
+	$CardBody/CardBtn.disabled = false
 	
 func create_sigils(friendly):
 	if not "sigils" in card_data:
@@ -75,8 +75,8 @@ func handle_sigil_event(event, params):
 		sig.handle_event(event, params)
 
 func draw_stats():
-	$CardBody/HBoxContainer/AtkScore.text = str(attack)
-	$CardBody/HBoxContainer/HpScore.text = str(health)
+	$CardBody/AtkScore.text = str(attack)
+	$CardBody/HpScore.text = str(health)
 
 # When card is clicked
 func _on_Button_pressed():
@@ -710,8 +710,8 @@ func has_sigil(sigName):
 # Take damage and die if needed
 func take_damage(enemyCard, dmg_amt = -1):
 
-	if $CardBody/HighlightHolder.visible:
-		$CardBody/HighlightHolder.visible = false
+	if $CardBody/Highlight.visible:
+		$CardBody/Highlight.visible = false
 		return
 
 	if enemyCard and dmg_amt == -1:
