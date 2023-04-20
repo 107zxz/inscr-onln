@@ -1,9 +1,0 @@
-[gd_resource type="GDNativeLibrary" format=2]
-
-[resource]
-entry/OSX.64 = "res://native/libimf_tunnel.dylib"
-entry/Windows.64 = "res://native/imf_tunnel.dll"
-entry/X11.64 = "res://native/libimf_tunnel.so"
-dependency/OSX.64 = [  ]
-dependency/Windows.64 = [  ]
-dependency/X11.64 = [  ]
