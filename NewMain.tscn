@@ -1,0 +1,1260 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
+[ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
+[ext_resource path="res://packed/CardFight.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/NewLobby.gd" type="Script" id=4]
+[ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=5]
+[ext_resource path="res://packed/ThemeEditor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://packed/DeckEdit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://gfx/extra/stoat_character_sheet.png" type="Texture" id=8]
+[ext_resource path="res://gfx/extra/stinkbug_character_sheet.png" type="Texture" id=9]
+[ext_resource path="res://scripts/PullInfo.gd" type="Script" id=10]
+[ext_resource path="res://gfx/portraits/Amoeba.png" type="Texture" id=11]
+[ext_resource path="res://scripts/UI/OptionsMenu.gd" type="Script" id=12]
+[ext_resource path="res://gfx/extra/On.png" type="Texture" id=13]
+[ext_resource path="res://themes/scanlinemat.tres" type="Material" id=14]
+[ext_resource path="res://themes/sigilMat.tres" type="Material" id=15]
+[ext_resource path="res://packed/BattlePass.tscn" type="PackedScene" id=16]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 8 )
+region = Rect2( 16, 0, 80, 96 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 8 )
+region = Rect2( 112, 0, 64, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 8 )
+region = Rect2( 117, 36, 59, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 8 )
+region = Rect2( 117, 72, 59, 35 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "Talk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("StoatMouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ SubResource( 10 ), SubResource( 9 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 3, 3, 107, 86 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 200, 4, 75, 21 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 9 )
+region = Rect2( 118, 4, 66, 31 )
+
+[sub_resource type="Animation" id=16]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BugMouth:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -64.3394, 52.7418 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
+region = Rect2( 115, 35, 71, 32 )
+
+[sub_resource type="Animation" id=18]
+resource_name = "Talk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BugMouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ SubResource( 15 ), SubResource( 17 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BugMouth:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( -64.3394, 52.7418 ), Vector2( -64.3394, 52.7418 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.5 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 16 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "progress"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Waiting for tunnel..." ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "progressjoin"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Connecting to game..." ]
+}
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.756863, 0.254902, 0.254902, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[node name="Main" type="Panel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -1080.0
+margin_right = 1920.0
+theme = ExtResource( 1 )
+
+[node name="TitleScreen" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="CustomBackground" type="TextureRect" parent="TitleScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+
+[node name="Menu" type="PanelContainer" parent="TitleScreen"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -407.0
+margin_right = 407.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen/Menu"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 812.0
+margin_bottom = 1078.0
+rect_min_size = Vector2( 810, 0 )
+custom_constants/separation = 35
+alignment = 1
+
+[node name="HostBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 240.0
+margin_right = 810.0
+margin_bottom = 295.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Host Game"
+
+[node name="JoinBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 330.0
+margin_right = 810.0
+margin_bottom = 385.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Join Game"
+
+[node name="BattlePassBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+visible = false
+margin_top = 375.0
+margin_right = 810.0
+margin_bottom = 430.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Duel Pass"
+
+[node name="DeckEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 420.0
+margin_right = 810.0
+margin_bottom = 475.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Deck Editor"
+
+[node name="SelectVersionBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 510.0
+margin_right = 810.0
+margin_bottom = 565.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Select Ruleset"
+
+[node name="ThemeEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+visible = false
+margin_top = 555.0
+margin_right = 810.0
+margin_bottom = 610.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Theme Editor"
+
+[node name="OptionsBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 600.0
+margin_right = 810.0
+margin_bottom = 655.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Options"
+
+[node name="LogFolder" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 690.0
+margin_right = 810.0
+margin_bottom = 745.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Open Game Directory"
+
+[node name="DiscordBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 780.0
+margin_right = 810.0
+margin_bottom = 835.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Inscryption Multiplayer Discord"
+
+[node name="Credit" type="Label" parent="TitleScreen"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -105.0
+text = "Thanks to the Daniel Mullins Games Discord,
+The Inscryption Multiplayer Discord,
+and everyone else who made this project possible
+"
+align = 1
+valign = 2
+
+[node name="Title" type="Label" parent="TitleScreen"]
+anchor_right = 1.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 5 )
+text = "
+Inscryption Multiplayer"
+align = 1
+
+[node name="PullInfo" type="Control" parent="TitleScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 10 )
+
+[node name="PatchStoats" type="Control" parent="TitleScreen/PullInfo"]
+visible = false
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -48.0
+margin_right = 80.0
+margin_bottom = 48.0
+
+[node name="Stoatbg" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
+material = ExtResource( 15 )
+margin_right = 144.0
+margin_bottom = 172.8
+texture = SubResource( 7 )
+expand = true
+
+[node name="StoatEyes" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
+material = ExtResource( 15 )
+margin_left = 20.9499
+margin_top = 49.5573
+margin_right = 136.15
+margin_bottom = 78.3573
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="StoatMouth" type="TextureRect" parent="TitleScreen/PullInfo/PatchStoats"]
+material = ExtResource( 15 )
+margin_left = 24.7121
+margin_top = 65.6373
+margin_right = 139.912
+margin_bottom = 137.637
+texture = SubResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/PullInfo/PatchStoats"]
+autoplay = "Talk"
+anims/Talk = SubResource( 11 )
+
+[node name="Notes" type="Label" parent="TitleScreen/PullInfo/PatchStoats"]
+margin_left = 25.0
+margin_top = -62.0
+margin_right = 425.0
+margin_bottom = -9.0
+grow_vertical = 0
+theme_type_variation = "SpeechBubble"
+text = "Stoat News Here
+So many Staots"
+autowrap = true
+
+[node name="Button" type="Button" parent="TitleScreen/PullInfo/PatchStoats/Notes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+
+[node name="Grimorger" type="Control" parent="TitleScreen/PullInfo"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -107.0
+margin_top = -48.0
+margin_bottom = 48.0
+
+[node name="BugBg" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
+material = ExtResource( 15 )
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -192.6
+margin_top = -86.4
+margin_bottom = 86.4
+texture = SubResource( 13 )
+expand = true
+stretch_mode = 5
+flip_h = true
+
+[node name="BugEyes" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
+material = ExtResource( 15 )
+margin_left = -62.1491
+margin_top = -2.10838
+margin_right = 72.8509
+margin_bottom = 35.6916
+texture = SubResource( 14 )
+expand = true
+stretch_mode = 5
+flip_h = true
+
+[node name="BugMouth" type="TextureRect" parent="TitleScreen/PullInfo/Grimorger"]
+material = ExtResource( 15 )
+margin_left = -64.3394
+margin_top = 52.7418
+margin_right = 63.4602
+margin_bottom = 124.742
+texture = SubResource( 15 )
+expand = true
+stretch_mode = 5
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/PullInfo/Grimorger"]
+autoplay = "Talk"
+anims/RESET = SubResource( 16 )
+anims/Talk = SubResource( 18 )
+
+[node name="Notes" type="Label" parent="TitleScreen/PullInfo/Grimorger"]
+margin_left = -355.0
+margin_top = -83.429
+margin_right = 45.0
+margin_bottom = -52.429
+grow_vertical = 0
+theme_type_variation = "SpeechBubble"
+text = "Grimorger News Here"
+autowrap = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="TitleScreen/PullInfo"]
+
+[node name="Blocker" type="Panel" parent="TitleScreen"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="LobbyHost" type="PanelContainer" parent="TitleScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.5
+margin_top = -148.5
+margin_right = 270.5
+margin_bottom = 148.5
+rect_min_size = Vector2( 500, 250 )
+
+[node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyHost"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 539.0
+margin_bottom = 295.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Host" type="Label" parent="TitleScreen/LobbyHost/Rows"]
+margin_right = 537.0
+margin_bottom = 24.0
+text = "Host"
+align = 1
+
+[node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 34.0
+margin_right = 537.0
+margin_bottom = 68.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/HostType"]
+margin_left = 46.0
+margin_top = 5.0
+margin_right = 183.0
+margin_bottom = 29.0
+text = "Lobby Type: "
+
+[node name="Type" type="OptionButton" parent="TitleScreen/LobbyHost/Rows/HostType"]
+margin_left = 183.0
+margin_right = 490.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Room Code (recommended)"
+items = [ "Room Code (recommended)", null, false, 0, null, "IP Address (for LAN)", null, false, 1, null ]
+selected = 0
+
+[node name="RoomnameInfo" type="Label" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 78.0
+margin_right = 537.0
+margin_bottom = 129.0
+text = "A room name must be at least 5 chars long,
+and only contain lowercase letters, numbers or -"
+align = 1
+
+[node name="Roomname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 139.0
+margin_right = 537.0
+margin_bottom = 167.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Roomname"]
+margin_top = 2.0
+margin_right = 254.0
+margin_bottom = 26.0
+text = "Room Name (required): "
+
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Roomname"]
+margin_left = 254.0
+margin_right = 537.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 100, 23 )
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 177.0
+margin_right = 537.0
+margin_bottom = 205.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Nickname"]
+margin_top = 2.0
+margin_right = 244.0
+margin_bottom = 26.0
+text = "Your Name (required): "
+
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyHost/Rows/Nickname"]
+margin_left = 244.0
+margin_right = 537.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 100, 23 )
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Spectating" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 215.0
+margin_right = 537.0
+margin_bottom = 249.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Spectating"]
+margin_left = 103.0
+margin_top = 5.0
+margin_right = 413.0
+margin_bottom = 29.0
+text = "Spectate (don't join lobby): "
+
+[node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyHost/Rows/Spectating"]
+margin_left = 413.0
+margin_right = 433.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+
+[node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 259.0
+margin_right = 537.0
+margin_bottom = 293.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Host" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
+margin_left = 197.0
+margin_right = 249.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Host"
+
+[node name="CancelHost" type="Button" parent="TitleScreen/LobbyHost/Rows/Buttons"]
+margin_left = 265.0
+margin_right = 340.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+
+[node name="LobbyJoin" type="PanelContainer" parent="TitleScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -137.5
+margin_right = 250.0
+margin_bottom = 137.5
+rect_min_size = Vector2( 500, 275 )
+
+[node name="Rows" type="VBoxContainer" parent="TitleScreen/LobbyJoin"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 498.0
+margin_bottom = 273.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Host" type="Label" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 16.0
+margin_right = 496.0
+margin_bottom = 40.0
+text = "Join"
+align = 1
+
+[node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 50.0
+margin_right = 496.0
+margin_bottom = 84.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/HostType"]
+margin_left = 111.0
+margin_top = 5.0
+margin_right = 248.0
+margin_bottom = 29.0
+text = "Lobby Type: "
+
+[node name="LType" type="OptionButton" parent="TitleScreen/LobbyJoin/Rows/HostType"]
+margin_left = 248.0
+margin_right = 385.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Room Code"
+items = [ "Room Code", null, false, 0, null, "IP Address", null, false, 1, null ]
+selected = 0
+
+[node name="Address" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 94.0
+margin_right = 496.0
+margin_bottom = 128.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Address"]
+margin_left = 40.0
+margin_top = 5.0
+margin_right = 274.0
+margin_bottom = 29.0
+text = "IP / Code (required): "
+
+[node name="IPInput" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Address"]
+margin_left = 274.0
+margin_right = 386.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 100, 0 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="PasteButton" type="Button" parent="TitleScreen/LobbyJoin/Rows/Address"]
+margin_left = 386.0
+margin_right = 455.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Paste"
+
+[node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 138.0
+margin_right = 496.0
+margin_bottom = 166.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
+margin_left = 70.0
+margin_top = 2.0
+margin_right = 314.0
+margin_bottom = 26.0
+text = "Your Name (required): "
+
+[node name="LineEdit" type="LineEdit" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
+margin_left = 314.0
+margin_right = 426.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 100, 23 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Spectate" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 176.0
+margin_right = 496.0
+margin_bottom = 210.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
+margin_left = 83.0
+margin_top = 5.0
+margin_right = 393.0
+margin_bottom = 29.0
+text = "Spectate (don't join lobby): "
+
+[node name="CheckBox" type="CheckBox" parent="TitleScreen/LobbyJoin/Rows/Spectate"]
+margin_left = 393.0
+margin_right = 413.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+flat = true
+
+[node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+margin_top = 220.0
+margin_right = 496.0
+margin_bottom = 254.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Join" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
+margin_left = 178.0
+margin_right = 227.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Join"
+
+[node name="CancelJoin" type="Button" parent="TitleScreen/LobbyJoin/Rows/Buttons"]
+margin_left = 243.0
+margin_right = 318.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+
+[node name="InLobby" type="PanelContainer" parent="TitleScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -212.5
+margin_right = 225.0
+margin_bottom = 212.5
+rect_min_size = Vector2( 450, 425 )
+
+[node name="Rows" type="VBoxContainer" parent="TitleScreen/InLobby"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 448.0
+margin_bottom = 423.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Host" type="Label" parent="TitleScreen/InLobby/Rows"]
+margin_top = 16.0
+margin_right = 446.0
+margin_bottom = 40.0
+text = "In Lobby"
+align = 1
+
+[node name="LCode" type="Label" parent="TitleScreen/InLobby/Rows"]
+margin_top = 50.0
+margin_right = 446.0
+margin_bottom = 74.0
+text = "Lobby Code: N/A"
+align = 1
+
+[node name="CopyCode" type="Button" parent="TitleScreen/InLobby/Rows"]
+margin_left = 196.0
+margin_top = 84.0
+margin_right = 250.0
+margin_bottom = 118.0
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Copy"
+
+[node name="PlayerList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
+margin_top = 128.0
+margin_right = 446.0
+margin_bottom = 193.0
+rect_min_size = Vector2( 0, 65 )
+size_flags_vertical = 5
+items = [ "Item 0", ExtResource( 2 ), false, "Item 1", ExtResource( 13 ), false ]
+
+[node name="Spectators" type="Label" parent="TitleScreen/InLobby/Rows"]
+margin_top = 203.0
+margin_right = 446.0
+margin_bottom = 227.0
+text = "0 Spectators"
+align = 1
+
+[node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
+margin_top = 237.0
+margin_right = 446.0
+margin_bottom = 271.0
+alignment = 1
+
+[node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
+margin_left = 109.0
+margin_right = 336.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Kick Selected Player"
+
+[node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
+margin_top = 281.0
+margin_right = 446.0
+margin_bottom = 315.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
+margin_left = 105.0
+margin_top = 5.0
+margin_right = 172.0
+margin_bottom = 29.0
+text = "Deck: "
+
+[node name="Deck" type="OptionButton" parent="TitleScreen/InLobby/Rows/DeckOptions"]
+margin_left = 172.0
+margin_right = 272.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "default"
+items = [ "default", null, false, 0, null ]
+selected = 0
+
+[node name="OpenDE" type="Button" parent="TitleScreen/InLobby/Rows/DeckOptions"]
+margin_left = 272.0
+margin_right = 341.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Editor"
+
+[node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
+margin_top = 325.0
+margin_right = 446.0
+margin_bottom = 361.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
+margin_left = 60.0
+margin_top = 6.0
+margin_right = 235.0
+margin_bottom = 30.0
+text = "Profile Picture: "
+
+[node name="Pic" type="OptionButton" parent="TitleScreen/InLobby/Rows/ProfilePic"]
+margin_left = 235.0
+margin_right = 337.0
+margin_bottom = 36.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Amoeba"
+items = [ "Amoeba", null, false, 0, null, "Cat", null, false, 1, null, "Geck", null, false, 2, null, "Grizzly", null, false, 3, null, "Lil Boi", null, false, 4, null, "Mantis God", null, false, 5, null, "Orlu's Vessel", null, false, 6, null, "Pack Rat", null, false, 7, null, "Stoat", null, false, 8, null, "Worker Ant", null, false, 9, null, "Ouroboros", null, false, 10, null ]
+selected = 0
+
+[node name="Spacer" type="Control" parent="TitleScreen/InLobby/Rows/ProfilePic"]
+margin_left = 337.0
+margin_right = 342.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="Preview" type="TextureRect" parent="TitleScreen/InLobby/Rows/ProfilePic"]
+material = ExtResource( 15 )
+margin_left = 342.0
+margin_right = 385.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 43, 36 )
+texture = ExtResource( 11 )
+expand = true
+
+[node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
+margin_top = 371.0
+margin_right = 446.0
+margin_bottom = 405.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="LobbyReady" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
+margin_left = 156.0
+margin_right = 227.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Ready"
+
+[node name="LobbyQuit" type="Button" parent="TitleScreen/InLobby/Rows/Buttons"]
+margin_left = 243.0
+margin_right = 290.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Quit"
+
+[node name="BattlePass" parent="TitleScreen" instance=ExtResource( 16 )]
+visible = false
+
+[node name="LoadingScreen" type="PanelContainer" parent="TitleScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -75.0
+margin_right = 250.0
+margin_bottom = 75.0
+
+[node name="Label" type="Label" parent="TitleScreen/LoadingScreen"]
+margin_left = 2.0
+margin_top = 63.0
+margin_right = 498.0
+margin_bottom = 87.0
+text = "Connecting to game..."
+align = 1
+percent_visible = 0.842105
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TitleScreen/LoadingScreen"]
+anims/RESET = SubResource( 4 )
+anims/progress = SubResource( 3 )
+anims/progressjoin = SubResource( 6 )
+
+[node name="SpecialBlocker" type="Panel" parent="TitleScreen"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="ErrorBox" type="PanelContainer" parent="TitleScreen"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -75.0
+margin_right = 250.0
+margin_bottom = 75.0
+custom_styles/panel = SubResource( 5 )
+
+[node name="Contents" type="VBoxContainer" parent="TitleScreen/ErrorBox"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 498.0
+margin_bottom = 148.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="TitleScreen/ErrorBox/Contents"]
+margin_top = 34.0
+margin_right = 496.0
+margin_bottom = 58.0
+text = "An Error Occurred"
+align = 1
+autowrap = true
+
+[node name="ErrorDL" type="Button" parent="TitleScreen/ErrorBox/Contents"]
+visible = false
+margin_left = 149.0
+margin_top = 51.0
+margin_right = 347.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 42, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Download Ruleset"
+
+[node name="ErrorOk" type="Button" parent="TitleScreen/ErrorBox/Contents"]
+margin_left = 227.0
+margin_top = 78.0
+margin_right = 269.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 42, 0 )
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "Ok"
+
+[node name="DeckEdit" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="Options" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -425.0
+margin_top = -300.0
+margin_right = 425.0
+margin_bottom = 300.0
+theme = ExtResource( 1 )
+window_title = "Options"
+script = ExtResource( 12 )
+
+[node name="TabContainer" type="TabContainer" parent="Options"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 848.0
+margin_bottom = 598.0
+mouse_filter = 1
+
+[node name="Visual" type="VBoxContainer" parent="Options/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 36.0
+margin_right = -2.0
+margin_bottom = -2.0
+
+[node name="stretch_to_fill" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_right = 842.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Stretch to fill window"
+
+[node name="fullscreen" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 34.0
+margin_right = 842.0
+margin_bottom = 68.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Fullscreen"
+
+[node name="enable_accessibility_icons" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 68.0
+margin_right = 842.0
+margin_bottom = 102.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Card property icons"
+
+[node name="show_card_tooltips" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 102.0
+margin_right = 842.0
+margin_bottom = 136.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Card tooltips"
+
+[node name="show_banned" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 136.0
+margin_right = 842.0
+margin_bottom = 170.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Show banned cards in editor"
+
+[node name="show_enemy_advantage" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 170.0
+margin_right = 842.0
+margin_bottom = 204.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Right scale shows opponent's advantage"
+
+[node name="crt_filter" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 204.0
+margin_right = 842.0
+margin_bottom = 238.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "CRT Filter"
+
+[node name="Scanlines" type="HBoxContainer" parent="Options/TabContainer/Visual"]
+visible = false
+margin_top = 170.0
+margin_right = 842.0
+margin_bottom = 198.0
+
+[node name="_label" type="Label" parent="Options/TabContainer/Visual/Scanlines"]
+margin_top = 2.0
+margin_right = 116.0
+margin_bottom = 26.0
+text = "Scanlines: "
+
+[node name="LINE_COUNT" type="SpinBox" parent="Options/TabContainer/Visual/Scanlines"]
+margin_left = 116.0
+margin_right = 358.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+allow_greater = true
+suffix = "scanlines"
+
+[node name="OPACITY" type="SpinBox" parent="Options/TabContainer/Visual/Scanlines"]
+margin_left = 358.0
+margin_right = 600.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+prefix = "opacity"
+
+[node name="SPEED" type="SpinBox" parent="Options/TabContainer/Visual/Scanlines"]
+margin_left = 600.0
+margin_right = 842.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+min_value = -50.0
+max_value = 50.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+prefix = "speed"
+
+[node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
+margin_top = 238.0
+margin_right = 842.0
+margin_bottom = 272.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Open Theme Editor"
+
+[node name="Audio" type="VBoxContainer" parent="Options/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 35.0
+margin_right = -12.0
+margin_bottom = -12.0
+
+[node name="enable_moon_music" type="CheckButton" parent="Options/TabContainer/Audio"]
+margin_right = 524.0
+margin_bottom = 27.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Moon music"
+
+[node name="enable_music" type="CheckButton" parent="Options/TabContainer/Audio"]
+margin_right = 524.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Enable Music"
+
+[node name="Experimental" type="VBoxContainer" parent="Options/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 35.0
+margin_right = -12.0
+margin_bottom = -12.0
+
+[node name="save_replays" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_right = 824.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Replays (experimental)"
+
+[node name="enable_sfx" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_top = 34.0
+margin_right = 824.0
+margin_bottom = 68.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Enable SFX (Experimental)"
+
+[node name="live_theme_update" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_top = 34.0
+margin_right = 824.0
+margin_bottom = 68.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Live theme update"
+
+[node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
+margin_left = 56.0
+margin_top = -762.0
+margin_right = 656.0
+margin_bottom = -50.0
+
+[node name="CardFight" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="VersionLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+text = "version"
+
+[node name="RulesetLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+grow_vertical = 0
+text = "Ruleset: "
+align = 2
+
+[node name="Scanlines" type="Panel" parent="."]
+visible = false
+material = ExtResource( 14 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/HostBtn" to="TitleScreen" method="_on_HostBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/JoinBtn" to="TitleScreen" method="_on_JoinBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/BattlePassBtn" to="TitleScreen" method="_on_JoinBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DeckEditorBtn" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/SelectVersionBtn" to="TitleScreen" method="_on_SelectVersionBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/OptionsBtn" to="Options" method="show"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
+[connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
+[connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
+[connection signal="item_selected" from="TitleScreen/LobbyHost/Rows/HostType/Type" to="TitleScreen" method="_on_HostType_selected"]
+[connection signal="focus_entered" from="TitleScreen/LobbyHost/Rows/Roomname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyHost/Rows/Roomname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
+[connection signal="focus_entered" from="TitleScreen/LobbyHost/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyHost/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
+[connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/Host" to="TitleScreen" method="_on_Host_pressed"]
+[connection signal="pressed" from="TitleScreen/LobbyHost/Rows/Buttons/CancelHost" to="TitleScreen" method="_on_CancelHost_pressed"]
+[connection signal="focus_entered" from="TitleScreen/LobbyJoin/Rows/Address/IPInput" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyJoin/Rows/Address/IPInput" to="TitleScreen" method="_LineEdit_unfocused"]
+[connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Address/PasteButton" to="TitleScreen" method="_on_PasteButton_pressed"]
+[connection signal="focus_entered" from="TitleScreen/LobbyJoin/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
+[connection signal="focus_exited" from="TitleScreen/LobbyJoin/Rows/Nickname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
+[connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Buttons/Join" to="TitleScreen" method="_on_Join_pressed"]
+[connection signal="pressed" from="TitleScreen/LobbyJoin/Rows/Buttons/CancelJoin" to="TitleScreen" method="_on_CancelJoin_pressed"]
+[connection signal="pressed" from="TitleScreen/InLobby/Rows/CopyCode" to="TitleScreen" method="_on_CopyCode_pressed"]
+[connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons2/Kick" to="TitleScreen" method="_on_Kick_pressed"]
+[connection signal="pressed" from="TitleScreen/InLobby/Rows/DeckOptions/OpenDE" to="TitleScreen" method="_on_DeckEditorBtn_pressed"]
+[connection signal="item_selected" from="TitleScreen/InLobby/Rows/ProfilePic/Pic" to="TitleScreen" method="_on_Pic_item_selected"]
+[connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyReady" to="TitleScreen" method="_on_LobbyReady_pressed"]
+[connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
+[connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorDL" to="TitleScreen" method="_on_ErrorDL_pressed"]
+[connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorOk" to="TitleScreen" method="_on_ErrorOk_pressed"]
+[connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/LINE_COUNT" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
+[connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/OPACITY" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
+[connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/SPEED" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
+[connection signal="pressed" from="Options/TabContainer/Visual/ThemeEditor" to="ThemeEditor" method="show"]

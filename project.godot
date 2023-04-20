@@ -51,10 +51,10 @@ config/icon="res://newicon.png"
 [autoload]
 
 CardInfo="*res://scripts/singletons/CardInfo.gd"
-TunnelHandler="*res://scripts/singletons/TunnelHandler.gd"
 GameOptions="*res://scripts/singletons/GameOptions.gd"
 NetworkManager="*res://scripts/singletons/NetworkManager.gd"
 AsyncExecutorDriver="*res://native/AsyncExecutorDriver.gdns"
+TunnelHandlerNew="*res://scripts/singletons/TunnelHandlerNew.gd"
 
 [debug]
 

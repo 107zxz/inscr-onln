@@ -263,10 +263,18 @@ func _on_Host_pressed():
 		$LoadingScreen.visible = true		
 		$LoadingScreen/AnimationPlayer.play("progress")
 		# Open a tunnel
-		TunnelHandler.start_tunnel(hostLnameBox.text)
-		TunnelHandler.connect("received_output", self, "_on_tunnel_output")
-		TunnelHandler.connect("received_error", self, "_on_tunnel_error")
-#		TunnelHandler.connect("process_ended", self, "_on_host_timeout")
+#		TunnelHandler.start_tunnel(hostLnameBox.text)
+#		TunnelHandler.connect("received_output", self, "_on_tunnel_output")
+#		TunnelHandler.connect("received_error", self, "_on_tunnel_error")
+		
+		# New native tunnel handler
+		TunnelHandlerNew.establish_tunnel(hostLnameBox.text)
+		TunnelHandlerNew.connect("failed", self, "_on_tunnel_error")
+		TunnelHandlerNew.connect("success", self, "_on_tunnel_output")
+		
+		lobby_data.code = hostLnameBox.text
+		
+		
 	else:
 		$InLobby.visible = true
 
@@ -284,7 +292,7 @@ func _on_Host_pressed():
 
 
 func _on_LobbyQuit_pressed():
-	TunnelHandler.kill_tunnel()
+	TunnelHandlerNew.kill_tunnel()
 	$InLobby.visible = false
 	$Blocker.visible = false
 
@@ -397,15 +405,14 @@ func _on_Kick_pressed():
 	rpc_id(lobby_data.players.keys()[lobbyList.get_selected_items()[0]], "_rejected", "Kicked by lobby host")
 
 # Network callbacks
-func _on_tunnel_output(code):
-	TunnelHandler.disconnect("received_output", self, "_on_tunnel_output")
-	TunnelHandler.disconnect("received_error", self, "_on_tunnel_error")
+func _on_tunnel_output():
+#	TunnelHandlerNew.disconnect("success", self, "_on_tunnel_output")
+#	TunnelHandlerNew.disconnect("failed", self, "_on_tunnel_error")
 	
 	$LoadingScreen.visible = false
 	$InLobby.visible = true
 #		$InLobby/Rows/LCode.text = "Lobby Code: " + code
 	
-	lobby_data.code = code
 	lobby_data.is_ip = false
 	
 	update_lobby()
@@ -413,8 +420,13 @@ func _on_tunnel_output(code):
 func _on_tunnel_error(err):
 	errorBox(err)
 	$LoadingScreen.visible = false
-	TunnelHandler.disconnect("received_output", self, "_on_tunnel_output")
-	TunnelHandler.disconnect("received_error", self, "_on_tunnel_error")
+	
+	if $InLobby.visible:
+		_on_LobbyQuit_pressed()
+	else:
+		TunnelHandlerNew.disconnect("success", self, "_on_tunnel_output")
+		TunnelHandlerNew.disconnect("failed", self, "_on_tunnel_error")
+		
 
 func _joined_game():
 	$LoadingScreen.visible = false
