@@ -360,8 +360,7 @@ custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
 custom_fonts/font = SubResource( 21 )
 text = "x011"
 
-[node name="MoxCost" type="HBoxContainer" parent="Costs"]
-visible = false
+[node name="mox" type="HBoxContainer" parent="Costs"]
 margin_right = 122.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 0, 45 )
@@ -369,9 +368,10 @@ mouse_filter = 2
 custom_constants/separation = -25
 alignment = 2
 
-[node name="Orange" type="TextureRect" parent="Costs/MoxCost"]
-margin_left = 63.0
-margin_right = 105.0
+[node name="Orange" type="TextureRect" parent="Costs/mox"]
+visible = false
+margin_left = 46.0
+margin_right = 88.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
@@ -380,9 +380,10 @@ texture = SubResource( 14 )
 expand = true
 stretch_mode = 5
 
-[node name="Blue" type="TextureRect" parent="Costs/MoxCost"]
-margin_left = 80.0
-margin_right = 122.0
+[node name="Blue" type="TextureRect" parent="Costs/mox"]
+visible = false
+margin_left = 63.0
+margin_right = 105.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
@@ -391,9 +392,9 @@ texture = SubResource( 19 )
 expand = true
 stretch_mode = 5
 
-[node name="Green" type="TextureRect" parent="Costs/MoxCost"]
+[node name="Green" type="TextureRect" parent="Costs/mox"]
 visible = false
-margin_left = 77.0
+margin_left = 80.0
 margin_right = 122.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 42, 0 )
@@ -534,6 +535,7 @@ margin_top = 103.0
 margin_right = 103.0
 margin_bottom = 162.0
 focus_mode = 0
+mouse_filter = 2
 enabled_focus_mode = 0
 keep_pressed_outside = true
 texture_normal = SubResource( 11 )
@@ -587,7 +589,6 @@ color = Color( 0.152941, 0.960784, 1, 0.607843 )
 [connection signal="button_up" from="CardBtn" to="." method="_on_CardBtn_button_up"]
 [connection signal="mouse_entered" from="CardBtn" to="." method="_on_CardBtn_mouse_entered"]
 [connection signal="mouse_exited" from="CardBtn" to="." method="_on_CardBtn_mouse_exited"]
-[connection signal="button_down" from="Active" to="." method="_on_Active2_button_down"]
-[connection signal="button_up" from="Active" to="." method="_on_Active2_button_up"]
+[connection signal="button_up" from="Active" to="." method="_on_Active_button_up"]
 [connection signal="mouse_entered" from="Active" to="." method="_on_Active2_mouse_entered"]
 [connection signal="mouse_exited" from="Active" to="." method="_on_Active2_mouse_exited"]

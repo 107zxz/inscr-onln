@@ -1,29 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/classes/cards/PlayingCard.gd" type="Script" id=2]
-[ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=3]
-[ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=4]
-[ext_resource path="res://gfx/sigils/Bomb Spewer.png" type="Texture" id=5]
-[ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
 [ext_resource path="res://gfx/cardextras/pixel_card_subicon.png" type="Texture" id=7]
-[ext_resource path="res://gfx/sigils/Marrow Sucker.png" type="Texture" id=8]
-[ext_resource path="res://gfx/sigils/Great Mox.png" type="Texture" id=9]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=10]
-[ext_resource path="res://scripts/classes/cards/DrawCard.gd" type="Script" id=11]
 [ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=12]
-[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=13]
-[ext_resource path="res://fonts/CardFont.tres" type="DynamicFont" id=14]
 [ext_resource path="res://packed/A2Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/classes/cards/A2Card_Compat.gd" type="Script" id=16]
-[sub_resource type="AtlasTexture" id=20]
-
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 26, 15 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 5, 3, 40, 7 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 12 )
@@ -608,6 +590,9 @@ margin_right = 128.0
 margin_bottom = 185.0
 script = ExtResource( 16 )
 
+[node name="mox" parent="CardBody/Costs" index="3"]
+margin_right = 121.0
+
 [node name="DiveOlay" type="TextureRect" parent="CardBody"]
 visible = false
 modulate = Color( 0.87, 0.783, 0.783, 1 )
@@ -668,5 +653,7 @@ anims/Raise = SubResource( 18 )
 anims/UnDive = SubResource( 16 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[connection signal="button_down" from="CardBody/Active" to="CardBody" method="_on_Active_button_down"]
 
 [editable path="CardBody"]

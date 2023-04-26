@@ -32,7 +32,7 @@ var card_data = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	modulate = HVR_COLOURS[0]
+#	modulate = HVR_COLOURS[0]
 	
 	draw_from_data(
 		card_data

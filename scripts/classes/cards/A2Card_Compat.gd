@@ -76,13 +76,16 @@ func draw_sigils(cDat: Dictionary) -> void:
 # e.g. when evolving. Therefore costs need to be manually hidden
 # when not in use
 func draw_costs(cDat: Dictionary) -> void:
+	
+	var costRoot = get_node("Costs")
+	
 	for cost in [
 		"blood",
 		"bone",
 		"energy"
 	]:
-		var costNode = get_node("Costs/" + cost)
-		var costs = cDat.get("costs", {})
+		var costNode = costRoot.get_node(cost)
+#		var costs = cDat.get("costs", {})
 		
 		if not cDat.get(cost + "_cost"):
 			costNode.hide()
@@ -105,7 +108,17 @@ func draw_costs(cDat: Dictionary) -> void:
 				for txt in txtNodes:
 					txt.text = "x" + str(costValue)
 				costNode.get_node("Text").rect_min_size.x = 39 + (18 * floor(log(costValue) / log(10)))
-
+	
+	if cDat.get("mox_cost"):
+		
+		var moxNames = [
+			"Orange",
+			"Blue",
+			"Green"
+		]
+		
+		for moxName in moxNames:
+			costRoot.get_node("mox").get_child(moxNames.find(moxName)).visible = moxName in cDat.get("mox_cost")
 
 # Conduit sigil
 func draw_conduit(cDat: Dictionary) -> void:
@@ -147,10 +160,12 @@ func _on_Active2_mouse_exited() -> void:
 	modulate = HVR_COLOURS[0]
 
 
-func _on_Active2_button_down() -> void:
+func _on_Active_button_down() -> void:
 	$Active/ActiveIcon.rect_position = Vector2(6, 16)
+	get_parent()._on_ActiveSigil_pressed()
+	
 
 
-func _on_Active2_button_up() -> void:
+func _on_Active_button_up() -> void:
 	$Active/ActiveIcon.rect_position = Vector2(6, 6)
 
