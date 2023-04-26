@@ -1,346 +1,606 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
-[ext_resource path="res://gfx/sigils/Sprinter.png" type="Texture" id=2]
-[ext_resource path="res://gfx/sigils/Energy Gun.png" type="Texture" id=3]
+[ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=2]
+[ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=3]
 [ext_resource path="res://scripts/classes/cards/DeckBuilderCard.gd" type="Script" id=4]
 [ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=5]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
-[ext_resource path="res://gfx/sigils/Touch of Death.png" type="Texture" id=7]
-[ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=8]
+[ext_resource path="res://gfx/sigils/Handy.png" type="Texture" id=7]
+[ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=8]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=9]
-[ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=10]
-[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=11]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.7, 0.7, 0.525, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 6 )
-region = Rect2( 28, 1, 26, 15 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 6 )
-region = Rect2( 1, 65, 26, 15 )
+[ext_resource path="res://gfx/pixport/Grizzly.png" type="Texture" id=10]
+[ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=11]
+[ext_resource path="res://gfx/cardextras/pixel_activated_ability_button.png" type="Texture" id=12]
+[ext_resource path="res://gfx/sigils/Enlarge.png" type="Texture" id=13]
+[ext_resource path="res://gfx/cardextras/cost_energy_text.png" type="Texture" id=14]
+[ext_resource path="res://gfx/cardextras/cost_blood.png" type="Texture" id=15]
+[ext_resource path="res://gfx/cardextras/cost_bone.png" type="Texture" id=16]
+[ext_resource path="res://gfx/cardextras/pixel_card_submerge.png" type="Texture" id=17]
+[ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=18]
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 26, 15 )
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 42, 56 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 6 )
+region = Rect2( 44, 18, 9.02, 13 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 6 )
+region = Rect2( 36, 18, 17, 13 )
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Marksman.otf"
+
+[sub_resource type="DynamicFont" id=20]
+outline_size = 2
+outline_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=21]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 13, 13 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 13, 20, 13 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 26, 13, 13 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 6 )
+region = Rect2( 97, 1, 10, 14 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 6 )
+region = Rect2( 90, 17, 17, 14 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 6 )
+region = Rect2( 66, 17, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 6 )
+region = Rect2( 66, 33, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 66, 1, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 5 )
-region = Rect2( 5, 3, 40, 7 )
+region = Rect2( 5, 2, 42, 9 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 27, 16, 8 )
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 5 )
+region = Rect2( 5, 14, 42, 9 )
 
-[node name="Card" type="PanelContainer"]
-margin_right = 103.0
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 5 )
+region = Rect2( 5, 27, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 18, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 54, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 36, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 2 )
+region = Rect2( 42, 0, 42, 56 )
+
+[node name="Card" type="Control"]
+margin_right = 102.4
 margin_bottom = 148.0
-rect_min_size = Vector2( 103, 148 )
-mouse_filter = 1
+rect_min_size = Vector2( 102.4, 148 )
 theme = ExtResource( 1 )
-custom_styles/panel = SubResource( 1 )
 script = ExtResource( 4 )
 
-[node name="Button" type="Button" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 101.0
-margin_bottom = 146.0
-focus_mode = 0
-mouse_filter = 1
-button_mask = 3
-enabled_focus_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 101.0
-margin_bottom = 146.0
-mouse_filter = 2
-custom_constants/separation = 1
-
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 99.0
-margin_bottom = 24.0
-size_flags_vertical = 1
-align = 1
-valign = 1
-clip_text = true
-
-[node name="Portrait" type="TextureRect" parent="VBoxContainer"]
-material = ExtResource( 9 )
-margin_top = 25.0
-margin_right = 99.0
-margin_bottom = 94.0
-rect_min_size = Vector2( 99, 69 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1.41
-expand = true
-stretch_mode = 6
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Portrait"]
+[node name="CardBtn" type="TextureButton" parent="."]
+modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+focus_mode = 0
+enabled_focus_mode = 0
+texture_normal = SubResource( 6 )
+expand = true
+
+[node name="CardPort" type="TextureRect" parent="."]
+material = ExtResource( 9 )
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 77.0
 mouse_filter = 2
+texture = ExtResource( 10 )
+expand = true
+
+[node name="AtkScore" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 4.82975
+margin_top = -42.9156
+margin_right = 44.8298
+margin_bottom = 0.0844116
+theme_type_variation = "ScoreFont"
+text = "4"
+valign = 2
+
+[node name="HpScore" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -65.6465
+margin_top = -42.3272
+margin_right = -2.64651
+margin_bottom = -0.32724
+theme_type_variation = "ScoreFont"
+text = "6"
+align = 2
+valign = 2
+
+[node name="Costs" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+margin_left = 2.0
+margin_top = 3.0
+margin_right = 1.6
+margin_bottom = 126.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="blood" type="HBoxContainer" parent="Costs"]
+visible = false
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 63, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+custom_constants/separation = 0
 alignment = 2
 
-[node name="Control" type="Control" parent="VBoxContainer/Portrait/HBoxContainer"]
-margin_right = 49.0
-margin_bottom = 69.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Portrait/HBoxContainer"]
-margin_left = 49.0
-margin_right = 99.0
-margin_bottom = 69.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="BloodCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_right = 217.0
-margin_bottom = 274.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 2 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BoneCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_right = 50.0
-margin_bottom = 69.0
-rect_min_size = Vector2( 26, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 3 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EnergyCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+[node name="1" type="TextureRect" parent="Costs/blood"]
 visible = false
 margin_right = 27.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 26, 15 )
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+rect_scale = Vector2( 0.8, 0.8 )
 mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 3 )
+texture = SubResource( 23 )
+expand = true
+
+[node name="2" type="TextureRect" parent="Costs/blood"]
+visible = false
+margin_right = 51.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 51, 0 )
+rect_scale = Vector2( 0.8, 0.8 )
+mouse_filter = 2
+texture = SubResource( 22 )
+expand = true
+
+[node name="TXIcon" type="TextureRect" parent="Costs/blood"]
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+
+[node name="Text" type="Control" parent="Costs/blood"]
+show_behind_parent = true
+margin_left = 27.0
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+mouse_filter = 2
+
+[node name="BGCost" type="Label" parent="Costs/blood/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x01"
+
+[node name="FGCost" type="Label" parent="Costs/blood/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x01"
+
+[node name="bone" type="HBoxContainer" parent="Costs"]
+visible = false
+margin_left = 4.0
+margin_top = 39.0
+margin_right = 102.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 63, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+custom_constants/separation = -16
+alignment = 2
+
+[node name="1" type="TextureRect" parent="Costs/bone"]
+visible = false
+margin_left = 24.0
+margin_right = 63.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 39, 0 )
+mouse_filter = 2
+texture = SubResource( 27 )
+expand = true
+
+[node name="2" type="TextureRect" parent="Costs/bone"]
+visible = false
+margin_left = 3.0
+margin_right = 63.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 2
+texture = SubResource( 28 )
+expand = true
+
+[node name="TXIcon" type="TextureRect" parent="Costs/bone"]
+margin_right = 39.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 39, 0 )
+mouse_filter = 2
+texture = SubResource( 29 )
+expand = true
+
+[node name="Text" type="Control" parent="Costs/bone"]
+show_behind_parent = true
+margin_left = 23.0
+margin_right = 98.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+mouse_filter = 2
+
+[node name="BGCost" type="Label" parent="Costs/bone/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x011"
+
+[node name="FGCost" type="Label" parent="Costs/bone/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x011"
+
+[node name="energy" type="HBoxContainer" parent="Costs"]
+visible = false
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 63, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+custom_constants/separation = 0
+alignment = 2
+
+[node name="1" type="TextureRect" parent="Costs/energy"]
+visible = false
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = SubResource( 25 )
+expand = true
+
+[node name="2" type="TextureRect" parent="Costs/energy"]
+visible = false
+margin_right = 51.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 51, 0 )
+mouse_filter = 2
+texture = SubResource( 26 )
+expand = true
+
+[node name="TXIcon" type="TextureRect" parent="Costs/energy"]
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = ExtResource( 14 )
+expand = true
+
+[node name="Text" type="Control" parent="Costs/energy"]
+show_behind_parent = true
+margin_left = 27.0
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+mouse_filter = 2
+
+[node name="BGCost" type="Label" parent="Costs/energy/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x011"
+
+[node name="FGCost" type="Label" parent="Costs/energy/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x011"
+
+[node name="mox" type="HBoxContainer" parent="Costs"]
+margin_right = 102.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+mouse_filter = 2
+custom_constants/separation = -25
+alignment = 2
+
+[node name="Orange" type="TextureRect" parent="Costs/mox"]
+visible = false
+margin_left = 46.0
+margin_right = 88.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 14 )
 expand = true
 stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MoxCost" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
+[node name="Blue" type="TextureRect" parent="Costs/mox"]
 visible = false
-margin_top = 46.0
-margin_right = 76.0
-margin_bottom = 93.0
-rect_min_size = Vector2( 26, 15 )
+margin_left = 63.0
+margin_right = 105.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 3 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Special" type="TextureRect" parent="VBoxContainer/Portrait/HBoxContainer/VBoxContainer"]
-visible = false
-margin_top = 46.0
-margin_right = 76.0
-margin_bottom = 93.0
-rect_min_size = Vector2( 13, 15 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = SubResource( 6 )
+size_flags_horizontal = 9
+texture = SubResource( 19 )
 expand = true
 stretch_mode = 5
 
-[node name="ConduitIcon" type="TextureRect" parent="VBoxContainer"]
+[node name="Green" type="TextureRect" parent="Costs/mox"]
 visible = false
-material = ExtResource( 9 )
-margin_top = 50.0
-margin_right = 53.0
-margin_bottom = 60.0
+margin_left = 80.0
+margin_right = 122.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.6
-texture = SubResource( 4 )
+size_flags_horizontal = 9
+texture = SubResource( 13 )
 expand = true
-stretch_mode = 6
+stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 95.0
-margin_right = 99.0
-margin_bottom = 144.0
+[node name="Sigils" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 82.0
+margin_right = -4.4
+margin_bottom = -30.0
 mouse_filter = 2
-size_flags_vertical = 3
-custom_constants/separation = -10
 alignment = 1
 
-[node name="Spacer" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_right = 54.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-expand = true
-stretch_mode = 6
-
-[node name="ActiveSigil" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="ConduitIndicator" type="TextureRect" parent="Sigils"]
 visible = false
-margin_left = 97.0
-margin_top = 37.0
-margin_right = 204.0
-margin_bottom = 71.0
-rect_min_size = Vector2( 47, 32 )
-focus_mode = 0
+margin_right = 94.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 26 )
 mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-enabled_focus_mode = 0
+texture = SubResource( 15 )
+expand = true
+stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/ActiveSigil"]
-material = ExtResource( 9 )
+[node name="LeftHalf" type="TextureRect" parent="Sigils/ConduitIndicator"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 3 )
-stretch_mode = 6
+texture = SubResource( 16 )
+expand = true
 
-[node name="Sigil" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="RightHalf" type="TextureRect" parent="Sigils/ConduitIndicator"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 17 )
+expand = true
+
+[node name="Row1" type="HBoxContainer" parent="Sigils"]
+margin_right = 94.0
+margin_bottom = 36.0
+mouse_filter = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="S1" type="TextureRect" parent="Sigils/Row1"]
 visible = false
 material = ExtResource( 9 )
-margin_left = 29.0
-margin_right = 69.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 15, 0 )
+margin_right = 94.0
+margin_bottom = 13.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="S2" type="TextureRect" parent="Sigils/Row1"]
+visible = false
+material = ExtResource( 9 )
+margin_left = 47.0
+margin_right = 94.0
+margin_bottom = 15.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="S3" type="TextureRect" parent="Sigils/Row1"]
+visible = false
+material = ExtResource( 9 )
+margin_left = 62.0
+margin_right = 94.0
+margin_bottom = 6.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 7 )
-stretch_mode = 6
-
-[node name="Spacer3" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 44.0
-margin_right = 76.0
-margin_bottom = 49.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
-[node name="Sigil2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="Row2" type="HBoxContainer" parent="Sigils"]
 visible = false
-material = ExtResource( 9 )
-margin_left = 53.0
-margin_right = 81.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 15, 0 )
+margin_top = 6.0
+margin_right = 94.0
+margin_bottom = 13.0
 mouse_filter = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 2 )
-stretch_mode = 6
-
-[node name="Spacer2" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
-margin_left = 44.0
-margin_right = 99.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 10, 0 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-expand = true
-stretch_mode = 6
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 101.0
-margin_bottom = 146.0
-mouse_filter = 2
 alignment = 1
 
-[node name="AtkScore" type="Label" parent="HBoxContainer"]
-margin_right = 49.0
-margin_bottom = 144.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-valign = 2
-
-[node name="HpScore" type="Label" parent="HBoxContainer"]
-margin_left = 49.0
-margin_right = 99.0
-margin_bottom = 144.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-align = 2
-valign = 2
-
-[node name="AtkIcon" type="TextureRect" parent="."]
+[node name="S1" type="TextureRect" parent="Sigils/Row2"]
 visible = false
 material = ExtResource( 9 )
-margin_left = 2.0
-margin_top = 128.0
-margin_right = 101.0
-margin_bottom = 146.0
-rect_min_size = Vector2( 0, 18 )
-size_flags_vertical = 8
-texture = SubResource( 5 )
-expand = true
-stretch_mode = 5
-
-[node name="BannedOverlay" type="Control" parent="."]
-visible = false
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 101.0
-margin_bottom = 146.0
-mouse_filter = 2
-
-[node name="img" type="TextureRect" parent="BannedOverlay"]
-anchor_left = -0.03
-anchor_top = -0.015
-anchor_right = 1.03
-anchor_bottom = 1.015
+margin_right = 40.0
+margin_bottom = 12.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="S2" type="TextureRect" parent="Sigils/Row2"]
+visible = false
+material = ExtResource( 9 )
+margin_right = 60.0
+margin_bottom = 12.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="S3" type="TextureRect" parent="Sigils/Row2"]
+visible = false
+material = ExtResource( 9 )
+margin_right = 120.0
+margin_bottom = 12.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Active" type="TextureButton" parent="."]
+visible = false
+self_modulate = Color( 0.905882, 0.878431, 0.717647, 1 )
+margin_left = 18.0
+margin_top = 82.0
+margin_right = 82.0
+margin_bottom = 130.0
+focus_mode = 0
+mouse_filter = 2
+enabled_focus_mode = 0
+keep_pressed_outside = true
+texture_normal = SubResource( 11 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+expand = true
+
+[node name="ActiveIcon" type="TextureRect" parent="Active"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 59.6
+margin_bottom = 32.4
+mouse_filter = 2
+texture = ExtResource( 13 )
+expand = true
+
+[node name="SacOlay" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 8 )
 expand = true
 
-[connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
-[connection signal="mouse_entered" from="Button" to="." method="_on_Card_mouse_entered"]
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[node name="DiveOlay" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 17 )
+expand = true
+
+[node name="BannedOverlay" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 18 )
+expand = true
+
+[node name="CardBack" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
+margin_right = 102.4
+margin_bottom = 128.0
+mouse_filter = 2
+texture = SubResource( 30 )
+expand = true
+
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+mouse_filter = 2
+color = Color( 0.152941, 0.960784, 1, 0.607843 )
+
+[connection signal="button_down" from="CardBtn" to="." method="_on_CardBtn_button_down"]
+[connection signal="button_up" from="CardBtn" to="." method="_on_CardBtn_button_up"]
+[connection signal="mouse_entered" from="CardBtn" to="." method="_on_CardBtn_mouse_entered"]
+[connection signal="mouse_exited" from="CardBtn" to="." method="_on_CardBtn_mouse_exited"]
+[connection signal="button_up" from="Active" to="." method="_on_Active_button_up"]
+[connection signal="mouse_entered" from="Active" to="." method="_on_Active2_mouse_entered"]
+[connection signal="mouse_exited" from="Active" to="." method="_on_Active2_mouse_exited"]

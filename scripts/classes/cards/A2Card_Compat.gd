@@ -16,17 +16,7 @@ const SIGIL_SLOTS = [
 	"Sigils/Row2/S3"
 ]
 
-var card_data = {
-					"name": "Greater Smoke",
-					"sigils": [
-							"Bone King"
-					],
-					"attack": 1,
-					"health": 3,
-					"banned": true,
-					"rare": true,
-					"description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
-				}
+var card_data = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -140,7 +130,10 @@ func _on_CardBtn_button_up() -> void:
 		modulate = HVR_COLOURS[1]
 	
 	# Trigger a press action
-	get_parent()._on_Button_pressed()
+	if has_method("_on_Button_pressed"):
+		self.call("_on_Button_pressed")
+	else:
+		get_parent()._on_Button_pressed()
 		
 
 func _on_CardBtn_mouse_entered() -> void:

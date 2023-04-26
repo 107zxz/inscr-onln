@@ -112,6 +112,7 @@ margin_left = 82.2749
 margin_top = 57.2836
 margin_right = 210.275
 margin_bottom = 242.284
+rect_min_size = Vector2( 128, 185 )
 theme = ExtResource( 3 )
 script = ExtResource( 7 )
 
@@ -549,6 +550,7 @@ margin_left = 6.0
 margin_top = 6.0
 margin_right = 73.0
 margin_bottom = 39.0
+mouse_filter = 2
 texture = ExtResource( 13 )
 expand = true
 
@@ -567,6 +569,7 @@ texture = ExtResource( 18 )
 expand = true
 
 [node name="CardBack" type="TextureRect" parent="."]
+visible = false
 modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 margin_right = 128.0
 margin_bottom = 185.0

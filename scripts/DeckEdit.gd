@@ -156,9 +156,8 @@ func search(_arg = null):
 		resultCount += 1
 		
 		var cObject = cardPrefab.instance()
-		cObject.from_data(card)
-		
 		searchResults.add_child(cObject)
+		cObject.from_data(card)
 		
 		if "banned" in card and tab_cont.current_tab == 0:
 			cObject.get_node("BannedOverlay").visible = true

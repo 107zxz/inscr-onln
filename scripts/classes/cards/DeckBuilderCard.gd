@@ -1,4 +1,4 @@
-extends "res://scripts/classes/cards/DrawCard.gd"
+extends "res://scripts/classes/cards/A2Card_Compat.gd"
 
 onready var deckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview/DeckContainer")
 onready var sideDeckContainer = get_node("/root/Main/DeckEdit/HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Draft/SideDeckContainer")
@@ -8,7 +8,10 @@ onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 
 onready var deckEditor = get_node("/root/Main/DeckEdit")
 
+var paperTheme = preload("res://themes/papertheme.tres")
+
 func from_data(cdat):
+	card_data = cdat
 	draw_from_data(cdat)
 
 func _on_Button_pressed():

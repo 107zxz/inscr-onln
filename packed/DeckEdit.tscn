@@ -1,17 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
 [ext_resource path="res://packed/SigilDescription.tscn" type="PackedScene" id=3]
 [ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=4]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.7, 0.7, 0.525, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -54,7 +46,6 @@ alignment = 1
 margin_right = 438.0
 margin_bottom = 500.0
 rect_min_size = Vector2( 438, 500 )
-custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer"]
 margin_top = 510.0
@@ -453,9 +444,9 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
-margin_top = 129.0
+margin_top = 50.0
 margin_right = 1042.0
-margin_bottom = 163.0
+margin_bottom = 84.0
 alignment = 1
 
 [node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
@@ -488,11 +479,10 @@ enabled_focus_mode = 0
 
 [node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select" instance=ExtResource( 4 )]
 unique_name_in_owner = true
-visible = false
-margin_left = 467.0
-margin_top = 93.0
-margin_right = 570.0
-margin_bottom = 241.0
+margin_left = 469.0
+margin_top = 94.0
+margin_right = 571.4
+margin_bottom = 242.0
 size_flags_horizontal = 4
 
 [node name="Side Deck Draft" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer"]
