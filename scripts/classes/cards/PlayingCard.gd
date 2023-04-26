@@ -279,6 +279,10 @@ func move_to_parent(new_parent):
 		
 	yield($Tween, "tween_completed")
 	
+	
+	# Fuck you godot
+	$CardBody.modulate = $CardBody.HVR_COLOURS[0]
+	
 	# Must be summoned
 	if new_parent.get_parent().name in ["PlayerSlots", "EnemySlots"]:
 		if from_hand:

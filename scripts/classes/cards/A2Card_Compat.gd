@@ -146,6 +146,7 @@ func _on_CardBtn_button_up() -> void:
 func _on_CardBtn_mouse_entered() -> void:
 	if modulate == HVR_COLOURS[0]:
 		modulate = HVR_COLOURS[1]
+		print("Mouse entered")
 
 
 func _on_CardBtn_mouse_exited() -> void:
@@ -155,6 +156,7 @@ func _on_CardBtn_mouse_exited() -> void:
 func _on_Active2_mouse_entered() -> void:
 	if modulate == HVR_COLOURS[0]:
 		modulate = HVR_COLOURS[1]
+		print("Mouse entered active")
 
 func _on_Active2_mouse_exited() -> void:
 	modulate = HVR_COLOURS[0]

@@ -16,27 +16,27 @@ const SIGIL_SLOTS = [
 	"Sigils/Row2/S3"
 ]
 
-var card_data = {
-	"name": "Buff Conduit",
-	"stats": [1, 2],
-	"costs": {
-		"bone": 2
-	},
-	"sigils": [
-		"Disentomb"
-	],
-	"traits": [
-		"active"
-	]
-}
+#var card_data = {
+#	"name": "Buff Conduit",
+#	"stats": [1, 2],
+#	"costs": {
+#		"bone": 2
+#	},
+#	"sigils": [
+#		"Disentomb"
+#	],
+#	"traits": [
+#		"active"
+#	]
+#}
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-#	modulate = HVR_COLOURS[0]
-	
-	draw_from_data(
-		card_data
-	)
+## Called when the node enters the scene tree for the first time.
+#func _ready():
+##	modulate = HVR_COLOURS[0]
+#
+#	draw_from_data(
+#		card_data
+#	)
 
 
 
