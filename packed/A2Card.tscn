@@ -569,7 +569,6 @@ texture = ExtResource( 18 )
 expand = true
 
 [node name="CardBack" type="TextureRect" parent="."]
-visible = false
 modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 margin_right = 128.0
 margin_bottom = 185.0

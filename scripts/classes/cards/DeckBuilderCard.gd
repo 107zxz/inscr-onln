@@ -37,6 +37,7 @@ func _on_Button_pressed():
 			var newCard = self.duplicate(7)
 			newCard.from_data(card_data)
 			sideDeckContainer.add_child(newCard)
+			newCard.modulate = HVR_COLOURS[0]
 #			deckEditor.update_deck_count(1)
 		else:
 			if "rare" in card_data:
@@ -48,6 +49,7 @@ func _on_Button_pressed():
 			var newCard = self.duplicate(7)
 			newCard.from_data(card_data)
 			deckContainer.add_child(newCard)
+			newCard.modulate = HVR_COLOURS[0]
 			deckEditor.update_deck_count(1)
 
 

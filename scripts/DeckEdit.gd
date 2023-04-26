@@ -158,6 +158,7 @@ func search(_arg = null):
 		var cObject = cardPrefab.instance()
 		searchResults.add_child(cObject)
 		cObject.from_data(card)
+		cObject.modulate = cObject.HVR_COLOURS[0]
 		
 		if "banned" in card and tab_cont.current_tab == 0:
 			cObject.get_node("BannedOverlay").visible = true
@@ -341,6 +342,7 @@ func load_deck(_arg = null):
 		
 		nCard.from_data(cdat)
 		deckDisplay.add_child(nCard)
+		nCard.modulate = nCard.HVR_COLOURS[0]
 		dSize += 1
 	
 	# Draw sd
@@ -384,6 +386,7 @@ func load_deck(_arg = null):
 					var nCard = cardPrefab.instance()
 					nCard.from_data(CardInfo.from_name(card))
 					sidedeck_container.add_child(nCard)
+					nCard.modulate = nCard.HVR_COLOURS[0]
 				
 		# Redraw
 		draw_sidedeck(dj["side_deck"])
@@ -473,6 +476,7 @@ func _on_SortButton_pressed():
 		var nCard = cardPrefab.instance()
 		nCard.from_data(CardInfo.from_name(card))
 		deckDisplay.add_child(nCard)
+		nCard.modulate = nCard.HVR_COLOURS[0]
 		dSize += 1
 		
 func _on_ShuffleButton_pressed():
@@ -488,6 +492,7 @@ func _on_ShuffleButton_pressed():
 		var nCard = cardPrefab.instance()
 		nCard.from_data(CardInfo.from_name(card))
 		deckDisplay.add_child(nCard)
+		nCard.modulate = nCard.HVR_COLOURS[0]
 		dSize += 1
 
 func _on_ViewFolder_pressed():
