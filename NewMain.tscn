@@ -483,15 +483,16 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyHost/Rows"]
+margin_top = 22.0
 margin_right = 537.0
-margin_bottom = 24.0
+margin_bottom = 46.0
 text = "Host"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 34.0
+margin_top = 56.0
 margin_right = 537.0
-margin_bottom = 68.0
+margin_bottom = 90.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/HostType"]
@@ -512,17 +513,17 @@ items = [ "Room Code (recommended)", null, false, 0, null, "IP Address (for LAN)
 selected = 0
 
 [node name="RoomnameInfo" type="Label" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 78.0
+margin_top = 100.0
 margin_right = 537.0
-margin_bottom = 129.0
+margin_bottom = 151.0
 text = "A room name must be at least 5 chars long,
 and only contain lowercase letters, numbers or -"
 align = 1
 
 [node name="Roomname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 139.0
+margin_top = 161.0
 margin_right = 537.0
-margin_bottom = 167.0
+margin_bottom = 189.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Roomname"]
@@ -541,9 +542,9 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 177.0
+margin_top = 199.0
 margin_right = 537.0
-margin_bottom = 205.0
+margin_bottom = 227.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyHost/Rows/Nickname"]
@@ -562,6 +563,7 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectating" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
+visible = false
 margin_top = 215.0
 margin_right = 537.0
 margin_bottom = 249.0
@@ -583,9 +585,9 @@ enabled_focus_mode = 0
 flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyHost/Rows"]
-margin_top = 259.0
+margin_top = 237.0
 margin_right = 537.0
-margin_bottom = 293.0
+margin_bottom = 271.0
 custom_constants/separation = 16
 alignment = 1
 
@@ -626,16 +628,16 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 16.0
+margin_top = 38.0
 margin_right = 496.0
-margin_bottom = 40.0
+margin_bottom = 62.0
 text = "Join"
 align = 1
 
 [node name="HostType" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 50.0
+margin_top = 72.0
 margin_right = 496.0
-margin_bottom = 84.0
+margin_bottom = 106.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/HostType"]
@@ -656,9 +658,9 @@ items = [ "Room Code", null, false, 0, null, "IP Address", null, false, 1, null 
 selected = 0
 
 [node name="Address" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 94.0
+margin_top = 116.0
 margin_right = 496.0
-margin_bottom = 128.0
+margin_bottom = 150.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Address"]
@@ -685,9 +687,9 @@ enabled_focus_mode = 0
 text = "Paste"
 
 [node name="Nickname" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 138.0
+margin_top = 160.0
 margin_right = 496.0
-margin_bottom = 166.0
+margin_bottom = 188.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/LobbyJoin/Rows/Nickname"]
@@ -706,6 +708,7 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="Spectate" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
+visible = false
 margin_top = 176.0
 margin_right = 496.0
 margin_bottom = 210.0
@@ -727,9 +730,9 @@ enabled_focus_mode = 0
 flat = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/LobbyJoin/Rows"]
-margin_top = 220.0
+margin_top = 198.0
 margin_right = 496.0
-margin_bottom = 254.0
+margin_bottom = 232.0
 custom_constants/separation = 16
 alignment = 1
 
@@ -770,38 +773,39 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="Host" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_top = 16.0
+margin_top = 33.0
 margin_right = 446.0
-margin_bottom = 40.0
+margin_bottom = 57.0
 text = "In Lobby"
 align = 1
 
 [node name="LCode" type="Label" parent="TitleScreen/InLobby/Rows"]
-margin_top = 50.0
+margin_top = 67.0
 margin_right = 446.0
-margin_bottom = 74.0
+margin_bottom = 91.0
 text = "Lobby Code: N/A"
 align = 1
 
 [node name="CopyCode" type="Button" parent="TitleScreen/InLobby/Rows"]
 margin_left = 196.0
-margin_top = 84.0
+margin_top = 101.0
 margin_right = 250.0
-margin_bottom = 118.0
+margin_bottom = 135.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Copy"
 
 [node name="PlayerList" type="ItemList" parent="TitleScreen/InLobby/Rows"]
-margin_top = 128.0
+margin_top = 145.0
 margin_right = 446.0
-margin_bottom = 193.0
+margin_bottom = 210.0
 rect_min_size = Vector2( 0, 65 )
 size_flags_vertical = 5
 items = [ "Item 0", ExtResource( 2 ), false, "Item 1", ExtResource( 13 ), false ]
 
 [node name="Spectators" type="Label" parent="TitleScreen/InLobby/Rows"]
+visible = false
 margin_top = 203.0
 margin_right = 446.0
 margin_bottom = 227.0
@@ -809,9 +813,9 @@ text = "0 Spectators"
 align = 1
 
 [node name="Buttons2" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 237.0
+margin_top = 220.0
 margin_right = 446.0
-margin_bottom = 271.0
+margin_bottom = 254.0
 alignment = 1
 
 [node name="Kick" type="Button" parent="TitleScreen/InLobby/Rows/Buttons2"]
@@ -823,9 +827,9 @@ enabled_focus_mode = 0
 text = "Kick Selected Player"
 
 [node name="DeckOptions" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 281.0
+margin_top = 264.0
 margin_right = 446.0
-margin_bottom = 315.0
+margin_bottom = 298.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/DeckOptions"]
@@ -854,9 +858,9 @@ enabled_focus_mode = 0
 text = "Editor"
 
 [node name="ProfilePic" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 325.0
+margin_top = 308.0
 margin_right = 446.0
-margin_bottom = 361.0
+margin_bottom = 344.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TitleScreen/InLobby/Rows/ProfilePic"]
@@ -892,9 +896,9 @@ texture = ExtResource( 11 )
 expand = true
 
 [node name="Buttons" type="HBoxContainer" parent="TitleScreen/InLobby/Rows"]
-margin_top = 371.0
+margin_top = 354.0
 margin_right = 446.0
-margin_bottom = 405.0
+margin_bottom = 388.0
 custom_constants/separation = 16
 alignment = 1
 
@@ -1000,6 +1004,7 @@ enabled_focus_mode = 0
 text = "Ok"
 
 [node name="DeckEdit" parent="." instance=ExtResource( 7 )]
+visible = false
 
 [node name="Options" type="WindowDialog" parent="."]
 anchor_left = 0.5
