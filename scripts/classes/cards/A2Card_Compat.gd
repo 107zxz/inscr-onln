@@ -39,8 +39,29 @@ func draw_from_data(cDat: Dictionary) -> void:
 	draw_costs(cDat)
 	draw_conduit(cDat)
 	draw_active(cDat)
+	draw_atkspecial(cDat)
 	
 	apply_theme()
+
+
+func draw_atkspecial(cDat):
+	if "atkspecial" in cDat:
+
+		$AtkIcon.texture = $AtkIcon.texture.duplicate()
+		
+		match cDat.atkspecial:
+			"mox", "green_mox":
+				$AtkIcon.texture.region = Rect2(0, 0, 16, 8)
+			"mirror":
+				$AtkIcon.texture.region = Rect2(0, 27, 16, 8)
+			"ant":
+				$AtkIcon.texture.region = Rect2(0, 9, 16, 8)
+
+		$AtkIcon.visible = true
+		$AtkScore.visible = false
+	else:
+		$AtkIcon.visible = false
+		$AtkScore.visible = true
 
 
 func apply_theme():
@@ -66,9 +87,28 @@ func apply_theme():
 
 
 func draw_stats(cDat: Dictionary) -> void:
-	$CardPort.texture = load("res://gfx/pixport/" + cDat.name + ".png")
+#	$CardPort.texture = load("res://gfx/pixport/" + cDat.name + ".png")
 	$AtkScore.text = str(cDat.attack)
 	$HpScore.text = str(cDat.health)
+	
+	# Special portrait overrides
+	var d = Directory.new()
+	if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
+		var i = Image.new()
+		i.load(CardInfo.portrait_override_path + card_data.name + ".png")
+		var tx = ImageTexture.new()
+		tx.create_from_image(i)
+		tx.flags -= tx.FLAG_FILTER
+		$CardPort.texture = tx
+	elif "pixport_url" in card_data:
+		var i = Image.new()
+		i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
+		var tx = ImageTexture.new()
+		tx.create_from_image(i)
+		tx.flags -= tx.FLAG_FILTER
+		$CardPort.texture = tx
+	else:
+		$CardPort.texture = load("res://gfx/pixport/" + cDat.name + ".png")
 
 func draw_sigils(cDat: Dictionary) -> void:
 	

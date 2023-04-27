@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=1]
 [ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scripts/classes/cards/A2PlayingCard.gd" type="Script" id=7]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=8]
 [ext_resource path="res://gfx/pixport/Grizzly.png" type="Texture" id=9]
+[ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=10]
 [ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=11]
 [ext_resource path="res://gfx/cardextras/pixel_activated_ability_button.png" type="Texture" id=12]
 [ext_resource path="res://gfx/sigils/Enlarge.png" type="Texture" id=13]
@@ -21,6 +22,10 @@
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 42, 56 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 7 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 5 )
@@ -145,6 +150,18 @@ margin_bottom = 0.0844116
 theme_type_variation = "ScoreFont"
 text = "4"
 valign = 2
+
+[node name="AtkIcon" type="TextureRect" parent="."]
+material = ExtResource( 8 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.29561
+margin_top = -30.0004
+margin_right = 55.2956
+margin_bottom = -0.000396729
+texture = SubResource( 31 )
+expand = true
+stretch_mode = 5
 
 [node name="HpScore" type="Label" parent="."]
 anchor_left = 1.0
@@ -570,6 +587,7 @@ texture = ExtResource( 18 )
 expand = true
 
 [node name="CardBack" type="TextureRect" parent="."]
+visible = false
 modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 margin_right = 128.0
 margin_bottom = 185.0

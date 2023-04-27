@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=2]
@@ -18,10 +18,15 @@
 [ext_resource path="res://gfx/cardextras/cost_bone.png" type="Texture" id=16]
 [ext_resource path="res://gfx/cardextras/pixel_card_submerge.png" type="Texture" id=17]
 [ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=18]
+[ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 42, 56 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 16, 7 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 6 )
@@ -146,6 +151,18 @@ margin_bottom = 0.0844116
 theme_type_variation = "ScoreFont"
 text = "4"
 valign = 2
+
+[node name="AtkIcon" type="TextureRect" parent="."]
+material = ExtResource( 9 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.29561
+margin_top = -30.0004
+margin_right = 55.2956
+margin_bottom = -0.000396729
+texture = SubResource( 31 )
+expand = true
+stretch_mode = 5
 
 [node name="HpScore" type="Label" parent="."]
 anchor_left = 1.0
