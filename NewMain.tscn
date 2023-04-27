@@ -1194,6 +1194,7 @@ enabled_focus_mode = 0
 text = "Live theme update"
 
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
+process_priority = 1
 margin_left = 28.0
 margin_top = -585.0
 margin_right = 628.0

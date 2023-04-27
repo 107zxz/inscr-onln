@@ -72,6 +72,7 @@ func _on_Card_mouse_entered():
 	if not card_data:
 		return
 
+	previewCont.get_child(0).show()
 	previewCont.get_child(0).from_data(card_data)
 
 

@@ -80,6 +80,7 @@ func _ready():
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton.visible = false
 		$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder.visible = false
 
+
 func init_sidedeck_ui():
 	for sd in CardInfo.side_decks:
 		sidedeck_de.add_item(sd)
