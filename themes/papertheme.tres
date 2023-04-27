@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=27 format=2]
+[gd_resource type="Theme" load_steps=26 format=2]
 
 [ext_resource path="res://fonts/MarksmanReal.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
@@ -233,23 +233,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=12]
-content_margin_left = 12.0
-bg_color = Color( 0.701961, 0.67451, 0.498039, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-content_margin_left = 10.0
-bg_color = Color( 0.501961, 0.482353, 0.356863, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
+[sub_resource type="StyleBoxEmpty" id=29]
 
 [resource]
 default_font = ExtResource( 1 )
@@ -320,10 +304,10 @@ VScrollBar/icons/decrement_pressed = null
 VScrollBar/icons/increment = null
 VScrollBar/icons/increment_highlight = null
 VScrollBar/icons/increment_pressed = null
-VScrollBar/styles/grabber = SubResource( 12 )
-VScrollBar/styles/grabber_highlight = SubResource( 12 )
-VScrollBar/styles/grabber_pressed = SubResource( 12 )
-VScrollBar/styles/scroll = SubResource( 4 )
-VScrollBar/styles/scroll_focus = null
+VScrollBar/styles/grabber = SubResource( 29 )
+VScrollBar/styles/grabber_highlight = SubResource( 29 )
+VScrollBar/styles/grabber_pressed = SubResource( 29 )
+VScrollBar/styles/scroll = SubResource( 29 )
+VScrollBar/styles/scroll_focus = SubResource( 29 )
 WindowDialog/colors/title_color = Color( 0, 0, 0, 1 )
 WindowDialog/styles/panel = SubResource( 6 )

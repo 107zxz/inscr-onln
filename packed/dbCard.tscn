@@ -412,7 +412,7 @@ anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 82.0
 margin_right = -4.4
-margin_bottom = -30.0
+margin_bottom = -22.0
 mouse_filter = 2
 alignment = 1
 
@@ -444,7 +444,7 @@ expand = true
 
 [node name="Row1" type="HBoxContainer" parent="Sigils"]
 margin_right = 94.0
-margin_bottom = 36.0
+margin_bottom = 44.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1

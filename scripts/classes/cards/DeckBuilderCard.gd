@@ -12,8 +12,6 @@ func from_data(cdat):
 	card_data = cdat
 	draw_from_data(cdat)
 	
-	mouse_filter = MOUSE_FILTER_PASS
-
 func _on_Button_pressed():
 	
 	# Don't allow interaction i banned
@@ -77,9 +75,8 @@ func _on_Card_mouse_entered():
 	previewCont.get_child(0).from_data(card_data)
 
 
-
 	# Display sigils
-	var sigIdx = 1
+	var sigIdx = 0
 
 	for sigdisp in previewCont.get_child(1).get_children():
 		sigdisp.visible = false
@@ -95,14 +92,14 @@ func _on_Card_mouse_entered():
 
 	for sigdat in card_data.sigils:
 #		var sd = sigilDescPrefab.instance()
-		var sd = previewCont.get_child(1).get_child(sigIdx)
+		var sd = previewCont.get_child(1).get_child(sigIdx + 1)
 
 
 		# Steal texture from card
 		if "active" in card_data:
-			sd.get_child(1).texture = $VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture
+			sd.get_child(1).texture = $Active/ActiveIcon.texture
 		else:
-			sd.get_child(1).texture = $VBoxContainer/HBoxContainer.get_child(sigIdx * 2).texture
+			sd.get_child(1).texture = $Sigils/Row1.get_child(sigIdx).texture
 
 		sd.get_child(2).text = sigdat + ":\n" + CardInfo.all_sigils[sigdat]
 

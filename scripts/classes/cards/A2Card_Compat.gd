@@ -169,6 +169,9 @@ func _on_CardBtn_mouse_entered() -> void:
 		modulate = HVR_COLOURS[1]
 #		print("Mouse entered")
 
+	if has_method("_on_Card_mouse_entered"):
+		call("_on_Card_mouse_entered")
+
 
 func _on_CardBtn_mouse_exited() -> void:
 	modulate = HVR_COLOURS[0]

@@ -108,13 +108,13 @@ func apply_theme():
 	paperTheme.get_stylebox("pressed", "Button").border_color = theme_data.buttons.pressed.border
 	paperTheme.get_stylebox("pressed", "Button").bg_color = theme_data.buttons.pressed.background
 	
-	paperTheme.get_stylebox("grabber", "VScrollBar").border_color = theme_data.buttons.normal.border
-	paperTheme.get_stylebox("grabber", "VScrollBar").bg_color = theme_data.buttons.normal.background
-	paperTheme.get_stylebox("grabber_highlight", "VScrollBar").border_color = theme_data.buttons.hover.border
-	paperTheme.get_stylebox("grabber_highlight", "VScrollBar").bg_color = theme_data.buttons.hover.background
-	paperTheme.get_stylebox("grabber_pressed", "VScrollBar").border_color = theme_data.buttons.pressed.border
-	paperTheme.get_stylebox("grabber_pressed", "VScrollBar").bg_color = theme_data.buttons.pressed.background
-	paperTheme.get_stylebox("scroll", "VScrollBar").bg_color = theme_data.edit_background_colour
+#	paperTheme.get_stylebox("grabber", "VScrollBar").border_color = theme_data.buttons.normal.border
+#	paperTheme.get_stylebox("grabber", "VScrollBar").bg_color = theme_data.buttons.normal.background
+#	paperTheme.get_stylebox("grabber_highlight", "VScrollBar").border_color = theme_data.buttons.hover.border
+#	paperTheme.get_stylebox("grabber_highlight", "VScrollBar").bg_color = theme_data.buttons.hover.background
+#	paperTheme.get_stylebox("grabber_pressed", "VScrollBar").border_color = theme_data.buttons.pressed.border
+#	paperTheme.get_stylebox("grabber_pressed", "VScrollBar").bg_color = theme_data.buttons.pressed.background
+#	paperTheme.get_stylebox("scroll", "VScrollBar").bg_color = theme_data.edit_background_colour
 	
 	# Font colours
 	paperTheme.set_color("font_color", "Label", theme_data.text_colour)

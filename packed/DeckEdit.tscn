@@ -1,10 +1,116 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
 [ext_resource path="res://packed/SigilDescription.tscn" type="PackedScene" id=3]
 [ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ARG/scripts/ButtonScroll.gd" type="Script" id=5]
+[ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=6]
+[ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=7]
+[ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=8]
+[ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=9]
+[ext_resource path="res://gfx/cardextras/pixel_card_submerge.png" type="Texture" id=10]
+[ext_resource path="res://themes/sigilMat.tres" type="Material" id=11]
+[ext_resource path="res://gfx/sigils/Handy.png" type="Texture" id=12]
+[ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=14]
+[ext_resource path="res://gfx/cardextras/pixel_activated_ability_button.png" type="Texture" id=15]
+[ext_resource path="res://gfx/sigils/Enlarge.png" type="Texture" id=16]
+[ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=17]
+[ext_resource path="res://gfx/cardextras/cost_blood.png" type="Texture" id=18]
+[ext_resource path="res://gfx/cardextras/cost_energy_text.png" type="Texture" id=19]
+[ext_resource path="res://gfx/cardextras/cost_bone.png" type="Texture" id=20]
+[ext_resource path="res://scripts/classes/cards/DeckBuilderCard.gd" type="Script" id=21]
+[ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=22]
+[ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=23]
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 42, 56 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 9 )
+region = Rect2( 44, 18, 9.02, 13 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 9 )
+region = Rect2( 36, 18, 17, 13 )
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Marksman.otf"
+
+[sub_resource type="DynamicFont" id=20]
+outline_size = 2
+outline_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=21]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 13, 13 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 13, 20, 13 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 26, 13, 13 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 9 )
+region = Rect2( 97, 1, 10, 14 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 9 )
+region = Rect2( 90, 17, 17, 14 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 66, 17, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 9 )
+region = Rect2( 66, 33, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 66, 1, 14, 15 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 17 )
+region = Rect2( 5, 2, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 17 )
+region = Rect2( 5, 14, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 17 )
+region = Rect2( 5, 27, 42, 9 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 18, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 54, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 36, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 6 )
+region = Rect2( 42, 0, 42, 56 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -30,7 +136,7 @@ anchor_bottom = 1.0
 size_flags_stretch_ratio = 0.08
 
 [node name="CardPreview" type="PanelContainer" parent="HBoxContainer"]
-margin_right = 442.0
+margin_right = 480.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 
@@ -38,26 +144,515 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 440.0
+margin_right = 478.0
 margin_bottom = 1078.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="Card" parent="HBoxContainer/CardPreview/PreviewContainer" instance=ExtResource( 4 )]
-margin_right = 438.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 438, 500 )
+[node name="Card" type="Control" parent="HBoxContainer/CardPreview/PreviewContainer"]
+margin_right = 476.0
+margin_bottom = 687.904
+rect_min_size = Vector2( 476, 687.904 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+script = ExtResource( 21 )
+
+[node name="CardBtn" type="TextureButton" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 0
+mouse_filter = 1
+enabled_focus_mode = 0
+texture_normal = SubResource( 6 )
+expand = true
+
+[node name="CardPort" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+material = ExtResource( 11 )
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 465.0
+margin_bottom = 360.0
+mouse_filter = 2
+expand = true
+
+[node name="AtkScore" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 17.1734
+margin_top = -61.1192
+margin_right = 57.1734
+margin_bottom = -10.1192
+custom_fonts/font = ExtResource( 23 )
+text = "4"
+valign = 2
+
+[node name="HpScore" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -74.873
+margin_top = -60.4062
+margin_right = -11.873
+margin_bottom = -9.40619
+theme_type_variation = "ScoreFont"
+custom_fonts/font = ExtResource( 23 )
+text = "6"
+align = 2
+valign = 2
+
+[node name="Costs" type="VBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+anchor_right = 1.0
+margin_left = -2.0
+margin_top = 13.0
+margin_right = -13.0
+margin_bottom = 126.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="blood" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+margin_left = 363.0
+margin_right = 465.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 63, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+custom_constants/separation = 0
+alignment = 2
+
+[node name="1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/blood"]
+visible = false
+margin_right = 54.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = SubResource( 23 )
+expand = true
+
+[node name="2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/blood"]
+visible = false
+margin_left = 54.0
+margin_right = 156.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 51, 0 )
+mouse_filter = 2
+texture = SubResource( 22 )
+expand = true
+
+[node name="TXIcon" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/blood"]
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = ExtResource( 18 )
+expand = true
+
+[node name="Text" type="Control" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/blood"]
+show_behind_parent = true
+margin_left = 27.0
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+mouse_filter = 2
+
+[node name="BGCost" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/blood/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x01"
+
+[node name="FGCost" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/blood/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x01"
+
+[node name="bone" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+visible = false
+margin_left = 4.0
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 63, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+custom_constants/separation = -16
+alignment = 2
+
+[node name="1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/bone"]
+visible = false
+margin_left = 24.0
+margin_right = 63.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 39, 0 )
+mouse_filter = 2
+texture = SubResource( 27 )
+expand = true
+
+[node name="2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/bone"]
+visible = false
+margin_left = 3.0
+margin_right = 63.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 2
+texture = SubResource( 28 )
+expand = true
+
+[node name="TXIcon" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/bone"]
+margin_right = 39.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 39, 0 )
+mouse_filter = 2
+texture = SubResource( 29 )
+expand = true
+
+[node name="Text" type="Control" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/bone"]
+show_behind_parent = true
+margin_left = 23.0
+margin_right = 98.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+mouse_filter = 2
+
+[node name="BGCost" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/bone/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x011"
+
+[node name="FGCost" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/bone/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x011"
+
+[node name="energy" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+visible = false
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 63, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+custom_constants/separation = 0
+alignment = 2
+
+[node name="1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/energy"]
+visible = false
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = SubResource( 25 )
+expand = true
+
+[node name="2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/energy"]
+visible = false
+margin_right = 51.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 51, 0 )
+mouse_filter = 2
+texture = SubResource( 26 )
+expand = true
+
+[node name="TXIcon" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/energy"]
+margin_right = 27.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 27, 0 )
+mouse_filter = 2
+texture = ExtResource( 19 )
+expand = true
+
+[node name="Text" type="Control" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/energy"]
+show_behind_parent = true
+margin_left = 27.0
+margin_right = 102.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 75, 0 )
+mouse_filter = 2
+
+[node name="BGCost" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/energy/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 20 )
+text = "x011"
+
+[node name="FGCost" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/energy/Text"]
+margin_left = -3.0
+margin_right = 22.0
+margin_bottom = 13.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.843137, 0.886275, 0.639216, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "x011"
+
+[node name="mox" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+margin_top = 39.0
+margin_right = 465.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 45 )
+mouse_filter = 2
+custom_constants/separation = -25
+alignment = 2
+
+[node name="Orange" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/mox"]
+visible = false
+margin_left = 60.0
+margin_right = 102.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="Blue" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/mox"]
+visible = false
+margin_left = 63.0
+margin_right = 105.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 19 )
+expand = true
+stretch_mode = 5
+
+[node name="Green" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs/mox"]
+visible = false
+margin_left = 80.0
+margin_right = 122.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = SubResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Sigils" type="VBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+material = ExtResource( 11 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 23.0
+margin_top = 396.0
+margin_right = -22.0
+margin_bottom = -75.904
+mouse_filter = 2
+alignment = 1
+
+[node name="ConduitIndicator" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
+visible = false
+margin_right = 468.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+mouse_filter = 2
+texture = SubResource( 15 )
+expand = true
+stretch_mode = 5
+
+[node name="LeftHalf" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/ConduitIndicator"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 16 )
+expand = true
+
+[node name="RightHalf" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/ConduitIndicator"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 17 )
+expand = true
+
+[node name="Row1" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
+margin_right = 431.0
+margin_bottom = 216.0
+mouse_filter = 2
+size_flags_vertical = 3
+custom_constants/separation = 5
+alignment = 1
+
+[node name="S1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row1"]
+visible = false
+material = ExtResource( 11 )
+margin_right = 213.0
+margin_bottom = 216.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+
+[node name="S2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row1"]
+visible = false
+material = ExtResource( 11 )
+margin_left = 145.0
+margin_right = 285.0
+margin_bottom = 216.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="S3" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row1"]
+visible = false
+material = ExtResource( 11 )
+margin_right = 431.0
+margin_bottom = 216.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Row2" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
+visible = false
+margin_top = 6.0
+margin_right = 94.0
+margin_bottom = 13.0
+mouse_filter = 2
+size_flags_vertical = 3
+custom_constants/separation = 5
+alignment = 1
+
+[node name="S1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row2"]
+visible = false
+material = ExtResource( 11 )
+margin_right = 40.0
+margin_bottom = 12.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="S2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row2"]
+visible = false
+material = ExtResource( 11 )
+margin_right = 60.0
+margin_bottom = 12.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="S3" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row2"]
+visible = false
+material = ExtResource( 11 )
+margin_right = 120.0
+margin_bottom = 12.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Active" type="TextureButton" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+visible = false
+self_modulate = Color( 0.905882, 0.878431, 0.717647, 1 )
+margin_left = 100.947
+margin_top = 412.061
+margin_right = 377.947
+margin_bottom = 619.061
+focus_mode = 0
+mouse_filter = 2
+enabled_focus_mode = 0
+keep_pressed_outside = true
+texture_normal = SubResource( 11 )
+texture_pressed = SubResource( 8 )
+texture_hover = SubResource( 9 )
+texture_disabled = SubResource( 10 )
+expand = true
+
+[node name="ActiveIcon" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Active"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 23.0
+margin_right = -23.0
+margin_bottom = -48.0
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="SacOlay" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="DiveOlay" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="BannedOverlay" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 22 )
+expand = true
+
+[node name="CardBack" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+visible = false
+modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
+margin_right = 102.4
+margin_bottom = 128.0
+mouse_filter = 2
+texture = SubResource( 30 )
+expand = true
+
+[node name="Highlight" type="ColorRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+mouse_filter = 2
+color = Color( 0.152941, 0.960784, 1, 0.607843 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer"]
-margin_top = 510.0
-margin_right = 438.0
+margin_top = 697.0
+margin_right = 476.0
 margin_bottom = 1076.0
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="CardDescription" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer"]
-margin_left = 50.0
-margin_right = 387.5
+margin_left = 69.0
+margin_right = 406.5
 margin_bottom = 24.0
 rect_min_size = Vector2( 337.5, 0 )
 size_flags_horizontal = 4
@@ -75,7 +670,7 @@ margin_top = 0.0
 margin_bottom = 61.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 442.0
+margin_left = 480.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
@@ -84,29 +679,29 @@ __meta__ = {
 }
 
 [node name="DeckOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
-margin_right = 1478.0
+margin_right = 1440.0
 margin_bottom = 114.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1476.0
+margin_right = 1438.0
 margin_bottom = 112.0
 
 [node name="DeckOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
-margin_right = 737.0
+margin_right = 718.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 735.0
+margin_right = 716.0
 margin_bottom = 108.0
 custom_constants/separation = 2
 
 [node name="DSelLine" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
-margin_right = 733.0
+margin_right = 714.0
 margin_bottom = 34.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
@@ -117,7 +712,7 @@ text = "Deck:   "
 
 [node name="DSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
 margin_left = 85.0
-margin_right = 733.0
+margin_right = 714.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -134,7 +729,7 @@ text = "Save"
 
 [node name="DNameLine" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
 margin_top = 36.0
-margin_right = 733.0
+margin_right = 714.0
 margin_bottom = 70.0
 
 [node name="Spacer" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
@@ -145,13 +740,13 @@ text = "           "
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
 margin_left = 99.0
-margin_right = 642.0
+margin_right = 623.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine"]
-margin_left = 642.0
-margin_right = 733.0
+margin_left = 623.0
+margin_right = 714.0
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -159,12 +754,12 @@ text = "Save as"
 
 [node name="Stoof" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
 margin_top = 72.0
-margin_right = 733.0
+margin_right = 714.0
 margin_bottom = 106.0
 alignment = 1
 
 [node name="ExitButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_right = 120.0
+margin_right = 116.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -172,8 +767,8 @@ enabled_focus_mode = 0
 text = "Exit"
 
 [node name="ShuffleButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 120.0
-margin_right = 240.0
+margin_left = 116.0
+margin_right = 232.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -181,8 +776,8 @@ enabled_focus_mode = 0
 text = "Shuffle"
 
 [node name="SortButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 240.0
-margin_right = 360.0
+margin_left = 232.0
+margin_right = 349.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -190,8 +785,8 @@ enabled_focus_mode = 0
 text = "Sort"
 
 [node name="ClearButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 360.0
-margin_right = 480.0
+margin_left = 349.0
+margin_right = 465.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -199,8 +794,8 @@ enabled_focus_mode = 0
 text = "Clear"
 
 [node name="ViewFolder" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 480.0
-margin_right = 612.0
+margin_left = 465.0
+margin_right = 597.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -208,8 +803,8 @@ enabled_focus_mode = 0
 text = "Deck Folder"
 
 [node name="TestButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 612.0
-margin_right = 733.0
+margin_left = 597.0
+margin_right = 714.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -218,27 +813,27 @@ text = "Test"
 
 [node name="SearchOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 737.0
-margin_right = 1474.0
+margin_left = 718.0
+margin_right = 1436.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 735.0
+margin_right = 716.0
 margin_bottom = 108.0
 custom_constants/separation = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 34.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2"]
@@ -249,7 +844,7 @@ text = "Cost Type: "
 
 [node name="CTSelect" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 122.0
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -260,7 +855,7 @@ selected = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
 margin_top = 36.0
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 70.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
@@ -280,7 +875,7 @@ selected = 2
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 124.0
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 34.0
 focus_mode = 1
 size_flags_horizontal = 3
@@ -288,7 +883,7 @@ text = "0"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer"]
 margin_top = 72.0
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 106.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
@@ -308,21 +903,21 @@ selected = 2
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer4"]
 margin_left = 121.0
-margin_right = 364.0
+margin_right = 354.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 text = "0"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer"]
-margin_left = 369.0
-margin_right = 733.0
+margin_left = 359.0
+margin_right = 714.0
 margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
 
 [node name="SigilSearchA" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
-margin_right = 364.0
+margin_right = 355.0
 margin_bottom = 34.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA"]
@@ -333,7 +928,7 @@ text = "Sigil: "
 
 [node name="OptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchA"]
 margin_left = 59.0
-margin_right = 364.0
+margin_right = 355.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -341,7 +936,7 @@ enabled_focus_mode = 0
 
 [node name="SigilSearchB" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
 margin_top = 36.0
-margin_right = 364.0
+margin_right = 355.0
 margin_bottom = 70.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB"]
@@ -352,7 +947,7 @@ text = "Sigil 2: "
 
 [node name="OptionButton" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/SigilSearchB"]
 margin_left = 79.0
-margin_right = 364.0
+margin_right = 355.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -360,7 +955,7 @@ enabled_focus_mode = 0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2"]
 margin_top = 72.0
-margin_right = 364.0
+margin_right = 355.0
 margin_bottom = 100.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3"]
@@ -371,40 +966,40 @@ text = "Name: "
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer2/HBoxContainer3"]
 margin_left = 73.0
-margin_right = 364.0
+margin_right = 355.0
 margin_bottom = 28.0
 focus_mode = 1
 size_flags_horizontal = 3
 
 [node name="MainArea" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
 margin_top = 114.0
-margin_right = 1478.0
+margin_right = 1440.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
-margin_right = 1046.0
+margin_right = 1024.0
 margin_bottom = 966.0
 size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
-margin_right = 1046.0
+margin_right = 1024.0
 margin_bottom = 28.0
 
 [node name="DeckSize" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/PanelContainer"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1044.0
+margin_right = 1022.0
 margin_bottom = 26.0
 text = "0"
 align = 2
 
 [node name="DeckPreview" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
 margin_top = 28.0
-margin_right = 1046.0
+margin_right = 1024.0
 margin_bottom = 633.0
-rect_min_size = Vector2( 1046, 0 )
+rect_min_size = Vector2( 1024, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -413,16 +1008,15 @@ scroll_horizontal_enabled = false
 unique_name_in_owner = true
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 572.0
+margin_right = 2.0
 margin_bottom = 2.0
-rect_min_size = Vector2( 570, 0 )
 custom_constants/vseparation = 0
 custom_constants/hseparation = 0
 columns = 10
 
 [node name="DeckPreview2" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer"]
 margin_top = 633.0
-margin_right = 1046.0
+margin_right = 1024.0
 margin_bottom = 966.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -432,7 +1026,7 @@ size_flags_stretch_ratio = 0.55
 unique_name_in_owner = true
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 1044.0
+margin_right = 1022.0
 margin_bottom = 331.0
 custom_styles/panel = SubResource( 3 )
 tab_align = 0
@@ -446,22 +1040,22 @@ alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select"]
 margin_top = 50.0
-margin_right = 1042.0
+margin_right = 1020.0
 margin_bottom = 84.0
 alignment = 1
 
 [node name="SDLabel" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
-margin_left = 391.0
+margin_left = 380.0
 margin_top = 5.0
-margin_right = 512.0
+margin_right = 501.0
 margin_bottom = 29.0
 text = "Side Deck: "
 align = 1
 
 [node name="PrefixType" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 512.0
-margin_right = 632.0
+margin_left = 501.0
+margin_right = 621.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -471,8 +1065,8 @@ items = [ "10 Bloody", null, false, 0, null ]
 selected = 0
 
 [node name="SDSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer"]
-margin_left = 632.0
-margin_right = 650.0
+margin_left = 621.0
+margin_right = 639.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_vertical = 4
@@ -480,9 +1074,9 @@ enabled_focus_mode = 0
 
 [node name="SDCardSingle" parent="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select" instance=ExtResource( 4 )]
 unique_name_in_owner = true
-margin_left = 469.0
+margin_left = 458.0
 margin_top = 94.0
-margin_right = 571.4
+margin_right = 560.4
 margin_bottom = 242.0
 size_flags_horizontal = 4
 
@@ -501,34 +1095,34 @@ unique_name_in_owner = true
 columns = 10
 
 [node name="SearchResults" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea"]
-margin_left = 1046.0
-margin_right = 1478.0
+margin_left = 1024.0
+margin_right = 1440.0
 margin_bottom = 966.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 430.0
+margin_right = 414.0
 margin_bottom = 964.0
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
-margin_right = 428.0
+margin_right = 412.0
 margin_bottom = 28.0
 
 [node name="ResultsCount" type="Label" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/PanelContainer"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 426.0
+margin_right = 410.0
 margin_bottom = 26.0
 text = "40/19281"
 align = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
 margin_top = 28.0
-margin_right = 428.0
+margin_right = 412.0
 margin_bottom = 898.0
-rect_min_size = Vector2( 428, 0 )
+rect_min_size = Vector2( 412, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -539,7 +1133,7 @@ script = ExtResource( 5 )
 unique_name_in_owner = true
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 426.0
+margin_right = 410.0
 margin_bottom = 2.0
 size_flags_horizontal = 3
 columns = 4
@@ -547,12 +1141,12 @@ columns = 4
 [node name="LRButtonsContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 898.0
-margin_right = 428.0
+margin_right = 412.0
 margin_bottom = 962.0
 rect_min_size = Vector2( 0, 64 )
 
 [node name="LeftButton" type="Button" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer"]
-margin_right = 214.0
+margin_right = 206.0
 margin_bottom = 64.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -560,14 +1154,21 @@ enabled_focus_mode = 0
 text = "<"
 
 [node name="RightButton" type="Button" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer"]
-margin_left = 214.0
-margin_right = 428.0
+margin_left = 206.0
+margin_right = 412.0
 margin_bottom = 64.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = ">"
 
+[connection signal="button_down" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_down"]
+[connection signal="button_up" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_up"]
+[connection signal="mouse_entered" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_mouse_exited"]
+[connection signal="button_up" from="HBoxContainer/CardPreview/PreviewContainer/Card/Active" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_Active_button_up"]
+[connection signal="mouse_entered" from="HBoxContainer/CardPreview/PreviewContainer/Card/Active" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_Active2_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/CardPreview/PreviewContainer/Card/Active" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_Active2_mouse_exited"]
 [connection signal="button_down" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="save_deck"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="load_deck"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/saveBtn" to="." method="save_deck"]
