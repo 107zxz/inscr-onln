@@ -192,8 +192,8 @@ func post_turn_sigils(friendly: bool):
 		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Skeleton Crew (Yarr)", "Hefty"]:
 			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
 				
-				var sprintSigil = card.get_node("CardBody/VBoxContainer/HBoxContainer").get_child(
-					2 if card.card_data["sigils"].find(movSigil) == 0 else 4
+				var sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
+					card.card_data["sigils"].find(movSigil)
 				)
 				
 				var curSlot = card.get_parent().get_position_in_parent()
@@ -552,12 +552,14 @@ func handle_attack(from_slot, to_slot):
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
+					break
 		else: # Regular mole
 			for card in all_enemy_cards():
 				if card.has_sigil("Burrower"):
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
+					break
 
 	else:
 		eCard = enemySlots[to_slot].get_child(0)
@@ -850,12 +852,14 @@ func handle_enemy_attack(from_slot, to_slot):
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
+					break
 		else: # Regular mole
 			for card in all_friendly_cards():
 				if card.has_sigil("Burrower"):
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
+					break
 	else:
 		pCard = playerSlots[to_slot].get_child(0)
 		if eCard.has_sigil("Airborne") and not pCard.has_sigil("Mighty Leap"):

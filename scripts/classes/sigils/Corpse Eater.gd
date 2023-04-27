@@ -10,6 +10,7 @@ func handle_event(event: String, params: Array):
 		
 		var slot = params[0].get_parent()
 		
+		yield(card.get_tree().create_timer(0.1), "timeout")
 		
 		if not slotManager.is_slot_empty(slot):
 			return
