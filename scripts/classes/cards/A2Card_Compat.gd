@@ -166,7 +166,8 @@ func draw_costs(cDat: Dictionary) -> void:
 				var txtNodes = txtParent.get_children()
 				for txt in txtNodes:
 					txt.text = "x" + str(costValue)
-				costNode.get_node("Text").rect_min_size.x = 39 + (18 * floor(log(costValue) / log(10)))
+				costNode.get_node("Text").rect_min_size.x = 39 + 18 * (len(str(costValue)) - 1)
+#				costNode.get_node("Text").rect_min_size.x = 39 + (18 * floor(log(costValue) / log(10)))
 	
 	var moxNames = [
 			"Orange",
