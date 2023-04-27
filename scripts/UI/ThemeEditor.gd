@@ -12,23 +12,23 @@ const default_theme_data = {
 	"cards": {
 		"common": {
 			"normal": "#b3ac7f",
-			"hover": "#ccc491"
+#			"hover": "#ccc491"
 		},
 		"rare": {
 			"normal": "#ceb46d",
-			"hover": "#dfc98e"
+#			"hover": "#dfc98e"
 		},
 		"nosac": {
 			"normal": "#969275",
-			"hover": "#b0ab89"
+#			"hover": "#b0ab89"
 		},
 		"rns": {
 			"normal": "#ad9551",
-			"hover": "#c2af7c"
+#			"hover": "#c2af7c"
 		},
 		"nohammer": {
 			"normal": "#b39a7f",
-			"hover": "#c5996a"
+#			"hover": "#c5996a"
 		}
 	},
 	"buttons": {
@@ -90,12 +90,12 @@ func apply_theme():
 	paperTheme.get_stylebox("nosac_normal", "Card").bg_color = theme_data.cards.nosac.normal
 	paperTheme.get_stylebox("nohammer_normal", "Card").bg_color = theme_data.cards.nohammer.normal
 	
-	paperTheme.get_stylebox("hover", "Card").bg_color = theme_data.cards.common.hover
-	paperTheme.get_stylebox("rare_hover", "Card").bg_color = theme_data.cards.rare.hover
-	paperTheme.get_stylebox("rns_hover", "Card").bg_color = theme_data.cards.rns.hover
-	paperTheme.get_stylebox("nosac_hover", "Card").bg_color = theme_data.cards.nosac.hover
+#	paperTheme.get_stylebox("hover", "Card").bg_color = theme_data.cards.common.hover
+#	paperTheme.get_stylebox("rare_hover", "Card").bg_color = theme_data.cards.rare.hover
+#	paperTheme.get_stylebox("rns_hover", "Card").bg_color = theme_data.cards.rns.hover
+#	paperTheme.get_stylebox("nosac_hover", "Card").bg_color = theme_data.cards.nosac.hover
 	
-	paperTheme.get_stylebox("nohammer_hover", "Card").bg_color = theme_data.cards.nohammer.hover
+#	paperTheme.get_stylebox("nohammer_hover", "Card").bg_color = theme_data.cards.nohammer.hover
 	
 	# Button colours
 	for col in paperTheme.get_color_list("Button"):

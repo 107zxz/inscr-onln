@@ -112,6 +112,7 @@ region = Rect2( 42, 0, 42, 56 )
 margin_right = 102.4
 margin_bottom = 148.0
 rect_min_size = Vector2( 102.4, 148 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 script = ExtResource( 4 )
 
@@ -120,6 +121,7 @@ modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 focus_mode = 0
+mouse_filter = 1
 enabled_focus_mode = 0
 texture_normal = SubResource( 6 )
 expand = true
@@ -404,6 +406,7 @@ expand = true
 stretch_mode = 5
 
 [node name="Sigils" type="VBoxContainer" parent="."]
+material = ExtResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0

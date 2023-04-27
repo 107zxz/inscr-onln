@@ -8,11 +8,11 @@ onready var sigilDescPrefab = preload("res://packed/SigilDescription.tscn")
 
 onready var deckEditor = get_node("/root/Main/DeckEdit")
 
-var paperTheme = preload("res://themes/papertheme.tres")
-
 func from_data(cdat):
 	card_data = cdat
 	draw_from_data(cdat)
+	
+	mouse_filter = MOUSE_FILTER_PASS
 
 func _on_Button_pressed():
 	

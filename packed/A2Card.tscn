@@ -406,6 +406,7 @@ expand = true
 stretch_mode = 5
 
 [node name="Sigils" type="VBoxContainer" parent="."]
+material = ExtResource( 8 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -443,16 +444,15 @@ expand = true
 
 [node name="Row1" type="HBoxContainer" parent="Sigils"]
 margin_right = 120.0
-margin_bottom = 25.0
+margin_bottom = 50.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
 [node name="S1" type="TextureRect" parent="Sigils/Row1"]
-visible = false
 material = ExtResource( 8 )
 margin_right = 40.0
-margin_bottom = 12.0
+margin_bottom = 50.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -461,10 +461,10 @@ expand = true
 stretch_mode = 6
 
 [node name="S2" type="TextureRect" parent="Sigils/Row1"]
-visible = false
 material = ExtResource( 8 )
-margin_right = 60.0
-margin_bottom = 12.0
+margin_left = 40.0
+margin_right = 80.0
+margin_bottom = 50.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -473,10 +473,10 @@ expand = true
 stretch_mode = 6
 
 [node name="S3" type="TextureRect" parent="Sigils/Row1"]
-visible = false
 material = ExtResource( 8 )
+margin_left = 80.0
 margin_right = 120.0
-margin_bottom = 12.0
+margin_bottom = 50.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -485,6 +485,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Row2" type="HBoxContainer" parent="Sigils"]
+visible = false
 margin_top = 25.0
 margin_right = 120.0
 margin_bottom = 50.0
@@ -495,8 +496,8 @@ alignment = 1
 [node name="S1" type="TextureRect" parent="Sigils/Row2"]
 visible = false
 material = ExtResource( 8 )
-margin_right = 40.0
-margin_bottom = 12.0
+margin_right = 120.0
+margin_bottom = 25.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -569,6 +570,7 @@ texture = ExtResource( 18 )
 expand = true
 
 [node name="CardBack" type="TextureRect" parent="."]
+visible = false
 modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 margin_right = 128.0
 margin_bottom = 185.0

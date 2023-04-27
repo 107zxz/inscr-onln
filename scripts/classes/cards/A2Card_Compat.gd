@@ -1,10 +1,15 @@
 extends Control
 
-const HVR_COLOURS = [
+
+
+var paperTheme = preload("res://themes/papertheme.tres")
+
+var HVR_COLOURS = [
 	Color(0.933333, 0.921569, 0.843137),
 	Color.white,
 	Color(0.45, 0.45, 0.45)
 ]
+
 
 const SIGIL_SLOTS = [
 	"Sigils/Row1/S1",
@@ -34,6 +39,29 @@ func draw_from_data(cDat: Dictionary) -> void:
 	draw_costs(cDat)
 	draw_conduit(cDat)
 	draw_active(cDat)
+	
+	apply_theme()
+
+
+func apply_theme():
+#	HVR_COLOURS[0] = paperTheme.get_color("normal", "Card")
+#	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
+#	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
+	$CardBtn.modulate = paperTheme.get_stylebox("rare_normal" if "rare" in card_data else "normal", "Card").bg_color
+
+	var th = "normal"
+
+	if "nosac" in card_data:
+		th = "nosac_normal"
+	if "rare" in card_data:
+		if "nosac" in card_data:
+			th = "rns_normal"
+		else:
+			th = "rare_normal"
+	if "nohammer" in card_data:
+		th = "nohammer_normal"
+		
+	$CardBtn.modulate = paperTheme.get_stylebox(th, "Card").bg_color
 
 
 func draw_stats(cDat: Dictionary) -> void:
@@ -87,7 +115,7 @@ func draw_costs(cDat: Dictionary) -> void:
 			for node in costNode.get_children():
 				node.hide()
 			
-			if costValue < 3:
+			if costValue < 3 and costValue >= 0:
 				costNode.get_node(str(costValue)).show()
 				
 			else:
@@ -139,7 +167,7 @@ func _on_CardBtn_button_up() -> void:
 func _on_CardBtn_mouse_entered() -> void:
 	if modulate == HVR_COLOURS[0]:
 		modulate = HVR_COLOURS[1]
-		print("Mouse entered")
+#		print("Mouse entered")
 
 
 func _on_CardBtn_mouse_exited() -> void:
