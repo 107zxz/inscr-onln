@@ -360,6 +360,7 @@ Welcome to the new ruleset picker"
 align = 1
 
 [node name="ThemeEditor" parent="." instance=ExtResource( 7 )]
+visible = false
 
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFU" to="FromURL" method="show"]
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFJ" to="FromJSON" method="show"]

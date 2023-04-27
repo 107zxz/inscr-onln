@@ -47,7 +47,7 @@ func apply_theme():
 #	HVR_COLOURS[0] = paperTheme.get_color("normal", "Card")
 #	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
 #	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
-	$CardBtn.modulate = paperTheme.get_stylebox("rare_normal" if "rare" in card_data else "normal", "Card").bg_color
+#	$CardBtn.modulate = paperTheme.get_stylebox("rare_normal" if "rare" in card_data else "normal", "Card").bg_color
 
 	var th = "normal"
 
@@ -62,6 +62,7 @@ func apply_theme():
 		th = "nohammer_normal"
 		
 	$CardBtn.modulate = paperTheme.get_stylebox(th, "Card").bg_color
+	$CardBack.modulate = paperTheme.get_stylebox(th, "Card").bg_color
 
 
 func draw_stats(cDat: Dictionary) -> void:

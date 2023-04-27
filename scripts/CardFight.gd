@@ -710,6 +710,8 @@ func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
 
+	nCard.get_node("CardBody").apply_theme()
+
 	# Visual hand update
 	var eHand = handManager.get_node("EnemyHand")
 
@@ -728,7 +730,7 @@ func _opponent_drew_card(source_path):
 	eHand.add_constant_override("separation", - nC * 4)
 	
 	move_done()
-
+	
 
 func _opponent_played_card(card, slot, ignore_cost = false):
 	
