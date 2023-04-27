@@ -40,9 +40,23 @@ func draw_from_data(cDat: Dictionary) -> void:
 	draw_conduit(cDat)
 	draw_active(cDat)
 	draw_atkspecial(cDat)
+	draw_accessibility(cDat)
 	
 	apply_theme()
 
+
+func draw_accessibility(cDat):
+	
+	if not GameOptions.options.enable_accessibility_icons:
+		return
+	
+	for icon in [
+		"nosac",
+		"nohammer",
+		"rare"
+	]:
+		$Costs.get_node(icon).visible = icon in cDat
+		
 
 func draw_atkspecial(cDat):
 	if "atkspecial" in cDat:

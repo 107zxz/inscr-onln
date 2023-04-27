@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -23,14 +23,11 @@
 [ext_resource path="res://scripts/classes/cards/DeckBuilderCard.gd" type="Script" id=21]
 [ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=22]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=23]
+[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=24]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 42, 56 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 16, 7 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 9 )
@@ -85,6 +82,18 @@ region = Rect2( 66, 33, 14, 15 )
 atlas = ExtResource( 9 )
 region = Rect2( 66, 1, 14, 15 )
 
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 24 )
+region = Rect2( 0, 0, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 24 )
+region = Rect2( 0, 30, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 24 )
+region = Rect2( 0, 15, 26, 15 )
+
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 17 )
 region = Rect2( 5, 2, 42, 9 )
@@ -112,6 +121,10 @@ region = Rect2( 0, 36, 26, 18 )
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 16, 7 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 6 )
@@ -180,44 +193,6 @@ margin_right = 465.0
 margin_bottom = 360.0
 mouse_filter = 2
 expand = true
-
-[node name="AtkScore" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 17.1734
-margin_top = -61.1192
-margin_right = 57.1734
-margin_bottom = -10.1192
-custom_fonts/font = ExtResource( 23 )
-text = "4"
-valign = 2
-
-[node name="AtkIcon" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
-material = ExtResource( 11 )
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 12.8552
-margin_top = -45.8399
-margin_right = 76.8552
-margin_bottom = -11.1379
-texture = SubResource( 31 )
-expand = true
-stretch_mode = 5
-
-[node name="HpScore" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -74.873
-margin_top = -60.4062
-margin_right = -11.873
-margin_bottom = -9.40619
-theme_type_variation = "ScoreFont"
-custom_fonts/font = ExtResource( 23 )
-text = "6"
-align = 2
-valign = 2
 
 [node name="Costs" type="VBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
 anchor_right = 1.0
@@ -419,6 +394,7 @@ custom_fonts/font = SubResource( 21 )
 text = "x011"
 
 [node name="mox" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+visible = false
 margin_top = 39.0
 margin_right = 465.0
 margin_bottom = 84.0
@@ -460,6 +436,45 @@ rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
 size_flags_horizontal = 9
 texture = SubResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="nosac" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+visible = false
+margin_left = 55.0
+margin_top = 39.0
+margin_right = 122.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 67, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+texture = SubResource( 32 )
+expand = true
+stretch_mode = 5
+
+[node name="nohammer" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+visible = false
+margin_left = 55.0
+margin_top = 39.0
+margin_right = 122.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 67, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+texture = SubResource( 33 )
+expand = true
+stretch_mode = 5
+
+[node name="rare" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
+visible = false
+margin_left = 398.0
+margin_top = 39.0
+margin_right = 465.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 67, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+texture = SubResource( 34 )
 expand = true
 stretch_mode = 5
 
@@ -618,6 +633,45 @@ mouse_filter = 2
 texture = ExtResource( 16 )
 expand = true
 stretch_mode = 6
+
+[node name="AtkScore" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 17.1734
+margin_top = -61.1192
+margin_right = 57.1734
+margin_bottom = -10.1192
+custom_fonts/font = ExtResource( 23 )
+text = "4"
+valign = 2
+
+[node name="AtkIcon" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+material = ExtResource( 11 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 12.8552
+margin_top = -45.8399
+margin_right = 76.8552
+margin_bottom = -11.1379
+mouse_filter = 2
+texture = SubResource( 31 )
+expand = true
+stretch_mode = 5
+
+[node name="HpScore" type="Label" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -74.873
+margin_top = -60.4062
+margin_right = -11.873
+margin_bottom = -9.40619
+theme_type_variation = "ScoreFont"
+custom_fonts/font = ExtResource( 23 )
+text = "6"
+align = 2
+valign = 2
 
 [node name="SacOlay" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card"]
 visible = false

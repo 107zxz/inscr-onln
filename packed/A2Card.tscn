@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=1]
 [ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=2]
@@ -18,14 +18,11 @@
 [ext_resource path="res://gfx/cardextras/cost_energy_text.png" type="Texture" id=16]
 [ext_resource path="res://gfx/cardextras/cost_bone.png" type="Texture" id=17]
 [ext_resource path="res://gfx/cardextras/pixel_card_submerge.png" type="Texture" id=18]
+[ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 42, 56 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 10 )
-region = Rect2( 0, 0, 16, 7 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 5 )
@@ -80,6 +77,18 @@ region = Rect2( 66, 33, 14, 15 )
 atlas = ExtResource( 5 )
 region = Rect2( 66, 1, 14, 15 )
 
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 30, 26, 15 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 15, 26, 15 )
+
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 14 )
 region = Rect2( 5, 2, 42, 9 )
@@ -107,6 +116,10 @@ region = Rect2( 0, 36, 26, 18 )
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 26, 18 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 7 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 1 )
@@ -140,43 +153,6 @@ mouse_filter = 2
 texture = ExtResource( 9 )
 expand = true
 
-[node name="AtkScore" type="Label" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 4.82975
-margin_top = -42.9156
-margin_right = 44.8298
-margin_bottom = 0.0844116
-theme_type_variation = "ScoreFont"
-text = "4"
-valign = 2
-
-[node name="AtkIcon" type="TextureRect" parent="."]
-material = ExtResource( 8 )
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 2.29561
-margin_top = -30.0004
-margin_right = 55.2956
-margin_bottom = -0.000396729
-texture = SubResource( 31 )
-expand = true
-stretch_mode = 5
-
-[node name="HpScore" type="Label" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -65.6465
-margin_top = -42.3272
-margin_right = -2.64651
-margin_bottom = -0.32724
-theme_type_variation = "ScoreFont"
-text = "6"
-align = 2
-valign = 2
-
 [node name="Costs" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 margin_left = 3.0
@@ -187,7 +163,6 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="blood" type="HBoxContainer" parent="Costs"]
-visible = false
 margin_left = 20.0
 margin_right = 122.0
 margin_bottom = 39.0
@@ -379,6 +354,7 @@ custom_fonts/font = SubResource( 21 )
 text = "x011"
 
 [node name="mox" type="HBoxContainer" parent="Costs"]
+visible = false
 margin_right = 122.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 0, 45 )
@@ -419,6 +395,45 @@ rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
 size_flags_horizontal = 9
 texture = SubResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="nosac" type="TextureRect" parent="Costs"]
+visible = false
+margin_left = 55.0
+margin_top = 39.0
+margin_right = 122.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 67, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+texture = SubResource( 32 )
+expand = true
+stretch_mode = 5
+
+[node name="nohammer" type="TextureRect" parent="Costs"]
+visible = false
+margin_left = 55.0
+margin_top = 39.0
+margin_right = 122.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 67, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+texture = SubResource( 33 )
+expand = true
+stretch_mode = 5
+
+[node name="rare" type="TextureRect" parent="Costs"]
+visible = false
+margin_left = 55.0
+margin_top = 39.0
+margin_right = 122.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 67, 39 )
+mouse_filter = 2
+size_flags_horizontal = 8
+texture = SubResource( 34 )
 expand = true
 stretch_mode = 5
 
@@ -571,6 +586,44 @@ margin_bottom = 39.0
 mouse_filter = 2
 texture = ExtResource( 13 )
 expand = true
+
+[node name="AtkScore" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 4.82975
+margin_top = -42.9156
+margin_right = 44.8298
+margin_bottom = 0.0844116
+theme_type_variation = "ScoreFont"
+text = "4"
+valign = 2
+
+[node name="AtkIcon" type="TextureRect" parent="."]
+material = ExtResource( 8 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.29561
+margin_top = -30.0004
+margin_right = 55.2956
+margin_bottom = -0.000396729
+mouse_filter = 2
+texture = SubResource( 31 )
+expand = true
+stretch_mode = 5
+
+[node name="HpScore" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -65.6465
+margin_top = -42.3272
+margin_right = -2.64651
+margin_bottom = -0.327209
+theme_type_variation = "ScoreFont"
+text = "6"
+align = 2
+valign = 2
 
 [node name="SacOlay" type="TextureRect" parent="."]
 visible = false
