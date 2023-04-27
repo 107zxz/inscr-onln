@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
 [ext_resource path="res://packed/SigilDescription.tscn" type="PackedScene" id=3]
 [ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ARG/scripts/ButtonScroll.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
@@ -526,12 +527,13 @@ align = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
 margin_top = 28.0
 margin_right = 428.0
-margin_bottom = 962.0
+margin_bottom = 898.0
 rect_min_size = Vector2( 428, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 scroll_deadzone = 5
+script = ExtResource( 5 )
 
 [node name="SearchContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
@@ -544,15 +546,14 @@ columns = 4
 
 [node name="LRButtonsContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
-margin_top = 915.0
+margin_top = 898.0
 margin_right = 428.0
 margin_bottom = 962.0
-rect_min_size = Vector2( 0, 47 )
+rect_min_size = Vector2( 0, 64 )
 
 [node name="LeftButton" type="Button" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer"]
 margin_right = 214.0
-margin_bottom = 47.0
+margin_bottom = 64.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -561,7 +562,7 @@ text = "<"
 [node name="RightButton" type="Button" parent="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer"]
 margin_left = 214.0
 margin_right = 428.0
-margin_bottom = 47.0
+margin_bottom = 64.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
@@ -588,3 +589,5 @@ text = ">"
 [connection signal="tab_changed" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer" to="." method="_on_TabContainer_tab_changed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/PrefixType" to="." method="_on_PrefixType_item_selected"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/SDSel" to="." method="_on_SDSel_item_selected"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer/LeftButton" to="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer" method="_on_LeftButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer/RightButton" to="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer" method="_on_RightButton_pressed"]

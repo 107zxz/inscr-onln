@@ -6,9 +6,8 @@
 [node name="ThemeEditor" type="WindowDialog"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -715.0
+margin_top = -555.0
 margin_right = 600.0
-margin_bottom = -3.0
 theme = ExtResource( 1 )
 window_title = "Theme Editor"
 script = ExtResource( 2 )
@@ -126,6 +125,7 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-common-hover" type="HBoxContainer" parent="Options"]
+visible = false
 margin_top = 186.0
 margin_right = 600.0
 margin_bottom = 214.0
@@ -144,9 +144,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rare-normal" type="HBoxContainer" parent="Options"]
-margin_top = 217.0
+margin_top = 186.0
 margin_right = 600.0
-margin_bottom = 245.0
+margin_bottom = 214.0
 
 [node name="Label" type="Label" parent="Options/cards-rare-normal"]
 margin_top = 2.0
@@ -162,9 +162,10 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rare-hover" type="HBoxContainer" parent="Options"]
-margin_top = 248.0
+visible = false
+margin_top = 217.0
 margin_right = 600.0
-margin_bottom = 276.0
+margin_bottom = 245.0
 
 [node name="Label" type="Label" parent="Options/cards-rare-hover"]
 margin_top = 2.0
@@ -180,9 +181,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nosac-normal" type="HBoxContainer" parent="Options"]
-margin_top = 279.0
+margin_top = 217.0
 margin_right = 600.0
-margin_bottom = 307.0
+margin_bottom = 245.0
 
 [node name="Label" type="Label" parent="Options/cards-nosac-normal"]
 margin_top = 2.0
@@ -198,9 +199,10 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nosac-hover" type="HBoxContainer" parent="Options"]
-margin_top = 310.0
+visible = false
+margin_top = 248.0
 margin_right = 600.0
-margin_bottom = 338.0
+margin_bottom = 276.0
 
 [node name="Label" type="Label" parent="Options/cards-nosac-hover"]
 margin_top = 2.0
@@ -216,9 +218,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rns-normal" type="HBoxContainer" parent="Options"]
-margin_top = 341.0
+margin_top = 248.0
 margin_right = 600.0
-margin_bottom = 369.0
+margin_bottom = 276.0
 
 [node name="Label" type="Label" parent="Options/cards-rns-normal"]
 margin_top = 2.0
@@ -234,9 +236,10 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-rns-hover" type="HBoxContainer" parent="Options"]
-margin_top = 372.0
+visible = false
+margin_top = 279.0
 margin_right = 600.0
-margin_bottom = 400.0
+margin_bottom = 307.0
 
 [node name="Label" type="Label" parent="Options/cards-rns-hover"]
 margin_top = 2.0
@@ -252,9 +255,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nohammer-normal" type="HBoxContainer" parent="Options"]
-margin_top = 403.0
+margin_top = 279.0
 margin_right = 600.0
-margin_bottom = 431.0
+margin_bottom = 307.0
 
 [node name="Label" type="Label" parent="Options/cards-nohammer-normal"]
 margin_top = 2.0
@@ -270,9 +273,10 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="cards-nohammer-hover" type="HBoxContainer" parent="Options"]
-margin_top = 434.0
+visible = false
+margin_top = 310.0
 margin_right = 600.0
-margin_bottom = 462.0
+margin_bottom = 338.0
 
 [node name="Label" type="Label" parent="Options/cards-nohammer-hover"]
 margin_top = 2.0
@@ -288,9 +292,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-normal-background" type="HBoxContainer" parent="Options"]
-margin_top = 465.0
+margin_top = 310.0
 margin_right = 600.0
-margin_bottom = 493.0
+margin_bottom = 338.0
 
 [node name="Label" type="Label" parent="Options/buttons-normal-background"]
 margin_top = 2.0
@@ -306,9 +310,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-normal-border" type="HBoxContainer" parent="Options"]
-margin_top = 496.0
+margin_top = 341.0
 margin_right = 600.0
-margin_bottom = 524.0
+margin_bottom = 369.0
 
 [node name="Label" type="Label" parent="Options/buttons-normal-border"]
 margin_top = 2.0
@@ -324,9 +328,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-pressed-background" type="HBoxContainer" parent="Options"]
-margin_top = 527.0
+margin_top = 372.0
 margin_right = 600.0
-margin_bottom = 555.0
+margin_bottom = 400.0
 
 [node name="Label" type="Label" parent="Options/buttons-pressed-background"]
 margin_top = 2.0
@@ -342,9 +346,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-pressed-border" type="HBoxContainer" parent="Options"]
-margin_top = 558.0
+margin_top = 403.0
 margin_right = 600.0
-margin_bottom = 586.0
+margin_bottom = 431.0
 
 [node name="Label" type="Label" parent="Options/buttons-pressed-border"]
 margin_top = 2.0
@@ -360,9 +364,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-hover-background" type="HBoxContainer" parent="Options"]
-margin_top = 589.0
+margin_top = 434.0
 margin_right = 600.0
-margin_bottom = 617.0
+margin_bottom = 462.0
 
 [node name="Label" type="Label" parent="Options/buttons-hover-background"]
 margin_top = 2.0
@@ -378,9 +382,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="buttons-hover-border" type="HBoxContainer" parent="Options"]
-margin_top = 620.0
+margin_top = 465.0
 margin_right = 600.0
-margin_bottom = 648.0
+margin_bottom = 493.0
 
 [node name="Label" type="Label" parent="Options/buttons-hover-border"]
 margin_top = 2.0
@@ -396,9 +400,9 @@ size_flags_horizontal = 3
 edit_alpha = false
 
 [node name="BackgroundSettings" type="HBoxContainer" parent="Options"]
-margin_top = 651.0
+margin_top = 496.0
 margin_right = 600.0
-margin_bottom = 679.0
+margin_bottom = 524.0
 custom_constants/separation = 35
 alignment = 1
 
@@ -432,9 +436,9 @@ enabled_focus_mode = 0
 text = "Clear BG Image"
 
 [node name="Buttons" type="HBoxContainer" parent="Options"]
-margin_top = 682.0
+margin_top = 527.0
 margin_right = 600.0
-margin_bottom = 710.0
+margin_bottom = 555.0
 custom_constants/separation = 25
 alignment = 1
 
