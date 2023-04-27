@@ -4,6 +4,7 @@
 [ext_resource path="res://scripts/UI/ThemeEditor.gd" type="Script" id=2]
 
 [node name="ThemeEditor" type="WindowDialog"]
+visible = true
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -555.0
@@ -124,25 +125,6 @@ margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="cards-common-hover" type="HBoxContainer" parent="Options"]
-visible = false
-margin_top = 186.0
-margin_right = 600.0
-margin_bottom = 214.0
-
-[node name="Label" type="Label" parent="Options/cards-common-hover"]
-margin_top = 2.0
-margin_right = 365.0
-margin_bottom = 26.0
-text = "Common Card Background Hover: "
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-common-hover"]
-margin_left = 365.0
-margin_right = 600.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-edit_alpha = false
-
 [node name="cards-rare-normal" type="HBoxContainer" parent="Options"]
 margin_top = 186.0
 margin_right = 600.0
@@ -156,25 +138,6 @@ text = "Rare Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rare-normal"]
 margin_left = 263.0
-margin_right = 600.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-edit_alpha = false
-
-[node name="cards-rare-hover" type="HBoxContainer" parent="Options"]
-visible = false
-margin_top = 217.0
-margin_right = 600.0
-margin_bottom = 245.0
-
-[node name="Label" type="Label" parent="Options/cards-rare-hover"]
-margin_top = 2.0
-margin_right = 331.0
-margin_bottom = 26.0
-text = "Rare Card Background Hover: "
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rare-hover"]
-margin_left = 331.0
 margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
@@ -198,25 +161,6 @@ margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="cards-nosac-hover" type="HBoxContainer" parent="Options"]
-visible = false
-margin_top = 248.0
-margin_right = 600.0
-margin_bottom = 276.0
-
-[node name="Label" type="Label" parent="Options/cards-nosac-hover"]
-margin_top = 2.0
-margin_right = 445.0
-margin_bottom = 26.0
-text = "Unsacrificeable Card Background Hover: "
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nosac-hover"]
-margin_left = 445.0
-margin_right = 600.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-edit_alpha = false
-
 [node name="cards-rns-normal" type="HBoxContainer" parent="Options"]
 margin_top = 248.0
 margin_right = 600.0
@@ -235,25 +179,6 @@ margin_bottom = 28.0
 size_flags_horizontal = 3
 edit_alpha = false
 
-[node name="cards-rns-hover" type="HBoxContainer" parent="Options"]
-visible = false
-margin_top = 279.0
-margin_right = 600.0
-margin_bottom = 307.0
-
-[node name="Label" type="Label" parent="Options/cards-rns-hover"]
-margin_top = 2.0
-margin_right = 506.0
-margin_bottom = 26.0
-text = "Rare Unsacrificeable Card Background Hover: "
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-rns-hover"]
-margin_left = 506.0
-margin_right = 600.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-edit_alpha = false
-
 [node name="cards-nohammer-normal" type="HBoxContainer" parent="Options"]
 margin_top = 279.0
 margin_right = 600.0
@@ -267,25 +192,6 @@ text = "Unhammerable Card Background: "
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nohammer-normal"]
 margin_left = 368.0
-margin_right = 600.0
-margin_bottom = 28.0
-size_flags_horizontal = 3
-edit_alpha = false
-
-[node name="cards-nohammer-hover" type="HBoxContainer" parent="Options"]
-visible = false
-margin_top = 310.0
-margin_right = 600.0
-margin_bottom = 338.0
-
-[node name="Label" type="Label" parent="Options/cards-nohammer-hover"]
-margin_top = 2.0
-margin_right = 436.0
-margin_bottom = 26.0
-text = "Unhammerable Card Background Hover: "
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Options/cards-nohammer-hover"]
-margin_left = 436.0
 margin_right = 600.0
 margin_bottom = 28.0
 size_flags_horizontal = 3

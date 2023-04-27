@@ -127,17 +127,20 @@ func draw_costs(cDat: Dictionary) -> void:
 					txt.text = "x" + str(costValue)
 				costNode.get_node("Text").rect_min_size.x = 39 + (18 * floor(log(costValue) / log(10)))
 	
-	if cDat.get("mox_cost"):
-		
-		var moxNames = [
+	var moxNames = [
 			"Orange",
 			"Blue",
 			"Green"
 		]
+	
+	if cDat.get("mox_cost"):
 		
 		for moxName in moxNames:
 			costRoot.get_node("mox").get_child(moxNames.find(moxName)).visible = moxName in cDat.get("mox_cost")
-
+	else:
+		for moxName in moxNames:
+			costRoot.get_node("mox").get_child(moxNames.find(moxName)).hide()
+			
 # Conduit sigil
 func draw_conduit(cDat: Dictionary) -> void:
 	$Sigils/ConduitIndicator.visible = "conduit" in cDat
