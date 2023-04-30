@@ -355,7 +355,6 @@ custom_fonts/font = SubResource( 21 )
 text = "x011"
 
 [node name="mox" type="HBoxContainer" parent="Costs"]
-visible = false
 margin_right = 102.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 0, 45 )

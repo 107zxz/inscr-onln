@@ -395,7 +395,6 @@ custom_fonts/font = SubResource( 21 )
 text = "x011"
 
 [node name="mox" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Costs"]
-visible = false
 margin_top = 39.0
 margin_right = 465.0
 margin_bottom = 84.0
