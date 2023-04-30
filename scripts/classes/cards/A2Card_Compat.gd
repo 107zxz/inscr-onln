@@ -107,16 +107,16 @@ func draw_stats(cDat: Dictionary) -> void:
 	
 	# Special portrait overrides
 	var d = Directory.new()
-	if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
+	if d.file_exists(CardInfo.portrait_override_path + cDat.name + ".png"):
 		var i = Image.new()
-		i.load(CardInfo.portrait_override_path + card_data.name + ".png")
+		i.load(CardInfo.portrait_override_path + cDat.name + ".png")
 		var tx = ImageTexture.new()
 		tx.create_from_image(i)
 		tx.flags -= tx.FLAG_FILTER
 		$CardPort.texture = tx
-	elif "pixport_url" in card_data:
+	elif "pixport_url" in cDat:
 		var i = Image.new()
-		i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
+		i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + cDat.name + ".png")
 		var tx = ImageTexture.new()
 		tx.create_from_image(i)
 		tx.flags -= tx.FLAG_FILTER
