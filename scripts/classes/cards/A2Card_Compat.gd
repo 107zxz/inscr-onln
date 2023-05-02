@@ -189,13 +189,18 @@ func draw_costs(cDat: Dictionary) -> void:
 			"Green"
 		]
 	
+	var mox_node = costRoot.get_node("mox")
+	
 	if cDat.get("mox_cost"):
+		mox_node.show()
 		
 		for moxName in moxNames:
-			costRoot.get_node("mox").get_child(moxNames.find(moxName)).visible = moxName in cDat.get("mox_cost")
+			mox_node.get_child(moxNames.find(moxName)).visible = moxName in cDat.get("mox_cost")
 	else:
-		for moxName in moxNames:
-			costRoot.get_node("mox").get_child(moxNames.find(moxName)).hide()
+		mox_node.hide()
+#		for moxName in moxNames:
+#			costRoot.get_node("mox").get_child(moxNames.find(moxName)).hide()
+		
 			
 # Conduit sigil
 func draw_conduit(cDat: Dictionary) -> void:

@@ -163,6 +163,7 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="blood" type="HBoxContainer" parent="Costs"]
+visible = false
 margin_left = 20.0
 margin_right = 122.0
 margin_bottom = 39.0
@@ -354,18 +355,17 @@ custom_fonts/font = SubResource( 21 )
 text = "x011"
 
 [node name="mox" type="HBoxContainer" parent="Costs"]
-margin_top = 39.0
+visible = false
 margin_right = 122.0
-margin_bottom = 84.0
+margin_bottom = 45.0
 rect_min_size = Vector2( 0, 45 )
 mouse_filter = 2
 custom_constants/separation = -25
 alignment = 2
 
 [node name="Orange" type="TextureRect" parent="Costs/mox"]
-visible = false
-margin_left = 46.0
-margin_right = 88.0
+margin_left = 80.0
+margin_right = 122.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 42, 0 )
 mouse_filter = 2
