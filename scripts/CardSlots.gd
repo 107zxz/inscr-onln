@@ -139,7 +139,7 @@ func pre_turn_sigils(friendly: bool):
 			continue
 		
 		if CardInfo.all_data.opt_actives and "active" in card.card_data:
-			var cd = card.get_node("CardBody/VBoxContainer/HBoxContainer/ActiveSigil")
+			var cd = card.get_node("CardBody/Active")
 			cd.disabled = false
 			cd.mouse_filter = MOUSE_FILTER_STOP
 		
@@ -164,7 +164,7 @@ func pre_turn_sigils(friendly: bool):
 				
 				# Hide tentacle atk symbol
 				card.get_node("CardBody/AtkIcon").visible = false
-				card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
+				card.get_node("CardBody/AtkScore").visible = true
 
 	# Enemy spawn conduit
 	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
@@ -804,7 +804,7 @@ func remote_card_data(card_slot, new_data):
 	
 	# Hide tentacle atk symbol
 	card.get_node("CardBody/AtkIcon").visible = false
-	card.get_node("CardBody/HBoxContainer/AtkScore").visible = true
+	card.get_node("CardBody/AtkScore").visible = true
 
 	fightManager.move_done()
 

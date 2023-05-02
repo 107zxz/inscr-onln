@@ -533,10 +533,10 @@ func card_summoned(playedCard):
 		# Ramp damage over time so the game actually ends
 		inflict_damage(playedCard.attack - 8)
 	
-	# Stoat easter egg
-	if playedCard.card_data["name"] == "Stoat":
-		playedCard.card_data["name"] = "Total Misplay"
-		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
+	# Stoat easter egg (Goodbye)
+#	if playedCard.card_data["name"] == "Stoat":
+#		playedCard.card_data["name"] = "Total Misplay"
+#		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
 
 # Hammer Time
 func hammer_mode():
