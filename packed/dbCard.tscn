@@ -447,7 +447,7 @@ mouse_filter = 2
 alignment = 1
 
 [node name="ConduitIndicator" type="TextureRect" parent="Sigils"]
-visible = false
+material = ExtResource( 9 )
 margin_right = 94.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 0, 26 )
@@ -473,6 +473,7 @@ texture = SubResource( 17 )
 expand = true
 
 [node name="Row1" type="HBoxContainer" parent="Sigils"]
+margin_top = 26.0
 margin_right = 94.0
 margin_bottom = 44.0
 mouse_filter = 2
