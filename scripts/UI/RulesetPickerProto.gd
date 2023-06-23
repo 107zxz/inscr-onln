@@ -293,3 +293,10 @@ func download_sigil_icons(dat):
 func open_rsdir():
 	print("Opening rulesets dir?")
 	OS.shell_open("file://" + OS.get_user_data_dir() + "/rulesets/")
+
+
+func scroll_rulesets_featured(distance):
+	$FeaturedRulesets/VBoxContainer/ScrollContainer.scroll_vertical += distance
+
+func scroll_rulesets_saved(distance):
+	$SavedRulesets/VBoxContainer/ScrollContainer.scroll_vertical += distance
