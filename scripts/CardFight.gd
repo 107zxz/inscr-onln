@@ -368,6 +368,9 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	
 	
 	var nCard = cardPrefab.instance()
+	
+	source.add_child(nCard)
+	
 	if typeof(card) == TYPE_DICTIONARY:
 		nCard.from_data(card)
 	elif typeof(card) == TYPE_STRING:
@@ -378,10 +381,9 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	# New sigil stuff
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
-	nCard.create_sigils(true)
+#	nCard.create_sigils(true)
 	connect("sigil_event", nCard, "handle_sigil_event")
 	
-	source.add_child(nCard)
 	
 	nCard.rect_position = Vector2.ZERO
 	
@@ -757,7 +759,7 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
 	nCard.from_data(card_dt)
-	nCard.create_sigils(false)
+#	nCard.create_sigils(false)
 	nCard.move_to_parent(slotManager.enemySlots[slot])
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
@@ -801,7 +803,7 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
 	nCard.from_data(card_dt)
-	nCard.create_sigils(false)
+#	nCard.create_sigils(false)
 	nCard.move_to_parent(slotManager.enemySlotsBack[slot])
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
