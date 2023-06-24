@@ -50,7 +50,7 @@ func from_data(cdat):
 	# Enable interaction with the card
 	$CardBody/CardBtn.disabled = false
 	
-	create_sigils("Player" in get_parent().name)
+	create_sigils("Player" in get_path() as String or "Your" in get_path() as String)
 	
 func create_sigils(friendly):
 	sigils.empty()

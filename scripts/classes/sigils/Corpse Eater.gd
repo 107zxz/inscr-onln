@@ -15,14 +15,12 @@ func handle_event(event: String, params: Array):
 		if not slotManager.is_slot_empty(slot):
 			return
 		
-			
-		card.move_to_parent(slot)
-		
-		
 		fightManager.send_move({
 				"type": "raise_card",
 				"index": card.get_position_in_parent()
 			})
+			
+		card.move_to_parent(slot)
 		
 		fightManager.send_move({
 				"type": "play_card",
