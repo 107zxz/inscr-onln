@@ -520,3 +520,19 @@ func _exit_tree():
 
 func _on_TabContainer_tab_changed(_tab):
 	search()
+
+
+func _on_DelBtn_pressed():
+	
+	var current_deck = CardInfo.deck_path + selector_de.text + ".deck"
+	
+	selector_de.select((selector_de.selected + 1) % selector_de.get_item_count())
+	load_deck()
+	
+	
+	var dir = Directory.new()
+	dir.remove(current_deck)
+	
+	ensure_default_deck()
+	populate_deck_list()
+	

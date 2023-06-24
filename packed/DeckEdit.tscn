@@ -783,20 +783,18 @@ text = "Deck:   "
 
 [node name="DSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
 margin_left = 85.0
-margin_right = 714.0
+margin_right = 639.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 
-[node name="saveBtn" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
-visible = false
-margin_left = 372.0
-margin_right = 404.0
-margin_bottom = 17.0
+[node name="DelBtn" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
+margin_left = 639.0
+margin_right = 714.0
+margin_bottom = 34.0
 focus_mode = 0
-enabled_focus_mode = 0
-text = "Save"
+text = "Delete"
 
 [node name="DNameLine" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
 margin_top = 36.0
@@ -1242,7 +1240,7 @@ text = ">"
 [connection signal="mouse_exited" from="HBoxContainer/CardPreview/PreviewContainer/Card/Active" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_Active2_mouse_exited"]
 [connection signal="button_down" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="save_deck"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="load_deck"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/saveBtn" to="." method="save_deck"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DelBtn" to="." method="_on_DelBtn_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/Button" to="." method="save_deck_as"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ShuffleButton" to="." method="_on_ShuffleButton_pressed"]
