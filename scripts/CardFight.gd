@@ -465,9 +465,9 @@ func play_card(slot):
 
 			state = GameStates.NORMAL
 			
-			yield(playedCard.get_node("Tween"), "tween_completed")
-			
-			card_summoned(playedCard)
+#			yield(playedCard.get_node("Tween"), "tween_completed")
+#
+#			card_summoned(playedCard)
 
 func play_card_back(slot):
 	
@@ -520,7 +520,7 @@ func card_summoned(playedCard):
 	playedCard.get_node("CardBody/Active").mouse_filter = MOUSE_FILTER_STOP
 	
 	# Sigil event
-#	emit_signal("sigil_event", "card_summoned", [playedCard])
+	emit_signal("sigil_event", "card_summoned", [playedCard])
 	
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():

@@ -286,7 +286,8 @@ func move_to_parent(new_parent):
 	# Must be summoned
 	if new_parent.get_parent().name in ["PlayerSlots", "EnemySlots"]:
 		if from_hand:
-			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+#			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+			fightManager.card_summoned(self)
 			
 			# Special atk stats
 			if "atkspecial" in card_data:

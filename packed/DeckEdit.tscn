@@ -491,6 +491,7 @@ alignment = 1
 
 [node name="ConduitIndicator" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
 visible = false
+material = ExtResource( 11 )
 margin_right = 468.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
