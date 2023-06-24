@@ -633,10 +633,10 @@ func get_enemy_cards_sigil(sigil):
 # Summon a card, used by Squirrel Ball
 func summon_card(cDat, slot_idx, friendly: bool):
 	var nCard = fightManager.cardPrefab.instance()
+	(playerSlots[slot_idx] if friendly else enemySlots[slot_idx]).add_child(nCard)
 	nCard.from_data(cDat)
 	nCard.in_hand = false
 	
-	(playerSlots[slot_idx] if friendly else enemySlots[slot_idx]).add_child(nCard)
 	
 	fightManager.card_summoned(nCard)
 
@@ -1052,9 +1052,9 @@ func get_enemy_card(slot_idx):
 func all_friendly_cards():
 	var cards = []
 
-	for slot in playerSlots:
-		if not is_slot_empty(slot):
-			cards.append(slot.get_child(0))
+	for slot_idx in range(4):
+		if not is_slot_empty(playerSlots[slot_idx]):
+			cards.append(get_friendly_card(slot_idx))
 	
 	return cards
 
@@ -1070,9 +1070,9 @@ func all_friendly_cards_backrow():
 func all_enemy_cards():
 	var cards = []
 
-	for slot in enemySlots:
-		if not is_slot_empty(slot):
-			cards.append(slot.get_child(0))
+	for slot_idx in range(4):
+		if not is_slot_empty(enemySlots[slot_idx]):
+			cards.append(get_enemy_card(slot_idx))
 	
 	return cards
 
