@@ -1193,8 +1193,17 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Live theme update"
 
+[node name="ruleset_editor" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_top = 34.0
+margin_right = 824.0
+margin_bottom = 68.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Built-in Ruleset Editor (Garbage)"
+
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
 process_priority = 1
+visible = false
 margin_left = 28.0
 margin_top = -585.0
 margin_right = 628.0

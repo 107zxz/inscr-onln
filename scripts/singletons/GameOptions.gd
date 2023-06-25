@@ -17,7 +17,8 @@ var options = {
 	"show_banned": false,
 	"misplays": 0,
 	"live_theme_update": false,
-	"default_ruleset": ""
+	"default_ruleset": "",
+	"ruleset_editor": false
 }
 
 func read_options():
