@@ -214,7 +214,7 @@ func full_clear_bg():
 	CardInfo.background_texture = null
 	
 	get_node("/root/Main/TitleScreen/CustomBackground").texture = CardInfo.background_texture
-	get_node("/root/Main/DeckEdit").apply_custom_background()
+	get_node("/root/Main/DeckEdit").clear_custom_background()
 
 
 func _on_FileDialog_file_selected(path: String):

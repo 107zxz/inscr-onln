@@ -54,8 +54,19 @@ func apply_custom_background():
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults.theme_type_variation = "TspBg"
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer.theme_type_variation = "TspBg"
 	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.theme_type_variation = "TspBg"
-#	$"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer".theme_type_variation = "TspBg"
+
+func clear_custom_background():
+	$CustomBG.texture = null
+	$HBoxContainer/CardPreview.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/DeckOptions.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.theme_type_variation = ""
 	
+
 func _ready():
 	
 	if CardInfo.background_texture != null:

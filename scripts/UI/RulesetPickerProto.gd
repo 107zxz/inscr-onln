@@ -19,7 +19,7 @@ func ARGIT():
 func _ready():
 	
 	# Disable ARG check for now
-	# ARGIT()
+#	ARGIT()
 	
 	# Apply theme
 	
