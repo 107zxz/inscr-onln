@@ -685,17 +685,24 @@ func calculate_buffs():
 		else:
 			fightManager.enemy_no_energy_deplete = true
 	
-	# Stinky
+	# Stinky, Annoying
 	if friendly:
 		if slotManager.get_enemy_card(sIdx):
 			var eCard = slotManager.get_enemy_card(sIdx)
-			if eCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
-				attack = max(0, attack - 1)
+			if not has_sigil("Made of Stone"):
+				if eCard.has_sigil("Stinky"):
+					attack = max(0, attack - 1)
+				if eCard.has_sigil("Annoying"):
+					attack += 1
+				
 	else:
 		if slotManager.get_friendly_card(sIdx):
 			var pCard = slotManager.get_friendly_card(sIdx)
-			if pCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
-				attack = max(0, attack - 1)
+			if not has_sigil("Made of Stone"):
+				if pCard.has_sigil("Stinky"):
+					attack = max(0, attack - 1)
+				if pCard.has_sigil("Annoying"):
+					attack += 1
 	
 	var sigName = "Leader"
 	for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():

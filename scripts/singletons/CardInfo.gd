@@ -112,6 +112,7 @@ func idx_from_name(cName):
 
 const all_sigils = {
 	"Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
+	"Annoying": "The creature opposing a card bearing this sigil gains 1 Power.",
 	"Ant Spawner": "When a card bearing this sigil is played, an ant is created in your hand.",
 	"Armored": "The first time a card bearing this sigil would take damage, prevent that damage.",
 	"Attack Conduit": "Other creatures within a circuit completed by a card bearing this sigil gain 1 power.",
@@ -281,7 +282,8 @@ const working_sigils = [
 	"Omni Strike",
 	"Enlarge (3)",
 	"Skeleton Crew (Yarr)",
-	"Thick"
+	"Thick",
+	"Annoying"
 ]
 
 const keywords = {
@@ -289,5 +291,4 @@ const keywords = {
 	"nosac": "Terrain: This card cannot be sacrificed.",
 	"nohammer": "Unhammerable: This card cannot be hammered.",
 	"conduit": "Conduit: This card completes a circuit. At least 2 circuit completing cards are needed to complete a circuit."
-	
 }
