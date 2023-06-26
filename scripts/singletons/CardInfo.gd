@@ -175,7 +175,7 @@ const all_sigils = {
 	"Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
 	"Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
 	"Noble Sacrifice": "A card bearing this sigil is counted as 2 blood rather than 1 blood when sacrificed.",
-	"Scopophobic": "A card bearing this sigil gains 1 power when not facing an enemy creature.",
+	"Scopophobic": "Wklv hqwub klghv iurp sublqj hbhv d vhfuhw vrph zrxog vhhn. D nlqg uhtxhvw wr wuxob whvw dqb zkr zrxog shhn.",
 	"Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
 	"Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
 	"Side Hustle": "When a card bearing this sigil deals damage directly, draw a card from your side deck for each damage dealt.",
@@ -285,7 +285,8 @@ const working_sigils = [
 	"Skeleton Crew (Yarr)",
 	"Thick",
 	"Annoying",
-	"Steel Trap"
+	"Steel Trap",
+	"Scopophobic"
 ]
 
 const keywords = {

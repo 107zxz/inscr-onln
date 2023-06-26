@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=22]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=23]
 [ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=24]
+[ext_resource path="res://gfx/sass.png" type="Texture" id=25]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
@@ -1235,6 +1236,13 @@ focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = ">"
+
+[node name="Flickover" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 25 )
+expand = true
 
 [connection signal="button_down" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_down"]
 [connection signal="button_up" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_up"]

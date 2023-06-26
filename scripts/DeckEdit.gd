@@ -547,3 +547,11 @@ func _on_DelBtn_pressed():
 	ensure_default_deck()
 	populate_deck_list()
 	
+
+func flicker():
+	if randi() % 10 != 0:
+		return
+	
+	$Flickover.show()
+	yield(get_tree().create_timer(0.02), "timeout")
+	$Flickover.hide()
