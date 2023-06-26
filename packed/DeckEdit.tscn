@@ -24,7 +24,7 @@
 [ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=22]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=23]
 [ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=24]
-[ext_resource path="res://gfx/sass.png" type="Texture" id=25]
+[ext_resource path="res://ARG/sprites/erqh.png" type="Texture" id=25]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
