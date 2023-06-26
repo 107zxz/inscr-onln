@@ -41,9 +41,55 @@ func draw_from_data(cDat: Dictionary) -> void:
 	draw_active(cDat)
 	draw_atkspecial(cDat)
 	draw_accessibility(cDat)
+	draw_tooltip(cDat)
 	
 	apply_theme()
 
+
+func draw_tooltip(cDat):
+	hint_tooltip = ""
+	
+	if not GameOptions.options.show_card_tooltips:
+		return
+		
+	hint_tooltip = \
+"""
+%s
+%d/%d
+""" % [
+	cDat.name,
+	cDat.attack,
+	cDat.health,
+#	cDat.description if "description" in cDat else ""
+	]
+	
+	# Add sigils
+	if not "sigils" in cDat:
+		return
+	
+	for sigil in cDat.sigils:
+		hint_tooltip += \
+"""
+%s:
+%s
+""" % [sigil, wrap_string(CardInfo.all_sigils[sigil])]
+
+
+func wrap_string(string_to_wrap: String) -> String:
+	
+	var current_char = 0
+	var line_len = 0
+	
+	while current_char < len(string_to_wrap):
+		
+		if string_to_wrap[current_char] == ' ' and line_len >= 35:
+			string_to_wrap[current_char] = '\n'
+			line_len = 0
+			
+		line_len += 1
+		current_char += 1
+	
+	return string_to_wrap
 
 func draw_accessibility(cDat):
 	
