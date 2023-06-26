@@ -577,6 +577,7 @@ tracks/3/keys = {
 margin_right = 85.0
 margin_bottom = 123.0
 rect_min_size = Vector2( 128, 185 )
+hint_tooltip = "Deez"
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 183.836, 92.1646 ],
@@ -588,6 +589,7 @@ margin_left = 0.0
 margin_top = 0.0
 margin_right = 128.0
 margin_bottom = 185.0
+hint_tooltip = "Nuts"
 script = ExtResource( 16 )
 
 [node name="mox" parent="CardBody/Costs" index="3"]

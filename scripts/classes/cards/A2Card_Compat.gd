@@ -47,12 +47,18 @@ func draw_from_data(cDat: Dictionary) -> void:
 
 
 func draw_tooltip(cDat):
-	hint_tooltip = ""
+	
+	var target = self
+	
+	if has_node("DiveOlay"):
+		target = $CardBtn
+	
+	target.hint_tooltip = ""
 	
 	if not GameOptions.options.show_card_tooltips:
 		return
 		
-	hint_tooltip = \
+	target.hint_tooltip = \
 """
 %s
 %d/%d
@@ -65,14 +71,14 @@ func draw_tooltip(cDat):
 	# Keywords
 	for keyword in CardInfo.keywords:
 		if keyword in cDat:
-			hint_tooltip += wrap_string(CardInfo.keywords[keyword]) + '\n'
+			target.hint_tooltip += wrap_string(CardInfo.keywords[keyword]) + '\n'
 	
 	# Add sigils
 	if not "sigils" in cDat:
 		return
 	
 	for sigil in cDat.sigils:
-		hint_tooltip += \
+		target.hint_tooltip += \
 """
 %s:
 %s
