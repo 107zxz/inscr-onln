@@ -188,7 +188,7 @@ func draw_sigils(cDat: Dictionary) -> void:
 	for sigSlt in SIGIL_SLOTS:
 		get_node(sigSlt).hide()
 	
-	# Fix spacing	
+	# Fix spacing
 	$Sigils/Row2.visible = (sCount > 3)
 	
 	# Special case: Don't draw sigils if an active sigil is present
