@@ -166,6 +166,7 @@ const all_sigils = {
 	"Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
 	"Mighty Leap": "A card bearing this sigil will block an opposing creature bearing the airborne sigil.",
 	"Music Player": "A card bearing this sigil plays a song of your choice when played",
+	"Noble Sacrifice": "A card bearing this sigil is counted as 2 blood rather than 1 blood when sacrificed.",
 	"Orange Mox": "While a card bearing this sigil is on the board, it provides an orange gem to its owner.",
 	"Omni Strike": "A card bearing this sigil will strike all opposing spaces.",
 	"Power Dice": "Pay 1 energy to set the power of a card bearing this sigil randomly between 1 and 6.",
@@ -174,7 +175,7 @@ const all_sigils = {
 	"Reconstitute": "A card bearing this sigil returns to your hand 2 turns after it persihes.",
 	"Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
 	"Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
-	"Noble Sacrifice": "A card bearing this sigil is counted as 2 blood rather than 1 blood when sacrificed.",
+	"Scavenger": "While a card bearing this sigil is alive on the board, opposing creatures also grant you Bones upon death.",
 	"Scopophobic": "Wklv hqwub klghv iurp sublqj hbhv d vhfuhw vrph zrxog vhhn. D nlqg uhtxhvw wr wuxob whvw dqb zkr zrxog shhn.",
 	"Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
 	"Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
@@ -286,7 +287,8 @@ const working_sigils = [
 	"Thick",
 	"Annoying",
 	"Steel Trap",
-	"Scopophobic"
+	"Scopophobic",
+	"Scavenger"
 ]
 
 const keywords = {
