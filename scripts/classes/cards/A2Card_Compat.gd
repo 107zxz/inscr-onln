@@ -43,7 +43,7 @@ func draw_from_data(cDat: Dictionary) -> void:
 	draw_accessibility(cDat)
 	draw_tooltip(cDat)
 	
-	apply_theme()
+	apply_theme(cDat)
 
 
 func draw_tooltip(cDat):
@@ -134,7 +134,7 @@ func draw_atkspecial(cDat):
 		$AtkScore.visible = true
 
 
-func apply_theme():
+func apply_theme(cDat: Dictionary):
 #	HVR_COLOURS[0] = paperTheme.get_color("normal", "Card")
 #	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
 #	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
@@ -142,14 +142,14 @@ func apply_theme():
 
 	var th = "normal"
 
-	if "nosac" in card_data:
+	if "nosac" in cDat:
 		th = "nosac_normal"
-	if "rare" in card_data:
-		if "nosac" in card_data:
+	if "rare" in cDat:
+		if "nosac" in cDat:
 			th = "rns_normal"
 		else:
 			th = "rare_normal"
-	if "nohammer" in card_data:
+	if "nohammer" in cDat:
 		th = "nohammer_normal"
 		
 	$CardBtn.modulate = paperTheme.get_stylebox(th, "Card").bg_color

@@ -712,7 +712,7 @@ func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
 
-	nCard.get_node("CardBody").apply_theme()
+	nCard.get_node("CardBody").apply_theme({})
 
 	# Visual hand update
 	var eHand = handManager.get_node("EnemyHand")
