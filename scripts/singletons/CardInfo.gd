@@ -160,7 +160,7 @@ const all_sigils = {
 	"Hoarder": "When a card bearing this sigil is played, you may search your deck for any card and take it into your hand.",
 	"Leader": "Creatures adjacent to a card bearing this sigil gain 1 Power.",
 	"Looter": "When a card bearing this sigil deals damage directly, draw a card for each damage dealt.",
-	"Made of Stone": "A card bearing this sigil is immune to the effects of touch of death and stinky.",
+	"Made of Stone": "A card bearing this sigil is immune to the effects of touch of death, stinky, annoying and Steel Trap.",
 	"Many Lives": "When a card bearing this sigil is sacrificed it does not perish.",
 	"Marrow Sucker": "Pay 2 bones to heal a card bearing this sigil.",
 	"Mental Gemnastics": "When a card bearing this sigil is played, you draw cards equal to the amount of mox cards on your side of the board.",
@@ -184,6 +184,7 @@ const all_sigils = {
 	"Spawn Conduit": "Empty spaces within a circuit completed by a card bearing this sigil spawn L33pB0ts at the end of the owner's turn.",
 	"Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
 	"Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",
+	"Steel Trap": "When a card bearing this sigil perishes, the creature opposing it perishes as well. A Pelt is created in your oppenent's hand.",
 	"Stinky": "The creature opposing a card bearing this sigil loses 1 Power.",
 	"Stimulate": "Pay 3 energy to increase the power and health of a card bearing this sigil by 1.",
 	"Stimulate (4)": "Pay 4 energy to increase the power and health of a card bearing this sigil by 1.",
@@ -283,7 +284,8 @@ const working_sigils = [
 	"Enlarge (3)",
 	"Skeleton Crew (Yarr)",
 	"Thick",
-	"Annoying"
+	"Annoying",
+	"Steel Trap"
 ]
 
 const keywords = {
