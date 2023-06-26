@@ -2,23 +2,20 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.s3tc.stex"
-path.etc2="res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.etc2.stex"
-path.etc="res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.etc.stex"
+path="res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2", "etc" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://gfx/pixport/Horse Mage.png"
-dest_files=[ "res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.s3tc.stex", "res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.etc2.stex", "res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.etc.stex" ]
+dest_files=[ "res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.stex" ]
 
 [params]
 
-compress/mode=2
-compress/lossy_quality=0.7
+compress/mode=0
+compress/lossy_quality=1.0
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
