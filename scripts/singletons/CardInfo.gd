@@ -111,6 +111,8 @@ func idx_from_name(cName):
 
 
 const all_sigils = {
+	# COMMENT THIS OUT
+#	"Amalgamation": "XXX",
 	"Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
 	"Annoying": "The creature opposing a card bearing this sigil gains 1 Power.",
 	"Ant Spawner": "When a card bearing this sigil is played, an ant is created in your hand.",
