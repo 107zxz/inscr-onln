@@ -60,8 +60,12 @@ func draw_tooltip(cDat):
 	cDat.name,
 	cDat.attack,
 	cDat.health,
-#	cDat.description if "description" in cDat else ""
 	]
+	
+	# Keywords
+	for keyword in CardInfo.keywords:
+		if keyword in cDat:
+			hint_tooltip += wrap_string(CardInfo.keywords[keyword]) + '\n'
 	
 	# Add sigils
 	if not "sigils" in cDat:

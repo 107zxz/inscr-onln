@@ -198,7 +198,7 @@ const all_sigils = {
 	"Worthy Sacrifice": "A card bearing this sigil is counted as 3 blood rather than 1 blood when sacrificed."
 }
 
-var working_sigils = [
+const working_sigils = [
 	"Airborne",
 	"Mighty Leap",
 	"Fecundity (Kaycee)",
@@ -283,3 +283,11 @@ var working_sigils = [
 	"Skeleton Crew (Yarr)",
 	"Thick"
 ]
+
+const keywords = {
+	"rare": "Rare: You may only use one copy of this card in your deck.",
+	"nosac": "Terrain: This card cannot be sacrificed.",
+	"nohammer": "Unhammerable: This card cannot be hammered.",
+	"conduit": "Conduit: This card completes a circuit. At least 2 circuit completing cards are needed to complete a circuit."
+	
+}
