@@ -459,6 +459,7 @@ func draw_sidedeck(key):
 	sidedeck_single.visible = false
 	sidedeck_prefix.visible = false
 	tab_cont.tabs_visible = false
+	tab_cont.current_tab = 0
 	
 	match side_deck.type:
 		"single":
