@@ -1,20 +1,23 @@
-v0.2.9 is out!
+v0.3.3 is out!
 
-Damn Boi
+Much smaller update, but fixes a few important bugs!
 
-He Thicc!
+* New Cards (Art by syntaxevasion)
+    * Rabbit, Wolf, Golden Pelt
+        * No cost
+        * Cannot be sacrificed
+        * Produced by Steel Trap
 
-* New Sigils
-    * Thick
-        * Makes a card split to take two slots
+* Sigil Changes
+     * Steel Trap
+        * Now always destroys the opposing card when perishing (instead of its killer)
+        * Now gives the opponent a pelt when destroying a card
+            * Rabbit pelt: Destroyed card has 0 atk
+            * Golden pelt: Destroyed card was rare
+            * Wolf pelt: If neither a rabbit nor golden pelt apply
 
-* Balance Changes
-    * Thick Droid
-        * Health 5 -> 3
-        * Added sigil Thick
-
-* Other changes
-    * Removed the ruleset editor
-    * Clicking edit now opens the ruleset json file
-
-Yes I'm still on break.
+* Bug Fixes
+    * Fixed the 'Mycologist Bug' (cards with sprinter overlapping each other)
+    * Fixed amalgam sometimes spawning with 0 hp
+    * Fixed amalgamation sigil description being missing from the deck editor
+    * Fixed necromancer trigerring 'on summon' effects twice when a friendly card dies
