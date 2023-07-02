@@ -219,19 +219,19 @@ func post_turn_sigils(friendly: bool):
 						moveFailed = true
 						
 					# Occupied slots
-					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]) and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
+					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]): # and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
 
 						if movSigil == "Hefty":
 
 							var pushed = false
 
 							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
-								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]) or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
+								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]): # or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
 									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
 									pushed = true
 							
 								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
-									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]) or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
+									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]): # or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
 										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
 										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
 										pushed = true
