@@ -59,6 +59,7 @@ func _ready():
 		if option == "listen":
 			debug_host()
 		if option == "join":
+			yield(get_tree().create_timer(0.1), "timeout")
 			debug_join()
 
 # Methods

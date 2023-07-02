@@ -319,7 +319,7 @@ func begin_perish(doubleDeath = false):
 	if get_parent().get_parent().name == "PlayerSlots":
 		if doubleDeath:
 			fightManager.card_summoned(self)
-			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+#			fightManager.emit_signal("sigil_event", "card_summoned", [self])
 		# Bones
 		fightManager.add_bones(1)
 
