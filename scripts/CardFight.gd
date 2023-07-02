@@ -368,6 +368,9 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	
 	
 	var nCard = cardPrefab.instance()
+	
+	source.add_child(nCard)
+	
 	if typeof(card) == TYPE_DICTIONARY:
 		nCard.from_data(card)
 	elif typeof(card) == TYPE_STRING:
@@ -378,10 +381,9 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	# New sigil stuff
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
-	nCard.create_sigils(true)
+#	nCard.create_sigils(true)
 	connect("sigil_event", nCard, "handle_sigil_event")
 	
-	source.add_child(nCard)
 	
 	nCard.rect_position = Vector2.ZERO
 	
@@ -465,9 +467,9 @@ func play_card(slot):
 
 			state = GameStates.NORMAL
 			
-			yield(playedCard.get_node("Tween"), "tween_completed")
-			
-			card_summoned(playedCard)
+#			yield(playedCard.get_node("Tween"), "tween_completed")
+#
+#			card_summoned(playedCard)
 
 func play_card_back(slot):
 	
@@ -520,7 +522,7 @@ func card_summoned(playedCard):
 	playedCard.get_node("CardBody/Active").mouse_filter = MOUSE_FILTER_STOP
 	
 	# Sigil event
-#	emit_signal("sigil_event", "card_summoned", [playedCard])
+	emit_signal("sigil_event", "card_summoned", [playedCard])
 	
 	# Calculate buffs
 	for card in slotManager.all_friendly_cards():
@@ -710,7 +712,7 @@ func _opponent_drew_card(source_path):
 	var nCard = cardPrefab.instance()
 	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
 
-	nCard.get_node("CardBody").apply_theme()
+	nCard.get_node("CardBody").apply_theme({})
 
 	# Visual hand update
 	var eHand = handManager.get_node("EnemyHand")
@@ -757,7 +759,7 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
 	nCard.from_data(card_dt)
-	nCard.create_sigils(false)
+#	nCard.create_sigils(false)
 	nCard.move_to_parent(slotManager.enemySlots[slot])
 	nCard.fightManager = self
 	nCard.slotManager = slotManager
@@ -801,7 +803,7 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 	# Sigil effects:
 	var nCard = handManager.opponentRaisedCard
 	nCard.from_data(card_dt)
-	nCard.create_sigils(false)
+#	nCard.create_sigils(false)
 	nCard.move_to_parent(slotManager.enemySlotsBack[slot])
 	nCard.fightManager = self
 	nCard.slotManager = slotManager

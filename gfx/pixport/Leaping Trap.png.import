@@ -2,26 +2,26 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.stex"
+path="res://.import/Leaping Trap.png-a911f16c6ca3457dee8244ecb48d72aa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/pixport/Horse Mage.png"
-dest_files=[ "res://.import/Horse Mage.png-29953b710e6ed8c0ce070e18befa5d5a.stex" ]
+source_file="res://gfx/pixport/Leaping Trap.png"
+dest_files=[ "res://.import/Leaping Trap.png-a911f16c6ca3457dee8244ecb48d72aa.stex" ]
 
 [params]
 
 compress/mode=0
-compress/lossy_quality=1.0
+compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=0
 flags/filter=false
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0

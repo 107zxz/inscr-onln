@@ -22,29 +22,18 @@ func _ready():
 	
 	$SaveDialog.current_dir = "user://rulesets/"
 	
-	# Fill Sigils
-	var idx = 1
-	for sigil in CardInfo.all_sigils.keys():
-		cardDats[4].add_item(sigil, idx)
-		cardDats[5].add_item(sigil, idx)
-	
 	var root = tree.create_item()
 	
 	root.set_text(0, CardInfo.ruleset)
 	
 	cardRoot = tree.create_item(root)
-	sigilRoot = tree.create_item(root)
 	cardRoot.set_text(0, "Cards")
-	sigilRoot.set_text(0, "Sigils")
 	
-#	cardRoot.collapsed = true
-	sigilRoot.collapsed = true
-#	root.collapsed = true
+	# TODO: Add support for side decks
 
 	root.select(0)
 	
 	populate_cards()
-	populate_sigils()
 	populate_flags()
 	
 func populate_cards():
@@ -52,12 +41,6 @@ func populate_cards():
 		tree.create_item(cardRoot).set_text(0, card.name)
 		cardDats[21].add_item(card.name)
 		cardNames.append(card.name)
-
-func populate_sigils():
-	for sigil in CardInfo.all_sigils:
-		var i = tree.create_item(sigilRoot)
-		i.set_text(0, sigil)
-#		i.set_text(1, CardInfo.all_sigils[sigil])
 
 func _on_RulesetTree_item_selected():
 	

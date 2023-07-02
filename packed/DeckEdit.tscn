@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=22]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=23]
 [ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=24]
+[ext_resource path="res://ARG/sprites/erqh.png" type="Texture" id=25]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
@@ -491,6 +492,7 @@ alignment = 1
 
 [node name="ConduitIndicator" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
 visible = false
+material = ExtResource( 11 )
 margin_right = 468.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
@@ -739,6 +741,11 @@ visible = false
 margin_top = 0.0
 margin_bottom = 61.0
 
+[node name="SigilDescription3" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
+visible = false
+margin_top = 0.0
+margin_bottom = 61.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 480.0
 margin_right = 1920.0
@@ -782,20 +789,18 @@ text = "Deck:   "
 
 [node name="DSel" type="OptionButton" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
 margin_left = 85.0
-margin_right = 714.0
+margin_right = 639.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
 
-[node name="saveBtn" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
-visible = false
-margin_left = 372.0
-margin_right = 404.0
-margin_bottom = 17.0
+[node name="DelBtn" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine"]
+margin_left = 639.0
+margin_right = 714.0
+margin_bottom = 34.0
 focus_mode = 0
-enabled_focus_mode = 0
-text = "Save"
+text = "Delete"
 
 [node name="DNameLine" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer"]
 margin_top = 36.0
@@ -1232,6 +1237,13 @@ size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = ">"
 
+[node name="Flickover" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 25 )
+expand = true
+
 [connection signal="button_down" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_down"]
 [connection signal="button_up" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_up"]
 [connection signal="mouse_entered" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_mouse_entered"]
@@ -1241,7 +1253,7 @@ text = ">"
 [connection signal="mouse_exited" from="HBoxContainer/CardPreview/PreviewContainer/Card/Active" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_Active2_mouse_exited"]
 [connection signal="button_down" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="save_deck"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DSel" to="." method="load_deck"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/saveBtn" to="." method="save_deck"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DSelLine/DelBtn" to="." method="_on_DelBtn_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/DNameLine/Button" to="." method="save_deck_as"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ShuffleButton" to="." method="_on_ShuffleButton_pressed"]

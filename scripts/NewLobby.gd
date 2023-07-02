@@ -406,8 +406,8 @@ func _on_Kick_pressed():
 
 # Network callbacks
 func _on_tunnel_output():
-#	TunnelHandlerNew.disconnect("success", self, "_on_tunnel_output")
-#	TunnelHandlerNew.disconnect("failed", self, "_on_tunnel_error")
+	TunnelHandlerNew.disconnect("success", self, "_on_tunnel_output")
+	TunnelHandlerNew.disconnect("failed", self, "_on_tunnel_error")
 	
 	$LoadingScreen.visible = false
 	$InLobby.visible = true

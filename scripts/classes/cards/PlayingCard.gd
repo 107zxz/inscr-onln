@@ -50,7 +50,11 @@ func from_data(cdat):
 	# Enable interaction with the card
 	$CardBody/CardBtn.disabled = false
 	
+	create_sigils("Player" in get_path() as String or "Your" in get_path() as String)
+	
 func create_sigils(friendly):
+	sigils.empty()
+	
 	if not "sigils" in card_data:
 		return
 		
@@ -286,7 +290,8 @@ func move_to_parent(new_parent):
 	# Must be summoned
 	if new_parent.get_parent().name in ["PlayerSlots", "EnemySlots"]:
 		if from_hand:
-			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+#			fightManager.emit_signal("sigil_event", "card_summoned", [self])
+			fightManager.card_summoned(self)
 			
 			# Special atk stats
 			if "atkspecial" in card_data:
@@ -680,17 +685,24 @@ func calculate_buffs():
 		else:
 			fightManager.enemy_no_energy_deplete = true
 	
-	# Stinky
+	# Stinky, Annoying
 	if friendly:
 		if slotManager.get_enemy_card(sIdx):
 			var eCard = slotManager.get_enemy_card(sIdx)
-			if eCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
-				attack = max(0, attack - 1)
+			if not has_sigil("Made of Stone"):
+				if eCard.has_sigil("Stinky"):
+					attack = max(0, attack - 1)
+				if eCard.has_sigil("Annoying"):
+					attack += 1
+				
 	else:
 		if slotManager.get_friendly_card(sIdx):
 			var pCard = slotManager.get_friendly_card(sIdx)
-			if pCard.has_sigil("Stinky") and not has_sigil("Made of Stone"):
-				attack = max(0, attack - 1)
+			if not has_sigil("Made of Stone"):
+				if pCard.has_sigil("Stinky"):
+					attack = max(0, attack - 1)
+				if pCard.has_sigil("Annoying"):
+					attack += 1
 	
 	var sigName = "Leader"
 	for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():

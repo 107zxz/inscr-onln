@@ -71,7 +71,7 @@ align = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="FeaturedRulesets/VBoxContainer"]
 margin_top = 24.0
 margin_right = 800.0
-margin_bottom = 680.0
+margin_bottom = 646.0
 size_flags_vertical = 3
 
 [node name="FeatRsCont" type="VBoxContainer" parent="FeaturedRulesets/VBoxContainer/ScrollContainer"]
@@ -144,6 +144,29 @@ text = "Open Folder"
 [node name="RulesetLine" parent="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont" instance=ExtResource( 4 )]
 visible = false
 
+[node name="ScrollButtons" type="HBoxContainer" parent="FeaturedRulesets/VBoxContainer"]
+margin_top = 646.0
+margin_right = 800.0
+margin_bottom = 680.0
+alignment = 1
+
+[node name="UpButton" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollButtons"]
+margin_right = 400.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = "<"
+
+[node name="DownButton" type="Button" parent="FeaturedRulesets/VBoxContainer/ScrollButtons"]
+margin_left = 400.0
+margin_right = 800.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = ">"
+
 [node name="SavedRulesets" type="PanelContainer" parent="."]
 margin_left = 1020.0
 margin_top = 100.0
@@ -164,16 +187,39 @@ align = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="SavedRulesets/VBoxContainer"]
 margin_top = 24.0
 margin_right = 800.0
-margin_bottom = 880.0
+margin_bottom = 846.0
 size_flags_vertical = 3
 
 [node name="SavedRsCont" type="VBoxContainer" parent="SavedRulesets/VBoxContainer/ScrollContainer"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 798.0
-margin_bottom = 854.0
+margin_bottom = 820.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ScrollButtons" type="HBoxContainer" parent="SavedRulesets/VBoxContainer"]
+margin_top = 846.0
+margin_right = 800.0
+margin_bottom = 880.0
+alignment = 1
+
+[node name="UpButton" type="Button" parent="SavedRulesets/VBoxContainer/ScrollButtons"]
+margin_right = 400.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = "<"
+
+[node name="DownButton" type="Button" parent="SavedRulesets/VBoxContainer/ScrollButtons"]
+margin_left = 400.0
+margin_right = 800.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = ">"
 
 [node name="FromFile" type="FileDialog" parent="."]
 margin_left = 536.0
@@ -366,6 +412,10 @@ visible = false
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFJ" to="FromJSON" method="show"]
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSFF" to="FromFile" method="popup_centered"]
 [connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollContainer/FeatRsCont/CustomPicker/HBoxContainer/RSOF" to="." method="open_rsdir"]
+[connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollButtons/UpButton" to="." method="scroll_rulesets_featured" binds= [ -500 ]]
+[connection signal="pressed" from="FeaturedRulesets/VBoxContainer/ScrollButtons/DownButton" to="." method="scroll_rulesets_featured" binds= [ 500 ]]
+[connection signal="pressed" from="SavedRulesets/VBoxContainer/ScrollButtons/UpButton" to="." method="scroll_rulesets_saved" binds= [ -500 ]]
+[connection signal="pressed" from="SavedRulesets/VBoxContainer/ScrollButtons/DownButton" to="." method="scroll_rulesets_saved" binds= [ 500 ]]
 [connection signal="file_selected" from="FromFile" to="." method="_on_FromFile_file_selected"]
 [connection signal="pressed" from="FromURL/PanelContainer/VBoxContainer/HBoxContainer/URLDownloadBtn" to="." method="_on_URLDownloadBtn_pressed"]
 [connection signal="pressed" from="FromURL/PanelContainer/VBoxContainer/HBoxContainer/Button2" to="FromURL" method="hide"]

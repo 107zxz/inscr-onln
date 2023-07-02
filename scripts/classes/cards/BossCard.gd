@@ -10,6 +10,9 @@ onready var friendly = (name == "FriendlyMoon")
 
 onready var animPlayer = get_node("../../AnimationPlayer")
 
+
+var moon_dat = null
+
 func update_stats():
 	$Attack.text = str(attack)
 	$Health.text = str(health)
@@ -32,13 +35,13 @@ func _ready():
 #	if not "The Moon" in CardInfo.all_cards:
 #		return
 	
-	var mn = CardInfo.from_name("The Moon")
+	moon_dat = CardInfo.from_name("The Moon")
 	
-	if not mn:
+	if not moon_dat:
 		return
 	
-	attack = mn.attack
-	health = mn.health
+	attack = moon_dat.attack
+	health = moon_dat.health
 	
 	update_stats()
 	
@@ -51,7 +54,7 @@ func _ready():
 		tx.create_from_image(i)
 		tx.flags -= tx.FLAG_FILTER
 		$CBody/Portrait.texture = tx
-	elif "pixport_url" in mn:
+	elif "pixport_url" in moon_dat:
 		var i = Image.new()
 		i.load(CardInfo.custom_portrait_path + "The Moon.png")
 		var tx = ImageTexture.new()
@@ -64,13 +67,13 @@ func take_damage(dmg: int):
 	update_stats()
 
 func reset():
-	var mn = CardInfo.from_name("The Moon")
+	moon_dat = CardInfo.from_name("The Moon")
 	
-	if not mn:
+	if not moon_dat:
 		return
 	
-	attack = mn.attack
-	health = mn.health
+	attack = moon_dat.attack
+	health = moon_dat.health
 	update_stats()
 
 remote func remote_attack(slot: int):
@@ -80,8 +83,8 @@ remote func remote_attack(slot: int):
 	
 	# TODO: Queue attacks or resolve entirely client-side
 
-func has_sigil(_sName):
-	return false
+func has_sigil(sName):
+	return sName in moon_dat.sigils
 
 func is_alive():
 	return true

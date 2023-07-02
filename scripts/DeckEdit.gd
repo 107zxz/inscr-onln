@@ -54,8 +54,19 @@ func apply_custom_background():
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults.theme_type_variation = "TspBg"
 	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer.theme_type_variation = "TspBg"
 	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.theme_type_variation = "TspBg"
-#	$"HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer".theme_type_variation = "TspBg"
+
+func clear_custom_background():
+	$CustomBG.texture = null
+	$HBoxContainer/CardPreview.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/DeckOptions.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer.theme_type_variation = ""
+	$HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2.theme_type_variation = ""
 	
+
 func _ready():
 	
 	if CardInfo.background_texture != null:
@@ -520,3 +531,27 @@ func _exit_tree():
 
 func _on_TabContainer_tab_changed(_tab):
 	search()
+
+
+func _on_DelBtn_pressed():
+	
+	var current_deck = CardInfo.deck_path + selector_de.text + ".deck"
+	
+	selector_de.select((selector_de.selected + 1) % selector_de.get_item_count())
+	load_deck()
+	
+	
+	var dir = Directory.new()
+	dir.remove(current_deck)
+	
+	ensure_default_deck()
+	populate_deck_list()
+	
+
+func flicker():
+	if randi() % 10 != 0:
+		return
+	
+	$Flickover.show()
+	yield(get_tree().create_timer(0.02), "timeout")
+	$Flickover.hide()
