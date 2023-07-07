@@ -120,8 +120,6 @@ func search(_arg = null):
 		
 		for i in range(len(search_cards)):
 			search_cards[i] = CardInfo.from_name(search_cards[i])
-		
-		
 	
 	for card in search_cards:
 		# Don't show banned cards
@@ -444,8 +442,6 @@ func _on_SDSel_item_selected(index):
 		for prefix in side_deck.cards:
 			sidedeck_prefix.add_item(prefix)
 		
-
-	
 	draw_sidedeck(key)
 
 
@@ -472,9 +468,17 @@ func draw_sidedeck(key):
 			sidedeck_single.from_data(CardInfo.from_name(side_deck.card))
 		"draft":
 			tab_cont.tabs_visible = true
-#			for child in sidedeck_container.get_children():
-#				child.queue_free()
-			
+			validate_draft_side()
+
+func validate_draft_side():
+	
+	var valid_side_cards = CardInfo.all_data.side_decks[sidedeck_de.get_item_text(sidedeck_de.selected)].cards
+	
+	for sCard in sidedeck_container.get_children():
+		var current_data = sCard.card_data
+		
+		if not current_data.name in valid_side_cards:
+			sCard.queue_free()
 
 func _on_SortButton_pressed():
 	var cardList = get_deck_object()["cards"]
