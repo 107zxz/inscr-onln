@@ -125,6 +125,7 @@ const all_sigils = {
 	"Blood Lust": "When a card bearing this Sigil attacks an opposing creature and it perishes, this card gains 1 power.",
 	"Blue Mox": "While a card bearing this sigil is on the board, it provides a blue gem to its owner.",
 	"Bomb Spewer": "When a card bearing this sigil is played, fill all empty spaces with explode bots.",
+	"Bomb Spewer (Eternal)": "When a card bearing this sigil is played, fill every empty space opposing a card with an explode bot.",
 	"Bone Digger": "At the end of the owner's turn, a card bearing this sigil will generate 1 bone.",
 	"Bone King": "When a card bearing this sigil dies, 4 bones are awarded instead of 1.",
 	"Bonehorn": "Pay 1 energy to gain 3 bones.",
@@ -144,6 +145,7 @@ const all_sigils = {
 	"Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
 	"Energy Conduit (+3)": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 3.",
 	"Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
+	"Energy Gun (Eternal)": "Pay energy to damage the opposing creature until it dies or you run out.",
 	"Enlarge": "Pay 2 bones to increase the power and health of a card bearing this sigil by 1.",
 	"Enlarge (3)": "Pay 3 bones to increase the power and health of a card bearing this sigil by 1.",
 	"Fecundity": "When a card bearing this sigil is played, a copy of it is created in your hand.",
@@ -198,6 +200,7 @@ const all_sigils = {
 	"Trifurcated Strike": "A card bearing this sigil will strike each opposing space to the left, right, and center of it.",
 	"True Scholar": "If you have a blue gem, sacrifice a card bearing this sigil to draw 3 cards.",
 	"Unkillable": "When a card bearing this sigil perishes, a copy of it is created in your hand.",
+	"Unkillable (Eternal)": "When a card bearing this sigil perishes, a copy of it is created in your hand without this sigil.",
 	"Vessel Printer": "Once a card bearing this sigil is struck, draw a card from your side deck.",
 	"Waterborne": "A card bearing this sigil submerges itself during its opponent's turn. while submerged, opposing creatures attack its owner directly.",
 	"Worthy Sacrifice": "A card bearing this sigil is counted as 3 blood rather than 1 blood when sacrificed."
@@ -291,7 +294,10 @@ const working_sigils = [
 	"Steel Trap",
 	"Scopophobic",
 	"Scavenger",
-	"Amalgamation"
+	"Amalgamation",
+	"Unkillable (Eternal)",
+	"Energy Gun (Eternal)",
+	"Bomb Spewer (Eternal)"
 ]
 
 const keywords = {
