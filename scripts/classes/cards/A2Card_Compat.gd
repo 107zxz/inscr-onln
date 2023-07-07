@@ -157,6 +157,7 @@ func apply_theme(cDat: Dictionary):
 		
 	$CardBtn.modulate = paperTheme.get_stylebox(th, "Card").bg_color
 	$CardBack.modulate = paperTheme.get_stylebox(th, "Card").bg_color
+	$DiveOlay.modulate = paperTheme.get_stylebox(th, "Card").bg_color
 
 
 func draw_stats(cDat: Dictionary) -> void:

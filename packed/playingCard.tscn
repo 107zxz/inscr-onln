@@ -595,6 +595,9 @@ script = ExtResource( 16 )
 [node name="mox" parent="CardBody/Costs" index="3"]
 margin_right = 121.0
 
+[node name="AtkIcon" parent="CardBody" index="6"]
+visible = false
+
 [node name="DiveOlay" type="TextureRect" parent="CardBody"]
 visible = false
 modulate = Color( 0.87, 0.783, 0.783, 1 )
