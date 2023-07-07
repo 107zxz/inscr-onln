@@ -19,16 +19,14 @@ func handle_event(event: String, params: Array):
 
 			elif not slotManager.is_slot_empty(slotManager.enemySlots[slotIdx]):
 				var eCard = slotManager.get_enemy_card(slotIdx)
-
-				if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-					eCard.take_damage(card, 10)
+				eCard.take_damage(card, 10)
 #				
 			# Kill adjacents
 			for offset in [-1, 1]:
 				
 				var eCard = slotManager.get_friendly_card(slotIdx + offset)
 				
-				if eCard and not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
+				if eCard:
 					eCard.take_damage(card, 10)
 		else:
 			# Attack the moon
@@ -38,14 +36,12 @@ func handle_event(event: String, params: Array):
 				
 			elif not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
 				var eCard = slotManager.get_friendly_card(slotIdx)
-
-				if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
-					eCard.take_damage(card, 10)
+				eCard.take_damage(card, 10)
 #				
 			# Kill adjacents
 			for offset in [-1, 1]:
 				
 				var eCard = slotManager.get_enemy_card(slotIdx + offset)
 				
-				if eCard and not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
+				if eCard:
 					eCard.take_damage(card, 10)
