@@ -298,6 +298,7 @@ func _on_LobbyQuit_pressed():
 	$Blocker.visible = false
 
 	NetworkManager.kill()
+	get_node("InLobby/PollTimer").stop()
 
 func _on_LogFolder_pressed():
 	if OS.get_name() == "HTML5":
@@ -416,6 +417,8 @@ func _on_tunnel_output():
 	
 	lobby_data.is_ip = false
 	
+	get_node("InLobby/PollTimer").start()
+	
 	update_lobby()
 	
 func _on_tunnel_error(err):
@@ -522,6 +525,7 @@ remote func _rejected(reason: String):
 	errorBox("Disconnected by opponent:\nReason: " + reason)
 
 	NetworkManager.kill()
+	
 
 remote func _ruleset_rejected(rs_dat: Dictionary):
 	$LoadingScreen.visible = false
@@ -605,3 +609,12 @@ func _on_HostType_selected(index):
 	$LobbyHost/Rows/RoomnameInfo.visible = index == 0
 	$LobbyHost/Rows/Roomname.visible = index == 0
 
+
+
+func _on_PollTimer_timeout():
+	print("Polling clients")
+	rpc("_polled")
+
+
+remote func _polled():
+	print("Polled by host")

@@ -18,7 +18,6 @@ func _ready():
 	add_child(http_client)
 	http_client.connect("request_completed", self, "_rq_completed")
 
-
 func establish_tunnel(code: String = ""):
 	
 	if not code:

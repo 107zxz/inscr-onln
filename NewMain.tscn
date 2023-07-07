@@ -918,6 +918,9 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
 
+[node name="PollTimer" type="Timer" parent="TitleScreen/InLobby"]
+wait_time = 15.0
+
 [node name="BattlePass" parent="TitleScreen" instance=ExtResource( 16 )]
 visible = false
 
@@ -1266,6 +1269,7 @@ mouse_filter = 2
 [connection signal="item_selected" from="TitleScreen/InLobby/Rows/ProfilePic/Pic" to="TitleScreen" method="_on_Pic_item_selected"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyReady" to="TitleScreen" method="_on_LobbyReady_pressed"]
 [connection signal="pressed" from="TitleScreen/InLobby/Rows/Buttons/LobbyQuit" to="TitleScreen" method="_on_LobbyQuit_pressed"]
+[connection signal="timeout" from="TitleScreen/InLobby/PollTimer" to="TitleScreen" method="_on_PollTimer_timeout"]
 [connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorDL" to="TitleScreen" method="_on_ErrorDL_pressed"]
 [connection signal="pressed" from="TitleScreen/ErrorBox/Contents/ErrorOk" to="TitleScreen" method="_on_ErrorOk_pressed"]
 [connection signal="value_changed" from="Options/TabContainer/Visual/Scanlines/LINE_COUNT" to="Options/TabContainer/Visual/Scanlines" method="_child_updated"]
