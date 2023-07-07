@@ -348,6 +348,8 @@ func begin_perish(doubleDeath = false):
 			return
 
 	else:
+		if doubleDeath:
+			fightManager.card_summoned(self)
 		
 		# Bones
 		fightManager.add_opponent_bones(1)
