@@ -53,7 +53,7 @@ func from_data(cdat):
 	create_sigils("Player" in get_path() as String or "Your" in get_path() as String)
 	
 func create_sigils(friendly):
-	sigils.empty()
+	sigils.clear()
 	
 	if not "sigils" in card_data:
 		return
