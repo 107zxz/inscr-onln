@@ -391,7 +391,13 @@ func evolve():
 		eCard.calculate_buffs()
 	
 	# Summoned card
-	fightManager.card_summoned(self)
+#	fightManager.card_summoned(self)
+
+	# Calculate buffs
+	for card in slotManager.all_friendly_cards():
+		card.calculate_buffs()
+	for eCard in slotManager.all_enemy_cards():
+		eCard.calculate_buffs()
 
 
 func _on_ActiveSigil_pressed():
