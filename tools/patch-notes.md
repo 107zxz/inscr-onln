@@ -1,23 +1,17 @@
-v0.3.3 is out!
+v0.3.4 is out!
 
-Much smaller update, but fixes a few important bugs!
+Bug fix update. No ARG yet, but get ready.
 
-* New Cards (Art by syntaxevasion)
-    * Rabbit, Wolf, Golden Pelt
-        * No cost
-        * Cannot be sacrificed
-        * Produced by Steel Trap
-
-* Sigil Changes
-     * Steel Trap
-        * Now always destroys the opposing card when perishing (instead of its killer)
-        * Now gives the opponent a pelt when destroying a card
-            * Rabbit pelt: Destroyed card has 0 atk
-            * Golden pelt: Destroyed card was rare
-            * Wolf pelt: If neither a rabbit nor golden pelt apply
+* Balance Changes
+    * Mirror Bot
+        * Reduced cost from 2 -> 1 energy
 
 * Bug Fixes
-    * Fixed the 'Mycologist Bug' (cards with sprinter overlapping each other)
-    * Fixed amalgam sometimes spawning with 0 hp
-    * Fixed amalgamation sigil description being missing from the deck editor
-    * Fixed necromancer trigerring 'on summon' effects twice when a friendly card dies
+    * Fixed eternal format sigils not existing (Thanks, EternalHours!)
+    * Fixed dive overlay ignoring theme settings (Thanks, ener!)
+    * (Hopefully) fixed timeouts in room code lobbies when a player is idle (Thanks, everyone for the last 6 months!)
+    * Fixed banned cards persisting when switching side decks (Thanks, SpHD7489 & Mr. Egg!)
+    * Fixed some on-summon effects creating desyncs (Thanks, Mr. Egg!)
+    * Fixed opponents being able to activate your active sigils (Thanks, Mr. Egg!)
+    * Fixed evolutions being treated as summons (Thanks, Mr. Egg!)
+    * Fixed cards retaining previous sigil effects when evolving (Thanks, Mr. Egg!)
