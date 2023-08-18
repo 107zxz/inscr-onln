@@ -70,6 +70,7 @@ multirun/other_window_args="join"
 window/size/width=1920
 window/size/height=1080
 window/dpi/allow_hidpi=true
+window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
