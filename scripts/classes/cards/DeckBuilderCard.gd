@@ -18,10 +18,6 @@ func _on_Button_pressed():
 	if $BannedOverlay.visible:
 		return
 	
-	if "gamma" in card_data:
-		deckEditor.flicker()
-		return
-	
 	# Am I in the search window? If so, add me to the deck if space provides
 	if get_parent().name == "SearchContainer":
 		

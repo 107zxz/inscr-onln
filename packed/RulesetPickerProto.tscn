@@ -330,6 +330,8 @@ margin_top = 56.0
 margin_right = 536.0
 margin_bottom = 556.0
 rect_min_size = Vector2( 0, 500 )
+show_line_numbers = true
+wrap_enabled = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FromJSON/PanelContainer/VBoxContainer"]
 margin_top = 571.0

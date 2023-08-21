@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -24,7 +24,8 @@
 [ext_resource path="res://gfx/cardextras/banoverlay.png" type="Texture" id=22]
 [ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=23]
 [ext_resource path="res://gfx/cardextras/SpecialSigils.png" type="Texture" id=24]
-[ext_resource path="res://ARG/sprites/erqh.png" type="Texture" id=25]
+[ext_resource path="res://gfx/portraits/Ouroboros.png" type="Texture" id=25]
+[ext_resource path="res://packed/UI/Error.tscn" type="PackedScene" id=26]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
@@ -137,6 +138,28 @@ border_width_top = 2
 border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxFlat" id=35]
+bg_color = Color( 0, 0, 0, 0.25 )
+
+[sub_resource type="StyleBoxFlat" id=36]
+bg_color = Color( 0, 0, 0, 0.25 )
+
+[sub_resource type="Animation" id=37]
+resource_name = "spin"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0 ]
+}
 
 [node name="DeckEdit" type="Control"]
 anchor_right = 1.0
@@ -842,6 +865,7 @@ enabled_focus_mode = 0
 text = "Exit"
 
 [node name="ShuffleButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+visible = false
 margin_left = 116.0
 margin_right = 232.0
 margin_bottom = 34.0
@@ -851,8 +875,8 @@ enabled_focus_mode = 0
 text = "Shuffle"
 
 [node name="SortButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 232.0
-margin_right = 349.0
+margin_left = 116.0
+margin_right = 232.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -860,8 +884,8 @@ enabled_focus_mode = 0
 text = "Sort"
 
 [node name="ClearButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 349.0
-margin_right = 465.0
+margin_left = 232.0
+margin_right = 349.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -869,8 +893,8 @@ enabled_focus_mode = 0
 text = "Clear"
 
 [node name="ViewFolder" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
-margin_left = 465.0
-margin_right = 597.0
+margin_left = 349.0
+margin_right = 481.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -878,13 +902,22 @@ enabled_focus_mode = 0
 text = "Deck Folder"
 
 [node name="TestButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
+margin_left = 481.0
+margin_right = 597.0
+margin_bottom = 34.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = "Test"
+
+[node name="JsonButton" type="Button" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof"]
 margin_left = 597.0
 margin_right = 714.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
-text = "Test"
+text = "Load..."
 
 [node name="SearchOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
 unique_name_in_owner = true
@@ -1237,12 +1270,195 @@ size_flags_horizontal = 3
 enabled_focus_mode = 0
 text = ">"
 
-[node name="Flickover" type="TextureRect" parent="."]
+[node name="JsonFromMenu" type="PopupMenu" parent="."]
+margin_left = 1078.0
+margin_top = 114.0
+margin_right = 1254.0
+margin_bottom = 202.0
+items = [ "From File", null, 0, false, false, 0, 0, null, "", false, "From URL", null, 0, false, false, 1, 0, null, "", false, "From JSON Text", null, 0, false, false, 2, 0, null, "", false ]
+
+[node name="FromFile" type="FileDialog" parent="."]
+margin_left = 536.0
+margin_top = 279.0
+margin_right = 1436.0
+margin_bottom = 760.0
+rect_min_size = Vector2( 400, 140 )
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.deck" )
+
+[node name="FromURL" type="Panel" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_styles/panel = SubResource( 35 )
+
+[node name="PanelContainer" type="PanelContainer" parent="FromURL"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -87.5
+margin_right = 270.0
+margin_bottom = 87.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FromURL/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 538.0
+margin_bottom = 173.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="FromURL/PanelContainer/VBoxContainer"]
+margin_top = 10.0
+margin_right = 536.0
+margin_bottom = 34.0
+text = "Insert Deck URL:"
+align = 1
+
+[node name="LineEdit" type="LineEdit" parent="FromURL/PanelContainer/VBoxContainer"]
+margin_left = 43.0
+margin_top = 66.0
+margin_right = 493.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 450, 0 )
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FromURL/PanelContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 536.0
+margin_bottom = 160.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="URLDownloadBtn" type="Button" parent="FromURL/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 161.0
+margin_right = 268.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Download"
+
+[node name="Button2" type="Button" parent="FromURL/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 300.0
+margin_right = 375.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+
+[node name="FromJSON" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 35 )
+
+[node name="PanelContainer" type="PanelContainer" parent="FromJSON"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -313.0
+margin_right = 270.0
+margin_bottom = 313.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FromJSON/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 538.0
+margin_bottom = 624.0
+custom_constants/separation = 15
+alignment = 1
+
+[node name="Label" type="Label" parent="FromJSON/PanelContainer/VBoxContainer"]
+margin_top = 17.0
+margin_right = 536.0
+margin_bottom = 41.0
+text = "Insert Deck JSON:"
+align = 1
+
+[node name="TextEdit" type="TextEdit" parent="FromJSON/PanelContainer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 536.0
+margin_bottom = 556.0
+rect_min_size = Vector2( 0, 500 )
+show_line_numbers = true
+wrap_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FromJSON/PanelContainer/VBoxContainer"]
+margin_top = 571.0
+margin_right = 536.0
+margin_bottom = 605.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="JSONLoadBtn" type="Button" parent="FromJSON/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 185.0
+margin_right = 243.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Load"
+
+[node name="Button2" type="Button" parent="FromJSON/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 275.0
+margin_right = 350.0
+margin_bottom = 34.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+
+[node name="DeckDownloader" type="HTTPRequest" parent="."]
+
+[node name="Error" parent="." instance=ExtResource( 26 )]
+
+[node name="Status" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 36 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Status"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -100.0
+margin_right = 250.0
+margin_bottom = 100.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Status/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 498.0
+margin_bottom = 198.0
+custom_constants/separation = 43
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Status/PanelContainer/HBoxContainer"]
+material = ExtResource( 11 )
+margin_left = 63.0
+margin_right = 177.0
+margin_bottom = 196.0
+rect_pivot_offset = Vector2( 57, 98 )
 texture = ExtResource( 25 )
-expand = true
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Status/PanelContainer/HBoxContainer/TextureRect"]
+autoplay = "spin"
+anims/spin = SubResource( 37 )
+
+[node name="Label" type="Label" parent="Status/PanelContainer/HBoxContainer"]
+margin_left = 220.0
+margin_top = 86.0
+margin_right = 432.0
+margin_bottom = 110.0
+text = "Downloading deck..."
 
 [connection signal="button_down" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_down"]
 [connection signal="button_up" from="HBoxContainer/CardPreview/PreviewContainer/Card/CardBtn" to="HBoxContainer/CardPreview/PreviewContainer/Card" method="_on_CardBtn_button_up"]
@@ -1261,6 +1477,7 @@ expand = true
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ClearButton" to="." method="_on_ClearButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/ViewFolder" to="." method="_on_ViewFolder_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/TestButton" to="." method="_on_TestButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/DeckOptions/VBoxContainer/Stoof/JsonButton" to="." method="_on_JsonButton_pressed"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer2/CTSelect" to="." method="search"]
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3/Operator" to="." method="search"]
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer/SearchOptions/HBoxContainer/VBoxContainer/HBoxContainer3/LineEdit" to="." method="search"]
@@ -1274,3 +1491,10 @@ expand = true
 [connection signal="item_selected" from="HBoxContainer/VBoxContainer/MainArea/VBoxContainer/DeckPreview2/TabContainer/Side Deck Select/HBoxContainer/SDSel" to="." method="_on_SDSel_item_selected"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer/LeftButton" to="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer" method="_on_LeftButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/LRButtonsContainer/RightButton" to="HBoxContainer/VBoxContainer/MainArea/SearchResults/VBoxContainer/ScrollContainer" method="_on_RightButton_pressed"]
+[connection signal="id_pressed" from="JsonFromMenu" to="." method="_on_JsonFromMenu_id_pressed"]
+[connection signal="file_selected" from="FromFile" to="." method="_on_FromFile_file_selected"]
+[connection signal="pressed" from="FromURL/PanelContainer/VBoxContainer/HBoxContainer/URLDownloadBtn" to="." method="_on_URLDownloadBtn_pressed"]
+[connection signal="pressed" from="FromURL/PanelContainer/VBoxContainer/HBoxContainer/Button2" to="FromURL" method="hide"]
+[connection signal="pressed" from="FromJSON/PanelContainer/VBoxContainer/HBoxContainer/JSONLoadBtn" to="." method="_on_JSONLoadBtn_pressed"]
+[connection signal="pressed" from="FromJSON/PanelContainer/VBoxContainer/HBoxContainer/Button2" to="FromJSON" method="hide"]
+[connection signal="request_completed" from="DeckDownloader" to="." method="_on_DeckDownloader_request_completed"]

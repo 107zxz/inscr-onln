@@ -306,14 +306,22 @@ func load_deck(_arg = null):
 	
 	var rdj = dFile.get_as_text()
 	
-	if not parse_json(rdj):
+	# New-ish
+	var parse_result = JSON.parse(rdj)
+	
+	if parse_result.error != 0:
 		dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
 		dFile.store_line("{\"cards\": [], \"side_deck\": 0}\n")
 		
 		dFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.READ)
 		rdj = dFile.get_as_text()
 		
-	var dj = parse_json(rdj)
+		$Error.show()
+		$Error/PanelContainer/VBoxContainer/Label.text = "Failed to parse deck %s at line %d with error:\n\"%s\"" % [selector_de.text, parse_result.error_line, parse_result.error_string]
+		
+		parse_result = JSON.parse(rdj)
+	
+	var dj = parse_result.result
 	
 	for card in dj["cards"]:
 		var nCard = cardPrefab.instance()
@@ -551,12 +559,72 @@ func _on_DelBtn_pressed():
 	
 	ensure_default_deck()
 	populate_deck_list()
-	
 
-func flicker():
-	if randi() % 10 != 0:
-		return
+func _on_JsonButton_pressed():
+	$JsonFromMenu.show_modal()
+
+
+func _on_JsonFromMenu_id_pressed(id):
+	match id:
+		0: # From file
+			$FromFile.show_modal()
+		1: # From URL
+			$FromURL.show()
+		2: # From Text
+			$FromJSON.show()
+
+
+func _on_JSONLoadBtn_pressed():
+	var sFile = File.new()
+	sFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
+	sFile.store_line($FromJSON/PanelContainer/VBoxContainer/TextEdit.text)
+	sFile.close()
+
+	sFile.open(CardInfo.deck_backup_path + selector_de.text + ".deck", File.WRITE)
+	sFile.store_line($FromJSON/PanelContainer/VBoxContainer/TextEdit.text)
+	sFile.close()
 	
-	$Flickover.show()
-	yield(get_tree().create_timer(0.02), "timeout")
-	$Flickover.hide()
+	load_deck()
+
+
+func _on_URLDownloadBtn_pressed():
+	$DeckDownloader.download_file = CardInfo.deck_path + selector_de.text + ".deck"
+	var err = $DeckDownloader.request($FromURL/PanelContainer/VBoxContainer/LineEdit.text)
+	if err == 0:
+		$Status.show()
+		$FromURL.hide()
+	else:
+		$Error/PanelContainer/VBoxContainer/Label.text = "Error parsing URL"
+		$Error.show()
+		$Status.hide()
+
+func _on_DeckDownloader_request_completed(result, response_code, headers, body):
+	$FromURL.hide()
+	$Status.hide()
+	
+	if response_code == 200:
+		load_deck()
+	else:
+		$Error.show()
+		$Error/PanelContainer/VBoxContainer/Label.text = "Download failed: response code %d" % response_code
+
+func _on_FromFile_file_selected(path):
+	
+	var lFile = File.new()
+	lFile.open(path, File.READ)
+	var deckContents = lFile.get_as_text()
+	lFile.close()
+	
+	var sFile = File.new()
+	sFile.open(CardInfo.deck_path + selector_de.text + ".deck", File.WRITE)
+	sFile.store_line(deckContents)
+	sFile.close()
+
+	sFile.open(CardInfo.deck_backup_path + selector_de.text + ".deck", File.WRITE)
+	sFile.store_line(deckContents)
+	sFile.close()
+	
+	load_deck()
+
+
+

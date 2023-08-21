@@ -38,7 +38,7 @@ func _ready():
 			var cnt = file.get_as_text()
 			file.close()
 			
-			use_ruleset(parse_json(cnt))
+			parse_ruleset(cnt)
 			
 			return
 	
@@ -69,6 +69,14 @@ func _on_JSONLoadBtn_pressed():
 	$FromJSON.hide()
 
 # Ruleset Management
+func parse_ruleset(rs: String):
+	var res: JSONParseResult = JSON.parse(rs)
+	
+	if res.error:
+		errorBox("Error parsing ruleset at line %d: \"%s\"" % [res.error_line, res.error_string])
+	else:
+		use_ruleset(res.result)
+
 func use_ruleset(dat: Dictionary):
 	CardInfo.rules_path = CardInfo.rulesets_path + dat.ruleset + ".json"
 	CardInfo.read_game_info()
@@ -189,7 +197,13 @@ func _on_RSDownloader_request_completed(_result, response_code, _headers, body):
 	
 	var jString = body.get_string_from_utf8()
 	
-	var jDat = parse_json(jString)
+	var jRes: JSONParseResult = JSON.parse(jString)
+	
+	if jRes.error:
+		errorBox("Error parsing ruleset at line %d: \"%s\"" % [jRes.error_line, jRes.error_string])
+		return
+	
+	var jDat = jRes.result
 	
 	download_card_portraits(jDat)
 	download_sigil_icons(jDat)
@@ -205,7 +219,13 @@ func add_ruleset_from_file(filename: String):
 
 func add_ruleset_from_json(json: String):
 	
-	var ruleset = parse_json(json)
+	var jRes: JSONParseResult = JSON.parse(json)
+	
+	if jRes.error:
+		errorBox("Error parsing ruleset at line %d:\n\"%s\"" % [jRes.error_line, jRes.error_string])
+		return
+	
+	var ruleset = jRes.result
 	
 	var fd = File.new()
 	fd.open(CardInfo.rulesets_path + ruleset.ruleset + ".json", File.WRITE)
