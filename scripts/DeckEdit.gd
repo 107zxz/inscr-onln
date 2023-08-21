@@ -572,6 +572,8 @@ func _on_JsonFromMenu_id_pressed(id):
 			$FromURL.show()
 		2: # From Text
 			$FromJSON.show()
+		3: # Copy Deck
+			OS.clipboard = to_json(get_deck_object())
 
 
 func _on_JSONLoadBtn_pressed():

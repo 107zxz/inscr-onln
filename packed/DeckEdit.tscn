@@ -917,7 +917,7 @@ margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
 enabled_focus_mode = 0
-text = "Load..."
+text = "JSON..."
 
 [node name="SearchOptions" type="PanelContainer" parent="HBoxContainer/VBoxContainer/DeckOptions/HBoxContainer"]
 unique_name_in_owner = true
@@ -1275,7 +1275,7 @@ margin_left = 1078.0
 margin_top = 114.0
 margin_right = 1254.0
 margin_bottom = 202.0
-items = [ "From File", null, 0, false, false, 0, 0, null, "", false, "From URL", null, 0, false, false, 1, 0, null, "", false, "From JSON Text", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "From File", null, 0, false, false, 0, 0, null, "", false, "From URL", null, 0, false, false, 1, 0, null, "", false, "From Textbox", null, 0, false, false, 2, 0, null, "", false, "Copy JSON", null, 0, false, false, 3, 0, null, "", false ]
 
 [node name="FromFile" type="FileDialog" parent="."]
 margin_left = 536.0
