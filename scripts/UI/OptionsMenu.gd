@@ -8,10 +8,10 @@ func update_options():
 				
 				var old_val = GameOptions.options[opt.name]
 				
-				GameOptions.options[opt.name] = not opt.pressed
-				
 				if old_val != opt.pressed:
-					return
+					continue
+					
+				GameOptions.options[opt.name] = not opt.pressed
 				
 				# Reload deck editor
 				if opt.name in ["enable_accessibility_icons", "show_card_tooltips", "show_banned"]:
