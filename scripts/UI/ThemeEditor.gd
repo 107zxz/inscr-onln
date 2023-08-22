@@ -125,9 +125,12 @@ func apply_theme():
 	paperTheme.set_color("font_color_bg", "TabContainer", theme_data.text_colour)
 	paperTheme.set_color("title_color", "WindowDialog", theme_data.text_colour)
 	paperTheme.set_color("font_color", "ItemList", theme_data.text_colour)
+	paperTheme.set_color("font_color", "PopupMenu", theme_data.text_colour)
 	
 	# LineEdit
 	paperTheme.set_color("title_color", "WindowDialog", theme_data.text_colour)
+	
+	# Context menu
 	
 	# Sigil Colours
 	sigilMat.set_shader_param("u_replacement_color", Color(theme_data.pixart_colour))
