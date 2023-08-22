@@ -560,6 +560,7 @@ func _on_ActiveSigil_pressed():
 	if CardInfo.all_data.opt_actives:
 		$CardBody/Active.disabled = true
 		$CardBody/Active.mouse_filter = MOUSE_FILTER_IGNORE
+		$CardBody._on_Active_button_up()
 	
 	# Play anim and activate remotely
 	if not "Perish" in $AnimationPlayer.current_animation:

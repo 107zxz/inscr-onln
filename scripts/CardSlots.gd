@@ -138,7 +138,7 @@ func pre_turn_sigils(friendly: bool):
 		if cardAnim.is_playing():
 			continue
 		
-		if CardInfo.all_data.opt_actives and "active" in card.card_data:
+		if card.get_parent().get_parent().name == "PlayerSlots" and CardInfo.all_data.opt_actives and "active" in card.card_data:
 			var cd = card.get_node("CardBody/Active")
 			cd.disabled = false
 			cd.mouse_filter = MOUSE_FILTER_STOP
@@ -600,7 +600,9 @@ func handle_attack(from_slot, to_slot):
 					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
 					break
 	else:
-		eCard.take_damage(pCard)
+		# Gross hard-coded exception
+		if not eCard.has_sigil("Repulsive"):
+			eCard.take_damage(pCard)
 
 		# On kill
 		if eCard.health <= 0:

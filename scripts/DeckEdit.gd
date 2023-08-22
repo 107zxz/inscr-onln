@@ -600,7 +600,7 @@ func _on_URLDownloadBtn_pressed():
 		$Error.show()
 		$Status.hide()
 
-func _on_DeckDownloader_request_completed(result, response_code, headers, body):
+func _on_DeckDownloader_request_completed(_result, response_code, _headers, _body):
 	$FromURL.hide()
 	$Status.hide()
 	

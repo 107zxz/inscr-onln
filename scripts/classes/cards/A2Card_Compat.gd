@@ -201,7 +201,28 @@ func draw_sigils(cDat: Dictionary) -> void:
 	
 	for sIdx in range(sCount):
 		var cNode = get_node(SIGIL_SLOTS[sIdx])
-		cNode.texture = load("res://gfx/sigils/%s.png" % cDat.sigils[sIdx])
+		
+		var d = Directory.new()
+		
+		var found = false
+		
+		for potential_path in [
+			CardInfo.icon_override_path + cDat.sigils[sIdx] + ".png",
+			CardInfo.custom_icon_path + CardInfo.ruleset + "_" + cDat.sigils[sIdx] + ".png"
+		]:
+			if d.file_exists(potential_path):
+				var i = Image.new()
+				i.load(potential_path)
+				var sTex = ImageTexture.new()
+				sTex.create_from_image(i)
+				sTex.flags -= sTex.FLAG_FILTER
+				cNode.texture = sTex
+				found = true
+				break
+		
+		if not found:
+			cNode.texture = load("res://gfx/sigils/%s.png" % cDat.sigils[sIdx])
+		
 		cNode.show()
 
 

@@ -4,6 +4,10 @@ var line_prefab = preload("res://packed/UI/RulesetLine.tscn")
 
 var visible_rulesets = []
 
+
+signal portraits_done()
+signal sigils_done()
+
 # UI
 func _on_RSFF_pressed():
 	$FromFile.popup_centered()
@@ -193,22 +197,27 @@ func _on_RSDownloader_request_completed(_result, response_code, _headers, body):
 		errorBox("Failed downloading ruleset\nResponse code " + str(response_code))
 		return
 	
-	$Status.hide()
 	
 	var jString = body.get_string_from_utf8()
 	
 	var jRes: JSONParseResult = JSON.parse(jString)
 	
 	if jRes.error:
+		$Status.hide()
 		errorBox("Error parsing ruleset at line %d: \"%s\"" % [jRes.error_line, jRes.error_string])
 		return
 	
 	var jDat = jRes.result
 	
 	download_card_portraits(jDat)
+	yield(self, "portraits_done")
 	download_sigil_icons(jDat)
+	yield(self, "sigils_done")
 	
 	add_ruleset_from_json(jString)
+	
+	$Status.hide()
+	
 
 func add_ruleset_from_file(filename: String):
 	var file = File.new()
@@ -291,6 +300,10 @@ func download_card_portraits(dat):
 			
 			yield($ImageRequest, "request_completed")
 	
+	yield(get_tree().create_timer(0.1), "timeout")
+	
+	emit_signal("portraits_done")
+	
 func download_sigil_icons(dat):
 	var d = Directory.new()
 
@@ -311,6 +324,10 @@ func download_sigil_icons(dat):
 			$ImageRequest.request(dat.sigil_urls[sigil])
 			
 			yield($ImageRequest, "request_completed")
+	
+	yield(get_tree().create_timer(0.1), "timeout")
+	
+	emit_signal("sigils_done")
 
 
 func open_rsdir():
