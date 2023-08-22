@@ -10,4 +10,4 @@ func handle_event(event: String, params: Array):
 		
 		for card in slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards():
 			if "Mox" in card.card_data.name:
-				card.get_node("CardBody/HighlightHolder").visible = true
+				card.get_node("CardBody/Highlight").visible = true

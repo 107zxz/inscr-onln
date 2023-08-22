@@ -625,22 +625,6 @@ texture = SubResource( 19 )
 expand = true
 stretch_mode = 5
 
-[node name="HighlightHolder" type="Control" parent="CardBody"]
-visible = false
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 126.0
-margin_bottom = 183.0
-mouse_filter = 2
-
-[node name="Highlight" type="ColorRect" parent="CardBody/HighlightHolder"]
-margin_left = -6.0
-margin_top = -6.0
-margin_right = 131.0
-margin_bottom = 188.0
-mouse_filter = 2
-color = Color( 0, 0.882353, 1, 0.470588 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
 anims/Attack = SubResource( 8 )
