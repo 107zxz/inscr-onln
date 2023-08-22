@@ -393,9 +393,33 @@ func initiate_combat(friendly: bool):
 		var slot_index = pCard.slot_idx()
 		
 		if pCard.attack > 0 and not "Perish" in cardAnim.current_animation:
-
-
-			if pCard.has_sigil("Omni Strike") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
+			if friendly and pCard.has_sigil("Sniper") and len(all_enemy_cards()) > 0:
+				
+				# TODO: Specifically wait for the signal via RPC if an opponent is sniping
+				
+				fightManager.sniper = pCard
+				fightManager.state = fightManager.GameStates.SNIPE
+				fightManager.snipe_enemies_only = true
+				var slot_idx = yield(fightManager, "snipe_complete").slot_idx()
+				
+				pCard.strike_offset = slot_idx - pCard.slot_idx()
+				
+				# Don't attack repulsive cards!
+				if not is_slot_empty(enemySlots[slot_index]) and enemySlots[slot_index].get_child(0).has_sigil("Repulsive"):
+					if not pCard.has_sigil("Airborne") or enemySlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
+						continue
+				
+				cardAnim.play("Attack" if friendly else "AttackRemote")
+				pCard.play_sfx("attack")
+				yield(cardAnim, "animation_finished")
+				
+				# Any form of attack went through
+				# Brittle: Die after attacking
+				if pCard.has_sigil("Brittle"):
+					cardAnim.play("Perish")
+				
+				pass
+			elif pCard.has_sigil("Omni Strike") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
 				for eCard in all_enemy_cards() if friendly else all_friendly_cards():
 					
 					# Break if we died from quills / boom

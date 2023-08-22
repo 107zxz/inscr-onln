@@ -149,6 +149,12 @@ func _on_Button_pressed():
 		# Don't allow spam saccing
 		if $AnimationPlayer.is_playing():
 			return
+			
+		# Am I being picked for a snipe?
+		if fightManager.state == fightManager.GameStates.SNIPE and self != fightManager.sniper and get_parent().get_parent().name in ["PlayerSlots", "EnemySlots"]:
+			if not fightManager.snipe_enemies_only or get_parent().get_parent().name == "EnemySlots":
+				fightManager.emit_signal("snipe_complete", self)
+				fightManager.state = fightManager.GameStates.BATTLE
 		
 		# Is it hammer time? Am I on the player's side?
 		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name in ["PlayerSlots", "PlayerSlotsBack"] and not "nohammer" in card_data:

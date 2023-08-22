@@ -15,6 +15,7 @@ var cardPrefab = preload("res://packed/playingCard.tscn")
 
 # Signals
 signal sigil_event(event, params)
+signal snipe_complete(card)
 
 # Move format:
 
@@ -39,6 +40,7 @@ enum GameStates {
 	FORCEPLAY,
 	BATTLE,
 	HAMMER,
+	SNIPE
 }
 var state = GameStates.NORMAL
 
@@ -72,6 +74,10 @@ var gold_sarcophagus = []
 var no_energy_deplete = false
 var enemy_no_energy_deplete = false
 
+# Temp card state
+var sniper: Control = null
+var snipe_enemies_only = false
+
 # Network match state
 var want_rematch = false
 
@@ -90,10 +96,13 @@ func _ready():
 			slot.connect("pressed", self, "play_card", [slot])
 
 
-#func _process(delta):
-#	if current_move in moves and not acting:
-#		acting = true
-#		parse_move(moves[current_move])
+func _process(delta):
+	if state == GameStates.SNIPE:
+		$SniperLine.visible = true
+		$SniperLine.points[0] = sniper.rect_global_position + Vector2(64, 90)
+		$SniperLine.points[1] = get_global_mouse_position()
+	else:
+		$SniperLine.visible = false
 
 
 func init_match(opp_id: int, do_go_first: bool):
@@ -1081,5 +1090,4 @@ func start_turn():
 # This is bad practice but needed for Bone Digger
 remote func add_remote_bones(bone_no):
 	add_opponent_bones(bone_no)
-
 

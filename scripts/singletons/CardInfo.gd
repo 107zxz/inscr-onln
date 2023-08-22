@@ -186,6 +186,7 @@ const all_sigils = {
 	"Side Hustle": "When a card bearing this sigil deals damage directly, draw a card from your side deck for each damage dealt.",
 	"Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
 	"Skeleton Crew (Yarr)": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a pirate skeleton in its old space.",
+	"Sniper": "yi",
 	"Spawn Conduit": "Empty spaces within a circuit completed by a card bearing this sigil spawn L33pB0ts at the end of the owner's turn.",
 	"Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
 	"Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",

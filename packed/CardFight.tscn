@@ -1895,6 +1895,10 @@ bus = "SFX"
 wait_time = 10.0
 one_shot = true
 
+[node name="SniperLine" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 0, 0 )
+default_color = Color( 1, 0, 0, 1 )
+
 [connection signal="pressed" from="PlayerInfo/MyInfo/Candle/Snuff" to="CardSlots" method="_on_Snuff_pressed"]
 [connection signal="button_down" from="DrawPiles/YourDecks/Deck" to="." method="draw_maindeck"]
 [connection signal="button_down" from="DrawPiles/YourDecks/SideDeck" to="." method="draw_sidedeck"]
