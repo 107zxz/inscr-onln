@@ -19,7 +19,8 @@ var options = {
 	"live_theme_update": false,
 	"default_ruleset": "",
 	"ruleset_editor": false,
-	"vsync": false
+	"vsync": true,
+	"lock_fps": true
 }
 
 func read_options():

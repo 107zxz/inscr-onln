@@ -46,6 +46,7 @@ _global_script_class_icons={
 
 config/name="Inscry_Mult_GD"
 run/main_scene="res://packed/RulesetPickerProto.tscn"
+run/low_processor_mode=true
 config/icon="res://newicon.png"
 
 [autoload]

@@ -38,6 +38,9 @@ func update_options():
 				
 				if opt.name == "vsync":
 					OS.vsync_enabled = GameOptions.options.vsync
+					
+				if opt.name == "lock_fps":
+					Engine.target_fps = 60 if GameOptions.options.lock_fps else 0
 				
 func update_controls():
 	for cat in $TabContainer.get_children():

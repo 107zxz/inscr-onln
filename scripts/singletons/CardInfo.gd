@@ -48,6 +48,10 @@ func _enter_tree():
 #		OS.window_position += ws
 #		OS.window_maximized = false
 	
+	# optimizations
+	Physics2DServer.set_active(false)
+	Engine.target_fps = 60
+	
 #	read_game_info()
 	
 	# Custom background
@@ -186,7 +190,7 @@ const all_sigils = {
 	"Side Hustle": "When a card bearing this sigil deals damage directly, draw a card from your side deck for each damage dealt.",
 	"Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
 	"Skeleton Crew (Yarr)": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a pirate skeleton in its old space.",
-	"Sniper": "yi",
+	"Sniper": "You may choose which opposing space a card bearing this sigil strikes.",
 	"Spawn Conduit": "Empty spaces within a circuit completed by a card bearing this sigil spawn L33pB0ts at the end of the owner's turn.",
 	"Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
 	"Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",

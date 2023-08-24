@@ -1100,6 +1100,14 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "VSync (removes screen tearing but reduces fps)"
 
+[node name="lock_fps" type="CheckButton" parent="Options/TabContainer/Visual"]
+margin_top = 204.0
+margin_right = 842.0
+margin_bottom = 238.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Limit FPS to 60 (reduces resource usage)"
+
 [node name="Scanlines" type="HBoxContainer" parent="Options/TabContainer/Visual"]
 visible = false
 margin_top = 170.0
