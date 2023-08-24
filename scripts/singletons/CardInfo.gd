@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.3.5"
+const VERSION = "v0.3.6"
 
 var all_data = {}
 var ruleset = "undefined ruleset"
@@ -128,6 +128,7 @@ const all_sigils = {
 	"Bifurcated Strike": "A card bearing this sigil will strike each opposing space to the left and right of the space across from it.",
 	"Blood Lust": "When a card bearing this Sigil attacks an opposing creature and it perishes, this card gains 1 power.",
 	"Blue Mox": "While a card bearing this sigil is on the board, it provides a blue gem to its owner.",
+	"Bomb Latch": "When a card bearing this sigil perishes, its owner chooses a creature to gain the Detonator sigil.",
 	"Bomb Spewer": "When a card bearing this sigil is played, fill all empty spaces with explode bots.",
 	"Bomb Spewer (Eternal)": "When a card bearing this sigil is played, fill every empty space opposing a card with an explode bot.",
 	"Bone Digger": "At the end of the owner's turn, a card bearing this sigil will generate 1 bone.",
@@ -136,6 +137,7 @@ const all_sigils = {
 	"Bonehorn (1)": "Pay 1 energy to gain 1 bone.",
 	"Boneless": "When a card bearing this sigil dies, no bones are awarded.",
 	"Brittle": "After attacking, a card bearing this sigil perishes.",
+	"Brittle Latch": "When a card bearing this sigil perishes, its owner chooses a creature to gain the Brittle sigil.",
 	"Burrower": "When an empty space would be struck, a card bearing this sigil will move to that space to receive the strike instead.",
 	"Corpse Eater": "If a creature that you own perishes by combat, a card bearing this sigil in your hand is automatically played in its place.",
 	"Dam Builder": "When a card bearing this sigil is played, a Dam is created on each empty adjacent space.",
@@ -184,13 +186,13 @@ const all_sigils = {
 	"Repulsive": "If a creature would attack a card bearing this sigil, it does not.",
 	"Ruby Heart": "When a card bearing this sigil perishes, a ruby mox is created in its place.",
 	"Scavenger": "While a card bearing this sigil is alive on the board, opposing creatures also grant you Bones upon death.",
-	"Scopophobic": "Wklv hqwub klghv iurp sublqj hbhv d vhfuhw vrph zrxog vhhn. D nlqg uhtxhvw wr wuxob whvw dqb zkr zrxog shhn.",
 	"Sentry": "When a creature moves into the space opposing a card bearing this sigil, they are dealt 1 damage.",
 	"Sharp Quills": "Once a card bearing this sigil is struck, the striker is then dealt a single damage point.",
+	"Shield Latch": "When a card bearing this sigil perishes, its owner chooses a creature to gain the Armored sigil.",
 	"Side Hustle": "When a card bearing this sigil deals damage directly, draw a card from your side deck for each damage dealt.",
 	"Skeleton Crew": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a skeleton in its old space.",
 	"Skeleton Crew (Yarr)": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a pirate skeleton in its old space.",
-	"Sniper": "You may choose which opposing space a card bearing this sigil strikes.",
+	"Sniper": "You may choose which opposing card a card bearing this sigil strikes.",
 	"Spawn Conduit": "Empty spaces within a circuit completed by a card bearing this sigil spawn L33pB0ts at the end of the owner's turn.",
 	"Sprinter": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil.",
 	"Squirrel Shedder": "At the end of the owner's turn, a card bearing this sigil will move in the direction inscribed in the sigil and drop a squirrel in their old space.",
@@ -302,7 +304,11 @@ const working_sigils = [
 	"Amalgamation",
 	"Unkillable (Eternal)",
 	"Energy Gun (Eternal)",
-	"Bomb Spewer (Eternal)"
+	"Bomb Spewer (Eternal)",
+	"Sniper",
+	"Brittle Latch",
+	"Bomb Latch",
+	"Shield Latch"
 ]
 
 const keywords = {

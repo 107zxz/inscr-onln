@@ -379,6 +379,11 @@ func initiate_combat(friendly: bool):
 	
 	for pCard in attackingCards:
 		
+		# Wait for any sniping to happen
+		if fightManager.state == fightManager.GameStates.SNIPE:
+			yield(fightManager, "snipe_complete")
+#			fightManager.state = fightManager.GameStates.BATTLE
+		
 		# TODO: FIX THIS
 		if not pCard:
 			continue
@@ -399,29 +404,37 @@ func initiate_combat(friendly: bool):
 				
 				print("Sniper handler, friendly: ", friendly)
 				
-				fightManager.sniper = pCard
-				fightManager.state = fightManager.GameStates.SNIPE
-				fightManager.snipe_enemies_only = true
-				var slot_idx = yield(fightManager, "snipe_complete").slot_idx()
+				var slot_idx = 0
 				
-				pCard.strike_offset = slot_idx - pCard.slot_idx()
+				if fightManager.sniper_target:
+					slot_idx = fightManager.sniper_target.slot_idx() 
 				
 				if friendly:
-					# Don't attack repulsive cards!
-					if not is_slot_empty(defendingSlots[slot_index]) and defendingSlots[slot_index].get_child(0).has_sigil("Repulsive"):
-						if not pCard.has_sigil("Airborne") or defendingSlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
-							continue
-
-					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
-					yield(cardAnim, "animation_finished")
-
-					# Any form of attack went through
-					# Brittle: Die after attacking
-					if pCard.has_sigil("Brittle"):
-						cardAnim.play("Perish")
+					
+					fightManager.sniper = pCard
+					fightManager.state = fightManager.GameStates.SNIPE
+					fightManager.snipe_enemies_only = true
+					slot_idx = yield(fightManager, "snipe_complete").slot_idx()
+					
+				pCard.strike_offset = slot_idx - pCard.slot_idx()
 				
-				fightManager.move_done()
+				# Don't attack repulsive cards!
+				if not is_slot_empty(defendingSlots[slot_index]) and defendingSlots[slot_index].get_child(0).has_sigil("Repulsive"):
+					if not pCard.has_sigil("Airborne") or defendingSlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
+						continue
+
+				cardAnim.play("Attack" if friendly else "AttackRemote")
+				pCard.play_sfx("attack")
+				yield(cardAnim, "animation_finished")
+
+				# Any form of attack went through
+				# Brittle: Die after attacking
+				if pCard.has_sigil("Brittle"):
+					cardAnim.play("Perish")
+				
+				fightManager.sniper_target = null
+				
+#				fightManager.move_done()
 #
 #				pass
 			elif pCard.has_sigil("Omni Strike") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
@@ -449,6 +462,10 @@ func initiate_combat(friendly: bool):
 					cardAnim.play("Attack" if friendly else "AttackRemote")
 					pCard.play_sfx("attack")
 					yield(cardAnim, "animation_finished")
+					
+					# Brittle: Die after attacking
+					if pCard.has_sigil("Brittle"):
+						cardAnim.play("Perish")
 
 				if not is_slot_empty(attackingSlots[slot_index]):
 					pCard.rect_position.x = 0
@@ -498,6 +515,10 @@ func initiate_combat(friendly: bool):
 				if not is_slot_empty(attackingSlots[slot_index]):
 					pCard.rect_position.x = 0
 					
+				# Brittle: Die after attacking
+				if pCard.has_sigil("Brittle"):
+					cardAnim.play("Perish")
+					
 			else:
 
 				# Wierd double strike condition
@@ -524,6 +545,10 @@ func initiate_combat(friendly: bool):
 					# Brittle: Die after attacking
 					if pCard.has_sigil("Brittle"):
 						cardAnim.play("Perish")
+
+	if fightManager.state == fightManager.GameStates.SNIPE:
+		fightManager.get_node("WaitingBlocker").hide()
+		yield(fightManager, "snipe_complete")
 
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("complete_combat")

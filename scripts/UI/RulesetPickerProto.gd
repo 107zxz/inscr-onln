@@ -22,9 +22,6 @@ func ARGIT():
 
 func _ready():
 	
-	# 
-	
-	
 	var d = Directory.new()
 	d.make_dir(CardInfo.rulesets_path)
 	

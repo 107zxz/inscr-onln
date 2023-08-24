@@ -77,6 +77,7 @@ var enemy_no_energy_deplete = false
 # Temp card state
 var sniper: Control = null
 var snipe_enemies_only = false
+var sniper_target: Control = null
 
 # Network match state
 var want_rematch = false
@@ -96,10 +97,11 @@ func _ready():
 			slot.connect("pressed", self, "play_card", [slot])
 
 
-func _process(delta):
+func _process(_delta):
 	if state == GameStates.SNIPE:
 		$SniperLine.visible = true
-		$SniperLine.points[0] = sniper.rect_global_position + Vector2(64, 90)
+		if is_instance_valid(sniper):
+			$SniperLine.points[0] = sniper.rect_global_position + Vector2(64, 90)
 		$SniperLine.points[1] = get_global_mouse_position()
 	else:
 		$SniperLine.visible = false
@@ -663,7 +665,10 @@ func parse_next_move():
 			"snipe_target":
 				print("Opponent sniped from ", move.from_slot, " to slot ", move.to_slot, " friendly: ", move.friendly)
 				# Trigger the signal
-				emit_signal("snipe_complete", slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_enemy_card(move.to_slot))
+				sniper_target = slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_friendly_card(move.to_slot)
+				emit_signal("snipe_complete", sniper_target)
+				
+				move_done()
 			"snuff_candle":
 				inflict_damage(10)
 				damage_stun = false
