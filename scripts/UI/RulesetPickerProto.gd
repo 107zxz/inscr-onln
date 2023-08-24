@@ -22,10 +22,7 @@ func ARGIT():
 
 func _ready():
 	
-	# Disable ARG check for now
-#	ARGIT()
-	
-	# Apply theme
+	# 
 	
 	
 	var d = Directory.new()

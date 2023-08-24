@@ -19,8 +19,7 @@ var rsCache: Dictionary = {}
 # Godot Handlers
 func _ready():
 	
-	# optimizations
-	Physics2DServer.set_active(false)
+
 
 	randomize()
 

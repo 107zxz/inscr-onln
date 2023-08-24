@@ -152,9 +152,20 @@ func _on_Button_pressed():
 			
 		# Am I being picked for a snipe?
 		if fightManager.state == fightManager.GameStates.SNIPE and self != fightManager.sniper and get_parent().get_parent().name in ["PlayerSlots", "EnemySlots"]:
+			
 			if not fightManager.snipe_enemies_only or get_parent().get_parent().name == "EnemySlots":
+				# Inform opponent of sniping (this could be fucky with latency)
+				fightManager.send_move({
+					"type": "snipe_target",
+					"from_slot": fightManager.sniper.slot_idx(),
+					"to_slot": slot_idx(),
+					"friendly": get_parent().get_parent().name == "PlayerSlots"
+				})
+				
+				# Do the snipe
 				fightManager.emit_signal("snipe_complete", self)
 				fightManager.state = fightManager.GameStates.BATTLE
+		
 		
 		# Is it hammer time? Am I on the player's side?
 		if fightManager.state == fightManager.GameStates.HAMMER and get_parent().get_parent().name in ["PlayerSlots", "PlayerSlotsBack"] and not "nohammer" in card_data:

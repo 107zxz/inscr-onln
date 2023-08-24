@@ -660,6 +660,10 @@ func parse_next_move():
 			"change_card":
 				print("Opponent card ", move.index, " changed to ", move.data)
 				slotManager.remote_card_data(move.index, move.data)
+			"snipe_target":
+				print("Opponent sniped from ", move.from_slot, " to slot ", move.to_slot, " friendly: ", move.friendly)
+				# Trigger the signal
+				emit_signal("snipe_complete", slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_enemy_card(move.to_slot))
 			"snuff_candle":
 				inflict_damage(10)
 				damage_stun = false
