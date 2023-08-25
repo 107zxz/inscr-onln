@@ -4,7 +4,7 @@
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=2]
 [ext_resource path="res://scripts/UI/RulesetPickerProto.gd" type="Script" id=3]
 [ext_resource path="res://packed/UI/RulesetLine.tscn" type="PackedScene" id=4]
-[ext_resource path="res://gfx/portraits/Ouroboros.png" type="Texture" id=5]
+[ext_resource path="res://gfx/cake.webp" type="Texture" id=5]
 [ext_resource path="res://packed/UI/Error.tscn" type="PackedScene" id=6]
 [ext_resource path="res://packed/ThemeEditor.tscn" type="PackedScene" id=7]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=8]
@@ -375,7 +375,6 @@ text = "v0.1.9"
 [node name="ImageRequest" type="HTTPRequest" parent="."]
 
 [node name="Jake" type="TextureRect" parent="."]
-visible = false
 material = ExtResource( 8 )
 margin_left = 160.0
 margin_top = 874.902
@@ -385,13 +384,16 @@ rect_rotation = 90.0
 rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 57, 47 )
 texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_editor_description_": "Originally Ouroboros Act 1 portrait"
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Jake"]
 autoplay = "Jake"
 anims/Jake = SubResource( 6 )
 
 [node name="Jakebubble" type="PanelContainer" parent="."]
-visible = false
 margin_left = 350.0
 margin_top = 845.0
 margin_right = 850.0
