@@ -415,6 +415,7 @@ func initiate_combat(friendly: bool):
 					fightManager.state = fightManager.GameStates.SNIPE
 					fightManager.snipe_enemies_only = true
 					slot_idx = yield(fightManager, "snipe_complete").slot_idx()
+					fightManager.state = fightManager.GameStates.BATTLE
 					
 				pCard.strike_offset = slot_idx - pCard.slot_idx()
 				
@@ -433,6 +434,7 @@ func initiate_combat(friendly: bool):
 					cardAnim.play("Perish")
 				
 				fightManager.sniper_target = null
+				
 				
 #				fightManager.move_done()
 #
