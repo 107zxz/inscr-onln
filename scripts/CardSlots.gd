@@ -957,6 +957,9 @@ func _on_Snuff_pressed():
 	
 	print("SNUFFY")
 	
+	if fightManager.state != fightManager.GameStates.NORMAL:
+		return
+	
 	if fightManager.lives > 1 and CardInfo.all_data.allow_snuffing_candles:
 		fightManager.inflict_damage(-10)
 		fightManager.damage_stun = false
