@@ -27,6 +27,7 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 		if res.latest_version != CardInfo.VERSION:
 			$PatchStoats.visible = true
 			$PatchStoats/Notes.text = res.motd_stoat
+			CardInfo.latest_version = res.latest_version
 		
 		if res.motd_stoat_force != "":
 			$PatchStoats.visible = true
@@ -41,4 +42,5 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 			$Grimorger/Notes.text = res.motd_grimorger
 
 func _on_Button_pressed():
-	OS.shell_open("https://107zxz.itch.io/inscryption-multiplayer-godot")
+#	OS.shell_open("https://107zxz.itch.io/inscryption-multiplayer-godot")
+	get_tree().change_scene("res://packed/GameUpdater.tscn")

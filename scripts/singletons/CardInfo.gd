@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.3.7f"
+const VERSION = "v0.3.7g"
 
 var all_data = {}
 var ruleset = "undefined ruleset"
@@ -34,10 +34,19 @@ var background_texture = null
 # Ruleset data to apply: Used when downloading another player's ruleset
 var rs_to_apply = null
 
+# Latest version of game. Used to save a request when updating
+var latest_version = ""
+
 func _enter_tree():
 	
+	var d = Directory.new()
+	
+	# Hot-patch the game
+	if d.file_exists("user://patch.pck"):
+		ProjectSettings.load_resource_pack("user://patch.pck")
+		
+	
 	if OS.get_name() == "Android":
-		var d = Directory.new()
 		if not d.dir_exists(data_path):
 			d.make_dir(data_path)
 	elif OS.get_name() != "OSX":
