@@ -28,12 +28,15 @@ func handle_event(event: String, params: Array):
 			
 			fightManager.sniper = card
 			fightManager.state = fightManager.GameStates.SNIPE
-			fightManager.snipe_enemies_only = false
+			fightManager.snipe_is_attack = false
 			
 		var target = yield(fightManager, "snipe_complete")
+		target = slotManager.get_friendly_card(target[1]) if target[0] else slotManager.get_enemy_card(target[1])
 		
 		if "sigils" in target.card_data:
-			target.card_data.sigils.append("Armored")
+			var n_sigils = target.card_data.sigils
+			n_sigils.append("Armored")
+			target.card_data.sigils = n_sigils
 		else:
 			target.card_data.sigils = ["Armored"]
 			

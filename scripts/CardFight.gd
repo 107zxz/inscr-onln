@@ -665,7 +665,8 @@ func parse_next_move():
 			"snipe_target":
 				print("Opponent sniped from ", move.from_slot, " to slot ", move.to_slot, " friendly: ", move.friendly)
 				# Trigger the signal
-#				sniper_target = slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_friendly_card(move.to_slot)
+				var nt = slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_friendly_card(move.to_slot)
+				sniper_target = nt if nt else null
 				emit_signal("snipe_complete", move.friendly, move.to_slot)
 				
 				move_done()

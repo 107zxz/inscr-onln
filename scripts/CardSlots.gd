@@ -420,8 +420,8 @@ func initiate_combat(friendly: bool):
 				pCard.strike_offset = slot_idx - pCard.slot_idx()
 				
 				# Don't attack repulsive cards!
-				if not is_slot_empty(defendingSlots[slot_index]) and defendingSlots[slot_index].get_child(0).has_sigil("Repulsive"):
-					if not pCard.has_sigil("Airborne") or defendingSlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
+				if not is_slot_empty(defendingSlots[slot_idx]) and defendingSlots[slot_idx].get_child(0).has_sigil("Repulsive"):
+					if not pCard.has_sigil("Airborne") or defendingSlots[slot_idx].get_child(0).has_sigil("Mighty Leap"):
 						continue
 
 				cardAnim.play("Attack" if friendly else "AttackRemote")
