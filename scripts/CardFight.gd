@@ -15,7 +15,8 @@ var cardPrefab = preload("res://packed/playingCard.tscn")
 
 # Signals
 signal sigil_event(event, params)
-signal snipe_complete(card)
+#signal snipe_complete(card)
+signal snipe_complete(friendly, slot)
 
 # Move format:
 
@@ -76,7 +77,7 @@ var enemy_no_energy_deplete = false
 
 # Temp card state
 var sniper: Control = null
-var snipe_enemies_only = false
+var snipe_is_attack = false
 var sniper_target: Control = null
 
 # Network match state
@@ -95,6 +96,8 @@ func _ready():
 	else:
 		for slot in slotManager.playerSlots:
 			slot.connect("pressed", self, "play_card", [slot])
+		for eSlot in slotManager.enemySlots:
+			eSlot.connect("pressed", self, "clicked_enemy_slot", [eSlot])
 
 
 func _process(_delta):
@@ -436,7 +439,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 
 	return nCard
 
-func play_card(slot):
+func play_card(slot: Node):
 	
 	# Is a card ready to be played?
 	if handManager.raisedCard:
@@ -478,9 +481,6 @@ func play_card(slot):
 
 			state = GameStates.NORMAL
 			
-#			yield(playedCard.get_node("Tween"), "tween_completed")
-#
-#			card_summoned(playedCard)
 
 func play_card_back(slot):
 	
@@ -665,8 +665,8 @@ func parse_next_move():
 			"snipe_target":
 				print("Opponent sniped from ", move.from_slot, " to slot ", move.to_slot, " friendly: ", move.friendly)
 				# Trigger the signal
-				sniper_target = slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_friendly_card(move.to_slot)
-				emit_signal("snipe_complete", sniper_target)
+#				sniper_target = slotManager.get_enemy_card(move.to_slot) if move.friendly else slotManager.get_friendly_card(move.to_slot)
+				emit_signal("snipe_complete", move.friendly, move.to_slot)
 				
 				move_done()
 			"snuff_candle":
@@ -906,7 +906,19 @@ func inflict_damage(dmg):
 		get_node("/root/Main/TitleScreen").count_victory()
 		
 
-
+func clicked_enemy_slot(slot):
+	# if no card raised
+	# Snipe that slot
+	if state == GameStates.SNIPE and snipe_is_attack:
+		send_move({
+			"type": "snipe_target",
+			"from_slot": sniper.slot_idx(),
+			"to_slot": slot.get_position_in_parent(),
+			"friendly": false
+		})
+		
+		# Do the snipe
+		emit_signal("snipe_complete", false, slot.get_position_in_parent())
 
 
 # Resource visualisation and management

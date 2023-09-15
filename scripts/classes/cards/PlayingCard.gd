@@ -153,7 +153,7 @@ func _on_Button_pressed():
 		# Am I being picked for a snipe?
 		if fightManager.state == fightManager.GameStates.SNIPE and self != fightManager.sniper and get_parent().get_parent().name in ["PlayerSlots", "EnemySlots"]:
 			
-			if not fightManager.snipe_enemies_only or get_parent().get_parent().name == "EnemySlots":
+			if not fightManager.snipe_is_attack or get_parent().get_parent().name == "EnemySlots":
 				# Inform opponent of sniping (this could be fucky with latency)
 				fightManager.send_move({
 					"type": "snipe_target",
@@ -163,7 +163,7 @@ func _on_Button_pressed():
 				})
 				
 				# Do the snipe
-				fightManager.emit_signal("snipe_complete", self)
+				fightManager.emit_signal("snipe_complete", get_parent().get_parent().name == "PlayerSlots", slot_idx())
 #				fightManager.state = fightManager.GameStates.BATTLE
 		
 		

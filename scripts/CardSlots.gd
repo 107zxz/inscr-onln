@@ -413,8 +413,8 @@ func initiate_combat(friendly: bool):
 					
 					fightManager.sniper = pCard
 					fightManager.state = fightManager.GameStates.SNIPE
-					fightManager.snipe_enemies_only = true
-					slot_idx = yield(fightManager, "snipe_complete").slot_idx()
+					fightManager.snipe_is_attack = true
+					slot_idx = yield(fightManager, "snipe_complete")[1]
 					fightManager.state = fightManager.GameStates.BATTLE
 					
 				pCard.strike_offset = slot_idx - pCard.slot_idx()
@@ -520,7 +520,7 @@ func initiate_combat(friendly: bool):
 				# Brittle: Die after attacking
 				if pCard.has_sigil("Brittle"):
 					cardAnim.play("Perish")
-					
+				
 			else:
 
 				# Wierd double strike condition
