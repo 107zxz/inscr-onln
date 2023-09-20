@@ -143,7 +143,7 @@ func pre_turn_sigils(friendly: bool):
 			cd.mouse_filter = MOUSE_FILTER_STOP
 
 		# Evolution
-		if card.has_sigil("Fledgling") or card.has_sigil("Transformer"):
+		if card.has_sigil("Fledgling") or card.has_sigil("Fledgling 2") or card.has_sigil("Transformer"):
 			cardAnim.play("Evolve")
 			yield (cardAnim, "animation_finished")
 

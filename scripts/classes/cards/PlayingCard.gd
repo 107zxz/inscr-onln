@@ -395,6 +395,20 @@ func begin_perish(doubleDeath = false):
 
 # This is called when a card evolves with the fledgling sigil
 func evolve():
+	
+	# Special case: Fledgling 2
+	if has_sigil("Fledgling 2"):
+		
+		# Deep copy
+		var new_sigs: Array = card_data.sigils.duplicate()
+		new_sigs.erase("Fledgling 2")
+		new_sigs.append("Fledgling")
+		card_data.sigils = new_sigs
+		
+		from_data(card_data)
+		
+		return
+	
 	var dmgTaken = card_data["health"] - health
 
 	from_data(CardInfo.from_name(card_data["evolution"]))

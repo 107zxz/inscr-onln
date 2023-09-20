@@ -71,7 +71,7 @@ func parse_ruleset(rs: String):
 	var res: JSONParseResult = JSON.parse(rs)
 	
 	if res.error:
-		errorBox("Error parsing ruleset at line %d: \"%s\"" % [res.error_line, res.error_string])
+		errorBox("Error parsing ruleset at line %d:\n\"%s\"" % [res.error_line, res.error_string])
 	else:
 		use_ruleset(res.result)
 

@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.3.7g"
+const VERSION = "v0.3.8"
 
 var all_data = {}
 var ruleset = "undefined ruleset"
@@ -166,6 +166,7 @@ const all_sigils = {
 	"Fecundity": "When a card bearing this sigil is played, a copy of it is created in your hand.",
 	"Fecundity (Kaycee)": "When a card bearing this sigil is played, a copy of it is created in your hand without this sigil.",
 	"Fledgling": "A card bearing this sigil will grow into a more powerful form after 1 turn on the board.",
+	"Fledgling 2": "A card bearing this sigil will grow into a more powerful form after 2 turns on the board.",
 	"Frozen Away": "When a card bearing this sigil perishes, the creature inside is released in its place.",
 	"Gem Animator": "Mox cards on the owner's side of the board gain 1 power.",
 	"Gem Dependant": "If a card bearing this sigil's owner controls no mox cards, a card bearing this sigil perishes.",
@@ -317,7 +318,8 @@ const working_sigils = [
 	"Sniper",
 	"Brittle Latch",
 	"Bomb Latch",
-	"Shield Latch"
+	"Shield Latch",
+	"Fledgling 2"
 ]
 
 const keywords = {
