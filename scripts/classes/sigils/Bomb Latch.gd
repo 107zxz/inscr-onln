@@ -21,7 +21,7 @@ func handle_event(event: String, params: Array):
 			if prevState == fightManager.GameStates.BATTLE:
 				yield(slotManager, "complete_combat")
 				prevState = fightManager.GameStates.DRAWPILE
-			yield(card.get_tree().create_timer(0.5), "timeout")
+				yield(card.get_tree().create_timer(0.5), "timeout")
 
 			# Repeat check
 			if len(slotManager.all_friendly_cards()) + len(slotManager.all_enemy_cards()) == 0:
