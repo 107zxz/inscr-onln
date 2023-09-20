@@ -10,7 +10,6 @@ onready var handManager = fightManager.get_node("HandsContainer/Hands")
 # Cards selected for sacrifice
 var sacVictims = []
 
-
 # Board interactions
 func clear_slots():
 	for card in all_friendly_cards():

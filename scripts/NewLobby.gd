@@ -80,6 +80,7 @@ func debug_join():
 	$LobbyJoin/Rows/HostType/LType.select(1)
 
 	_on_Join_pressed()
+
 #	yield(get_tree().create_timer(0.2), "timeout")
 #	_on_LobbyReady_pressed()
 
@@ -582,7 +583,7 @@ remote func _player_status(status: Dictionary):
 	print(lobby_data.players)
 	var go_first = lobby_data.players.keys()[randi() % lobby_data.players.size()]
 	
-	print("Chosen player to go first is : ", go_first)
+	print("Chosen player to go first is: ", go_first)
 	
 	rpc("_start_match", go_first)
 	init_fight(go_first)
