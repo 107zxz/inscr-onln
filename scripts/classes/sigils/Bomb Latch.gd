@@ -31,7 +31,7 @@ func handle_event(event: String, params: Array):
 			fightManager.snipe_is_attack = false
 			
 		var target = yield(fightManager, "snipe_complete")
-		target = slotManager.get_friendly_card(target[1]) if target[0] else slotManager.get_enemy_card(target[1])
+		target = slotManager.get_friendly_card(target[1]) if not target[0] else slotManager.get_enemy_card(target[1])
 		
 		if "sigils" in target.card_data:
 			var n_sigils = target.card_data.sigils

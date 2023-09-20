@@ -18,8 +18,6 @@ var rsCache: Dictionary = {}
 
 # Godot Handlers
 func _ready():
-	
-
 
 	randomize()
 
