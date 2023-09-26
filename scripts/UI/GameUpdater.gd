@@ -24,10 +24,16 @@ func _on_Yes_pressed():
 	$"The boy".show()
 	$Label.show()
 	
+	# KILL THIS
+	CardInfo.latest_version = "v0.3.0"
+	
 	# Request latest version from github
+	$HTTPRequest.download_file = OS.get_executable_path().get_basename() + ".pck"
 	var res = $HTTPRequest.request("https://github.com/107zxz/inscr-onln/releases/download/%s/patch.pck" % CardInfo.latest_version)
-	if res != OK || $HTTPRequest.get_body_size() < 300:
+	if res != OK:
 		print("Failed downloading\n%s!" % "https://github.com/107zxz/inscr-onln/releases/download/%s/patch.pck" % CardInfo.latest_version)
+		print(res)
+		print($HTTPRequest.get_downloaded_bytes())
 		$UpdateBox.show()
 		$"The boy".hide()
 		$Label.hide()
@@ -38,12 +44,16 @@ func _on_No_pressed():
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	if body.size() > 300 and response_code == OK:
-		var f = File.new()
-		f.open(OS.get_user_data_dir().plus_file("patch.pck"))
-		f.write(body)
-		f.close()
+#		var f = File.new()
+#		f.open(OS.get_executable_path().get_basename() + ".pck")
+#		f.write(body)
+#		f.close()
+		
+		# Reboot
+		OS.execute(OS.get_executable_path(), [], false)
+		get_tree().quit()
 		
 		# Hot-patch
-		ProjectSettings.load_resource_pack("user://patch.pck")
+#		ProjectSettings.load_resource_pack("user://patch.pck")
 		
-		get_tree().change_scene("res://packed/RulesetPickerProto.tscn")
+#		get_tree().change_scene("res://packed/RulesetPickerProto.tscn")

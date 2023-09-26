@@ -13,7 +13,7 @@ if false && [ -f "$bdir/win-$vno.exe" ]; then
     echo "$bdir/win-$vno.exe already exists! skipping..."
 else
     echo "Building $bdir/win-$vno.exe"
-    $gex --export-debug "Windows Desktop" $bdir/win-$vno.exe
+    $gex --export-debug --headless "Windows Desktop" $bdir/win-$vno.exe
     7zz a $bdir/win-$vno.zip $bdir/win-$vno.exe $bdir/imf_tunnel.dll $bdir/win-$vno.pck
 fi
 
@@ -21,14 +21,14 @@ if false && [ -f "$bdir/osx-$vno.zip" ]; then
     echo "$bdir/osx-$vno.zip already exists! skipping..."
 else
     echo "Building $bdir/osx-$vno.zip"
-    $gex --export-debug "Mac OSX" $bdir/osx-$vno.zip
+    $gex --export-debug --headless "Mac OSX" $bdir/osx-$vno.zip
 fi
 
 if false && [ -f "$bdir/linux-$vno.x86_64" ]; then
     echo "$bdir/linux-$vno.x86_64 already exists! skipping..."
 else
     echo Building $bdir/linux-$vno.x86_64
-    $gex --export-debug "Linux/X11" $bdir/linux-$vno.x86_64
+    $gex --export-debug --headless "Linux/X11" $bdir/linux-$vno.x86_64
     7zz a $bdir/linux-$vno.zip $bdir/linux-$vno.x86_64 $bdir/libimf_tunnel.so $bdir/linux-$vno.pck
 fi
 
@@ -36,13 +36,13 @@ if false && [ -f "$bdir/android-$vno.apk" ]; then
     echo "$bdir/android-$vno.apk already exists! skipping..."
 else
     echo Building $bdir/android-$vno.apk
-    $gex --export-debug "Android" $bdir/android-$vno.apk
+    $gex --export-debug --headless "Android" $bdir/android-$vno.apk
 fi
 
 
 echo Building $bdir/HTML5.zip
 mkdir $bdir/HTML5
-$gex --export-debug "HTML5" $bdir/HTML5/index.html
+$gex --export-debug --headless "HTML5" $bdir/HTML5/index.html
 7zz a $bdir/HTML5.zip $bdir/HTML5
 
 echo "Pushing windows..."
