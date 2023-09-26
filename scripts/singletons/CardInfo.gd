@@ -160,6 +160,7 @@ const all_sigils = {
 	"Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
 	"Energy Conduit (+3)": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 3.",
 	"Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
+	"Energy Sniper": "Pay 1 energy, this card's owner chooses an opposing creature to take 1 damage.",
 	"Energy Gun (Eternal)": "Pay energy to damage the opposing creature until it dies or you run out.",
 	"Enlarge": "Pay 2 bones to increase the power and health of a card bearing this sigil by 1.",
 	"Enlarge (3)": "Pay 3 bones to increase the power and health of a card bearing this sigil by 1.",
@@ -319,7 +320,8 @@ const working_sigils = [
 	"Brittle Latch",
 	"Bomb Latch",
 	"Shield Latch",
-	"Fledgling 2"
+	"Fledgling 2",
+	"Energy Sniper"
 ]
 
 const keywords = {

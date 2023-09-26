@@ -473,6 +473,44 @@ func _on_ActiveSigil_pressed():
 		else:
 			eCard.take_damage(self, 1)
 		
+	if sName == "Energy Sniper":
+		if fightManager.energy < 1:
+			return
+		
+		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
+			return
+		
+		# Anyone to snipe?
+		if len(slotManager.all_enemy_cards()) == 0:
+			return
+		
+		# Ready No. 13
+		fightManager.sniper = self
+		fightManager.state = fightManager.GameStates.SNIPE
+		fightManager.snipe_is_attack = true
+		
+		var target = yield(fightManager, "snipe_complete")
+		fightManager.state = fightManager.GameStates.NORMAL
+		
+		var eCard = slotManager.get_enemy_card(target[1])
+		
+		# Don't let you shoot nothing
+		if not eCard:
+			return
+		
+		fightManager.set_energy(fightManager.energy - 1)
+
+		eCard.take_damage(self, 1)
+		
+		fightManager.send_move({
+			"type": "activate_sigil",
+			"slot": slot_idx(),
+			"arg": target[1]
+		})
+		
+		return
+		
 	if sName == "Energy Gun (Eternal)":
 		if fightManager.energy < 1:
 			return

@@ -747,10 +747,26 @@ func remote_activate_sigil(card_slot, arg = 0):
 			fightManager.move_done()
 			return
 
-		var pCard = playerSlots[card_slot].get_child(0)
+		var pCard = get_friendly_card(card_slot)
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
 		pCard.take_damage(get_enemy_card(card_slot), 1)
+	
+	if sName == "Energy Sniper":
+
+		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
+			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(1)
+			fightManager.move_done()
+			return
+			
+		# Wait for snipe (no wait handle this with args)
+#		var target = yield(fightManager, "snipe_complete")
+
+		var pCard = get_friendly_card(arg)
+		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+
+		pCard.take_damage(get_enemy_card(card_slot), 1)
+		fightManager.move_done()
 
 	#TODO: BACK
 	if sName == "Energy Gun (Eternal)":
