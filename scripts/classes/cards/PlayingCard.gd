@@ -488,7 +488,7 @@ func _on_ActiveSigil_pressed():
 		# Ready No. 13
 		fightManager.sniper = self
 		fightManager.state = fightManager.GameStates.SNIPE
-		fightManager.snipe_is_attack = true
+		fightManager.snipe_is_attack = false
 		
 		var target = yield(fightManager, "snipe_complete")
 		fightManager.state = fightManager.GameStates.NORMAL

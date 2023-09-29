@@ -638,6 +638,7 @@ visible = false
 modulate = Color( 0.843137, 0.886275, 0.639216, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 18 )
 expand = true
 
