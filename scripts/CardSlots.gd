@@ -399,10 +399,24 @@ func initiate_combat(friendly: bool):
 		if pCard.attack > 0 and not "Perish" in cardAnim.current_animation:
 			if pCard.has_sigil("Sniper") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
 
-				# TODO: Specifically wait for the signal via RPC if an opponent is sniping
-
 				print("Sniper handler, friendly: ", friendly)
+				
+				if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+					# This means you're attacking the moon
+					
+					cardAnim.play("Attack" if friendly else "AttackRemote")
+					pCard.play_sfx("attack")
+					yield(cardAnim, "animation_finished")
 
+					# Any form of attack went through
+					# Brittle: Die after attacking
+					if pCard.has_sigil("Brittle"):
+						cardAnim.play("Perish")
+
+					fightManager.sniper_target = null
+
+					continue
+				
 				var slot_idx = 0
 
 				if fightManager.sniper_target:
