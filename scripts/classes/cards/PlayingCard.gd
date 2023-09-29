@@ -478,7 +478,16 @@ func _on_ActiveSigil_pressed():
 			return
 		
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+			
+			fightManager.set_energy(fightManager.energy - 1)
+
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
+			
+			fightManager.send_move({
+				"type": "activate_sigil",
+				"slot": slot_idx(),
+				"arg": 0
+			})
 			return
 		
 		# Anyone to snipe?
