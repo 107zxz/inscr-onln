@@ -125,8 +125,8 @@ func idx_from_name(cName):
 
 const all_sigils = {
 	# COMMENT THIS OUT
-	"Amalgamation": "A card bearing this sigil assimilates the owner's other creatures, gaining their health, power and sigils.",
 	"Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
+	"Amalgamation": "A card bearing this sigil assimilates the owner's other creatures, gaining their health, power and sigils.",
 	"Annoying": "The creature opposing a card bearing this sigil gains 1 Power.",
 	"Ant Spawner": "When a card bearing this sigil is played, an ant is created in your hand.",
 	"Armored": "The first time a card bearing this sigil would take damage, prevent that damage.",
@@ -157,6 +157,7 @@ const all_sigils = {
 	"Disentomb (Corpses)": "Pay 2 bones to create a withered corpse in your hand.",
 	"Double Death": "When another creature you own dies, it is returned to life and dies again immediately.",
 	"Double Strike": "A card bearing this Sigil will strike the opposing space an extra time when attacking.",
+	"Effigy": "Pay 3 bones, choose a creature to gain the Sympathetic Connection sigil.",
 	"Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
 	"Energy Conduit (+3)": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 3.",
 	"Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
@@ -211,6 +212,7 @@ const all_sigils = {
 	"Stinky": "The creature opposing a card bearing this sigil loses 1 Power.",
 	"Stimulate": "Pay 3 energy to increase the power and health of a card bearing this sigil by 1.",
 	"Stimulate (4)": "Pay 4 energy to increase the power and health of a card bearing this sigil by 1.",
+	"Sympathetic Connection": "Whenever a card bearing the Effigy sigil is damaged, this card recieves that damage, and the Effigy card recieves 1 damage instead.",
 	"Tentacle": "Includes effect of Waterborne. In addition, a card bearing this sigil will transform into a random tentacle at the start of each turn.",
 	"Thick": "A card bearing this sigil is juicy, and takes up 2 spaces.",
 	"Touch of Death": "When a card bearing this sigil damages another creature, that creature perishes.",

@@ -400,10 +400,10 @@ func initiate_combat(friendly: bool):
 			if pCard.has_sigil("Sniper") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
 
 				print("Sniper handler, friendly: ", friendly)
-				
+
 				if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 					# This means you're attacking the moon
-					
+
 					cardAnim.play("Attack" if friendly else "AttackRemote")
 					pCard.play_sfx("attack")
 					yield(cardAnim, "animation_finished")
@@ -416,7 +416,7 @@ func initiate_combat(friendly: bool):
 					fightManager.sniper_target = null
 
 					continue
-				
+
 				var slot_idx = 0
 
 				if fightManager.sniper_target:
@@ -754,6 +754,22 @@ func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.move_done()
 		return
 
+	if sName == "Effigy":
+		var pCard = get_friendly_card(arg)
+		fightManager.add_opponent_bones(-3)
+
+		# Add the new sigil to the card
+		var new_sigs = []
+		
+		if "sigils" in pCard.card_data:
+			new_sigs = pCard.card_data.sigils.duplicate()
+		new_sigs.append("Sympathetic Connection")
+		pCard.card_data.sigils = new_sigs
+		pCard.from_data(pCard.card_data)
+
+		fightManager.move_done()
+
+
 	if sName == "Energy Gun":
 
 		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
@@ -765,14 +781,14 @@ func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
 		pCard.take_damage(get_enemy_card(card_slot), 1)
-	
+
 	if sName == "Energy Sniper":
 
 		if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(1)
 			fightManager.move_done()
 			return
-			
+
 		# Wait for snipe (no wait handle this with args)
 #		var target = yield(fightManager, "snipe_complete")
 
