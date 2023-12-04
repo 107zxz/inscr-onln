@@ -88,6 +88,10 @@ func from_game_info_json(content_as_object):
 #	all_sigils = all_data["sigils"]
 	all_cards = all_data["cards"]
 #	working_sigils = all_data["working_sigils"]
+
+	if "custom_sigils" in all_data:
+		for sig in all_data.custom_sigils:
+			all_sigils[sig] = all_data.custom_sigils[sig].description
 	
 	side_decks = all_data["side_decks"] if "side_decks" in all_data else []
 	

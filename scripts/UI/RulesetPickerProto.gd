@@ -348,6 +348,8 @@ func download_scripts(dat):
 				f.open(fp, File.WRITE)
 				f.store_buffer(result[3])
 				f.close()
+				
+				# Sigil description
 			else:
 				errorBox("Failed to download sigil %s\nPlease make sure its added to the sigil repo!" % script_name)
 		
