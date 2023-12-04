@@ -7,6 +7,7 @@ var visible_rulesets = []
 
 signal portraits_done()
 signal sigils_done()
+signal scripts_done()
 
 # UI
 func _on_RSFF_pressed():
@@ -191,22 +192,7 @@ func _on_RSDownloader_request_completed(_result, response_code, _headers, body):
 		errorBox("Failed downloading ruleset\nResponse code " + str(response_code))
 		return
 	
-	
 	var jString = body.get_string_from_utf8()
-	
-	var jRes: JSONParseResult = JSON.parse(jString)
-	
-	if jRes.error:
-		$Status.hide()
-		errorBox("Error parsing ruleset at line %d: \"%s\"" % [jRes.error_line, jRes.error_string])
-		return
-	
-	var jDat = jRes.result
-	
-	download_card_portraits(jDat)
-	yield(self, "portraits_done")
-	download_sigil_icons(jDat)
-	yield(self, "sigils_done")
 	
 	add_ruleset_from_json(jString)
 	
@@ -218,6 +204,7 @@ func add_ruleset_from_file(filename: String):
 	file.open(filename, File.READ)
 	var cnt = file.get_as_text()
 	file.close()
+	
 	add_ruleset_from_json(cnt)
 
 func add_ruleset_from_json(json: String):
@@ -234,6 +221,15 @@ func add_ruleset_from_json(json: String):
 	fd.open(CardInfo.rulesets_path + ruleset.ruleset + ".json", File.WRITE)
 	fd.store_string(json)
 	fd.close()
+	
+	$Status.show()
+	download_card_portraits(ruleset)
+	yield(self, "portraits_done")
+	download_sigil_icons(ruleset)
+	yield(self, "sigils_done")
+	download_scripts(ruleset)
+	yield(self, "scripts_done")
+	$Status.hide()
 	
 	add_saved_ruleset_entry_dat(ruleset)
 
@@ -322,6 +318,43 @@ func download_sigil_icons(dat):
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	emit_signal("sigils_done")
+
+
+func download_scripts(dat):
+	
+	var d = Directory.new()
+	
+	if not d.dir_exists(CardInfo.scripts_path):
+		d.make_dir(CardInfo.scripts_path)
+		
+	if "custom_scripts" in dat:
+		
+		for script_name in dat.custom_scripts:
+			# "Mighty Leap": "https://..."
+			var fp = CardInfo.scripts_path + dat.ruleset + "_" + script_name + ".gd"
+			
+			var sc_url = "https://raw.githubusercontent.com/107zxz/inscr-onln-scripts/main/%s.gd" % script_name
+			
+			if d.file_exists(fp):
+				continue
+			
+#			$ImageRequest.download_file = fp
+			print("Err? " + str($ScriptRequest.request(sc_url)))
+
+			var result = yield($ScriptRequest, "request_completed")
+			
+			if result[1] == 200:
+				var f: File = File.new()
+				f.open(fp, File.WRITE)
+				f.store_buffer(result[3])
+				f.close()
+			else:
+				errorBox("Failed to download sigil %s\nPlease make sure its added to the sigil repo!" % script_name)
+		
+	yield(get_tree().create_timer(0.1), "timeout")
+	
+	emit_signal("scripts_done")
+
 
 
 func open_rsdir():

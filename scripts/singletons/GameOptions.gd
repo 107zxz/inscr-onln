@@ -20,7 +20,8 @@ var options = {
 	"default_ruleset": "",
 	"ruleset_editor": false,
 	"vsync": true,
-	"lock_fps": true
+	"lock_fps": true,
+	"allow_all_scripts": false
 }
 
 func read_options():

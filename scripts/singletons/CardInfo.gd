@@ -1,6 +1,6 @@
 extends Node
 
-const VERSION = "v0.3.8"
+const VERSION = "v0.3.9"
 
 var all_data = {}
 var ruleset = "undefined ruleset"
@@ -12,21 +12,21 @@ var side_decks = {}
 
 #var data_path = OS.get_user_data_dir() # if OS.get_name() != "Android" else "/sdcard/IMF/"
 
-var data_path = "user:/"
+const data_path = "user:/"
 
-var deck_path = data_path + "/decks/"
+const deck_path = data_path + "/decks/"
 var deck_backup_path = data_path + "/decks/undef/"
 # V Update this! V
 var rules_path = ""
-var theme_path = data_path + "/theme.json"
-var options_path = data_path + "/options.json"
-var tunnellog_path = data_path + "/lhrlog.txt"
-var custom_portrait_path = data_path + "/custom_portraits/"
-var custom_icon_path = data_path + "/custom_sigil_icons/"
-var portrait_override_path = data_path + "/portrait_overrides/"
-var icon_override_path = data_path + "/sigil_icon_overrides/"
-var replay_path = data_path + "/replays/"
-var rulesets_path = data_path + "/rulesets/"
+const theme_path = data_path + "/theme.json"
+const options_path = data_path + "/options.json"
+const custom_portrait_path = data_path + "/custom_portraits/"
+const custom_icon_path = data_path + "/custom_sigil_icons/"
+const portrait_override_path = data_path + "/portrait_overrides/"
+const icon_override_path = data_path + "/sigil_icon_overrides/"
+const replay_path = data_path + "/replays/"
+const rulesets_path = data_path + "/rulesets/"
+const scripts_path = data_path + "/scripts/"
 
 # CB
 var background_texture = null
@@ -36,6 +36,11 @@ var rs_to_apply = null
 
 # Latest version of game. Used to save a request when updating
 var latest_version = ""
+
+
+# Custom sigils
+var trusted_script_hashes = []
+
 
 func _enter_tree():
 	

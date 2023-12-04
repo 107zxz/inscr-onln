@@ -374,6 +374,8 @@ text = "v0.1.9"
 
 [node name="ImageRequest" type="HTTPRequest" parent="."]
 
+[node name="ScriptRequest" type="HTTPRequest" parent="."]
+
 [node name="Jake" type="TextureRect" parent="."]
 material = ExtResource( 8 )
 margin_left = 160.0
