@@ -329,18 +329,138 @@ func search_deck():
 	if deck.size() == 0:
 		return
 	
-	$DeckSearch/Panel/VBoxContainer/OptionButton.clear()
+	if GameOptions.options.improveSearch:
+		# kill all child
+		for child in $newSearch/Panel/ScrollContainer/VBoxContainer.get_children():
+			$newSearch/Panel/ScrollContainer/VBoxContainer.remove_child(child)
+			child.queue_free()
+		
+		for card in deck:
+			var style = load("res://themes/papertheme.tres")
+		
+			var hBox = HBoxContainer.new()
+			
+			var labelStyle = StyleBoxFlat.new()
+			var label = Button.new()
+			
+			var pic = TextureRect.new()
+			var spacer = Control.new()
 
-	$DeckSearch/Panel/VBoxContainer/OptionButton.add_item("- Select a Card -")
-	$DeckSearch/Panel/VBoxContainer/OptionButton.set_item_disabled(0, true)
+			var bgStyle = StyleBoxFlat.new()
+			var bg = Panel.new()
+			
+			var card_data = CardInfo.from_name(card)
+			
+			# setting color and style
+			if "nohammer" in card_data:
+				labelStyle.bg_color = style.get_stylebox("nohammer_normal", "Card").bg_color
+				bgStyle.bg_color = style.get_stylebox("nohammer_normal", "Card").bg_color
+			elif "rare" in card_data and "nosac" in card_data:
+				labelStyle.bg_color = style.get_stylebox("rns_normal", "Card").bg_color
+				bgStyle.bg_color = style.get_stylebox("rns_normal", "Card").bg_color
+			elif "nosac" in card_data:
+				labelStyle.bg_color = style.get_stylebox("nosac_normal", "Card").bg_color
+				bgStyle.bg_color = style.get_stylebox("nosac_normal", "Card").bg_color
+			elif "rare" in card_data:
+				labelStyle.bg_color = style.get_stylebox("rare_normal", "Card").bg_color
+				bgStyle.bg_color = style.get_stylebox("rare_normal", "Card").bg_color
+			else:
+				labelStyle.bg_color = style.get_stylebox("normal", "Card").bg_color
+				bgStyle.bg_color = style.get_stylebox("normal", "Card").bg_color
+				
+			# make the button label
+			label.text = card
+			label.toggle_mode = true
+			label.size_flags_horizontal = SIZE_EXPAND_FILL
+			
+			label.set_script(load("res://scripts/UI/deckListHover.gd"))
+			label.connect("pressed", self, "search_callback")
+			
+			label.add_stylebox_override("normal", labelStyle) # bg 
+			label.add_color_override( # font
+				"font_color",
+				load("res://themes/sigilMat.tres").get_shader_param("u_replacement_color")
+			)
+			
+			# make the pic
+			# code rob from DrawCard.gd
+			var d = Directory.new()
+			if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
+				var i = Image.new()
+				i.load(CardInfo.portrait_override_path + card_data.name + ".png")
+				var tx = ImageTexture.new()
+				tx.create_from_image(i)
+				tx.flags -= tx.FLAG_FILTER
+				pic.texture = tx
+			elif "pixport_url" in card_data:
+				var i = Image.new()
+				i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
+				var tx = ImageTexture.new()
+				tx.create_from_image(i)
+				tx.flags -= tx.FLAG_FILTER
+				pic.texture = tx
+			else:
+				pic.texture = load("res://gfx/pixport/" + card_data.name + ".png")
+				
+			pic.material = load("res://themes/sigilMat.tres")
+			var scale = 1 # 1 look nicest
+			pic.rect_min_size = Vector2(
+				pic.texture.get_width() * scale,
+				pic.texture.get_height() * scale
+			)
+			pic.expand = true
+			pic.stretch_mode = TextureRect.STRETCH_SCALE_ON_EXPAND
+			
+			# bg time
+			bg.rect_min_size = pic.rect_min_size
+			bg.add_stylebox_override("panel", bgStyle)
+			
+			bg.add_child(pic)
+			hBox.add_child(bg)
+			
+			hBox.add_child(spacer)
+			hBox.add_child(label)
+			
+			for special in ["rare", "nohammer", "nosac"]:
+				if special in card_data:
+					var texture = TextureRect.new()
+					var atlast = AtlasTexture.new()
+					atlast.atlas = load("res://gfx/cardextras/SpecialSigils.png")
+					atlast.region = (
+						Rect2(12,0,13,15) if special == "nosac" 
+						else Rect2(12,15,13,15) if special == "rare" 
+						else Rect2(12,30,13,15)
+					)
+					texture.texture = atlast
+					texture.rect_min_size = Vector2(
+						atlast.region.size.x * 2,
+						atlast.region.size.y * 2
+					)
+					texture.expand = true
+					texture.stretch_mode = TextureRect.STRETCH_SCALE_ON_EXPAND
+					hBox.add_child(texture)
+			
+			$newSearch/Panel/ScrollContainer/VBoxContainer.add_child(hBox)
+		
+		$newSearch.visible = true
+	else:
+		$DeckSearch/Panel/VBoxContainer/OptionButton.clear()
 
-	for card in deck:
-		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(card)
+		$DeckSearch/Panel/VBoxContainer/OptionButton.add_item("- Select a Card -")
+		$DeckSearch/Panel/VBoxContainer/OptionButton.set_item_disabled(0, true)
 
-	$DeckSearch.visible = true
+		for card in deck:
+			$DeckSearch/Panel/VBoxContainer/OptionButton.add_item(card)
 
-func search_callback(index):
+		$DeckSearch.visible = true
 
+func search_callback(index=1):
+	if GameOptions.options.improveSearch:
+		for i in $newSearch/Panel/ScrollContainer/VBoxContainer.get_children().size():
+			if $newSearch/Panel/ScrollContainer/VBoxContainer.get_child(i).get_child(2).pressed:
+				index = i + 1
+				break
+	
 	var targetCard = deck.pop_at(index - 1)
 
 	draw_card(targetCard)
@@ -353,6 +473,7 @@ func search_callback(index):
 	deck.shuffle()
 
 	$DeckSearch.visible = false
+	$newSearch.visible = false
 
 func starve_check(soft_rpc = true):
 	if deck.size() == 0 and side_deck.size() == 0:

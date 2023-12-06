@@ -5,7 +5,7 @@
 [ext_resource path="res://scripts/CardFight.gd" type="Script" id=3]
 [ext_resource path="res://scripts/CardSlots.gd" type="Script" id=4]
 [ext_resource path="res://scripts/HandManager.gd" type="Script" id=5]
-[ext_resource path="res://fonts/TitleFont.tres" type="DynamicFont" id=6]
+[ext_resource path="res://packed/A2Card.tscn" type="PackedScene" id=6]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=7]
 [ext_resource path="res://scripts/UI/ThugShaker.gd" type="Script" id=8]
 [ext_resource path="res://packed/SpecialCards/Moon.tscn" type="PackedScene" id=9]
@@ -1700,6 +1700,52 @@ align = 1
 items = [ "Obungus", null, false, 0, null, "Stoat", null, false, 1, null, "Jam", null, false, 2, null ]
 selected = 0
 
+[node name="newSearch" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Card" parent="newSearch" instance=ExtResource( 6 )]
+anchor_left = 0.15
+anchor_top = 0.5
+anchor_right = 0.15
+anchor_bottom = 0.5
+margin_left = 0.0
+margin_top = -277.0
+margin_right = 128.0
+margin_bottom = -92.0
+rect_scale = Vector2( 3, 3 )
+
+[node name="Panel" type="Panel" parent="newSearch"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -400.0
+margin_right = 250.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="newSearch/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 4.0
+margin_bottom = 4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="newSearch/Panel/ScrollContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 502.0
+margin_bottom = 802.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="WaitingBlocker" type="Panel" parent="."]
 visible = false
 anchor_right = 1.0
@@ -1908,7 +1954,6 @@ margin_right = 230.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 460, 150 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
-custom_fonts/font = ExtResource( 6 )
 custom_styles/normal = SubResource( 20 )
 text = "god is coming
 in 3 days"

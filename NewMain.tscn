@@ -1093,17 +1093,17 @@ enabled_focus_mode = 0
 text = "CRT Filter"
 
 [node name="vsync" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_top = 204.0
+margin_top = 238.0
 margin_right = 842.0
-margin_bottom = 238.0
+margin_bottom = 272.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "VSync (removes screen tearing but reduces fps)"
 
 [node name="lock_fps" type="CheckButton" parent="Options/TabContainer/Visual"]
-margin_top = 204.0
+margin_top = 272.0
 margin_right = 842.0
-margin_bottom = 238.0
+margin_bottom = 306.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Limit FPS to 60 (reduces resource usage)"
@@ -1150,9 +1150,9 @@ allow_lesser = true
 prefix = "speed"
 
 [node name="ThemeEditor" type="Button" parent="Options/TabContainer/Visual"]
-margin_top = 238.0
+margin_top = 306.0
 margin_right = 842.0
-margin_bottom = 272.0
+margin_bottom = 340.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Theme Editor"
@@ -1161,21 +1161,22 @@ text = "Open Theme Editor"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 35.0
-margin_right = -12.0
-margin_bottom = -12.0
+margin_left = 2.0
+margin_top = 36.0
+margin_right = -2.0
+margin_bottom = -2.0
 
 [node name="enable_moon_music" type="CheckButton" parent="Options/TabContainer/Audio"]
-margin_right = 524.0
-margin_bottom = 27.0
+margin_right = 842.0
+margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Moon music"
 
 [node name="enable_music" type="CheckButton" parent="Options/TabContainer/Audio"]
-margin_right = 524.0
-margin_bottom = 34.0
+margin_top = 34.0
+margin_right = 842.0
+margin_bottom = 68.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Enable Music"
@@ -1184,13 +1185,13 @@ text = "Enable Music"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 35.0
-margin_right = -12.0
-margin_bottom = -12.0
+margin_left = 2.0
+margin_top = 36.0
+margin_right = -2.0
+margin_bottom = -2.0
 
 [node name="save_replays" type="CheckButton" parent="Options/TabContainer/Experimental"]
-margin_right = 824.0
+margin_right = 842.0
 margin_bottom = 34.0
 focus_mode = 0
 enabled_focus_mode = 0
@@ -1198,27 +1199,35 @@ text = "Replays (experimental)"
 
 [node name="enable_sfx" type="CheckButton" parent="Options/TabContainer/Experimental"]
 margin_top = 34.0
-margin_right = 824.0
+margin_right = 842.0
 margin_bottom = 68.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Enable SFX (Experimental)"
 
 [node name="live_theme_update" type="CheckButton" parent="Options/TabContainer/Experimental"]
-margin_top = 34.0
-margin_right = 824.0
-margin_bottom = 68.0
+margin_top = 68.0
+margin_right = 842.0
+margin_bottom = 102.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Live theme update"
 
 [node name="ruleset_editor" type="CheckButton" parent="Options/TabContainer/Experimental"]
-margin_top = 34.0
-margin_right = 824.0
-margin_bottom = 68.0
+margin_top = 102.0
+margin_right = 842.0
+margin_bottom = 136.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Built-in Ruleset Editor (Garbage)"
+
+[node name="improveSearch" type="CheckButton" parent="Options/TabContainer/Experimental"]
+margin_top = 136.0
+margin_right = 842.0
+margin_bottom = 170.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Improve Deck Search UI"
 
 [node name="ThemeEditor" parent="." instance=ExtResource( 6 )]
 process_priority = 1
