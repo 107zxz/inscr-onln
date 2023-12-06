@@ -52,6 +52,21 @@ func from_data(cdat):
 
 	create_sigils("Player" in get_path() as String or "Your" in get_path() as String)
 
+func load_vanilla_sigil(name: String):
+	var sigPath = "res://scripts/classes/sigils/" + name + ".gd"
+	if ResourceLoader.exists(sigPath):
+		return load(sigPath).new()
+	else:
+		return false
+
+func load_custom_sigil(name: String):
+	var sigPath = CardInfo.scripts_path + CardInfo.ruleset + "_" + name + ".gd"
+	var d = Directory.new()
+	if d.file_exists(sigPath):
+		return load(sigPath).new()
+	else:
+		return false
+
 func create_sigils(friendly):
 	sigils.clear()
 
@@ -59,15 +74,16 @@ func create_sigils(friendly):
 		return
 
 	for sig in card_data.sigils:
-		var sigPath = "res://scripts/classes/sigils/" + sig + ".gd"
-
-		if not ResourceLoader.exists(sigPath):
-			print("Missing sigil " + sig)
+		
+		var ns = load_custom_sigil(sig)
+		
+		if not ns:
+			ns = load_vanilla_sigil(sig)
+		
+		if not ns:
+			print("Sigil '%s' not found!" % sig)
 			continue
-
-		print("Adding sigil " + sig)
-
-		var ns = load(sigPath).new()
+		
 		ns.fightManager = fightManager
 		ns.slotManager = slotManager
 		ns.card = self
