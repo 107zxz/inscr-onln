@@ -104,7 +104,10 @@ func _on_Card_mouse_entered():
 
 		sd.get_child(2).text = sigdat + ":\n" + CardInfo.all_sigils[sigdat]
 
-		if not sigdat in CardInfo.working_sigils:
+		if "custom_sigils" in CardInfo.all_data and sigdat in CardInfo.all_data.custom_sigils:
+			sd.get_child(2).text += "\nThis is a trusted custom sigil created by " + CardInfo.all_data.custom_sigils[sigdat].author
+			sd.get_child(2).add_color_override("font_color", Color.darkblue)
+		elif not sigdat in CardInfo.working_sigils:
 			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
 			sd.get_child(2).add_color_override("font_color", Color.darkred)
 		else:

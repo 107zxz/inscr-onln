@@ -37,18 +37,13 @@ var rs_to_apply = null
 # Latest version of game. Used to save a request when updating
 var latest_version = ""
 
-
-# Custom sigils
-var trusted_script_hashes = []
-
-
 func _enter_tree():
 	
 	var d = Directory.new()
 	
 	# Hot-patch the game
-	if d.file_exists("user://patch.pck"):
-		ProjectSettings.load_resource_pack("user://patch.pck")
+#	if d.file_exists("user://patch.pck"):
+#		ProjectSettings.load_resource_pack("user://patch.pck")
 		
 	
 	if OS.get_name() == "Android":

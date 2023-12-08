@@ -282,8 +282,8 @@ func download_card_portraits(dat):
 			
 			var fp = CardInfo.custom_portrait_path + dat.ruleset + "_" + card.name + ".png"
 			
-			if d.file_exists(fp):
-				continue
+#			if d.file_exists(fp):
+#				continue
 			
 			$ImageRequest.download_file = fp
 			$ImageRequest.request(card.pixport_url)
@@ -307,8 +307,8 @@ func download_sigil_icons(dat):
 		for sigil in dat.sigil_urls:
 			var fp = CardInfo.custom_icon_path + dat.ruleset + "_" + sigil + ".png"
 			
-			if d.file_exists(fp):
-				continue
+#			if d.file_exists(fp):
+#				continue
 			
 			$ImageRequest.download_file = fp
 			$ImageRequest.request(dat.sigil_urls[sigil])
@@ -327,16 +327,16 @@ func download_scripts(dat):
 	if not d.dir_exists(CardInfo.scripts_path):
 		d.make_dir(CardInfo.scripts_path)
 		
-	if "custom_scripts" in dat:
+	if "custom_sigils" in dat:
 		
-		for script_name in dat.custom_scripts:
+		for script_name in dat.custom_sigils:
 			# "Mighty Leap": "https://..."
 			var fp = CardInfo.scripts_path + dat.ruleset + "_" + script_name + ".gd"
 			
 			var sc_url = "https://raw.githubusercontent.com/107zxz/inscr-onln-scripts/main/%s.gd" % script_name
 			
-			if d.file_exists(fp):
-				continue
+#			if d.file_exists(fp):
+#				continue
 			
 #			$ImageRequest.download_file = fp
 			print("Err? " + str($ScriptRequest.request(sc_url)))
