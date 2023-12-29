@@ -5,8 +5,11 @@ func handle_event(event: String, params: Array):
 
 	if event == "card_perished" and not card.in_hand and (params[0].get_parent().get_parent().name == "PlayerSlots") != isFriendly:
 		
-		
 		if isFriendly:
 			fightManager.add_bones(1)
+			if fightManager.opponent_bones > 0:
+				fightManager.add_opponent_bones(-1)
 		else:
 			fightManager.add_opponent_bones(1)
+			if fightManager.bones > 0:
+				fightManager.add_bones(-1)

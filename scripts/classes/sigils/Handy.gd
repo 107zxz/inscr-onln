@@ -23,3 +23,6 @@ func handle_event(event: String, params: Array):
 					break
 				
 			fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
+
+			if fightManager.side_deck.size() == 0:
+				fightManager.get_node("DrawPiles/YourDecks/SideDeck").visible = false

@@ -36,6 +36,7 @@ var sigils = []
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
 var sprint_left = false # Used for sprinter
 var sacrifice_count = 0
+var consider_dead = false
 
 func from_data(cdat):
 	card_data = cdat.duplicate()
@@ -532,7 +533,8 @@ func _on_ActiveSigil_pressed():
 			return
 
 		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
-		fightManager.set_energy(fightManager.energy - 1)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 1)
 
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
@@ -543,9 +545,10 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 1:
 			return
 
-		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
-
+		if not fightManager.no_energy_deplete:
 			fightManager.set_energy(fightManager.energy - 1)
+		
+		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
 
@@ -574,7 +577,6 @@ func _on_ActiveSigil_pressed():
 		if not eCard:
 			return
 
-		fightManager.set_energy(fightManager.energy - 1)
 
 		eCard.take_damage(self, 1)
 
@@ -597,7 +599,8 @@ func _on_ActiveSigil_pressed():
 
 		var dmg = min(fightManager.energy, eCard.health)
 
-		fightManager.set_energy(fightManager.energy - dmg)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - dmg)
 
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(dmg)
@@ -608,7 +611,8 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 1:
 			return
 
-		fightManager.set_energy(fightManager.energy - 1)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 1)
 
 		attack = randi() % 6 + 1
 		card_data["attack"] = attack
@@ -618,7 +622,8 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 2:
 			return
 
-		fightManager.set_energy(fightManager.energy - 2)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 2)
 
 		attack = randi() % 6 + 1
 		card_data["attack"] = attack
@@ -650,7 +655,8 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 3:
 			return
 
-		fightManager.set_energy(fightManager.energy - 3)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 3)
 		health += 1
 		card_data.attack += 1 # Save attack to avoid deletion later
 		attack += 1
@@ -661,7 +667,8 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 4:
 			return
 
-		fightManager.set_energy(fightManager.energy - 4)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 4)
 		health += 1
 		card_data.attack += 1 # Save attack to avoid deletion later
 		attack += 1
@@ -672,13 +679,15 @@ func _on_ActiveSigil_pressed():
 		if fightManager.energy < 1:
 			return
 
-		fightManager.set_energy(fightManager.energy - 1)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 1)
 		fightManager.add_bones(3)
 	if sName == "Bonehorn (1)":
 		if fightManager.energy < 1:
 			return
 
-		fightManager.set_energy(fightManager.energy - 1)
+		if not fightManager.no_energy_deplete:
+			fightManager.set_energy(fightManager.energy - 1)
 		fightManager.add_bones(1)
 
 	if sName == "Disentomb":
@@ -893,7 +902,7 @@ func take_damage(enemyCard, dmg_amt = -1):
 #		enemyCard.take_damage(self, 1)
 
 func is_alive():
-	return not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion() and health > 0
+	return not consider_dead and not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion() and health > 0
 
 
 func play_sfx(name):

@@ -11,11 +11,14 @@ func handle_event(event: String, params: Array):
 		var prevState = fightManager.state
 		
 		# Anyone to snipe?
-		if len(slotManager.all_friendly_cards()) + len(slotManager.all_enemy_cards()) == 0:
+		if len(slotManager.all_friendly_cards()) + len(slotManager.all_enemy_cards()) == 0 or fightManager.get_node("MoonFight/BothMoons/" + ("EnemyMoon" if isFriendly else "FriendlyMoon")).visible:
 			return
 		
 		if isFriendly:
+			# Become intangible too
 			card.get_node("AnimationPlayer").stop()
+			card.get_node("CardBody/CardBtn").mouse_filter = Control.MOUSE_FILTER_IGNORE
+			card.consider_dead = true
 			
 			# Wait for attacker to possibly die
 			if prevState == fightManager.GameStates.BATTLE:

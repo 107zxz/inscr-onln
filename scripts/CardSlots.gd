@@ -12,10 +12,15 @@ var sacVictims = []
 
 # Board interactions
 func clear_slots():
-	for card in all_friendly_cards():
-		card.queue_free()
-	for card in all_enemy_cards():
-		card.queue_free()
+#	for card in all_friendly_cards():
+#		card.queue_free()
+#	for card in all_enemy_cards():
+#		card.queue_free()
+
+	# Abracadabra bitch
+	for slot in (playerSlots + enemySlots):
+		for child in slot.get_children():
+			child.queue_free()
 
 # Sacrifice
 func get_available_blood() -> int:
@@ -57,8 +62,9 @@ func is_cat_bricked() -> bool:
 		return false
 
 	for card in all_friendly_cards():
-		if not card.has_sigil("Many Lives"):
-			return false
+		for brick_sigil in ["Many Lives", "Frozen Away", "Ruby Heart"]:
+			if not card.has_sigil(brick_sigil):
+				return false
 
 	return true
 
@@ -531,7 +537,7 @@ func initiate_combat(friendly: bool):
 					pCard.rect_position.x = 0
 
 				# Brittle: Die after attacking
-				if pCard.has_sigil("Brittle"):
+				if not is_slot_empty(attackingSlots[slot_index]) and pCard.has_sigil("Brittle"):
 					cardAnim.play("Perish")
 
 			else:
@@ -778,7 +784,8 @@ func remote_activate_sigil(card_slot, arg = 0):
 			return
 
 		var pCard = get_friendly_card(card_slot)
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
 		pCard.take_damage(get_enemy_card(card_slot), 1)
 
@@ -793,7 +800,8 @@ func remote_activate_sigil(card_slot, arg = 0):
 #		var target = yield(fightManager, "snipe_complete")
 
 		var pCard = get_friendly_card(arg)
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
 		pCard.take_damage(get_enemy_card(card_slot), 1)
 		fightManager.move_done()
@@ -806,18 +814,21 @@ func remote_activate_sigil(card_slot, arg = 0):
 			var dmg = min(fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").health, fightManager.opponent_energy)
 
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(dmg)
-			fightManager.set_opponent_energy(fightManager.opponent_energy - dmg)
+			if not fightManager.enemy_no_energy_deplete:
+				fightManager.set_opponent_energy(fightManager.opponent_energy - dmg)
 			fightManager.move_done()
 			return
 
 		var pCard = playerSlots[card_slot].get_child(0)
 		var dmg = min(fightManager.opponent_energy, pCard.health)
-		fightManager.set_opponent_energy(fightManager.opponent_energy - dmg)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - dmg)
 
 		pCard.take_damage(get_enemy_card(card_slot), dmg)
 
 	if sName == "Power Dice":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
 		var diff = eCard.attack - eCard.card_data["attack"]
 
@@ -828,7 +839,8 @@ func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 
 	if sName == "Power Dice (2)":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 2)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 2)
 
 		var diff = eCard.attack - eCard.card_data["attack"]
 
@@ -857,7 +869,8 @@ func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 
 	if sName == "Stimulate":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 3)
 		eCard.health += 1
 
 		eCard.card_data["attack"] += 1 # save attack to avoid bug
@@ -866,7 +879,8 @@ func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 
 	if sName == "Stimulate (4)":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 4)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 4)
 		eCard.health += 1
 
 		eCard.card_data["attack"] += 1 # save attack to avoid bug
@@ -875,10 +889,12 @@ func remote_activate_sigil(card_slot, arg = 0):
 		eCard.draw_stats()
 
 	if sName == "Bonehorn":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		fightManager.add_opponent_bones(3)
 	if sName == "Bonehorn (1)":
-		fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
+		if not fightManager.enemy_no_energy_deplete:
+			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 		fightManager.add_opponent_bones(1)
 
 	if sName == "Disentomb":

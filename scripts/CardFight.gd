@@ -121,6 +121,10 @@ func init_match(opp_id: int, do_go_first: bool):
 	want_rematch = false
 	$WinScreen/Panel/VBoxContainer/HBoxContainer/RematchBtn.text = "Rematch (0/2)"
 	
+	# Other UI
+	$DeckSearch.hide()
+	$newSearch.hide()
+	
 	# Clean up hands and field
 	handManager.clear_hands()
 	slotManager.clear_slots()
@@ -134,7 +138,6 @@ func init_match(opp_id: int, do_go_first: bool):
 	$DrawPiles/YourDecks/Deck.visible = true
 	$DrawPiles/YourDecks/SideDeck.visible = true
 	$DrawPiles/Notify.visible = false
-	
 	
 	
 	# TODO: Clean up. This is spaghetti city
@@ -590,7 +593,7 @@ func play_card(slot: Node):
 				add_bones(-playedCard.card_data["bone_cost"])
 			
 			# Energy cost
-			if "energy_cost" in playedCard.card_data:
+			if "energy_cost" in playedCard.card_data and not no_energy_deplete:
 				set_energy(energy -playedCard.card_data["energy_cost"])
 			
 			playedCard.move_to_parent(slot)
@@ -1014,9 +1017,10 @@ func inflict_damage(dmg):
 		if $MoonFight/BothMoons/EnemyMoon.visible:
 			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Lose via Coup de Lune!"
 
-		$WinScreen.visible = true
-		get_node("/root/Main/TitleScreen").count_loss(opponent)
-	
+		if not $WinScreen.visible:
+			$WinScreen.visible = true
+			get_node("/root/Main/TitleScreen").count_loss(opponent)
+		
 	if opponent_lives == 0:
 		$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win!"
 
@@ -1024,8 +1028,9 @@ func inflict_damage(dmg):
 		if $MoonFight/BothMoons/FriendlyMoon.visible:
 			$WinScreen/Panel/VBoxContainer/WinLabel.text = "You Win via Coup de Lune!"
 
-		$WinScreen.visible = true
-		get_node("/root/Main/TitleScreen").count_victory()
+		if not $WinScreen.visible:
+			$WinScreen.visible = true
+			get_node("/root/Main/TitleScreen").count_victory()
 		
 
 func clicked_enemy_slot(slot):
