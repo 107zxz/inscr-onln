@@ -433,7 +433,7 @@ func initiate_combat(friendly: bool):
 					fightManager.sniper = pCard
 					fightManager.state = fightManager.GameStates.SNIPE
 					fightManager.snipe_is_attack = true
-					slot_idx = yield(fightManager, "snipe_complete")[1]
+					slot_idx = yield(fightManager, "snipe_complete")[3]
 					fightManager.state = fightManager.GameStates.BATTLE
 
 				pCard.strike_offset = slot_idx - pCard.slot_idx()

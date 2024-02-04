@@ -176,11 +176,17 @@ func _on_Button_pressed():
 					"type": "snipe_target",
 					"from_slot": fightManager.sniper.slot_idx(),
 					"to_slot": slot_idx(),
-					"friendly": get_parent().get_parent().name == "PlayerSlots"
+					"from_side": fightManager.sniper.get_parent().get_parent().name == "PlayerSlots",
+					"to_side": get_parent().get_parent().name == "PlayerSlots"
 				})
 
 				# Do the snipe
-				fightManager.emit_signal("snipe_complete", get_parent().get_parent().name == "PlayerSlots", slot_idx())
+				fightManager.emit_signal("snipe_complete",
+					fightManager.sniper.get_parent().get_parent().name == "PlayerSlots",
+					fightManager.sniper.slot_idx(),
+					get_parent().get_parent().name == "PlayerSlots",
+					slot_idx()
+				)
 #				fightManager.state = fightManager.GameStates.BATTLE
 
 
@@ -495,7 +501,7 @@ func _on_ActiveSigil_pressed():
 		var target = yield(fightManager, "snipe_complete")
 		fightManager.state = fightManager.GameStates.NORMAL
 
-		var eCard = slotManager.get_enemy_card(target[1])
+		var eCard = slotManager.get_enemy_card(target[3])
 
 		# Don't let you shoot nothing
 		if not eCard:
@@ -519,7 +525,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.send_move({
 			"type": "activate_sigil",
 			"slot": slot_idx(),
-			"arg": target[1]
+			"arg": target[3]
 		})
 
 		return
@@ -571,7 +577,7 @@ func _on_ActiveSigil_pressed():
 		var target = yield(fightManager, "snipe_complete")
 		fightManager.state = fightManager.GameStates.NORMAL
 
-		var eCard = slotManager.get_enemy_card(target[1])
+		var eCard = slotManager.get_enemy_card(target[3])
 
 		# Don't let you shoot nothing
 		if not eCard:
@@ -583,7 +589,7 @@ func _on_ActiveSigil_pressed():
 		fightManager.send_move({
 			"type": "activate_sigil",
 			"slot": slot_idx(),
-			"arg": target[1]
+			"arg": target[3]
 		})
 
 		return
