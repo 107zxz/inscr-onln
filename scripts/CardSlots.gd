@@ -544,8 +544,8 @@ func initiate_combat(friendly: bool):
 
 				# Wierd double strike condition
 				for _i in range(2 if pCard.has_sigil("Double Strike") else 1):
-
-					# Double check card isn't dead
+					
+					# Did the card get boned?
 					if is_slot_empty(attackingSlots[slot_index]):
 						continue
 

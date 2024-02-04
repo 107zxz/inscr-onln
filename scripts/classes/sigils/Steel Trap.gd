@@ -24,7 +24,8 @@ func handle_event(event: String, params: Array):
 			pelt_name = "Rabbit Pelt"
 
 		# Kill it
-		target.get_node("AnimationPlayer").play("Perish")
+#		target.get_node("AnimationPlayer").play("Perish")
+		target.take_damage(card, target.health)
 
 		if not isFriendly:
 			# Draw the rabbit
