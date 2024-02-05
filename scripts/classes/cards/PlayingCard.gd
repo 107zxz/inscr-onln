@@ -481,7 +481,7 @@ func _on_ActiveSigil_pressed():
 
 		return
 
-	if sName == "Effigy":
+	if sName == "Acupuncture":
 		if fightManager.bones < 3:
 			return
 

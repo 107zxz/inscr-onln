@@ -760,7 +760,7 @@ func remote_activate_sigil(card_slot, arg = 0):
 		fightManager.move_done()
 		return
 
-	if sName == "Effigy":
+	if sName == "Acupuncture":
 		var pCard = get_friendly_card(arg)
 		fightManager.add_opponent_bones(-3)
 
