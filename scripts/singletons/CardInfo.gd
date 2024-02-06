@@ -329,7 +329,9 @@ const working_sigils = [
 	"Shield Latch",
 	"Fledgling 2",
 	"Energy Sniper",
-	"Warded"
+	"Warded",
+	"Acupuncture",
+	"Stitched"
 ]
 
 const keywords = {
