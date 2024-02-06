@@ -226,6 +226,7 @@ const all_sigils = {
 	"Unkillable": "When a card bearing this sigil perishes, a copy of it is created in your hand.",
 	"Unkillable (Eternal)": "When a card bearing this sigil perishes, a copy of it is created in your hand without this sigil.",
 	"Vessel Printer": "Once a card bearing this sigil is struck, draw a card from your side deck.",
+	"Warded": "A card bearing this sigil takes only 1 damage from attacks and card effects.",
 	"Waterborne": "A card bearing this sigil submerges itself during its opponent's turn. while submerged, opposing creatures attack its owner directly.",
 	"Worthy Sacrifice": "A card bearing this sigil is counted as 3 blood rather than 1 blood when sacrificed."
 }
@@ -327,7 +328,8 @@ const working_sigils = [
 	"Bomb Latch",
 	"Shield Latch",
 	"Fledgling 2",
-	"Energy Sniper"
+	"Energy Sniper",
+	"Warded"
 ]
 
 const keywords = {

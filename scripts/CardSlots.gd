@@ -769,9 +769,11 @@ func remote_activate_sigil(card_slot, arg = 0):
 		
 		if "sigils" in pCard.card_data:
 			new_sigs = pCard.card_data.sigils.duplicate()
-		new_sigs.append("Sympathetic Connection")
+		new_sigs.append("Stitched")
 		pCard.card_data.sigils = new_sigs
 		pCard.from_data(pCard.card_data)
+		
+		eCard.get_node("CardBody/Highlight").show()
 
 		fightManager.move_done()
 

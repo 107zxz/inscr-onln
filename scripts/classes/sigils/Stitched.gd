@@ -13,4 +13,12 @@ func handle_event(event: String, params: Array):
 		if card.is_alive():
 			print("Sympathetic Connection triggered!")
 			# Take damage equal to the inbound attack
-			card.take_damage(params[0], params[1].attack)
+			
+			
+			# SPECIAL CASE: Infinite LOOP
+			if card.has_sigil("Acupuncture"):
+				card.health = 0
+				card.get_node("AnimationPlayer").play("Perish")
+				return
+			else:
+				card.take_damage(params[0], params[1].attack)

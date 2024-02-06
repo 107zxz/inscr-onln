@@ -508,7 +508,7 @@ func _on_ActiveSigil_pressed():
 			return
 			
 		# Don't let you apply the sigil more than once
-		if "sigils" in eCard.card_data and "Sympathetic Connection" in eCard.card_data.sigils:
+		if "sigils" in eCard.card_data and "Stitched" in eCard.card_data.sigils:
 			return
 
 		fightManager.add_bones(-3)
@@ -518,9 +518,12 @@ func _on_ActiveSigil_pressed():
 		
 		if "sigils" in eCard.card_data:
 			new_sigs = eCard.card_data.sigils.duplicate()
-		new_sigs.append("Sympathetic Connection")
+		new_sigs.append("Stitched")
 		eCard.card_data.sigils = new_sigs
 		eCard.from_data(eCard.card_data)
+		
+		# Shield the bastard
+		$CardBody/Highlight.show()
 
 		fightManager.send_move({
 			"type": "activate_sigil",
@@ -890,10 +893,15 @@ func take_damage(enemyCard, dmg_amt = -1):
 
 	if $CardBody/Highlight.visible:
 		$CardBody/Highlight.visible = false
+		fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
 		return
 
 	if enemyCard and dmg_amt == -1:
 		dmg_amt = enemyCard.attack
+	
+	# Special exception
+	if has_sigil("Warded"):
+		dmg_amt = 1
 
 	health -= dmg_amt
 	draw_stats()
