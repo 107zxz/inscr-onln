@@ -129,6 +129,7 @@ func idx_from_name(cName):
 
 const all_sigils = {
 	# COMMENT THIS OUT
+	"Acupuncture": "Pay 3 bones: Choose a creature to gain the Stitched sigil and give this card Armor.",
 	"Airborne": "A card bearing this sigil will strike an opponent directly, even if there is a creature opposing it.",
 	"Amalgamation": "A card bearing this sigil assimilates the owner's other creatures, gaining their health, power and sigils.",
 	"Annoying": "The creature opposing a card bearing this sigil gains 1 Power.",
@@ -161,7 +162,6 @@ const all_sigils = {
 	"Disentomb (Corpses)": "Pay 2 bones to create a withered corpse in your hand.",
 	"Double Death": "When another creature you own dies, it is returned to life and dies again immediately.",
 	"Double Strike": "A card bearing this Sigil will strike the opposing space an extra time when attacking.",
-	"Acupuncture": "Pay 3 bones, choose a creature to gain the Stitched sigil.",
 	"Energy Conduit": "If a card bearing this sigil is part of a completed circuit, your energy never depletes.",
 	"Energy Conduit (+3)": "If a card bearing this sigil is part of a completed circuit, your maximum energy increases by 3.",
 	"Energy Gun": "Pay 1 energy to deal 1 damage to the creature across from a card bearing this sigil.",
