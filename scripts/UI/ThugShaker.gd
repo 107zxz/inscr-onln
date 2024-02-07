@@ -11,7 +11,7 @@ func appear(days):
 	show()
 	$WarningTimer.start()
 
-func _process(delta):
+func _process(_delta):
 	if visible:
 		rect_position = BASE_POS + Vector2(
 			rand_range(-THUG_STR, THUG_STR),

@@ -643,6 +643,8 @@ func handle_attack(from_slot, to_slot):
 			direct_attack = true
 		if eCard.get_node("CardBody/DiveOlay").visible:
 			direct_attack = true
+	
+
 
 	if direct_attack:
 
@@ -685,9 +687,6 @@ func handle_attack(from_slot, to_slot):
 			if pCard.has_sigil("Blood Lust"):
 				pCard.card_data.attack += 1
 				pCard.draw_stats()
-
-	print("ATTACK RPC: ", to_slot)
-#	rpc_id(fightManager.opponent, "handle_enemy_attack", from_slot, to_slot)
 
 # Sigil handling
 func get_friendly_cards_sigil(sigil):
@@ -988,6 +987,10 @@ func handle_enemy_attack(from_slot, to_slot):
 			direct_attack = true
 		if pCard.get_node("CardBody/DiveOlay").visible:
 			direct_attack = true
+	
+	# Special: Sniper is assumed to be attacking directly if it has no target
+	if eCard.has_sigil("Sniper") and fightManager.sniper_target == null:
+		direct_attack = true
 
 	if direct_attack:
 #		fightManager.inflict_damage(-eCard.attack)
