@@ -12,6 +12,7 @@ onready var animPlayer = get_node("../../AnimationPlayer")
 
 
 var moon_dat = null
+var card_data = null
 
 func update_stats():
 	$Attack.text = str(attack)
@@ -36,6 +37,8 @@ func _ready():
 #		return
 	
 	moon_dat = CardInfo.from_name("The Moon")
+	
+	card_data = moon_dat
 	
 	if not moon_dat:
 		return
