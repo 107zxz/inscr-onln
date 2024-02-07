@@ -58,14 +58,24 @@ func get_hammerable_cards():
 	return nCards
 
 func is_cat_bricked() -> bool:
+	
+	# We aren't bricked if a slot is free
 	if get_available_slots():
 		return false
 
+	# We aren't bricked if a card is saccable and has NONE of these sigils
 	for card in all_friendly_cards():
-		for brick_sigil in ["Many Lives", "Frozen Away", "Ruby Heart"]:
-			if not card.has_sigil(brick_sigil):
-				return false
-
+		if "nosac" in card.card_data:
+			continue
+		
+		# If the card has no sigils we good
+		if not "sigils" in card.card_data:
+			return false
+		
+		for sigil in card.card_data.sigils:
+			if sigil in ["Many Lives", "Frozen Away", "Ruby Heart"]:
+				continue
+		
 	return true
 
 func clear_sacrifices():
