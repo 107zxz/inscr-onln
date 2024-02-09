@@ -91,3 +91,6 @@ func has_sigil(sName):
 
 func is_alive():
 	return true
+
+func slot_idx():
+	return 1
