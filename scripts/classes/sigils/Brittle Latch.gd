@@ -56,8 +56,12 @@ func handle_event(event: String, params: Array):
 			target.card_data.sigils = n_sigils
 		else:
 			target.card_data.sigils = ["Brittle"]
-			
+		
+		var old_atk = target.attack
+		var old_hp = target.health	
 		target.from_data(target.card_data)
+		target.attack = old_atk
+		target.health = old_hp
 		
 		if isFriendly:
 			card.queue_free()
