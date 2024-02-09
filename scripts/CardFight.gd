@@ -978,7 +978,7 @@ remote func force_draw_starv(strength):
 
 	var starv_card = draw_card(0, $DrawPiles/YourDecks/Deck, false)
 	
-	var starv_data = CardInfo.all_cards[0]
+	var starv_data = CardInfo.all_cards[0].duplicate()
 	starv_data["attack"] = strength
 	if strength >= 5:
 		starv_data["sigils"] = ["Repulsive", "Mighty Leap"]
