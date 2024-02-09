@@ -278,24 +278,16 @@ func post_turn_sigils(friendly: bool):
 					# Spawn a card if thats the one
 					if movSigil == "Squirrel Shedder":
 						summon_card(CardInfo.from_name("Squirrel"), curSlot, friendly)
-#						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Squirrel"), curSlot)
 					if movSigil == "Skeleton Crew":
 						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
-#						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Skeleton"), curSlot)
 					if movSigil == "Skeleton Crew (Yarr)":
 						summon_card(CardInfo.from_name("Skeleton Crew"), curSlot, friendly)
 
-					if card.card_data.name == "Long Elk":
-						summon_card(CardInfo.from_name("Vertebrae"), curSlot, friendly)
-#						rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("Vertebrae"), curSlot)
+					if "sheds" in card.card_data:
+						summon_card(CardInfo.from_name(card.card_data.sheds), curSlot, friendly)
 
 				card.move_to_parent(affectedSlots[curSlot + sprintOffset])
-#				rpc_id(
-#					fightManager.opponent, "remote_card_move",
-#					curSlot,
-#					curSlot + sprintOffset,
-#					sprintSigil.flip_h != ogFlipped
-#					)
+
 
 				# A push has happened, recalculate stats
 				for fCard in all_friendly_cards():
