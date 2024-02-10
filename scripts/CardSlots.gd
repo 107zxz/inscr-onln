@@ -169,7 +169,10 @@ func pre_turn_sigils(friendly: bool):
 
 			if card.has_sigil("Tentacle"):
 				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
+				
+				var hp = card.health
 				card.from_data(nTent)
+				card.health = hp
 
 				# Calculate
 				for fCard in all_friendly_cards():
