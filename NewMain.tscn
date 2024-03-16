@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
@@ -15,7 +15,8 @@
 [ext_resource path="res://gfx/extra/On.png" type="Texture" id=13]
 [ext_resource path="res://themes/scanlinemat.tres" type="Material" id=14]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=15]
-[ext_resource path="res://packed/BattlePass.tscn" type="PackedScene" id=16]
+[ext_resource path="res://packed/UI/Credits.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scripts/UI/VersionLabel.gd" type="Script" id=17]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 8 )
@@ -228,18 +229,18 @@ custom_constants/separation = 35
 alignment = 1
 
 [node name="HostBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 240.0
+margin_top = 195.0
 margin_right = 810.0
-margin_bottom = 295.0
+margin_bottom = 250.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Host Game"
 
 [node name="JoinBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 330.0
+margin_top = 285.0
 margin_right = 810.0
-margin_bottom = 385.0
+margin_bottom = 340.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
@@ -256,18 +257,18 @@ enabled_focus_mode = 0
 text = "Duel Pass"
 
 [node name="DeckEditorBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 420.0
+margin_top = 375.0
 margin_right = 810.0
-margin_bottom = 475.0
+margin_bottom = 430.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Deck Editor"
 
 [node name="SelectVersionBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 510.0
+margin_top = 465.0
 margin_right = 810.0
-margin_bottom = 565.0
+margin_bottom = 520.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
@@ -284,27 +285,36 @@ enabled_focus_mode = 0
 text = "Theme Editor"
 
 [node name="OptionsBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 600.0
+margin_top = 555.0
 margin_right = 810.0
-margin_bottom = 655.0
+margin_bottom = 610.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Options"
 
 [node name="LogFolder" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 690.0
+margin_top = 645.0
 margin_right = 810.0
-margin_bottom = 745.0
+margin_bottom = 700.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Open Game Directory"
 
-[node name="DiscordBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
-margin_top = 780.0
+[node name="CreditsBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 735.0
 margin_right = 810.0
-margin_bottom = 835.0
+margin_bottom = 790.0
+rect_min_size = Vector2( 0, 55 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Credits"
+
+[node name="DiscordBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
+margin_top = 825.0
+margin_right = 810.0
+margin_bottom = 880.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
@@ -921,9 +931,6 @@ text = "Quit"
 [node name="PollTimer" type="Timer" parent="TitleScreen/InLobby"]
 wait_time = 15.0
 
-[node name="BattlePass" parent="TitleScreen" instance=ExtResource( 16 )]
-visible = false
-
 [node name="LoadingScreen" type="PanelContainer" parent="TitleScreen"]
 visible = false
 anchor_left = 0.5
@@ -1005,6 +1012,23 @@ focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Ok"
+
+[node name="CreditsBox" type="WindowDialog" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+
+[node name="Credits" parent="CreditsBox" instance=ExtResource( 16 )]
+margin_left = 296.0
+margin_top = 160.0
+margin_right = 1576.0
+margin_bottom = 880.0
 
 [node name="DeckEdit" parent="." instance=ExtResource( 7 )]
 visible = false
@@ -1246,6 +1270,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -24.0
 text = "version"
+script = ExtResource( 17 )
 
 [node name="RulesetLabel" type="Label" parent="."]
 anchor_top = 1.0
@@ -1271,6 +1296,7 @@ mouse_filter = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/OptionsBtn" to="Options" method="show"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/CreditsBtn" to="CreditsBox" method="show"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
 [connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
