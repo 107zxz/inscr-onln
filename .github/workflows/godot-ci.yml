@@ -1,11 +1,9 @@
-
 name: "godot-ci export"
 on: push
 
 env:
   GODOT_VERSION: 3.5.1
   EXPORT_NAME: test-project
-  PROJECT_PATH: test-project
 
 jobs:
   export-windows:
@@ -25,7 +23,6 @@ jobs:
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
-          cd $PROJECT_PATH
           godot --headless --verbose --export-release "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
@@ -50,7 +47,6 @@ jobs:
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
-          cd $PROJECT_PATH
           godot --headless --verbose --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
@@ -75,7 +71,6 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          cd $PROJECT_PATH
           godot --headless --verbose --export-release "HTML5" ../build/web/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
@@ -108,7 +103,6 @@ jobs:
       - name: Mac Build
         run: |
           mkdir -v -p build/mac
-          cd $PROJECT_PATH
           godot --headless --verbose --export-release "Mac OSX" ../build/mac/$EXPORT_NAME.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
