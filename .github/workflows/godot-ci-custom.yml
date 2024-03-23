@@ -2,8 +2,9 @@ name: Build with Godot
 on:
     push:
         branches: ['github-ci']
-    pull_request:
-        branches: ['github-ci']
+    push:
+      tags:
+        - "v*"
 
 jobs:
     build:
@@ -24,7 +25,7 @@ jobs:
 
             - name: Export
               run: |
-                ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./macthing.zip
+                ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_osx.zip
                 ls
 
             - uses: "marvinpinto/action-automatic-releases@latest"
@@ -34,5 +35,5 @@ jobs:
                 prerelease: true
                 title: "Development Build"
                 files: |
-                  README.md
+                  imf_osx.zip
 
