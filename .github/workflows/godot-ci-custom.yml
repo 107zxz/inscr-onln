@@ -1,0 +1,28 @@
+name: Build with Godot
+on:
+    push:
+        branches: ['github-ci']
+    pull_request:
+        branches: ['github-ci']
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Download Godot
+              run: |
+                curl -Lo godot.zip "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_linux_headless.64.zip"
+                unzip godot.zip
+                ls
+
+            - uses: "marvinpinto/action-automatic-releases@latest"
+              with:
+                repo_token: "${{ secrets.GH_TOKEN }}"
+                automatic_release_tag: "latest"
+                prerelease: true
+                title: "Development Build"
+                files: |
+                  README.md
+
