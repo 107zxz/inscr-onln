@@ -1,10 +1,9 @@
 name: Build with Godot
 on:
-    push:
-        branches: ['github-ci']
-    push:
-      tags:
-        - "v*"
+  push:
+    branches: ['github-ci']
+    tags:
+    - "v*"
 
 jobs:
     build:
@@ -31,8 +30,6 @@ jobs:
             - uses: "marvinpinto/action-automatic-releases@latest"
               with:
                 repo_token: "${{ secrets.GH_TOKEN }}"
-                automatic_release_tag: "latest"
-                prerelease: true
                 title: "Development Build"
                 files: |
                   imf_osx.zip
