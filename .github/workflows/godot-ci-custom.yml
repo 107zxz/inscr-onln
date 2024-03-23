@@ -30,7 +30,7 @@ jobs:
             - uses: "marvinpinto/action-automatic-releases@latest"
               with:
                 repo_token: "${{ secrets.GH_TOKEN }}"
-                title: "Development Build"
+                prerelease: false
                 files: |
                   imf_osx.zip
 
