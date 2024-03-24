@@ -31,10 +31,6 @@ jobs:
       - name: Export Linux
         run: |
           ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.zip
-      - name: Export Android
-        run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Android" ./imf_android.zip
-          
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GH_TOKEN }}"
