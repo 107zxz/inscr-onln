@@ -11,9 +11,18 @@ jobs:
 
     steps:
 
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+        with:
+          # Optionally strip `v` prefix
+          strip_v: false
+          - name: Use tag
+            run: echo ${{steps.tag.outputs.tag}}
+
       - name: Update version number
         run: |
-          sed -i scripts/singletons/CardInfo.gd s/\<VERSION_NUM\>/${{ github.event.release.tag_name }}/g
+          sed -i scripts/singletons/CardInfo.gd s/\<VERSION_NUM\>/${{ steps.tag.outputs.tag }}/g
       
       - uses: actions/checkout@v4
       - name: Download Godot
