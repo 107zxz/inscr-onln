@@ -20,7 +20,7 @@ jobs:
 
       - name: Update version number
         run: |
-          sed -i '' s/\<VERSION_NUM\>/${{ steps.tag.outputs.tag }}/ scripts/singletons/CardInfo.gd
+          sed -i s/\<VERSION_NUM\>/${{ steps.tag.outputs.tag }}/ scripts/singletons/CardInfo.gd
       
 
       - name: Download Godot
