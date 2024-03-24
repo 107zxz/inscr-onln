@@ -46,7 +46,7 @@ jobs:
 
       - name: Export Web
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./html5/index.html
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "HTML5" ./html5/index.html
           zip html5.zip ./html5
           
       - id: "upload_releases"
