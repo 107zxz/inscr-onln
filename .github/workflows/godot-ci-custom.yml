@@ -13,7 +13,7 @@ jobs:
 
       - name: Update version number
         run: |
-          sed -i scripts/singletons/CardInfo.gd s/\<VERSION_NUM\>/${{ github.event.release.tag_name }}g
+          sed -i scripts/singletons/CardInfo.gd s/\<VERSION_NUM\>/${{ github.event.release.tag_name }}/g
       
       - uses: actions/checkout@v4
       - name: Download Godot
