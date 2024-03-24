@@ -18,7 +18,7 @@ jobs:
 
       - name: Update version number
         run: |
-          sed -i scripts/singletons/CardInfo.gd s/\<VERSION_NUM\>/${{ steps.tag.outputs.tag }}/g
+          sed -i '' s/\<VERSION_NUM\>/${{ steps.tag.outputs.tag } }/ scripts/singletons/CardInfo.gd
       
       - uses: actions/checkout@v4
       - name: Download Godot
