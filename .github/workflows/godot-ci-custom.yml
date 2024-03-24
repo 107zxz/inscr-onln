@@ -10,15 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Get tag
         id: tag
         uses: dawidd6/action-get-tag@v1
         with:
-          # Optionally strip `v` prefix
           strip_v: false
-          - name: Use tag
-            run: echo ${{steps.tag.outputs.tag}}
 
       - name: Update version number
         run: |
