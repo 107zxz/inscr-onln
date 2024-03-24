@@ -11,6 +11,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+        with:
+          strip_v: false
+
+      - name: Update version number
+        run: |
+          sed -i s/\<VERSION_NUM\>/${{ steps.tag.outputs.tag }}/ scripts/singletons/CardInfo.gd
+      
+
       - name: Download Godot
         run: |
           curl -Lo godot.zip "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_linux_headless.64.zip"
@@ -24,14 +36,25 @@ jobs:
 
       - name: Export Windows
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.zip
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.exe
+          zip imf_win.zip imf_win.exe imf_win.pck
       - name: Export Mac
         run: |
           ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
       - name: Export Linux
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.zip
-      - uses: "marvinpinto/action-automatic-releases@latest"
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.x86_64
+          zip imf_linux.zip imf_linux.x86_64 imf_linux.pck
+
+      - name: Export Web
+        run: |
+          mkdir ./html5
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "HTML5" ./html5/index.html
+          zip -r html5.zip ./html5
+          
+      - id: "upload_releases"
+        uses: "marvinpinto/action-automatic-releases@latest"
+        name: "Upload GitHub Releases"
         with:
           repo_token: "${{ secrets.GH_TOKEN }}"
           prerelease: false
@@ -39,3 +62,43 @@ jobs:
             imf_win.zip
             imf_linux.zip
             imf_mac.zip
+
+      - name: Butler Upload [WINDOWS]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: win
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: imf_win.zip
+          VERSION: ${{ steps.tag.outputs.tag }}
+          
+      - name: Butler Upload [MAC]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: osx
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: imf_mac.zip
+          VERSION: ${{ steps.tag.outputs.tag }}
+          
+      - name: Butler Upload [LINUX]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: imf_linux.zip
+          VERSION: ${{ steps.tag.outputs.tag }}
+          
+      - name: Butler Upload [WEB]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: web
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: html5.zip
+          VERSION: ${{ steps.tag.outputs.tag }}

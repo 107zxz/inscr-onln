@@ -19,11 +19,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/classes/cards/CardData.gd"
 }, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
 "base": "Reference",
 "class": "Replay",
 "language": "GDScript",
@@ -37,7 +32,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BuffEffect": "",
 "Card": "",
-"GitAPI": "",
 "Replay": "",
 "SigilEffect": ""
 }
@@ -79,13 +73,10 @@ window/stretch/aspect="keep"
 [editor]
 
 version_control_autoload_on_startup=true
-version_control_plugin_name="GitAPI"
-version_control/autoload_on_startup=true
-version_control/plugin_name="GitAPI"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
 
 [gdnative]
 

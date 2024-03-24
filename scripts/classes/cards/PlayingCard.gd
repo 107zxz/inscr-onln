@@ -233,8 +233,8 @@ func _on_Button_pressed():
 				# Make sure we're not about to catbrick
 				var brick = false
 
-				if has_sigil("Many Lives") or has_sigil("Frozen Away") or has_sigil("Ruby Heart") \
-				and not slotManager.get_available_slots() == 0:
+				if (has_sigil("Many Lives") or has_sigil("Frozen Away") or has_sigil("Ruby Heart")) \
+				and slotManager.get_available_slots() == 0:
 					brick = true
 					for vic in slotManager.sacVictims:
 						for sigil in vic.card_data.sigils:
