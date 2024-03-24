@@ -44,7 +44,7 @@ jobs:
       - name: Export Linux
         run: |
           ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.x86_64
-          zip imf_win.zip imf_win.exe imf_win.pck
+          zip imf_linux.zip imf_linux.x86_64 imf_linux.pck
 
       - name: Export Web
         run: |
