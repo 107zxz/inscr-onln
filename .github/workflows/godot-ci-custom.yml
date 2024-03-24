@@ -71,7 +71,7 @@ jobs:
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: imf_win.zip
-          VERSION: ${{ github.event.release.tag_name }}
+          VERSION: ${{ steps.tag.outputs.tag }}
           
       - name: Butler Upload [MAC]
         uses: josephbmanley/butler-publish-itchio-action@v1.0.3
@@ -81,7 +81,7 @@ jobs:
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: imf_mac.zip
-          VERSION: ${{ github.event.release.tag_name }}
+          VERSION: ${{ steps.tag.outputs.tag }}
           
       - name: Butler Upload [LINUX]
         uses: josephbmanley/butler-publish-itchio-action@v1.0.3
@@ -91,14 +91,14 @@ jobs:
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: imf_linux.zip
-          VERSION: ${{ github.event.release.tag_name }}
+          VERSION: ${{ steps.tag.outputs.tag }}
           
       - name: Butler Upload [WEB]
         uses: josephbmanley/butler-publish-itchio-action@v1.0.3
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
-          CHANNEL: linux
+          CHANNEL: web
           ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
           ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
           PACKAGE: html5.zip
-          VERSION: ${{ github.event.release.tag_name }}
+          VERSION: ${{ steps.tag.outputs.tag }}
