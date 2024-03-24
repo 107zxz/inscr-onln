@@ -36,13 +36,15 @@ jobs:
 
       - name: Export Windows
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.zip
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.exe
+          zip imf_win.zip imf_win.exe imf_win.pck
       - name: Export Mac
         run: |
           ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
       - name: Export Linux
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.zip
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.x86_64
+          zip imf_win.zip imf_win.exe imf_win.pck
 
       - name: Export Web
         run: |
