@@ -6,44 +6,43 @@ on:
     - "v*"
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
-            - name: Download Godot
-              run: |
-                curl -Lo godot.zip "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_linux_headless.64.zip"
-                unzip godot.zip
-            - name: Download Export Templates
-              run: |
-                curl -Lo export_templates.tpz "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_export_templates.tpz"
-                unzip export_templates.tpz
-                mkdir -p ~/.local/share/godot/templates/3.5.3.stable/
-                mv templates/* ~/.local/share/godot/templates/3.5.3.stable/
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Godot
+        run: |
+          curl -Lo godot.zip "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_linux_headless.64.zip"
+          unzip godot.zip
+      - name: Download Export Templates
+        run: |
+          curl -Lo export_templates.tpz "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_export_templates.tpz"
+          unzip export_templates.tpz
+          mkdir -p ~/.local/share/godot/templates/3.5.3.stable/
+          mv templates/* ~/.local/share/godot/templates/3.5.3.stable/
 
-            - name: Export Windows
-              run: |
-                ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_mac.zip
-            - name: Export Mac
-              run: |
-                ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
-            - name: Export Linux
-              run: |
-                ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.zip
-           - name: Export Android
-              run: |
-                ./Godot_v3.5.3-stable_linux_headless.64 --export "Android" ./imf_android.zip
- 
-
-            - uses: "marvinpinto/action-automatic-releases@latest"
-              with:
-                repo_token: "${{ secrets.GH_TOKEN }}"
-                prerelease: false
-                automatic_release_tag: "latest"
-                files: |
-                  imf_win.zip
-                  imf_linux.zip
-                  imf_android.zip
-                  imf_mac.zip
+      - name: Export Windows
+        run: |
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_mac.zip
+      - name: Export Mac
+        run: |
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
+      - name: Export Linux
+        run: |
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.zip
+      - name: Export Android
+        run: |
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Android" ./imf_android.zip
+          
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GH_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            imf_win.zip
+            imf_linux.zip
+            imf_android.zip
+            imf_mac.zip
 
