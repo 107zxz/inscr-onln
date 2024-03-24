@@ -303,15 +303,15 @@ func download_sigil_icons(dat):
 	if not d.dir_exists(CardInfo.icon_override_path):
 		d.make_dir(CardInfo.icon_override_path)
 	
-	if "sigil_urls" in dat:
-		for sigil in dat.sigil_urls:
-			var fp = CardInfo.custom_icon_path + dat.ruleset + "_" + sigil + ".png"
+	if "custom_sigils" in dat:
+		for script_name in dat.custom_sigils:
+			var fp = CardInfo.custom_icon_path + dat.ruleset + "_" + script_name + ".png"
 			
 #			if d.file_exists(fp):
 #				continue
 			
 			$ImageRequest.download_file = fp
-			$ImageRequest.request(dat.sigil_urls[sigil])
+			$ImageRequest.request(dat.custom_sigils[script_name].icon_url)
 			
 			yield($ImageRequest, "request_completed")
 	
@@ -332,14 +332,21 @@ func download_scripts(dat):
 		for script_name in dat.custom_sigils:
 			# "Mighty Leap": "https://..."
 			var fp = CardInfo.scripts_path + dat.ruleset + "_" + script_name + ".gd"
-			
-			var sc_url = "https://raw.githubusercontent.com/107zxz/inscr-onln-scripts/main/%s.gd" % script_name
-			
-#			if d.file_exists(fp):
-#				continue
+
+			if not dat.custom_sigils[script_name].url.begins_with("https://raw.githubusercontent.com/107zxz/inscr-onln-scripts/main/"):
+				print("Untrusted sigil!")
+				
+				$Warning.current_url = dat.custom_sigils[script_name].url
+				$Warning.show()
+				
+				var option = yield($Warning, "option_picked")
+				
+				if option == "Cancel Loading":
+					$Status.hide()
+					return
 			
 #			$ImageRequest.download_file = fp
-			print("Err? " + str($ScriptRequest.request(sc_url)))
+			print("Err? " + str($ScriptRequest.request(dat.custom_sigils[script_name].url)))
 
 			var result = yield($ScriptRequest, "request_completed")
 			
@@ -351,7 +358,9 @@ func download_scripts(dat):
 				
 				# Sigil description
 			else:
-				errorBox("Failed to download sigil %s\nPlease make sure its added to the sigil repo!" % script_name)
+				errorBox("Failed to download sigil %s\nPlease make the provided URL is valid!" % script_name)
+				$Status.hide()
+				return
 		
 	yield(get_tree().create_timer(0.1), "timeout")
 	
