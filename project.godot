@@ -85,7 +85,7 @@ version_control/plugin_name="GitAPI"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
 
 [gdnative]
 

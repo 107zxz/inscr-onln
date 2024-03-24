@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Update version number
+        run: |
+          sed -i scripts/singletons/CardInfo.gd s/\<VERSION_NUM\>/${{ github.event.release.tag_name }}
+      
       - uses: actions/checkout@v4
       - name: Download Godot
         run: |
@@ -31,7 +36,15 @@ jobs:
       - name: Export Linux
         run: |
           ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.zip
-      - uses: "marvinpinto/action-automatic-releases@latest"
+
+      - name: Export Web
+        run: |
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./html5/index.html
+          zip html5.zip ./html5
+          
+      - id: "upload_releases"
+        uses: "marvinpinto/action-automatic-releases@latest"
+        name: "Upload GitHub Releases"
         with:
           repo_token: "${{ secrets.GH_TOKEN }}"
           prerelease: false
@@ -39,3 +52,43 @@ jobs:
             imf_win.zip
             imf_linux.zip
             imf_mac.zip
+
+      - name: Butler Upload [WINDOWS]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: win
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: imf_win.zip
+          VERSION: ${{ github.event.release.tag_name }}
+          
+      - name: Butler Upload [MAC]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: osx
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: imf_mac.zip
+          VERSION: ${{ github.event.release.tag_name }}
+          
+      - name: Butler Upload [LINUX]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: imf_linux.zip
+          VERSION: ${{ github.event.release.tag_name }}
+          
+      - name: Butler Upload [WEB]
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.3
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: ${{ secrets.ITCHIO_GAME }}
+          ITCH_USER: ${{ secrets.ITCHIO_USERNAME }}
+          PACKAGE: html5.zip
+          VERSION: ${{ github.event.release.tag_name }}
