@@ -24,7 +24,7 @@ jobs:
 
       - name: Export Windows
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_mac.zip
+          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.zip
       - name: Export Mac
         run: |
           ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
@@ -35,10 +35,8 @@ jobs:
         with:
           repo_token: "${{ secrets.GH_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "latest"
           files: |
             imf_win.zip
             imf_linux.zip
-            imf_android.zip
             imf_mac.zip
 
