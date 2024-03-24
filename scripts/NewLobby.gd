@@ -618,3 +618,7 @@ func _on_PollTimer_timeout():
 
 remote func _polled():
 	print("Polled by host")
+
+
+func _on_CreditsBtn_pressed():
+	OS.shell_open("https://github.com/107zxz/inscr-onln/wiki")

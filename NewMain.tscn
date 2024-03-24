@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/extra/Off.png" type="Texture" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://gfx/extra/On.png" type="Texture" id=13]
 [ext_resource path="res://themes/scanlinemat.tres" type="Material" id=14]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=15]
-[ext_resource path="res://packed/UI/Credits.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scripts/UI/VersionLabel.gd" type="Script" id=17]
 
 [sub_resource type="AtlasTexture" id=7]
@@ -309,7 +308,7 @@ margin_bottom = 790.0
 rect_min_size = Vector2( 0, 55 )
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Credits"
+text = "Wiki / Credits"
 
 [node name="DiscordBtn" type="Button" parent="TitleScreen/Menu/VBoxContainer"]
 margin_top = 825.0
@@ -1013,23 +1012,6 @@ size_flags_horizontal = 4
 enabled_focus_mode = 0
 text = "Ok"
 
-[node name="CreditsBox" type="WindowDialog" parent="."]
-visible = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 360.0
-
-[node name="Credits" parent="CreditsBox" instance=ExtResource( 16 )]
-margin_left = 296.0
-margin_top = 160.0
-margin_right = 1576.0
-margin_bottom = 880.0
-
 [node name="DeckEdit" parent="." instance=ExtResource( 7 )]
 visible = false
 
@@ -1296,7 +1278,7 @@ mouse_filter = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/ThemeEditorBtn" to="TitleScreen" method="_on_ThemeEditorBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/OptionsBtn" to="Options" method="show"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/LogFolder" to="TitleScreen" method="_on_LogFolder_pressed"]
-[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/CreditsBtn" to="CreditsBox" method="show"]
+[connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/CreditsBtn" to="TitleScreen" method="_on_CreditsBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
 [connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
