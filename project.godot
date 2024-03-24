@@ -74,8 +74,6 @@ window/stretch/aspect="keep"
 
 version_control_autoload_on_startup=true
 version_control_plugin_name="GitAPI"
-version_control/autoload_on_startup=true
-version_control/plugin_name="GitAPI"
 
 [editor_plugins]
 
