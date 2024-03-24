@@ -82,7 +82,7 @@ func draw_tooltip(cDat):
 """
 %s:
 %s
-""" % [sigil, wrap_string(CardInfo.all_sigils[sigil])]
+""" % [sigil, wrap_string(CardInfo.gen_sig_desc(sigil, cDat))]
 	
 	if "evolution" in cDat:
 		target.hint_tooltip += "\nThis card transforms into / releases:\n" + cDat.evolution
