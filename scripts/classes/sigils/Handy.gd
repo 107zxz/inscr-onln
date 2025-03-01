@@ -8,9 +8,12 @@ func handle_event(event: String, params: Array):
 		
 		# Discard hand
 		for hCard in fightManager.handManager.get_node("PlayerHand" if isFriendly else "EnemyHand").get_children():
-			hCard.get_node("AnimationPlayer").play("Discard")
+			var Ha =  hCard.get_parent().get_parent().raisedCard if isFriendly else hCard.get_parent().get_parent().opponentRaisedCard
+			if hCard != Ha:
+				hCard.get_node("AnimationPlayer").play("Discard")
 
 		if isFriendly:
+			yield(fightManager.get_tree().create_timer(0.05), "timeout")
 			for _i in range(3):
 				if fightManager.deck.size() == 0:
 					break
