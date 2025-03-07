@@ -793,6 +793,9 @@ func calculate_buffs():
 						attack += 1
 			"Bell":
 				attack = 4 - sIdx
+				for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+					if abs(c.slot_idx() - sIdx) == 1 and "Chime" in c.card_data["name"]:
+						attack += 1
 			"Hand":
 				var hName = "PlayerHand" if friendly else "EnemyHand"
 				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
