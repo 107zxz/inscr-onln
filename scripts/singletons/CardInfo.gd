@@ -80,7 +80,7 @@ func load_background_texture():
 func from_game_info_json(content_as_object):
 	all_data = content_as_object
 	
-#	all_sigils = all_data["sigils"]
+	all_sigils.merge(all_data["sigils"] if "sigils" in all_data else {}, true)
 	all_cards = all_data["cards"]
 #	working_sigils = all_data["working_sigils"]
 
@@ -124,8 +124,25 @@ func idx_from_name(cName):
 		if card.name == cName:
 			return idx
 		idx += 1
+	
+func gen_sig_desc(sigil: String, card_data):
+	var sigil_regex = RegEx.new()
+	sigil_regex.compile("{(\\w+)}")
 
-
+	var desc = CardInfo.all_sigils[sigil]
+	var var_list = [] # save value to format in later
+	
+	# get all the formated value
+	for res in sigil_regex.search_all(desc):
+		var var_name = res.get_string(1)
+		if var_name in card_data:
+			var_list.append(card_data[var_name])
+		else:
+			var_list.append("")
+			
+	desc = sigil_regex.sub(desc, "%s", true) # change the template to godot format
+	
+	return desc % var_list
 
 const all_sigils = {
 	# COMMENT THIS OUT

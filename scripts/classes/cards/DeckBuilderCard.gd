@@ -102,7 +102,7 @@ func _on_Card_mouse_entered():
 		else:
 			sd.get_child(1).texture = $Sigils/Row1.get_child(sigIdx).texture
 
-		sd.get_child(2).text = sigdat + ":\n" + CardInfo.all_sigils[sigdat]
+		sd.get_child(2).text = sigdat + ":\n" + CardInfo.gen_sig_desc(sigdat, card_data)
 
 		if "custom_sigils" in CardInfo.all_data and sigdat in CardInfo.all_data.custom_sigils:
 			sd.get_child(2).text += "\nThis is a custom sigil created by " + CardInfo.all_data.custom_sigils[sigdat].author
