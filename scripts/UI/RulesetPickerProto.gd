@@ -196,7 +196,6 @@ func _on_RSDownloader_request_completed(_result, response_code, _headers, body):
 	
 	add_ruleset_from_json(jString)
 	
-	$Status.hide()
 	
 
 func add_ruleset_from_file(filename: String):
@@ -266,6 +265,9 @@ func add_saved_ruleset_entry_dat(dat):
 	# Default
 	if GameOptions.options.default_ruleset == dat.ruleset:
 		defb.pressed = true
+	
+	$Status.hide()
+	
 
 
 func download_card_portraits(dat):

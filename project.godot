@@ -52,7 +52,6 @@ TunnelHandlerNew="*res://scripts/singletons/TunnelHandlerNew.gd"
 
 [debug]
 
-gdscript/warnings/return_value_discarded=false
 gdscript/warnings/standalone_ternary=false
 multirun/number_of_windows=2
 multirun/window_distance=1270
