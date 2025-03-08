@@ -79,6 +79,10 @@ func draw_special():
 				$AtkIcon.texture.region = Rect2(0, 27, 16, 8)
 			"ant":
 				$AtkIcon.texture.region = Rect2(0, 9, 16, 8)
+			"Bell":
+				$AtkIcon.texture.region = Rect2(0, 18, 16, 8)
+			"Hand":
+				$AtkIcon.texture.region = Rect2(0, 36, 16, 8)
 
 		$AtkIcon.visible = true
 		$HBoxContainer/AtkScore.visible = false

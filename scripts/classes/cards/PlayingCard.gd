@@ -791,15 +791,14 @@ func calculate_buffs():
 				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
 					if "Ant" in ant.card_data["name"] and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
 						attack += 1
-
-	# Bell Tentacle
-	if card_data["name"] == "Bell Tentacle":
-		attack = 4 - sIdx
-
-	# Hand Tentacle
-	if card_data["name"] == "Hand Tentacle":
-		var hName = "PlayerHand" if friendly else "EnemyHand"
-		attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
+			"Bell":
+				attack = 4 - sIdx
+				for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+					if abs(c.slot_idx() - sIdx) == 1 and "Chime" in c.card_data["name"]:
+						attack += 1
+			"Hand":
+				var hName = "PlayerHand" if friendly else "EnemyHand"
+				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
 
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
