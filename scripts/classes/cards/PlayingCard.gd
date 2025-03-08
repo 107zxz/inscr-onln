@@ -142,9 +142,9 @@ func _on_Button_pressed():
 				if slotManager.get_available_blood() < card_data["blood_cost"]:
 					print("You need more sacrifices!")
 					return
-				if slotManager.is_cat_bricked():
-					print("No room to play a card after sacrifice!")
-					return
+#				if slotManager.is_cat_bricked():
+#					print("No room to play a card after sacrifice!")
+#					return
 			else:
 				# If saccing is off the table then you need a free slot to play a card
 				if not slotManager.get_available_slots():
@@ -231,20 +231,20 @@ func _on_Button_pressed():
 					return
 
 				# Make sure we're not about to catbrick
-				var brick = false
-
-				if (has_sigil("Many Lives") or has_sigil("Frozen Away") or has_sigil("Ruby Heart")) \
-				and slotManager.get_available_slots() == 0:
-					brick = true
-					for vic in slotManager.sacVictims:
-						for sigil in vic.card_data.sigils:
-							if sigil in ["Many Lives", "Frozen Away", "Ruby Heart"]:
-								continue
-						
-						brick = false
-
-				if brick:
-					return
+#				var brick = false
+#
+#				if (has_sigil("Many Lives") or has_sigil("Frozen Away") or has_sigil("Ruby Heart")) \
+#				and slotManager.get_available_slots() == 0:
+#					brick = true
+#					for vic in slotManager.sacVictims:
+#						for sigil in vic.card_data.sigils:
+#							if sigil in ["Many Lives", "Frozen Away", "Ruby Heart"]:
+#								continue
+#
+#						brick = false
+#
+#				if brick:
+#					return
 
 				# Don't allow sacrificing nosac cards
 				if "nosac" in card_data:

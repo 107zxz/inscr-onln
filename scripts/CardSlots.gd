@@ -97,6 +97,20 @@ func attempt_sacrifice():
 			sacValue += 1
 
 	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
+		
+		# Catbrick check (for real this time)
+		if not get_available_slots():
+			print("Checking for catbrick...")
+			var bricked = true
+			for v in sacVictims:
+				if v.has_sigil("Many Lives") or v.has_sigil("Frozen Away") or v.has_sigil("Ruby Heart"):
+					continue
+				bricked = false
+			if bricked:
+				print("Catbricked!!!")
+				clear_sacrifices()
+				return
+		
 		# Kill sacrifical victims
 		for victim in sacVictims:
 			if victim.has_sigil("Many Lives"):
@@ -134,7 +148,8 @@ func attempt_sacrifice():
 		sacVictims.clear()
 
 		# Force player to summon the new card
-		fightManager.state = fightManager.GameStates.FORCEPLAY
+		if get_available_slots():
+			fightManager.state = fightManager.GameStates.FORCEPLAY
 
 # Break flow to handle sigils
 signal resolve_sigils()
