@@ -56,7 +56,7 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         name: "Upload GitHub Releases"
         with:
-          repo_token: "${{ secrets.GH_TOKEN }}"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
             imf_win.zip
