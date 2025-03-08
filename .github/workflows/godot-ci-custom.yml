@@ -25,31 +25,31 @@ jobs:
 
       - name: Download Godot
         run: |
-          curl -Lo godot.zip "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_linux_headless.64.zip"
+          curl -Lo godot.zip "https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_linux_headless.64.zip"
           unzip godot.zip
       - name: Download Export Templates
         run: |
-          curl -Lo export_templates.tpz "https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_export_templates.tpz"
+          curl -Lo export_templates.tpz "https://github.com/godotengine/godot/releases/download/3.6-stable/Godot_v3.6-stable_export_templates.tpz"
           unzip export_templates.tpz
-          mkdir -p ~/.local/share/godot/templates/3.5.3.stable/
-          mv templates/* ~/.local/share/godot/templates/3.5.3.stable/
+          mkdir -p ~/.local/share/godot/templates/3.6.stable/
+          mv templates/* ~/.local/share/godot/templates/3.6.stable/
 
       - name: Export Windows
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.exe
+          ./Godot_v3.6-stable_linux_headless.64 --export "Windows Desktop" ./imf_win.exe
           zip imf_win.zip imf_win.exe imf_win.pck
       - name: Export Mac
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
+          ./Godot_v3.6-stable_linux_headless.64 --export "Mac OSX" ./imf_mac.zip
       - name: Export Linux
         run: |
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.x86_64
+          ./Godot_v3.6-stable_linux_headless.64 --export "Linux/X11" ./imf_linux.x86_64
           zip imf_linux.zip imf_linux.x86_64 imf_linux.pck
 
       - name: Export Web
         run: |
           mkdir ./html5
-          ./Godot_v3.5.3-stable_linux_headless.64 --export "HTML5" ./html5/index.html
+          ./Godot_v3.6-stable_linux_headless.64 --export "HTML5" ./html5/index.html
           zip -r html5.zip ./html5
           
       - id: "upload_releases"
