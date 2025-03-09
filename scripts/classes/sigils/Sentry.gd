@@ -12,12 +12,14 @@ func handle_event(event: String, params: Array):
 			if params[0].get_node("AnimationPlayer").current_animation == "DoublePerish":
 				return
 				
-			# If I'm moving, hit 'em where it hurts
-			if params[0] == card and event == "card_moved":
-				hit_and_run(params)
-			else:
-				normal_behaviour(params)
-	
+			# Cannot see if dead or double dead
+			if card.get_node("AnimationPlayer").current_animation != "Perish" \
+			and card.get_node("AnimationPlayer").current_animation != "DoublePerish":
+				
+				if params[0] == card and event == "card_moved":
+					hit_and_run(params)
+				else:
+					normal_behaviour(params)
 
 func normal_behaviour(params: Array):
 	# Target card must be in opposing spaces
