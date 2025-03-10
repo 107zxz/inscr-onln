@@ -384,47 +384,49 @@ func load_pixport():
 func update_flags():
 	CardInfo.all_data.num_candles = flagDats[1].value
 	CardInfo.all_data.allow_snuffing_candles = flagDats[3].pressed
-	CardInfo.all_data.hammers_per_turn = flagDats[5].value
-	CardInfo.all_data.deck_size_min = flagDats[7].value
-	CardInfo.all_data.max_commons_main = flagDats[9].value
-	CardInfo.all_data.max_commons_side = flagDats[11].value
-	CardInfo.all_data.variable_attack_nerf = flagDats[13].pressed
+	CardInfo.all_data.snuff_card = flagDats[5].text
+	CardInfo.all_data.hammers_per_turn = flagDats[7].value
+	CardInfo.all_data.deck_size_min = flagDats[9].value
+	CardInfo.all_data.max_commons_main = flagDats[11].value
+	CardInfo.all_data.max_commons_side = flagDats[13].value
+	CardInfo.all_data.variable_attack_nerf = flagDats[15].pressed
 	
 	if flagDats[15].pressed:
 		CardInfo.all_data.necro_boned = true
 	else:
 		CardInfo.all_data.erase("necro_boned")
-	CardInfo.all_data.ant_limit = flagDats[17].value
-	CardInfo.all_data.description = flagDats[18].text
-	CardInfo.all_data.portrait = flagDats[20].text
+	CardInfo.all_data.ant_limit = flagDats[19].value
+	CardInfo.all_data.description = flagDats[20].text
+	CardInfo.all_data.portrait = flagDats[22].text
 	
-	if flagDats[23].value != 0:
-		CardInfo.all_data.starting_bones = flagDats[23].value
+	if flagDats[25].value != 0:
+		CardInfo.all_data.starting_bones = flagDats[25].value
 	else:
 		CardInfo.all_data.erase("starting_bones")
 		
-	if flagDats[25].value != 0:
-		CardInfo.all_data.starting_energy_max = flagDats[25].value
+	if flagDats[27].value != 0:
+		CardInfo.all_data.starting_energy_max = flagDats[27].value
 	else:
 		CardInfo.all_data.erase("starting_energy_max")
 
 func populate_flags():
 	flagDats[1].value = CardInfo.all_data.num_candles
 	flagDats[3].pressed = CardInfo.all_data.allow_snuffing_candles
-	flagDats[5].value = CardInfo.all_data.hammers_per_turn
-	flagDats[7].value = CardInfo.all_data.deck_size_min
-	flagDats[9].value = CardInfo.all_data.max_commons_main
-	flagDats[11].value = CardInfo.all_data.max_commons_side
-	flagDats[13].pressed = CardInfo.all_data.variable_attack_nerf
-	flagDats[15].pressed = "necro_boned" in CardInfo.all_data
-	flagDats[17].value = CardInfo.all_data.ant_limit
-	flagDats[18].text = CardInfo.all_data.description
+	flagDats[5].text = CardInfo.all_data.snuff_card if "snuff_card" in CardInfo.all_data else ""
+	flagDats[7].value = CardInfo.all_data.hammers_per_turn
+	flagDats[9].value = CardInfo.all_data.deck_size_min
+	flagDats[11].value = CardInfo.all_data.max_commons_main
+	flagDats[13].value = CardInfo.all_data.max_commons_side
+	flagDats[15].pressed = CardInfo.all_data.variable_attack_nerf
+	flagDats[17].pressed = "necro_boned" in CardInfo.all_data
+	flagDats[19].value = CardInfo.all_data.ant_limit
+	flagDats[20].text = CardInfo.all_data.description
 	
 	if "starting_bones" in CardInfo.all_data:
-		flagDats[23].value = CardInfo.all_data.starting_bones
+		flagDats[25].value = CardInfo.all_data.starting_bones
 	
 	if "starting_energy_max" in CardInfo.all_data:
-		flagDats[25].value = CardInfo.all_data.starting_energy_max
+		flagDats[27].value = CardInfo.all_data.starting_energy_max
 	
 	
 	
@@ -439,10 +441,10 @@ func populate_flags():
 	while file_name != "":
 		
 		if file_name.ends_with(".png"):
-			flagDats[20].add_item("portraits/" + file_name.split(".png")[0])
+			flagDats[22].add_item("portraits/" + file_name.split(".png")[0])
 			
-			if flagDats[20].get_item_text(idx) == CardInfo.all_data.portrait:
-				flagDats[20].select(idx)
+			if flagDats[22].get_item_text(idx) == CardInfo.all_data.portrait:
+				flagDats[22].select(idx)
 			
 			idx += 1
 			
