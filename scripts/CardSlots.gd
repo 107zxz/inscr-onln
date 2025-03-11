@@ -179,7 +179,7 @@ func pre_turn_sigils(friendly: bool):
 			yield (cardAnim, "animation_finished")
 
 		# Dive
-		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
+		if card.get_node("CardBody/DiveOlay").visible:
 			cardAnim.play("UnDive")
 
 			if card.has_sigil("Tentacle"):
@@ -702,12 +702,6 @@ func handle_attack(from_slot, to_slot):
 		if not eCard.has_sigil("Repulsive"):
 			eCard.take_damage(pCard)
 
-		# On kill
-		if eCard.health <= 0:
-			if pCard.has_sigil("Blood Lust"):
-				pCard.card_data.attack += 1
-				pCard.draw_stats()
-
 # Sigil handling
 func get_friendly_cards_sigil(sigil):
 	var found = []
@@ -1018,12 +1012,6 @@ func handle_enemy_attack(from_slot, to_slot):
 
 	else:
 		pCard.take_damage(eCard)
-
-		# On kill
-		if pCard.health <= 0:
-			if eCard.has_sigil("Blood Lust"):
-				eCard.card_data.attack += 1
-				eCard.draw_stats()
 
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
