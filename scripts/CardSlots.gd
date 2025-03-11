@@ -1050,8 +1050,23 @@ func _on_Snuff_pressed():
 	if fightManager.lives > 1 and CardInfo.all_data.allow_snuffing_candles:
 		fightManager.inflict_damage(-10)
 		fightManager.damage_stun = false
-		fightManager.draw_card(CardInfo.from_name("Greater Smoke"))
-
+		
+		var snuffCardData = null
+		if "snuff_card" in CardInfo.all_data:
+			snuffCardData = CardInfo.from_name(CardInfo.all_data.snuff_card)
+		
+		if snuffCardData == null:
+			snuffCardData = {
+				"name": "Greater Smoke",
+				"sigils": ["Bone King"],
+				"attack": 1,
+				"health": 3,
+				"banned": true,
+				"rare": true,
+				"description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
+			}
+		fightManager.draw_card(snuffCardData)
+		
 		fightManager.send_move({
 			"type": "snuff_candle"
 		})

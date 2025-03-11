@@ -124,15 +124,31 @@ value = 1.0
 
 [node name="SnuffLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 45.0
-margin_right = 219.0
+margin_right = 244.0
 margin_bottom = 69.0
-text = "Allow snuffing candles for Greater Smoke: "
+rect_pivot_offset = Vector2( -328, 229 )
+text = "Allow snuffing candles"
 
 [node name="allow_snuffing_candles" type="CheckBox" parent="Cards/Panel/Options"]
-margin_left = 473.0
+margin_left = 255.0
+margin_top = 42.0
+margin_right = 275.0
+margin_bottom = 76.0
+
+[node name="SnuffForLabel" type="Label" parent="Cards/Panel/Options"]
+margin_left = 286.0
 margin_top = 45.0
-margin_right = 493.0
-margin_bottom = 79.0
+margin_right = 598.0
+margin_bottom = 69.0
+rect_pivot_offset = Vector2( -328, 229 )
+text = "for (default Greater Smoke)"
+
+[node name="snuff_card" type="LineEdit" parent="Cards/Panel/Options"]
+margin_left = 603.0
+margin_top = 43.0
+margin_right = 935.0
+margin_bottom = 71.0
+placeholder_text = "Greater Smoke"
 
 [node name="HPTLabel" type="Label" parent="Cards/Panel/Options"]
 margin_top = 85.0

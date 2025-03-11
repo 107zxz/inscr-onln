@@ -14,7 +14,19 @@ func handle_event(event: String, params: Array):
 
 		if isFriendly:
 			yield(fightManager.get_tree().create_timer(0.05), "timeout")
-			for _i in range(3):
+			
+			var mainDeckCards
+			if fightManager.side_deck.size() == 0:
+				mainDeckCards = 4
+			else:
+				mainDeckCards = 3
+				
+				fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
+
+				if fightManager.side_deck.size() == 0:
+					fightManager.get_node("DrawPiles/YourDecks/SideDeck").visible = false
+		
+			for _i in range(mainDeckCards):
 				if fightManager.deck.size() == 0:
 					break
 				
@@ -24,8 +36,3 @@ func handle_event(event: String, params: Array):
 				if fightManager.deck.size() == 0:
 					fightManager.get_node("DrawPiles/YourDecks/Deck").visible = false
 					break
-				
-			fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
-
-			if fightManager.side_deck.size() == 0:
-				fightManager.get_node("DrawPiles/YourDecks/SideDeck").visible = false
