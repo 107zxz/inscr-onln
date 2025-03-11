@@ -1054,6 +1054,8 @@ func _on_Snuff_pressed():
 		var snuffCardData = null
 		if "snuff_card" in CardInfo.all_data:
 			snuffCardData = CardInfo.from_name(CardInfo.all_data.snuff_card)
+		else:
+			snuffCardData = CardInfo.from_name("Greater Smoke")
 		
 		if snuffCardData == null:
 			snuffCardData = {
