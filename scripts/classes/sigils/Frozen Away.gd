@@ -10,5 +10,7 @@ func handle_event(event: String, params: Array):
 		var slot = slotManager.playerSlots[sIdx] if isFriendly else slotManager.enemySlots[sIdx]
 		
 		if slotManager.is_slot_empty(slot):
-			slotManager.summon_card(CardInfo.from_name(card.card_data["evolution"]), card.slot_idx(), isFriendly)
-
+			if "evolution" in card.card_data:
+				slotManager.summon_card(CardInfo.from_name(card.card_data["evolution"]), card.slot_idx(), isFriendly)
+			else:
+				slotManager.summon_card(CardInfo.from_name("Opossum"), card.slot_idx(), isFriendly)
