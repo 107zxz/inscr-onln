@@ -325,7 +325,7 @@ func post_turn_sigils(friendly: bool):
 			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
 			card.get_node("AnimationPlayer").play("ProcGeneric")
 			yield(card.get_node("AnimationPlayer"), "animation_finished")
-
+			
 		# Diving
 		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
 			card.get_node("AnimationPlayer").play("Dive")
@@ -648,13 +648,23 @@ func handle_attack(from_slot, to_slot):
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
-					break
+					# Calculate
+					for fCard in all_friendly_cards():
+						fCard.calculate_buffs()
+					for UNcard in all_enemy_cards():
+						UNcard.calculate_buffs()
+						break
 		else: # Regular mole
 			for card in all_enemy_cards():
 				if card.has_sigil("Burrower"):
 					direct_attack = false
 					card.move_to_parent(enemySlots[to_slot])
 					eCard = card
+					# Calculate
+					for fCard in all_friendly_cards():
+						fCard.calculate_buffs()
+					for UNcard in all_enemy_cards():
+						UNcard.calculate_buffs()
 					break
 
 	else:
@@ -987,6 +997,10 @@ func handle_enemy_attack(from_slot, to_slot):
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
+					for fCard in all_friendly_cards():
+						fCard.calculate_buffs()
+					for UNcard in all_enemy_cards():
+						UNcard.calculate_buffs()
 					break
 		else: # Regular mole
 			for card in all_friendly_cards():
@@ -994,6 +1008,10 @@ func handle_enemy_attack(from_slot, to_slot):
 					direct_attack = false
 					card.move_to_parent(playerSlots[to_slot])
 					pCard = card
+					for fCard in all_friendly_cards():
+						fCard.calculate_buffs()
+					for UNcard in all_enemy_cards():
+						UNcard.calculate_buffs()
 					break
 	else:
 		pCard = playerSlots[to_slot].get_child(0)
@@ -1038,25 +1056,8 @@ func _on_Snuff_pressed():
 	if fightManager.lives > 1 and CardInfo.all_data.allow_snuffing_candles:
 		fightManager.inflict_damage(-10)
 		fightManager.damage_stun = false
-		
-		var snuffCardData = null
-		if "snuff_card" in CardInfo.all_data:
-			snuffCardData = CardInfo.from_name(CardInfo.all_data.snuff_card)
-		else:
-			snuffCardData = CardInfo.from_name("Greater Smoke")
-		
-		if snuffCardData == null:
-			snuffCardData = {
-				"name": "Greater Smoke",
-				"sigils": ["Bone King"],
-				"attack": 1,
-				"health": 3,
-				"banned": true,
-				"rare": true,
-				"description": "Ported from Act 1. Act 2 sprite by syntaxevasion."
-			}
-		fightManager.draw_card(snuffCardData)
-		
+		fightManager.draw_card(CardInfo.from_name("Greater Smoke"))
+
 		fightManager.send_move({
 			"type": "snuff_candle"
 		})
