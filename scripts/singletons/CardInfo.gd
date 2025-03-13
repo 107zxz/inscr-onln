@@ -80,6 +80,8 @@ func load_background_texture():
 func from_game_info_json(content_as_object):
 	all_data = content_as_object
 	
+	all_data.merge(default_header)
+	
 	all_sigils.merge(all_data["sigils"] if "sigils" in all_data else {}, true)
 	all_cards = all_data["cards"]
 #	working_sigils = all_data["working_sigils"]
@@ -93,6 +95,7 @@ func from_game_info_json(content_as_object):
 	if "ruleset" in all_data:
 		ruleset = all_data.ruleset
 		deck_backup_path = OS.get_user_data_dir() + "/decks/" + ruleset + "/"
+
 
 func read_game_info():
 	
@@ -143,6 +146,26 @@ func gen_sig_desc(sigil: String, card_data):
 	desc = sigil_regex.sub(desc, "%s", true) # change the template to godot format
 	
 	return desc % var_list
+
+const default_header = {
+	"hammers_per_turn": -1,
+	"num_candles": 2,
+	"allow_snuffing_candles": false,
+	"snuff_card": "Greater Smoke",
+
+	"ant_limit": 2,
+	"variable_attack_nerf": false,
+	"opt_actives": false,
+
+	"max_commons_main": 4,
+	"max_commons_side": 10,
+	"deck_size_min": 1,
+
+	"enable_backrow": false,
+	
+	"starting_bones": 0,
+	"starting_energy_max": 0
+}
 
 const all_sigils = {
 	# COMMENT THIS OUT
