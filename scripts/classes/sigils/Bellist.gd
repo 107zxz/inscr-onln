@@ -19,7 +19,7 @@ func handle_event(event: String, params: Array):
 				slotManager.summon_card(CardInfo.from_name("Chime"), slot + 1, isFriendly)
 	
 	if event == "card_hit" and params[0].card_data.name == "Chime" and params[0].get_parent().get_parent() == card.get_parent().get_parent() \
-	or event == "card_hit" and params[0].card_data.atkspecial == "Bell" and params[0].get_parent().get_parent() == card.get_parent().get_parent():
+	or event == "card_hit" and "atkspecial" in params[0].card_data and params[0].card_data.atkspecial == "Bell" and params[0].get_parent().get_parent() == card.get_parent().get_parent():
 		if not params[1].has_sigil("Repulsive"):
 			# Don't Strike dying cards
 			if params[1].get_node("AnimationPlayer").current_animation != "DoublePerish" and params[1].get_node("AnimationPlayer").current_animation != "Perish":
