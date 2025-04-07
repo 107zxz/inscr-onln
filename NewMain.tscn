@@ -465,6 +465,8 @@ autowrap = true
 
 [node name="HTTPRequest" type="HTTPRequest" parent="TitleScreen/PullInfo"]
 
+[node name="TunnelRequest" type="HTTPRequest" parent="TitleScreen/PullInfo"]
+
 [node name="Blocker" type="Panel" parent="TitleScreen"]
 visible = false
 anchor_right = 1.0
@@ -1282,6 +1284,7 @@ mouse_filter = 2
 [connection signal="pressed" from="TitleScreen/Menu/VBoxContainer/DiscordBtn" to="TitleScreen" method="_on_DiscordBtn_pressed"]
 [connection signal="pressed" from="TitleScreen/PullInfo/PatchStoats/Notes/Button" to="TitleScreen/PullInfo" method="_on_Button_pressed"]
 [connection signal="request_completed" from="TitleScreen/PullInfo/HTTPRequest" to="TitleScreen/PullInfo" method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="TitleScreen/PullInfo/TunnelRequest" to="TitleScreen/PullInfo" method="_on_TunnelRequest_request_completed"]
 [connection signal="item_selected" from="TitleScreen/LobbyHost/Rows/HostType/Type" to="TitleScreen" method="_on_HostType_selected"]
 [connection signal="focus_entered" from="TitleScreen/LobbyHost/Rows/Roomname/LineEdit" to="TitleScreen" method="_LineEdit_focused"]
 [connection signal="focus_exited" from="TitleScreen/LobbyHost/Rows/Roomname/LineEdit" to="TitleScreen" method="_LineEdit_unfocused"]
