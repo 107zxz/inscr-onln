@@ -404,12 +404,8 @@ func initiate_combat(friendly: bool):
 
 	for pCard in attackingCards:
 
-		# Wait for any sniping to happen
-		if fightManager.state == fightManager.GameStates.SNIPE:
-			yield(fightManager, "snipe_complete")
-#			fightManager.state = fightManager.GameStates.BATTLE
-
 		# TODO: FIX THIS
+		# fix what?
 		if not pCard:
 			continue
 
@@ -422,170 +418,107 @@ func initiate_combat(friendly: bool):
 		var cardAnim = pCard.get_node("AnimationPlayer")
 		var slot_index = pCard.slot_idx()
 
-		if pCard.attack > 0 and not "Perish" in cardAnim.current_animation:
-			if pCard.has_sigil("Sniper") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
+		if pCard.attack <= 0 or "Perish" in cardAnim.current_animation:
+			continue
+	
+		# what enemy indexes need to be attacked and how many times?
+		# strikes[4] exists to 'null' invalid strike indexes (-1 and 4)
+		var strikes = [0, 0, 0, 0, 0]
+		
+		if pCard.has_sigil("Omni Strike"):
+			
+			for eCard in all_enemy_cards():
+				strikes[eCard.slot_idx()] = 1
+			if not 1 in strikes:
+				strikes[slot_index] = 1
 
-				print("Sniper handler, friendly: ", friendly)
+		else:
+			
+			strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
+			strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
+			# strike to each side once per peripheral striking sigil
+			for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
+				strikes[slot_index - 1] += 1
+				strikes[slot_index + 1] += 1
 
-				if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
-					# This means you're attacking the moon
+		
+		# brittle check
+		var has_attacked = false
+		
+		if pCard.has_sigil("Sniper"):
+			
+			# sniping time
+			var target_index
+			
+			print("Sniper handler, friendly: ", friendly)
+			var total_strikes = 0
 
-					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
-					yield(cardAnim, "animation_finished")
+			for strike in strikes:
+				total_strikes += strike
 
-					# Any form of attack went through
-					# Brittle: Die after attacking
-					if pCard.has_sigil("Brittle"):
-						cardAnim.play("Perish")
+			for _i in range(total_strikes):
 
-					fightManager.sniper_target = null
-
-					continue
-
-				var slot_idx = 0
-
-				if fightManager.sniper_target:
-					slot_idx = fightManager.sniper_target.slot_idx()
+				# opponent or attacking card might die mid-attacking
+				if is_slot_empty(attackingSlots[slot_index]) or (fightManager.opponent_lives if friendly else fightManager.lives) == 0:
+					break
 
 				if friendly:
-
 					fightManager.sniper = pCard
 					fightManager.state = fightManager.GameStates.SNIPE
 					fightManager.snipe_is_attack = true
-					slot_idx = yield(fightManager, "snipe_complete")[3]
+					target_index = yield(fightManager, "snipe_complete")[3]
 					fightManager.state = fightManager.GameStates.BATTLE
 
-				pCard.strike_offset = slot_idx - pCard.slot_idx()
-
-				# Don't attack repulsive cards!
-				if not is_slot_empty(defendingSlots[slot_idx]) and defendingSlots[slot_idx].get_child(0).has_sigil("Repulsive"):
-					if not pCard.has_sigil("Airborne") or defendingSlots[slot_idx].get_child(0).has_sigil("Mighty Leap"):
+				elif fightManager.sniper_targets:
+					print(fightManager.sniper_targets)
+					target_index = fightManager.sniper_targets[0]
+				
+				# don't attack repulsive cards!
+				if not is_slot_empty(defendingSlots[target_index]) and defendingSlots[target_index].get_child(0).has_sigil("Repulsive"):
+					if not pCard.has_sigil("Airborne") or defendingSlots[target_index].get_child(0).has_sigil("Mighty Leap"):
+						fightManager.sniper_targets.pop_front()
 						continue
 
+				has_attacked = true
+				pCard.strike_offset = target_index - slot_index
 				cardAnim.play("Attack" if friendly else "AttackRemote")
 				pCard.play_sfx("attack")
 				yield(cardAnim, "animation_finished")
+				
+				fightManager.sniper_targets.pop_front()
 
-				# Any form of attack went through
-				# Brittle: Die after attacking
-				if pCard.has_sigil("Brittle"):
-					cardAnim.play("Perish")
+		else:
+	
+			# die, irrelevant index
+			strikes.pop_back()
+			
+			for i in range(4):
+				
+				for _i in range(strikes[i]):
 
-				fightManager.sniper_target = null
-
-
-#				fightManager.move_done()
-#
-#				pass
-			elif pCard.has_sigil("Omni Strike") and len(all_enemy_cards() if friendly else all_friendly_cards()) > 0:
-				for eCard in all_enemy_cards() if friendly else all_friendly_cards():
-
-					# Break if we died from quills / boom
-					if is_slot_empty(attackingSlots[slot_index]):
+					# opponent or attacking creature might die mid-attackiing
+					if is_slot_empty(attackingSlots[slot_index]) or (fightManager.opponent_lives if friendly else fightManager.lives) == 0:
 						break
-
-					var s_offset = eCard.slot_idx() - slot_index
-
-					# Don't attack repulsive cards!
-					if not is_slot_empty(defendingSlots[slot_index + s_offset]) and defendingSlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
-						continue
-
-
-					# Lower next slot
-					if s_offset > 0:
-						attackingSlots[slot_index + s_offset].show_behind_parent = true
-
-					# Visually represent the card's attack offset (hacky)
-					pCard.rect_position.x = s_offset * 128
-
-					pCard.strike_offset = s_offset
-					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
-					yield(cardAnim, "animation_finished")
-
-					# Brittle: Die after attacking
-					if pCard.has_sigil("Brittle"):
-						cardAnim.play("Perish")
-
-				if not is_slot_empty(attackingSlots[slot_index]):
-					pCard.rect_position.x = 0
-
-				for slt in attackingSlots:
-					slt.show_behind_parent = false
-
-
-			elif pCard.has_sigil("Trifurcated Strike") or pCard.has_sigil("Bifurcated Strike"):
-				# Lower slot to right for attack anim (JANK AF)
-				if slot_index < 3:
-					attackingSlots[slot_index + 1].show_behind_parent = true
-
-				# Tri strike attack
-				for s_offset in range(-1, 2):
-					yield(get_tree().create_timer(0.01), "timeout")
-
-					# Break if attacker died from sharp quills
-					if is_slot_empty(attackingSlots[slot_index]):
-						break
-
-					# Skip middle if bi-strike
-					if s_offset == 0 and pCard.has_sigil("Bifurcated Strike"):
-						continue
-
-					# Prevent attacking out of bounds
-					var atk_slot = slot_index + s_offset
-					if atk_slot < 0 or atk_slot > 3:
-						continue
-
-					# Don't attack repulsive cards!
-					if not is_slot_empty(defendingSlots[slot_index + s_offset]) and defendingSlots[slot_index + s_offset].get_child(0).has_sigil("Repulsive"):
-						continue
-
-					# Visually represent the card's attack offset (hacky)
-					pCard.rect_position.x = s_offset * 50
-
-					pCard.strike_offset = s_offset
-					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
-					yield(cardAnim, "animation_finished")
-
-				# Reset attack effect
-				if slot_index < 3:
-					attackingSlots[slot_index + 1].show_behind_parent = false
-
-				if not is_slot_empty(attackingSlots[slot_index]):
-					pCard.rect_position.x = 0
-
-				# Brittle: Die after attacking
-				if not is_slot_empty(attackingSlots[slot_index]) and pCard.has_sigil("Brittle"):
-					cardAnim.play("Perish")
-
-			else:
-
-				# Wierd double strike condition
-				for _i in range(2 if pCard.has_sigil("Double Strike") else 1):
 					
-					# Did the card get boned?
-					if is_slot_empty(attackingSlots[slot_index]):
-						continue
-
-					# Don't attack repulsive cards!
-					if not is_slot_empty(defendingSlots[slot_index]) and defendingSlots[slot_index].get_child(0).has_sigil("Repulsive"):
-						if not pCard.has_sigil("Airborne") or defendingSlots[slot_index].get_child(0).has_sigil("Mighty Leap"):
+					# don't attack repulsive cards!
+					if not is_slot_empty(defendingSlots[i]) and defendingSlots[i].get_child(0).has_sigil("Repulsive"):
+						if not pCard.has_sigil("Airborne") or defendingSlots[i].get_child(0).has_sigil("Mighty Leap"):
 							continue
-
+					
+					has_attacked = true
+					pCard.strike_offset = i - slot_index
+					pCard.rect_position.x = pCard.strike_offset * 50
 					cardAnim.play("Attack" if friendly else "AttackRemote")
 					pCard.play_sfx("attack")
 					yield(cardAnim, "animation_finished")
-
-					# Did the card get boned?
+					
 					if is_slot_empty(attackingSlots[slot_index]):
 						continue
-
-					# Any form of attack went through
-					# Brittle: Die after attacking
-					if pCard.has_sigil("Brittle"):
-						cardAnim.play("Perish")
+					
+					pCard.rect_position.x = 0
+		
+		if has_attacked and pCard.has_sigil("Brittle"):
+			cardAnim.play("Perish")
 
 	yield(get_tree().create_timer(0.01), "timeout")
 
@@ -1003,7 +936,7 @@ func handle_enemy_attack(from_slot, to_slot):
 			direct_attack = true
 	
 	# Special: Sniper is assumed to be attacking directly if it has no target
-	if eCard.has_sigil("Sniper") and fightManager.sniper_target == null:
+	if eCard.has_sigil("Sniper") and is_slot_empty(playerSlots[fightManager.sniper_targets[0]]):
 		direct_attack = true
 
 	if direct_attack:

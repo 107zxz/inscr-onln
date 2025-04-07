@@ -78,7 +78,7 @@ var enemy_no_energy_deplete = false
 # Temp card state
 var sniper: Control = null
 var snipe_is_attack = false
-var sniper_target: Control = null
+var sniper_targets = []
 var pre_snipe_state = null
 
 # Network match state
@@ -790,8 +790,9 @@ func parse_next_move():
 			"snipe_target":
 				print("Opponent sniped from ", move.from_slot, " on side ", move.from_side, " to slot ", move.to_slot, " on side ", move.to_side)
 				# Trigger the signal
-				var nt = slotManager.get_enemy_card(move.to_slot) if move.to_side else slotManager.get_friendly_card(move.to_slot)
-				sniper_target = nt if nt else null
+#				var nt = slotManager.get_enemy_card(move.to_slot) if move.to_side else slotManager.get_friendly_card(move.to_slot)
+#				sniper_targets.append(nt if nt else null)
+				sniper_targets.append(move.to_slot)
 				emit_signal("snipe_complete", not move.from_side, move.from_slot, not move.to_side, move.to_slot)
 				
 				move_done()
