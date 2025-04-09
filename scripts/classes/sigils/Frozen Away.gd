@@ -13,4 +13,7 @@ func handle_event(event: String, params: Array):
 			if "evolution" in card.card_data:
 				slotManager.summon_card(CardInfo.from_name(card.card_data["evolution"]), card.slot_idx(), isFriendly)
 			else:
-				slotManager.summon_card(CardInfo.from_name("Opossum"), card.slot_idx(), isFriendly)
+				if "frozen_card" in CardInfo.all_data:
+					slotManager.summon_card((CardInfo.from_name(CardInfo.all_data.frozen_card)), card.slot_idx(), isFriendly)
+				else:
+					slotManager.summon_card(CardInfo.from_name("Opossum"), card.slot_idx(), isFriendly)
