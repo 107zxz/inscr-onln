@@ -7,7 +7,7 @@ func handle_event(event: String, params: Array):
 	if event == "card_summoned" and params[0] == card:
 		card.get_node("CardBody/Highlight").visible = true
 
-	# -2 means damage has been fully negated
+# This is called whenever the card with this sigil takes damage, and modifies the damage taken
 func modify_damage_taken(dmg_amt: int):
 	if card.get_node("CardBody/Highlight").visible:
 		card.get_node("CardBody/Highlight").visible = false
