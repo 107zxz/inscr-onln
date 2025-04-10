@@ -901,24 +901,32 @@ func has_sigil(sigName):
 			return true
 
 # Take damage and die if needed
+# -1 means damage has not yet been calculated
+# -2 means damage has been fully negated
 func take_damage(enemyCard, dmg_amt = -1):
 
-	if $CardBody/Highlight.visible:
-		$CardBody/Highlight.visible = false
-		fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
-		return
+	#if $CardBody/Highlight.visible:
+	#	$CardBody/Highlight.visible = false
+	#	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
+	#	return
 
 	if enemyCard and dmg_amt == -1:
 		dmg_amt = enemyCard.attack
 	
 	# Special exception
-	if has_sigil("Warded"):
-		dmg_amt = 1
+	#if has_sigil("Warded"):
+	#	dmg_amt = 1
+
+
+	#
+	for sig in sigils:
+		dmg_amt = sig.modify_damage_taken(dmg_amt)
+	
 
 	health -= dmg_amt
 	draw_stats()
 
-	if health <= 0 or (enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
+	if health <= 0 or (dmg_amt != -2 and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 
 	# Sigils that do the do

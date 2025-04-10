@@ -434,12 +434,16 @@ func initiate_combat(friendly: bool):
 
 		else:
 			
-			strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
-			strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
+			strikes[slot_index] += 1
+			for sig in pCard.sigils:
+				strikes = sig.modify_attack_targeting(slot_index, strikes)
+			
+			# strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
+			# strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
 			# strike to each side once per peripheral striking sigil
-			for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
-				strikes[slot_index - 1] += 1
-				strikes[slot_index + 1] += 1
+			# for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
+			#	strikes[slot_index - 1] += 1
+			#	strikes[slot_index + 1] += 1
 
 		
 		# brittle check

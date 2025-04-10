@@ -7,9 +7,5 @@ func handle_event(event: String, params: Array):
 	if event == "card_summoned" and params[0] == card:
 		card.get_node("CardBody/Highlight").visible = true
 
-	# -2 means damage has been fully negated
 func modify_damage_taken(dmg_amt: int):
-	if card.get_node("CardBody/Highlight").visible:
-		card.get_node("CardBody/Highlight").visible = false
-		return -2
-	return dmg_amt
+	return clamp(dmg_amt, dmg_amt, 1)

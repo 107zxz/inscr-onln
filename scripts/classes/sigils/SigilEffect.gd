@@ -8,3 +8,9 @@ var card = null # The card the sigil is attached to
 
 func handle_event(_event: String, _params: Array):
 	pass
+
+func modify_attack_targeting(index: int, strikes: Array):
+	return strikes
+	
+func modify_damage_taken(amount: int):
+	return amount
