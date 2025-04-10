@@ -425,19 +425,19 @@ func initiate_combat(friendly: bool):
 		# strikes[4] exists to 'null' invalid strike indexes (-1 and 4)
 		var strikes = [0, 0, 0, 0, 0]
 		
-		if pCard.has_sigil("Omni Strike"):
-			
-			for eCard in all_enemy_cards():
-				strikes[eCard.slot_idx()] = 1
-			if not 1 in strikes:
-				strikes[slot_index] = 1
+		# if pCard.has_sigil("Omni Strike"):
+		#	
+		#	for eCard in all_enemy_cards():
+		#		strikes[eCard.slot_idx()] = 1
+		#	if not 1 in strikes:
+		#		strikes[slot_index] = 1
 
-		else:
+		# else:
 			
-			strikes[slot_index] += 1
-			for sig in pCard.sigils:
-				strikes = sig.modify_attack_targeting(slot_index, strikes)
-			
+		strikes[slot_index] += 1
+		for sig in pCard.sigils:
+			strikes = sig.modify_attack_targeting(slot_index, strikes)
+		
 			# strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
 			# strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
 			# strike to each side once per peripheral striking sigil
