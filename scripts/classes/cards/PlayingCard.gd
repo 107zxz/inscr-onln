@@ -901,17 +901,16 @@ func has_sigil(sigName):
 			return true
 
 # Take damage and die if needed
-const undefined_damage_val = -1;
-const fully_negated_damage_val = -2;
 
-func take_damage(enemyCard, dmg_amt = undefined_damage_val):
+
+func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 
 	#if $CardBody/Highlight.visible:
 	#	$CardBody/Highlight.visible = false
 	#	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
 	#	return
 
-	if enemyCard and dmg_amt == undefined_damage_val:
+	if enemyCard and dmg_amt == SigilEffect.UNDEFINED_DAMAGE_VAL:
 		dmg_amt = enemyCard.attack
 	
 	# Special exception
@@ -927,7 +926,7 @@ func take_damage(enemyCard, dmg_amt = undefined_damage_val):
 	health -= dmg_amt
 	draw_stats()
 
-	if health <= 0 or (dmg_amt != fully_negated_damage_val and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
+	if health <= 0 or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 
 	# Sigils that do the do

@@ -1,5 +1,8 @@
 class_name SigilEffect
 
+const UNDEFINED_DAMAGE_VAL = -1;
+const FULLY_NEGATED_DAMAGE_VAL = -2;
+
 # References
 var fightManager = null # See FightManager.gd
 var slotManager = null # See CardSlots.gd
