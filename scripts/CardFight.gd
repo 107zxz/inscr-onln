@@ -1202,7 +1202,7 @@ func start_turn():
 	for pharoah in gold_sarcophagus:
 		if pharoah.turnsleft <= 0:
 			draw_card(pharoah.card)
-			gold_sarcophagus.erase(pharoah)
+			gold_sarcophagus.erase(pharoah.card)
 		else:
 			pharoah.turnsleft -= 1
 	
