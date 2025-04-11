@@ -81,6 +81,18 @@ func load_custom_sigil(name: String):
 		return false
 
 func create_sigils(friendly):
+	
+	if "atkspecial" in card_data:
+		print("atkspecial detected, attempting to add attack sigil")
+		power_defining_sigil = load_custom_sigil(card_data.atkspecial)
+		if not power_defining_sigil:
+			power_defining_sigil = load_vanilla_sigil(card_data.atkspecial)
+		if power_defining_sigil:
+			power_defining_sigil.fightManager = fightManager
+			power_defining_sigil.slotManager = slotManager
+			power_defining_sigil.card = self
+			power_defining_sigil.isFriendly = friendly
+	
 	sigils.clear()
 
 	if not "sigils" in card_data:
@@ -105,10 +117,7 @@ func create_sigils(friendly):
 		if ns.is_aura():
 			aura_sigils.append(ns)
 	
-	if "atkspecial" in card_data:
-		power_defining_sigil = load_custom_sigil(card_data.atkspecial)
-		if not power_defining_sigil:
-			power_defining_sigil = load_vanilla_sigil(card_data.atkspecial)
+
 
 func handle_sigil_event(event, params):
 	for sig in sigils:
@@ -825,6 +834,7 @@ func calculate_buffs():
 #				var hName = "PlayerHand" if friendly else "EnemyHand"
 #				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
 	
+	print(power_defining_sigil)
 	if power_defining_sigil:
 		attack = power_defining_sigil.define_power()
 
