@@ -32,8 +32,14 @@ func modify_damage_taken(amount: int):
 func on_deal_damage(card_hit, damage: int):
 	pass
 
+
+
 #Used for sigils that passively modify the stats of *other* cards.
 #ex: Stinky, Annoying, Leader
 #this theoretically could cause performance issues as it does require looping through EVERY SIGIL ON THE FIELD whenever a card updates, but I know a way to fix this if it's neccessary.
 func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
 	pass
+
+#IMPORTANT: replace this with something that returns true for any sigil that uses the stat_modifying_aura function, otherwise it won't work. Returns false otherwise for performance, just in case it matters.
+func is_aura():
+	return false

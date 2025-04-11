@@ -32,6 +32,9 @@ var attack = -1
 # New sigils
 var sigils = []
 
+# to reduce possible performance issues, there is a separate list of sigils that have 'aura' effects, such as Leader, Stinky, and Annoying
+var aura_sigils = []
+
 # Sigil-specific information (must be stored per-card)
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
 var sprint_left = false # Used for sprinter
@@ -90,6 +93,8 @@ func create_sigils(friendly):
 		ns.card = self
 		ns.isFriendly = friendly
 		sigils.append(ns)
+		if ns.is_aura():
+			aura_sigils.append(ns)
 
 func handle_sigil_event(event, params):
 	for sig in sigils:
@@ -887,11 +892,11 @@ func calculate_buffs():
 	#		attack += 1
 
 	for c in slotManager.all_friendly_cards():
-		for sig in c.sigils:
+		for sig in c.aura_sigils:
 			sig.stat_modifying_aura(self, friendly)
 			
 	for c in slotManager.all_enemy_cards():
-		for sig in c.sigils:
+		for sig in c.aura_sigils:
 			sig.stat_modifying_aura(self, not friendly)
 
 	draw_stats()
