@@ -17,3 +17,6 @@ func modify_attack_targeting(index: int, strikes: Array):
 	
 func modify_damage_taken(amount: int):
 	return amount
+
+func on_deal_damage(card_hit, damage: int):
+	pass

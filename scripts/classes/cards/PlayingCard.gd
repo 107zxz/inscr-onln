@@ -925,8 +925,12 @@ func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 
 	health -= dmg_amt
 	draw_stats()
+	
+	if enemyCard:
+		for sig in enemyCard.sigils:
+			sig.on_deal_damage(self, dmg_amt)
 
-	if health <= 0 or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
+	if health <= 0: #or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 
 	# Sigils that do the do
