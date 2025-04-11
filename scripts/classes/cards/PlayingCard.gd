@@ -834,7 +834,7 @@ func calculate_buffs():
 #				var hName = "PlayerHand" if friendly else "EnemyHand"
 #				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
 	
-	print(power_defining_sigil)
+	#print(power_defining_sigil)
 	if power_defining_sigil:
 		attack = power_defining_sigil.define_power()
 
