@@ -40,6 +40,14 @@ func on_deal_damage(card_hit, damage: int):
 func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
 	pass
 
-#IMPORTANT: replace this with something that returns true for any sigil that uses the stat_modifying_aura function, otherwise it won't work. Returns false otherwise for performance, just in case it matters.
+#IMPORTANT: replace this with 'return true' for any sigil that uses the stat_modifying_aura function, otherwise it won't work. Returns false otherwise for performance, just in case it matters.
 func is_aura():
+	return false
+
+#Used for sigils that passively define the power of the card they're attached to, such as Ant, Spilled Blood, etc...
+func define_power():
+	return -1
+
+#IMPORTANT: replace this with 'return true' for any sigil that sets the user's Power/Attack. Returns false otherwise, as a card can only have one of these at once. 
+func is_power_defining():
 	return false

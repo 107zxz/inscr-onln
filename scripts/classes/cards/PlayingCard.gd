@@ -32,8 +32,17 @@ var attack = -1
 # New sigils
 var sigils = []
 
-# to reduce possible performance issues, there is a separate list of sigils that have 'aura' effects, such as Leader, Stinky, and Annoying
+# Grouped sigils
+# to reduce possible performance issues, there are some separate lists of sigils.
+#The sigils in them are also in the normal sigil list
+
+#Sigils that have 'aura' effects, such as Leader, Stinky, and Annoying
 var aura_sigils = []
+
+#Sigil that defines the card's attack, such as Ant, Blood Spilled, etc
+var power_defining_sigil = null
+
+
 
 # Sigil-specific information (must be stored per-card)
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
@@ -95,6 +104,11 @@ func create_sigils(friendly):
 		sigils.append(ns)
 		if ns.is_aura():
 			aura_sigils.append(ns)
+	
+	if "atkspecial" in card_data:
+		power_defining_sigil = load_custom_sigil(card_data.atkspecial)
+		if not power_defining_sigil:
+			power_defining_sigil = load_vanilla_sigil(card_data.atkspecial)
 
 func handle_sigil_event(event, params):
 	for sig in sigils:
@@ -778,38 +792,41 @@ func calculate_buffs():
 			attack += 1
 
 	# Green Mage
-	if "atkspecial" in card_data:
-		match card_data.atkspecial:
-			"green_mox":
-				attack = 0
-				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if "sigils" in mx.card_data and "Green Mox" in mx.card_data["sigils"]:
-						attack += 1
-			"mox":
-				attack = 0
-				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if "mox" in mx.card_data["name"].to_lower():
-						attack += 1
-			"mirror":
-				if friendly:
-					if slotManager.get_enemy_card(sIdx):
-						attack = slotManager.get_enemy_card(sIdx).attack
-				else:
-					if slotManager.get_friendly_card(sIdx):
-						attack = slotManager.get_friendly_card(sIdx).attack
-			"ant":
-				attack = card_data.attack
-				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if "Ant" in ant.card_data["name"] and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
-						attack += 1
-			"Bell":
-				attack = 4 - sIdx
-				for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-					if abs(c.slot_idx() - sIdx) == 1 and "Chime" in c.card_data["name"]:
-						attack += 1
-			"Hand":
-				var hName = "PlayerHand" if friendly else "EnemyHand"
-				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
+#	if "atkspecial" in card_data:
+#		match card_data.atkspecial:
+#			"green_mox":
+#				attack = 0
+#				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+#					if "sigils" in mx.card_data and "Green Mox" in mx.card_data["sigils"]:
+#						attack += 1
+#			"mox":
+#				attack = 0
+#				for mx in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+#					if "mox" in mx.card_data["name"].to_lower():
+#						attack += 1
+#			"mirror":
+#				if friendly:
+#					if slotManager.get_enemy_card(sIdx):
+#						attack = slotManager.get_enemy_card(sIdx).attack
+#				else:
+#					if slotManager.get_friendly_card(sIdx):
+#						attack = slotManager.get_friendly_card(sIdx).attack
+#			"ant":
+#				attack = card_data.attack
+#				for ant in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+#					if "Ant" in ant.card_data["name"] and "ant_limit" in CardInfo.all_data and attack < CardInfo.all_data.ant_limit:
+#						attack += 1
+#			"Bell":
+#				attack = 4 - sIdx
+#				for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+#					if abs(c.slot_idx() - sIdx) == 1 and "Chime" in c.card_data["name"]:
+#						attack += 1
+#			"Hand":
+#				var hName = "PlayerHand" if friendly else "EnemyHand"
+#				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
+	
+	if power_defining_sigil:
+		attack = power_defining_sigil.define_power()
 
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
