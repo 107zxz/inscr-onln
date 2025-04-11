@@ -461,7 +461,7 @@ func initiate_combat(friendly: bool):
 				total_strikes += strike
 
 			for _i in range(total_strikes):
-
+				
 				# opponent or attacking card might die mid-attacking
 				if is_slot_empty(attackingSlots[slot_index]) or (fightManager.opponent_lives if friendly else fightManager.lives) == 0:
 					break
@@ -570,40 +570,62 @@ func handle_attack(from_slot, to_slot):
 
 		return
 
-	var direct_attack = false
+	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+
+	#var direct_attack = false
 
 	var eCard = null
 
-	if is_slot_empty(enemySlots[to_slot]):
-		direct_attack = true
-
-		# Check for moles
-		# Mole man
-		if pCard.has_sigil("Airborne"):
-			for card in all_enemy_cards():
-				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
-					direct_attack = false
-					card.move_to_parent(enemySlots[to_slot])
-					eCard = card
-					break
-		else: # Regular mole
-			for card in all_enemy_cards():
-				if card.has_sigil("Burrower"):
-					direct_attack = false
-					card.move_to_parent(enemySlots[to_slot])
-					eCard = card
-					break
-
-	else:
-		eCard = enemySlots[to_slot].get_child(0)
-		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
-			direct_attack = true
-		if eCard.get_node("CardBody/DiveOlay").visible:
-			direct_attack = true
 	
+	for enemyCard in all_enemy_cards():
+		if enemyCard:
+			for sig in enemyCard.sigils:
+				# I put the mole logic in here!
+				sig.pre_enemy_attack(pCard, to_slot, attack_targeting)
+	
+	if not is_slot_empty(enemySlots[to_slot]):
+		eCard = enemySlots[to_slot].get_child(0)
+	
+	for sig in pCard.sigils:
+		attack_targeting = sig.attacker_target_selecting(attack_targeting, eCard)
+	
+	if eCard:
+		for sig in eCard.sigils:
+			attack_targeting = sig.defender_target_selecting(attack_targeting, pCard)
+	
+#	if is_slot_empty(enemySlots[to_slot]):
+#		direct_attack = true
+#
+#		# Check for moles
+#		# Mole man
+#		if pCard.has_sigil("Airborne"):
+#			for card in all_enemy_cards():
+#				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
+#					direct_attack = false
+#					card.move_to_parent(enemySlots[to_slot])
+#					eCard = card
+#					break
+#		else: # Regular mole
+#			for card in all_enemy_cards():
+#				if card.has_sigil("Burrower"):
+#					direct_attack = false
+#					card.move_to_parent(enemySlots[to_slot])
+#					eCard = card
+#					break
+#
+#	else:
+#		eCard = enemySlots[to_slot].get_child(0)
+#		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
+#			direct_attack = true
+#		if eCard.get_node("CardBody/DiveOlay").visible:
+#			direct_attack = true
+#
+#
+#
+#	if direct_attack:
 
-
-	if direct_attack:
+	# if, after everything, the attack targeting is SCALE: go face
+	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
 
 		# Variable attack override
 
@@ -634,10 +656,18 @@ func handle_attack(from_slot, to_slot):
 				if fightManager.side_deck.size() == 0:
 					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
 					break
+#	else:
+#		# Gross hard-coded exception
+#		if not eCard.has_sigil("Repulsive"):
+#			eCard.take_damage(pCard)
+
+	#if, after everthing, the attack type is CARD: hit the card.
+	elif attack_targeting == SigilEffect.AttackTargeting.CARD:
+		eCard.take_damage(pCard)
+	
+	#if, after everthing, the attack type is FAULURE: do nothing, probably because you got damage-blocked by someone with Repulsive
 	else:
-		# Gross hard-coded exception
-		if not eCard.has_sigil("Repulsive"):
-			eCard.take_damage(pCard)
+		pass
 
 # Sigil handling
 func get_friendly_cards_sigil(sigil):

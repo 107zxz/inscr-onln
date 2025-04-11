@@ -3,6 +3,8 @@ class_name SigilEffect
 const UNDEFINED_DAMAGE_VAL = -1;
 const FULLY_NEGATED_DAMAGE_VAL = -2;
 
+enum AttackTargeting {FAILURE, CARD, SCALE}
+
 # References
 var fightManager = null # See FightManager.gd
 var slotManager = null # See CardSlots.gd
@@ -32,6 +34,20 @@ func modify_damage_taken(amount: int):
 func on_deal_damage(card_hit, damage: int):
 	pass
 
+#Used for sigils that determine how a card will attack
+#ex: Airborne
+func attacker_target_selecting(current_targeting, defending_card):
+	return current_targeting
+
+#Used for sigils that determine how cards attacking its space will attack
+#ex: Waterborne, Mighty Leap, Repulsive
+func defender_target_selecting(current_targeting, attacking_card):
+	return current_targeting
+	
+#Used for sigils that do something when an enemy attempts to attack, but before it's fully determined if that attack will hit
+#ex: Burrower
+func pre_enemy_attack(attacker, targeted_index: int, current_targeting):
+	pass
 
 
 #Used for sigils that passively modify the stats of *other* cards.
