@@ -863,29 +863,36 @@ func calculate_buffs():
 			fightManager.enemy_no_energy_deplete = true
 
 	# Stinky, Annoying
-	if friendly:
-		if slotManager.get_enemy_card(sIdx):
-			var eCard = slotManager.get_enemy_card(sIdx)
-			if not has_sigil("Made of Stone"):
-				if eCard.has_sigil("Stinky"):
-					attack = max(0, attack - 1)
-				if eCard.has_sigil("Annoying"):
-					attack += 1
+	#if friendly:
+	#	if slotManager.get_enemy_card(sIdx):
+	#		var eCard = slotManager.get_enemy_card(sIdx)
+	#		if not has_sigil("Made of Stone"):
+	#			if eCard.has_sigil("Stinky"):
+	#				attack = max(0, attack - 1)
+	#			if eCard.has_sigil("Annoying"):
+	#				attack += 1
 
-	else:
-		if slotManager.get_friendly_card(sIdx):
-			var pCard = slotManager.get_friendly_card(sIdx)
-			if not has_sigil("Made of Stone"):
-				if pCard.has_sigil("Stinky"):
-					attack = max(0, attack - 1)
-				if pCard.has_sigil("Annoying"):
-					attack += 1
+	#else:
+	#	if slotManager.get_friendly_card(sIdx):
+	#		var pCard = slotManager.get_friendly_card(sIdx)
+	#		if not has_sigil("Made of Stone"):
+	#			if pCard.has_sigil("Stinky"):
+	#				attack = max(0, attack - 1)
+	#			if pCard.has_sigil("Annoying"):
+	#				attack += 1
 
-	var sigName = "Leader"
-	for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-		if abs(c.slot_idx() - sIdx) == 1 and c.has_sigil(sigName):
-			attack += 1
+	#var sigName = "Leader"
+	#for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
+	#	if abs(c.slot_idx() - sIdx) == 1 and c.has_sigil(sigName):
+	#		attack += 1
 
+	for c in slotManager.all_friendly_cards():
+		for sig in c.sigils:
+			sig.stat_modifying_aura(self, friendly)
+			
+	for c in slotManager.all_enemy_cards():
+		for sig in c.sigils:
+			sig.stat_modifying_aura(self, not friendly)
 
 	draw_stats()
 
