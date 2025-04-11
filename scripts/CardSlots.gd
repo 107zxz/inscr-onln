@@ -425,21 +425,25 @@ func initiate_combat(friendly: bool):
 		# strikes[4] exists to 'null' invalid strike indexes (-1 and 4)
 		var strikes = [0, 0, 0, 0, 0]
 		
-		if pCard.has_sigil("Omni Strike"):
-			
-			for eCard in all_enemy_cards():
-				strikes[eCard.slot_idx()] = 1
-			if not 1 in strikes:
-				strikes[slot_index] = 1
+		# if pCard.has_sigil("Omni Strike"):
+		#	
+		#	for eCard in all_enemy_cards():
+		#		strikes[eCard.slot_idx()] = 1
+		#	if not 1 in strikes:
+		#		strikes[slot_index] = 1
 
-		else:
+		# else:
 			
-			strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
-			strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
+		strikes[slot_index] += 1
+		for sig in pCard.sigils:
+			strikes = sig.modify_attack_targeting(slot_index, strikes)
+		
+			# strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
+			# strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
 			# strike to each side once per peripheral striking sigil
-			for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
-				strikes[slot_index - 1] += 1
-				strikes[slot_index + 1] += 1
+			# for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
+			#	strikes[slot_index - 1] += 1
+			#	strikes[slot_index + 1] += 1
 
 		
 		# brittle check
@@ -457,7 +461,7 @@ func initiate_combat(friendly: bool):
 				total_strikes += strike
 
 			for _i in range(total_strikes):
-
+				
 				# opponent or attacking card might die mid-attacking
 				if is_slot_empty(attackingSlots[slot_index]) or (fightManager.opponent_lives if friendly else fightManager.lives) == 0:
 					break
@@ -566,40 +570,65 @@ func handle_attack(from_slot, to_slot):
 
 		return
 
-	var direct_attack = false
+	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+
+	#var direct_attack = false
 
 	var eCard = null
 
-	if is_slot_empty(enemySlots[to_slot]):
-		direct_attack = true
-
-		# Check for moles
-		# Mole man
-		if pCard.has_sigil("Airborne"):
-			for card in all_enemy_cards():
-				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
-					direct_attack = false
-					card.move_to_parent(enemySlots[to_slot])
-					eCard = card
-					break
-		else: # Regular mole
-			for card in all_enemy_cards():
-				if card.has_sigil("Burrower"):
-					direct_attack = false
-					card.move_to_parent(enemySlots[to_slot])
-					eCard = card
-					break
-
-	else:
-		eCard = enemySlots[to_slot].get_child(0)
-		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
-			direct_attack = true
-		if eCard.get_node("CardBody/DiveOlay").visible:
-			direct_attack = true
 	
+	for enemyCard in all_enemy_cards():
+		for sig in enemyCard.sigils:
+			# I put the mole logic in here!
+			sig.pre_enemy_attack(pCard, to_slot, attack_targeting)
+	
+	if not is_slot_empty(enemySlots[to_slot]):
+		eCard = enemySlots[to_slot].get_child(0)
+	
+	attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+	
+	for sig in pCard.sigils:
+		attack_targeting = sig.attacker_target_selecting(attack_targeting, eCard)
+	
+	if eCard:
+		for sig in eCard.sigils:
+			attack_targeting = sig.defender_target_selecting(attack_targeting, pCard)
+	
+#	if is_slot_empty(enemySlots[to_slot]):
+#		direct_attack = true
+#
+#		# Check for moles
+#		# Mole man
+#		if pCard.has_sigil("Airborne"):
+#			for card in all_enemy_cards():
+#				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
+#					direct_attack = false
+#					card.move_to_parent(enemySlots[to_slot])
+#					eCard = card
+#					break
+#		else: # Regular mole
+#			for card in all_enemy_cards():
+#				if card.has_sigil("Burrower"):
+#					direct_attack = false
+#					card.move_to_parent(enemySlots[to_slot])
+#					eCard = card
+#					break
+#
+#	else:
+#		eCard = enemySlots[to_slot].get_child(0)
+#		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
+#			direct_attack = true
+#		if eCard.get_node("CardBody/DiveOlay").visible:
+#			direct_attack = true
+#
+#
+#
+#	if direct_attack:
 
+	print("Ally Attack Targeting %s" % attack_targeting)
 
-	if direct_attack:
+	# if, after everything, the attack targeting is SCALE: go face
+	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
 
 		# Variable attack override
 
@@ -630,10 +659,18 @@ func handle_attack(from_slot, to_slot):
 				if fightManager.side_deck.size() == 0:
 					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
 					break
+#	else:
+#		# Gross hard-coded exception
+#		if not eCard.has_sigil("Repulsive"):
+#			eCard.take_damage(pCard)
+
+	#if, after everthing, the attack type is CARD: hit the card.
+	elif attack_targeting == SigilEffect.AttackTargeting.CARD:
+		eCard.take_damage(pCard)
+	
+	#if, after everthing, the attack type is FAULURE: do nothing, probably because you got damage-blocked by someone with Repulsive
 	else:
-		# Gross hard-coded exception
-		if not eCard.has_sigil("Repulsive"):
-			eCard.take_damage(pCard)
+		pass
 
 # Sigil handling
 func get_friendly_cards_sigil(sigil):
@@ -878,6 +915,8 @@ func remote_card_data(card_slot, new_data):
 
 func handle_enemy_attack(from_slot, to_slot):
 
+	print("handling enemy attack!")
+
 	var eCard = get_enemy_card(from_slot)
 
 	# Special moon logic
@@ -904,47 +943,78 @@ func handle_enemy_attack(from_slot, to_slot):
 			enemySlots[from_slot].get_child(0).attack
 		)
 		return
+		
+	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
 
-	var direct_attack = false
+	#var direct_attack = false
 
 	var pCard = null
 
-	if is_slot_empty(playerSlots[to_slot]):
-		direct_attack = true
-
-		# Check for moles
-		# Mole man
-		if eCard.has_sigil("Airborne"):
-			for card in all_friendly_cards():
-				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
-					direct_attack = false
-					card.move_to_parent(playerSlots[to_slot])
-					pCard = card
-					break
-		else: # Regular mole
-			for card in all_friendly_cards():
-				if card.has_sigil("Burrower"):
-					direct_attack = false
-					card.move_to_parent(playerSlots[to_slot])
-					pCard = card
-					break
-	else:
+	
+	for playerCard in all_friendly_cards():
+		for sig in playerCard.sigils:
+			# I put the mole logic in here!
+			sig.pre_enemy_attack(eCard, to_slot, attack_targeting)
+	
+	if not is_slot_empty(playerSlots[to_slot]):
 		pCard = playerSlots[to_slot].get_child(0)
-		if eCard.has_sigil("Airborne") and not pCard.has_sigil("Mighty Leap"):
-			direct_attack = true
-		if pCard.get_node("CardBody/DiveOlay").visible:
-			direct_attack = true
+
+	attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+	
+	for sig in eCard.sigils:
+		attack_targeting = sig.attacker_target_selecting(attack_targeting, pCard)
+	
+	if pCard:
+		for sig in pCard.sigils:
+			attack_targeting = sig.defender_target_selecting(attack_targeting, eCard)
+
+	
+
+#	var direct_attack = false
+#
+#	var pCard = null
+#
+#	if is_slot_empty(playerSlots[to_slot]):
+#		direct_attack = true
+#
+#		# Check for moles
+#		# Mole man
+#		if eCard.has_sigil("Airborne"):
+#			for card in all_friendly_cards():
+#				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
+#					direct_attack = false
+#					card.move_to_parent(playerSlots[to_slot])
+#					pCard = card
+#					break
+#		else: # Regular mole
+#			for card in all_friendly_cards():
+#				if card.has_sigil("Burrower"):
+#					direct_attack = false
+#					card.move_to_parent(playerSlots[to_slot])
+#					pCard = card
+#					break
+#	else:
+#		pCard = playerSlots[to_slot].get_child(0)
+#		if eCard.has_sigil("Airborne") and not pCard.has_sigil("Mighty Leap"):
+#			direct_attack = true
+#		if pCard.get_node("CardBody/DiveOlay").visible:
+#			direct_attack = true
 	
 	# Special: Sniper is assumed to be attacking directly if it has no target
 	if eCard.has_sigil("Sniper") and is_slot_empty(playerSlots[fightManager.sniper_targets[0]]):
-		direct_attack = true
+		attack_targeting = SigilEffect.AttackTargeting.SCALE
 
-	if direct_attack:
+	print("Enemy Attack Targeting %s" % attack_targeting)
+
+	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
 #		fightManager.inflict_damage(-eCard.attack)
 		fightManager.inflict_damage(-1 if "atkspecial" in eCard.card_data and CardInfo.all_data.variable_attack_nerf else -eCard.attack)
 
-	else:
+	elif attack_targeting == SigilEffect.AttackTargeting.CARD:
 		pCard.take_damage(eCard)
+
+	else:
+		pass
 
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):

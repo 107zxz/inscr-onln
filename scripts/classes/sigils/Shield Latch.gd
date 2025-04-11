@@ -51,6 +51,20 @@ func handle_event(event: String, params: Array):
 		
 		target.get_node("CardBody/Highlight").show()
 		
+		if "sigils" in target.card_data:
+			# Deep copy sigil array
+			var n_sigils = target.card_data.sigils.duplicate()
+			n_sigils.append("Armored")
+			target.card_data.sigils = n_sigils
+		else:
+			target.card_data.sigils = ["Armored"]
+			
+		var old_atk = target.attack
+		var old_hp = target.health
+		target.from_data(target.card_data)
+		target.attack = old_atk
+		target.health = old_hp
+		
 		if isFriendly:
 			card.queue_free()
 			fightManager.state = fightManager.pre_snipe_state
