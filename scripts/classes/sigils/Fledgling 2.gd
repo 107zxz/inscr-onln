@@ -2,6 +2,7 @@ extends SigilEffect
 
 func start_of_turn(cardAnim):
 	cardAnim.play("Evolve")
+	yield (cardAnim, "animation_finished")
 
 	# Deep copy
 	var dmgTaken = card.card_data["health"] - card.health
@@ -17,5 +18,5 @@ func start_of_turn(cardAnim):
 		eCard.calculate_buffs()
 
 
-	yield (cardAnim, "animation_finished")
+	
 
