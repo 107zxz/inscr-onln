@@ -8,6 +8,3 @@ func define_power():
 			attack += 1
 	return attack
 
-#IMPORTANT: replace this with 'return true' for any sigil that sets the user's Power/Attack. Returns false otherwise, as a card can only have one of these at once. 
-func is_power_defining():
-	return true

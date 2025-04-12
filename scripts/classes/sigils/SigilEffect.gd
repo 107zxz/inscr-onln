@@ -5,6 +5,19 @@ const FULLY_NEGATED_DAMAGE_VAL = -2;
 
 enum AttackTargeting {FAILURE, CARD, SCALE}
 
+#KEEP THIS UPDATED
+enum SigilTriggers {
+	MODIFY_ATTACK_TARGETING,
+	MODIFY_DAMAGE_TAKEN,
+	ON_DEAL_DAMAGE,
+	START_OF_TURN,
+	END_OF_TURN,
+	ATTACKER_TARGET_SELECTING,
+	DEFENDER_TARGET_SELECTING,
+	PRE_ENEMY_ATTACK,
+	STAT_MODIFYING_AURA
+	}
+
 # References
 var fightManager = null # See FightManager.gd
 var slotManager = null # See CardSlots.gd
@@ -17,72 +30,65 @@ var card = null # The card the sigil is attached to
 func handle_event(_event: String, _params: Array):
 	pass
 
+
+
+#Used for sigils that passively define the power of the card they're attached to, such as Ant, Spilled Blood, etc...
+#IMPORTANT! Sigils with this effect do not go with normal sigils, they must be put in the 'atkspecial' arguement.
+#Note that sigils in 'atkspecial' will be excluded from the normal sigil list(s), meaning none of their other functions will trigger.
+func define_power():
+	return -1
+
+
+# YES, ALL OF THESE ARE COMMENTED OUT FOR A REASON. THEY'LL STILL WORK, BECAUSE IF I CAN'T HAVE INTERFACES... I'M GONNA F*CKING FAKE IT!
+
 #Used for sigils that modify how many times the card attacks and in what lanes.
 #ex: Bifurcated Strike, Trifrucated Strike, Double strike, Omni strike
 #Sniper is unfortunately hardcoded for now.
-func modify_attack_targeting(index: int, strikes: Array):
-	return strikes
+#func modify_attack_targeting(index: int, strikes: Array):
+#	return strikes
 
 #Used for sigils that modify how much damage the attached card is taking.
 #ex: Armored, Warded
-func modify_damage_taken(amount: int):
-	return amount
+#func modify_damage_taken(amount: int):
+#	return amount
 
 #Used for sigils that do something on dealing damage, although this can still be done with 'handle_event'
 #ex: Touch of Death
-#Could probably be used for Sharp Quills, but I'll only do that if asked
-func on_deal_damage(card_hit, damage: int):
-	pass
+#func on_deal_damage(card_hit, damage: int):
+#	pass
 
-#Used for sigils taht do something at the start of the turn
+#Used for sigils that do something at the start of the turn
 #ex: Waterborne (cosmetic), Fledgling
-func start_of_turn(cardAnim):
-	pass
+#func start_of_turn(cardAnim):
+#	pass
 
 #Used for sigils that do something at the end of the turn
 #ex: Waterborne (cosmetic), Bone Digger
-func end_of_turn(cardAnim):
-	pass
+#func end_of_turn(cardAnim):
+#	pass
 
 
 #ATTACKING AND BLOCKING FUNCTIONS:
 
 #Used for sigils that determine how a card will attack
 #ex: Airborne
-func attacker_target_selecting(current_targeting, defending_card):
-	return current_targeting
+#func attacker_target_selecting(current_targeting, defending_card):
+#	return current_targeting
 
 #Used for sigils that determine how cards attacking its space will attack
 #ex: Waterborne, Mighty Leap, Repulsive
-func defender_target_selecting(current_targeting, attacking_card):
-	return current_targeting
+#func defender_target_selecting(current_targeting, attacking_card):
+#	return current_targeting
 	
 #Used for sigils that do something when an enemy attempts to attack, but before it's fully determined if that attack will hit
 #ex: Burrower
-func pre_enemy_attack(attacker, targeted_index: int, current_targeting):
-	pass
+#func pre_enemy_attack(attacker, targeted_index: int, current_targeting):
+#	pass
 
 
-
-#RESTRICTED SIGILS
-#These sigils are restricted in some way, and have a function to define that they are a sigil of that type.
 
 #Used for sigils that passively modify the stats of *other* cards.
 #ex: Stinky, Annoying, Leader
-#this theoretically could cause performance issues as it does require looping through EVERY SIGIL ON THE FIELD whenever a card updates, but I know a way to fix this if it's neccessary.
-func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
-	pass
+#func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
+#	pass
 
-#IMPORTANT: replace this with 'return true' for any sigil that uses the stat_modifying_aura function, otherwise it won't work. Returns false otherwise for performance, just in case it matters.
-func is_aura():
-	return false
-
-
-
-#Used for sigils that passively define the power of the card they're attached to, such as Ant, Spilled Blood, etc...
-func define_power():
-	return -1
-
-#IMPORTANT: replace this with 'return true' for any sigil that sets the user's Power/Attack. Returns false otherwise, as a card can only have one of these at once. 
-func is_power_defining():
-	return false
