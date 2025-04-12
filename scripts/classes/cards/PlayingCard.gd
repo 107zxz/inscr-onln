@@ -36,17 +36,18 @@ var sigils = []
 # to reduce possible performance issues, there are some separate lists of sigils.
 #The sigils in them are also in the normal sigil list
 
-var grouped_sigils = {
-	SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING: [], #Sigils that change how many attacks this card makes and where, such as Bifurcated Strike and Double Strike
-	SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN: [], #Sigils that modify damage taken, such as Armored and Warded
-	SigilEffect.SigilTriggers.ON_DEAL_DAMAGE: [], #Sigils that do something when the card deals damage, such as Touch of Death.
-	SigilEffect.SigilTriggers.START_OF_TURN: [], #Sigils that do something at the start of the turn, such as Fledgling
-	SigilEffect.SigilTriggers.END_OF_TURN: [], #Sigils that do something at the end of the turn, such as Bone Digger
-	SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING: [], #Sigils that determine how the card attacks, such as Airborne
-	SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING: [], #Sigils that determine how cards attacking in the same lane as it attack, such as Repulsive and Mighty Leap
-	SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK: [], #Sigils that do something similar to Burrower
-	SigilEffect.SigilTriggers.STAT_MODIFYING_AURA: [], #Sigils that have 'aura' effects, such as Leader, Stinky, and Annoying
-}
+var grouped_sigils = []
+#{
+#	SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING: [], #Sigils that change how many attacks this card makes and where, such as Bifurcated Strike and Double Strike
+#	SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN: [], #Sigils that modify damage taken, such as Armored and Warded
+#	SigilEffect.SigilTriggers.ON_DEAL_DAMAGE: [], #Sigils that do something when the card deals damage, such as Touch of Death.
+#	SigilEffect.SigilTriggers.START_OF_TURN: [], #Sigils that do something at the start of the turn, such as Fledgling
+#	SigilEffect.SigilTriggers.END_OF_TURN: [], #Sigils that do something at the end of the turn, such as Bone Digger
+#	SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING: [], #Sigils that determine how the card attacks, such as Airborne
+#	SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING: [], #Sigils that determine how cards attacking in the same lane as it attack, such as Repulsive and Mighty Leap
+#	SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK: [], #Sigils that do something similar to Burrower
+#	SigilEffect.SigilTriggers.STAT_MODIFYING_AURA: [], #Sigils that have 'aura' effects, such as Leader, Stinky, and Annoying
+#}
 
 var power_defining_sigil = null #The singular sigil that defines the card's attack, such as Ant, Blood Spilled, etc. Should be null if there is none
 
@@ -123,30 +124,20 @@ func create_sigils(friendly):
 		ns.isFriendly = friendly
 		sigils.append(ns)
 		
-		#Sort da sigils!
-		if ns.has_method("modify_attack_targeting"):
-			grouped_sigils[SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING].append(ns)
-		if ns.has_method("modify_damage_taken"):
-			grouped_sigils[SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN].append(ns)
-		if ns.has_method("on_deal_damage"):
-			grouped_sigils[SigilEffect.SigilTriggers.ON_DEAL_DAMAGE].append(ns)
-		if ns.has_method("start_of_turn"):
-			grouped_sigils[SigilEffect.SigilTriggers.START_OF_TURN].append(ns)
-		if ns.has_method("end_of_turn"):
-			grouped_sigils[SigilEffect.SigilTriggers.END_OF_TURN].append(ns)
-		if ns.has_method("attacker_target_selecting"):
-			grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING].append(ns)
-		if ns.has_method("defender_target_selecting"):
-			grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING].append(ns)
-		if ns.has_method("pre_enemy_attack"):
-			grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK].append(ns)
-		if ns.has_method("stat_modifying_aura"):
-			grouped_sigils[SigilEffect.SigilTriggers.STAT_MODIFYING_AURA].append(ns)
-	
-	
-	
-		print(grouped_sigils)
+		#resize grouped_sigils to fit ALL the things in it!
+		var size = SigilEffect.SigilTriggers.values().size()
+		grouped_sigils.resize(size)
+		#using fill puts the SAME list in all slots, so we can't use that
+		for _i in range(size):
+			grouped_sigils[_i]=[]
 
+
+		#Sort da sigils!
+		var keys = SigilEffect.SigilTriggers.keys()
+		for trigger in SigilEffect.SigilTriggers.values():
+			#Janky a** trick that requires me to comment out all the functions from SigilEffect
+			if ns.has_method(keys[trigger].to_lower()):
+				grouped_sigils[trigger].append(ns)
 
 func handle_sigil_event(event, params):
 	for sig in sigils:
