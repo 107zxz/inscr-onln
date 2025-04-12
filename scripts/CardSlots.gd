@@ -172,32 +172,35 @@ func pre_turn_sigils(friendly: bool):
 			var cd = card.get_node("CardBody/Active")
 			cd.disabled = false
 			cd.mouse_filter = MOUSE_FILTER_STOP
-
-		# Evolution
-		if card.has_sigil("Fledgling") or card.has_sigil("Fledgling 2") or card.has_sigil("Transformer"):
-			cardAnim.play("Evolve")
-			yield (cardAnim, "animation_finished")
-
-		# Dive
-		if card.get_node("CardBody/DiveOlay").visible:
-			cardAnim.play("UnDive")
-
-			if card.has_sigil("Tentacle"):
-				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
-				
-				var hp = card.health
-				card.from_data(nTent)
-				card.health = hp
-
-				# Calculate
-				for fCard in all_friendly_cards():
-					fCard.calculate_buffs()
-				for eCard in all_enemy_cards():
-					eCard.calculate_buffs()
-
-				# Hide tentacle atk symbol
-				card.get_node("CardBody/AtkIcon").visible = false
-				card.get_node("CardBody/AtkScore").visible = true
+		
+		for sig in card.sigils:
+			sig.start_of_turn(cardAnim)
+		
+#		# Evolution
+#		if card.has_sigil("Fledgling") or card.has_sigil("Fledgling 2") or card.has_sigil("Transformer"):
+#			cardAnim.play("Evolve")
+#			yield (cardAnim, "animation_finished")
+#
+#		# Dive
+#		if card.get_node("CardBody/DiveOlay").visible:
+#			cardAnim.play("UnDive")
+#
+#			if card.has_sigil("Tentacle"):
+#				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
+#
+#				var hp = card.health
+#				card.from_data(nTent)
+#				card.health = hp
+#
+#				# Calculate
+#				for fCard in all_friendly_cards():
+#					fCard.calculate_buffs()
+#				for eCard in all_enemy_cards():
+#					eCard.calculate_buffs()
+#
+#				# Hide tentacle atk symbol
+#				card.get_node("CardBody/AtkIcon").visible = false
+#				card.get_node("CardBody/AtkScore").visible = true
 
 	# Enemy spawn conduit
 	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
@@ -320,16 +323,21 @@ func post_turn_sigils(friendly: bool):
 	for card in all_friendly_cards() if friendly else all_enemy_cards():
 		if "Perish" in card.get_node("AnimationPlayer").current_animation:
 			continue
+		
+		var cardAnim = card.get_node("AnimationPlayer")
+		
+		for sig in card.sigils:
+			sig.end_of_turn(cardAnim)
 
-		if card.has_sigil("Bone Digger"):
-			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
-			card.get_node("AnimationPlayer").play("ProcGeneric")
-			yield(card.get_node("AnimationPlayer"), "animation_finished")
-
-		# Diving
-		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
-			card.get_node("AnimationPlayer").play("Dive")
-			yield(card.get_node("AnimationPlayer"), "animation_finished")
+#		if card.has_sigil("Bone Digger"):
+#			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
+#			card.get_node("AnimationPlayer").play("ProcGeneric")
+#			yield(card.get_node("AnimationPlayer"), "animation_finished")
+#
+#		# Diving
+#		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
+#			card.get_node("AnimationPlayer").play("Dive")
+#			yield(card.get_node("AnimationPlayer"), "animation_finished")
 
 		# Kill side deck cards if moon
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:

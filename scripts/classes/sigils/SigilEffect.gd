@@ -34,6 +34,19 @@ func modify_damage_taken(amount: int):
 func on_deal_damage(card_hit, damage: int):
 	pass
 
+#Used for sigils taht do something at the start of the turn
+#ex: Waterborne (cosmetic), Fledgling
+func start_of_turn(cardAnim):
+	pass
+
+#Used for sigils that do something at the end of the turn
+#ex: Waterborne (cosmetic), Bone Digger
+func end_of_turn(cardAnim):
+	pass
+
+
+#ATTACKING AND BLOCKING FUNCTIONS:
+
 #Used for sigils that determine how a card will attack
 #ex: Airborne
 func attacker_target_selecting(current_targeting, defending_card):
@@ -50,6 +63,10 @@ func pre_enemy_attack(attacker, targeted_index: int, current_targeting):
 	pass
 
 
+
+#RESTRICTED SIGILS
+#These sigils are restricted in some way, and have a function to define that they are a sigil of that type.
+
 #Used for sigils that passively modify the stats of *other* cards.
 #ex: Stinky, Annoying, Leader
 #this theoretically could cause performance issues as it does require looping through EVERY SIGIL ON THE FIELD whenever a card updates, but I know a way to fix this if it's neccessary.
@@ -59,6 +76,8 @@ func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
 #IMPORTANT: replace this with 'return true' for any sigil that uses the stat_modifying_aura function, otherwise it won't work. Returns false otherwise for performance, just in case it matters.
 func is_aura():
 	return false
+
+
 
 #Used for sigils that passively define the power of the card they're attached to, such as Ant, Spilled Blood, etc...
 func define_power():

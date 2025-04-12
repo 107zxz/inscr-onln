@@ -452,41 +452,42 @@ func begin_perish(doubleDeath = false):
 
 
 # This is called when a card evolves with the fledgling sigil
-func evolve():
-	var dmgTaken = card_data["health"] - health
-	# Special case: Fledgling 2
-	if has_sigil("Fledgling 2"):
-
-		# Deep copy
-		var new_sigs: Array = card_data.sigils.duplicate()
-		new_sigs.erase("Fledgling 2")
-		new_sigs.append("Fledgling")
-		card_data.sigils = new_sigs
-
-		from_data(card_data)
-
-		health = card_data["health"] - dmgTaken
-
-		for card in slotManager.all_friendly_cards():
-			card.calculate_buffs()
-		for eCard in slotManager.all_enemy_cards():
-			eCard.calculate_buffs()
-
-		return
-
-
-	from_data(CardInfo.from_name(card_data["evolution"]))
-
-	health = card_data["health"] - dmgTaken
-
-	# Calculate buffs
-	for card in slotManager.all_friendly_cards():
-		card.calculate_buffs()
-	for eCard in slotManager.all_enemy_cards():
-		eCard.calculate_buffs()
-
-	# Summoned card
-#	fightManager.card_summoned(self)
+#func evolve():
+#
+#	var dmgTaken = card_data["health"] - health
+#	# Special case: Fledgling 2
+#	if has_sigil("Fledgling 2"):
+#
+#		# Deep copy
+#		var new_sigs: Array = card_data.sigils.duplicate()
+#		new_sigs.erase("Fledgling 2")
+#		new_sigs.append("Fledgling")
+#		card_data.sigils = new_sigs
+#
+#		from_data(card_data)
+#
+#		health = card_data["health"] - dmgTaken
+#
+#		for card in slotManager.all_friendly_cards():
+#			card.calculate_buffs()
+#		for eCard in slotManager.all_enemy_cards():
+#			eCard.calculate_buffs()
+#
+#		return
+#
+#
+#	from_data(CardInfo.from_name(card_data["evolution"]))
+#
+#	health = card_data["health"] - dmgTaken
+#
+#	# Calculate buffs
+#	for card in slotManager.all_friendly_cards():
+#		card.calculate_buffs()
+#	for eCard in slotManager.all_enemy_cards():
+#		eCard.calculate_buffs()
+#
+#	# Summoned card
+##	fightManager.card_summoned(self)
 
 
 func _on_ActiveSigil_pressed():
@@ -837,6 +838,9 @@ func calculate_buffs():
 	#print(power_defining_sigil)
 	if power_defining_sigil:
 		attack = power_defining_sigil.define_power()
+		#just in case, I think something like this happened once and it crashed
+		if not attack:
+			attack = 0
 
 	# Conduits
 	var cfx = slotManager.get_conduitfx(self)
