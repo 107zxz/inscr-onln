@@ -220,104 +220,104 @@ func post_turn_sigils(friendly: bool):
 	var affectedSlots = playerSlots if friendly else enemySlots
 
 	# Sprinting
-	for card in cardsToMove:
-		var cardAnim = card.get_node("AnimationPlayer")
-		var cardTween = card.get_node("Tween")
-
-		# Spront
-		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Skeleton Crew (Yarr)", "Hefty"]:
-			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
-
-				var sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
-					card.card_data["sigils"].find(movSigil)
-				)
-
-				var curSlot = card.get_parent().get_position_in_parent()
-
-				var sprintOffset = -1 if sprintSigil.flip_h else 1
-				var moveFailed = false
-				var cantMove = false
-#				var ogFlipped = sprintSigil.flip_h
-
-				for _i in range(2):
-					# Edges of screen
-					if curSlot + sprintOffset > 3:
-						if moveFailed:
-							cantMove = true
-							break
-						sprintSigil.flip_h = true
-						moveFailed = true
-					elif curSlot + sprintOffset < 0:
-						if moveFailed:
-							cantMove = true
-							break
-						sprintSigil.flip_h = false
-						moveFailed = true
-
-					# Occupied slots
-					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]): # and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
-
-						if movSigil == "Hefty":
-
-							var pushed = false
-
-							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
-								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]): # or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
-									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-									pushed = true
-
-								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
-									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]): # or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
-										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
-										pushed = true
-
-							if pushed:
-								# A push has happened, recalculate stats
-								for fCard in all_friendly_cards():
-									fCard.calculate_buffs()
-								for eCard in all_enemy_cards():
-									eCard.calculate_buffs()
-							else:
-								if moveFailed:
-									cantMove = true
-									break
-								sprintSigil.flip_h = not sprintSigil.flip_h
-								moveFailed = true
-						else:
-							if moveFailed:
-								cantMove = true
-								break
-							sprintSigil.flip_h = not sprintSigil.flip_h
-							moveFailed = true
-
-					sprintOffset = -1 if sprintSigil.flip_h else 1
-
-				if cantMove:
-					sprintOffset = 0
-				else:
-					# Spawn a card if thats the one
-					if movSigil == "Squirrel Shedder":
-						summon_card(CardInfo.from_name("Squirrel"), curSlot, friendly)
-					if movSigil == "Skeleton Crew":
-						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
-					if movSigil == "Skeleton Crew (Yarr)":
-						summon_card(CardInfo.from_name("Skeleton Crew"), curSlot, friendly)
-
-					if "sheds" in card.card_data:
-						summon_card(CardInfo.from_name(card.card_data.sheds), curSlot, friendly)
-
-				card.move_to_parent(affectedSlots[curSlot + sprintOffset])
-
-
-				# A push has happened, recalculate stats
-				for fCard in all_friendly_cards():
-					fCard.calculate_buffs()
-				for eCard in all_enemy_cards():
-					eCard.calculate_buffs()
-
-				# Wait for move to finish
-				yield (cardTween, "tween_completed")
+#	for card in cardsToMove:
+#		var cardAnim = card.get_node("AnimationPlayer")
+#		var cardTween = card.get_node("Tween")
+#
+#		# Spront
+#		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Skeleton Crew (Yarr)", "Hefty"]:
+#			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
+#
+#				var sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
+#					card.card_data["sigils"].find(movSigil)
+#				)
+#
+#				var curSlot = card.get_parent().get_position_in_parent()
+#
+#				var sprintOffset = -1 if sprintSigil.flip_h else 1
+#				var moveFailed = false
+#				var cantMove = false
+##				var ogFlipped = sprintSigil.flip_h
+#
+#				for _i in range(2):
+#					# Edges of screen
+#					if curSlot + sprintOffset > 3:
+#						if moveFailed:
+#							cantMove = true
+#							break
+#						sprintSigil.flip_h = true
+#						moveFailed = true
+#					elif curSlot + sprintOffset < 0:
+#						if moveFailed:
+#							cantMove = true
+#							break
+#						sprintSigil.flip_h = false
+#						moveFailed = true
+#
+#					# Occupied slots
+#					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]): # and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
+#
+#						if movSigil == "Hefty":
+#
+#							var pushed = false
+#
+#							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
+#								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]): # or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
+#									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
+#									pushed = true
+#
+#								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
+#									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]): # or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
+#										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
+#										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
+#										pushed = true
+#
+#							if pushed:
+#								# A push has happened, recalculate stats
+#								for fCard in all_friendly_cards():
+#									fCard.calculate_buffs()
+#								for eCard in all_enemy_cards():
+#									eCard.calculate_buffs()
+#							else:
+#								if moveFailed:
+#									cantMove = true
+#									break
+#								sprintSigil.flip_h = not sprintSigil.flip_h
+#								moveFailed = true
+#						else:
+#							if moveFailed:
+#								cantMove = true
+#								break
+#							sprintSigil.flip_h = not sprintSigil.flip_h
+#							moveFailed = true
+#
+#					sprintOffset = -1 if sprintSigil.flip_h else 1
+#
+#				if cantMove:
+#					sprintOffset = 0
+#				else:
+#					# Spawn a card if thats the one
+#					if movSigil == "Squirrel Shedder":
+#						summon_card(CardInfo.from_name("Squirrel"), curSlot, friendly)
+#					if movSigil == "Skeleton Crew":
+#						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
+#					if movSigil == "Skeleton Crew (Yarr)":
+#						summon_card(CardInfo.from_name("Skeleton Crew"), curSlot, friendly)
+#
+#					if "sheds" in card.card_data:
+#						summon_card(CardInfo.from_name(card.card_data.sheds), curSlot, friendly)
+#
+#				card.move_to_parent(affectedSlots[curSlot + sprintOffset])
+#
+#
+#				# A push has happened, recalculate stats
+#				for fCard in all_friendly_cards():
+#					fCard.calculate_buffs()
+#				for eCard in all_enemy_cards():
+#					eCard.calculate_buffs()
+#
+#				# Wait for move to finish
+#				yield (cardTween, "tween_completed")
 
 	# Other end-of-turn sigils
 	for card in all_friendly_cards() if friendly else all_enemy_cards():
