@@ -15,7 +15,7 @@ func handle_event(event: String, params: Array):
 			if slot > 0 and slotManager.is_slot_empty(cardSlots[slot - 1]):
 				slotManager.summon_card(CardInfo.from_name("Chime"), slot - 1, isFriendly)
 
-			if slot < 3 and slotManager.is_slot_empty(cardSlots[slot + 1]):
+			if slot < CardInfo.all_data.n_lanes - 1 and slotManager.is_slot_empty(cardSlots[slot + 1]):
 				slotManager.summon_card(CardInfo.from_name("Chime"), slot + 1, isFriendly)
 	
 	if event == "card_hit" and params[0].card_data.name == "Chime" and params[0].get_parent().get_parent() == card.get_parent().get_parent() \
@@ -29,7 +29,7 @@ func handle_event(event: String, params: Array):
 				# Trigger an attack with the appropriate strike offset
 		
 				# Lower slot to right for attack anim (JANK AF)
-				if card.slot_idx() < 3:
+				if card.slot_idx() < CardInfo.all_data.n_lanes - 1:
 					card.get_parent().get_parent().get_child(card.slot_idx() + 1).show_behind_parent = true
 		
 				card.strike_offset = params[1].slot_idx() - card.slot_idx()
@@ -43,7 +43,7 @@ func handle_event(event: String, params: Array):
 				card.strike_offset = 0
 				card.rect_position.x = card.strike_offset * 50
 		
-				if card.slot_idx() < 3:
+				if card.slot_idx() < CardInfo.all_data.n_lanes - 1:
 					card.get_parent().get_parent().get_child(card.slot_idx() + 1).show_behind_parent = false
 		
 				if card.health <= 0:
