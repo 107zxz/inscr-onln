@@ -633,7 +633,6 @@ func handle_attack(from_slot, to_slot):
 #
 #	if direct_attack:
 
-	print("Ally Attack Targeting %s" % attack_targeting)
 
 	# if, after everything, the attack targeting is SCALE: go face
 	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
@@ -1012,7 +1011,6 @@ func handle_enemy_attack(from_slot, to_slot):
 	if eCard.has_sigil("Sniper") and is_slot_empty(playerSlots[fightManager.sniper_targets[0]]):
 		attack_targeting = SigilEffect.AttackTargeting.SCALE
 
-	print("Enemy Attack Targeting %s" % attack_targeting)
 
 	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
 #		fightManager.inflict_damage(-eCard.attack)
