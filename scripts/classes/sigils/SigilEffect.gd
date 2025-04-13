@@ -18,6 +18,7 @@ enum SigilTriggers {
 	PRE_ENEMY_ATTACK,
 	STAT_MODIFYING_AURA,
 	CALC_BUFFS_EFFECT,
+	AFTER_SUCCESSFUL_ATTACKS
 	}
 
 # References
@@ -72,6 +73,11 @@ func define_power():
 #Used for sigils that do something at the end of the turn
 #ex: Waterborne (cosmetic), Bone Digger
 #func end_of_turn(cardAnim):
+#	pass
+
+#Used for sigils that do something after a card successfully attacks one or more times
+#ex: Brittle
+#func after_successful_attacks(cardAnim):
 #	pass
 
 
