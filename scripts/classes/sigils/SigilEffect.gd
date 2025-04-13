@@ -18,7 +18,7 @@ enum SigilTriggers {
 	PRE_ENEMY_ATTACK,
 	STAT_MODIFYING_AURA,
 	CALC_BUFFS_EFFECT,
-	AFTER_SUCCESSFUL_ATTACKS
+	AFTER_ATTACKS
 	}
 
 # References
@@ -75,9 +75,9 @@ func define_power():
 #func end_of_turn(cardAnim):
 #	pass
 
-#Used for sigils that do something after a card successfully attacks one or more times
+#Used for sigils that do something after a card attacks one or more times
 #ex: Brittle
-#func after_successful_attacks(cardAnim):
+#func after_attacks(cardAnim, had_any_successful_attacks: bool):
 #	pass
 
 

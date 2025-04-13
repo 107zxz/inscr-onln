@@ -531,8 +531,6 @@ func initiate_combat(friendly: bool):
 					if not is_slot_empty(defendingSlots[i]):
 						eCard = defendingSlots[i].get_child(0)
 
-					print("foo")
-
 					if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
 						has_attacked = true
 						pCard.strike_offset = i - slot_index
@@ -548,9 +546,8 @@ func initiate_combat(friendly: bool):
 		
 		#if has_attacked and pCard.has_sigil("Brittle"):
 		#	cardAnim.play("Perish")
-		if has_attacked:
-			for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_SUCCESSFUL_ATTACKS]:
-				sig.after_successful_attacks(cardAnim)
+		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_SUCCESSFUL_ATTACKS]:
+			sig.after_successful_attacks(cardAnim, has_attacked)
 
 	yield(get_tree().create_timer(0.01), "timeout")
 
@@ -577,13 +574,13 @@ func pre_attack_logic(friendly: bool, attacker, to_slot):
 
 func get_attack_targeting(friendly: bool, attacker, defender):
 	
-	print("Getting Attack Targeting")
-	print("Friendly = %s" % friendly)
-	print("Attacker = %s" % attacker.card_data)
-	if defender:
-		print("Defender = %s" % defender.card_data)
-	else:
-		print("No Defender")
+#	print("Getting Attack Targeting")
+#	print("Friendly = %s" % friendly)
+#	print("Attacker = %s" % attacker.card_data)
+#	if defender:
+#		print("Defender = %s" % defender.card_data)
+#	else:
+#		print("No Defender")
 	
 	var attack_targeting = SigilEffect.AttackTargeting.CARD if defender else SigilEffect.AttackTargeting.SCALE
 	
@@ -594,7 +591,7 @@ func get_attack_targeting(friendly: bool, attacker, defender):
 		for sig in defender.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
 			attack_targeting = sig.defender_target_selecting(attack_targeting, attacker)
 	
-	print(SigilEffect.AttackTargeting.keys()[attack_targeting])
+#	print(SigilEffect.AttackTargeting.keys()[attack_targeting])
 
 	return attack_targeting
 
