@@ -37,17 +37,6 @@ var sigils = []
 #The sigils in them are also in the normal sigil list
 
 var grouped_sigils = []
-#{
-#	SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING: [], #Sigils that change how many attacks this card makes and where, such as Bifurcated Strike and Double Strike
-#	SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN: [], #Sigils that modify damage taken, such as Armored and Warded
-#	SigilEffect.SigilTriggers.ON_DEAL_DAMAGE: [], #Sigils that do something when the card deals damage, such as Touch of Death.
-#	SigilEffect.SigilTriggers.START_OF_TURN: [], #Sigils that do something at the start of the turn, such as Fledgling
-#	SigilEffect.SigilTriggers.END_OF_TURN: [], #Sigils that do something at the end of the turn, such as Bone Digger
-#	SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING: [], #Sigils that determine how the card attacks, such as Airborne
-#	SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING: [], #Sigils that determine how cards attacking in the same lane as it attack, such as Repulsive and Mighty Leap
-#	SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK: [], #Sigils that do something similar to Burrower
-#	SigilEffect.SigilTriggers.STAT_MODIFYING_AURA: [], #Sigils that have 'aura' effects, such as Leader, Stinky, and Annoying
-#}
 
 var power_defining_sigil = null #The singular sigil that defines the card's attack, such as Ant, Blood Spilled, etc. Should be null if there is none
 
@@ -997,8 +986,8 @@ func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 	draw_stats()
 	
 	if enemyCard:
-		for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DEAL_DAMAGE]:
-			sig.on_deal_damage(self, dmg_amt)
+		for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
+			sig.on_damage_card(self, dmg_amt)
 
 	if health <= 0: #or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")

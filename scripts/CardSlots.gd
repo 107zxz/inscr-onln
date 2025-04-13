@@ -643,32 +643,38 @@ func handle_attack(from_slot, to_slot):
 		# Variable attack override
 
 #		fightManager.inflict_damage(pCard.attack if not CardInfo.all_data.variable_attack_nerf or  else 1)
-		fightManager.inflict_damage(1 if "atkspecial" in pCard.card_data and CardInfo.all_data.variable_attack_nerf else pCard.attack)
+		
+		var damage = 1 if "atkspecial" in pCard.card_data and CardInfo.all_data.variable_attack_nerf else pCard.attack
 
+		fightManager.inflict_damage(damage)
+
+
+		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_SCALE]:
+			sig.on_damage_scale(damage)
 		# Looter
-		if pCard.has_sigil("Looter"):
-			for _i in range(pCard.attack):
-				if fightManager.deck.size() == 0:
-					break
-
-				fightManager.draw_card(fightManager.deck.pop_front())
-
-				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-				if fightManager.deck.size() == 0:
-					get_node("../DrawPiles/YourDecks/Deck").visible = false
-					break
-
-		if pCard.has_sigil("Side Hustle"):
-			for _i in range(pCard.attack):
-				if fightManager.side_deck.size() == 0:
-					break
-
-				fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
-
-				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-				if fightManager.side_deck.size() == 0:
-					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
-					break
+#		if pCard.has_sigil("Looter"):
+#			for _i in range(pCard.attack):
+#				if fightManager.deck.size() == 0:
+#					break
+#
+#				fightManager.draw_card(fightManager.deck.pop_front())
+#
+#				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+#				if fightManager.deck.size() == 0:
+#					get_node("../DrawPiles/YourDecks/Deck").visible = false
+#					break
+#
+#		if pCard.has_sigil("Side Hustle"):
+#			for _i in range(pCard.attack):
+#				if fightManager.side_deck.size() == 0:
+#					break
+#
+#				fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
+#
+#				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+#				if fightManager.side_deck.size() == 0:
+#					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
+#					break
 #	else:
 #		# Gross hard-coded exception
 #		if not eCard.has_sigil("Repulsive"):

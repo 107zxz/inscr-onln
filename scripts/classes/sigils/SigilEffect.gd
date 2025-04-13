@@ -9,7 +9,8 @@ enum AttackTargeting {FAILURE, CARD, SCALE}
 enum SigilTriggers {
 	MODIFY_ATTACK_TARGETING,
 	MODIFY_DAMAGE_TAKEN,
-	ON_DEAL_DAMAGE,
+	ON_DAMAGE_CARD,
+	ON_DAMAGE_SCALE,
 	START_OF_TURN,
 	END_OF_TURN,
 	ATTACKER_TARGET_SELECTING,
@@ -53,9 +54,14 @@ func define_power():
 #func modify_damage_taken(amount: int):
 #	return amount
 
-#Used for sigils that do something on dealing damage, although this can still be done with 'handle_event'
+#Used for sigils that do something when damaging another card, although this can still be done with 'handle_event'
 #ex: Touch of Death
-#func on_deal_damage(card_hit, damage: int):
+#func on_damage_card(card_hit, damage: int):
+#	pass
+
+#Used for sigils that do something when damaging the scales, although this can still be done with 'handle_event'
+#ex: Looter, Side Hustle
+#func on_damage_scales(card_hit, damage: int):
 #	pass
 
 #Used for sigils that do something at the start of the turn
