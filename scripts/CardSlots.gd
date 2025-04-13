@@ -488,18 +488,24 @@ func initiate_combat(friendly: bool):
 					print(fightManager.sniper_targets)
 					target_index = fightManager.sniper_targets[0]
 				
-				# don't attack repulsive cards!
-				if not is_slot_empty(defendingSlots[target_index]) and defendingSlots[target_index].get_child(0).has_sigil("Repulsive"):
-					if not pCard.has_sigil("Airborne") or defendingSlots[target_index].get_child(0).has_sigil("Mighty Leap"):
-						fightManager.sniper_targets.pop_front()
-						continue
-
-				has_attacked = true
-				pCard.strike_offset = target_index - slot_index
-				cardAnim.play("Attack" if friendly else "AttackRemote")
-				pCard.play_sfx("attack")
-				yield(cardAnim, "animation_finished")
+				pre_attack_logic(friendly, pCard, target_index)
 				
+				# don't attack repulsive cards!
+#				if not is_slot_empty(defendingSlots[target_index]) and defendingSlots[target_index].get_child(0).has_sigil("Repulsive"):
+#					if not pCard.has_sigil("Airborne") or defendingSlots[target_index].get_child(0).has_sigil("Mighty Leap"):
+#						fightManager.sniper_targets.pop_front()
+#						continue
+				var eCard = null
+				if not is_slot_empty(defendingSlots[target_index]):
+					eCard = defendingSlots[target_index].get_child(0)
+
+				if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
+					has_attacked = true
+					pCard.strike_offset = target_index - slot_index
+					cardAnim.play("Attack" if friendly else "AttackRemote")
+					pCard.play_sfx("attack")
+					yield(cardAnim, "animation_finished")
+					
 				fightManager.sniper_targets.pop_front()
 
 		else:
@@ -516,16 +522,24 @@ func initiate_combat(friendly: bool):
 						break
 					
 					# don't attack repulsive cards!
-					if not is_slot_empty(defendingSlots[i]) and defendingSlots[i].get_child(0).has_sigil("Repulsive"):
-						if not pCard.has_sigil("Airborne") or defendingSlots[i].get_child(0).has_sigil("Mighty Leap"):
-							continue
+#					if not is_slot_empty(defendingSlots[i]) and defendingSlots[i].get_child(0).has_sigil("Repulsive"):
+#						if not pCard.has_sigil("Airborne") or defendingSlots[i].get_child(0).has_sigil("Mighty Leap"):
+#							continue
+					pre_attack_logic(friendly, pCard, i)
 					
-					has_attacked = true
-					pCard.strike_offset = i - slot_index
-					pCard.rect_position.x = pCard.strike_offset * 50
-					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
-					yield(cardAnim, "animation_finished")
+					var eCard = null
+					if not is_slot_empty(defendingSlots[i]):
+						eCard = defendingSlots[i].get_child(0)
+
+					print("foo")
+
+					if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
+						has_attacked = true
+						pCard.strike_offset = i - slot_index
+						pCard.rect_position.x = pCard.strike_offset * 50
+						cardAnim.play("Attack" if friendly else "AttackRemote")
+						pCard.play_sfx("attack")
+						yield(cardAnim, "animation_finished")
 					
 					if is_slot_empty(attackingSlots[slot_index]):
 						continue
@@ -546,6 +560,43 @@ func initiate_combat(friendly: bool):
 
 	emit_signal("complete_combat")
 
+
+func pre_attack_logic(friendly: bool, attacker, to_slot):
+	if friendly:
+		var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+		for enemyCard in all_enemy_cards():
+			for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
+				# I put the mole logic in here!
+				sig.pre_enemy_attack(attacker, to_slot, attack_targeting)
+	else:
+		var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+		for playerCard in all_friendly_cards():
+			for sig in playerCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
+				# I put the mole logic in here!
+				sig.pre_enemy_attack(attacker, to_slot, attack_targeting)
+
+func get_attack_targeting(friendly: bool, attacker, defender):
+	
+	print("Getting Attack Targeting")
+	print("Friendly = %s" % friendly)
+	print("Attacker = %s" % attacker.card_data)
+	if defender:
+		print("Defender = %s" % defender.card_data)
+	else:
+		print("No Defender")
+	
+	var attack_targeting = SigilEffect.AttackTargeting.CARD if defender else SigilEffect.AttackTargeting.SCALE
+	
+	for sig in attacker.grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING]:
+		attack_targeting = sig.attacker_target_selecting(attack_targeting, defender)
+	
+	if defender:
+		for sig in defender.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
+			attack_targeting = sig.defender_target_selecting(attack_targeting, attacker)
+	
+	print(SigilEffect.AttackTargeting.keys()[attack_targeting])
+
+	return attack_targeting
 
 # Do the attack damage
 func handle_attack(from_slot, to_slot):
@@ -584,29 +635,26 @@ func handle_attack(from_slot, to_slot):
 
 		return
 
-	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+#	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
 
 	#var direct_attack = false
 
-	var eCard = null
-
-	
-	for enemyCard in all_enemy_cards():
-		for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
-			# I put the mole logic in here!
-			sig.pre_enemy_attack(pCard, to_slot, attack_targeting)
-	
-	if not is_slot_empty(enemySlots[to_slot]):
-		eCard = enemySlots[to_slot].get_child(0)
-	
-	attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
-	
-	for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING]:
-		attack_targeting = sig.attacker_target_selecting(attack_targeting, eCard)
-	
-	if eCard:
-		for sig in eCard.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
-			attack_targeting = sig.defender_target_selecting(attack_targeting, pCard)
+#	var eCard = null
+#
+##	Migrate mole logic, hopefully?
+#
+#
+#	if not is_slot_empty(enemySlots[to_slot]):
+#		eCard = enemySlots[to_slot].get_child(0)
+#
+#	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+#
+#	for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING]:
+#		attack_targeting = sig.attacker_target_selecting(attack_targeting, eCard)
+#
+#	if eCard:
+#		for sig in eCard.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
+#			attack_targeting = sig.defender_target_selecting(attack_targeting, pCard)
 	
 #	if is_slot_empty(enemySlots[to_slot]):
 #		direct_attack = true
@@ -638,7 +686,13 @@ func handle_attack(from_slot, to_slot):
 #
 #
 #	if direct_attack:
+	
+	var eCard = null
 
+	if not is_slot_empty(enemySlots[to_slot]):
+		eCard = enemySlots[to_slot].get_child(0)
+	
+	var attack_targeting = get_attack_targeting(true, pCard, eCard)
 
 	# if, after everything, the attack targeting is SCALE: go face
 	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
@@ -963,31 +1017,22 @@ func handle_enemy_attack(from_slot, to_slot):
 		)
 		return
 		
-	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
-
-	#var direct_attack = false
-
+#	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+#
+#	#var direct_attack = false
+#
 	var pCard = null
-
-	
-	for playerCard in all_friendly_cards():
-		for sig in playerCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
-			# I put the mole logic in here!
-			sig.pre_enemy_attack(eCard, to_slot, attack_targeting)
+#
+#
+#	for playerCard in all_friendly_cards():
+#		for sig in playerCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
+#			# I put the mole logic in here!
+#			sig.pre_enemy_attack(eCard, to_slot, attack_targeting)
 	
 	if not is_slot_empty(playerSlots[to_slot]):
 		pCard = playerSlots[to_slot].get_child(0)
-
-	attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
 	
-	for sig in eCard.grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING]:
-		attack_targeting = sig.attacker_target_selecting(attack_targeting, pCard)
-	
-	if pCard:
-		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
-			attack_targeting = sig.defender_target_selecting(attack_targeting, eCard)
-
-	
+	var attack_targeting = get_attack_targeting(false, eCard, pCard)
 
 #	var direct_attack = false
 #
