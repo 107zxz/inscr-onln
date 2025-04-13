@@ -10,10 +10,11 @@ func start_of_turn(cardAnim):
 	card.health = hp
 
 	# Calculate
-	for fCard in slotManager.all_friendly_cards():
-		fCard.calculate_buffs()
-	for eCard in slotManager.all_enemy_cards():
-		eCard.calculate_buffs()
+	slotManager.recalculate_buffs_and_such()
+#	for fCard in slotManager.all_friendly_cards():
+#		fCard.calculate_buffs()
+#	for eCard in slotManager.all_enemy_cards():
+#		eCard.calculate_buffs()
 
 	# Hide tentacle atk symbol
 	card.get_node("CardBody/AtkIcon").visible = false

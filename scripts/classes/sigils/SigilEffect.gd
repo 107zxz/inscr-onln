@@ -15,7 +15,8 @@ enum SigilTriggers {
 	ATTACKER_TARGET_SELECTING,
 	DEFENDER_TARGET_SELECTING,
 	PRE_ENEMY_ATTACK,
-	STAT_MODIFYING_AURA
+	STAT_MODIFYING_AURA,
+	CALC_BUFFS_EFFECT,
 	}
 
 # References
@@ -90,5 +91,10 @@ func define_power():
 #Used for sigils that passively modify the stats of *other* cards.
 #ex: Stinky, Annoying, Leader
 #func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
+#	pass
+
+#Used for sigils that need to do something when buffs are calculated
+#ex: Energy Conduit
+#func calc_buffs_effect():
 #	pass
 

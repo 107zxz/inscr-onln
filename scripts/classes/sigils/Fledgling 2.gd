@@ -12,10 +12,12 @@ func start_of_turn(cardAnim):
 	card.card_data.sigils = new_sigs
 	card.from_data(card.card_data)
 	card.health = card.card_data["health"] - dmgTaken
-	for fcard in slotManager.all_friendly_cards():
-		fcard.calculate_buffs()
-	for eCard in slotManager.all_enemy_cards():
-		eCard.calculate_buffs()
+	
+	slotManager.recalculate_buffs_and_such()
+#	for fcard in slotManager.all_friendly_cards():
+#		fcard.calculate_buffs()
+#	for eCard in slotManager.all_enemy_cards():
+#		eCard.calculate_buffs()
 
 
 	

@@ -57,10 +57,11 @@ func end_of_turn(cardAnim):
 
 				if pushed:
 					# A push has happened, recalculate stats
-					for fCard in slotManager.all_friendly_cards():
-						fCard.calculate_buffs()
-					for eCard in slotManager.all_enemy_cards():
-						eCard.calculate_buffs()
+					slotManager.recalculate_buffs_and_such()
+#					for fCard in slotManager.all_friendly_cards():
+#						fCard.calculate_buffs()
+#					for eCard in slotManager.all_enemy_cards():
+#						eCard.calculate_buffs()
 				else:
 					if moveFailed:
 						cantMove = true
@@ -85,10 +86,11 @@ func end_of_turn(cardAnim):
 
 
 		# A push has happened, recalculate stats
-		for fCard in slotManager.all_friendly_cards():
-			fCard.calculate_buffs()
-		for eCard in slotManager.all_enemy_cards():
-			eCard.calculate_buffs()
+		slotManager.recalculate_buffs_and_such()
+#		for fCard in slotManager.all_friendly_cards():
+#			fCard.calculate_buffs()
+#		for eCard in slotManager.all_enemy_cards():
+#			eCard.calculate_buffs()
 
 	# Wait for move to finish
 		yield (cardTween, "tween_completed")

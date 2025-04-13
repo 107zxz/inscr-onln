@@ -104,6 +104,14 @@ func create_sigils(friendly):
 	
 	sigils.clear()
 
+
+	#resize grouped_sigils to fit ALL the things in it!
+	var size = SigilEffect.SigilTriggers.values().size()
+	grouped_sigils.resize(size)
+	#using fill puts the SAME list in all slots, so we can't use that
+	for _i in range(size):
+		grouped_sigils[_i]=[]
+
 	if not "sigils" in card_data:
 		return
 
@@ -123,15 +131,6 @@ func create_sigils(friendly):
 		ns.card = self
 		ns.isFriendly = friendly
 		sigils.append(ns)
-		
-		#resize grouped_sigils to fit ALL the things in it!
-		var size = SigilEffect.SigilTriggers.values().size()
-		grouped_sigils.resize(size)
-		#using fill puts the SAME list in all slots, so we can't use that
-		for _i in range(size):
-			grouped_sigils[_i]=[]
-
-
 		#Sort da sigils!
 		var keys = SigilEffect.SigilTriggers.keys()
 		for trigger in SigilEffect.SigilTriggers.values():
@@ -424,15 +423,16 @@ func begin_perish(doubleDeath = false):
 			fightManager.max_energy_buff = 0
 			fightManager.set_max_energy(fightManager.max_energy)
 			fightManager.set_energy(min(fightManager.energy, fightManager.max_energy))
-		if has_sigil("Energy Conduit"):
-			fightManager.no_energy_deplete = false
+		#if has_sigil("Energy Conduit"):
+		#	fightManager.no_energy_deplete = false
 
 		# Get everyone to recalculate buffs (a card died)
-		for card in slotManager.all_friendly_cards():
-			card.calculate_buffs()
-
-		for eCard in slotManager.all_enemy_cards():
-			eCard.calculate_buffs()
+		slotManager.recalculate_buffs_and_such()
+#		for card in slotManager.all_friendly_cards():
+#			card.calculate_buffs()
+#
+#		for eCard in slotManager.all_enemy_cards():
+#			eCard.calculate_buffs()
 
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
@@ -459,11 +459,12 @@ func begin_perish(doubleDeath = false):
 			fightManager.enemy_no_energy_deplete = false
 
 		# Get everyone to recalculate buffs (a card died)
-		for card in slotManager.all_friendly_cards():
-			card.calculate_buffs()
-
-		for eCard in slotManager.all_enemy_cards():
-			eCard.calculate_buffs()
+		slotManager.recalculate_buffs_and_such()
+#		for card in slotManager.all_friendly_cards():
+#			card.calculate_buffs()
+#
+#		for eCard in slotManager.all_enemy_cards():
+#			eCard.calculate_buffs()
 
 		# Play the special animation if necro is in play
 		if not doubleDeath and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
@@ -794,6 +795,9 @@ func _on_ActiveSigil_pressed():
 func calculate_buffs():
 #	print("calculate called on ", card_data["name"], " in ", get_parent().get_parent().name)
 
+
+
+
 	var friendly = get_parent().get_parent().name == "PlayerSlots"
 	var sIdx = slot_idx()
 
@@ -861,12 +865,15 @@ func calculate_buffs():
 		#just in case, I think something like this happened once and it crashed
 		if not attack:
 			attack = 0
-
+	
+	for sig in grouped_sigils[SigilEffect.SigilTriggers.CALC_BUFFS_EFFECT]:
+		sig.calc_buffs_effect()
+	
 	# Conduits
-	var cfx = slotManager.get_conduitfx(self)
+	#var cfx = slotManager.get_conduitfx(self)
 
 	# Buff Conduit
-	attack += cfx.count("Attack Conduit")
+	#attack += cfx.count("Attack Conduit")
 
 	# SPECIAL: Buff conduit buffs all conduits
 #	if "conduit" in card_data:
@@ -912,11 +919,11 @@ func calculate_buffs():
 					fightManager.set_opponent_max_energy(fightManager.opponent_max_energy)
 					fightManager.set_opponent_energy(min(fightManager.opponent_energy, fightManager.opponent_max_energy))
 
-	if has_sigil("Energy Conduit"):
-		if friendly:
-			fightManager.no_energy_deplete = true
-		else:
-			fightManager.enemy_no_energy_deplete = true
+#	if has_sigil("Energy Conduit"):
+#		if friendly:
+#			fightManager.no_energy_deplete = true
+#		else:
+#			fightManager.enemy_no_energy_deplete = true
 
 	# Stinky, Annoying
 	#if friendly:

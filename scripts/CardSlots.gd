@@ -10,6 +10,9 @@ onready var handManager = fightManager.get_node("HandsContainer/Hands")
 # Cards selected for sacrifice
 var sacVictims = []
 
+var friendly_conduit_data = [-1, -1]
+var enemy_conduit_data = [-1, -1]
+
 # Board interactions
 func clear_slots():
 #	for card in all_friendly_cards():
@@ -203,12 +206,12 @@ func pre_turn_sigils(friendly: bool):
 #				card.get_node("CardBody/AtkScore").visible = true
 
 	# Enemy spawn conduit
-	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
-		print("Spawn Conduit ENEMY")
-		print(friendly)
-		for sIdx in range(4):
-			if is_slot_empty(enemySlots[sIdx]) and "Spawn Conduit" in get_conduitfx_enemy(sIdx):
-				summon_card(CardInfo.from_name("L33pB0t"), sIdx, false)
+#	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
+#		print("Spawn Conduit ENEMY")
+#		print(friendly)
+#		for sIdx in range(4):
+#			if is_slot_empty(enemySlots[sIdx]) and "Spawn Conduit" in get_conduitfx_enemy(sIdx):
+#				summon_card(CardInfo.from_name("L33pB0t"), sIdx, false)
 
 
 	yield(get_tree().create_timer(0.01), "timeout")
@@ -349,13 +352,13 @@ func post_turn_sigils(friendly: bool):
 
 
 	# Spawn conduit
-	if get_friendly_cards_sigil("Spawn Conduit") and friendly:
-		print("Spawn Conduit FRIENDLY")
-		print(friendly)
-		for sIdx in range(4):
-			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
-#				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
-				summon_card(CardInfo.from_name("L33pB0t"), sIdx, true)
+#	if get_friendly_cards_sigil("Spawn Conduit") and friendly:
+#		print("Spawn Conduit FRIENDLY")
+#		print(friendly)
+#		for sIdx in range(4):
+#			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
+##				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
+#				summon_card(CardInfo.from_name("L33pB0t"), sIdx, true)
 
 
 
@@ -1069,6 +1072,38 @@ func _on_Snuff_pressed():
 		fightManager.send_move({
 			"type": "snuff_candle"
 		})
+
+#why did no one bother to add something for this?
+#SERIOUSLY? those last four lines of code, in that exact order, were EVERYWHERE!
+func recalculate_buffs_and_such():
+	#calcuate conduits
+
+	#it turns out, all you REALLY need to do for conduit shit is to calculate the rightmost and leftmost conduits,
+	#because any conduit in the middle will complete a circuit with the outermost conduit on either side.
+	
+	#it pains me that these values need to be hardcoded... for now
+	#I have big plans
+	friendly_conduit_data = [-1, -1]
+	enemy_conduit_data = [-1, -1]
+	
+	for sIdx in range(4): #replace 4 with max rows
+		if not is_slot_empty(playerSlots[sIdx]):
+			if "conduit" in playerSlots[sIdx].get_child(0).card_data:
+				if friendly_conduit_data[0] == -1:
+					friendly_conduit_data[0] = sIdx
+				friendly_conduit_data[1] = sIdx
+		if not is_slot_empty(enemySlots[sIdx]):
+			if "conduit" in enemySlots[sIdx].get_child(0).card_data:
+				if enemy_conduit_data[0] == -1:
+					enemy_conduit_data[0] = sIdx
+				enemy_conduit_data[1] = sIdx
+
+	#calculate buffs and such
+
+	for card in all_friendly_cards():
+		card.calculate_buffs()
+	for eCard in all_enemy_cards():
+		eCard.calculate_buffs()
 
 
 # Conduit madness
