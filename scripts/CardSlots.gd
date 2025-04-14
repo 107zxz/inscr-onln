@@ -546,8 +546,8 @@ func initiate_combat(friendly: bool):
 		
 		#if has_attacked and pCard.has_sigil("Brittle"):
 		#	cardAnim.play("Perish")
-		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_SUCCESSFUL_ATTACKS]:
-			sig.after_successful_attacks(cardAnim, has_attacked)
+		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_ATTACKS]:
+			sig.after_attacks(cardAnim, has_attacked)
 
 	yield(get_tree().create_timer(0.01), "timeout")
 
