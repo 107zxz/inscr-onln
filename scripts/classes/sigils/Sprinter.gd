@@ -2,6 +2,7 @@ extends SigilEffect
 
 var sprintSigil = null
 
+#Used for sigils that do something at the end of the turn
 func end_of_turn(cardAnim):
 	var cardTween = card.get_node("Tween")
 	
@@ -99,6 +100,7 @@ func end_of_turn(cardAnim):
 #Should I include the code for pusing in the default sprint sigil? idk. Am I going to? Yes, because it makes my life easier, as well as probably everyone elses.
 func can_push():
 	return false
-
+	
+#sprinter-derivitive specific function. Does something in the slot the sprinter moved FROM
 func on_move(curSlot):
 	pass

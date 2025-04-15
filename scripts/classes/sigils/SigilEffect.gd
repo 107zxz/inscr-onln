@@ -73,12 +73,12 @@ func define_power():
 #	pass
 
 #Used for sigils that do something at the start of the turn
-#ex: Waterborne (cosmetic), Fledgling
+#ex: Waterborne, Fledgling
 #func start_of_turn(cardAnim):
 #	pass
 
 #Used for sigils that do something at the end of the turn
-#ex: Waterborne (cosmetic), Bone Digger
+#ex: Waterborne, Bone Digger
 #func end_of_turn(cardAnim):
 #	pass
 

@@ -1,7 +1,6 @@
 extends SigilEffect
 
-# This is called whenever the card with this sigil attacks, and modifies which lanes it attacks in
-	
+#Used for sigils that modify how many times the card attacks and in what lanes.
 func modify_attack_targeting(index: int, strikes: Array):
 	strikes[index+1] += 1
 	strikes[index-1] += 1

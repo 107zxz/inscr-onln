@@ -1,5 +1,6 @@
 extends SigilEffect
 
+#Used for sigils that need to do something when buffs are calculated
 #might be a little hard to read, but it works perfectly ;)
 func calc_buffs_effect():
 		if isFriendly:

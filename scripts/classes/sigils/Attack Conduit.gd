@@ -1,5 +1,6 @@
 extends SigilEffect
 
+#Used for sigils that passively modify the stats of *other* cards.
 func stat_modifying_aura(card_being_updated, friendly_to_sigilholder: bool):
 	if card_being_updated == card or not friendly_to_sigilholder:
 		return

@@ -1,5 +1,6 @@
 extends SigilEffect
 
+#Used for sigils that need to do something when buffs are calculated
 func calc_buffs_effect():
 		if isFriendly:
 			if slotManager.friendly_conduit_data[0] != slotManager.friendly_conduit_data[1]: #values are equal when there are 0-1 conduits in play

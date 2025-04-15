@@ -1,5 +1,6 @@
 extends SigilEffect
 
+#Used for sigils that do something at the end of the turn
 func end_of_turn(cardAnim):
 	var conduit_data = slotManager.friendly_conduit_data if isFriendly else slotManager.enemy_conduit_data
 	if(conduit_data[0] == conduit_data[1]):

@@ -7,7 +7,3 @@ func define_power():
 		if abs(c.slot_idx() - card.slot_idx()) == 1 and "Chime" in c.card_data["name"]:
 			attack += 1
 	return attack
-
-#IMPORTANT: replace this with 'return true' for any sigil that sets the user's Power/Attack. Returns false otherwise, as a card can only have one of these at once. 
-func is_power_defining():
-	return true

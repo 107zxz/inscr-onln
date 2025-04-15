@@ -1,5 +1,6 @@
 extends SigilEffect
 
+#Used for sigils that do something at the start of the turn
 func start_of_turn(cardAnim):
 	cardAnim.play("Evolve")
 	yield (cardAnim, "animation_finished")

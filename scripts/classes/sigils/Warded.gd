@@ -1,5 +1,5 @@
 extends SigilEffect
 
-# This is called whenever the card with this sigil takes damage, and modifies the damage taken
+#Used for sigils that modify how much damage the attached card is taking.
 func modify_damage_taken(dmg_amt: int):
 	return max(dmg_amt, 1)

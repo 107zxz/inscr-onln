@@ -810,9 +810,9 @@ func calculate_buffs():
 			fightManager.moon_cutscene(friendly)
 
 	# Gem animator
-	if "mox" in card_data["name"].to_lower():
-		for _ga in slotManager.get_friendly_cards_sigil("Gem Animator") if friendly else slotManager.get_enemy_cards_sigil("Gem Animator"):
-			attack += 1
+#	if "mox" in card_data["name"].to_lower():
+#		for _ga in slotManager.get_friendly_cards_sigil("Gem Animator") if friendly else slotManager.get_enemy_cards_sigil("Gem Animator"):
+#			attack += 1
 
 	# Green Mage
 #	if "atkspecial" in card_data:
