@@ -18,7 +18,8 @@ enum SigilTriggers {
 	PRE_ENEMY_ATTACK,
 	STAT_MODIFYING_AURA,
 	CALC_BUFFS_EFFECT,
-	AFTER_ATTACKS
+	AFTER_ATTACKS,
+	BONUS_BLOOD
 	}
 
 # References
@@ -40,6 +41,12 @@ func handle_event(_event: String, _params: Array):
 #Note that sigils in 'atkspecial' will be excluded from the normal sigil list(s), meaning none of their other functions will trigger.
 func define_power():
 	return -1
+	
+#defines how much extra blood this sigil causes the card to provide.
+#Cards that provide 0 or less blood cannot be sacrificed, but can still be hammered.
+#Sigil values are added together, so if you want to have a sigil stop sacrificing, use something like -99
+#func bonus_blood():
+#	return 0
 
 
 # YES, ALL OF THESE ARE COMMENTED OUT FOR A REASON. THEY'LL STILL WORK, BECAUSE IF I CAN'T HAVE INTERFACES... I'M GONNA F*CKING FAKE IT!

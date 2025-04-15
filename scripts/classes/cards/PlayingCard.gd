@@ -283,7 +283,7 @@ func _on_Button_pressed():
 #					return
 
 				# Don't allow sacrificing nosac cards
-				if "nosac" in card_data:
+				if "nosac" in card_data or calc_blood() <= 0:
 					return
 
 				slotManager.sacVictims.append(self)
@@ -1001,6 +1001,11 @@ func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 func is_alive():
 	return not consider_dead and not "Perish" in $AnimationPlayer.current_animation and not is_queued_for_deletion() and health > 0
 
+func calc_blood():
+	var blood = 1
+	for sig in grouped_sigils[SigilEffect.SigilTriggers.BONUS_BLOOD]:
+		blood += sig.bonus_blood()
+	return blood
 
 func play_sfx(name):
 	# TODO: Make this play on a global sfx thing (also on a different bus (same with music))

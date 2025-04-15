@@ -32,14 +32,16 @@ func get_available_blood() -> int:
 	var sacTargets = all_friendly_cards_backrow() if CardInfo.all_data.enable_backrow else all_friendly_cards()
 
 	for card in sacTargets:
-		if card.has_sigil("Noble Sacrifice"):
-			blood += 1
-		if card.has_sigil("Worthy Sacrifice"):
-			blood += 2
+#		if card.has_sigil("Noble Sacrifice"):
+#			blood += 1
+#		if card.has_sigil("Worthy Sacrifice"):
+#			blood += 2
 		# Don't allow saccing mox cards
 		if "nosac" in card.card_data:
 			continue
-		blood += 1
+		var card_blood = card.calc_blood()
+		if(card_blood > 0):
+			blood += card_blood
 
 	return blood
 
@@ -93,11 +95,11 @@ func attempt_sacrifice():
 	var sacValue = 0
 
 	for victim in sacVictims:
-		sacValue += 1
-		if victim.has_sigil("Worthy Sacrifice"):
-			sacValue += 2
-		if victim.has_sigil("Noble Sacrifice"):
-			sacValue += 1
+		sacValue += victim.calc_blood()
+#		if victim.has_sigil("Worthy Sacrifice"):
+#			sacValue += 2
+#		if victim.has_sigil("Noble Sacrifice"):
+#			sacValue += 1
 
 	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
 		
