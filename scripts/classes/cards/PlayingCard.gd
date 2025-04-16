@@ -951,6 +951,8 @@ func calculate_buffs():
 	for c in slotManager.all_enemy_cards():
 		for sig in c.grouped_sigils[SigilEffect.SigilTriggers.STAT_MODIFYING_AURA]:
 			sig.stat_modifying_aura(self, not friendly)
+	
+	attack = max(attack, 0)
 
 	draw_stats()
 
