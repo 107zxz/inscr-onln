@@ -98,8 +98,8 @@ func create_sigils(friendly):
 	var size = SigilEffect.SigilTriggers.values().size()
 	grouped_sigils.resize(size)
 	#using fill puts the SAME list in all slots, so we can't use that
-	for _i in range(size):
-		grouped_sigils[_i]=[]
+	for i in range(size):
+		grouped_sigils[i]=[]
 
 	if not "sigils" in card_data:
 		return
@@ -126,6 +126,12 @@ func create_sigils(friendly):
 			#Janky a** trick that requires me to comment out all the functions from SigilEffect
 			if ns.has_method(keys[trigger].to_lower()):
 				grouped_sigils[trigger].append(ns)
+	
+	for i in range(size):
+		if grouped_sigils[i].size() > 1:
+			grouped_sigils[i].sort_custom(self, "sort_sigils")
+			
+func sort_sigils(a, b): return a.priority() > b.priority()
 
 func handle_sigil_event(event, params):
 	for sig in sigils:

@@ -28,11 +28,18 @@ var slotManager = null # See CardSlots.gd
 var isFriendly = null # Whether the card the sigil is attached to is owned by the local player
 var card = null # The card the sigil is attached to
 
+
 #Handles signal events, good generic method to use
 #ex: Most of them, honestly
 #I, WhiteRobot10, am personally not a fan, but it's neccessary (for the time being, at least.)
 func handle_event(_event: String, _params: Array):
 	pass
+
+
+#Used for sigils that need to be PROGRAMATICALLY handled before or after other sigils, such as Repulsive.
+#Does NOT change the order in which the sigil renders
+func priority():
+	return 0
 
 
 
