@@ -12,7 +12,6 @@ func _ready():
 		return
 		
 	$HTTPRequest.request("https://raw.githubusercontent.com/107zxz/inscr-onln-ruleset/main/motd.json")
-	
 
 func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 	if response_code == 200:
@@ -40,7 +39,15 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 		if res.motd_grimorger != "":
 			$Grimorger.visible = true
 			$Grimorger/Notes.text = res.motd_grimorger
+		else:
+			$TunnelRequest.request("http://localtunnel.me")
 
 func _on_Button_pressed():
 #	OS.shell_open("https://107zxz.itch.io/inscryption-multiplayer-godot")
 	get_tree().change_scene("res://packed/GameUpdater.tscn")
+
+
+func _on_TunnelRequest_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		$Grimorger.visible = true
+		$Grimorger/Notes.text = "The tunnel is down! Room code lobbies won't work!"
