@@ -100,8 +100,8 @@ func _ready():
 		for eSlot in slotManager.enemySlots:
 			eSlot.connect("pressed", self, "clicked_enemy_slot", [eSlot])
 	
-	$Advantage/AdvRight.rect_position.x += (slotManager.nLanes - 4) * 64
-	$Advantage/AdvLeft.rect_position.x -= (slotManager.nLanes - 4) * 64
+	$Advantage/AdvRight.rect_position.x += (slotManager.lanesNum - 4) * 64
+	$Advantage/AdvLeft.rect_position.x -= (slotManager.lanesNum - 4) * 64
 
 
 func _process(_delta):

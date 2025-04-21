@@ -15,5 +15,5 @@ func handle_event(event: String, params: Array):
 			if slot > 0 and slotManager.is_slot_empty(cardSlots[slot - 1]):
 				slotManager.summon_card(CardInfo.from_name("Dam"), slot - 1, isFriendly)
 
-			if slot < CardInfo.all_data.n_lanes - 1 and slotManager.is_slot_empty(cardSlots[slot + 1]):
+			if slot < CardInfo.all_data.last_lane and slotManager.is_slot_empty(cardSlots[slot + 1]):
 				slotManager.summon_card(CardInfo.from_name("Dam"), slot + 1, isFriendly)

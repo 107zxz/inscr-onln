@@ -23,7 +23,7 @@ func end_of_turn(cardAnim):
 	
 	for _i in range(2):
 		# Edges of screen
-		if curSlot + sprintOffset > 3: #TODO: Replace 3 with 'num_of_lanes - 1' 
+		if curSlot + sprintOffset > CardInfo.all_data.last_lane:
 			if moveFailed:
 				cantMove = true
 				break
@@ -41,22 +41,19 @@ func end_of_turn(cardAnim):
 
 			if can_push():
 
-				var pushed = false
-				
-				#TODO, turn this whole piece of code into a loop because with more than 4 lanes, more than 2 cards can be pushed
-				
-				if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
-					if slotManager.is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]): # or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
-						affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-						pushed = true
+				# indexing wizardry to get the edge that's being pushed towards
+				var relevantEdge = [null, CardInfo.all_data.lanes_num, -1][sprintOffset]
+				var emptyIndex = null
 
-					elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
-						if slotManager.is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]): # or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
-							affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-							affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
-							pushed = true
+				for slotIndex in range(curSlot, relevantEdge, sprintOffset):
+					if slotManager.is_slot_empty(affectedSlots[slotIndex]):
+						emptyIndex = slotIndex
+						break
 
-				if pushed:
+				if emptyIndex != null:
+					for slotIndex in range(curSlot + sprintOffset, emptyIndex, sprintOffset):
+						affectedSlots[slotIndex].get_child(0).move_to_parent(affectedSlots[slotIndex + sprintOffset])
+
 					# A push has happened, recalculate stats
 					slotManager.recalculate_buffs_and_such()
 #					for fCard in slotManager.all_friendly_cards():
