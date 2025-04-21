@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://scripts/classes/cards/CardData.gd"
 }, {
 "base": "Reference",
+"class": "Deck",
+"language": "GDScript",
+"path": "res://scripts/structs/Deck.gd"
+}, {
+"base": "Reference",
 "class": "Replay",
 "language": "GDScript",
 "path": "res://scripts/classes/Replay.gd"
@@ -32,6 +37,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BuffEffect": "",
 "Card": "",
+"Deck": "",
 "Replay": "",
 "SigilEffect": ""
 }

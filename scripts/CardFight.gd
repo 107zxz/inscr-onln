@@ -665,10 +665,11 @@ func card_summoned(playedCard):
 	emit_signal("sigil_event", "card_summoned", [playedCard])
 	
 	# Calculate buffs
-	for card in slotManager.all_friendly_cards():
-		card.calculate_buffs()
-	for eCard in slotManager.all_enemy_cards():
-		eCard.calculate_buffs()
+	slotManager.recalculate_buffs_and_such()
+#	for card in slotManager.all_friendly_cards():
+#		card.calculate_buffs()
+#	for eCard in slotManager.all_enemy_cards():
+#		eCard.calculate_buffs()
 
 	# Starvation, inflict damage if 9th onwards
 	if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
@@ -922,11 +923,12 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 	# Special case, card unlikely to have handled event yet
 	
 	# Buff handling
-	for card in slotManager.all_friendly_cards():
-		card.calculate_buffs()
-	for eCard in slotManager.all_enemy_cards():
-		eCard.calculate_buffs()
-	
+	slotManager.recalculate_buffs_and_such()
+#	for card in slotManager.all_friendly_cards():
+#		card.calculate_buffs()
+#	for eCard in slotManager.all_enemy_cards():
+#		eCard.calculate_buffs()
+
 func _opponent_played_card_back(card, slot, ignore_cost = false):
 	
 	var card_dt = card if typeof(card) == TYPE_DICTIONARY else CardInfo.all_cards[card]
