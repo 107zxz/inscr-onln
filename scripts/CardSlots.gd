@@ -10,6 +10,9 @@ onready var handManager = fightManager.get_node("HandsContainer/Hands")
 # Cards selected for sacrifice
 var sacVictims = []
 
+var friendly_conduit_data = [-1, -1]
+var enemy_conduit_data = [-1, -1]
+
 # Board interactions
 func clear_slots():
 #	for card in all_friendly_cards():
@@ -29,14 +32,16 @@ func get_available_blood() -> int:
 	var sacTargets = all_friendly_cards_backrow() if CardInfo.all_data.enable_backrow else all_friendly_cards()
 
 	for card in sacTargets:
-		if card.has_sigil("Noble Sacrifice"):
-			blood += 1
-		if card.has_sigil("Worthy Sacrifice"):
-			blood += 2
+#		if card.has_sigil("Noble Sacrifice"):
+#			blood += 1
+#		if card.has_sigil("Worthy Sacrifice"):
+#			blood += 2
 		# Don't allow saccing mox cards
 		if "nosac" in card.card_data:
 			continue
-		blood += 1
+		var card_blood = card.calc_blood()
+		if(card_blood > 0):
+			blood += card_blood
 
 	return blood
 
@@ -90,11 +95,11 @@ func attempt_sacrifice():
 	var sacValue = 0
 
 	for victim in sacVictims:
-		sacValue += 1
-		if victim.has_sigil("Worthy Sacrifice"):
-			sacValue += 2
-		if victim.has_sigil("Noble Sacrifice"):
-			sacValue += 1
+		sacValue += victim.calc_blood()
+#		if victim.has_sigil("Worthy Sacrifice"):
+#			sacValue += 2
+#		if victim.has_sigil("Noble Sacrifice"):
+#			sacValue += 1
 
 	if sacValue >= handManager.raisedCard.card_data["blood_cost"]:
 		
@@ -172,40 +177,43 @@ func pre_turn_sigils(friendly: bool):
 			var cd = card.get_node("CardBody/Active")
 			cd.disabled = false
 			cd.mouse_filter = MOUSE_FILTER_STOP
-
-		# Evolution
-		if card.has_sigil("Fledgling") or card.has_sigil("Fledgling 2") or card.has_sigil("Transformer"):
-			cardAnim.play("Evolve")
-			yield (cardAnim, "animation_finished")
-
-		# Dive
-		if card.get_node("CardBody/DiveOlay").visible:
-			cardAnim.play("UnDive")
-
-			if card.has_sigil("Tentacle"):
-				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
-				
-				var hp = card.health
-				card.from_data(nTent)
-				card.health = hp
-
-				# Calculate
-				for fCard in all_friendly_cards():
-					fCard.calculate_buffs()
-				for eCard in all_enemy_cards():
-					eCard.calculate_buffs()
-
-				# Hide tentacle atk symbol
-				card.get_node("CardBody/AtkIcon").visible = false
-				card.get_node("CardBody/AtkScore").visible = true
+		
+		for sig in card.grouped_sigils[SigilEffect.SigilTriggers.START_OF_TURN]:
+			sig.start_of_turn(cardAnim)
+		
+#		# Evolution
+#		if card.has_sigil("Fledgling") or card.has_sigil("Fledgling 2") or card.has_sigil("Transformer"):
+#			cardAnim.play("Evolve")
+#			yield (cardAnim, "animation_finished")
+#
+#		# Dive
+#		if card.get_node("CardBody/DiveOlay").visible:
+#			cardAnim.play("UnDive")
+#
+#			if card.has_sigil("Tentacle"):
+#				var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
+#
+#				var hp = card.health
+#				card.from_data(nTent)
+#				card.health = hp
+#
+#				# Calculate
+#				for fCard in all_friendly_cards():
+#					fCard.calculate_buffs()
+#				for eCard in all_enemy_cards():
+#					eCard.calculate_buffs()
+#
+#				# Hide tentacle atk symbol
+#				card.get_node("CardBody/AtkIcon").visible = false
+#				card.get_node("CardBody/AtkScore").visible = true
 
 	# Enemy spawn conduit
-	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
-		print("Spawn Conduit ENEMY")
-		print(friendly)
-		for sIdx in range(4):
-			if is_slot_empty(enemySlots[sIdx]) and "Spawn Conduit" in get_conduitfx_enemy(sIdx):
-				summon_card(CardInfo.from_name("L33pB0t"), sIdx, false)
+#	if get_enemy_cards_sigil("Spawn Conduit") and friendly:
+#		print("Spawn Conduit ENEMY")
+#		print(friendly)
+#		for sIdx in range(4):
+#			if is_slot_empty(enemySlots[sIdx]) and "Spawn Conduit" in get_conduitfx_enemy(sIdx):
+#				summon_card(CardInfo.from_name("L33pB0t"), sIdx, false)
 
 
 	yield(get_tree().create_timer(0.01), "timeout")
@@ -217,119 +225,124 @@ func post_turn_sigils(friendly: bool):
 	var affectedSlots = playerSlots if friendly else enemySlots
 
 	# Sprinting
-	for card in cardsToMove:
-		var cardAnim = card.get_node("AnimationPlayer")
-		var cardTween = card.get_node("Tween")
-
-		# Spront
-		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Skeleton Crew (Yarr)", "Hefty"]:
-			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
-
-				var sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
-					card.card_data["sigils"].find(movSigil)
-				)
-
-				var curSlot = card.get_parent().get_position_in_parent()
-
-				var sprintOffset = -1 if sprintSigil.flip_h else 1
-				var moveFailed = false
-				var cantMove = false
-#				var ogFlipped = sprintSigil.flip_h
-
-				for _i in range(2):
-					# Edges of screen
-					if curSlot + sprintOffset > 3:
-						if moveFailed:
-							cantMove = true
-							break
-						sprintSigil.flip_h = true
-						moveFailed = true
-					elif curSlot + sprintOffset < 0:
-						if moveFailed:
-							cantMove = true
-							break
-						sprintSigil.flip_h = false
-						moveFailed = true
-
-					# Occupied slots
-					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]): # and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
-
-						if movSigil == "Hefty":
-
-							var pushed = false
-
-							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
-								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]): # or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
-									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-									pushed = true
-
-								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
-									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]): # or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
-										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
-										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
-										pushed = true
-
-							if pushed:
-								# A push has happened, recalculate stats
-								for fCard in all_friendly_cards():
-									fCard.calculate_buffs()
-								for eCard in all_enemy_cards():
-									eCard.calculate_buffs()
-							else:
-								if moveFailed:
-									cantMove = true
-									break
-								sprintSigil.flip_h = not sprintSigil.flip_h
-								moveFailed = true
-						else:
-							if moveFailed:
-								cantMove = true
-								break
-							sprintSigil.flip_h = not sprintSigil.flip_h
-							moveFailed = true
-
-					sprintOffset = -1 if sprintSigil.flip_h else 1
-
-				if cantMove:
-					sprintOffset = 0
-				else:
-					# Spawn a card if thats the one
-					if movSigil == "Squirrel Shedder":
-						summon_card(CardInfo.from_name("Squirrel"), curSlot, friendly)
-					if movSigil == "Skeleton Crew":
-						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
-					if movSigil == "Skeleton Crew (Yarr)":
-						summon_card(CardInfo.from_name("Skeleton Crew"), curSlot, friendly)
-
-					if "sheds" in card.card_data:
-						summon_card(CardInfo.from_name(card.card_data.sheds), curSlot, friendly)
-
-				card.move_to_parent(affectedSlots[curSlot + sprintOffset])
-
-
-				# A push has happened, recalculate stats
-				for fCard in all_friendly_cards():
-					fCard.calculate_buffs()
-				for eCard in all_enemy_cards():
-					eCard.calculate_buffs()
-
-				# Wait for move to finish
-				yield (cardTween, "tween_completed")
+#	for card in cardsToMove:
+#		var cardAnim = card.get_node("AnimationPlayer")
+#		var cardTween = card.get_node("Tween")
+#
+#		# Spront
+#		for movSigil in ["Sprinter", "Squirrel Shedder", "Skeleton Crew", "Skeleton Crew (Yarr)", "Hefty"]:
+#			if card.has_sigil(movSigil) and not "Perish" in cardAnim.current_animation:
+#
+#				var sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
+#					card.card_data["sigils"].find(movSigil)
+#				)
+#
+#				var curSlot = card.get_parent().get_position_in_parent()
+#
+#				var sprintOffset = -1 if sprintSigil.flip_h else 1
+#				var moveFailed = false
+#				var cantMove = false
+##				var ogFlipped = sprintSigil.flip_h
+#
+#				for _i in range(2):
+#					# Edges of screen
+#					if curSlot + sprintOffset > 3:
+#						if moveFailed:
+#							cantMove = true
+#							break
+#						sprintSigil.flip_h = true
+#						moveFailed = true
+#					elif curSlot + sprintOffset < 0:
+#						if moveFailed:
+#							cantMove = true
+#							break
+#						sprintSigil.flip_h = false
+#						moveFailed = true
+#
+#					# Occupied slots
+#					elif not is_slot_empty(affectedSlots[curSlot + sprintOffset]): # and not affectedSlots[curSlot + sprintOffset].get_child(0).get_node("AnimationPlayer").is_playing():
+#
+#						if movSigil == "Hefty":
+#
+#							var pushed = false
+#
+#							if curSlot + sprintOffset * 2 <= 3 and curSlot + sprintOffset * 2 >= 0:
+#								if is_slot_empty(affectedSlots[curSlot + sprintOffset * 2]): # or affectedSlots[curSlot + sprintOffset * 2].get_child(0).get_node("AnimationPlayer").is_playing():
+#									affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
+#									pushed = true
+#
+#								elif curSlot + sprintOffset * 3 <= 3 and curSlot + sprintOffset * 3 >= 0:
+#									if is_slot_empty(affectedSlots[curSlot + sprintOffset * 3]): # or affectedSlots[curSlot + sprintOffset * 3].get_child(0).get_node("AnimationPlayer").is_playing():
+#										affectedSlots[curSlot + sprintOffset].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 2])
+#										affectedSlots[curSlot + sprintOffset * 2].get_child(0).move_to_parent(affectedSlots[curSlot + sprintOffset * 3])
+#										pushed = true
+#
+#							if pushed:
+#								# A push has happened, recalculate stats
+#								for fCard in all_friendly_cards():
+#									fCard.calculate_buffs()
+#								for eCard in all_enemy_cards():
+#									eCard.calculate_buffs()
+#							else:
+#								if moveFailed:
+#									cantMove = true
+#									break
+#								sprintSigil.flip_h = not sprintSigil.flip_h
+#								moveFailed = true
+#						else:
+#							if moveFailed:
+#								cantMove = true
+#								break
+#							sprintSigil.flip_h = not sprintSigil.flip_h
+#							moveFailed = true
+#
+#					sprintOffset = -1 if sprintSigil.flip_h else 1
+#
+#				if cantMove:
+#					sprintOffset = 0
+#				else:
+#					# Spawn a card if thats the one
+#					if movSigil == "Squirrel Shedder":
+#						summon_card(CardInfo.from_name("Squirrel"), curSlot, friendly)
+#					if movSigil == "Skeleton Crew":
+#						summon_card(CardInfo.from_name("Skeleton"), curSlot, friendly)
+#					if movSigil == "Skeleton Crew (Yarr)":
+#						summon_card(CardInfo.from_name("Skeleton Crew"), curSlot, friendly)
+#
+#					if "sheds" in card.card_data:
+#						summon_card(CardInfo.from_name(card.card_data.sheds), curSlot, friendly)
+#
+#				card.move_to_parent(affectedSlots[curSlot + sprintOffset])
+#
+#
+#				# A push has happened, recalculate stats
+#				for fCard in all_friendly_cards():
+#					fCard.calculate_buffs()
+#				for eCard in all_enemy_cards():
+#					eCard.calculate_buffs()
+#
+#				# Wait for move to finish
+#				yield (cardTween, "tween_completed")
 
 	# Other end-of-turn sigils
 	for card in all_friendly_cards() if friendly else all_enemy_cards():
 		if "Perish" in card.get_node("AnimationPlayer").current_animation:
 			continue
+		
+		var cardAnim = card.get_node("AnimationPlayer")
+		
+		for sig in card.grouped_sigils[SigilEffect.SigilTriggers.END_OF_TURN]:
+			sig.end_of_turn(cardAnim)
 
-		if card.has_sigil("Bone Digger"):
-			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
-			card.get_node("AnimationPlayer").play("ProcGeneric")
-			yield(card.get_node("AnimationPlayer"), "animation_finished")
-
-		# Diving
-		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
-			card.get_node("AnimationPlayer").play("Dive")
-			yield(card.get_node("AnimationPlayer"), "animation_finished")
+#		if card.has_sigil("Bone Digger"):
+#			fightManager.add_bones(1) if friendly else fightManager.add_opponent_bones(1)
+#			card.get_node("AnimationPlayer").play("ProcGeneric")
+#			yield(card.get_node("AnimationPlayer"), "animation_finished")
+#
+#		# Diving
+#		if card.has_sigil("Waterborne") or card.has_sigil("Tentacle"):
+#			card.get_node("AnimationPlayer").play("Dive")
+#			yield(card.get_node("AnimationPlayer"), "animation_finished")
 
 		# Kill side deck cards if moon
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
@@ -341,13 +354,13 @@ func post_turn_sigils(friendly: bool):
 
 
 	# Spawn conduit
-	if get_friendly_cards_sigil("Spawn Conduit") and friendly:
-		print("Spawn Conduit FRIENDLY")
-		print(friendly)
-		for sIdx in range(4):
-			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
-#				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
-				summon_card(CardInfo.from_name("L33pB0t"), sIdx, true)
+#	if get_friendly_cards_sigil("Spawn Conduit") and friendly:
+#		print("Spawn Conduit FRIENDLY")
+#		print(friendly)
+#		for sIdx in range(4):
+#			if is_slot_empty(playerSlots[sIdx]) and "Spawn Conduit" in get_conduitfx_friendly(sIdx):
+##				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
+#				summon_card(CardInfo.from_name("L33pB0t"), sIdx, true)
 
 
 
@@ -425,21 +438,25 @@ func initiate_combat(friendly: bool):
 		# strikes[4] exists to 'null' invalid strike indexes (-1 and 4)
 		var strikes = [0, 0, 0, 0, 0]
 		
-		if pCard.has_sigil("Omni Strike"):
-			
-			for eCard in all_enemy_cards():
-				strikes[eCard.slot_idx()] = 1
-			if not 1 in strikes:
-				strikes[slot_index] = 1
+		# if pCard.has_sigil("Omni Strike"):
+		#	
+		#	for eCard in all_enemy_cards():
+		#		strikes[eCard.slot_idx()] = 1
+		#	if not 1 in strikes:
+		#		strikes[slot_index] = 1
 
-		else:
+		# else:
 			
-			strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
-			strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
+		strikes[slot_index] += 1
+		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING]:
+			strikes = sig.modify_attack_targeting(slot_index, strikes)
+		
+			# strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
+			# strikes[slot_index] += 1 if pCard.has_sigil("Double Strike") else 0
 			# strike to each side once per peripheral striking sigil
-			for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
-				strikes[slot_index - 1] += 1
-				strikes[slot_index + 1] += 1
+			# for _i in range((1 if pCard.has_sigil("Bifurcated Strike") else 0) + (1 if pCard.has_sigil("Trifurcated Strike") else 0)):
+			#	strikes[slot_index - 1] += 1
+			#	strikes[slot_index + 1] += 1
 
 		
 		# brittle check
@@ -457,7 +474,7 @@ func initiate_combat(friendly: bool):
 				total_strikes += strike
 
 			for _i in range(total_strikes):
-
+				
 				# opponent or attacking card might die mid-attacking
 				if is_slot_empty(attackingSlots[slot_index]) or (fightManager.opponent_lives if friendly else fightManager.lives) == 0:
 					break
@@ -473,18 +490,24 @@ func initiate_combat(friendly: bool):
 					print(fightManager.sniper_targets)
 					target_index = fightManager.sniper_targets[0]
 				
-				# don't attack repulsive cards!
-				if not is_slot_empty(defendingSlots[target_index]) and defendingSlots[target_index].get_child(0).has_sigil("Repulsive"):
-					if not pCard.has_sigil("Airborne") or defendingSlots[target_index].get_child(0).has_sigil("Mighty Leap"):
-						fightManager.sniper_targets.pop_front()
-						continue
-
-				has_attacked = true
-				pCard.strike_offset = target_index - slot_index
-				cardAnim.play("Attack" if friendly else "AttackRemote")
-				pCard.play_sfx("attack")
-				yield(cardAnim, "animation_finished")
+				pre_attack_logic(friendly, pCard, target_index)
 				
+				# don't attack repulsive cards!
+#				if not is_slot_empty(defendingSlots[target_index]) and defendingSlots[target_index].get_child(0).has_sigil("Repulsive"):
+#					if not pCard.has_sigil("Airborne") or defendingSlots[target_index].get_child(0).has_sigil("Mighty Leap"):
+#						fightManager.sniper_targets.pop_front()
+#						continue
+				var eCard = null
+				if not is_slot_empty(defendingSlots[target_index]):
+					eCard = defendingSlots[target_index].get_child(0)
+
+				if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
+					has_attacked = true
+					pCard.strike_offset = target_index - slot_index
+					cardAnim.play("Attack" if friendly else "AttackRemote")
+					pCard.play_sfx("attack")
+					yield(cardAnim, "animation_finished")
+					
 				fightManager.sniper_targets.pop_front()
 
 		else:
@@ -501,24 +524,32 @@ func initiate_combat(friendly: bool):
 						break
 					
 					# don't attack repulsive cards!
-					if not is_slot_empty(defendingSlots[i]) and defendingSlots[i].get_child(0).has_sigil("Repulsive"):
-						if not pCard.has_sigil("Airborne") or defendingSlots[i].get_child(0).has_sigil("Mighty Leap"):
-							continue
+#					if not is_slot_empty(defendingSlots[i]) and defendingSlots[i].get_child(0).has_sigil("Repulsive"):
+#						if not pCard.has_sigil("Airborne") or defendingSlots[i].get_child(0).has_sigil("Mighty Leap"):
+#							continue
+					pre_attack_logic(friendly, pCard, i)
 					
-					has_attacked = true
-					pCard.strike_offset = i - slot_index
-					pCard.rect_position.x = pCard.strike_offset * 50
-					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
-					yield(cardAnim, "animation_finished")
+					var eCard = null
+					if not is_slot_empty(defendingSlots[i]):
+						eCard = defendingSlots[i].get_child(0)
+
+					if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
+						has_attacked = true
+						pCard.strike_offset = i - slot_index
+						pCard.rect_position.x = pCard.strike_offset * 50
+						cardAnim.play("Attack" if friendly else "AttackRemote")
+						pCard.play_sfx("attack")
+						yield(cardAnim, "animation_finished")
 					
 					if is_slot_empty(attackingSlots[slot_index]):
 						continue
 					
 					pCard.rect_position.x = 0
 		
-		if has_attacked and pCard.has_sigil("Brittle"):
-			cardAnim.play("Perish")
+		#if has_attacked and pCard.has_sigil("Brittle"):
+		#	cardAnim.play("Perish")
+		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_ATTACKS]:
+			sig.after_attacks(cardAnim, has_attacked)
 
 	yield(get_tree().create_timer(0.01), "timeout")
 
@@ -528,6 +559,43 @@ func initiate_combat(friendly: bool):
 
 	emit_signal("complete_combat")
 
+
+func pre_attack_logic(friendly: bool, attacker, to_slot):
+	if friendly:
+		var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+		for enemyCard in all_enemy_cards():
+			for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
+				# I put the mole logic in here!
+				sig.pre_enemy_attack(attacker, to_slot, attack_targeting)
+	else:
+		var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+		for playerCard in all_friendly_cards():
+			for sig in playerCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
+				# I put the mole logic in here!
+				sig.pre_enemy_attack(attacker, to_slot, attack_targeting)
+
+func get_attack_targeting(friendly: bool, attacker, defender):
+	
+#	print("Getting Attack Targeting")
+#	print("Friendly = %s" % friendly)
+#	print("Attacker = %s" % attacker.card_data)
+#	if defender:
+#		print("Defender = %s" % defender.card_data)
+#	else:
+#		print("No Defender")
+	
+	var attack_targeting = SigilEffect.AttackTargeting.CARD if defender else SigilEffect.AttackTargeting.SCALE
+	
+	for sig in attacker.grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING]:
+		attack_targeting = sig.attacker_target_selecting(attack_targeting, defender)
+	
+	if defender:
+		for sig in defender.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
+			attack_targeting = sig.defender_target_selecting(attack_targeting, attacker)
+	
+#	print(SigilEffect.AttackTargeting.keys()[attack_targeting])
+
+	return attack_targeting
 
 # Do the attack damage
 func handle_attack(from_slot, to_slot):
@@ -566,74 +634,115 @@ func handle_attack(from_slot, to_slot):
 
 		return
 
-	var direct_attack = false
+#	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
 
+	#var direct_attack = false
+
+#	var eCard = null
+#
+##	Migrate mole logic, hopefully?
+#
+#
+#	if not is_slot_empty(enemySlots[to_slot]):
+#		eCard = enemySlots[to_slot].get_child(0)
+#
+#	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(enemySlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+#
+#	for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.ATTACKER_TARGET_SELECTING]:
+#		attack_targeting = sig.attacker_target_selecting(attack_targeting, eCard)
+#
+#	if eCard:
+#		for sig in eCard.grouped_sigils[SigilEffect.SigilTriggers.DEFENDER_TARGET_SELECTING]:
+#			attack_targeting = sig.defender_target_selecting(attack_targeting, pCard)
+	
+#	if is_slot_empty(enemySlots[to_slot]):
+#		direct_attack = true
+#
+#		# Check for moles
+#		# Mole man
+#		if pCard.has_sigil("Airborne"):
+#			for card in all_enemy_cards():
+#				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
+#					direct_attack = false
+#					card.move_to_parent(enemySlots[to_slot])
+#					eCard = card
+#					break
+#		else: # Regular mole
+#			for card in all_enemy_cards():
+#				if card.has_sigil("Burrower"):
+#					direct_attack = false
+#					card.move_to_parent(enemySlots[to_slot])
+#					eCard = card
+#					break
+#
+#	else:
+#		eCard = enemySlots[to_slot].get_child(0)
+#		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
+#			direct_attack = true
+#		if eCard.get_node("CardBody/DiveOlay").visible:
+#			direct_attack = true
+#
+#
+#
+#	if direct_attack:
+	
 	var eCard = null
 
-	if is_slot_empty(enemySlots[to_slot]):
-		direct_attack = true
-
-		# Check for moles
-		# Mole man
-		if pCard.has_sigil("Airborne"):
-			for card in all_enemy_cards():
-				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
-					direct_attack = false
-					card.move_to_parent(enemySlots[to_slot])
-					eCard = card
-					break
-		else: # Regular mole
-			for card in all_enemy_cards():
-				if card.has_sigil("Burrower"):
-					direct_attack = false
-					card.move_to_parent(enemySlots[to_slot])
-					eCard = card
-					break
-
-	else:
+	if not is_slot_empty(enemySlots[to_slot]):
 		eCard = enemySlots[to_slot].get_child(0)
-		if pCard.has_sigil("Airborne") and not eCard.has_sigil("Mighty Leap"):
-			direct_attack = true
-		if eCard.get_node("CardBody/DiveOlay").visible:
-			direct_attack = true
 	
+	var attack_targeting = get_attack_targeting(true, pCard, eCard)
 
-
-	if direct_attack:
+	# if, after everything, the attack targeting is SCALE: go face
+	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
 
 		# Variable attack override
 
 #		fightManager.inflict_damage(pCard.attack if not CardInfo.all_data.variable_attack_nerf or  else 1)
-		fightManager.inflict_damage(1 if "atkspecial" in pCard.card_data and CardInfo.all_data.variable_attack_nerf else pCard.attack)
+		
+		var damage = 1 if "atkspecial" in pCard.card_data and CardInfo.all_data.variable_attack_nerf else pCard.attack
 
+		fightManager.inflict_damage(damage)
+
+
+		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_SCALE]:
+			sig.on_damage_scale(damage)
 		# Looter
-		if pCard.has_sigil("Looter"):
-			for _i in range(pCard.attack):
-				if fightManager.deck.size() == 0:
-					break
+#		if pCard.has_sigil("Looter"):
+#			for _i in range(pCard.attack):
+#				if fightManager.deck.size() == 0:
+#					break
+#
+#				fightManager.draw_card(fightManager.deck.pop_front())
+#
+#				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+#				if fightManager.deck.size() == 0:
+#					get_node("../DrawPiles/YourDecks/Deck").visible = false
+#					break
+#
+#		if pCard.has_sigil("Side Hustle"):
+#			for _i in range(pCard.attack):
+#				if fightManager.side_deck.size() == 0:
+#					break
+#
+#				fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
+#
+#				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
+#				if fightManager.side_deck.size() == 0:
+#					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
+#					break
+#	else:
+#		# Gross hard-coded exception
+#		if not eCard.has_sigil("Repulsive"):
+#			eCard.take_damage(pCard)
 
-				fightManager.draw_card(fightManager.deck.pop_front())
-
-				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-				if fightManager.deck.size() == 0:
-					get_node("../DrawPiles/YourDecks/Deck").visible = false
-					break
-
-		if pCard.has_sigil("Side Hustle"):
-			for _i in range(pCard.attack):
-				if fightManager.side_deck.size() == 0:
-					break
-
-				fightManager.draw_card(fightManager.side_deck.pop_front(), fightManager.get_node("DrawPiles/YourDecks/SideDeck"))
-
-				# Some interaction here if your deck has less than 3 cards. Don't punish I guess?
-				if fightManager.side_deck.size() == 0:
-					get_node("../DrawPiles/YourDecks/SideDeck").visible = false
-					break
+	#if, after everthing, the attack type is CARD: hit the card.
+	elif attack_targeting == SigilEffect.AttackTargeting.CARD:
+		eCard.take_damage(pCard)
+	
+	#if, after everthing, the attack type is FAULURE: do nothing, probably because you got damage-blocked by someone with Repulsive
 	else:
-		# Gross hard-coded exception
-		if not eCard.has_sigil("Repulsive"):
-			eCard.take_damage(pCard)
+		pass
 
 # Sigil handling
 func get_friendly_cards_sigil(sigil):
@@ -878,6 +987,8 @@ func remote_card_data(card_slot, new_data):
 
 func handle_enemy_attack(from_slot, to_slot):
 
+	print("handling enemy attack!")
+
 	var eCard = get_enemy_card(from_slot)
 
 	# Special moon logic
@@ -904,47 +1015,68 @@ func handle_enemy_attack(from_slot, to_slot):
 			enemySlots[from_slot].get_child(0).attack
 		)
 		return
-
-	var direct_attack = false
-
+		
+#	var attack_targeting = SigilEffect.AttackTargeting.SCALE if is_slot_empty(playerSlots[to_slot]) else SigilEffect.AttackTargeting.CARD
+#
+#	#var direct_attack = false
+#
 	var pCard = null
-
-	if is_slot_empty(playerSlots[to_slot]):
-		direct_attack = true
-
-		# Check for moles
-		# Mole man
-		if eCard.has_sigil("Airborne"):
-			for card in all_friendly_cards():
-				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
-					direct_attack = false
-					card.move_to_parent(playerSlots[to_slot])
-					pCard = card
-					break
-		else: # Regular mole
-			for card in all_friendly_cards():
-				if card.has_sigil("Burrower"):
-					direct_attack = false
-					card.move_to_parent(playerSlots[to_slot])
-					pCard = card
-					break
-	else:
+#
+#
+#	for playerCard in all_friendly_cards():
+#		for sig in playerCard.grouped_sigils[SigilEffect.SigilTriggers.PRE_ENEMY_ATTACK]:
+#			# I put the mole logic in here!
+#			sig.pre_enemy_attack(eCard, to_slot, attack_targeting)
+	
+	if not is_slot_empty(playerSlots[to_slot]):
 		pCard = playerSlots[to_slot].get_child(0)
-		if eCard.has_sigil("Airborne") and not pCard.has_sigil("Mighty Leap"):
-			direct_attack = true
-		if pCard.get_node("CardBody/DiveOlay").visible:
-			direct_attack = true
+	
+	var attack_targeting = get_attack_targeting(false, eCard, pCard)
+
+#	var direct_attack = false
+#
+#	var pCard = null
+#
+#	if is_slot_empty(playerSlots[to_slot]):
+#		direct_attack = true
+#
+#		# Check for moles
+#		# Mole man
+#		if eCard.has_sigil("Airborne"):
+#			for card in all_friendly_cards():
+#				if card.has_sigil("Burrower") and card.has_sigil("Mighty Leap"):
+#					direct_attack = false
+#					card.move_to_parent(playerSlots[to_slot])
+#					pCard = card
+#					break
+#		else: # Regular mole
+#			for card in all_friendly_cards():
+#				if card.has_sigil("Burrower"):
+#					direct_attack = false
+#					card.move_to_parent(playerSlots[to_slot])
+#					pCard = card
+#					break
+#	else:
+#		pCard = playerSlots[to_slot].get_child(0)
+#		if eCard.has_sigil("Airborne") and not pCard.has_sigil("Mighty Leap"):
+#			direct_attack = true
+#		if pCard.get_node("CardBody/DiveOlay").visible:
+#			direct_attack = true
 	
 	# Special: Sniper is assumed to be attacking directly if it has no target
 	if eCard.has_sigil("Sniper") and is_slot_empty(playerSlots[fightManager.sniper_targets[0]]):
-		direct_attack = true
+		attack_targeting = SigilEffect.AttackTargeting.SCALE
 
-	if direct_attack:
+
+	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
 #		fightManager.inflict_damage(-eCard.attack)
 		fightManager.inflict_damage(-1 if "atkspecial" in eCard.card_data and CardInfo.all_data.variable_attack_nerf else -eCard.attack)
 
-	else:
+	elif attack_targeting == SigilEffect.AttackTargeting.CARD:
 		pCard.take_damage(eCard)
+
+	else:
+		pass
 
 # Something for tri strike effect
 remote func set_card_offset(card_slot, offset):
@@ -993,6 +1125,38 @@ func _on_Snuff_pressed():
 		fightManager.send_move({
 			"type": "snuff_candle"
 		})
+
+#why did no one bother to add something for this?
+#SERIOUSLY? those last four lines of code, in that exact order, were EVERYWHERE!
+func recalculate_buffs_and_such():
+	#calcuate conduits
+
+	#it turns out, all you REALLY need to do for conduit shit is to calculate the rightmost and leftmost conduits,
+	#because any conduit in the middle will complete a circuit with the outermost conduit on either side.
+	
+	#it pains me that these values need to be hardcoded... for now
+	#I have big plans
+	friendly_conduit_data = [-1, -1]
+	enemy_conduit_data = [-1, -1]
+	
+	for sIdx in range(4): #replace 4 with max rows
+		if not is_slot_empty(playerSlots[sIdx]):
+			if "conduit" in playerSlots[sIdx].get_child(0).card_data:
+				if friendly_conduit_data[0] == -1:
+					friendly_conduit_data[0] = sIdx
+				friendly_conduit_data[1] = sIdx
+		if not is_slot_empty(enemySlots[sIdx]):
+			if "conduit" in enemySlots[sIdx].get_child(0).card_data:
+				if enemy_conduit_data[0] == -1:
+					enemy_conduit_data[0] = sIdx
+				enemy_conduit_data[1] = sIdx
+
+	#calculate buffs and such
+
+	for card in all_friendly_cards():
+		card.calculate_buffs()
+	for eCard in all_enemy_cards():
+		eCard.calculate_buffs()
 
 
 # Conduit madness
