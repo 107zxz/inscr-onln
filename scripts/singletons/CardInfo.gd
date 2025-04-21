@@ -161,6 +161,7 @@ const default_header = {
 	"max_commons_side": 10,
 	"deck_size_min": 1,
 
+	"n_lanes": 4,
 	"enable_backrow": false,
 	
 	"starting_bones": 0,

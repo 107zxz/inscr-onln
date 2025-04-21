@@ -1,17 +1,39 @@
 extends Control
 
-onready var playerSlots = $PlayerSlots.get_children()
-onready var playerSlotsBack = $PlayerSlotsBack.get_children()
-onready var enemySlots = $EnemySlots.get_children()
-onready var enemySlotsBack = $EnemySlotsBack.get_children()
+var playerSlots
+var playerSlotsBack
+var enemySlots
+var enemySlotsBack
+var friendly_conduit_data = [-1, -1]
+var enemy_conduit_data = [-1, -1]
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var handManager = fightManager.get_node("HandsContainer/Hands")
+onready var nLanes = CardInfo.all_data.n_lanes
 
 # Cards selected for sacrifice
 var sacVictims = []
 
-var friendly_conduit_data = [-1, -1]
-var enemy_conduit_data = [-1, -1]
+func _ready():
+	var slotGroups = [$PlayerSlots, $PlayerSlotsBack, $EnemySlots, $EnemySlotsBack]
+	var newSlot
+	var isBack = false
+	var template
+
+	for group in slotGroups:
+		for slot in group.get_children():
+			slot.queue_free()
+		template = $SlotTemplateBack if isBack else $SlotTemplate
+		isBack = not isBack
+		for i in range(nLanes):
+			newSlot = template.duplicate()
+			newSlot.name = "Slot" + str(i)
+			newSlot.visible = group.visible
+			group.add_child(newSlot)
+
+	playerSlots = $PlayerSlots.get_children()
+	playerSlotsBack = $PlayerSlotsBack.get_children()
+	enemySlots = $EnemySlots.get_children()
+	enemySlotsBack = $EnemySlotsBack.get_children()
 
 # Board interactions
 func clear_slots():
@@ -46,7 +68,7 @@ func get_available_blood() -> int:
 	return blood
 
 func get_available_slots() -> int:
-	var freeSlots = 4
+	var freeSlots = nLanes
 
 	for _card in all_friendly_cards():
 		freeSlots -= 1
@@ -215,7 +237,6 @@ func pre_turn_sigils(friendly: bool):
 #			if is_slot_empty(enemySlots[sIdx]) and "Spawn Conduit" in get_conduitfx_enemy(sIdx):
 #				summon_card(CardInfo.from_name("L33pB0t"), sIdx, false)
 
-
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
 
@@ -362,12 +383,8 @@ func post_turn_sigils(friendly: bool):
 ##				rpc_id(fightManager.opponent, "remote_card_summon", CardInfo.from_name("L33pB0t"), sIdx)
 #				summon_card(CardInfo.from_name("L33pB0t"), sIdx, true)
 
-
-
 	yield(get_tree().create_timer(0.01), "timeout")
 	emit_signal("resolve_sigils")
-
-
 
 # Combat
 signal complete_combat()
@@ -390,10 +407,10 @@ func initiate_combat(friendly: bool):
 
 		if defendingMoon.visible:
 
-			attackingMoon.target = 4
+			attackingMoon.target = nLanes
 			moonAnim.play("friendlyMoonSlap" if friendly else "enemyMoonSlap")
 			print("Moon attacking another moon!")
-#			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", 4)
+#			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").rpc_id(fightManager.opponent, "remote_attack", nLanes)
 
 			yield(get_tree().create_timer(0.2), "timeout")
 #			rpc("handle_enemy_attack", 0, 0)
@@ -401,7 +418,7 @@ func initiate_combat(friendly: bool):
 			yield(moonAnim, "animation_finished")
 
 		else:
-			for slot in range(4):
+			for slot in range(nLanes):
 				attackingMoon.target = slot
 				moonAnim.play("friendlyMoonSlap" if friendly else "enemyMoonSlap")
 #				fightManager.get_node("MoonFight/BothMoons/EnemyMoon").rpc_id(fightManager.opponent, "remote_attack", moon.target)
@@ -435,8 +452,10 @@ func initiate_combat(friendly: bool):
 			continue
 	
 		# what enemy indexes need to be attacked and how many times?
-		# strikes[4] exists to 'null' invalid strike indexes (-1 and 4)
-		var strikes = [0, 0, 0, 0, 0]
+		# strikes[nLanes] exists to 'null' invalid strike indexes (-1 and nLanes)
+		var strikes = []
+		strikes.resize(nLanes + 1)
+		strikes.fill(0)
 		
 		# if pCard.has_sigil("Omni Strike"):
 		#	
@@ -515,7 +534,7 @@ func initiate_combat(friendly: bool):
 			# die, irrelevant index
 			strikes.pop_back()
 			
-			for i in range(4):
+			for i in range(nLanes):
 				
 				for _i in range(strikes[i]):
 
@@ -610,7 +629,7 @@ func handle_attack(from_slot, to_slot):
 
 		var moon = fightManager.get_node("MoonFight/BothMoons/FriendlyMoon")
 
-		if moon.target == 4:
+		if moon.target == nLanes:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(moon.attack)
 			return
 		elif moon.target >= 0:
@@ -1083,7 +1102,7 @@ remote func set_card_offset(card_slot, offset):
 	if is_slot_empty(enemySlots[card_slot]):
 		return
 
-	if card_slot < 3:
+	if card_slot < nLanes - 1:
 		if offset > 0:
 			enemySlots[card_slot + 1].show_behind_parent = true
 		else:
@@ -1180,7 +1199,7 @@ func get_conduitfx(card):
 
 
 	# Check slots right of slot_idx
-	for sIdx in range(slot_idx + 1, 4):
+	for sIdx in range(slot_idx + 1, nLanes):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
@@ -1216,7 +1235,7 @@ func get_conduitfx_friendly(slot_idx):
 
 
 	# Check slots right of slot_idx
-	for sIdx in range(slot_idx + 1, 4):
+	for sIdx in range(slot_idx + 1, nLanes):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
@@ -1252,7 +1271,7 @@ func get_conduitfx_enemy(slot_idx):
 
 
 	# Check slots right of slot_idx
-	for sIdx in range(slot_idx + 1, 4):
+	for sIdx in range(slot_idx + 1, nLanes):
 		if not is_slot_empty(slots[sIdx]):
 			if "conduit" in slots[sIdx].get_child(0).card_data:
 				rconduit = slots[sIdx].get_child(0)
@@ -1281,7 +1300,7 @@ func shift_cards_forward(friendly):
 # New Helper functions
 func get_friendly_card(slot_idx):
 
-	if slot_idx > 3 or slot_idx < 0:
+	if slot_idx > nLanes - 1 or slot_idx < 0:
 		return false
 
 	for card in playerSlots[slot_idx].get_children():
@@ -1291,7 +1310,7 @@ func get_friendly_card(slot_idx):
 
 func get_enemy_card(slot_idx):
 
-	if slot_idx > 3 or slot_idx < 0:
+	if slot_idx > nLanes - 1 or slot_idx < 0:
 		return false
 
 	for card in enemySlots[slot_idx].get_children():
@@ -1302,7 +1321,7 @@ func get_enemy_card(slot_idx):
 func all_friendly_cards():
 	var cards = []
 
-	for slot_idx in range(4):
+	for slot_idx in range(nLanes):
 		if not is_slot_empty(playerSlots[slot_idx]):
 			cards.append(get_friendly_card(slot_idx))
 
@@ -1320,7 +1339,7 @@ func all_friendly_cards_backrow():
 func all_enemy_cards():
 	var cards = []
 
-	for slot_idx in range(4):
+	for slot_idx in range(nLanes):
 		if not is_slot_empty(enemySlots[slot_idx]):
 			cards.append(get_enemy_card(slot_idx))
 
