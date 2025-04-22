@@ -81,7 +81,7 @@ func from_game_info_json(content_as_object):
 	all_data = content_as_object
 	
 	all_data.merge(default_header)
-	all_data.last_lane = all_data.lanes_num - 1
+	all_data.last_lane = all_data.lanes - 1
 	
 	all_sigils.merge(all_data["sigils"] if "sigils" in all_data else {}, true)
 	all_cards = all_data["cards"]
@@ -162,7 +162,7 @@ const default_header = {
 	"max_commons_side": 10,
 	"deck_size_min": 1,
 
-	"lanes_num": 4,
+	"lanes": 4,
 	"enable_backrow": false,
 	
 	"starting_bones": 0,

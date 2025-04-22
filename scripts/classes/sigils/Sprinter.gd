@@ -42,7 +42,7 @@ func end_of_turn(cardAnim):
 			if can_push():
 
 				# indexing wizardry to get the edge that's being pushed towards
-				var relevantEdge = [null, CardInfo.all_data.lanes_num, -1][sprintOffset]
+				var relevantEdge = [null, CardInfo.all_data.lanes, -1][sprintOffset]
 				var emptyIndex = null
 
 				for slotIndex in range(curSlot, relevantEdge, sprintOffset):
