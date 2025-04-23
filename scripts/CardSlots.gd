@@ -1159,7 +1159,7 @@ func recalculate_buffs_and_such():
 	friendly_conduit_data = [-1, -1]
 	enemy_conduit_data = [-1, -1]
 	
-	for sIdx in range(4): #replace 4 with max rows
+	for sIdx in range(nLanes):
 		if not is_slot_empty(playerSlots[sIdx]):
 			if "conduit" in playerSlots[sIdx].get_child(0).card_data:
 				if friendly_conduit_data[0] == -1:
