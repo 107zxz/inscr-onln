@@ -12,7 +12,7 @@ func handle_event(event: String, params: Array):
 	if params[0] == card:
 		return
 	
-	if not "Mox" in params[0].card_data.name:
+	if not "Mox" in params[0].cardData.name:
 		return
 		
 	var slotIdx = params[0].slot_idx()

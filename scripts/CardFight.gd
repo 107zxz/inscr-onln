@@ -25,7 +25,7 @@ signal snipe_complete(from_side, from_slot, to_side, to_slot)
 #	pid: 0 <- Owner of move
 #	type: "play_card"
 #   [arbitrary params below]
-#	card: {} <- card_data
+#	card: {} <- cardData
 #	slot: 3,
 # }
 
@@ -356,19 +356,19 @@ func search_deck():
 			var bgStyle = StyleBoxFlat.new()
 			var bg = Panel.new()
 			
-			var card_data = CardInfo.from_name(card)
+			var cardData = CardInfo.from_name(card)
 			
 			# setting color and style
-			if "nohammer" in card_data:
+			if "nohammer" in cardData:
 				labelStyle.bg_color = style.get_stylebox("nohammer_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("nohammer_normal", "Card").bg_color
-			elif "rare" in card_data and "nosac" in card_data:
+			elif "rare" in cardData and "nosac" in cardData:
 				labelStyle.bg_color = style.get_stylebox("rns_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("rns_normal", "Card").bg_color
-			elif "nosac" in card_data:
+			elif "nosac" in cardData:
 				labelStyle.bg_color = style.get_stylebox("nosac_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("nosac_normal", "Card").bg_color
-			elif "rare" in card_data:
+			elif "rare" in cardData:
 				labelStyle.bg_color = style.get_stylebox("rare_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("rare_normal", "Card").bg_color
 			else:
@@ -392,22 +392,22 @@ func search_deck():
 			# make the pic
 			# code rob from DrawCard.gd
 			var d = Directory.new()
-			if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
+			if d.file_exists(CardInfo.portrait_override_path + cardData.name + ".png"):
 				var i = Image.new()
-				i.load(CardInfo.portrait_override_path + card_data.name + ".png")
+				i.load(CardInfo.portrait_override_path + cardData.name + ".png")
 				var tx = ImageTexture.new()
 				tx.create_from_image(i)
 				tx.flags -= tx.FLAG_FILTER
 				pic.texture = tx
-			elif "pixport_url" in card_data:
+			elif "pixport_url" in cardData:
 				var i = Image.new()
-				i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
+				i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + cardData.name + ".png")
 				var tx = ImageTexture.new()
 				tx.create_from_image(i)
 				tx.flags -= tx.FLAG_FILTER
 				pic.texture = tx
 			else:
-				pic.texture = load("res://gfx/pixport/" + card_data.name + ".png")
+				pic.texture = load("res://gfx/pixport/" + cardData.name + ".png")
 				
 			pic.material = load("res://themes/sigilMat.tres")
 			var scale = 1 # 1 look nicest
@@ -429,7 +429,7 @@ func search_deck():
 			hBox.add_child(label)
 			
 			for special in ["rare", "nohammer", "nosac"]:
-				if special in card_data:
+				if special in cardData:
 					var texture = TextureRect.new()
 					var atlast = AtlasTexture.new()
 					atlast.atlas = load("res://gfx/cardextras/SpecialSigils.png")
@@ -578,27 +578,27 @@ func play_card(slot: Node):
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
 			
 			# Dirty override for jukebot
-			if playedCard.card_data.name == "Jukebot":
+			if playedCard.cardData.name == "Jukebot":
 				$MusPicker.visible = true
 				yield($MusPicker/Panel/VBoxContainer/DlBtn, "pressed")
 				$MusPicker.visible = false
-				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
+				playedCard.cardData.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
 
-#			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
+#			rpc_id(opponent, "_opponent_played_card", playedCard.cardData, slot.get_position_in_parent())
 			
 			send_move({
 				"type": "play_card",
-				"card": playedCard.card_data,
+				"card": playedCard.cardData,
 				"slot": slot.get_position_in_parent()
 			})
 			
 			# Bone cost
-			if "bone_cost" in playedCard.card_data:
-				add_bones(-playedCard.card_data["bone_cost"])
+			if "bone_cost" in playedCard.cardData:
+				add_bones(-playedCard.cardData["bone_cost"])
 			
 			# Energy cost
-			if "energy_cost" in playedCard.card_data and not no_energy_deplete:
-				set_energy(energy -playedCard.card_data["energy_cost"])
+			if "energy_cost" in playedCard.cardData and not no_energy_deplete:
+				set_energy(energy -playedCard.cardData["energy_cost"])
 			
 			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -621,27 +621,27 @@ func play_card_back(slot):
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
 			
 			# Dirty override for jukebot
-			if playedCard.card_data.name == "Jukebot":
+			if playedCard.cardData.name == "Jukebot":
 				$MusPicker.visible = true
 				yield($MusPicker/Panel/VBoxContainer/DlBtn, "pressed")
 				$MusPicker.visible = false
-				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
+				playedCard.cardData.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
 
-#			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
+#			rpc_id(opponent, "_opponent_played_card", playedCard.cardData, slot.get_position_in_parent())
 			
 			send_move({
 				"type": "play_card_back",
-				"card": playedCard.card_data,
+				"card": playedCard.cardData,
 				"slot": slot.get_position_in_parent()
 			})
 			
 			# Bone cost
-			if "bone_cost" in playedCard.card_data:
-				add_bones(-playedCard.card_data["bone_cost"])
+			if "bone_cost" in playedCard.cardData:
+				add_bones(-playedCard.cardData["bone_cost"])
 			
 			# Energy cost
-			if "energy_cost" in playedCard.card_data:
-				set_energy(energy -playedCard.card_data["energy_cost"])
+			if "energy_cost" in playedCard.cardData:
+				set_energy(energy -playedCard.cardData["energy_cost"])
 			
 			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -672,13 +672,13 @@ func card_summoned(playedCard):
 #		eCard.calculate_buffs()
 
 	# Starvation, inflict damage if 9th onwards
-	if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
+	if playedCard.cardData["name"] == "Starvation" and playedCard.attack >= 9:
 		# Ramp damage over time so the game actually ends
 		inflict_damage(playedCard.attack - 8)
 	
 	# Stoat easter egg (Goodbye)
-#	if playedCard.card_data["name"] == "Stoat":
-#		playedCard.card_data["name"] = "Total Misplay"
+#	if playedCard.cardData["name"] == "Stoat":
+#		playedCard.cardData["name"] = "Total Misplay"
 #		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
 
 # Hammer Time
@@ -790,7 +790,7 @@ func parse_next_move():
 				slotManager.remote_activate_sigil(move.slot, move.arg)
 			"change_card":
 				print("Opponent card ", move.index, " changed to ", move.data)
-				slotManager.remote_card_data(move.index, move.data)
+				slotManager.remote_cardData(move.index, move.data)
 			"snipe_target":
 				print("Opponent sniped from ", move.from_slot, " on side ", move.from_side, " to slot ", move.to_slot, " on side ", move.to_side)
 				# Trigger the signal
@@ -843,7 +843,7 @@ func parse_next_move():
 				slotManager.remote_activate_sigil(move.slot, move.arg)
 			"change_card":
 				print("Friendly card ", move.index, " changed to ", move.data)
-				slotManager.remote_card_data(move.index, move.data)
+				slotManager.remote_cardData(move.index, move.data)
 			"snuff_candle":
 				inflict_damage(-10)
 				draw_card(CardInfo.from_name("Greater Smoke"))
@@ -1090,7 +1090,7 @@ func set_opponent_max_energy(ener_no):
 
 func reload_hand():
 	for card in handManager.get_node("PlayerHand").get_children():
-		card.from_data(card.card_data)
+		card.from_data(card.cardData)
 
 
 # CUTSCENES

@@ -8,9 +8,9 @@ func handle_event(event: String, params: Array):
 		
 		print("Reconstitute triggered!")
 		
-		var old_data = card.card_data.duplicate()
+		var old_data = card.cardData.duplicate()
 
-		if card.card_data.name == "Ouroboros":
+		if card.cardData.name == "Ouroboros":
 			old_data.attack += 1
 			old_data.health += 1
 

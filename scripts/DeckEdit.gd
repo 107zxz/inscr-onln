@@ -195,7 +195,7 @@ func get_deck_object():
 #		side_deck = []
 #		for card in sidedeck_container.get_children():
 #			if not card.is_queued_for_deletion():
-#				side_deck.append(card.card_data.name)
+#				side_deck.append(card.cardData.name)
 	
 	var deck_object = {
 		"cards": [],
@@ -213,11 +213,11 @@ func get_deck_object():
 			deck_object.side_deck_cards = []
 			for card in sidedeck_container.get_children():
 				if not card.is_queued_for_deletion():
-					deck_object.side_deck_cards.append(card.card_data["name"])
+					deck_object.side_deck_cards.append(card.cardData["name"])
 
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
-			deck_object["cards"].append(card.card_data["name"])
+			deck_object["cards"].append(card.cardData["name"])
 	
 	return deck_object
 
@@ -225,7 +225,7 @@ func get_card_count(cDat):
 	var res = 0
 
 	for card in deckDisplay.get_children():
-		if card.card_data == cDat:
+		if card.cardData == cDat:
 			res += 1
 	
 	return res
@@ -234,13 +234,13 @@ func get_sd_card_count(cDat):
 	var res = 0
 
 	for card in sideDeckDisplay.get_children():
-		if card.card_data == cDat:
+		if card.cardData == cDat:
 			res += 1
 	
 	return res
 
-func get_card_id(card_data):
-	return CardInfo.all_cards.find(card_data)
+func get_card_id(cardData):
+	return CardInfo.all_cards.find(cardData)
 
 # UI for deck save
 func save_deck(_arg = null):
@@ -341,7 +341,7 @@ func load_deck(_arg = null):
 				if child.is_queued_for_deletion():
 					continue
 				
-				if child.card_data.name == cdat.name:
+				if child.cardData.name == cdat.name:
 					found = true
 					break
 			if found:
@@ -353,7 +353,7 @@ func load_deck(_arg = null):
 				if child.is_queued_for_deletion():
 					continue
 				
-				if child.card_data.name == cdat.name:
+				if child.cardData.name == cdat.name:
 					found += 1
 			if found >= CardInfo.all_data.max_commons_main:
 				continue
@@ -483,7 +483,7 @@ func validate_draft_side():
 	var valid_side_cards = CardInfo.all_data.side_decks[sidedeck_de.get_item_text(sidedeck_de.selected)].cards
 	
 	for sCard in sidedeck_container.get_children():
-		var current_data = sCard.card_data
+		var current_data = sCard.cardData
 		
 		if not current_data.name in valid_side_cards:
 			sCard.queue_free()

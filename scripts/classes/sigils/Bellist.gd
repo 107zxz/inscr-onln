@@ -18,8 +18,8 @@ func handle_event(event: String, params: Array):
 			if slot < CardInfo.all_data.n_lanes - 1 and slotManager.is_slot_empty(cardSlots[slot + 1]):
 				slotManager.summon_card(CardInfo.from_name("Chime"), slot + 1, isFriendly)
 	
-	if event == "card_hit" and params[0].card_data.name == "Chime" and params[0].get_parent().get_parent() == card.get_parent().get_parent() \
-	or event == "card_hit" and "atkspecial" in params[0].card_data and params[0].card_data.atkspecial == "Bell" and params[0].get_parent().get_parent() == card.get_parent().get_parent():
+	if event == "card_hit" and params[0].cardData.name == "Chime" and params[0].get_parent().get_parent() == card.get_parent().get_parent() \
+	or event == "card_hit" and "atkspecial" in params[0].cardData and params[0].cardData.atkspecial == "Bell" and params[0].get_parent().get_parent() == card.get_parent().get_parent():
 		
 		#if not params[1].has_sigil("Repulsive"):
 		if slotManager.get_attack_targeting(isFriendly, card, params[1]) != SigilEffect.AttackTargeting.FAILURE: #Updated to include potential future sigils that would prevent the daus from attacking
@@ -34,16 +34,16 @@ func handle_event(event: String, params: Array):
 				if card.slot_idx() < CardInfo.all_data.n_lanes - 1:
 					card.get_parent().get_parent().get_child(card.slot_idx() + 1).show_behind_parent = true
 		
-				card.strike_offset = params[1].slot_idx() - card.slot_idx()
+				card.strikeOffset = params[1].slot_idx() - card.slot_idx()
 		
-				card.rect_position.x = card.strike_offset * 50
+				card.rect_position.x = card.strikeOffset * 50
 		
 				card.get_node("AnimationPlayer").play("Attack")
 		
 				yield(card.get_node("AnimationPlayer"), "animation_finished")
 		
-				card.strike_offset = 0
-				card.rect_position.x = card.strike_offset * 50
+				card.strikeOffset = 0
+				card.rect_position.x = card.strikeOffset * 50
 		
 				if card.slot_idx() < CardInfo.all_data.n_lanes - 1:
 					card.get_parent().get_parent().get_child(card.slot_idx() + 1).show_behind_parent = false

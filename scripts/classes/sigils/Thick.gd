@@ -13,9 +13,9 @@ func handle_event(event: String, params: Array):
 		
 		
 		if slot < CardInfo.all_data.n_lanes - 1 and slotManager.is_slot_empty(cardSlots[slot + 1]):
-			slotManager.summon_card(CardInfo.from_name(card.card_data.right_half), slot + 1, isFriendly)
-			card.from_data(CardInfo.from_name(card.card_data.left_half))
+			slotManager.summon_card(CardInfo.from_name(card.cardData.right_half), slot + 1, isFriendly)
+			card.from_data(CardInfo.from_name(card.cardData.left_half))
 
 		elif slot > 0 and slotManager.is_slot_empty(cardSlots[slot - 1]):
-			slotManager.summon_card(CardInfo.from_name(card.card_data.left_half), slot - 1, isFriendly)
-			card.from_data(CardInfo.from_name(card.card_data.right_half))
+			slotManager.summon_card(CardInfo.from_name(card.cardData.left_half), slot - 1, isFriendly)
+			card.from_data(CardInfo.from_name(card.cardData.right_half))

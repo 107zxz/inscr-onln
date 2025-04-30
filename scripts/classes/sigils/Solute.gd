@@ -11,4 +11,4 @@ func handle_event(event: String, params: Array):
 		
 #		if fightManager.get_node("")
 		
-		fightManager.draw_card(card.card_data)
+		fightManager.draw_card(card.cardData)

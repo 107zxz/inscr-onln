@@ -24,7 +24,7 @@ func handle_event(event: String, params: Array):
 		
 		fightManager.send_move({
 				"type": "play_card",
-				"card": card.card_data,
+				"card": card.cardData,
 				"slot": slot.get_position_in_parent(),
 				"ignore_cost": true
 			})

@@ -8,7 +8,7 @@ func handle_event(event: String, params: Array):
 		
 		print("Unkillable triggered!")
 		
-		var old_data = card.card_data.duplicate()
+		var old_data = card.cardData.duplicate()
 		old_data.sigils = old_data.sigils.duplicate()
 
 		old_data.sigils.erase("Unkillable (Eternal)")

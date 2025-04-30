@@ -12,7 +12,7 @@ func end_of_turn(cardAnim):
 		var name = get_script().resource_path.get_file()
 		name = name.left(name.length() - 3)
 		sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
-			card.card_data["sigils"].find(name)
+			card.cardData["sigils"].find(name)
 		)
 	
 	var curSlot = card.get_parent().get_position_in_parent()

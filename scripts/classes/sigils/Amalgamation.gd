@@ -19,14 +19,14 @@ func handle_event(event: String, params: Array):
 			atk_acc += fCard.attack
 			hp_acc += fCard.health
 			
-			if "sigils" in fCard.card_data and not "active" in fCard.card_data:
-				for f_sigil in fCard.card_data.sigils:
+			if "sigils" in fCard.cardData and not "active" in fCard.cardData:
+				for f_sigil in fCard.cardData.sigils:
 					if len(n_sigils) < 3 and not f_sigil in n_sigils:
 						n_sigils.append(f_sigil)
 			
 			fCard.get_node("AnimationPlayer").play("Perish")
 		
-		var new_data = card.card_data
+		var new_data = card.cardData
 		
 		new_data.attack = atk_acc
 		new_data.health = max(1, hp_acc)

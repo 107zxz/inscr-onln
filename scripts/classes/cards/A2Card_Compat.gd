@@ -21,7 +21,7 @@ const SIGIL_SLOTS = [
 	"Sigils/Row2/S3"
 ]
 
-var card_data = {}
+var cardData = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -145,7 +145,7 @@ func apply_theme(cDat: Dictionary):
 #	HVR_COLOURS[0] = paperTheme.get_color("normal", "Card")
 #	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
 #	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
-#	$CardBtn.modulate = paperTheme.get_stylebox("rare_normal" if "rare" in card_data else "normal", "Card").bg_color
+#	$CardBtn.modulate = paperTheme.get_stylebox("rare_normal" if "rare" in cardData else "normal", "Card").bg_color
 
 	var th = "normal"
 

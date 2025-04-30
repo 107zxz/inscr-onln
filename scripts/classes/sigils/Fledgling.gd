@@ -4,9 +4,9 @@ extends SigilEffect
 func start_of_turn(cardAnim):
 	cardAnim.play("Evolve")
 	yield (cardAnim, "animation_finished")
-	var dmgTaken = card.card_data["health"] - card.health
-	card.from_data(CardInfo.from_name(card.card_data["evolution"]))
-	card.health = card.card_data["health"] - dmgTaken
+	var dmgTaken = card.cardData["health"] - card.health
+	card.from_data(CardInfo.from_name(card.cardData["evolution"]))
+	card.health = card.cardData["health"] - dmgTaken
 	# Calculate buffs
 	slotManager.recalculate_buffs_and_such()
 #	for card in slotManager.all_friendly_cards():

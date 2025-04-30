@@ -4,7 +4,7 @@ extends SigilEffect
 func define_power():
 	var attack = 0
 	for mx in slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards():
-		if "sigils" in mx.card_data and "Green Mox" in mx.card_data["sigils"]:
+		if "sigils" in mx.cardData and "Green Mox" in mx.cardData["sigils"]:
 			attack += 1
 	return attack
 

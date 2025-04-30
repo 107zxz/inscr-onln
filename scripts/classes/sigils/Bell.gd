@@ -4,6 +4,6 @@ extends SigilEffect
 func define_power():
 	var attack = 4 - card.slot_idx()
 	for c in slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards():
-		if abs(c.slot_idx() - card.slot_idx()) == 1 and "Chime" in c.card_data["name"]:
+		if abs(c.slot_idx() - card.slot_idx()) == 1 and "Chime" in c.cardData["name"]:
 			attack += 1
 	return attack

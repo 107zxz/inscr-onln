@@ -22,7 +22,7 @@ func handle_event(event: String, params: Array):
 			# Become intangible too
 			card.get_node("AnimationPlayer").stop()
 			card.get_node("CardBody/CardBtn").mouse_filter = Control.MOUSE_FILTER_IGNORE
-			card.consider_dead = true
+			card.considerDead = true
 			
 			# Wait for attacker to possibly die
 			if fightManager.pre_snipe_state == fightManager.GameStates.BATTLE:
@@ -51,17 +51,17 @@ func handle_event(event: String, params: Array):
 		
 		target.get_node("CardBody/Highlight").show()
 		
-		if "sigils" in target.card_data:
+		if "sigils" in target.cardData:
 			# Deep copy sigil array
-			var n_sigils = target.card_data.sigils.duplicate()
+			var n_sigils = target.cardData.sigils.duplicate()
 			n_sigils.append("Armored")
-			target.card_data.sigils = n_sigils
+			target.cardData.sigils = n_sigils
 		else:
-			target.card_data.sigils = ["Armored"]
+			target.cardData.sigils = ["Armored"]
 			
 		var old_atk = target.attack
 		var old_hp = target.health
-		target.from_data(target.card_data)
+		target.from_data(target.cardData)
 		target.attack = old_atk
 		target.health = old_hp
 		

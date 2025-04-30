@@ -18,9 +18,9 @@ func handle_event(event: String, params: Array):
 		var pelt_name = "Wolf Pelt"
 
 		# Which pelt to give
-		if "rare" in target.card_data:
+		if "rare" in target.cardData:
 			pelt_name = "Golden Pelt"
-		elif target.card_data.attack == 0:
+		elif target.cardData.attack == 0:
 			pelt_name = "Rabbit Pelt"
 
 		# Kill it

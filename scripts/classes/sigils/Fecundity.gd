@@ -8,7 +8,7 @@ func handle_event(event: String, params: Array):
 		
 		print("Fecundity triggered!")
 		
-		var old_data = card.card_data.duplicate()
+		var old_data = card.cardData.duplicate()
 
 		# Draw the modified card copy
 		fightManager.draw_card(old_data)

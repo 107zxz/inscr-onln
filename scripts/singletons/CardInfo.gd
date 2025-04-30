@@ -128,7 +128,7 @@ func idx_from_name(cName):
 			return idx
 		idx += 1
 	
-func gen_sig_desc(sigil: String, card_data):
+func gen_sig_desc(sigil: String, cardData):
 	var sigil_regex = RegEx.new()
 	sigil_regex.compile("{(\\w+)}")
 
@@ -138,8 +138,8 @@ func gen_sig_desc(sigil: String, card_data):
 	# get all the formated value
 	for res in sigil_regex.search_all(desc):
 		var var_name = res.get_string(1)
-		if var_name in card_data:
-			var_list.append(card_data[var_name])
+		if var_name in cardData:
+			var_list.append(cardData[var_name])
 		else:
 			var_list.append("")
 			
