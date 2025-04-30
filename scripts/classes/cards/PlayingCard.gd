@@ -970,15 +970,15 @@ func has_sigil(sigName):
 # Take damage and die if needed
 
 
-func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
+func take_damage(damagingCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 
 	#if $CardBody/Highlight.visible:
 	#	$CardBody/Highlight.visible = false
 	#	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
 	#	return
 
-	if enemyCard and dmg_amt == SigilEffect.UNDEFINED_DAMAGE_VAL:
-		dmg_amt = enemyCard.attack
+	if damagingCard and dmg_amt == SigilEffect.UNDEFINED_DAMAGE_VAL:
+		dmg_amt = damagingCard.attack
 	
 	# Special exception
 	#if has_sigil("Warded"):
@@ -993,15 +993,15 @@ func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 	health -= dmg_amt
 	draw_stats()
 	
-	if enemyCard:
-		for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
+	if damagingCard:
+		for sig in damagingCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
 			sig.on_damage_card(self, dmg_amt)
 
 	if health <= 0: #or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 
 	# Sigils that do the do
-	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
+	fightManager.emit_signal("sigil_event", "card_hit", [self, damagingCard])
 
 #	if enemyCard and enemyCard.is_alive() and has_sigil("Sharp Quills"):
 #		enemyCard.take_damage(self, 1)

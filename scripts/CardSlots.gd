@@ -432,23 +432,23 @@ func initiate_combat(friendly: bool):
 
 		return
 
-	for pCard in attackingCards:
+	for attackingCard in attackingCards:
 
 		# TODO: FIX THIS
 		# fix what?
-		if not pCard:
+		if not attackingCard:
 			continue
 
-		if not is_instance_valid(pCard):
+		if not is_instance_valid(attackingCard):
 			continue
 
-		if pCard.is_queued_for_deletion():
+		if attackingCard.is_queued_for_deletion():
 			continue
 
-		var cardAnim = pCard.get_node("AnimationPlayer")
-		var slot_index = pCard.slot_idx()
+		var cardAnim = attackingCard.get_node("AnimationPlayer")
+		var slot_index = attackingCard.slot_idx()
 
-		if pCard.attack <= 0 or "Perish" in cardAnim.current_animation:
+		if attackingCard.attack <= 0 or "Perish" in cardAnim.current_animation:
 			continue
 	
 		# what enemy indexes need to be attacked and how many times?
@@ -467,7 +467,7 @@ func initiate_combat(friendly: bool):
 		# else:
 			
 		strikes[slot_index] += 1
-		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING]:
+		for sig in attackingCard.grouped_sigils[SigilEffect.SigilTriggers.MODIFY_ATTACK_TARGETING]:
 			strikes = sig.modify_attack_targeting(slot_index, strikes)
 		
 			# strikes[slot_index] += 0 if pCard.has_sigil("Bifurcated Strike") else 1
@@ -481,7 +481,7 @@ func initiate_combat(friendly: bool):
 		# brittle check
 		var has_attacked = false
 		
-		if pCard.has_sigil("Sniper"):
+		if attackingCard.has_sigil("Sniper"):
 			
 			# sniping time
 			var target_index
@@ -499,7 +499,7 @@ func initiate_combat(friendly: bool):
 					break
 
 				if friendly:
-					fightManager.sniper = pCard
+					fightManager.sniper = attackingCard
 					fightManager.state = fightManager.GameStates.SNIPE
 					fightManager.snipe_is_attack = true
 					target_index = yield(fightManager, "snipe_complete")[3]
@@ -509,7 +509,7 @@ func initiate_combat(friendly: bool):
 					print(fightManager.sniper_targets)
 					target_index = fightManager.sniper_targets[0]
 				
-				pre_attack_logic(friendly, pCard, target_index)
+				pre_attack_logic(friendly, attackingCard, target_index)
 				
 				# don't attack repulsive cards!
 #				if not is_slot_empty(defendingSlots[target_index]) and defendingSlots[target_index].get_child(0).has_sigil("Repulsive"):
@@ -520,11 +520,11 @@ func initiate_combat(friendly: bool):
 				if not is_slot_empty(defendingSlots[target_index]):
 					eCard = defendingSlots[target_index].get_child(0)
 
-				if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
+				if get_attack_targeting(friendly, attackingCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
 					has_attacked = true
-					pCard.strike_offset = target_index - slot_index
+					attackingCard.strike_offset = target_index - slot_index
 					cardAnim.play("Attack" if friendly else "AttackRemote")
-					pCard.play_sfx("attack")
+					attackingCard.play_sfx("attack")
 					yield(cardAnim, "animation_finished")
 					
 				fightManager.sniper_targets.pop_front()
@@ -546,28 +546,28 @@ func initiate_combat(friendly: bool):
 #					if not is_slot_empty(defendingSlots[i]) and defendingSlots[i].get_child(0).has_sigil("Repulsive"):
 #						if not pCard.has_sigil("Airborne") or defendingSlots[i].get_child(0).has_sigil("Mighty Leap"):
 #							continue
-					pre_attack_logic(friendly, pCard, i)
+					pre_attack_logic(friendly, attackingCard, i)
 					
 					var eCard = null
 					if not is_slot_empty(defendingSlots[i]):
 						eCard = defendingSlots[i].get_child(0)
 
-					if get_attack_targeting(friendly, pCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
+					if get_attack_targeting(friendly, attackingCard, eCard) != SigilEffect.AttackTargeting.FAILURE:
 						has_attacked = true
-						pCard.strike_offset = i - slot_index
-						pCard.rect_position.x = pCard.strike_offset * 50
+						attackingCard.strike_offset = i - slot_index
+						attackingCard.rect_position.x = attackingCard.strike_offset * 50
 						cardAnim.play("Attack" if friendly else "AttackRemote")
-						pCard.play_sfx("attack")
+						attackingCard.play_sfx("attack")
 						yield(cardAnim, "animation_finished")
 					
 					if is_slot_empty(attackingSlots[slot_index]):
 						continue
 					
-					pCard.rect_position.x = 0
+					attackingCard.rect_position.x = 0
 		
 		#if has_attacked and pCard.has_sigil("Brittle"):
 		#	cardAnim.play("Perish")
-		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_ATTACKS]:
+		for sig in attackingCard.grouped_sigils[SigilEffect.SigilTriggers.AFTER_ATTACKS]:
 			sig.after_attacks(cardAnim, has_attacked)
 
 	yield(get_tree().create_timer(0.01), "timeout")
@@ -621,7 +621,7 @@ func handle_attack(from_slot, to_slot):
 
 	print("Handling attack")
 
-	var pCard = playerSlots[from_slot].get_child(0)
+	var attackingCard = playerSlots[from_slot].get_child(0)
 
 	# Special moon logic
 	if fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").visible:
@@ -635,7 +635,7 @@ func handle_attack(from_slot, to_slot):
 		elif moon.target >= 0:
 #			enemySlots[moon.target].get_child(0).take_damage(null, moon.attack)
 			to_slot = moon.target
-			pCard = moon
+			attackingCard = moon
 		else:
 			fightManager.inflict_damage(moon.attack)
 			return
@@ -645,7 +645,7 @@ func handle_attack(from_slot, to_slot):
 		# This means you're attacking the moon
 
 		fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(
-			pCard.attack
+			attackingCard.attack
 		)
 
 		print("ATTACK RPC ANTIMOON: ", to_slot)
@@ -705,12 +705,12 @@ func handle_attack(from_slot, to_slot):
 #
 #	if direct_attack:
 	
-	var eCard = null
+	var defendingCard = null
 
 	if not is_slot_empty(enemySlots[to_slot]):
-		eCard = enemySlots[to_slot].get_child(0)
+		defendingCard = enemySlots[to_slot].get_child(0)
 	
-	var attack_targeting = get_attack_targeting(true, pCard, eCard)
+	var attack_targeting = get_attack_targeting(true, attackingCard, defendingCard)
 
 	# if, after everything, the attack targeting is SCALE: go face
 	if attack_targeting == SigilEffect.AttackTargeting.SCALE:
@@ -719,12 +719,12 @@ func handle_attack(from_slot, to_slot):
 
 #		fightManager.inflict_damage(pCard.attack if not CardInfo.all_data.variable_attack_nerf or  else 1)
 		
-		var damage = 1 if "atkspecial" in pCard.card_data and CardInfo.all_data.variable_attack_nerf else pCard.attack
+		var damage = 1 if "atkspecial" in attackingCard.card_data and CardInfo.all_data.variable_attack_nerf else attackingCard.attack
 
 		fightManager.inflict_damage(damage)
 
 
-		for sig in pCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_SCALE]:
+		for sig in attackingCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_SCALE]:
 			sig.on_damage_scale(damage)
 		# Looter
 #		if pCard.has_sigil("Looter"):
@@ -757,7 +757,7 @@ func handle_attack(from_slot, to_slot):
 
 	#if, after everthing, the attack type is CARD: hit the card.
 	elif attack_targeting == SigilEffect.AttackTargeting.CARD:
-		eCard.take_damage(pCard)
+		defendingCard.take_damage(attackingCard)
 	
 	#if, after everthing, the attack type is FAULURE: do nothing, probably because you got damage-blocked by someone with Repulsive
 	else:
