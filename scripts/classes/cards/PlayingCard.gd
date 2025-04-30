@@ -36,16 +36,16 @@ var sigils = []
 # to reduce possible performance issues, there are some separate lists of sigils.
 #The sigils in them are also in the normal sigil list
 
-var grouped_sigils = []
+var groupedSigils = []
 
-var power_defining_sigil = null #The singular sigil that defines the card's attack, such as Ant, Blood Spilled, etc. Should be null if there is none
+var powerDefiningSigil = null #The singular sigil that defines the card's attack, such as Ant, Blood Spilled, etc. Should be null if there is none
 
 
 
 # Sigil-specific information (must be stored per-card)
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
-var sprint_left = false # Used for sprinter
-var sacrifice_count = 0
+var sprint_left = false # Used for sprinter. No, no it's not. Not anymore at least.
+var sacrifice_count = 0 #is this EVER used?
 var consider_dead = false
 
 func from_data(cdat):
@@ -82,24 +82,24 @@ func create_sigils(friendly):
 	
 	if "atkspecial" in card_data:
 		print("atkspecial detected, attempting to add attack sigil")
-		power_defining_sigil = load_custom_sigil(card_data.atkspecial)
-		if not power_defining_sigil:
-			power_defining_sigil = load_vanilla_sigil(card_data.atkspecial)
-		if power_defining_sigil:
-			power_defining_sigil.fightManager = fightManager
-			power_defining_sigil.slotManager = slotManager
-			power_defining_sigil.card = self
-			power_defining_sigil.isFriendly = friendly
+		powerDefiningSigil = load_custom_sigil(card_data.atkspecial)
+		if not powerDefiningSigil:
+			powerDefiningSigil = load_vanilla_sigil(card_data.atkspecial)
+		if powerDefiningSigil:
+			powerDefiningSigil.fightManager = fightManager
+			powerDefiningSigil.slotManager = slotManager
+			powerDefiningSigil.card = self
+			powerDefiningSigil.isFriendly = friendly
 	
 	sigils.clear()
 
 
-	#resize grouped_sigils to fit ALL the things in it!
+	#resize groupedSigils to fit ALL the things in it!
 	var size = SigilEffect.SigilTriggers.values().size()
-	grouped_sigils.resize(size)
+	groupedSigils.resize(size)
 	#using fill puts the SAME list in all slots, so we can't use that
 	for i in range(size):
-		grouped_sigils[i]=[]
+		groupedSigils[i]=[]
 
 	if not "sigils" in card_data:
 		return
@@ -125,11 +125,11 @@ func create_sigils(friendly):
 		for trigger in SigilEffect.SigilTriggers.values():
 			#Janky a** trick that requires me to comment out all the functions from SigilEffect
 			if newSig.has_method(keys[trigger].to_lower()):
-				grouped_sigils[trigger].append(newSig)
+				groupedSigils[trigger].append(newSig)
 	
 	for i in range(size):
-		if grouped_sigils[i].size() > 1:
-			grouped_sigils[i].sort_custom(self, "sort_sigils")
+		if groupedSigils[i].size() > 1:
+			groupedSigils[i].sort_custom(self, "sort_sigils")
 			
 func sort_sigils(a, b): return a.priority() > b.priority()
 
@@ -854,14 +854,14 @@ func calculate_buffs():
 #				var hName = "PlayerHand" if friendly else "EnemyHand"
 #				attack = fightManager.get_node("HandsContainer/Hands/" + hName).get_child_count()
 	
-	#print(power_defining_sigil)
-	if power_defining_sigil:
-		attack = power_defining_sigil.define_power()
+	#print(powerDefiningSigil)
+	if powerDefiningSigil:
+		attack = powerDefiningSigil.define_power()
 		#just in case, I think something like this happened once and it crashed
 		if not attack:
 			attack = 0
 	
-	for sig in grouped_sigils[SigilEffect.SigilTriggers.CALC_BUFFS_EFFECT]:
+	for sig in groupedSigils[SigilEffect.SigilTriggers.CALC_BUFFS_EFFECT]:
 		sig.calc_buffs_effect()
 	
 	# Conduits
@@ -945,11 +945,11 @@ func calculate_buffs():
 	#		attack += 1
 
 	for c in slotManager.all_friendly_cards():
-		for sig in c.grouped_sigils[SigilEffect.SigilTriggers.STAT_MODIFYING_AURA]:
+		for sig in c.groupedSigils[SigilEffect.SigilTriggers.STAT_MODIFYING_AURA]:
 			sig.stat_modifying_aura(self, friendly)
 			
 	for c in slotManager.all_enemy_cards():
-		for sig in c.grouped_sigils[SigilEffect.SigilTriggers.STAT_MODIFYING_AURA]:
+		for sig in c.groupedSigils[SigilEffect.SigilTriggers.STAT_MODIFYING_AURA]:
 			sig.stat_modifying_aura(self, not friendly)
 	
 	attack = max(attack, 0)
@@ -986,7 +986,7 @@ func take_damage(damagingCard, dmgAmt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 
 
 	#
-	for sig in grouped_sigils[SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN]:
+	for sig in groupedSigils[SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN]:
 		dmgAmt = sig.modify_damage_taken(dmgAmt)
 	
 
@@ -994,7 +994,7 @@ func take_damage(damagingCard, dmgAmt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 	draw_stats()
 	
 	if damagingCard:
-		for sig in damagingCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
+		for sig in damagingCard.groupedSigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
 			sig.on_damage_card(self, dmgAmt)
 
 	if health <= 0: #or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
@@ -1011,7 +1011,7 @@ func is_alive():
 
 func calc_blood():
 	var blood = 1
-	for sig in grouped_sigils[SigilEffect.SigilTriggers.BONUS_BLOOD]:
+	for sig in groupedSigils[SigilEffect.SigilTriggers.BONUS_BLOOD]:
 		blood += sig.bonus_blood()
 	return blood
 
