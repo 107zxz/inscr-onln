@@ -4,10 +4,10 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_summoned" and params[0] == card and isFriendly:
+	if event == "card_summoned" and params[0] == card and is_friendly:
 		
 		for fCard in slotManager.all_friendly_cards():
-			if "Mox" in fCard.cardData["name"]:
+			if "Mox" in fCard.card_data["name"]:
 				if fightManager.deck.size() == 0:
 					break
 				fightManager.draw_card(fightManager.deck.pop_front())

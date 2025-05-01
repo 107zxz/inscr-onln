@@ -5,10 +5,10 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_perished" and params[0] == card and isFriendly:
+	if event == "card_perished" and params[0] == card and is_friendly:
 		
 		print("Solute triggered!")
 		
 #		if fightManager.get_node("")
 		
-		fightManager.draw_card(card.cardData)
+		fightManager.draw_card(card.card_data)

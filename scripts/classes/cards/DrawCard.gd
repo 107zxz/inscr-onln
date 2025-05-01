@@ -1,62 +1,62 @@
 extends PanelContainer
 
-var cardData = {}
+var card_data = {}
 
-var paperTheme = preload("res://themes/papertheme.tres")
+var paper_theme = preload("res://themes/papertheme.tres")
 
 func draw_from_data(cdat):
-	cardData = cdat
+	card_data = cdat
 
-	$VBoxContainer/Label.text = cardData.name
+	$VBoxContainer/Label.text = card_data.name
 	
 	# Special portrait overrides
 	var d = Directory.new()
-	if d.file_exists(CardInfo.portrait_override_path + cardData.name + ".png"):
+	if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
 		var i = Image.new()
-		i.load(CardInfo.portrait_override_path + cardData.name + ".png")
+		i.load(CardInfo.portrait_override_path + card_data.name + ".png")
 		var tx = ImageTexture.new()
 		tx.create_from_image(i)
 		tx.flags -= tx.FLAG_FILTER
 		$VBoxContainer/Portrait.texture = tx
-	elif "pixport_url" in cardData:
+	elif "pixport_url" in card_data:
 		var i = Image.new()
-		i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + cardData.name + ".png")
+		i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
 		var tx = ImageTexture.new()
 		tx.create_from_image(i)
 		tx.flags -= tx.FLAG_FILTER
 		$VBoxContainer/Portrait.texture = tx
 	else:
-		$VBoxContainer/Portrait.texture = load("res://gfx/pixport/" + cardData.name + ".png")
+		$VBoxContainer/Portrait.texture = load("res://gfx/pixport/" + card_data.name + ".png")
 	
 	# Rare
-	if "rare" in cardData:
-		if "nosac" in cardData:
+	if "rare" in card_data:
+		if "nosac" in card_data:
 			for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-				btn.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
-				btn.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
-		elif "nohammer" in cardData:
+				btn.add_stylebox_override("normal", paper_theme.get_stylebox("rns_normal", "Card"))
+				btn.add_stylebox_override("hover", paper_theme.get_stylebox("rns_hover", "Card"))
+		elif "nohammer" in card_data:
 			for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-				btn.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
-				btn.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
+				btn.add_stylebox_override("normal", paper_theme.get_stylebox("nohammer_normal", "Card"))
+				btn.add_stylebox_override("hover", paper_theme.get_stylebox("nohammer_hover", "Card"))
 		else:
 			for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-				btn.add_stylebox_override("normal", paperTheme.get_stylebox("rare_normal", "Card"))
-				btn.add_stylebox_override("hover", paperTheme.get_stylebox("rare_hover", "Card"))
-	elif "nosac" in cardData:
+				btn.add_stylebox_override("normal", paper_theme.get_stylebox("rare_normal", "Card"))
+				btn.add_stylebox_override("hover", paper_theme.get_stylebox("rare_hover", "Card"))
+	elif "nosac" in card_data:
 		for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-			btn.add_stylebox_override("normal", paperTheme.get_stylebox("nosac_normal", "Card"))
-			btn.add_stylebox_override("hover", paperTheme.get_stylebox("nosac_hover", "Card"))
-	elif "nohammer" in cardData:
+			btn.add_stylebox_override("normal", paper_theme.get_stylebox("nosac_normal", "Card"))
+			btn.add_stylebox_override("hover", paper_theme.get_stylebox("nosac_hover", "Card"))
+	elif "nohammer" in card_data:
 		for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-			btn.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
-			btn.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
+			btn.add_stylebox_override("normal", paper_theme.get_stylebox("nohammer_normal", "Card"))
+			btn.add_stylebox_override("hover", paper_theme.get_stylebox("nohammer_hover", "Card"))
 	else:
 		for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-			btn.add_stylebox_override("normal", paperTheme.get_stylebox("normal", "Card"))
-			btn.add_stylebox_override("hover", paperTheme.get_stylebox("hover", "Card"))
+			btn.add_stylebox_override("normal", paper_theme.get_stylebox("normal", "Card"))
+			btn.add_stylebox_override("hover", paper_theme.get_stylebox("hover", "Card"))
 	
 	# Conduit
-	$VBoxContainer/ConduitIcon.visible = "conduit" in cardData
+	$VBoxContainer/ConduitIcon.visible = "conduit" in card_data
 
 	# Update card costs and sigils
 	draw_cost()
@@ -66,13 +66,13 @@ func draw_from_data(cdat):
 	draw_special()
 
 func draw_special():
-	if "sigils" in cardData and "Tentacle" in cardData["sigils"] and has_node("DiveOlay"):
+	if "sigils" in card_data and "Tentacle" in card_data["sigils"] and has_node("DiveOlay"):
 		$DiveOlay.texture = load("res://gfx/cardextras/pixel_card_subicon_tent.png")
-	if "atkspecial" in cardData:
+	if "atkspecial" in card_data:
 
 		$AtkIcon.texture = $AtkIcon.texture.duplicate()
 		
-		match cardData.atkspecial:
+		match card_data.atkspecial:
 			"mox", "green_mox":
 				$AtkIcon.texture.region = Rect2(0, 0, 16, 8)
 			"mirror":
@@ -94,22 +94,22 @@ func draw_special():
 	$Button.hint_tooltip = ""
 	
 	if GameOptions.options.show_card_tooltips:
-		$Button.hint_tooltip = cardData.name + "\nPower: " + str(cardData.attack) + "\nHealth: " + str(cardData.health) + "\n"
+		$Button.hint_tooltip = card_data.name + "\nPower: " + str(card_data.attack) + "\nHealth: " + str(card_data.health) + "\n"
 		
-		if "rare" in cardData:
+		if "rare" in card_data:
 			$Button.hint_tooltip += "Rare: You may only use one copy of this card in your deck.\n"
 			
-		if "nosac" in cardData:
+		if "nosac" in card_data:
 			$Button.hint_tooltip += "Terrain: This card cannot be sacrificed.\n"
 		
-		if "nohammer" in cardData:
+		if "nohammer" in card_data:
 			$Button.hint_tooltip += "Unhammerable: This card cannot be hammered.\n"
 		
-		if "conduit" in cardData:
+		if "conduit" in card_data:
 			$Button.hint_tooltip += "Conduit: This card completes a circuit. At least 2 circuit completing \ncards are needed to complete a circuit.\n"
 		
-		if "sigils" in cardData:
-			for sigil in cardData.sigils:
+		if "sigils" in card_data:
+			for sigil in card_data.sigils:
 				var target_text = "\n" + sigil + ": " + CardInfo.all_sigils[sigil]
 				
 				var charcnt = 0
@@ -126,34 +126,34 @@ func draw_special():
 				if $Button.hint_tooltip.right(len($Button.hint_tooltip) - 1) != "\n":
 					$Button.hint_tooltip += "\n"
 		
-		if "evolution" in cardData:
-			$Button.hint_tooltip += "This card evolves/defrosts into: %s\n\n" % cardData.evolution
+		if "evolution" in card_data:
+			$Button.hint_tooltip += "This card evolves/defrosts into: %s\n\n" % card_data.evolution
 		
 		
 func draw_cost():
-	if "blood_cost" in cardData:
+	if "blood_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = true
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.duplicate()
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.texture.region = Rect2(
 			28,
-			16 * (cardData["blood_cost"] - 1) + 1,
+			16 * (card_data["blood_cost"] - 1) + 1,
 			26,
 			15
 		)
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BloodCost.visible = false
 	
-	if "bone_cost" in cardData:
+	if "bone_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = true
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.duplicate()
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
 			1,
-			16 * (cardData["bone_cost"] - 1) + 1,
+			16 * (card_data["bone_cost"] - 1) + 1,
 			26,
 			15
 		)
 		# Special case: horseman
-		if cardData["bone_cost"] == 13:
+		if card_data["bone_cost"] == 13:
 			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
 				28,
 				145,
@@ -161,7 +161,7 @@ func draw_cost():
 				15
 			)
 		# Special case: shambling cairn
-		if cardData["bone_cost"] == -1:
+		if card_data["bone_cost"] == -1:
 			$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.texture.region = Rect2(
 				28,
 				97,
@@ -171,12 +171,12 @@ func draw_cost():
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/BoneCost.visible = false
 		
-	if "energy_cost" in cardData:
+	if "energy_cost" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = true
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.duplicate()
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.texture.region = Rect2(
 			82,
-			16 * (cardData["energy_cost"] - 1) + 1,
+			16 * (card_data["energy_cost"] - 1) + 1,
 			26,
 			15
 		)
@@ -184,13 +184,13 @@ func draw_cost():
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/EnergyCost.visible = false
 	
 	# Mox cost BS
-	if "mox_cost" in cardData:
+	if "mox_cost" in card_data:
 		# Decide which mox to show
 		var true_mox = 0
 		
-		var gmox = "Green" in cardData["mox_cost"]
-		var omox = "Orange" in cardData["mox_cost"]
-		var bmox = "Blue" in cardData["mox_cost"]
+		var gmox = "Green" in card_data["mox_cost"]
+		var omox = "Orange" in card_data["mox_cost"]
+		var bmox = "Blue" in card_data["mox_cost"]
 		
 		true_mox = moxIdx(gmox, omox, bmox)
 		
@@ -220,7 +220,7 @@ func draw_symbols():
 	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = true
 	$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture = $VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.duplicate()
 	
-	if "nosac" in cardData:
+	if "nosac" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
 			0,
 			0,
@@ -228,7 +228,7 @@ func draw_symbols():
 			15
 		)
 		pass
-	elif "nohammer" in cardData:
+	elif "nohammer" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
 			0,
 			30,
@@ -236,7 +236,7 @@ func draw_symbols():
 			15
 		)
 		pass
-	elif "rare" in cardData:
+	elif "rare" in card_data:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.texture.region = Rect2(
 			0,
 			15,
@@ -253,44 +253,44 @@ func draw_sigils():
 		var sig2 = null
 		var d = Directory.new()
 
-		if "sigils" in cardData and len(cardData.sigils) >= 1:
-			if d.file_exists(CardInfo.icon_override_path + cardData.sigils[0] + ".png"):
+		if "sigils" in card_data and len(card_data.sigils) >= 1:
+			if d.file_exists(CardInfo.icon_override_path + card_data.sigils[0] + ".png"):
 				var i = Image.new()
-				i.load(CardInfo.icon_override_path + cardData.sigils[0] + ".png")
+				i.load(CardInfo.icon_override_path + card_data.sigils[0] + ".png")
 				sig1 = ImageTexture.new()
 				sig1.create_from_image(i)
 				sig1.flags -= sig1.FLAG_FILTER
-			elif d.file_exists(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + cardData.name + cardData.sigils[0] + ".png"):
+			elif d.file_exists(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[0] + ".png"):
 				var i = Image.new()
-				i.load(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + cardData.name + cardData.sigils[0] + ".png")
+				i.load(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[0] + ".png")
 				sig1 = ImageTexture.new()
 				sig1.create_from_image(i)
 				sig1.flags -= sig1.FLAG_FILTER
 			else:
-				sig1 = load("res://gfx/sigils/" + cardData.sigils[0] + ".png")
+				sig1 = load("res://gfx/sigils/" + card_data.sigils[0] + ".png")
 
-			if len(cardData.sigils) == 2:
-				if d.file_exists(CardInfo.icon_override_path + cardData.sigils[1] + ".png"):
+			if len(card_data.sigils) == 2:
+				if d.file_exists(CardInfo.icon_override_path + card_data.sigils[1] + ".png"):
 					var i = Image.new()
-					i.load(CardInfo.icon_override_path + cardData.sigils[1] + ".png")
+					i.load(CardInfo.icon_override_path + card_data.sigils[1] + ".png")
 					sig2 = ImageTexture.new()
 					sig2.create_from_image(i)
 					sig2.flags -= sig1.FLAG_FILTER
-				elif d.file_exists(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + cardData.name + cardData.sigils[1] + ".png"):
+				elif d.file_exists(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[1] + ".png"):
 					var i = Image.new()
-					i.load(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + cardData.name + cardData.sigils[1] + ".png")
+					i.load(CardInfo.custom_icon_path + CardInfo.ruleset + "_" + card_data.name + card_data.sigils[1] + ".png")
 					sig2 = ImageTexture.new()
 					sig2.create_from_image(i)
 					sig2.flags -= sig1.FLAG_FILTER
 				else:
-					sig2 = load("res://gfx/sigils/" + cardData.sigils[1] + ".png")
+					sig2 = load("res://gfx/sigils/" + card_data.sigils[1] + ".png")
 		
 		# Minor fix
-		if not "active" in cardData:
+		if not "active" in card_data:
 			$VBoxContainer/HBoxContainer/ActiveSigil.visible = false
 		
-		if "sigils" in cardData:
-			if "active" in cardData:
+		if "sigils" in card_data:
+			if "active" in card_data:
 				$VBoxContainer/HBoxContainer/ActiveSigil.visible = true
 				$VBoxContainer/HBoxContainer/ActiveSigil/TextureRect.texture = sig1
 				$VBoxContainer/HBoxContainer/Sigil.visible = false
@@ -302,7 +302,7 @@ func draw_sigils():
 				$VBoxContainer/HBoxContainer/Sigil.visible = true
 				$VBoxContainer/HBoxContainer/ActiveSigil.visible = false
 			
-			if len(cardData.sigils) > 1:
+			if len(card_data.sigils) > 1:
 				$VBoxContainer/HBoxContainer/Sigil2.visible = true
 				$VBoxContainer/HBoxContainer/Spacer3.visible = true
 				$VBoxContainer/HBoxContainer/Sigil2.texture = sig2
@@ -316,8 +316,8 @@ func draw_sigils():
 			$VBoxContainer/HBoxContainer/Sigil2.visible = false
 			$VBoxContainer/HBoxContainer/Spacer3.visible = false
 			
-		$HBoxContainer/AtkScore.text = str(cardData.attack)
-		$HBoxContainer/HpScore.text = str(cardData.health)
+		$HBoxContainer/AtkScore.text = str(card_data.attack)
+		$HBoxContainer/HpScore.text = str(card_data.health)
 	
 # Garb
 func moxIdx(gmox, omox, bmox) -> int:

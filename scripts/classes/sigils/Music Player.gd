@@ -5,7 +5,7 @@ func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
 	if event == "card_summoned" and params[0] == card:
-		var songUrl = card.cardData.song
+		var songUrl = card.card_data.song
 		
 		var rq = HTTPRequest.new()
 		card.add_child(rq)

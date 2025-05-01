@@ -25,7 +25,7 @@ signal snipe_complete(from_side, from_slot, to_side, to_slot)
 #	pid: 0 <- Owner of move
 #	type: "play_card"
 #   [arbitrary params below]
-#	card: {} <- cardData
+#	card: {} <- card_data
 #	slot: 3,
 # }
 
@@ -92,13 +92,13 @@ func _ready():
 	if CardInfo.all_data.enable_backrow:
 		$CardSlots/EnemySlotsBack.show()
 		$CardSlots/PlayerSlotsBack.show()
-		for back_slot in slotManager.playerSlotsBack:
+		for back_slot in slotManager.player_slots_back:
 			back_slot.connect("pressed", self, "play_card_back", [back_slot])
 	else:
-		for slot in slotManager.playerSlots:
+		for slot in slotManager.player_slots:
 			slot.connect("pressed", self, "play_card", [slot])
-		for eSlot in slotManager.enemySlots:
-			eSlot.connect("pressed", self, "clicked_enemy_slot", [eSlot])
+		for enemy_slot in slotManager.enemy_slots:
+			enemy_slot.connect("pressed", self, "clicked_enemy_slot", [enemy_slot])
 	
 	$Advantage/AdvRight.rect_position.x += (slotManager.nLanes - 4) * 64
 	$Advantage/AdvLeft.rect_position.x -= (slotManager.nLanes - 4) * 64
@@ -356,19 +356,19 @@ func search_deck():
 			var bgStyle = StyleBoxFlat.new()
 			var bg = Panel.new()
 			
-			var cardData = CardInfo.from_name(card)
+			var card_data = CardInfo.from_name(card)
 			
 			# setting color and style
-			if "nohammer" in cardData:
+			if "nohammer" in card_data:
 				labelStyle.bg_color = style.get_stylebox("nohammer_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("nohammer_normal", "Card").bg_color
-			elif "rare" in cardData and "nosac" in cardData:
+			elif "rare" in card_data and "nosac" in card_data:
 				labelStyle.bg_color = style.get_stylebox("rns_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("rns_normal", "Card").bg_color
-			elif "nosac" in cardData:
+			elif "nosac" in card_data:
 				labelStyle.bg_color = style.get_stylebox("nosac_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("nosac_normal", "Card").bg_color
-			elif "rare" in cardData:
+			elif "rare" in card_data:
 				labelStyle.bg_color = style.get_stylebox("rare_normal", "Card").bg_color
 				bgStyle.bg_color = style.get_stylebox("rare_normal", "Card").bg_color
 			else:
@@ -392,22 +392,22 @@ func search_deck():
 			# make the pic
 			# code rob from DrawCard.gd
 			var d = Directory.new()
-			if d.file_exists(CardInfo.portrait_override_path + cardData.name + ".png"):
+			if d.file_exists(CardInfo.portrait_override_path + card_data.name + ".png"):
 				var i = Image.new()
-				i.load(CardInfo.portrait_override_path + cardData.name + ".png")
+				i.load(CardInfo.portrait_override_path + card_data.name + ".png")
 				var tx = ImageTexture.new()
 				tx.create_from_image(i)
 				tx.flags -= tx.FLAG_FILTER
 				pic.texture = tx
-			elif "pixport_url" in cardData:
+			elif "pixport_url" in card_data:
 				var i = Image.new()
-				i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + cardData.name + ".png")
+				i.load(CardInfo.custom_portrait_path + CardInfo.ruleset + "_" + card_data.name + ".png")
 				var tx = ImageTexture.new()
 				tx.create_from_image(i)
 				tx.flags -= tx.FLAG_FILTER
 				pic.texture = tx
 			else:
-				pic.texture = load("res://gfx/pixport/" + cardData.name + ".png")
+				pic.texture = load("res://gfx/pixport/" + card_data.name + ".png")
 				
 			pic.material = load("res://themes/sigilMat.tres")
 			var scale = 1 # 1 look nicest
@@ -429,7 +429,7 @@ func search_deck():
 			hBox.add_child(label)
 			
 			for special in ["rare", "nohammer", "nosac"]:
-				if special in cardData:
+				if special in card_data:
 					var texture = TextureRect.new()
 					var atlast = AtlasTexture.new()
 					atlast.atlas = load("res://gfx/cardextras/SpecialSigils.png")
@@ -509,25 +509,25 @@ func starve_check(soft_rpc = true):
 func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	
 	
-	var nCard = cardPrefab.instance()
+	var new_card = cardPrefab.instance()
 	
-	source.add_child(nCard)
+	source.add_child(new_card)
 	
 	if typeof(card) == TYPE_DICTIONARY:
-		nCard.from_data(card)
+		new_card.from_data(card)
 	elif typeof(card) == TYPE_STRING:
-		nCard.from_data(CardInfo.from_name(card))
+		new_card.from_data(CardInfo.from_name(card))
 	else:
-		nCard.from_data(CardInfo.all_cards[card])
+		new_card.from_data(CardInfo.all_cards[card])
 	
 	# New sigil stuff
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-#	nCard.create_sigils(true)
-	connect("sigil_event", nCard, "handle_sigil_event")
+	new_card.fightManager = self
+	new_card.slotManager = slotManager
+#	new_card.create_sigils(true)
+	connect("sigil_event", new_card, "handle_sigil_event")
 	
 	
-	nCard.rect_position = Vector2.ZERO
+	new_card.rect_position = Vector2.ZERO
 	
 	var pHand = handManager.get_node("PlayerHand")
 	
@@ -540,7 +540,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	pHand.add_constant_override("separation", - min(nC, 12) * 4)
 	
 	# Animate the card
-	nCard.move_to_parent(pHand)
+	new_card.move_to_parent(pHand)
 	
 	if do_rpc:
 #		rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
@@ -565,7 +565,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	for card in slotManager.all_friendly_cards():
 		card.calculate_buffs()
 
-	return nCard
+	return new_card
 
 func play_card(slot: Node):
 	
@@ -578,27 +578,27 @@ func play_card(slot: Node):
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
 			
 			# Dirty override for jukebot
-			if playedCard.cardData.name == "Jukebot":
+			if playedCard.card_data.name == "Jukebot":
 				$MusPicker.visible = true
 				yield($MusPicker/Panel/VBoxContainer/DlBtn, "pressed")
 				$MusPicker.visible = false
-				playedCard.cardData.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
+				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
 
-#			rpc_id(opponent, "_opponent_played_card", playedCard.cardData, slot.get_position_in_parent())
+#			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
 			
 			send_move({
 				"type": "play_card",
-				"card": playedCard.cardData,
+				"card": playedCard.card_data,
 				"slot": slot.get_position_in_parent()
 			})
 			
 			# Bone cost
-			if "bone_cost" in playedCard.cardData:
-				add_bones(-playedCard.cardData["bone_cost"])
+			if "bone_cost" in playedCard.card_data:
+				add_bones(-playedCard.card_data["bone_cost"])
 			
 			# Energy cost
-			if "energy_cost" in playedCard.cardData and not no_energy_deplete:
-				set_energy(energy -playedCard.cardData["energy_cost"])
+			if "energy_cost" in playedCard.card_data and not no_energy_deplete:
+				set_energy(energy -playedCard.card_data["energy_cost"])
 			
 			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -621,27 +621,27 @@ func play_card_back(slot):
 		if state in [GameStates.NORMAL, GameStates.FORCEPLAY]:
 			
 			# Dirty override for jukebot
-			if playedCard.cardData.name == "Jukebot":
+			if playedCard.card_data.name == "Jukebot":
 				$MusPicker.visible = true
 				yield($MusPicker/Panel/VBoxContainer/DlBtn, "pressed")
 				$MusPicker.visible = false
-				playedCard.cardData.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
+				playedCard.card_data.song = $MusPicker/Panel/VBoxContainer/SongUrl.text
 
-#			rpc_id(opponent, "_opponent_played_card", playedCard.cardData, slot.get_position_in_parent())
+#			rpc_id(opponent, "_opponent_played_card", playedCard.card_data, slot.get_position_in_parent())
 			
 			send_move({
 				"type": "play_card_back",
-				"card": playedCard.cardData,
+				"card": playedCard.card_data,
 				"slot": slot.get_position_in_parent()
 			})
 			
 			# Bone cost
-			if "bone_cost" in playedCard.cardData:
-				add_bones(-playedCard.cardData["bone_cost"])
+			if "bone_cost" in playedCard.card_data:
+				add_bones(-playedCard.card_data["bone_cost"])
 			
 			# Energy cost
-			if "energy_cost" in playedCard.cardData:
-				set_energy(energy -playedCard.cardData["energy_cost"])
+			if "energy_cost" in playedCard.card_data:
+				set_energy(energy -playedCard.card_data["energy_cost"])
 			
 			playedCard.move_to_parent(slot)
 			handManager.raisedCard = null
@@ -672,13 +672,13 @@ func card_summoned(playedCard):
 #		eCard.calculate_buffs()
 
 	# Starvation, inflict damage if 9th onwards
-	if playedCard.cardData["name"] == "Starvation" and playedCard.attack >= 9:
+	if playedCard.card_data["name"] == "Starvation" and playedCard.attack >= 9:
 		# Ramp damage over time so the game actually ends
 		inflict_damage(playedCard.attack - 8)
 	
 	# Stoat easter egg (Goodbye)
-#	if playedCard.cardData["name"] == "Stoat":
-#		playedCard.cardData["name"] = "Total Misplay"
+#	if playedCard.card_data["name"] == "Stoat":
+#		playedCard.card_data["name"] = "Total Misplay"
 #		playedCard.get_node("CardBody/VBoxContainer/Label").text = "Total Misplay"
 
 # Hammer Time
@@ -790,7 +790,7 @@ func parse_next_move():
 				slotManager.remote_activate_sigil(move.slot, move.arg)
 			"change_card":
 				print("Opponent card ", move.index, " changed to ", move.data)
-				slotManager.remote_cardData(move.index, move.data)
+				slotManager.remote_card_data(move.index, move.data)
 			"snipe_target":
 				print("Opponent sniped from ", move.from_slot, " on side ", move.from_side, " to slot ", move.to_slot, " on side ", move.to_side)
 				# Trigger the signal
@@ -843,7 +843,7 @@ func parse_next_move():
 				slotManager.remote_activate_sigil(move.slot, move.arg)
 			"change_card":
 				print("Friendly card ", move.index, " changed to ", move.data)
-				slotManager.remote_cardData(move.index, move.data)
+				slotManager.remote_card_data(move.index, move.data)
 			"snuff_candle":
 				inflict_damage(-10)
 				draw_card(CardInfo.from_name("Greater Smoke"))
@@ -859,15 +859,15 @@ func _opponent_drew_card(source_path):
 	
 	print("Opponent drew card!")
 	
-	var nCard = cardPrefab.instance()
-	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
+	var new_card = cardPrefab.instance()
+	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(new_card)
 
-	nCard.get_node("CardBody").apply_theme({})
+	new_card.get_node("CardBody").apply_theme({})
 
 	# Visual hand update
-	var eHand = handManager.get_node("EnemyHand")
+	var enemy_hand = handManager.get_node("EnemyHand")
 
-	nCard.move_to_parent(eHand)
+	new_card.move_to_parent(enemy_hand)
 	
 	# Hand tenta
 	for eCard in slotManager.all_enemy_cards():
@@ -875,11 +875,11 @@ func _opponent_drew_card(source_path):
 	
 	# Count cards in their hand
 	var nC = 0
-	for card in eHand.get_children():
+	for card in enemy_hand.get_children():
 		if not card.is_queued_for_deletion():
 			nC += 1
 	
-	eHand.add_constant_override("separation", - nC * 4)
+	enemy_hand.add_constant_override("separation", - nC * 4)
 	
 	move_done()
 	
@@ -896,8 +896,8 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 			inflict_damage(-turns_starving + 8)
 	
 	# Visual hand update
-	var eHand = handManager.get_node("EnemyHand")
-	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
+	var enemy_hand = handManager.get_node("EnemyHand")
+	enemy_hand.add_constant_override("separation", - min(enemy_hand.get_child_count(), 12) * 4)
 	
 	# Costs
 	if not ignore_cost:
@@ -907,18 +907,18 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Sigil effects:
-	var nCard = handManager.opponentRaisedCard
-	nCard.from_data(card_dt)
-#	nCard.create_sigils(false)
-	nCard.move_to_parent(slotManager.enemySlots[slot])
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-	connect("sigil_event", nCard, "handle_sigil_event")
+	var new_card = handManager.opponentRaisedCard
+	new_card.from_data(card_dt)
+#	new_card.create_sigils(false)
+	new_card.move_to_parent(slotManager.enemy_slots[slot])
+	new_card.fightManager = self
+	new_card.slotManager = slotManager
+	connect("sigil_event", new_card, "handle_sigil_event")
 	
-	yield(nCard.get_node("Tween"), "tween_completed")
+	yield(new_card.get_node("Tween"), "tween_completed")
 	move_done()
 	
-#	emit_signal("sigil_event", "card_summoned", [nCard])
+#	emit_signal("sigil_event", "card_summoned", [new_card])
 
 	# Special case, card unlikely to have handled event yet
 	
@@ -941,8 +941,8 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 #			inflict_damage(-turns_starving + 8)
 	
 	# Visual hand update
-	var eHand = handManager.get_node("EnemyHand")
-	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
+	var enemy_hand = handManager.get_node("EnemyHand")
+	enemy_hand.add_constant_override("separation", - min(enemy_hand.get_child_count(), 12) * 4)
 	
 	# Costs
 	if not ignore_cost:
@@ -952,18 +952,18 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Sigil effects:
-	var nCard = handManager.opponentRaisedCard
-	nCard.from_data(card_dt)
-#	nCard.create_sigils(false)
-	nCard.move_to_parent(slotManager.enemySlotsBack[slot])
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-	connect("sigil_event", nCard, "handle_sigil_event")
+	var new_card = handManager.opponentRaisedCard
+	new_card.from_data(card_dt)
+#	new_card.create_sigils(false)
+	new_card.move_to_parent(slotManager.enemy_slots_back[slot])
+	new_card.fightManager = self
+	new_card.slotManager = slotManager
+	connect("sigil_event", new_card, "handle_sigil_event")
 	
-	yield(nCard.get_node("Tween"), "tween_completed")
+	yield(new_card.get_node("Tween"), "tween_completed")
 	move_done()
 	
-#	emit_signal("sigil_event", "card_summoned", [nCard])
+#	emit_signal("sigil_event", "card_summoned", [new_card])
 
 	# Special case, card unlikely to have handled event yet
 	
@@ -1090,7 +1090,7 @@ func set_opponent_max_energy(ener_no):
 
 func reload_hand():
 	for card in handManager.get_node("PlayerHand").get_children():
-		card.from_data(card.cardData)
+		card.from_data(card.card_data)
 
 
 # CUTSCENES

@@ -6,7 +6,7 @@ func handle_event(event: String, params: Array):
 	# Was card summoned / moved to the space opposing this one?
 	
 	# On the board
-	if not card.inHand:
+	if not card.in_hand:
 		if event in ["card_summoned", "card_moved"]:
 			# Fuck necromancer. All my homies hate necromancer
 			if params[0].get_node("AnimationPlayer").current_animation == "DoublePerish":
@@ -35,7 +35,7 @@ func normal_behaviour(params: Array):
 
 func hit_and_run(params: Array):
 	var opposing_card = \
-		slotManager.get_enemy_card(card.slot_idx()) if isFriendly \
+		slotManager.get_enemy_card(card.slot_idx()) if is_friendly \
 		else slotManager.get_friendly_card(card.slot_idx())
 	
 	if opposing_card:

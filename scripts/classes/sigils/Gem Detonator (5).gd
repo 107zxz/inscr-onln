@@ -12,19 +12,19 @@ func handle_event(event: String, params: Array):
 	if params[0] == card:
 		return
 	
-	if not "Mox" in params[0].cardData.name:
+	if not "Mox" in params[0].card_data.name:
 		return
 		
 	var slotIdx = params[0].slot_idx()
 		
-	print(("friendly" if isFriendly else "enemy"), " boomgem perished in slot ", slotIdx)
+	print(("friendly" if is_friendly else "enemy"), " boomgem perished in slot ", slotIdx)
 	
-	if isFriendly:
+	if is_friendly:
 		# Attack the moon
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(5)
 
-		elif not slotManager.is_slot_empty(slotManager.enemySlots[slotIdx]):
+		elif not slotManager.is_slot_empty(slotManager.enemy_slots[slotIdx]):
 			var eCard = slotManager.get_enemy_card(slotIdx)
 
 			if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:
@@ -43,7 +43,7 @@ func handle_event(event: String, params: Array):
 
 			fightManager.get_node("MoonFight/BothMoons/FriendlyMoon").take_damage(5)
 			
-		elif not slotManager.is_slot_empty(slotManager.playerSlots[slotIdx]):
+		elif not slotManager.is_slot_empty(slotManager.player_slots[slotIdx]):
 			var eCard = slotManager.get_friendly_card(slotIdx)
 
 			if not "Perish" in eCard.get_node("AnimationPlayer").current_animation:

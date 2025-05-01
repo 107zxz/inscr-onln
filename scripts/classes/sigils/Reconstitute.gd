@@ -4,13 +4,13 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_perished" and params[0] == card and isFriendly:
+	if event == "card_perished" and params[0] == card and is_friendly:
 		
 		print("Reconstitute triggered!")
 		
-		var old_data = card.cardData.duplicate()
+		var old_data = card.card_data.duplicate()
 
-		if card.cardData.name == "Ouroboros":
+		if card.card_data.name == "Ouroboros":
 			old_data.attack += 1
 			old_data.health += 1
 

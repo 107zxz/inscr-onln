@@ -10,7 +10,7 @@ func handle_event(event: String, params: Array):
 		var hp_acc = 0
 		var n_sigils = []
 		
-		var friendlies = slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards()
+		var friendlies = slotManager.all_friendly_cards() if is_friendly else slotManager.all_enemy_cards()
 		
 		for fCard in friendlies:
 			if fCard == card:
@@ -19,14 +19,14 @@ func handle_event(event: String, params: Array):
 			atk_acc += fCard.attack
 			hp_acc += fCard.health
 			
-			if "sigils" in fCard.cardData and not "active" in fCard.cardData:
-				for f_sigil in fCard.cardData.sigils:
+			if "sigils" in fCard.card_data and not "active" in fCard.card_data:
+				for f_sigil in fCard.card_data.sigils:
 					if len(n_sigils) < 3 and not f_sigil in n_sigils:
 						n_sigils.append(f_sigil)
 			
 			fCard.get_node("AnimationPlayer").play("Perish")
 		
-		var new_data = card.cardData
+		var new_data = card.card_data
 		
 		new_data.attack = atk_acc
 		new_data.health = max(1, hp_acc)

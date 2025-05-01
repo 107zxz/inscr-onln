@@ -4,7 +4,7 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_perished" and isFriendly and params[0].get_parent().get_parent().name == "PlayerSlots" and card.get_parent().name == "PlayerHand" and fightManager.state == fightManager.GameStates.BATTLE:
+	if event == "card_perished" and is_friendly and params[0].get_parent().get_parent().name == "PlayerSlots" and card.get_parent().name == "PlayerHand" and fightManager.state == fightManager.GameStates.BATTLE:
 		
 		print("Corpse Eater triggered!")
 		
@@ -24,7 +24,7 @@ func handle_event(event: String, params: Array):
 		
 		fightManager.send_move({
 				"type": "play_card",
-				"card": card.cardData,
+				"card": card.card_data,
 				"slot": slot.get_position_in_parent(),
 				"ignore_cost": true
 			})

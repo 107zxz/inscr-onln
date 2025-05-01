@@ -195,7 +195,7 @@ func get_deck_object():
 #		side_deck = []
 #		for card in sidedeck_container.get_children():
 #			if not card.is_queued_for_deletion():
-#				side_deck.append(card.cardData.name)
+#				side_deck.append(card.card_data.name)
 	
 	var deck_object = {
 		"cards": [],
@@ -213,11 +213,11 @@ func get_deck_object():
 			deck_object.side_deck_cards = []
 			for card in sidedeck_container.get_children():
 				if not card.is_queued_for_deletion():
-					deck_object.side_deck_cards.append(card.cardData["name"])
+					deck_object.side_deck_cards.append(card.card_data["name"])
 
 	for card in deckDisplay.get_children():
 		if not card.is_queued_for_deletion():
-			deck_object["cards"].append(card.cardData["name"])
+			deck_object["cards"].append(card.card_data["name"])
 	
 	return deck_object
 
@@ -225,7 +225,7 @@ func get_card_count(cDat):
 	var res = 0
 
 	for card in deckDisplay.get_children():
-		if card.cardData == cDat:
+		if card.card_data == cDat:
 			res += 1
 	
 	return res
@@ -234,13 +234,13 @@ func get_sd_card_count(cDat):
 	var res = 0
 
 	for card in sideDeckDisplay.get_children():
-		if card.cardData == cDat:
+		if card.card_data == cDat:
 			res += 1
 	
 	return res
 
-func get_card_id(cardData):
-	return CardInfo.all_cards.find(cardData)
+func get_card_id(card_data):
+	return CardInfo.all_cards.find(card_data)
 
 # UI for deck save
 func save_deck(_arg = null):
@@ -324,7 +324,7 @@ func load_deck(_arg = null):
 	var dj = parse_result.result
 	
 	for card in dj["cards"]:
-		var nCard = cardPrefab.instance()
+		var new_card = cardPrefab.instance()
 		
 		var cdat = CardInfo.from_name(card)
 		
@@ -333,7 +333,7 @@ func load_deck(_arg = null):
 		
 		if "banned" in cdat:
 			continue
-#			nCard.get_node("BannedOverlay").visible = true
+#			new_card.get_node("BannedOverlay").visible = true
 		
 		if "rare" in cdat:
 			var found = false
@@ -341,7 +341,7 @@ func load_deck(_arg = null):
 				if child.is_queued_for_deletion():
 					continue
 				
-				if child.cardData.name == cdat.name:
+				if child.card_data.name == cdat.name:
 					found = true
 					break
 			if found:
@@ -353,14 +353,14 @@ func load_deck(_arg = null):
 				if child.is_queued_for_deletion():
 					continue
 				
-				if child.cardData.name == cdat.name:
+				if child.card_data.name == cdat.name:
 					found += 1
 			if found >= CardInfo.all_data.max_commons_main:
 				continue
 		
-		nCard.from_data(cdat)
-		deckDisplay.add_child(nCard)
-		nCard.modulate = nCard.HVR_COLOURS[0]
+		new_card.from_data(cdat)
+		deckDisplay.add_child(new_card)
+		new_card.modulate = new_card.HVR_COLOURS[0]
 		dSize += 1
 	
 	# Draw sd
@@ -401,10 +401,10 @@ func load_deck(_arg = null):
 					if "rare" in CardInfo.from_name(card) and added[card] > 1:
 						continue
 
-					var nCard = cardPrefab.instance()
-					nCard.from_data(CardInfo.from_name(card))
-					sidedeck_container.add_child(nCard)
-					nCard.modulate = nCard.HVR_COLOURS[0]
+					var new_card = cardPrefab.instance()
+					new_card.from_data(CardInfo.from_name(card))
+					sidedeck_container.add_child(new_card)
+					new_card.modulate = new_card.HVR_COLOURS[0]
 				
 		# Redraw
 		draw_sidedeck(dj["side_deck"])
@@ -483,7 +483,7 @@ func validate_draft_side():
 	var valid_side_cards = CardInfo.all_data.side_decks[sidedeck_de.get_item_text(sidedeck_de.selected)].cards
 	
 	for sCard in sidedeck_container.get_children():
-		var current_data = sCard.cardData
+		var current_data = sCard.card_data
 		
 		if not current_data.name in valid_side_cards:
 			sCard.queue_free()
@@ -498,10 +498,10 @@ func _on_SortButton_pressed():
 	cardList.sort()
 	
 	for card in cardList:
-		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.from_name(card))
-		deckDisplay.add_child(nCard)
-		nCard.modulate = nCard.HVR_COLOURS[0]
+		var new_card = cardPrefab.instance()
+		new_card.from_data(CardInfo.from_name(card))
+		deckDisplay.add_child(new_card)
+		new_card.modulate = new_card.HVR_COLOURS[0]
 		dSize += 1
 		
 func _on_ShuffleButton_pressed():
@@ -514,10 +514,10 @@ func _on_ShuffleButton_pressed():
 	cardList.shuffle()
 	
 	for card in cardList:
-		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.from_name(card))
-		deckDisplay.add_child(nCard)
-		nCard.modulate = nCard.HVR_COLOURS[0]
+		var new_card = cardPrefab.instance()
+		new_card.from_data(CardInfo.from_name(card))
+		deckDisplay.add_child(new_card)
+		new_card.modulate = new_card.HVR_COLOURS[0]
 		dSize += 1
 
 func _on_ViewFolder_pressed():

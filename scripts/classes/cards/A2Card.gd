@@ -16,7 +16,7 @@ const SIGIL_SLOTS = [
 	"Sigils/Row2/S3"
 ]
 
-#var cardData = {
+#var card_data = {
 #	"name": "Buff Conduit",
 #	"stats": [1, 2],
 #	"costs": {
@@ -35,7 +35,7 @@ const SIGIL_SLOTS = [
 ##	modulate = HVR_COLOURS[0]
 #
 #	draw_from_data(
-#		cardData
+#		card_data
 #	)
 
 
