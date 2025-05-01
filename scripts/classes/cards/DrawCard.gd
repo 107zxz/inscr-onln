@@ -2,7 +2,7 @@ extends PanelContainer
 
 var card_data = {}
 
-var paper_theme = preload("res://themes/papertheme.tres")
+var paperTheme = preload("res://themes/papertheme.tres")
 
 func draw_from_data(cdat):
 	card_data = cdat
@@ -32,28 +32,28 @@ func draw_from_data(cdat):
 	if "rare" in card_data:
 		if "nosac" in card_data:
 			for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-				btn.add_stylebox_override("normal", paper_theme.get_stylebox("rns_normal", "Card"))
-				btn.add_stylebox_override("hover", paper_theme.get_stylebox("rns_hover", "Card"))
+				btn.add_stylebox_override("normal", paperTheme.get_stylebox("rns_normal", "Card"))
+				btn.add_stylebox_override("hover", paperTheme.get_stylebox("rns_hover", "Card"))
 		elif "nohammer" in card_data:
 			for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-				btn.add_stylebox_override("normal", paper_theme.get_stylebox("nohammer_normal", "Card"))
-				btn.add_stylebox_override("hover", paper_theme.get_stylebox("nohammer_hover", "Card"))
+				btn.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
+				btn.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
 		else:
 			for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-				btn.add_stylebox_override("normal", paper_theme.get_stylebox("rare_normal", "Card"))
-				btn.add_stylebox_override("hover", paper_theme.get_stylebox("rare_hover", "Card"))
+				btn.add_stylebox_override("normal", paperTheme.get_stylebox("rare_normal", "Card"))
+				btn.add_stylebox_override("hover", paperTheme.get_stylebox("rare_hover", "Card"))
 	elif "nosac" in card_data:
 		for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-			btn.add_stylebox_override("normal", paper_theme.get_stylebox("nosac_normal", "Card"))
-			btn.add_stylebox_override("hover", paper_theme.get_stylebox("nosac_hover", "Card"))
+			btn.add_stylebox_override("normal", paperTheme.get_stylebox("nosac_normal", "Card"))
+			btn.add_stylebox_override("hover", paperTheme.get_stylebox("nosac_hover", "Card"))
 	elif "nohammer" in card_data:
 		for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-			btn.add_stylebox_override("normal", paper_theme.get_stylebox("nohammer_normal", "Card"))
-			btn.add_stylebox_override("hover", paper_theme.get_stylebox("nohammer_hover", "Card"))
+			btn.add_stylebox_override("normal", paperTheme.get_stylebox("nohammer_normal", "Card"))
+			btn.add_stylebox_override("hover", paperTheme.get_stylebox("nohammer_hover", "Card"))
 	else:
 		for btn in [$Button, $VBoxContainer/HBoxContainer/ActiveSigil]:
-			btn.add_stylebox_override("normal", paper_theme.get_stylebox("normal", "Card"))
-			btn.add_stylebox_override("hover", paper_theme.get_stylebox("hover", "Card"))
+			btn.add_stylebox_override("normal", paperTheme.get_stylebox("normal", "Card"))
+			btn.add_stylebox_override("hover", paperTheme.get_stylebox("hover", "Card"))
 	
 	# Conduit
 	$VBoxContainer/ConduitIcon.visible = "conduit" in card_data

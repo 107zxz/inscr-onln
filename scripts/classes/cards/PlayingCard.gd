@@ -9,7 +9,7 @@ onready var slotManager = get_node("/root/Main/CardFight/CardSlots")
 
 onready var cardAudio = fightManager.get_node("CardSFX")
 
-var paper_theme = preload("res://themes/papertheme.tres")
+var paperTheme = preload("res://themes/papertheme.tres")
 
 # You asked for it
 const sfx = {

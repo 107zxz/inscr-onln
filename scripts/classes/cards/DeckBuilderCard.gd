@@ -111,7 +111,7 @@ func _on_Card_mouse_entered():
 			sd.get_child(2).text += "\nThis sigil is not yet implemented, and will not work"
 			sd.get_child(2).add_color_override("font_color", Color.darkred)
 		else:
-			sd.get_child(2).add_color_override("font_color", paper_theme.get_color("font_color", "Label"))
+			sd.get_child(2).add_color_override("font_color", paperTheme.get_color("font_color", "Label"))
 
 #		previewCont.get_child(1).add_child(sd)
 		sd.visible = true

@@ -2,7 +2,7 @@ extends Control
 
 
 
-var paper_theme = preload("res://themes/papertheme.tres")
+var paperTheme = preload("res://themes/papertheme.tres")
 
 var HVR_COLOURS = [
 	Color(0.933333, 0.921569, 0.843137),
@@ -142,10 +142,10 @@ func draw_atkspecial(cDat):
 
 
 func apply_theme(cDat: Dictionary):
-#	HVR_COLOURS[0] = paper_theme.get_color("normal", "Card")
-#	HVR_COLOURS[1] = paper_theme.get_color("hover", "Card")
-#	HVR_COLOURS[1] = paper_theme.get_color("hover", "Card")
-#	$CardBtn.modulate = paper_theme.get_stylebox("rare_normal" if "rare" in card_data else "normal", "Card").bg_color
+#	HVR_COLOURS[0] = paperTheme.get_color("normal", "Card")
+#	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
+#	HVR_COLOURS[1] = paperTheme.get_color("hover", "Card")
+#	$CardBtn.modulate = paperTheme.get_stylebox("rare_normal" if "rare" in card_data else "normal", "Card").bg_color
 
 	var th = "normal"
 
@@ -159,9 +159,9 @@ func apply_theme(cDat: Dictionary):
 	if "nohammer" in cDat:
 		th = "nohammer_normal"
 		
-	$CardBtn.modulate = paper_theme.get_stylebox(th, "Card").bg_color
-	$CardBack.modulate = paper_theme.get_stylebox(th, "Card").bg_color
-	$DiveOlay.modulate = paper_theme.get_stylebox(th, "Card").bg_color
+	$CardBtn.modulate = paperTheme.get_stylebox(th, "Card").bg_color
+	$CardBack.modulate = paperTheme.get_stylebox(th, "Card").bg_color
+	$DiveOlay.modulate = paperTheme.get_stylebox(th, "Card").bg_color
 
 
 func draw_stats(cDat: Dictionary) -> void:
