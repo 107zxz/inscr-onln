@@ -8,7 +8,8 @@ var friendly_conduit_data = [-1, -1]
 var enemy_conduit_data = [-1, -1]
 onready var fightManager = get_node("/root/Main/CardFight")
 onready var handManager = fightManager.get_node("HandsContainer/Hands")
-onready var nLanes = CardInfo.all_data.n_lanes
+onready var nLanes = CardInfo.all_data.lanes
+onready var lastLane = CardInfo.all_data.last_lane
 
 # Cards selected for sacrifice
 var sacVictims = []
@@ -1102,7 +1103,7 @@ remote func set_card_offset(card_slot, offset):
 	if is_slot_empty(enemySlots[card_slot]):
 		return
 
-	if card_slot < nLanes - 1:
+	if card_slot < lastLane:
 		if offset > 0:
 			enemySlots[card_slot + 1].show_behind_parent = true
 		else:
@@ -1158,7 +1159,7 @@ func recalculate_buffs_and_such():
 	friendly_conduit_data = [-1, -1]
 	enemy_conduit_data = [-1, -1]
 	
-	for sIdx in range(4): #replace 4 with max rows
+	for sIdx in range(nLanes):
 		if not is_slot_empty(playerSlots[sIdx]):
 			if "conduit" in playerSlots[sIdx].get_child(0).card_data:
 				if friendly_conduit_data[0] == -1:
@@ -1300,7 +1301,7 @@ func shift_cards_forward(friendly):
 # New Helper functions
 func get_friendly_card(slot_idx):
 
-	if slot_idx > nLanes - 1 or slot_idx < 0:
+	if slot_idx > lastLane or slot_idx < 0:
 		return false
 
 	for card in playerSlots[slot_idx].get_children():
@@ -1310,7 +1311,7 @@ func get_friendly_card(slot_idx):
 
 func get_enemy_card(slot_idx):
 
-	if slot_idx > nLanes - 1 or slot_idx < 0:
+	if slot_idx > lastLane or slot_idx < 0:
 		return false
 
 	for card in enemySlots[slot_idx].get_children():
