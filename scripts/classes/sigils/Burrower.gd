@@ -9,5 +9,7 @@ func pre_enemy_attack(attacker, targeted_index: int, current_targeting):
 			if slotManager.get_attack_targeting(is_friendly, attacker, card) != AttackTargeting.SCALE:
 				if is_friendly:
 					card.move_to_parent(slotManager.player_slots[targeted_index])
+					slotManager.recalculate_buffs_and_such()
 				else:
 					card.move_to_parent(slotManager.enemy_slots[targeted_index])
+					slotManager.recalculate_buffs_and_such()

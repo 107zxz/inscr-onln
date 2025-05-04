@@ -526,7 +526,8 @@ func initiate_combat(friendly: bool):
 					card_anim.play("Attack" if friendly else "AttackRemote")
 					attacking_card.play_sfx("attack")
 					yield(card_anim, "animation_finished")
-					
+				else:
+					yield(attacking_card.get_tree().create_timer(0.3), "timeout")
 				fightManager.sniper_targets.pop_front()
 
 		else:
@@ -559,6 +560,8 @@ func initiate_combat(friendly: bool):
 						card_anim.play("Attack" if friendly else "AttackRemote")
 						attacking_card.play_sfx("attack")
 						yield(card_anim, "animation_finished")
+					else:
+						yield(attacking_card.get_tree().create_timer(0.3), "timeout")
 					
 					if is_slot_empty(attacking_slots[slot_index]):
 						continue
