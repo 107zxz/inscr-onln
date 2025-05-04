@@ -825,9 +825,9 @@ func parse_next_move():
 				_opponent_drew_card(move.deck)
 			"play_card":
 				print("You ", move.pid, " played card ", move.card, " in slot ", move.slot)
-				var pCard = handManager.raisedCard
+				var player_card = handManager.raisedCard
 				play_card(move.slot)
-				yield(pCard.get_node("Tween"), "tween_completed")
+				yield(player_card.get_node("Tween"), "tween_completed")
 				move_done()
 			"hey_im_a_hungry":
 				print("You're like ", move.for, " hungry.")

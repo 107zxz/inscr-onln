@@ -835,17 +835,17 @@ func remote_activate_sigil(card_slot, arg = 0):
 		return
 
 	if sig_name == "Acupuncture":
-		var pCard = get_friendly_card(arg)
+		var player_card = get_friendly_card(arg)
 		fightManager.add_opponent_bones(-3)
 
 		# Add the new sigil to the card
 		var new_sigs = []
 		
-		if "sigils" in pCard.card_data:
-			new_sigs = pCard.card_data.sigils.duplicate()
+		if "sigils" in player_card.card_data:
+			new_sigs = player_card.card_data.sigils.duplicate()
 		new_sigs.append("Stitched")
-		pCard.card_data.sigils = new_sigs
-		pCard.from_data(pCard.card_data)
+		player_card.card_data.sigils = new_sigs
+		player_card.from_data(player_card.card_data)
 		
 		enemy_card.get_node("CardBody/Highlight").show()
 
@@ -859,11 +859,11 @@ func remote_activate_sigil(card_slot, arg = 0):
 			fightManager.move_done()
 			return
 
-		var pCard = get_friendly_card(card_slot)
+		var player_card = get_friendly_card(card_slot)
 		if not fightManager.enemy_no_energy_deplete:
 			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
-		pCard.take_damage(get_enemy_card(card_slot), 1)
+		player_card.take_damage(get_enemy_card(card_slot), 1)
 
 	if sig_name == "Energy Sniper":
 
@@ -875,11 +875,11 @@ func remote_activate_sigil(card_slot, arg = 0):
 		# Wait for snipe (no wait handle this with args)
 #		var target = yield(fightManager, "snipe_complete")
 
-		var pCard = get_friendly_card(arg)
+		var player_card = get_friendly_card(arg)
 		if not fightManager.enemy_no_energy_deplete:
 			fightManager.set_opponent_energy(fightManager.opponent_energy - 1)
 
-		pCard.take_damage(get_enemy_card(card_slot), 1)
+		player_card.take_damage(get_enemy_card(card_slot), 1)
 		fightManager.move_done()
 
 	#TODO: BACK
