@@ -14,4 +14,7 @@ func start_of_turn(card_anim):
 #	for eCard in slotManager.all_enemy_cards():
 #		eCard.calculate_buffs()
 
+
+func priority():
+	return 1
 	
