@@ -4,6 +4,6 @@ extends SigilEffect
 func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
-	if event == "card_summoned" and params[0] == card and isFriendly:
+	if event == "card_summoned" and params[0] == card and is_friendly:
 		print("Hoarder Triggered")
 		fightManager.search_deck()

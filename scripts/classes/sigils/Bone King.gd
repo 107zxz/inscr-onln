@@ -7,7 +7,7 @@ func handle_event(event: String, params: Array):
 	if event == "card_perished" and params[0] == card:
 		if not params[0].has_sigil("Boneless"):
 			# Assume 1 bone already added from regular death
-			if isFriendly:	
+			if is_friendly:	
 				fightManager.add_bones(3)
 			else:
 				fightManager.add_opponent_bones(3)

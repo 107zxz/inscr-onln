@@ -4,10 +4,12 @@ extends SigilEffect
 
 func pre_enemy_attack(attacker, targeted_index: int, current_targeting):
 	if current_targeting == AttackTargeting.SCALE:
-		if (isFriendly and slotManager.is_slot_empty(slotManager.playerSlots[targeted_index])) or (not isFriendly and slotManager.is_slot_empty(slotManager.enemySlots[targeted_index])):
+		if (is_friendly and slotManager.is_slot_empty(slotManager.player_slots[targeted_index])) or (not is_friendly and slotManager.is_slot_empty(slotManager.enemy_slots[targeted_index])):
 			#now, instead of a bunch of hardcoded bullshit, we just simulate what (probably) would happen if the burrower moved to the slot, and if it would intercept, it moves.
-			if slotManager.get_attack_targeting(isFriendly, attacker, card) != AttackTargeting.SCALE:
-				if isFriendly:
-					card.move_to_parent(slotManager.playerSlots[targeted_index])
+			if slotManager.get_attack_targeting(is_friendly, attacker, card) != AttackTargeting.SCALE:
+				if is_friendly:
+					card.move_to_parent(slotManager.player_slots[targeted_index])
+					slotManager.recalculate_buffs_and_such()
 				else:
-					card.move_to_parent(slotManager.enemySlots[targeted_index])
+					card.move_to_parent(slotManager.enemy_slots[targeted_index])
+					slotManager.recalculate_buffs_and_such()

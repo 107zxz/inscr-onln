@@ -8,7 +8,7 @@ func handle_event(event: String, params: Array):
 		
 		print("Gem Guardian triggered!")
 		
-		for card2 in slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards():
+		for card2 in slotManager.all_friendly_cards() if is_friendly else slotManager.all_enemy_cards():
 			if "Mox" in card2.card_data.name:
 				card2.get_node("CardBody/Highlight").visible = true
 				if "sigils" in card2.card_data:

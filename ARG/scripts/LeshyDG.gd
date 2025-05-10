@@ -17,10 +17,10 @@ func _ready():
 
 func load_dialogue():
 	
-	var dFile = File.new()
-	dFile.open("res://ARG/dialogue.json", File.READ)
+	var dialog_file = File.new()
+	dialog_file.open("res://ARG/dialogue.json", File.READ)
 	
-	dialogue = parse_json(dFile.get_as_text())
+	dialogue = parse_json(dialog_file.get_as_text())
 
 func load_passage(passage_name: String) -> void:
 	

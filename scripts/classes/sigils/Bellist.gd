@@ -9,20 +9,20 @@ func handle_event(event: String, params: Array):
 		
 			print("Dam builder triggered!")
 		
-			var cardSlots = slotManager.playerSlots if isFriendly else slotManager.enemySlots
+			var card_slots = slotManager.player_slots if is_friendly else slotManager.enemy_slots
 			var slot = card.slot_idx()
 		
-			if slot > 0 and slotManager.is_slot_empty(cardSlots[slot - 1]):
-				slotManager.summon_card(CardInfo.from_name("Chime"), slot - 1, isFriendly)
+			if slot > 0 and slotManager.is_slot_empty(card_slots[slot - 1]):
+				slotManager.summon_card(CardInfo.from_name("Chime"), slot - 1, is_friendly)
 
-			if slot < CardInfo.all_data.last_lane and slotManager.is_slot_empty(cardSlots[slot + 1]):
-				slotManager.summon_card(CardInfo.from_name("Chime"), slot + 1, isFriendly)
+			if slot < CardInfo.all_data.last_lane and slotManager.is_slot_empty(card_slots[slot + 1]):
+				slotManager.summon_card(CardInfo.from_name("Chime"), slot + 1, is_friendly)
 	
 	if event == "card_hit" and params[0].card_data.name == "Chime" and params[0].get_parent().get_parent() == card.get_parent().get_parent() \
 	or event == "card_hit" and "atkspecial" in params[0].card_data and params[0].card_data.atkspecial == "Bell" and params[0].get_parent().get_parent() == card.get_parent().get_parent():
 		
 		#if not params[1].has_sigil("Repulsive"):
-		if slotManager.get_attack_targeting(isFriendly, card, params[1]) != SigilEffect.AttackTargeting.FAILURE: #Updated to include potential future sigils that would prevent the daus from attacking
+		if slotManager.get_attack_targeting(is_friendly, card, params[1]) != SigilEffect.AttackTargeting.FAILURE: #Updated to include potential future sigils that would prevent the daus from attacking
 			# Don't Strike dying cards
 			if params[1].get_node("AnimationPlayer").current_animation != "DoublePerish" and params[1].get_node("AnimationPlayer").current_animation != "Perish":
 			

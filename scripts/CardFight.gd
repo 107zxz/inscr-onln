@@ -92,13 +92,13 @@ func _ready():
 	if CardInfo.all_data.enable_backrow:
 		$CardSlots/EnemySlotsBack.show()
 		$CardSlots/PlayerSlotsBack.show()
-		for back_slot in slotManager.playerSlotsBack:
+		for back_slot in slotManager.player_slots_back:
 			back_slot.connect("pressed", self, "play_card_back", [back_slot])
 	else:
-		for slot in slotManager.playerSlots:
+		for slot in slotManager.player_slots:
 			slot.connect("pressed", self, "play_card", [slot])
-		for eSlot in slotManager.enemySlots:
-			eSlot.connect("pressed", self, "clicked_enemy_slot", [eSlot])
+		for enemy_slot in slotManager.enemy_slots:
+			enemy_slot.connect("pressed", self, "clicked_enemy_slot", [enemy_slot])
 	
 	$Advantage/AdvRight.rect_position.x += (slotManager.nLanes - 4) * 64
 	$Advantage/AdvLeft.rect_position.x -= (slotManager.nLanes - 4) * 64
@@ -509,25 +509,25 @@ func starve_check(soft_rpc = true):
 func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	
 	
-	var nCard = cardPrefab.instance()
+	var new_card = cardPrefab.instance()
 	
-	source.add_child(nCard)
+	source.add_child(new_card)
 	
 	if typeof(card) == TYPE_DICTIONARY:
-		nCard.from_data(card)
+		new_card.from_data(card)
 	elif typeof(card) == TYPE_STRING:
-		nCard.from_data(CardInfo.from_name(card))
+		new_card.from_data(CardInfo.from_name(card))
 	else:
-		nCard.from_data(CardInfo.all_cards[card])
+		new_card.from_data(CardInfo.all_cards[card])
 	
 	# New sigil stuff
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-#	nCard.create_sigils(true)
-	connect("sigil_event", nCard, "handle_sigil_event")
+	new_card.fightManager = self
+	new_card.slotManager = slotManager
+#	new_card.create_sigils(true)
+	connect("sigil_event", new_card, "handle_sigil_event")
 	
 	
-	nCard.rect_position = Vector2.ZERO
+	new_card.rect_position = Vector2.ZERO
 	
 	var pHand = handManager.get_node("PlayerHand")
 	
@@ -540,7 +540,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	pHand.add_constant_override("separation", - min(nC, 12) * 4)
 	
 	# Animate the card
-	nCard.move_to_parent(pHand)
+	new_card.move_to_parent(pHand)
 	
 	if do_rpc:
 #		rpc_id(opponent, "_opponent_drew_card", str(source.get_path()).split("YourDecks")[1])
@@ -565,7 +565,7 @@ func draw_card(card, source = $DrawPiles/YourDecks/Deck, do_rpc = true):
 	for card in slotManager.all_friendly_cards():
 		card.calculate_buffs()
 
-	return nCard
+	return new_card
 
 func play_card(slot: Node):
 	
@@ -825,9 +825,9 @@ func parse_next_move():
 				_opponent_drew_card(move.deck)
 			"play_card":
 				print("You ", move.pid, " played card ", move.card, " in slot ", move.slot)
-				var pCard = handManager.raisedCard
+				var player_card = handManager.raisedCard
 				play_card(move.slot)
-				yield(pCard.get_node("Tween"), "tween_completed")
+				yield(player_card.get_node("Tween"), "tween_completed")
 				move_done()
 			"hey_im_a_hungry":
 				print("You're like ", move.for, " hungry.")
@@ -859,15 +859,15 @@ func _opponent_drew_card(source_path):
 	
 	print("Opponent drew card!")
 	
-	var nCard = cardPrefab.instance()
-	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(nCard)
+	var new_card = cardPrefab.instance()
+	get_node("DrawPiles/EnemyDecks/" + source_path).add_child(new_card)
 
-	nCard.get_node("CardBody").apply_theme({})
+	new_card.get_node("CardBody").apply_theme({})
 
 	# Visual hand update
-	var eHand = handManager.get_node("EnemyHand")
+	var enemy_hand = handManager.get_node("EnemyHand")
 
-	nCard.move_to_parent(eHand)
+	new_card.move_to_parent(enemy_hand)
 	
 	# Hand tenta
 	for eCard in slotManager.all_enemy_cards():
@@ -875,11 +875,11 @@ func _opponent_drew_card(source_path):
 	
 	# Count cards in their hand
 	var nC = 0
-	for card in eHand.get_children():
+	for card in enemy_hand.get_children():
 		if not card.is_queued_for_deletion():
 			nC += 1
 	
-	eHand.add_constant_override("separation", - nC * 4)
+	enemy_hand.add_constant_override("separation", - nC * 4)
 	
 	move_done()
 	
@@ -896,8 +896,8 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 			inflict_damage(-turns_starving + 8)
 	
 	# Visual hand update
-	var eHand = handManager.get_node("EnemyHand")
-	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
+	var enemy_hand = handManager.get_node("EnemyHand")
+	enemy_hand.add_constant_override("separation", - min(enemy_hand.get_child_count(), 12) * 4)
 	
 	# Costs
 	if not ignore_cost:
@@ -907,18 +907,18 @@ func _opponent_played_card(card, slot, ignore_cost = false):
 			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Sigil effects:
-	var nCard = handManager.opponentRaisedCard
-	nCard.from_data(card_dt)
-#	nCard.create_sigils(false)
-	nCard.move_to_parent(slotManager.enemySlots[slot])
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-	connect("sigil_event", nCard, "handle_sigil_event")
+	var new_card = handManager.opponentRaisedCard
+	new_card.from_data(card_dt)
+#	new_card.create_sigils(false)
+	new_card.move_to_parent(slotManager.enemy_slots[slot])
+	new_card.fightManager = self
+	new_card.slotManager = slotManager
+	connect("sigil_event", new_card, "handle_sigil_event")
 	
-	yield(nCard.get_node("Tween"), "tween_completed")
+	yield(new_card.get_node("Tween"), "tween_completed")
 	move_done()
 	
-#	emit_signal("sigil_event", "card_summoned", [nCard])
+#	emit_signal("sigil_event", "card_summoned", [new_card])
 
 	# Special case, card unlikely to have handled event yet
 	
@@ -941,8 +941,8 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 #			inflict_damage(-turns_starving + 8)
 	
 	# Visual hand update
-	var eHand = handManager.get_node("EnemyHand")
-	eHand.add_constant_override("separation", - min(eHand.get_child_count(), 12) * 4)
+	var enemy_hand = handManager.get_node("EnemyHand")
+	enemy_hand.add_constant_override("separation", - min(enemy_hand.get_child_count(), 12) * 4)
 	
 	# Costs
 	if not ignore_cost:
@@ -952,18 +952,18 @@ func _opponent_played_card_back(card, slot, ignore_cost = false):
 			set_opponent_energy(opponent_energy -card_dt["energy_cost"])
 	
 	# Sigil effects:
-	var nCard = handManager.opponentRaisedCard
-	nCard.from_data(card_dt)
-#	nCard.create_sigils(false)
-	nCard.move_to_parent(slotManager.enemySlotsBack[slot])
-	nCard.fightManager = self
-	nCard.slotManager = slotManager
-	connect("sigil_event", nCard, "handle_sigil_event")
+	var new_card = handManager.opponentRaisedCard
+	new_card.from_data(card_dt)
+#	new_card.create_sigils(false)
+	new_card.move_to_parent(slotManager.enemy_slots_back[slot])
+	new_card.fightManager = self
+	new_card.slotManager = slotManager
+	connect("sigil_event", new_card, "handle_sigil_event")
 	
-	yield(nCard.get_node("Tween"), "tween_completed")
+	yield(new_card.get_node("Tween"), "tween_completed")
 	move_done()
 	
-#	emit_signal("sigil_event", "card_summoned", [nCard])
+#	emit_signal("sigil_event", "card_summoned", [new_card])
 
 	# Special case, card unlikely to have handled event yet
 	

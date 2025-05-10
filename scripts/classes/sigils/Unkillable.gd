@@ -5,7 +5,7 @@ func handle_event(event: String, params: Array):
 
 	# attached_card_summoned represents the card bearing the sigil being summoned
 	if event == "card_perished" and params[0] == card:
-		if isFriendly:
+		if is_friendly:
 			var old_data = card.card_data.duplicate()
 			print("Unkillable triggered!")
 			if "death_buff" in card.card_data and params[0].card_data.name == card.card_data.name:
@@ -26,7 +26,7 @@ func handle_event(event: String, params: Array):
 			# Draw the modified card copy
 			fightManager.draw_card(old_data)
 		
-		var friendlies = slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards()
+		var friendlies = slotManager.all_friendly_cards() if is_friendly else slotManager.all_enemy_cards()
 		for fCard in friendlies:
 			if "death_buff" in card.card_data and params[0].card_data.name == fCard.card_data.name:
 				fCard.card_data.attack += 1

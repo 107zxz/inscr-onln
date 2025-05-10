@@ -8,7 +8,7 @@ var stacks = 1
 # References
 var fightManager = null
 var slotManager = null
-var isFriendly = null
+var is_friendly = null
 var card = null
 
 func handle_event(event: String):

@@ -3,7 +3,7 @@ extends SigilEffect
 #Used for sigils that passively define the power of the card they're attached to, such as Ant, Spilled Blood, etc...
 func define_power():
 	var sIdx = card.slot_idx()
-	if isFriendly:
+	if is_friendly:
 		if slotManager.get_enemy_card(sIdx):
 			return slotManager.get_enemy_card(sIdx).attack
 	else:

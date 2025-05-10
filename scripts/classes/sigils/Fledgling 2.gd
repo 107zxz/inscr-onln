@@ -1,9 +1,9 @@
 extends SigilEffect
 
 #Used for sigils that do something at the start of the turn
-func start_of_turn(cardAnim):
-	cardAnim.play("Evolve")
-	yield (cardAnim, "animation_finished")
+func start_of_turn(card_anim):
+	card_anim.play("Evolve")
+	yield (card_anim, "animation_finished")
 
 	# Deep copy
 	var dmgTaken = card.card_data["health"] - card.health

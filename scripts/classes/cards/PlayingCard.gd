@@ -44,7 +44,7 @@ var power_defining_sigil = null #The singular sigil that defines the card's atta
 
 # Sigil-specific information (must be stored per-card)
 var strike_offset = 0 # Used for tri strike, stores which slot the card should attack relative to itself
-var sprint_left = false # Used for sprinter
+var sprint_left = false # Used for sprinter. No, no it's not. Not anymore at least.
 var sacrifice_count = 0
 var consider_dead = false
 
@@ -64,17 +64,17 @@ func from_data(cdat):
 	create_sigils("Player" in get_path() as String or "Your" in get_path() as String)
 
 func load_vanilla_sigil(name: String):
-	var sigPath = "res://scripts/classes/sigils/" + name + ".gd"
-	if ResourceLoader.exists(sigPath):
-		return load(sigPath).new()
+	var sig_path = "res://scripts/classes/sigils/" + name + ".gd"
+	if ResourceLoader.exists(sig_path):
+		return load(sig_path).new()
 	else:
 		return false
 
 func load_custom_sigil(name: String):
-	var sigPath = CardInfo.scripts_path + CardInfo.ruleset + "_" + name + ".gd"
-	var d = Directory.new()
-	if d.file_exists(sigPath):
-		return load(sigPath).new()
+	var sig_path = CardInfo.scripts_path + CardInfo.ruleset + "_" + name + ".gd"
+	var dir = Directory.new()
+	if dir.file_exists(sig_path):
+		return load(sig_path).new()
 	else:
 		return false
 
@@ -89,7 +89,7 @@ func create_sigils(friendly):
 			power_defining_sigil.fightManager = fightManager
 			power_defining_sigil.slotManager = slotManager
 			power_defining_sigil.card = self
-			power_defining_sigil.isFriendly = friendly
+			power_defining_sigil.is_friendly = friendly
 	
 	sigils.clear()
 
@@ -106,26 +106,26 @@ func create_sigils(friendly):
 
 	for sig in card_data.sigils:
 		
-		var ns = load_custom_sigil(sig)
+		var new_sig = load_custom_sigil(sig)
 		
-		if not ns:
-			ns = load_vanilla_sigil(sig)
+		if not new_sig:
+			new_sig = load_vanilla_sigil(sig)
 		
-		if not ns:
+		if not new_sig:
 			print("Sigil '%s' not found!" % sig)
 			continue
 		
-		ns.fightManager = fightManager
-		ns.slotManager = slotManager
-		ns.card = self
-		ns.isFriendly = friendly
-		sigils.append(ns)
+		new_sig.fightManager = fightManager
+		new_sig.slotManager = slotManager
+		new_sig.card = self
+		new_sig.is_friendly = friendly
+		sigils.append(new_sig)
 		#Sort da sigils!
 		var keys = SigilEffect.SigilTriggers.keys()
 		for trigger in SigilEffect.SigilTriggers.values():
 			#Janky a** trick that requires me to comment out all the functions from SigilEffect
-			if ns.has_method(keys[trigger].to_lower()):
-				grouped_sigils[trigger].append(ns)
+			if new_sig.has_method(keys[trigger].to_lower()):
+				grouped_sigils[trigger].append(new_sig)
 	
 	for i in range(size):
 		if grouped_sigils[i].size() > 1:
@@ -163,11 +163,11 @@ func _on_Button_pressed():
 			fightManager.state = fightManager.GameStates.NORMAL
 
 			# Clear sacrifices
-			for card in slotManager.sacVictims:
+			for card in slotManager.sac_victims:
 				card.get_node("CardBody/SacOlay").visible = false
 				slotManager.rpc_id(fightManager.opponent, "set_sac_olay_vis", card.slot_idx(), $CardBody/SacOlay.visible)
 
-			slotManager.sacVictims = []
+			slotManager.sac_victims = []
 
 		elif in_hand:
 
@@ -262,8 +262,8 @@ func _on_Button_pressed():
 
 		# Am I about to be sacrificed
 		if fightManager.state == fightManager.GameStates.SACRIFICE:
-			if self in slotManager.sacVictims:
-				slotManager.sacVictims.erase(self)
+			if self in slotManager.sac_victims:
+				slotManager.sac_victims.erase(self)
 				$CardBody/SacOlay.visible = false
 			else:
 
@@ -278,7 +278,7 @@ func _on_Button_pressed():
 #				if (has_sigil("Many Lives") or has_sigil("Frozen Away") or has_sigil("Ruby Heart")) \
 #				and slotManager.get_available_slots() == 0:
 #					brick = true
-#					for vic in slotManager.sacVictims:
+#					for vic in slotManager.sac_victims:
 #						for sigil in vic.card_data.sigils:
 #							if sigil in ["Many Lives", "Frozen Away", "Ruby Heart"]:
 #								continue
@@ -292,7 +292,7 @@ func _on_Button_pressed():
 				if "nosac" in card_data or calc_blood() <= 0:
 					return
 
-				slotManager.sacVictims.append(self)
+				slotManager.sac_victims.append(self)
 				$CardBody/SacOlay.visible = true
 
 				# Attempt a sacrifice
@@ -353,12 +353,12 @@ func move_to_parent(new_parent):
 	# Reset position, as expected to be raised when this happens
 	$AnimationPlayer.play("RESET")
 
-	var gPos = rect_global_position
+	var global_pos = rect_global_position
 	get_parent().remove_child(self)
 	new_parent.add_child(self)
 
 	rect_position = Vector2.ZERO
-	$CardBody.rect_global_position = gPos
+	$CardBody.rect_global_position = global_pos
 
 	if not moved:
 		$Tween.interpolate_property($CardBody, "rect_position", $CardBody.rect_position, Vector2.ZERO, 0.01, Tween.TRANS_LINEAR)
@@ -399,14 +399,14 @@ func attack_hit():
 		slotManager.handle_enemy_attack(slot_idx(), slot_idx() + strike_offset)
 
 # Called when the card starts dying. Add bones and stuff
-func begin_perish(doubleDeath = false):
+func begin_perish(double_death = false):
 
 	# For necro
-	var canRespawn = true
+	var can_respawn = true
 	fightManager.emit_signal("sigil_event", "card_perished", [self])
 
 	if get_parent().get_parent().name == "PlayerSlots":
-		if doubleDeath:
+		if double_death:
 			fightManager.card_summoned(self)
 #			fightManager.emit_signal("sigil_event", "card_summoned", [self])
 		# Bones
@@ -430,15 +430,15 @@ func begin_perish(doubleDeath = false):
 #			eCard.calculate_buffs()
 
 		# Play the special animation if necro is in play
-		if not doubleDeath and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
+		if not double_death and slotManager.get_friendly_cards_sigil("Double Death") and slotManager.get_friendly_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
 
 			# Don't do it if I spawn a card on death
-			if canRespawn:
+			if can_respawn:
 				$AnimationPlayer.play("DoublePerish")
 			return
 
 	else:
-		if doubleDeath:
+		if double_death:
 			fightManager.card_summoned(self)
 
 		# Bones
@@ -462,7 +462,7 @@ func begin_perish(doubleDeath = false):
 #			eCard.calculate_buffs()
 
 		# Play the special animation if necro is in play
-		if not doubleDeath and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
+		if not double_death and slotManager.get_enemy_cards_sigil("Double Death") and slotManager.get_enemy_cards_sigil("Double Death")[0] != self and not "necro_boned" in CardInfo.all_data:
 			$AnimationPlayer.play("DoublePerish")
 			return
 
@@ -509,9 +509,9 @@ func begin_perish(doubleDeath = false):
 func _on_ActiveSigil_pressed():
 
 	# Sigil Effects
-	var sName = card_data["sigils"][0]
+	var sig_name = card_data["sigils"][0]
 
-	if sName == "True Scholar":
+	if sig_name == "True Scholar":
 		if not slotManager.get_friendly_cards_sigil("Blue Mox") and not slotManager.get_friendly_cards_sigil("Great Mox"):
 			return
 
@@ -539,7 +539,7 @@ func _on_ActiveSigil_pressed():
 
 		return
 
-	if sName == "Acupuncture":
+	if sig_name == "Acupuncture":
 		if fightManager.bones < 3:
 			return
 
@@ -556,17 +556,17 @@ func _on_ActiveSigil_pressed():
 		fightManager.state = fightManager.GameStates.SNIPE
 		fightManager.snipe_is_attack = false
 
-		var target = yield(fightManager, "snipe_complete")
+		var targetData = yield(fightManager, "snipe_complete")
 		fightManager.state = fightManager.GameStates.NORMAL
 
-		var eCard = slotManager.get_enemy_card(target[3])
+		var victim = slotManager.get_enemy_card(targetData[3])
 
 		# Don't let you shoot nothing
-		if not eCard:
+		if not victim:
 			return
 			
 		# Don't let you apply the sigil more than once
-		if "sigils" in eCard.card_data and "Stitched" in eCard.card_data.sigils:
+		if "sigils" in victim.card_data and "Stitched" in victim.card_data.sigils:
 			return
 
 		fightManager.add_bones(-3)
@@ -574,11 +574,11 @@ func _on_ActiveSigil_pressed():
 		# Add the new sigil to the card
 		var new_sigs = []
 		
-		if "sigils" in eCard.card_data:
-			new_sigs = eCard.card_data.sigils.duplicate()
+		if "sigils" in victim.card_data:
+			new_sigs = victim.card_data.sigils.duplicate()
 		new_sigs.append("Stitched")
-		eCard.card_data.sigils = new_sigs
-		eCard.from_data(eCard.card_data)
+		victim.card_data.sigils = new_sigs
+		victim.from_data(victim.card_data)
 		
 		# Shield the bastard
 		$CardBody/Highlight.show()
@@ -586,29 +586,29 @@ func _on_ActiveSigil_pressed():
 		fightManager.send_move({
 			"type": "activate_sigil",
 			"slot": slot_idx(),
-			"arg": target[3]
+			"arg": targetData[3]
 		})
 
 		return
 
 
-	if sName == "Energy Gun":
+	if sig_name == "Energy Gun":
 		if fightManager.energy < 1:
 			return
 
-		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]) and not fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+		if slotManager.is_slot_empty(slotManager.enemy_slots[get_parent().get_position_in_parent()]) and not fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			return
 
-		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
+		var target = slotManager.enemy_slots[get_parent().get_position_in_parent()].get_child(0)
 		if not fightManager.no_energy_deplete:
 			fightManager.set_energy(fightManager.energy - 1)
 
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(1)
 		else:
-			eCard.take_damage(self, 1)
+			target.take_damage(self, 1)
 
-	if sName == "Energy Sniper":
+	if sig_name == "Energy Sniper":
 		if fightManager.energy < 1:
 			return
 
@@ -635,36 +635,36 @@ func _on_ActiveSigil_pressed():
 		fightManager.state = fightManager.GameStates.SNIPE
 		fightManager.snipe_is_attack = false
 
-		var target = yield(fightManager, "snipe_complete")
+		var targetingData = yield(fightManager, "snipe_complete")
 		fightManager.state = fightManager.GameStates.NORMAL
 
-		var eCard = slotManager.get_enemy_card(target[3])
+		var target = slotManager.get_enemy_card(targetingData[3])
 
 		# Don't let you shoot nothing
-		if not eCard:
+		if not target:
 			return
 
 
-		eCard.take_damage(self, 1)
+		target.take_damage(self, 1)
 
 		fightManager.send_move({
 			"type": "activate_sigil",
 			"slot": slot_idx(),
-			"arg": target[3]
+			"arg": targetingData[3]
 		})
 
 		return
 
-	if sName == "Energy Gun (Eternal)":
+	if sig_name == "Energy Gun (Eternal)":
 		if fightManager.energy < 1:
 			return
 
-		if slotManager.is_slot_empty(slotManager.enemySlots[get_parent().get_position_in_parent()]) and not fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
+		if slotManager.is_slot_empty(slotManager.enemy_slots[get_parent().get_position_in_parent()]) and not fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			return
 
-		var eCard = slotManager.enemySlots[get_parent().get_position_in_parent()].get_child(0)
+		var target = slotManager.enemy_slots[get_parent().get_position_in_parent()].get_child(0)
 
-		var dmg = min(fightManager.energy, eCard.health)
+		var dmg = min(fightManager.energy, target.health)
 
 		if not fightManager.no_energy_deplete:
 			fightManager.set_energy(fightManager.energy - dmg)
@@ -672,9 +672,9 @@ func _on_ActiveSigil_pressed():
 		if fightManager.get_node("MoonFight/BothMoons/EnemyMoon").visible:
 			fightManager.get_node("MoonFight/BothMoons/EnemyMoon").take_damage(dmg)
 		else:
-			eCard.take_damage(self, dmg)
+			target.take_damage(self, dmg)
 
-	if sName == "Power Dice":
+	if sig_name == "Power Dice":
 		if fightManager.energy < 1:
 			return
 
@@ -685,7 +685,7 @@ func _on_ActiveSigil_pressed():
 		card_data["attack"] = attack
 		draw_stats()
 
-	if sName == "Power Dice (2)":
+	if sig_name == "Power Dice (2)":
 		if fightManager.energy < 2:
 			return
 
@@ -696,7 +696,7 @@ func _on_ActiveSigil_pressed():
 		card_data["attack"] = attack
 		draw_stats()
 
-	if sName == "Enlarge":
+	if sig_name == "Enlarge":
 		if fightManager.bones < 2:
 			return
 
@@ -707,7 +707,7 @@ func _on_ActiveSigil_pressed():
 
 		draw_stats()
 
-	if sName == "Enlarge (3)":
+	if sig_name == "Enlarge (3)":
 		if fightManager.bones < 3:
 			return
 
@@ -718,7 +718,7 @@ func _on_ActiveSigil_pressed():
 
 		draw_stats()
 
-	if sName == "Stimulate":
+	if sig_name == "Stimulate":
 		if fightManager.energy < 3:
 			return
 
@@ -730,7 +730,7 @@ func _on_ActiveSigil_pressed():
 
 		draw_stats()
 
-	if sName == "Stimulate (4)":
+	if sig_name == "Stimulate (4)":
 		if fightManager.energy < 4:
 			return
 
@@ -742,14 +742,14 @@ func _on_ActiveSigil_pressed():
 
 		draw_stats()
 
-	if sName == "Bonehorn":
+	if sig_name == "Bonehorn":
 		if fightManager.energy < 1:
 			return
 
 		if not fightManager.no_energy_deplete:
 			fightManager.set_energy(fightManager.energy - 1)
 		fightManager.add_bones(3)
-	if sName == "Bonehorn (1)":
+	if sig_name == "Bonehorn (1)":
 		if fightManager.energy < 1:
 			return
 
@@ -757,13 +757,13 @@ func _on_ActiveSigil_pressed():
 			fightManager.set_energy(fightManager.energy - 1)
 		fightManager.add_bones(1)
 
-	if sName == "Disentomb":
+	if sig_name == "Disentomb":
 		if fightManager.bones < 1:
 			return
 
 		fightManager.add_bones(-1)
 		fightManager.draw_card(CardInfo.from_name("Skeleton"))
-	if sName == "Disentomb (Corpses)":
+	if sig_name == "Disentomb (Corpses)":
 		if fightManager.bones < 2:
 			return
 
@@ -805,11 +805,11 @@ func calculate_buffs():
 
 		if friendly:
 			for i in range(4):
-				if slotManager.is_slot_empty(slotManager.playerSlots[i]) or slotManager.get_friendly_card(i).card_data.name != "Moon Shard":
+				if slotManager.is_slot_empty(slotManager.player_slots[i]) or slotManager.get_friendly_card(i).card_data.name != "Moon Shard":
 					moon = false
 		else:
 			for i in range(4):
-				if slotManager.is_slot_empty(slotManager.enemySlots[i]) or slotManager.get_enemy_card(i).card_data.name != "Moon Shard":
+				if slotManager.is_slot_empty(slotManager.enemy_slots[i]) or slotManager.get_enemy_card(i).card_data.name != "Moon Shard":
 					moon = false
 
 		if moon:
@@ -939,9 +939,9 @@ func calculate_buffs():
 	#			if pCard.has_sigil("Annoying"):
 	#				attack += 1
 
-	#var sigName = "Leader"
+	#var sig_name = "Leader"
 	#for c in slotManager.all_friendly_cards() if friendly else slotManager.all_enemy_cards():
-	#	if abs(c.slot_idx() - sIdx) == 1 and c.has_sigil(sigName):
+	#	if abs(c.slot_idx() - sIdx) == 1 and c.has_sigil(sig_name):
 	#		attack += 1
 
 	for c in slotManager.all_friendly_cards():
@@ -960,25 +960,25 @@ func calculate_buffs():
 func slot_idx():
 	return get_parent().get_position_in_parent()
 
-func has_sigil(sigName):
+func has_sigil(sig_name):
 	if not "sigils" in card_data:
 		return false
 	else:
-		if sigName in card_data["sigils"]:
+		if sig_name in card_data["sigils"]:
 			return true
 
 # Take damage and die if needed
 
 
-func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
+func take_damage(damagingCard, dmgAmt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 
 	#if $CardBody/Highlight.visible:
 	#	$CardBody/Highlight.visible = false
 	#	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
 	#	return
 
-	if enemyCard and dmg_amt == SigilEffect.UNDEFINED_DAMAGE_VAL:
-		dmg_amt = enemyCard.attack
+	if damagingCard and dmgAmt == SigilEffect.UNDEFINED_DAMAGE_VAL:
+		dmgAmt = damagingCard.attack
 	
 	# Special exception
 	#if has_sigil("Warded"):
@@ -987,21 +987,21 @@ func take_damage(enemyCard, dmg_amt = SigilEffect.UNDEFINED_DAMAGE_VAL):
 
 	#
 	for sig in grouped_sigils[SigilEffect.SigilTriggers.MODIFY_DAMAGE_TAKEN]:
-		dmg_amt = sig.modify_damage_taken(dmg_amt)
+		dmgAmt = sig.modify_damage_taken(dmgAmt)
 	
 
-	health -= dmg_amt
+	health -= dmgAmt
 	draw_stats()
 	
-	if enemyCard:
-		for sig in enemyCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
-			sig.on_damage_card(self, dmg_amt)
+	if damagingCard:
+		for sig in damagingCard.grouped_sigils[SigilEffect.SigilTriggers.ON_DAMAGE_CARD]:
+			sig.on_damage_card(self, dmgAmt)
 
 	if health <= 0: #or (dmg_amt != SigilEffect.FULLY_NEGATED_DAMAGE_VAL and enemyCard and enemyCard.has_sigil("Touch of Death") and not has_sigil("Made of Stone")):
 		$AnimationPlayer.play("Perish")
 
 	# Sigils that do the do
-	fightManager.emit_signal("sigil_event", "card_hit", [self, enemyCard])
+	fightManager.emit_signal("sigil_event", "card_hit", [self, damagingCard])
 
 #	if enemyCard and enemyCard.is_alive() and has_sigil("Sharp Quills"):
 #		enemyCard.take_damage(self, 1)

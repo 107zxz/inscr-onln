@@ -324,7 +324,7 @@ func load_deck(_arg = null):
 	var dj = parse_result.result
 	
 	for card in dj["cards"]:
-		var nCard = cardPrefab.instance()
+		var new_card = cardPrefab.instance()
 		
 		var cdat = CardInfo.from_name(card)
 		
@@ -333,7 +333,7 @@ func load_deck(_arg = null):
 		
 		if "banned" in cdat:
 			continue
-#			nCard.get_node("BannedOverlay").visible = true
+#			new_card.get_node("BannedOverlay").visible = true
 		
 		if "rare" in cdat:
 			var found = false
@@ -358,9 +358,9 @@ func load_deck(_arg = null):
 			if found >= CardInfo.all_data.max_commons_main:
 				continue
 		
-		nCard.from_data(cdat)
-		deckDisplay.add_child(nCard)
-		nCard.modulate = nCard.HVR_COLOURS[0]
+		new_card.from_data(cdat)
+		deckDisplay.add_child(new_card)
+		new_card.modulate = new_card.HVR_COLOURS[0]
 		dSize += 1
 	
 	# Draw sd
@@ -401,10 +401,10 @@ func load_deck(_arg = null):
 					if "rare" in CardInfo.from_name(card) and added[card] > 1:
 						continue
 
-					var nCard = cardPrefab.instance()
-					nCard.from_data(CardInfo.from_name(card))
-					sidedeck_container.add_child(nCard)
-					nCard.modulate = nCard.HVR_COLOURS[0]
+					var new_card = cardPrefab.instance()
+					new_card.from_data(CardInfo.from_name(card))
+					sidedeck_container.add_child(new_card)
+					new_card.modulate = new_card.HVR_COLOURS[0]
 				
 		# Redraw
 		draw_sidedeck(dj["side_deck"])
@@ -498,10 +498,10 @@ func _on_SortButton_pressed():
 	cardList.sort()
 	
 	for card in cardList:
-		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.from_name(card))
-		deckDisplay.add_child(nCard)
-		nCard.modulate = nCard.HVR_COLOURS[0]
+		var new_card = cardPrefab.instance()
+		new_card.from_data(CardInfo.from_name(card))
+		deckDisplay.add_child(new_card)
+		new_card.modulate = new_card.HVR_COLOURS[0]
 		dSize += 1
 		
 func _on_ShuffleButton_pressed():
@@ -514,10 +514,10 @@ func _on_ShuffleButton_pressed():
 	cardList.shuffle()
 	
 	for card in cardList:
-		var nCard = cardPrefab.instance()
-		nCard.from_data(CardInfo.from_name(card))
-		deckDisplay.add_child(nCard)
-		nCard.modulate = nCard.HVR_COLOURS[0]
+		var new_card = cardPrefab.instance()
+		new_card.from_data(CardInfo.from_name(card))
+		deckDisplay.add_child(new_card)
+		new_card.modulate = new_card.HVR_COLOURS[0]
 		dSize += 1
 
 func _on_ViewFolder_pressed():

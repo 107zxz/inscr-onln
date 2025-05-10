@@ -25,7 +25,7 @@ enum SigilTriggers {
 # References
 var fightManager = null # See FightManager.gd
 var slotManager = null # See CardSlots.gd
-var isFriendly = null # Whether the card the sigil is attached to is owned by the local player
+var is_friendly = null # Whether the card the sigil is attached to is owned by the local player
 var card = null # The card the sigil is attached to
 
 
@@ -81,17 +81,17 @@ func define_power():
 
 #Used for sigils that do something at the start of the turn
 #ex: Waterborne, Fledgling
-#func start_of_turn(cardAnim):
+#func start_of_turn(card_anim):
 #	pass
 
 #Used for sigils that do something at the end of the turn
 #ex: Waterborne, Bone Digger
-#func end_of_turn(cardAnim):
+#func end_of_turn(card_anim):
 #	pass
 
 #Used for sigils that do something after a card attacks one or more times
 #ex: Brittle
-#func after_attacks(cardAnim, had_any_successful_attacks: bool):
+#func after_attacks(card_anim, had_any_successful_attacks: bool):
 #	pass
 
 

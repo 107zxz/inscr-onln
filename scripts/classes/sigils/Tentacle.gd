@@ -1,8 +1,8 @@
 extends "res://scripts/classes/sigils/Waterborne.gd"
 
 #Used for sigils that do something at the start of the turn
-func start_of_turn(cardAnim):
-	cardAnim.play("UnDive")
+func start_of_turn(card_anim):
+	card_anim.play("UnDive")
 	var nTent = CardInfo.from_name(["Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"][ (["Great Kraken", "Bell Tentacle", "Hand Tentacle", "Mirror Tentacle"].find(card.card_data.name)) % 3 ])
 	
 	var hp = card.health
