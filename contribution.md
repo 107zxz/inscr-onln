@@ -8,7 +8,7 @@ function: `snake_case`
 
 virtual function: `_snake_case`
 
-function argument // for iteration variable: `snake_case`
+function argument / for iteration variable: `snake_case`
 
 unused function argument / for iteration variable: `_snake_case`
 
