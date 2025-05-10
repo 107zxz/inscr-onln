@@ -1,6 +1,6 @@
 ## Style Guide
 
-variable: `snake_case'
+variable: `snake_case`
 
 "private" variable: `_snake_case`
 
