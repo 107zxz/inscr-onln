@@ -8,9 +8,6 @@ func handle_event(event: String, params: Array):
 
 	if card.get_parent().get_parent() != params[0].get_parent().get_parent():
 		return
-		
-	if params[0] == card:
-		return
 	
 	if not "Mox" in params[0].card_data.name:
 		return
