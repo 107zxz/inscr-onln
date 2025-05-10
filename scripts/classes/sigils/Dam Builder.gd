@@ -9,11 +9,11 @@ func handle_event(event: String, params: Array):
 		
 			print("Dam builder triggered!")
 		
-			var cardSlots = slotManager.player_slots if is_friendly else slotManager.enemy_slots
+			var cardSlots = slotManager.playerSlots if isFriendly else slotManager.enemySlots
 			var slot = card.slot_idx()
 		
 			if slot > 0 and slotManager.is_slot_empty(cardSlots[slot - 1]):
-				slotManager.summon_card(CardInfo.from_name("Dam"), slot - 1, is_friendly)
+				slotManager.summon_card(CardInfo.from_name("Dam"), slot - 1, isFriendly)
 
-			if slot < CardInfo.all_data.n_lanes - 1 and slotManager.is_slot_empty(cardSlots[slot + 1]):
-				slotManager.summon_card(CardInfo.from_name("Dam"), slot + 1, is_friendly)
+			if slot < CardInfo.all_data.last_lane and slotManager.is_slot_empty(cardSlots[slot + 1]):
+				slotManager.summon_card(CardInfo.from_name("Dam"), slot + 1, isFriendly)
