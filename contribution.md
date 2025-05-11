@@ -24,4 +24,8 @@ class name: `PascalCase`
 
 autoload name: `PascalCase`
 
-file/folder names: `snake_case` (exception: portraits and sigils, in IMF's case)
+file/folder names: `snake_case`
+
+class scripts: `PascalCase` (specifically because it's necessary given classes are PascalCase)
+
+portraits and sigil image files: `Their Actual Fucking Name Case (sic)`
