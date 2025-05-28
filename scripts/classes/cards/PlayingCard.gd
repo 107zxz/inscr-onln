@@ -302,7 +302,7 @@ func _on_Button_pressed():
 
 # Animation
 func raise():
-	if self != get_parent().get_parent().raisedCard:
+	if self != get_parent().get_parent().raisedCard and $AnimationPlayer.current_animation != "Discard":
 		get_parent().get_parent().lower_all_cards()
 		get_parent().get_parent().raisedCard = self
 

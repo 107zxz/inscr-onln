@@ -7,10 +7,12 @@ func handle_event(event: String, params: Array):
 	if event == "card_summoned" and params[0] == card:
 		
 		# Discard hand
+		#var Ha =  fightManager.handManager.raisedCard if isFriendly else fightManager.handManager.opponentRaisedCard
+		#if not Ha == null:
+		#	Ha.lower()
 		for hCard in fightManager.handManager.get_node("PlayerHand" if isFriendly else "EnemyHand").get_children():
-			var Ha =  hCard.get_parent().get_parent().raisedCard if isFriendly else hCard.get_parent().get_parent().opponentRaisedCard
-			if hCard != Ha:
-				hCard.get_node("AnimationPlayer").play("Discard")
+			hCard.lower()
+			hCard.get_node("AnimationPlayer").play("Discard")
 
 		if isFriendly:
 			yield(fightManager.get_tree().create_timer(0.05), "timeout")
