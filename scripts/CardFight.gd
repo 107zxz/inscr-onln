@@ -62,6 +62,12 @@ var opponent_energy = 0
 var opponent_max_energy = 0
 var opponent_max_energy_buff = 0
 
+var moxen = {
+	"orange": 0,
+	"blue": 0,
+	"green": 0
+}
+
 var hammers_left = -1
 
 # Decks
@@ -226,9 +232,13 @@ func init_match(opp_id: int, do_go_first: bool):
 	
 	set_energy(max_energy)
 	set_opponent_energy(opponent_max_energy)
-	
+
+	moxen.orange = 0
+	moxen.blue = 0
+	moxen.green = 0
+
 	state = GameStates.NORMAL
-	
+
 	# Draw starting hands (sidedeck first for starve check)
 	
 	var next_card = side_deck.pop_front()
@@ -1062,6 +1072,12 @@ func add_bones(bone_no):
 	bones += bone_no
 	$PlayerInfo/MyInfo/Bones/BoneCount.text = str(bones)
 	$PlayerInfo/MyInfo/Bones/BoneCount2.text = str(bones)
+	var raised = handManager.raisedCard
+	if not raised:
+		return
+	if "bone_cost" in raised.card_data and raised.card_data.bone_cost > bones:
+		raised.lower()
+		handManager.raisedCard = null
 
 func add_opponent_bones(bone_no):
 	print("Adding enemy bones ", opponent_bones, " => ", opponent_bones + bone_no)
@@ -1072,6 +1088,12 @@ func add_opponent_bones(bone_no):
 func set_energy(ener_no):
 	energy = ener_no
 	$PlayerInfo/MyInfo/Energy/AvailableEnergy.rect_size.x = 10 * ener_no
+	var raised = handManager.raisedCard
+	if not raised:
+		return
+	if "energy_cost" in raised.card_data and raised.card_data.energy_cost > energy:
+		raised.lower()
+		handManager.raisedCard = null
 	
 func set_opponent_energy(ener_no):
 	opponent_energy = ener_no
@@ -1087,6 +1109,17 @@ func set_opponent_max_energy(ener_no):
 	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_size.x = 10 * (ener_no+opponent_max_energy_buff)
 	$PlayerInfo/TheirInfo/Energy/MaxEnergy.rect_position.x = 20 - 20 * (ener_no+opponent_max_energy_buff)
 
+func add_moxen(orange, blue, green):
+	moxen.orange = max(moxen.orange + orange, 0)
+	moxen.blue = max(moxen.blue + blue, 0)
+	moxen.green = max(moxen.green + green, 0)
+	var raised = handManager.raisedCard
+	if raised and "mox_cost" in raised.card_data:
+		for mox in raised.card_data.mox_cost:
+			print(mox)
+			if moxen[mox.to_lower()] <= 0:
+				raised.lower()
+				handManager.raisedCard = null
 
 func reload_hand():
 	for card in handManager.get_node("PlayerHand").get_children():
