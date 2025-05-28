@@ -193,12 +193,11 @@ func _on_Button_pressed():
 					print("No room to play a card!")
 					return
 
-			if "mox_cost" in card_data and not slotManager.get_friendly_cards_sigil("Great Mox"):
+			if "mox_cost" in card_data:
 				for mox in card_data["mox_cost"]:
-					if not slotManager.get_friendly_cards_sigil(mox + " Mox"):
+					if not fightManager.moxen[mox.to_lower()]:
 						print(mox + " Mox missing")
 						return
-
 
 			# Enter sacrifice mode if card needs sacs
 			if "blood_cost" in card_data:
@@ -206,6 +205,7 @@ func _on_Button_pressed():
 			else:
 				fightManager.state = fightManager.GameStates.NORMAL
 
+			print(fightManager.moxen)
 			raise()
 
 	# When on board
