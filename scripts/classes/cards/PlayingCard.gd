@@ -512,7 +512,7 @@ func _on_ActiveSigil_pressed():
 	var sName = card_data["sigils"][0]
 
 	if sName == "True Scholar":
-		if not slotManager.get_friendly_cards_sigil("Blue Mox") and not slotManager.get_friendly_cards_sigil("Great Mox"):
+		if fightManager.moxen.blue == 0:
 			return
 
 		for _i in range(3):
