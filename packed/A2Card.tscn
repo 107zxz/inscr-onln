@@ -1,11 +1,9 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=1]
-[ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=2]
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=3]
 [ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=4]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=5]
-[ext_resource path="res://gfx/sigils/Handy.png" type="Texture" id=6]
 [ext_resource path="res://scripts/classes/cards/A2PlayingCard.gd" type="Script" id=7]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=8]
 [ext_resource path="res://gfx/pixport/Grizzly.png" type="Texture" id=9]
@@ -451,8 +449,9 @@ alignment = 1
 [node name="ConduitIndicator" type="TextureRect" parent="Sigils"]
 visible = false
 material = ExtResource( 8 )
+margin_top = 12.0
 margin_right = 120.0
-margin_bottom = 26.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 0, 26 )
 mouse_filter = 2
 texture = SubResource( 15 )
@@ -475,90 +474,24 @@ mouse_filter = 2
 texture = SubResource( 17 )
 expand = true
 
-[node name="Row1" type="HBoxContainer" parent="Sigils"]
+[node name="RowTemplate" type="HBoxContainer" parent="Sigils"]
+visible = false
+margin_top = 26.0
 margin_right = 120.0
 margin_bottom = 50.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="S1" type="TextureRect" parent="Sigils/Row1"]
+[node name="SigilTemplate" type="TextureRect" parent="Sigils/RowTemplate"]
+visible = false
 material = ExtResource( 8 )
-margin_right = 40.0
-margin_bottom = 50.0
+margin_right = 120.0
+margin_bottom = 24.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="S2" type="TextureRect" parent="Sigils/Row1"]
-material = ExtResource( 8 )
-margin_left = 40.0
-margin_right = 80.0
-margin_bottom = 50.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 6
-
-[node name="S3" type="TextureRect" parent="Sigils/Row1"]
-material = ExtResource( 8 )
-margin_left = 80.0
-margin_right = 120.0
-margin_bottom = 50.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 6
-
-[node name="Row2" type="HBoxContainer" parent="Sigils"]
-visible = false
-margin_top = 25.0
-margin_right = 120.0
-margin_bottom = 50.0
-mouse_filter = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="S1" type="TextureRect" parent="Sigils/Row2"]
-visible = false
-material = ExtResource( 8 )
-margin_right = 120.0
-margin_bottom = 25.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 6
-
-[node name="S2" type="TextureRect" parent="Sigils/Row2"]
-visible = false
-material = ExtResource( 8 )
-margin_right = 60.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 6
-
-[node name="S3" type="TextureRect" parent="Sigils/Row2"]
-visible = false
-material = ExtResource( 8 )
-margin_right = 120.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 
@@ -600,6 +533,7 @@ text = "4"
 valign = 2
 
 [node name="AtkIcon" type="TextureRect" parent="."]
+visible = false
 material = ExtResource( 8 )
 anchor_top = 1.0
 anchor_bottom = 1.0

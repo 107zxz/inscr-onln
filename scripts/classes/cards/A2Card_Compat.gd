@@ -1,7 +1,5 @@
 extends Control
 
-
-
 var paperTheme = preload("res://themes/papertheme.tres")
 
 var HVR_COLOURS = [
@@ -10,18 +8,9 @@ var HVR_COLOURS = [
 	Color(0.45, 0.45, 0.45)
 ]
 
-
-const SIGIL_SLOTS = [
-	"Sigils/Row1/S1",
-	"Sigils/Row1/S2",
-	"Sigils/Row1/S3",
-	
-	"Sigils/Row2/S1",
-	"Sigils/Row2/S2",
-	"Sigils/Row2/S3"
-]
-
 var card_data = {}
+
+var ordered_sigil_textures = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -191,43 +180,61 @@ func draw_stats(cDat: Dictionary) -> void:
 func draw_sigils(cDat: Dictionary) -> void:
 	
 	var sCount = len(cDat.get("sigils", []))
-	
+
 	# Clear, in case it needs to happen again
-	for sigSlt in SIGIL_SLOTS:
-		get_node(sigSlt).hide()
-	
-	# Fix spacing
-	$Sigils/Row2.visible = (sCount > 3)
+	for row in $Sigils.get_children():
+		if row.name.begins_with("Row") and row.name != "RowTemplate":
+			row.free()
+	ordered_sigil_textures = []
 	
 	# Special case: Don't draw sigils if an active sigil is present
 	if "active" in cDat or sCount == 0:
 		return
-	
+
+	var rows = 0
+	var sigilCapacity = 0
+
 	for sIdx in range(sCount):
-		var cNode = get_node(SIGIL_SLOTS[sIdx])
-		
+		# make a new row to hold sigils if necessary
+		if sIdx >= sigilCapacity:
+			# adding an extra row increases sigil capacity by 6n+3
+			sigilCapacity += 6 * rows + 3
+			rows += 1
+			print($Sigils.get_children())
+			var newRow = $Sigils/RowTemplate.duplicate()
+			newRow.name = "Row" + str(rows)
+			newRow.visible = true
+			$Sigils.add_child(newRow)
+			print($Sigils.get_children())
+
+		# create the sigil node and put it in an appropriate row
+		var cNode = $Sigils/RowTemplate/SigilTemplate.duplicate()
+		cNode.visible = true
+		var row = $Sigils.get_node("Row" + str(rows if sIdx < sigilCapacity - rows * 3 else sIdx % rows + 1))
+		row.add_child(cNode)
+
 		var d = Directory.new()
-		
+
 		var found = false
-		
+
 		for potential_path in [
 			CardInfo.icon_override_path + cDat.sigils[sIdx] + ".png",
 			CardInfo.custom_icon_path + CardInfo.ruleset + "_" + cDat.sigils[sIdx] + ".png"
 		]:
 			if d.file_exists(potential_path):
-				var i = Image.new()
-				i.load(potential_path)
+				var img = Image.new()
+				img.load(potential_path)
 				var sTex = ImageTexture.new()
-				sTex.create_from_image(i)
+				sTex.create_from_image(img)
 				sTex.flags -= sTex.FLAG_FILTER
 				cNode.texture = sTex
 				found = true
 				break
-		
+
 		if not found:
 			cNode.texture = load("res://gfx/sigils/%s.png" % cDat.sigils[sIdx])
 		
-		cNode.show()
+		ordered_sigil_textures.append(cNode.texture)
 
 
 # This could potentially be called multiple times on the same card,

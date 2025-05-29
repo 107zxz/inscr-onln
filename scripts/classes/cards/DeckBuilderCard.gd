@@ -93,14 +93,14 @@ func _on_Card_mouse_entered():
 
 	for sigdat in card_data.sigils:
 #		var sd = sigilDescPrefab.instance()
-		var sd = previewCont.get_child(1).get_child(sigIdx + 1)
+		var sd = previewCont.get_child(1).get_child(sigIdx % 3 + 1)
 
 
 		# Steal texture from card
 		if "active" in card_data:
 			sd.get_child(1).texture = $Active/ActiveIcon.texture
 		else:
-			sd.get_child(1).texture = $Sigils/Row1.get_child(sigIdx).texture
+			sd.get_child(1).texture = ordered_sigil_textures[sigIdx]
 
 		sd.get_child(2).text = sigdat + ":\n" + CardInfo.gen_sig_desc(sigdat, card_data)
 

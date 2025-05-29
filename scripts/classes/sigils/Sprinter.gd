@@ -1,22 +1,13 @@
 extends SigilEffect
 
-var sprintSigil = null
+var flip_h = null
 
 #Used for sigils that do something at the end of the turn
 func end_of_turn(cardAnim):
 	var cardTween = card.get_node("Tween")
 	
-	#janky ass way to find the actual sigil object, which we need to flip occasionally
-	#cached because it's probably a good idea
-	if not sprintSigil:
-		var name = get_script().resource_path.get_file()
-		name = name.left(name.length() - 3)
-		sprintSigil = card.get_node("CardBody/Sigils/Row1").get_child(
-			card.card_data["sigils"].find(name)
-		)
-	
 	var curSlot = card.get_parent().get_position_in_parent()
-	var sprintOffset = -1 if sprintSigil.flip_h else 1
+	var sprintOffset = -1 if flip_h else 1
 	var moveFailed = false
 	var cantMove = false
 	var affectedSlots = slotManager.playerSlots if isFriendly else slotManager.enemySlots
@@ -27,13 +18,13 @@ func end_of_turn(cardAnim):
 			if moveFailed:
 				cantMove = true
 				break
-			sprintSigil.flip_h = true
+			flip_h = true
 			moveFailed = true
 		elif curSlot + sprintOffset < 0:
 			if moveFailed:
 				cantMove = true
 				break
-			sprintSigil.flip_h = false
+			flip_h = false
 			moveFailed = true
 
 		# Occupied slots
@@ -64,16 +55,16 @@ func end_of_turn(cardAnim):
 					if moveFailed:
 						cantMove = true
 						break
-					sprintSigil.flip_h = not sprintSigil.flip_h
+					flip_h = not flip_h
 					moveFailed = true
 			else:
 				if moveFailed:
 					cantMove = true
 					break
-				sprintSigil.flip_h = not sprintSigil.flip_h
+				flip_h = not flip_h
 				moveFailed = true
 
-		sprintOffset = -1 if sprintSigil.flip_h else 1
+		sprintOffset = -1 if flip_h else 1
 
 	if cantMove:
 		sprintOffset = 0

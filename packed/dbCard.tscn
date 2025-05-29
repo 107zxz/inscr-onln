@@ -1,12 +1,10 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=2]
-[ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=3]
 [ext_resource path="res://scripts/classes/cards/DeckBuilderCard.gd" type="Script" id=4]
 [ext_resource path="res://gfx/cardextras/conduit_icons.png" type="Texture" id=5]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=6]
-[ext_resource path="res://gfx/sigils/Handy.png" type="Texture" id=7]
 [ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=8]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=9]
 [ext_resource path="res://gfx/pixport/Grizzly.png" type="Texture" id=10]
@@ -448,8 +446,9 @@ alignment = 1
 
 [node name="ConduitIndicator" type="TextureRect" parent="Sigils"]
 material = ExtResource( 9 )
+margin_top = 9.0
 margin_right = 94.0
-margin_bottom = 26.0
+margin_bottom = 35.0
 rect_min_size = Vector2( 0, 26 )
 mouse_filter = 2
 texture = SubResource( 15 )
@@ -472,94 +471,24 @@ mouse_filter = 2
 texture = SubResource( 17 )
 expand = true
 
-[node name="Row1" type="HBoxContainer" parent="Sigils"]
+[node name="RowTemplate" type="HBoxContainer" parent="Sigils"]
+visible = false
 margin_top = 26.0
 margin_right = 94.0
-margin_bottom = 44.0
+margin_bottom = 35.0
 mouse_filter = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="S1" type="TextureRect" parent="Sigils/Row1"]
+[node name="SigilTemplate" type="TextureRect" parent="Sigils/RowTemplate"]
 visible = false
 material = ExtResource( 9 )
-margin_right = 94.0
-margin_bottom = 13.0
+margin_right = 31.0
+margin_bottom = 9.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="S2" type="TextureRect" parent="Sigils/Row1"]
-visible = false
-material = ExtResource( 9 )
-margin_left = 47.0
-margin_right = 94.0
-margin_bottom = 15.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 6
-
-[node name="S3" type="TextureRect" parent="Sigils/Row1"]
-visible = false
-material = ExtResource( 9 )
-margin_left = 62.0
-margin_right = 94.0
-margin_bottom = 6.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Row2" type="HBoxContainer" parent="Sigils"]
-visible = false
-margin_top = 6.0
-margin_right = 94.0
-margin_bottom = 13.0
-mouse_filter = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="S1" type="TextureRect" parent="Sigils/Row2"]
-visible = false
-material = ExtResource( 9 )
-margin_right = 40.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="S2" type="TextureRect" parent="Sigils/Row2"]
-visible = false
-material = ExtResource( 9 )
-margin_right = 60.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="S3" type="TextureRect" parent="Sigils/Row2"]
-visible = false
-material = ExtResource( 9 )
-margin_right = 120.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
 

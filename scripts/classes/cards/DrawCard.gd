@@ -246,9 +246,9 @@ func draw_symbols():
 		pass
 	else:
 		$VBoxContainer/Portrait/HBoxContainer/VBoxContainer/Special.visible = false
+
 func draw_sigils():
 		# Sigils
-
 		var sig1 = null
 		var sig2 = null
 		var d = Directory.new()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://themes/papertheme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/DeckEdit.gd" type="Script" id=2]
@@ -6,12 +6,10 @@
 [ext_resource path="res://packed/dbCard.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ARG/scripts/ButtonScroll.gd" type="Script" id=5]
 [ext_resource path="res://gfx/cardextras/pixel_card_empty.png" type="Texture" id=6]
-[ext_resource path="res://gfx/sigils/Looter.png" type="Texture" id=7]
 [ext_resource path="res://gfx/cardextras/pixel_card_sacrifice_marker.png" type="Texture" id=8]
 [ext_resource path="res://gfx/cardextras/pixel_card_costs.png" type="Texture" id=9]
 [ext_resource path="res://gfx/cardextras/pixel_card_submerge.png" type="Texture" id=10]
 [ext_resource path="res://themes/sigilMat.tres" type="Material" id=11]
-[ext_resource path="res://gfx/sigils/Handy.png" type="Texture" id=12]
 [ext_resource path="res://gfx/cardextras/pixel_special_stat_icons.png" type="Texture" id=13]
 [ext_resource path="res://gfx/sigils/Airborne.png" type="Texture" id=14]
 [ext_resource path="res://gfx/cardextras/pixel_activated_ability_button.png" type="Texture" id=15]
@@ -192,7 +190,6 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="Card" type="Control" parent="HBoxContainer/CardPreview/PreviewContainer"]
-visible = false
 margin_right = 476.0
 margin_bottom = 687.904
 rect_min_size = Vector2( 476, 687.904 )
@@ -540,7 +537,8 @@ mouse_filter = 2
 texture = SubResource( 17 )
 expand = true
 
-[node name="Row1" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
+[node name="RowTemplate" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
+visible = false
 margin_right = 431.0
 margin_bottom = 216.0
 mouse_filter = 2
@@ -548,7 +546,7 @@ size_flags_vertical = 3
 custom_constants/separation = 5
 alignment = 1
 
-[node name="S1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row1"]
+[node name="SigilTemplate" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/RowTemplate"]
 visible = false
 material = ExtResource( 11 )
 margin_right = 213.0
@@ -557,77 +555,6 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 14 )
-expand = true
-stretch_mode = 6
-
-[node name="S2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row1"]
-visible = false
-material = ExtResource( 11 )
-margin_left = 145.0
-margin_right = 285.0
-margin_bottom = 216.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="S3" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row1"]
-visible = false
-material = ExtResource( 11 )
-margin_right = 431.0
-margin_bottom = 216.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="Row2" type="HBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils"]
-visible = false
-margin_top = 6.0
-margin_right = 94.0
-margin_bottom = 13.0
-mouse_filter = 2
-size_flags_vertical = 3
-custom_constants/separation = 5
-alignment = 1
-
-[node name="S1" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row2"]
-visible = false
-material = ExtResource( 11 )
-margin_right = 40.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="S2" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row2"]
-visible = false
-material = ExtResource( 11 )
-margin_right = 60.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="S3" type="TextureRect" parent="HBoxContainer/CardPreview/PreviewContainer/Card/Sigils/Row2"]
-visible = false
-material = ExtResource( 11 )
-margin_right = 120.0
-margin_bottom = 12.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 12 )
 expand = true
 stretch_mode = 6
 
@@ -740,6 +667,7 @@ mouse_filter = 2
 color = Color( 0.152941, 0.960784, 1, 0.607843 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CardPreview/PreviewContainer"]
+margin_top = 697.0
 margin_right = 476.0
 margin_bottom = 1076.0
 size_flags_vertical = 3
@@ -754,20 +682,23 @@ size_flags_horizontal = 4
 align = 1
 autowrap = true
 
-[node name="SigilDescription" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
+[node name="SigilDescription1" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
 visible = false
-margin_top = 0.0
-margin_bottom = 61.0
+margin_top = 34.0
+margin_right = 476.0
+margin_bottom = 112.0
 
 [node name="SigilDescription2" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
 visible = false
-margin_top = 0.0
-margin_bottom = 61.0
+margin_top = 34.0
+margin_right = 476.0
+margin_bottom = 112.0
 
 [node name="SigilDescription3" parent="HBoxContainer/CardPreview/PreviewContainer/VBoxContainer" instance=ExtResource( 3 )]
 visible = false
-margin_top = 0.0
-margin_bottom = 61.0
+margin_top = 34.0
+margin_right = 476.0
+margin_bottom = 112.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 480.0
