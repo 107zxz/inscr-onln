@@ -10,7 +10,7 @@ func handle_event(event: String, params: Array):
 		var hp_acc = 0
 		var n_sigils = []
 		
-		var friendlies = slotManager.all_friendly_cards() if isFriendly else slotManager.all_enemy_cards()
+		var friendlies = slotManager.all_friendly_cards() if is_friendly else slotManager.all_enemy_cards()
 		
 		for fCard in friendlies:
 			if fCard == card:

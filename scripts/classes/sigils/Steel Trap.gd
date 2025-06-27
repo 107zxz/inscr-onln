@@ -10,7 +10,7 @@ func handle_event(event: String, params: Array):
 
 		var slot_idx = card.slot_idx()
 
-		var target = slotManager.get_enemy_card(slot_idx) if isFriendly else slotManager.get_friendly_card(slot_idx)
+		var target = slotManager.get_enemy_card(slot_idx) if is_friendly else slotManager.get_friendly_card(slot_idx)
 
 		if not target:
 			return
@@ -27,6 +27,6 @@ func handle_event(event: String, params: Array):
 #		target.get_node("AnimationPlayer").play("Perish")
 		target.take_damage(card, target.health)
 
-		if not isFriendly:
+		if not is_friendly:
 			# Draw the rabbit
 			fightManager.draw_card(CardInfo.from_name(pelt_name))

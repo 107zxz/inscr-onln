@@ -3,7 +3,7 @@ extends SigilEffect
 var sprintSigil = null
 
 #Used for sigils that do something at the end of the turn
-func end_of_turn(cardAnim):
+func end_of_turn(card_anim):
 	var cardTween = card.get_node("Tween")
 	
 	#janky ass way to find the actual sigil object, which we need to flip occasionally
@@ -19,7 +19,7 @@ func end_of_turn(cardAnim):
 	var sprintOffset = -1 if sprintSigil.flip_h else 1
 	var moveFailed = false
 	var cantMove = false
-	var affectedSlots = slotManager.playerSlots if isFriendly else slotManager.enemySlots
+	var affectedSlots = slotManager.player_slots if is_friendly else slotManager.enemy_slots
 	
 	for _i in range(2):
 		# Edges of screen

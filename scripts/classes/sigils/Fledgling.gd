@@ -1,9 +1,9 @@
 extends SigilEffect
 
 #Used for sigils that do something at the start of the turn
-func start_of_turn(cardAnim):
-	cardAnim.play("Evolve")
-	yield (cardAnim, "animation_finished")
+func start_of_turn(card_anim):
+	card_anim.play("Evolve")
+	yield (card_anim, "animation_finished")
 	var dmgTaken = card.card_data["health"] - card.health
 	card.from_data(CardInfo.from_name(card.card_data["evolution"]))
 	card.health = card.card_data["health"] - dmgTaken
@@ -14,4 +14,7 @@ func start_of_turn(cardAnim):
 #	for eCard in slotManager.all_enemy_cards():
 #		eCard.calculate_buffs()
 
+
+func priority():
+	return 1
 	

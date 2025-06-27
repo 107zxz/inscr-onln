@@ -15,12 +15,12 @@ func handle_event(event: String, params: Array):
 			fightManager.pre_snipe_state = fightManager.state
 		
 		# Anyone to snipe?
-		if len(slotManager.all_friendly_cards()) + len(slotManager.all_enemy_cards()) == 0 or fightManager.get_node("MoonFight/BothMoons/" + ("EnemyMoon" if isFriendly else "FriendlyMoon")).visible:
+		if len(slotManager.all_friendly_cards()) + len(slotManager.all_enemy_cards()) == 0 or fightManager.get_node("MoonFight/BothMoons/" + ("EnemyMoon" if is_friendly else "FriendlyMoon")).visible:
 			return
 		
 		var enemyTurn = false
 		
-		if isFriendly:
+		if is_friendly:
 			
 			# Become intangible too
 			card.get_node("AnimationPlayer").play("RESET")
@@ -52,7 +52,7 @@ func handle_event(event: String, params: Array):
 
 		# Target[0] is the is_friendly flag set in the RPC. This should represent whether the TARGET is friendly to THE LATCHER
 		var target = null
-		while target == null or target[0] != isFriendly or target[1] != slot:
+		while target == null or target[0] != is_friendly or target[1] != slot:
 			target = yield(fightManager, "snipe_complete")
 		target = slotManager.get_friendly_card(target[3]) if target[2] else slotManager.get_enemy_card(target[3])
 		
@@ -70,7 +70,7 @@ func handle_event(event: String, params: Array):
 		target.attack = old_atk
 		target.health = old_hp
 		
-		if isFriendly:
+		if is_friendly:
 			card.queue_free()
 			fightManager.state = fightManager.pre_snipe_state
 			fightManager.get_node("WaitingBlocker").visible = enemyTurn

@@ -9,10 +9,10 @@ func _ready():
 
 func load_dialogue():
 	
-	var dFile = File.new()
-	dFile.open("res://ARG/dialogue.json", File.READ)
+	var dialog_file = File.new()
+	dialog_file.open("res://ARG/dialogue.json", File.READ)
 	
-	print(dFile.get_as_text())
+	print(dialog_file.get_as_text())
 
 func load_room(room_name: String):
 	pass

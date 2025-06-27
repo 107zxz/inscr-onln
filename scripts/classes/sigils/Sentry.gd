@@ -35,7 +35,7 @@ func normal_behaviour(params: Array):
 
 func hit_and_run(params: Array):
 	var opposing_card = \
-		slotManager.get_enemy_card(card.slot_idx()) if isFriendly \
+		slotManager.get_enemy_card(card.slot_idx()) if is_friendly \
 		else slotManager.get_friendly_card(card.slot_idx())
 	
 	if opposing_card:
